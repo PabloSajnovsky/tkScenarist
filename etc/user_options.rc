@@ -1,0 +1,26 @@
+[DEFAULT]
+maximized = 0
+mainwindow = 640x480+20+20
+mainwindow_state = normal
+
+[xml]
+
+[dirs]
+
+[files]
+
+[geometry]
+mainwindow_state = normal
+mainwindow = 640x480+441+84
+
+[gui]
+show_statusbar = 1
+
+[mainwindow]
+
+[topmenu]
+
+[radxmlmenu]
+
+[radstatusbar]
+

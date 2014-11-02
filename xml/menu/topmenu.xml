@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tkmenu>
+<!--
+    tkScenarist - screen writing made simpler
+
+    Copyright (c) 2014+ Raphaël Seban <motus@laposte.net>
+
+    This program is free software: you can redistribute it and/or
+    modify it under the terms of the GNU General Public License as
+    published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+    General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.
+
+    If not, see http://www.gnu.org/licenses/
+-->
+<tkmenu>
+
+    <!-- menu PROJECT -->
+    <menu label="_Project">
+        <command
+            label="_New"
+            accelerator="Ctrl+N"
+            command="@File:New"
+        />
+        <separator/>
+        <command label="_Open"/>
+        <command label="_Open recent"/>
+        <separator/>
+        <command label="_Save"/>
+        <command label="Save _as..."/>
+        <separator/>
+        <command label="_Reload"/>
+        <separator/>
+        <command label="_Export to PDF"/>
+        <separator/>
+        <command
+            label="_Quit"
+            accelerator="Ctrl+Q"
+            command="@quit"
+        />
+    </menu>
+
+    <!-- menu EDIT -->
+    <menu label="_Edit">
+        <command label="_Undo"/>
+        <command label="_Redo"/>
+        <separator/>
+        <command label="Copy"/>
+        <command label="Cut"/>
+        <command label="Paste"/>
+        <separator/>
+        <command label="Select all"/>
+        <separator/>
+        <command label="Delete"/>
+        <command label="Delete all"/>
+    </menu>
+
+    <!-- menu VIEW -->
+    <menu label="_View">
+        <checkbutton
+            label="_Toggle status bar"
+            command="@ToggleStatusbar"
+            variable="show_statusbar"
+        />
+    </menu>
+
+    <!-- menu TOOLS -->
+    <menu label="_Tools">
+        <command
+            label="_Name database"
+            accelerator="Alt+N"
+            command="@Tools:NameDatabase"
+        />
+    </menu>
+
+    <!-- menu HELP -->
+    <menu label="_Help">
+    </menu>
+
+</tkmenu>

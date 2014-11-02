@@ -27,18 +27,41 @@
         <command
             label="_New"
             accelerator="Ctrl+N"
-            command="@File:New"
+            command="@Project:New"
         />
         <separator/>
-        <command label="_Open"/>
+        <command
+            label="_Open"
+            accelerator="Ctrl+O"
+            command="@Project:Open"
+        />
+<!--
         <command label="_Open recent"/>
+-->
         <separator/>
-        <command label="_Save"/>
-        <command label="Save _as..."/>
+        <command
+            label="_Save"
+            accelerator="Ctrl+S"
+            command="@Project:Save"
+        />
+        <command
+            label="Save _as..."
+            accelerator="Ctrl+Shift+S"
+            command="@Project:SaveAs"
+        />
+<!--
         <separator/>
-        <command label="_Reload"/>
+        <command
+            label="_Reload"
+            command="@Project:Reload"
+        />
+-->
         <separator/>
-        <command label="_Export to PDF"/>
+        <command
+            label="_Export to PDF"
+            accelerator="Ctrl+P"
+            command="@Project:Export:PDF"
+        />
         <separator/>
         <command
             label="_Quit"
@@ -49,8 +72,16 @@
 
     <!-- menu EDIT -->
     <menu label="_Edit">
-        <command label="_Undo"/>
-        <command label="_Redo"/>
+        <command
+            label="_Undo"
+            accelerator="Ctrl+Z"
+            command="@Edit:Undo"
+        />
+        <command
+            label="_Redo"
+            accelerator="Ctrl+Y"
+            command="@Edit:Redo"
+        />
         <separator/>
         <command label="Copy"/>
         <command label="Cut"/>
@@ -60,6 +91,12 @@
         <separator/>
         <command label="Delete"/>
         <command label="Delete all"/>
+        <separator/>
+        <command
+            label="_Preferences"
+            accelerator="Alt+P"
+            command="@Edit:Preferences"
+        />
     </menu>
 
     <!-- menu VIEW -->
@@ -82,6 +119,10 @@
 
     <!-- menu HELP -->
     <menu label="_Help">
+        <command
+            label="About..."
+            command="@Help:About"
+        />
     </menu>
 
 </tkmenu>

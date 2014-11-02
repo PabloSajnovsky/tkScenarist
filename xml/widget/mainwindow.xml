@@ -28,26 +28,114 @@
     >
         <!-- Tab 1 -->
         <ttktab text="Title/Data">
-            <label
-                text="Project's title:"
-                layout="grid"
-                layout_options="row=0, column=0"
-                resizable="no"
-            />
-            <entry
-                name="project_title"
-                layout="grid"
-                layout_options="row=0, column=1"
-                resizable="width"
-            />
+            <ttkframe
+                padding="10px"
+                layout="pack"
+                resizable="yes"
+            >
+                <label
+                    text="Project's title:"
+                    layout="grid"
+                    layout_options="row=0, column=0, sticky='w'"
+                    resizable="no"
+                />
+                <entry
+                    name="project_title"
+                    layout="grid"
+                    layout_options="row=0, column=1"
+                    resizable="width"
+                />
+                <label
+                    text="Author:"
+                    layout="grid"
+                    layout_options="row=1, column=0, sticky='w'"
+                    resizable="no"
+                />
+                <entry
+                    name="project_author"
+                    layout="grid"
+                    layout_options="row=1, column=1"
+                    resizable="width"
+                />
+                <label
+                    text="e-mail:"
+                    layout="grid"
+                    layout_options="row=2, column=0, sticky='w'"
+                    resizable="no"
+                />
+                <entry
+                    name="project_author_email"
+                    layout="grid"
+                    layout_options="row=2, column=1"
+                    resizable="width"
+                />
+                <label
+                    text="phone:"
+                    layout="grid"
+                    layout_options="row=3, column=0, sticky='w'"
+                    resizable="no"
+                />
+                <entry
+                    name="project_author_phone"
+                    layout="grid"
+                    layout_options="row=3, column=1"
+                    resizable="width"
+                />
+                <label
+                    text="Preview:"
+                    layout="grid"
+                    layout_options="row=4, column=0, sticky='w'"
+                    resizable="no"
+                />
+            </ttkframe>
         </ttktab>
 
         <!-- Tab 2 -->
         <ttktab text="Draft/Notes">
+            <text
+                id="draft_notes"
+                layout="grid"
+                layout_options="row=0, column=0"
+                resizable="yes"
+            />
+            <ttkscrollbar
+                connect="draft_notes"
+                orient="vertical"
+                layout="grid"
+                layout_options="row=0, column=1"
+                resizable="height"
+            />
+            <ttkscrollbar
+                connect="draft_notes"
+                orient="horizontal"
+                layout="grid"
+                layout_options="row=1, column=0"
+                resizable="width"
+            />
         </ttktab>
 
         <!-- Tab 3 -->
         <ttktab text="Pitch/Concept">
+            <text
+                id="pitch_concept"
+                layout="grid"
+                layout_options="row=0, column=0"
+                resizable="yes"
+            />
+            <ttkscrollbar
+                connect="pitch_concept"
+                orient="vertical"
+                layout="grid"
+                layout_options="row=0, column=1"
+                resizable="height"
+            />
+            <ttkscrollbar
+                connect="pitch_concept"
+                orient="horizontal"
+                layout="grid"
+                layout_options="row=1, column=0"
+                resizable="width"
+            />
         </ttktab>
 
         <!-- Tab 4 -->

@@ -7,14 +7,14 @@ mainwindow_state = normal
 
 [dirs]
 
+[gui]
+show_statusbar = 1
+
 [files]
 
 [geometry]
 mainwindow_state = normal
-mainwindow = 640x480+441+84
-
-[gui]
-show_statusbar = 1
+mainwindow = 634x480+391+34
 
 [mainwindow]
 

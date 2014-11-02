@@ -47,15 +47,8 @@
         <command
             label="Save _as..."
             accelerator="Ctrl+Shift+S"
-            command="@Project:SaveAs"
+            command="@Project:Save:As"
         />
-<!--
-        <separator/>
-        <command
-            label="_Reload"
-            command="@Project:Reload"
-        />
--->
         <separator/>
         <command
             label="_Export to PDF"
@@ -82,6 +75,7 @@
             accelerator="Ctrl+Y"
             command="@Edit:Redo"
         />
+<!--
         <separator/>
         <command label="Copy"/>
         <command label="Cut"/>
@@ -91,10 +85,11 @@
         <separator/>
         <command label="Delete"/>
         <command label="Delete all"/>
+-->
         <separator/>
         <command
             label="_Preferences"
-            accelerator="Alt+P"
+            accelerator="Ctrl+U"
             command="@Edit:Preferences"
         />
     </menu>
@@ -112,7 +107,6 @@
     <menu label="_Tools">
         <command
             label="_Name database"
-            accelerator="Alt+N"
             command="@Tools:NameDatabase"
         />
     </menu>
@@ -120,7 +114,16 @@
     <!-- menu HELP -->
     <menu label="_Help">
         <command
-            label="About..."
+            label="_Getting started"
+            command="@Help:Tutorial"
+        />
+        <command
+            label="_Online documentation"
+            command="@Help:Online:Documentation"
+        />
+        <separator/>
+        <command
+            label="_About..."
             command="@Help:About"
         />
     </menu>

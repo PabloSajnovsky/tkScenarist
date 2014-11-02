@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tkwidget>
+<!--
+    tkScenarist - screen writing made simpler
+
+    Copyright (c) 2014+ Raphaël Seban <motus@laposte.net>
+
+    This program is free software: you can redistribute it and/or
+    modify it under the terms of the GNU General Public License as
+    published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+    General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.
+
+    If not, see http://www.gnu.org/licenses/
+-->
+<tkwidget>
+    <ttkpanedwindow
+        orient="horizontal"
+        layout="pack"
+        resizable="yes"
+    >
+        <ttklabelframe
+            text="Navigation"
+            padding="2px"
+            weight="2"
+        >
+            <ttklabel
+                text="dummy text"
+                width="20"
+                layout="pack"
+                resizable="yes"
+            />
+        </ttklabelframe>
+
+        <ttklabelframe
+            text="Scenario"
+            padding="2px"
+            weight="1"
+        >
+            <ttkframe
+                layout="pack"
+                resizable="width"
+            >
+                <ttklabel
+                    text="Current element:"
+                    layout="grid"
+                    layout_options="row=0, column=0"
+                />
+                <ttklabel
+                    textvariable="scenario_current_element"
+                    layout="grid"
+                    layout_options="row=0, column=1"
+                    resizable="yes"
+                />
+                <ttklabel
+                    text="&lt;TAB&gt;:"
+                    layout="grid"
+                    layout_options="row=0, column=2"
+                />
+                <ttklabel
+                    textvariable="scenario_tab_element"
+                    layout="grid"
+                    layout_options="row=0, column=3"
+                    resizable="yes"
+                />
+                <ttklabel
+                    text="&lt;RETURN&gt;:"
+                    layout="grid"
+                    layout_options="row=0, column=4"
+                />
+                <ttklabel
+                    textvariable="scenario_return_element"
+                    layout="grid"
+                    layout_options="row=0, column=5"
+                    resizable="yes"
+                />
+            </ttkframe>
+            <ttkframe
+                layout="pack"
+                resizable="yes"
+            >
+                <text
+                    id="scenario"
+                    name="text_scenario"
+                    layout="grid"
+                    layout_options="row=0, column=0"
+                    resizable="yes"
+                />
+                <ttkscrollbar
+                    connect="scenario"
+                    orient="vertical"
+                    layout="grid"
+                    layout_options="row=0, column=1"
+                    resizable="height"
+                />
+                <ttkscrollbar
+                    connect="scenario"
+                    orient="horizontal"
+                    layout="grid"
+                    layout_options="row=1, column=0"
+                    resizable="width"
+                />
+            </ttkframe>
+        </ttklabelframe>
+
+        <ttklabelframe
+            text="Information"
+            padding="2px"
+            weight="2"
+        >
+            <ttklabel
+                text="dummy text"
+                width="20"
+                layout="pack"
+                resizable="yes"
+            />
+        </ttklabelframe>
+    </ttkpanedwindow>
+</tkwidget>

@@ -1,0 +1,415 @@
+########################################################################
+#
+# File:             fr_FR.po
+#
+# Language:         French (France)
+#
+# Created (by):     2014/11/02 19:09:36 (tarball69)
+#
+# Modified (by):    2014/11/02 19:09:48 (tarball69)
+#
+# Encoding:         UTF-8
+#
+########################################################################
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""
+
+
+msgid ""
+""
+msgstr ""
+""

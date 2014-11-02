@@ -31,9 +31,11 @@ class tkScenarist (tkRAD.RADApplication):
     APP = {
         "name": _("tkScenarist"),
         "version": _("0.1a"),
-        "description": _("Movie script writing utility program"),
+        "description": _("Movie scriptwriting utility program."),
         "title": _("tkScenarist - screen writing made simpler"),
         "author": _("Raphaël SEBAN <motus@laposte.net>"),
+        # current maintainer (may be different from author)
+        "maintainer": _("idem"),
         "copyright": _("(c) 2014+ Raphaël SEBAN."),
         "license": _("""\
 This program is free software: you can redistribute it and/or modify it
@@ -69,12 +71,6 @@ If not, see: http://www.gnu.org/licenses/
         "app_file": "application.rc",
         "app_dir": "^/etc",
     } # end of RC_OPTIONS
-
-
-    def _start_cli (self, **kw):
-        # no CLI app at this time
-        pass
-    # end def
 
 
     def _start_gui (self, **kw):

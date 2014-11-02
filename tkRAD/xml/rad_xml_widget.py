@@ -5154,7 +5154,7 @@ class RADXMLWidget (RB.RADXMLWidgetBase):
             # replace "@" alias in string of chars
             # by a ref to widget's module
 
-            return str_value.replace("@", attrs.get("module", ""))
+            return str_value.replace("@", attrs.get("module") or "")
 
         # end if
 

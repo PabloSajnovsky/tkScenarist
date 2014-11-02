@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tkwidget>
+<!--
+    tkScenarist - screen writing made simpler
+
+    Copyright (c) 2014+ Raphaël Seban <motus@laposte.net>
+
+    This program is free software: you can redistribute it and/or
+    modify it under the terms of the GNU General Public License as
+    published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+    General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.
+
+    If not, see http://www.gnu.org/licenses/
+-->
+<tkwidget>
+    <ttkpanedwindow
+        orient="horizontal"
+        layout="pack"
+        resizable="yes"
+    >
+        <ttkpanedwindow
+            orient="vertical"
+            weight="5"
+        >
+            <ttklabelframe
+                text="Characters"
+                padding="2px"
+                layout="pack"
+                resizable="yes"
+                weight="1"
+            >
+                <ttkframe
+                    layout="grid"
+                    layout_options="row=0, column=0"
+                    resizable="yes"
+                >
+                    <listbox
+                        id="characters_list"
+                        name="listbox_characters_list"
+                        layout="grid"
+                        layout_options="row=0, column=0"
+                        resizable="yes"
+                    />
+                    <ttkscrollbar
+                        connect="characters_list"
+                        orient="vertical"
+                        layout="grid"
+                        layout_options="row=0, column=1"
+                        resizable="height"
+                    />
+                </ttkframe>
+                <ttkframe
+                    layout="grid"
+                    layout_options="row=1, column=0"
+                    resizable="width"
+                >
+                    <ttkbutton
+                        text="+"
+                        command="@Characters:List:Add"
+                        width="2"
+                        layout="grid"
+                        layout_options="row=0, column=0"
+                    />
+                    <ttkbutton
+                        text="-"
+                        command="@Characters:List:Delete"
+                        width="2"
+                        layout="grid"
+                        layout_options="row=0, column=1"
+                    />
+                </ttkframe>
+            </ttklabelframe>
+            <ttklabelframe
+                text="Character's log"
+                padding="2px"
+                layout="pack"
+                resizable="yes"
+                weight="3"
+            >
+                <ttkframe
+                    layout="pack"
+                    resizable="yes"
+                >
+                    <ttklabel
+                        text="Name:"
+                        layout="grid"
+                        layout_options="row=0, column=0"
+                        resizable="no"
+                    />
+                    <ttklabel
+                        textvariable="log_character_name"
+                        font="sans 12 bold"
+                        layout="grid"
+                        layout_options="row=0, column=1, padx=5, pady=2"
+                        resizable="width"
+                    />
+                </ttkframe>
+                <ttkframe
+                    layout="pack"
+                    resizable="yes"
+                >
+                    <text
+                        id="characters_log"
+                        name="text_characters_log"
+                        state="disabled"
+                        layout="grid"
+                        layout_options="row=0, column=0"
+                        resizable="yes"
+                    />
+                    <ttkscrollbar
+                        connect="characters_log"
+                        orient="vertical"
+                        layout="grid"
+                        layout_options="row=0, column=1"
+                        resizable="height"
+                    />
+                </ttkframe>
+            </ttklabelframe>
+        </ttkpanedwindow>
+
+        <ttkframe weight="1">
+            <ttklabelframe
+                text="Relations"
+                padding="2px"
+                layout="pack"
+                resizable="yes"
+            >
+                <canvas
+                    id="characters_relations"
+                    name="canvas_characters_relations"
+                    bg="grey80"
+                    highlightbackground="grey20"
+                    highlightthickness="1"
+                    layout="grid"
+                    layout_options="row=0, column=0"
+                    resizable="yes"
+                />
+                <ttkscrollbar
+                    connect="characters_relations"
+                    orient="vertical"
+                    layout="grid"
+                    layout_options="row=0, column=1"
+                    resizable="height"
+                />
+                <ttkscrollbar
+                    connect="characters_relations"
+                    orient="horizontal"
+                    layout="grid"
+                    layout_options="row=1, column=0"
+                    resizable="width"
+                />
+            </ttklabelframe>
+        </ttkframe>
+    </ttkpanedwindow>
+</tkwidget>

@@ -27,131 +27,38 @@
         resizable="yes"
     >
         <!-- Tab 1 -->
-        <ttktab text="Title/Data">
-            <ttkframe
-                padding="10px"
-                layout="pack"
-                resizable="yes"
-            >
-                <label
-                    text="Project's title:"
-                    layout="grid"
-                    layout_options="row=0, column=0, sticky='w'"
-                    resizable="no"
-                />
-                <entry
-                    name="project_title"
-                    layout="grid"
-                    layout_options="row=0, column=1"
-                    resizable="width"
-                />
-                <label
-                    text="Author:"
-                    layout="grid"
-                    layout_options="row=1, column=0, sticky='w'"
-                    resizable="no"
-                />
-                <entry
-                    name="project_author"
-                    layout="grid"
-                    layout_options="row=1, column=1"
-                    resizable="width"
-                />
-                <label
-                    text="e-mail:"
-                    layout="grid"
-                    layout_options="row=2, column=0, sticky='w'"
-                    resizable="no"
-                />
-                <entry
-                    name="project_author_email"
-                    layout="grid"
-                    layout_options="row=2, column=1"
-                    resizable="width"
-                />
-                <label
-                    text="phone:"
-                    layout="grid"
-                    layout_options="row=3, column=0, sticky='w'"
-                    resizable="no"
-                />
-                <entry
-                    name="project_author_phone"
-                    layout="grid"
-                    layout_options="row=3, column=1"
-                    resizable="width"
-                />
-                <label
-                    text="Preview:"
-                    layout="grid"
-                    layout_options="row=4, column=0, sticky='w'"
-                    resizable="no"
-                />
-            </ttkframe>
+        <ttktab text="Title/Data" padding="5px">
+            <include xml_filename="tab_title_data"/>
         </ttktab>
 
         <!-- Tab 2 -->
-        <ttktab text="Draft/Notes">
-            <text
-                id="draft_notes"
-                layout="grid"
-                layout_options="row=0, column=0"
-                resizable="yes"
-            />
-            <ttkscrollbar
-                connect="draft_notes"
-                orient="vertical"
-                layout="grid"
-                layout_options="row=0, column=1"
-                resizable="height"
-            />
-            <ttkscrollbar
-                connect="draft_notes"
-                orient="horizontal"
-                layout="grid"
-                layout_options="row=1, column=0"
-                resizable="width"
-            />
+        <ttktab text="Draft/Notes" padding="5px">
+            <include xml_filename="tab_draft_notes"/>
         </ttktab>
 
         <!-- Tab 3 -->
-        <ttktab text="Pitch/Concept">
-            <text
-                id="pitch_concept"
-                layout="grid"
-                layout_options="row=0, column=0"
-                resizable="yes"
-            />
-            <ttkscrollbar
-                connect="pitch_concept"
-                orient="vertical"
-                layout="grid"
-                layout_options="row=0, column=1"
-                resizable="height"
-            />
-            <ttkscrollbar
-                connect="pitch_concept"
-                orient="horizontal"
-                layout="grid"
-                layout_options="row=1, column=0"
-                resizable="width"
-            />
+        <ttktab text="Pitch/Concept" padding="5px">
+            <include xml_filename="tab_pitch_concept"/>
         </ttktab>
 
         <!-- Tab 4 -->
-        <ttktab text="Characters">
+        <ttktab text="Characters" padding="5px">
+            <include xml_filename="tab_characters"/>
         </ttktab>
 
         <!-- Tab 5 -->
-        <ttktab text="Scenario">
+        <ttktab text="Scenario" padding="5px">
+            <include xml_filename="tab_scenario"/>
         </ttktab>
 
         <!-- Tab 6 -->
-        <ttktab text="Storyboard">
+        <ttktab text="Storyboard" padding="5px">
+            <include xml_filename="tab_storyboard"/>
         </ttktab>
 
         <!-- Tab 7 -->
-        <ttktab text="Resources">
+        <ttktab text="Resources" padding="5px">
+            <include xml_filename="tab_resources"/>
         </ttktab>
 
     </ttknotebook>

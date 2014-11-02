@@ -23,6 +23,8 @@
 """
 
 # lib imports
+import webbrowser
+import tkinter.messagebox as MB
 import tkRAD
 
 
@@ -37,16 +39,24 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
         self.events.connect_dict(
             {
+                "Project:Export:PDF": self.slot_project_export_pdf,
                 "Project:New": self.slot_project_new,
                 "Project:Open": self.slot_project_open,
+                "Project:Save:As": self.slot_project_save_as,
                 "Project:Save": self.slot_project_save,
 
-                "Edit:Undo": self.slot_edit_undo,
+                "Edit:Preferences": self.slot_edit_preferences,
                 "Edit:Redo": self.slot_edit_redo,
+                "Edit:Undo": self.slot_edit_undo,
 
                 "Tools:NameDatabase": self.slot_tools_name_db,
 
-                "Help:About": self.slot_about_dialog,
+                "Help:About": self.slot_help_about,
+                "Help:Online:Documentation": self.slot_help_online_documentation,
+                "Help:Tutorial": self.slot_help_tutorial,
+
+                "Characters:List:Add": self.slot_characters_list_add,
+                "Characters:List:Delete": self.slot_characters_list_delete,
             }
         )
     # end def
@@ -67,11 +77,27 @@ class MainWindow (tkRAD.RADXMLMainWindow):
     # end def
 
 
-    def slot_about_dialog (self, *args, **kw):
+    def slot_characters_list_add (self, *args, **kw):
         """
-            event handler for menu Help > About;
+            event handler for characters list;
         """
-        print(__name__)
+        print("Characters:List:Add")
+    # end def
+
+
+    def slot_characters_list_delete (self, *args, **kw):
+        """
+            event handler for characters list;
+        """
+        print("Characters:List:Delete")
+    # end def
+
+
+    def slot_edit_preferences (self, *args, **kw):
+        """
+            event handler for menu Edit > Preferences;
+        """
+        print("Menu:Edit:Preferences")
     # end def
 
 
@@ -79,7 +105,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             event handler for menu Edit > Redo;
         """
-        pass
+        print("Menu:Edit:Redo")
     # end def
 
 
@@ -87,7 +113,54 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             event handler for menu Edit > Undo;
         """
-        pass
+        print("Menu:Edit:Undo")
+    # end def
+
+
+    def slot_help_about (self, *args, **kw):
+        """
+            event handler for menu Help > About;
+        """
+        MB.showinfo(
+            title=_("About..."),
+            message=
+                "{title}\n{description}\n{copyright}"
+                "\n\nAuthor: {author}"
+                "\nCurrent maintainer: {maintainer}"
+                .format(**self.app.APP),
+            parent=self,
+        )
+    # end def
+
+
+    def slot_help_online_documentation (self, *args, **kw):
+        """
+            event handler for menu Help > Online Documentation;
+        """
+        # launching online documentation
+        webbrowser.open("https://github.com/tarball69/tkScenarist/wiki")
+        # warning message
+        MB.showwarning(
+            title=_("Attention"),
+            message=_("Launching web browser, please wait."),
+            parent=self,
+        )
+    # end def
+
+
+    def slot_help_tutorial (self, *args, **kw):
+        """
+            event handler for menu Help > Tutorial;
+        """
+        print("Menu:Help:Tutorial")
+    # end def
+
+
+    def slot_project_export_pdf (self, *args, **kw):
+        """
+            event handler for menu Project > Export PDF;
+        """
+        print("Menu:Project:Export PDF")
     # end def
 
 
@@ -95,7 +168,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             event handler for menu Project > New;
         """
-        pass
+        print("Menu:Project:New")
     # end def
 
 
@@ -103,7 +176,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             event handler for menu Project > Open;
         """
-        pass
+        print("Menu:Project:Open")
     # end def
 
 
@@ -111,7 +184,15 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             event handler for menu Project > Save;
         """
-        pass
+        print("Menu:Project:Save")
+    # end def
+
+
+    def slot_project_save_as (self, *args, **kw):
+        """
+            event handler for menu Project > Save as...;
+        """
+        print("Menu:Project:Save as...")
     # end def
 
 
@@ -119,7 +200,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             event handler for menu Tools > Name database;
         """
-        pass
+        print("Menu:Tools:Name database")
     # end def
 
 # end class MainWindow

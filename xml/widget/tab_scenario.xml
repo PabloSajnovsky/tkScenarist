@@ -26,6 +26,7 @@
         layout="pack"
         resizable="yes"
     >
+
         <ttklabelframe
             text="Navigation"
             padding="2px"

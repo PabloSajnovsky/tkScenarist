@@ -24,6 +24,7 @@
 
 # lib imports
 import webbrowser
+import zipfile
 import tkinter.messagebox as MB
 import tkRAD
 

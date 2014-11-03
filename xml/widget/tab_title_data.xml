@@ -21,52 +21,115 @@
     If not, see http://www.gnu.org/licenses/
 -->
 <tkwidget>
-    <ttklabel
-        text="Project's title:"
-        layout="grid"
-        layout_options="row=0, column=0, sticky='w'"
-        resizable="no"
-    />
-    <ttkentry
-        textvariable="project_title"
-        layout="grid"
-        layout_options="row=0, column=1, padx=5, pady=10"
-        resizable="width"
-    />
-    <ttklabel
-        text="Author:"
-        layout="grid"
-        layout_options="row=1, column=0, sticky='w'"
-        resizable="no"
-    />
-    <ttkentry
-        textvariable="project_author"
-        layout="grid"
-        layout_options="row=1, column=1, padx=5, pady=2"
-        resizable="width"
-    />
-    <ttklabel
-        text="E-mail:"
-        layout="grid"
-        layout_options="row=2, column=0, sticky='w'"
-        resizable="no"
-    />
-    <ttkentry
-        textvariable="project_author_email"
-        layout="grid"
-        layout_options="row=2, column=1, padx=5, pady=2"
-        resizable="width"
-    />
-    <ttklabel
-        text="Phone:"
-        layout="grid"
-        layout_options="row=3, column=0, sticky='w'"
-        resizable="no"
-    />
-    <ttkentry
-        textvariable="project_author_phone"
-        layout="grid"
-        layout_options="row=3, column=1, padx=5, pady=2"
-        resizable="width"
-    />
+    <ttklabelframe
+        text="Identification"
+        padding="2px"
+        layout="pack"
+        resizable="yes"
+    >
+        <ttklabel
+            text="Project's title:"
+            layout="grid"
+            layout_options="row=0, column=0, sticky='w'"
+            resizable="no"
+        />
+        <ttkentry
+            textvariable="project_title"
+            layout="grid"
+            layout_options="row=0, column=1, padx=5, pady=10"
+            resizable="width"
+        />
+        <ttklabel
+            text="Author:"
+            layout="grid"
+            layout_options="row=1, column=0, sticky='w'"
+            resizable="no"
+        />
+        <ttkentry
+            textvariable="project_author"
+            layout="grid"
+            layout_options="row=1, column=1, padx=5, pady=2"
+            resizable="width"
+        />
+        <ttklabel
+            text="E-mail:"
+            layout="grid"
+            layout_options="row=2, column=0, sticky='w'"
+            resizable="no"
+        />
+        <ttkentry
+            textvariable="project_author_email"
+            layout="grid"
+            layout_options="row=2, column=1, padx=5, pady=2"
+            resizable="width"
+        />
+        <ttklabel
+            text="Phone:"
+            layout="grid"
+            layout_options="row=3, column=0, sticky='w'"
+            resizable="no"
+        />
+        <ttkentry
+            textvariable="project_author_phone"
+            layout="grid"
+            layout_options="row=3, column=1, padx=5, pady=2"
+            resizable="width"
+        />
+    </ttklabelframe>
+
+    <ttklabelframe
+        text="Information"
+        padding="2px"
+        layout="pack"
+        resizable="yes"
+    >
+        <ttklabel
+            text="Project's filename:"
+            layout="grid"
+            layout_options="row=0, column=0, sticky='w'"
+            resizable="no"
+        />
+        <ttklabel
+            textvariable="project_filename"
+            layout="grid"
+            layout_options="row=0, column=1, padx=5, pady=2"
+            resizable="width"
+        />
+        <ttklabel
+            text="Location:"
+            layout="grid"
+            layout_options="row=1, column=0, sticky='w'"
+            resizable="no"
+        />
+        <ttklabel
+            textvariable="project_directory"
+            layout="grid"
+            layout_options="row=1, column=1, padx=5, pady=2"
+            resizable="width"
+        />
+        <ttklabel
+            text="Estimated nb of pages (scenario):"
+            layout="grid"
+            layout_options="row=2, column=0, sticky='w'"
+            resizable="no"
+        />
+        <ttklabel
+            textvariable="scenario_nb_of_pages"
+            layout="grid"
+            layout_options="row=2, column=1, padx=5, pady=2"
+            resizable="width"
+        />
+        <ttklabel
+            text="Estimated movie duration:"
+            layout="grid"
+            layout_options="row=3, column=0, sticky='w'"
+            resizable="no"
+        />
+        <ttklabel
+            textvariable="scenario_movie_duration"
+            layout="grid"
+            layout_options="row=3, column=1, padx=5, pady=2"
+            resizable="width"
+        />
+    </ttklabelframe>
 </tkwidget>

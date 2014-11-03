@@ -94,6 +94,11 @@
                     layout_options="row=0, column=0"
                     resizable="yes"
                 />
+                <tkevent
+                    widget="scenario"
+                    seq="Key"
+                    slot="@Text:Key:Pressed"
+                />
                 <ttkscrollbar
                     connect="scenario"
                     orient="vertical"

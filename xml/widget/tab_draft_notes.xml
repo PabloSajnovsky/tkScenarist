@@ -34,6 +34,11 @@
             layout_options="row=0, column=0"
             resizable="yes"
         />
+        <tkevent
+            widget="draft_notes"
+            seq="Key"
+            slot="@Text:Key:Pressed"
+        />
         <ttkscrollbar
             connect="draft_notes"
             orient="vertical"

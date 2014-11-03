@@ -34,6 +34,11 @@
             layout_options="row=0, column=0"
             resizable="yes"
         />
+        <tkevent
+            widget="pitch_concept"
+            seq="Key"
+            slot="@Text:Key:Pressed"
+        />
         <ttkscrollbar
             connect="pitch_concept"
             orient="vertical"

@@ -115,6 +115,11 @@
                         layout_options="row=0, column=0"
                         resizable="yes"
                     />
+                    <tkevent
+                        widget="characters_log"
+                        seq="Key"
+                        slot="@Text:Key:Pressed"
+                    />
                     <ttkscrollbar
                         connect="characters_log"
                         orient="vertical"

@@ -28,6 +28,7 @@ import tkRAD
 
 class tkScenarist (tkRAD.RADApplication):
 
+    # class constant defs
     APP = {
         "name": _("tkScenarist"),
         "version": _("0.1a"),

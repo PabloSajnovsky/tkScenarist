@@ -23,14 +23,11 @@
 """
 
 # lib imports
-import re
 import webbrowser
-import zipfile
 import tkinter.messagebox as MB
-import tkinter.filedialog as FD
 import tkRAD
-from tkRAD.core import tools
-from tkRAD.core import path as P
+#~ from tkRAD.core import tools
+from . import project_file_management as PFM
 
 
 class MainWindow (tkRAD.RADXMLMainWindow):
@@ -39,7 +36,6 @@ class MainWindow (tkRAD.RADXMLMainWindow):
     """
 
     # class constant defs
-    FILE_EXT = "scn"
     ONLINE_DOC_URL = "https://github.com/tarball69/tkScenarist/wiki"
 
 
@@ -49,50 +45,58 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
         self.events.connect_dict(
             {
-                "Project:Export:PDF": self.slot_project_export_pdf,
-                "Project:New": self.slot_project_new,
-                "Project:Open": self.slot_project_open,
-                "Project:Save:As": self.slot_project_save_as,
-                "Project:Save": self.slot_project_save,
+                "Characters:List:Add":
+                    self.slot_characters_list_add,
+                "Characters:List:Delete":
+                    self.slot_characters_list_delete,
 
-                "Edit:Preferences": self.slot_edit_preferences,
-                "Edit:Redo": self.slot_edit_redo,
-                "Edit:Undo": self.slot_edit_undo,
+                "Edit:Preferences":
+                    self.slot_edit_preferences,
+                "Edit:Redo":
+                    self.slot_edit_redo,
+                "Edit:Undo":
+                    self.slot_edit_undo,
 
-                "Tools:NameDatabase": self.slot_tools_name_db,
+                "Entry:Key:Pressed":
+                    self.slot_entry_key_pressed,
 
-                "Help:About": self.slot_help_about,
-                "Help:Online:Documentation": self.slot_help_online_documentation,
-                "Help:Tutorial": self.slot_help_tutorial,
+                "Help:About":
+                    self.slot_help_about,
+                "Help:Online:Documentation":
+                    self.slot_help_online_documentation,
+                "Help:Tutorial":
+                    self.slot_help_tutorial,
 
-                "Characters:List:Add": self.slot_characters_list_add,
-                "Characters:List:Delete": self.slot_characters_list_delete,
+                "Project:Export:PDF":
+                    self.project_fm.slot_project_export_pdf,
+                "Project:Information:Refresh":
+                    self.project_fm.slot_project_refresh_info,
+                "Project:Modified":
+                    self.project_fm.slot_project_modified,
+                "Project:New":
+                    self.project_fm.slot_project_new,
+                "Project:Open":
+                    self.project_fm.slot_project_open,
+                "Project:Save:As":
+                    self.project_fm.slot_project_save_as,
+                "Project:Save":
+                    self.project_fm.slot_project_save,
+
+                "Text:Key:Pressed":
+                    self.slot_entry_key_pressed,
+
+                "Tools:NameDatabase":
+                    self.slot_tools_name_db,
             }
         )
     # end def
 
 
-    def do_save_project (self, fpath):
+    def get_cvar_text (self, cvarname):
         """
-            effective procedure for saving project;
+            retrieves text from a tk.StringVar() control variable;
         """
-        # param inits
-        fpath = P.normalize(fpath)
-        # param controls
-        if tools.is_pstr(fpath):
-            pass                    # FIXME: do save project!
-            print("saving project to:", fpath)
-        # could not save file
-        else:
-            # show error
-            MB.showerror(
-                title=_("Error"),
-                message=_(
-                    "Could not save project. Incorrect file path."
-                ),
-                parent=self,
-            )
-        # end if
+        return self.mainframe.get_stringvar(cvarname).get()
     # end def
 
 
@@ -101,7 +105,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             hook method to be reimplemented by subclass;
         """
         # member inits
-        self.FILE_EXT = self.normalize_file_ext(self.FILE_EXT)
+        self.project_fm = PFM.ProjectFileManagement(self)
         # looks for ^/xml/menu/topmenu.xml
         self.topmenu.xml_build()
         # toggle statusbar through menu
@@ -113,20 +117,13 @@ class MainWindow (tkRAD.RADXMLMainWindow):
     # end def
 
 
-    def normalize_file_ext (self, file_ext):
-        """
-            resets file extension to match a correct format;
-        """
-        # canonize file extension
-        return ".{}".format(tools.normalize_id(file_ext) or "zip").lower()
-    # end def
-
-
     def slot_characters_list_add (self, *args, **kw):
         """
             event handler for characters list;
         """
         print("Characters:List:Add")
+        # project has been modified
+        self.events.raise_event("Project:Modified")
     # end def
 
 
@@ -135,6 +132,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             event handler for characters list;
         """
         print("Characters:List:Delete")
+        # project has been modified
+        self.events.raise_event("Project:Modified")
     # end def
 
 
@@ -159,6 +158,17 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             event handler for menu Edit > Undo;
         """
         print("Menu:Edit:Undo")
+    # end def
+
+
+    def slot_entry_key_pressed (self, *args, **kw):
+        """
+            event handler for ttkentry key press;
+        """
+        # notify something has changed
+        self.events.raise_event("Project:Modified")
+        # validate entry keystrokes
+        return True
     # end def
 
 
@@ -198,59 +208,6 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             event handler for menu Help > Tutorial;
         """
         print("Menu:Help:Tutorial")
-    # end def
-
-
-    def slot_project_export_pdf (self, *args, **kw):
-        """
-            event handler for menu Project > Export PDF;
-        """
-        print("Menu:Project:Export PDF")
-    # end def
-
-
-    def slot_project_new (self, *args, **kw):
-        """
-            event handler for menu Project > New;
-        """
-        print("Menu:Project:New")
-    # end def
-
-
-    def slot_project_open (self, *args, **kw):
-        """
-            event handler for menu Project > Open;
-        """
-        print("Menu:Project:Open")
-    # end def
-
-
-    def slot_project_save (self, *args, **kw):
-        """
-            event handler for menu Project > Save;
-        """
-        print("Menu:Project:Save")
-    # end def
-
-
-    def slot_project_save_as (self, *args, **kw):
-        """
-            event handler for menu Project > Save as...;
-        """
-        # 'save as' procedure
-        _fpath = FD.asksaveasfilename(
-            title=_("Save as..."),
-            defaultextension=self.FILE_EXT,
-            filetypes=[
-                ("tkScenarist files", "*{}".format(self.FILE_EXT)),
-                ("zip files", "*.zip"),
-            ],
-            initialdir=".",                     # FIXME: user prefs?
-            confirmoverwrite=True,
-            parent=self,
-        )
-        # do save project
-        self.do_save_project(_fpath)
     # end def
 
 

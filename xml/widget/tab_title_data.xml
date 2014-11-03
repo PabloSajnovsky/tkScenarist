@@ -34,7 +34,10 @@
             resizable="no"
         />
         <ttkentry
+            id="entry_project_title"
             textvariable="project_title"
+            validate="key"
+            validatecommand="@Entry:Key:Pressed"
             layout="grid"
             layout_options="row=0, column=1, padx=5, pady=10"
             resizable="width"
@@ -47,6 +50,8 @@
         />
         <ttkentry
             textvariable="project_author"
+            validate="key"
+            validatecommand="@Entry:Key:Pressed"
             layout="grid"
             layout_options="row=1, column=1, padx=5, pady=2"
             resizable="width"
@@ -59,6 +64,8 @@
         />
         <ttkentry
             textvariable="project_author_email"
+            validate="key"
+            validatecommand="@Entry:Key:Pressed"
             layout="grid"
             layout_options="row=2, column=1, padx=5, pady=2"
             resizable="width"
@@ -71,6 +78,8 @@
         />
         <ttkentry
             textvariable="project_author_phone"
+            validate="key"
+            validatecommand="@Entry:Key:Pressed"
             layout="grid"
             layout_options="row=3, column=1, padx=5, pady=2"
             resizable="width"
@@ -130,6 +139,13 @@
             layout="grid"
             layout_options="row=3, column=1, padx=5, pady=2"
             resizable="width"
+        />
+        <ttkbutton
+            text="Refresh"
+            command="@Project:Information:Refresh"
+            layout="grid"
+            layout_options="row=10, column=0, columnspan=2, pady=10"
+            resizable="no"
         />
     </ttklabelframe>
 </tkwidget>

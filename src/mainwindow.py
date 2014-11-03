@@ -23,16 +23,25 @@
 """
 
 # lib imports
+import re
 import webbrowser
 import zipfile
 import tkinter.messagebox as MB
+import tkinter.filedialog as FD
 import tkRAD
+from tkRAD.core import tools
+from tkRAD.core import path as P
 
 
 class MainWindow (tkRAD.RADXMLMainWindow):
     """
-        Application's GUI main window
+        Application's GUI main window;
     """
+
+    # class constant defs
+    FILE_EXT = "scn"
+    ONLINE_DOC_URL = "https://github.com/tarball69/tkScenarist/wiki"
+
 
     def bind_events (self, **kw):
         """
@@ -63,10 +72,36 @@ class MainWindow (tkRAD.RADXMLMainWindow):
     # end def
 
 
+    def do_save_project (self, fpath):
+        """
+            effective procedure for saving project;
+        """
+        # param inits
+        fpath = P.normalize(fpath)
+        # param controls
+        if tools.is_pstr(fpath):
+            pass                    # FIXME: do save project!
+            print("saving project to:", fpath)
+        # could not save file
+        else:
+            # show error
+            MB.showerror(
+                title=_("Error"),
+                message=_(
+                    "Could not save project. Incorrect file path."
+                ),
+                parent=self,
+            )
+        # end if
+    # end def
+
+
     def init_widget (self, **kw):
         """
             hook method to be reimplemented by subclass;
         """
+        # member inits
+        self.FILE_EXT = self.normalize_file_ext(self.FILE_EXT)
         # looks for ^/xml/menu/topmenu.xml
         self.topmenu.xml_build()
         # toggle statusbar through menu
@@ -75,6 +110,15 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         self.xml_build()
         # event bindings
         self.bind_events(**kw)
+    # end def
+
+
+    def normalize_file_ext (self, file_ext):
+        """
+            resets file extension to match a correct format;
+        """
+        # canonize file extension
+        return ".{}".format(tools.normalize_id(file_ext) or "zip").lower()
     # end def
 
 
@@ -139,7 +183,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             event handler for menu Help > Online Documentation;
         """
         # launching online documentation
-        webbrowser.open("https://github.com/tarball69/tkScenarist/wiki")
+        webbrowser.open(self.ONLINE_DOC_URL)
         # warning message
         MB.showwarning(
             title=_("Attention"),
@@ -193,7 +237,20 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             event handler for menu Project > Save as...;
         """
-        print("Menu:Project:Save as...")
+        # 'save as' procedure
+        _fpath = FD.asksaveasfilename(
+            title=_("Save as..."),
+            defaultextension=self.FILE_EXT,
+            filetypes=[
+                ("tkScenarist files", "*{}".format(self.FILE_EXT)),
+                ("zip files", "*.zip"),
+            ],
+            initialdir=".",                     # FIXME: user prefs?
+            confirmoverwrite=True,
+            parent=self,
+        )
+        # do save project
+        self.do_save_project(_fpath)
     # end def
 
 

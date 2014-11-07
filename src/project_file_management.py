@@ -23,6 +23,7 @@
 """
 
 # lib imports
+import os.path as OP
 import zipfile
 import tkinter.messagebox as MB
 import tkinter.filedialog as FD
@@ -49,6 +50,7 @@ class ProjectFileManagement:
         "tab_storyboard": "storyboard.txt",
         "tab_resources": "resources.txt",
     }
+
     FILE_EXT = "scn"
 
 
@@ -60,9 +62,70 @@ class ProjectFileManagement:
         self.tk_owner = tk_owner
         self.mainframe = tk_owner.mainframe
         self.get_cvar_text = tk_owner.get_cvar_text
+        self.current_dir = "~"
         self.FILE_EXT = self.normalize_file_ext(self.FILE_EXT)
-        self.project_path = ""
-        self.project_modified = False
+        self.FILE_TYPES = [
+            ("tkScenarist files", "*{}".format(self.FILE_EXT)),
+            ("zip files", "*.zip"),
+        ]
+        # hook method
+        self.init_members()
+    # end def
+
+
+    @property
+    def current_dir (self):
+        """
+            project's current working directory;
+            normalized to comply with tkRAD.path.support;
+        """
+        return self.__current_dir
+    # end def
+
+    @current_dir.setter
+    def current_dir (self, value):
+        # inits
+        self.__current_dir = P.normalize(value)
+    # end def
+
+    @current_dir.deleter
+    def current_dir (self):
+        del self.__current_dir
+    # end def
+
+
+    def do_open_project (self, fpath):
+        """
+            effective procedure for opening project;
+        """
+        # param controls
+        if self.is_good_file_format(fpath):
+            # reset to new
+            self.do_reset_project()
+            # open zip archive
+            with zipfile.ZipFile(fpath, 'r') as _archive:
+                pass                                                        # FIXME
+            # end with
+            # we can update project's filepath by now
+            self.set_project_path(fpath)
+            # notify application
+            self.notify(_("project file opened OK."))
+            # succeeded
+            return True
+        # could not open file
+        else:
+            # show error
+            MB.showerror(
+                title=_("Error"),
+                message=_(
+                    "Could not open project. "
+                    "Incorrect file path or file format."
+                ),
+                parent=self.tk_owner,
+            )
+            # failed
+            return False
+        # end if
     # end def
 
 
@@ -71,17 +134,23 @@ class ProjectFileManagement:
             resets project to new;
         """
         # member resets
-        print("resetting project to NEW")
-        self.project_path = ""
-        self.slot_project_modified(flag=False)
+        self.init_members()
         # GUI resets
         for _cvar in self.mainframe.get_stringvars().values():
             # reset values
             _cvar.set("")
         # end for
         # Text widgets
+        self.mainframe.text_draft_notes.delete("1.0", "end")
+        self.mainframe.text_pitch_concept.delete("1.0", "end")
+        self.mainframe.text_characters_log.delete("1.0", "end")
+        self.mainframe.text_scenario.delete("1.0", "end")
         # Listbox widgets
+        self.mainframe.listbox_characters_list.delete(0, "end")
+        # Canvas widgets
+        self.mainframe.canvas_characters_relations.delete("all")
         # other resets
+        self.slot_project_update_path()
     # end def
 
 
@@ -107,11 +176,11 @@ class ProjectFileManagement:
                 # end for
             # end with
             # we can update project's filepath by now
-            self.project_path = fpath
-            # project is now ready for new changes
-            self.slot_project_modified(flag=False)
+            self.set_project_path(fpath)
             # notify application
             self.notify(_("project file saved OK."))
+            # succeeded
+            return True
         # could not save file
         else:
             # show error
@@ -122,7 +191,53 @@ class ProjectFileManagement:
                 ),
                 parent=self.tk_owner,
             )
+            # failed
+            return False
         # end if
+    # end def
+
+
+    def ensure_saved (self):
+        """
+            ensures modified project will be saved before next step;
+            returns True when all is OK, False if dialog has been
+            cancelled or any other trouble fired up;
+        """
+        # inits
+        cancelled = False
+        # got to save first?
+        if self.project_modified:
+            # ask for saving
+            response = MB.askyesnocancel(
+                _("Question"),
+                _("Project has been modified. Save it?")
+            )
+            # update flag
+            cancelled = response is None
+            # answered yes
+            if response:
+                # save project
+                cancelled = not self.slot_project_save()
+            # end if
+        # end if
+        # ensure saved
+        return not cancelled
+    # end def
+
+
+    def get_current_dir (self):
+        """
+            retrieves last used directory for load/save procedure;
+        """
+        # inits
+        _dir = self.current_dir
+        # got some path?
+        if self.project_path:
+            # init dir
+            _dir = OP.dirname(self.project_path)
+        # end if
+        # return normalized directory
+        return P.normalize(_dir)
     # end def
 
 
@@ -242,6 +357,35 @@ class ProjectFileManagement:
     # end def
 
 
+    def init_members (self):
+        """
+            class members init/reset;
+        """
+        # inits
+        self.project_path = ""
+        self.slot_project_modified(flag=False)
+    # end def
+
+
+    def is_good_file_format (self, fpath):
+        """
+            determines if @fpath has the correct zip archive internal
+            structure;
+        """
+        # param inits
+        fpath = P.normalize(fpath)
+        # got a zip archive?
+        if zipfile.is_zipfile(fpath):
+            # examine archive contents /!\
+            pass                                                            # FIXME
+            # success
+            return True
+        # end if
+        # failure
+        return False
+    # end def
+
+
     def normalize_file_ext (self, file_ext):
         """
             resets file extension to match a correct format;
@@ -256,6 +400,42 @@ class ProjectFileManagement:
             notifies @message to application;
         """
         self.tk_owner.statusbar.notify(message)
+    # end def
+
+
+    @property
+    def project_path (self):
+        """
+            project's file path;
+            normalized to comply with tkRAD.path.support;
+        """
+        return self.__project_path
+    # end def
+
+    @project_path.setter
+    def project_path (self, value):
+        # inits
+        self.__project_path = P.normalize(value)
+    # end def
+
+    @project_path.deleter
+    def project_path (self):
+        del self.__project_path
+    # end def
+
+
+    def set_project_path (self, fpath):
+        """
+            sets project's path + app notifications;
+        """
+        # inits
+        self.project_path = fpath
+        # project is now ready for new changes
+        self.slot_project_modified(flag=False)
+        # notify application
+        self.mainframe.events.raise_event(
+            "Project:Path:Update", new_path=fpath
+        )
     # end def
 
 
@@ -294,30 +474,14 @@ class ProjectFileManagement:
         """
             event handler for menu Project > New;
         """
-        # inits
-        cancelled = False
-        # got to save first?
-        if self.project_modified:
-            # ask for saving
-            response = MB.askyesnocancel(
-                _("Question"),
-                _("Project has been modified. Save it?")
-            )
-            cancelled = response is None
-            # answered yes
-            if response:
-                # save project
-                self.slot_project_save()
-            # end if
-        # end if
-        # cancelled?
-        if cancelled:
-            # notify application
-            self.notify(_("Project > New: cancelled."))
-        # okay, let's go!
-        else:
+        # all is OK?
+        if self.ensure_saved():
             # reset project to new
             self.do_reset_project()
+        # cancelled
+        else:
+            # notify application
+            self.notify(_("Project > New: cancelled."))
         # end if
     # end def
 
@@ -326,7 +490,26 @@ class ProjectFileManagement:
         """
             event handler for menu Project > Open;
         """
-        print("Menu:Project:Open")
+        # 'open' procedure
+        _fpath = FD.askopenfilename(
+            title=_("Open project file..."),
+            defaultextension=self.FILE_EXT,
+            filetypes=self.FILE_TYPES,
+            initialdir=self.get_current_dir(),
+            multiple=False,
+            parent=self.tk_owner,
+        )
+        # not cancelled?
+        if _fpath:
+            # do open project
+            return self.do_open_project(_fpath)
+        # cancelled
+        else:
+            # notify application
+            self.notify(_("Project > Open: cancelled."))
+            # failed
+            return False
+        # end if
     # end def
 
 
@@ -335,13 +518,13 @@ class ProjectFileManagement:
             event handler for menu Project > Save;
         """
         # unsaved project?
-        if not zipfile.is_zipfile(self.project_path):
+        if not self.is_good_file_format(self.project_path):
             # rather save as...
-            self.slot_project_save_as()
+            return self.slot_project_save_as()
         # okay, save by now
         else:
             # use current project's filepath
-            self.do_save_project(self.project_path)
+            return self.do_save_project(self.project_path)
         # end if
     # end def
 
@@ -354,22 +537,49 @@ class ProjectFileManagement:
         _fpath = FD.asksaveasfilename(
             title=_("Save as..."),
             defaultextension=self.FILE_EXT,
-            filetypes=[
-                ("tkScenarist files", "*{}".format(self.FILE_EXT)),
-                ("zip files", "*.zip"),
-            ],
-            initialdir=".",                     # FIXME: user prefs?
+            filetypes=self.FILE_TYPES,
+            initialdir=self.get_current_dir(),
             confirmoverwrite=True,
             parent=self.tk_owner,
         )
         # not cancelled?
         if _fpath:
             # do save project
-            self.do_save_project(_fpath)
+            return self.do_save_project(_fpath)
         # cancelled
         else:
             # notify application
             self.notify(_("Project > Save as...: cancelled."))
+            # failed
+            return False
+        # end if
+    # end def
+
+
+    def slot_project_update_path (self, *args, new_path=None, **kw):
+        """
+            event handler for GUI display updates;
+        """
+        # inits
+        _path = P.normalize(new_path)
+        # param controls
+        if _path:
+            # inits
+            _fname = OP.basename(_path)
+            _dir = OP.dirname(_path)
+            # update members
+            self.current_dir = _dir
+            # update GUI
+            self.mainframe.get_stringvar("project_filename").set(_fname)
+            self.mainframe.get_stringvar("project_directory").set(_dir)
+            self.tk_owner.title(
+                "{} - {}"
+                .format(self.tk_owner.app.APP["title"], _fname)
+            )
+        # empty path
+        else:
+            # reset window title
+            self.tk_owner.title(self.tk_owner.app.APP["title"])
         # end if
     # end def
 

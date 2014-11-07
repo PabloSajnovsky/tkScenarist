@@ -39,6 +39,32 @@ class MainWindow (tkRAD.RADXMLMainWindow):
     ONLINE_DOC_URL = "https://github.com/tarball69/tkScenarist/wiki"
 
 
+    def _slot_quit_app (self, *args, **kw):
+        """
+            slot method before quitting app definitely;
+            asks for confirmation in dialog before acting;
+            this should be overridden in subclass in order to
+            meet your own needs;
+            no return value (void);
+        """
+        if self.get_pending_task():
+            MB.showwarning(
+                _("Pending operation"),
+                _(
+                    "Some very important task is pending by now. "
+                    "Please wait for completion and then retry."
+                ),
+                parent=self,
+            )
+        elif self.project_fm.ensure_saved():
+            # hook method
+            self.on_quit_app(*args, **kw)
+            # really quit app
+            self.quit()
+        # end if
+    # end def
+
+
     def bind_events (self, **kw):
         """
             app-wide event bindings;
@@ -77,6 +103,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
                     self.project_fm.slot_project_new,
                 "Project:Open":
                     self.project_fm.slot_project_open,
+                "Project:Path:Update":
+                    self.project_fm.slot_project_update_path,
                 "Project:Save:As":
                     self.project_fm.slot_project_save_as,
                 "Project:Save":

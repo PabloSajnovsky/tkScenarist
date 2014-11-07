@@ -110,7 +110,7 @@
                     <text
                         id="characters_log"
                         name="text_characters_log"
-                        state="disabled"
+                        state="disabled--"
                         layout="grid"
                         layout_options="row=0, column=0"
                         resizable="yes"

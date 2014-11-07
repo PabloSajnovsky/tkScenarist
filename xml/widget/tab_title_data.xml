@@ -100,6 +100,8 @@
         />
         <ttklabel
             textvariable="project_filename"
+            foreground="royal blue"
+            font="sans 12 bold"
             layout="grid"
             layout_options="row=0, column=1, padx=5, pady=2"
             resizable="width"
@@ -117,7 +119,7 @@
             resizable="width"
         />
         <ttklabel
-            text="Estimated nb of pages (scenario):"
+            text="Est. nb of pages (scenario):"
             layout="grid"
             layout_options="row=2, column=0, sticky='w'"
             resizable="no"
@@ -129,7 +131,7 @@
             resizable="width"
         />
         <ttklabel
-            text="Estimated movie duration:"
+            text="Est. movie duration:"
             layout="grid"
             layout_options="row=3, column=0, sticky='w'"
             resizable="no"

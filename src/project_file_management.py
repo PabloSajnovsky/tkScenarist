@@ -71,6 +71,7 @@ class ProjectFileManagement:
             resets project to new;
         """
         # member resets
+        print("resetting project to NEW")
         self.project_path = ""
         self.slot_project_modified(flag=False)
         # GUI resets

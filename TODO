@@ -1,15 +1,2 @@
 TODO list
 =========
-
-    * Menu "Project > New" exits and restarts app by now => should open
-    new instances of a RADXMLWindow (Toplevel windows) instead of a
-    RADXMLMainWindow (Tk instance);
-
-    * must review tkRAD lib to make this happen; /!\
-
-    * should optimize code anywhere in tkRAD lib (should plan a new
-    v1.6?);
-
-    * RADMainWindow._slot_quit_app() should call a hook method
-    self.on_quit_app() derivable by subclasses, called just before
-    really quitting app;

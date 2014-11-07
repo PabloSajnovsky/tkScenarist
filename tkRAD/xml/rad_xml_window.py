@@ -23,31 +23,30 @@
 """
 
 # lib imports
-from tkinter import ttk
-from . import rad_widget_base as RW
+from ..widgets import rad_window as RW
+from . import rad_xml_frame as XF
 
 
-class RADFrame (RW.RADWidgetBase, ttk.Frame):
+class RADXMLWindow (RW.RADWindow):
     r"""
-        generic Frame + RADWidgetBase subclass;
-        implements all tkRAD app-wide services by default;
-        acts as a Frame widget container;
+        general purpose tkRAD Toplevel Window class implementing
+        tkinter XML widget building;
     """
 
-    # class constant defs
-    CONFIG = {
-        # for subclass widget pre-configuration
-    } # end of CONFIG
-
-
-    def __init__ (self, master=None, **kw):
-        # default values
-        self.CONFIG = self.CONFIG.copy()
-        self.CONFIG.update(kw)
-        # super inits
-        ttk.Frame.__init__(self, master)
-        self.configure(**self._only_tk(self.CONFIG))
-        RW.RADWidgetBase.__init__(self, master, **self.CONFIG)
+    def _init_mainframe (self, **kw):
+        r"""
+            inherited from RADWindowBase class;
+        """
+        # widget inits
+        self.mainframe = kw.get("mainframe") or XF.RADXMLFrame(self, **kw)
+        if hasattr(self.mainframe, "set_xml_filename"):
+            self.mainframe.set_xml_filename(
+                kw.get("xml_filename") or "mainwindow"
+            )
+        # end if
+        # shortcut inits
+        self.tk_children = self.mainframe.winfo_children
+        self.mainframe.quit_app = self._slot_quit_app
     # end def
 
-# end class RADFrame
+# end class RADXMLWindow

@@ -14,6 +14,70 @@
 ## CHANGELOG
 
 
+### $ 2014-11-05 RS $
+
+* now documenting all of this;
+
+* embedded new modules in `tkRAD.core`:
+
+    * `core.async`: asynchronous tasks with atomic lockers, automatic
+    re-scheduling and many other features;
+
+    * `core.database`: an SQLite3 lightweight database layer to make DB
+    management easier;
+
+
+### $ 2014-11-04 RS $
+
+* waiting for some good tests before considering **tkRAD v1.6 - PEPs
+and OPs** public release;
+
+* still wondering if I should embed `async.py` module to tkRAD lib?
+this module is already done as `tkGAME.lib.tkgame_animations`; just
+have to rename it/document it, in fact;
+
+* a simple `import tkRAD` statement now includes:
+
+    * historical old classes: `RADApplication`, `RADMainWindow`,
+    `RADXMLMainWindow` and `RADXMLFrame`;
+
+    * new classes: `RADWindow` and `RADXMLWindow`;
+
+* added new `RADWindowBase`, `RADWindow` and `RADXMLWindow` classes:
+
+    * `RADWindowBase` is now the main ancestor for all RAD window
+    subclasses;
+
+    * this includes `RADMainWindow`, `RADXMLMainWindow`, `RADWindow`
+    and `RADXMLWindow`;
+
+    * `RADWindow` and `RADXMLWindow` are **TK.Toplevel()** instances
+    while `RADMainWindow` and `RADXMLMainWindow` are still **TK.Tk()**
+    instances;
+
+    * these new classes allow easy building of multiple document
+    interfaces, as you may now easily duplicate same window templates
+    e.g. for views and forms;
+
+* in `RADXMLWidgetBase._tkRAD_font_support()`:
+
+    * fixed font's long family name to best comply with tkinter's
+    standard notation e.g. font="'Times New Roman' 12 BoLd itAlIC" now
+    becomes font="{times new roman} 12 bold italic";
+
+* in `RADMainWindow`:
+
+    * added hook method `on_quit_app()`;
+
+* in `RADMainWindow._slot_quit_app()`:
+
+    * added hook method just before really quitting app;
+
+* fixed some minor bugs;
+
+* trying to comply with PEP8 everywhere in project;
+
+
 ### $ 2014-03-31 RS $
 
 * tagged and released **tkRAD v1.5 - Sugar Extra**;

@@ -23,7 +23,6 @@
 """
 
 # lib imports
-import subprocess
 import zipfile
 import tkinter.messagebox as MB
 import tkinter.filedialog as FD
@@ -64,6 +63,24 @@ class ProjectFileManagement:
         self.FILE_EXT = self.normalize_file_ext(self.FILE_EXT)
         self.project_path = ""
         self.project_modified = False
+    # end def
+
+
+    def do_reset_project (self):
+        """
+            resets project to new;
+        """
+        # member resets
+        self.project_path = ""
+        self.slot_project_modified(flag=False)
+        # GUI resets
+        for _cvar in self.mainframe.get_stringvars().values():
+            # reset values
+            _cvar.set("")
+        # end for
+        # Text widgets
+        # Listbox widgets
+        # other resets
     # end def
 
 
@@ -298,12 +315,8 @@ class ProjectFileManagement:
             self.notify(_("Project > New: cancelled."))
         # okay, let's go!
         else:
-            # run new app instance
-            subprocess.Popen(P.normalize("^/tkscenarist.py"))
-            # save options
-            self.tk_owner.options.save()
-            # quit app
-            self.tk_owner.quit()
+            # reset project to new
+            self.do_reset_project()
         # end if
     # end def
 

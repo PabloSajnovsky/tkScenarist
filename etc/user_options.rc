@@ -1,18 +1,18 @@
 [DEFAULT]
 mainwindow = 640x480+20+20
-maximized = 0
 mainwindow_state = normal
+maximized = 0
 
 [dirs]
-
-[geometry]
-mainwindow_state = normal
-mainwindow = 771x426+345+39
 
 [gui]
 show_statusbar = 1
 
 [files]
+
+[geometry]
+mainwindow_state = normal
+mainwindow = 771x426+363+165
 
 [xml]
 

@@ -100,16 +100,21 @@ class ProjectFileManagement:
         """
         # param controls
         if self.is_good_file_format(fpath):
+            # notify application
+            self.notify(_("Opening project, please wait."))
             # reset to new
             self.do_reset_project()
             # open zip archive
             with zipfile.ZipFile(fpath, 'r') as _archive:
-                pass                                                        # FIXME
+                # browse archive files
+                for tab_id, fname in self.ARCHIVE_FILES.items():
+                    self.setup_tab(tab_id, fname, _archive)
+                # end for
             # end with
             # we can update project's filepath by now
             self.set_project_path(fpath)
             # notify application
-            self.notify(_("project file opened OK."))
+            self.notify(_("Project opened OK."))
             # succeeded
             return True
         # could not open file
@@ -162,6 +167,8 @@ class ProjectFileManagement:
         fpath = P.normalize(fpath)
         # param controls
         if tools.is_pstr(fpath):
+            # notify application
+            self.notify(_("Saving project, please wait."))
             # open zip archive
             with zipfile.ZipFile(fpath, 'w') as _archive:
                 # browse archive files
@@ -178,7 +185,7 @@ class ProjectFileManagement:
             # we can update project's filepath by now
             self.set_project_path(fpath)
             # notify application
-            self.notify(_("project file saved OK."))
+            self.notify(_("Project saved OK."))
             # succeeded
             return True
         # could not save file
@@ -436,6 +443,77 @@ class ProjectFileManagement:
         self.mainframe.events.raise_event(
             "Project:Path:Update", new_path=fpath
         )
+    # end def
+
+
+    def setup_tab (self, tab_id, fname, archive):
+        """
+            generic notebook tab initializer along @archive contents;
+            dispatches tasks between specific @tab_id with @fname;
+        """
+        # init attribute
+        _method = getattr(self, "setup_{}".format(tab_id), None)
+        # redirect to specific task
+        if callable(_method):
+            # void methods
+            _method(fname, archive)
+        # end if
+    # end def
+
+
+    def setup_tab_characters (self, fname, archive):
+        """
+            specific tab initializer;
+        """
+        print("setup_tab:fname:", fname)
+    # end def
+
+
+    def setup_tab_notes (self, fname, archive):
+        """
+            specific tab initializer;
+        """
+        print("setup_tab:fname:", fname)
+    # end def
+
+
+    def setup_tab_pitch (self, fname, archive):
+        """
+            specific tab initializer;
+        """
+        print("setup_tab:fname:", fname)
+    # end def
+
+
+    def setup_tab_resources (self, fname, archive):
+        """
+            specific tab initializer;
+        """
+        print("setup_tab:fname:", fname)
+    # end def
+
+
+    def setup_tab_scenario (self, fname, archive):
+        """
+            specific tab initializer;
+        """
+        print("setup_tab:fname:", fname)
+    # end def
+
+
+    def setup_tab_storyboard (self, fname, archive):
+        """
+            specific tab initializer;
+        """
+        print("setup_tab:fname:", fname)
+    # end def
+
+
+    def setup_tab_title (self, fname, archive):
+        """
+            specific tab initializer;
+        """
+        print("setup_tab:fname:", fname)
     # end def
 
 

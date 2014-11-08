@@ -110,7 +110,9 @@
                     <text
                         id="characters_log"
                         name="text_characters_log"
-                        state="disabled--"
+                        autoseparators="true"
+                        undo="true"
+                        state="disabled"
                         layout="grid"
                         layout_options="row=0, column=0"
                         resizable="yes"

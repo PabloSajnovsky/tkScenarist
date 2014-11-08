@@ -30,6 +30,8 @@
         <text
             id="draft_notes"
             name="text_draft_notes"
+            autoseparators="true"
+            undo="true"
             layout="grid"
             layout_options="row=0, column=0"
             resizable="yes"

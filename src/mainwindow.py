@@ -111,7 +111,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
                     self.project_fm.slot_project_save,
 
                 "Text:Key:Pressed":
-                    self.slot_entry_key_pressed,
+                    self.slot_text_key_pressed,
 
                 "Tools:NameDatabase":
                     self.slot_tools_name_db,
@@ -134,6 +134,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
         # member inits
         self.project_fm = PFM.ProjectFileManagement(self)
+        self.characters_logs = dict()
         # looks for ^/xml/menu/topmenu.xml
         self.topmenu.xml_build()
         # toggle statusbar through menu
@@ -142,6 +143,14 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         self.xml_build()
         # event bindings
         self.bind_events(**kw)
+    # end def
+
+
+    def set_cvar_text (self, cvarname, contents):
+        """
+            set text to a tk.StringVar() control variable;
+        """
+        self.mainframe.get_stringvar(cvarname).set(contents)
     # end def
 
 
@@ -173,26 +182,43 @@ class MainWindow (tkRAD.RADXMLMainWindow):
     # end def
 
 
-    def slot_edit_redo (self, *args, **kw):
+    def slot_edit_redo (self, event=None, *args, **kw):
         """
             event handler for menu Edit > Redo;
         """
-        print("Menu:Edit:Redo")
+        # param controls
+        if not event:
+            # redo cancelled
+            try:
+                self.focus_lastfor().edit_redo()
+            except:
+                pass
+            # end try
+        # end if
     # end def
 
 
-    def slot_edit_undo (self, *args, **kw):
+    def slot_edit_undo (self, event=None, *args, **kw):
         """
             event handler for menu Edit > Undo;
         """
-        print("Menu:Edit:Undo")
+        # param controls
+        if not event:
+            # undo last
+            try:
+                self.focus_lastfor().edit_undo()
+            except:
+                pass
+            # end try
+        # end if
     # end def
 
 
-    def slot_entry_key_pressed (self, *args, **kw):
+    def slot_entry_key_pressed (self, event=None, *args, **kw):
         """
             event handler for ttkentry key press;
         """
+        if event: print(event.keysym)
         # notify something has changed
         self.events.raise_event("Project:Modified")
         # validate entry keystrokes
@@ -236,6 +262,30 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             event handler for menu Help > Tutorial;
         """
         print("Menu:Help:Tutorial")
+    # end def
+
+
+    def slot_text_key_pressed (self, event=None, *args, **kw):
+        """
+            event handler for text widget key press;
+        """
+        # inits
+        _ok = True
+        # param controls
+        if event:
+            # inits
+            _w = event.widget
+            _ok = bool(_w.edit_modified())
+            # undo/redo stack
+            if event.keysym == "space":
+                _w.edit_separator()
+            # end if
+        # end if
+        # all correct?
+        if _ok:
+            # notify something has changed
+            self.events.raise_event("Project:Modified")
+        # end if
     # end def
 
 

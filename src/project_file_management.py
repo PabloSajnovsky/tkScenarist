@@ -53,6 +53,13 @@ class ProjectFileManagement:
 
     FILE_EXT = "scn"
 
+    TAB_TITLE_CVARS = (
+        "project_title",
+        "project_author",
+        "project_author_email",
+        "project_author_phone"
+    )
+
 
     def __init__ (self, tk_owner):
         """
@@ -62,6 +69,7 @@ class ProjectFileManagement:
         self.tk_owner = tk_owner
         self.mainframe = tk_owner.mainframe
         self.get_cvar_text = tk_owner.get_cvar_text
+        self.set_cvar_text = tk_owner.set_cvar_text
         self.current_dir = "~"
         self.ALL_FILES = self.get_files_from_dict(self.ARCHIVE_FILES)
         self.FILE_EXT = self.normalize_file_ext(self.FILE_EXT)
@@ -112,7 +120,10 @@ class ProjectFileManagement:
                     # simple file contents
                     if tools.is_pstr(fname):
                         # set contents instead
-                        fname = _archive.read(fname).decode("UTF-8")
+                        fname = _archive.read(fname).decode("UTF-8").rstrip()
+                        if fname:
+                            fname += "\n"
+                        # end if
                     # end if
                     # setup notebook tab
                     self.setup_tab(tab_id, fname, _archive)
@@ -153,15 +164,16 @@ class ProjectFileManagement:
             _cvar.set("")
         # end for
         # Text widgets
-        self.mainframe.text_draft_notes.delete("1.0", "end")
-        self.mainframe.text_pitch_concept.delete("1.0", "end")
-        self.mainframe.text_characters_log.delete("1.0", "end")
-        self.mainframe.text_scenario.delete("1.0", "end")
+        self.text_set_contents(self.mainframe.text_draft_notes, "")
+        self.text_set_contents(self.mainframe.text_pitch_concept, "")
+        self.text_set_contents(self.mainframe.text_characters_log, "")
+        self.text_set_contents(self.mainframe.text_scenario, "")
         # Listbox widgets
         self.mainframe.listbox_characters_list.delete(0, "end")
         # Canvas widgets
         self.mainframe.canvas_characters_relations.delete("all")
         # other resets
+        self.tk_owner.characters_logs.clear()
         self.slot_project_update_path()
     # end def
 
@@ -340,18 +352,14 @@ class ProjectFileManagement:
             specific file contents extractor;
         """
         # inits
-        fcontents = (
-            "title: {}\n"
-            "author: {}\n"
-            "email: {}\n"
-            "phone: {}\n"
-            .format(
-                self.get_cvar_text("project_title"),
-                self.get_cvar_text("project_author"),
-                self.get_cvar_text("project_author_email"),
-                self.get_cvar_text("project_author_phone"),
+        fcontents = ""
+        # browse fields
+        for _cvarname in self.TAB_TITLE_CVARS:
+            fcontents += (
+                "{}: {}\n"
+                .format(_cvarname, self.get_cvar_text(_cvarname))
             )
-        )
+        # end for
         # always return a dict
         return {fname: fcontents}
     # end def
@@ -515,7 +523,8 @@ class ProjectFileManagement:
         """
             specific tab initializer;
         """
-        print("setup_tab:fname:", fname)
+        # set text widget contents
+        self.text_set_contents(self.mainframe.text_pitch_concept, fname)
     # end def
 
 
@@ -531,7 +540,8 @@ class ProjectFileManagement:
         """
             specific tab initializer;
         """
-        print("setup_tab:fname:", fname)
+        # set text widget contents
+        self.text_set_contents(self.mainframe.text_scenario, fname)
     # end def
 
 
@@ -547,7 +557,23 @@ class ProjectFileManagement:
         """
             specific tab initializer;
         """
-        print("setup_tab:fname:", fname)
+        # browse file lines
+        for _line in fname.split("\n"):
+            # inits
+            _line = _line.strip()
+            # got data?
+            if ":" in _line:
+                # get field_name: field_value
+                _name, _value = _line.split(":")
+                _name = _name.strip().lower()
+                _value = _value.strip()
+                # supported field name?
+                if _name in self.TAB_TITLE_CVARS:
+                    # update value
+                    self.set_cvar_text(_name, _value)
+                # end if
+            # end if
+        # end for
     # end def
 
 
@@ -700,9 +726,11 @@ class ProjectFileManagement:
         """
             resets text contents for a tkinter.Text widget;
         """
-        # clear first
+        # inits
         tk_text.delete("1.0", "end")
         tk_text.insert("1.0", str(contents))
+        tk_text.edit_modified(False)
+        tk_text.edit_reset()
     # end def
 
 # end class ProjectFileManagement

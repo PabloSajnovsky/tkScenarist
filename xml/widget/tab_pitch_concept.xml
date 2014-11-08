@@ -30,6 +30,8 @@
         <text
             id="pitch_concept"
             name="text_pitch_concept"
+            autoseparators="true"
+            undo="true"
             layout="grid"
             layout_options="row=0, column=0"
             resizable="yes"

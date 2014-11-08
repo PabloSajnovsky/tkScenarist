@@ -90,6 +90,8 @@
                 <text
                     id="scenario"
                     name="text_scenario"
+                    autoseparators="true"
+                    undo="true"
                     layout="grid"
                     layout_options="row=0, column=0"
                     resizable="yes"

@@ -72,7 +72,7 @@
         />
         <command
             label="_Redo"
-            accelerator="Ctrl+Y"
+            accelerator="Ctrl+Shift+Z"
             command="@Edit:Redo"
         />
 <!--

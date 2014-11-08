@@ -5,16 +5,16 @@ mainwindow = 640x480+20+20
 
 [files]
 
-[xml]
-
-[gui]
-show_statusbar = 1
-
 [dirs]
 
 [geometry]
 mainwindow_state = normal
-mainwindow = 771x426+353+155
+mainwindow = 771x426+384+164
+
+[gui]
+show_statusbar = 1
+
+[xml]
 
 [mainwindow]
 

@@ -63,6 +63,7 @@ class ProjectFileManagement:
         self.mainframe = tk_owner.mainframe
         self.get_cvar_text = tk_owner.get_cvar_text
         self.current_dir = "~"
+        self.ALL_FILES = self.get_files_from_dict(self.ARCHIVE_FILES)
         self.FILE_EXT = self.normalize_file_ext(self.FILE_EXT)
         self.FILE_TYPES = [
             ("tkScenarist files", "*{}".format(self.FILE_EXT)),
@@ -108,6 +109,12 @@ class ProjectFileManagement:
             with zipfile.ZipFile(fpath, 'r') as _archive:
                 # browse archive files
                 for tab_id, fname in self.ARCHIVE_FILES.items():
+                    # simple file contents
+                    if tools.is_pstr(fname):
+                        # set contents instead
+                        fname = _archive.read(fname).decode("UTF-8")
+                    # end if
+                    # setup notebook tab
                     self.setup_tab(tab_id, fname, _archive)
                 # end for
             # end with
@@ -364,6 +371,29 @@ class ProjectFileManagement:
     # end def
 
 
+    def get_files_from_dict (self, dict_object):
+        """
+            extracts filenames from an archive dictionnary;
+        """
+        # inits
+        _flist = list()
+        # browse dict items
+        for _fname in dict_object.values():
+            # got another dict?
+            if tools.is_pdict(_fname):
+                # extend list with other list
+                _flist.extend(self.get_files_from_dict(_fname))
+            # must be plain string
+            elif tools.is_pstr(_fname):
+                # append item
+                _flist.append(_fname)
+            # end if
+        # end for
+        # return list of filenames
+        return _flist
+    # end def
+
+
     def init_members (self):
         """
             class members init/reset;
@@ -383,10 +413,13 @@ class ProjectFileManagement:
         fpath = P.normalize(fpath)
         # got a zip archive?
         if zipfile.is_zipfile(fpath):
-            # examine archive contents /!\
-            pass                                                            # FIXME
-            # success
-            return True
+            # examine archive contents
+            with zipfile.ZipFile(fpath, "r") as _archive:
+                # get all zip archive members
+                _zfiles = _archive.namelist()
+            # end with
+            # compare contents
+            return bool(set(self.ALL_FILES) == set(_zfiles))
         # end if
         # failure
         return False
@@ -473,7 +506,8 @@ class ProjectFileManagement:
         """
             specific tab initializer;
         """
-        print("setup_tab:fname:", fname)
+        # set text widget contents
+        self.text_set_contents(self.mainframe.text_draft_notes, fname)
     # end def
 
 
@@ -659,6 +693,16 @@ class ProjectFileManagement:
             # reset window title
             self.tk_owner.title(self.tk_owner.app.APP["title"])
         # end if
+    # end def
+
+
+    def text_set_contents (self, tk_text, contents=""):
+        """
+            resets text contents for a tkinter.Text widget;
+        """
+        # clear first
+        tk_text.delete("1.0", "end")
+        tk_text.insert("1.0", str(contents))
     # end def
 
 # end class ProjectFileManagement

@@ -28,6 +28,7 @@ import tkinter.messagebox as MB
 import tkRAD
 #~ from tkRAD.core import tools
 from . import project_file_management as PFM
+from . import app_database as DB
 
 
 class MainWindow (tkRAD.RADXMLMainWindow):
@@ -128,6 +129,16 @@ class MainWindow (tkRAD.RADXMLMainWindow):
     # end def
 
 
+    def init_deferred (self):
+        """
+            deferred widget inits;
+        """
+        # member inits
+        # this may take a while
+        self.database = DB.get_database()
+    # end def
+
+
     def init_widget (self, **kw):
         """
             hook method to be reimplemented by subclass;
@@ -143,6 +154,18 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         self.xml_build()
         # event bindings
         self.bind_events(**kw)
+        # deferred inits
+        self.after(10, self.init_deferred)
+    # end def
+
+
+    def on_quit_app (self, *args, **kw):
+        """
+            hook method to be reimplemented in subclass;
+        """
+        # put your own code here
+        self.database.close_database()
+        self.options.save()
     # end def
 
 
@@ -218,7 +241,6 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             event handler for ttkentry key press;
         """
-        if event: print(event.keysym)
         # notify something has changed
         self.events.raise_event("Project:Modified")
         # validate entry keystrokes
@@ -247,7 +269,9 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             event handler for menu Help > Online Documentation;
         """
         # launching online documentation
-        webbrowser.open(self.ONLINE_DOC_URL)
+        # CAUTION:
+        # keep i18n for localized web pages /!\
+        webbrowser.open(_(self.ONLINE_DOC_URL))
         # warning message
         MB.showwarning(
             title=_("Attention"),

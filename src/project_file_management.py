@@ -68,8 +68,11 @@ class ProjectFileManagement:
         # member inits
         self.tk_owner = tk_owner
         self.mainframe = tk_owner.mainframe
-        self.get_cvar_text = tk_owner.get_cvar_text
-        self.set_cvar_text = tk_owner.set_cvar_text
+        self.notify = tk_owner.statusbar.notify
+        self.cvar_get_text = tk_owner.cvar_get_text
+        self.cvar_set_text = tk_owner.cvar_set_text
+        self.text_set_contents = tk_owner.text_set_contents
+        self.text_get_contents = tk_owner.text_get_contents
         self.current_dir = "~"
         self.ALL_FILES = self.get_files_from_dict(self.ARCHIVE_FILES)
         self.FILE_EXT = self.normalize_file_ext(self.FILE_EXT)
@@ -166,15 +169,10 @@ class ProjectFileManagement:
         # Text widgets
         self.text_set_contents(self.mainframe.text_draft_notes, "")
         self.text_set_contents(self.mainframe.text_pitch_concept, "")
-        self.text_set_contents(self.mainframe.text_characters_log, "")
         self.text_set_contents(self.mainframe.text_scenario, "")
-        # Listbox widgets
-        self.mainframe.listbox_characters_list.delete(0, "end")
-        # Canvas widgets
-        self.mainframe.canvas_characters_relations.delete("all")
         # other resets
-        self.tk_owner.characters_logs.clear()
-        self.slot_project_update_path()
+        self.tk_owner.tab_characters.reset()
+        self.slot_update_path()
     # end def
 
 
@@ -243,7 +241,7 @@ class ProjectFileManagement:
             # answered yes
             if response:
                 # save project
-                cancelled = not self.slot_project_save()
+                cancelled = not self.slot_save()
             # end if
         # end if
         # ensure saved
@@ -297,7 +295,7 @@ class ProjectFileManagement:
             specific file contents extractor;
         """
         # inits
-        fcontents = self.mainframe.text_draft_notes.get("1.0", "end")
+        fcontents = self.text_get_contents(self.mainframe.text_draft_notes)
         # always return a dict
         return {fname: fcontents}
     # end def
@@ -308,7 +306,7 @@ class ProjectFileManagement:
             specific file contents extractor;
         """
         # inits
-        fcontents = self.mainframe.text_pitch_concept.get("1.0", "end")
+        fcontents = self.text_get_contents(self.mainframe.text_pitch_concept)
         # always return a dict
         return {fname: fcontents}
     # end def
@@ -330,7 +328,7 @@ class ProjectFileManagement:
             specific file contents extractor;
         """
         # inits
-        fcontents = self.mainframe.text_scenario.get("1.0", "end")
+        fcontents = self.text_get_contents(self.mainframe.text_scenario)
         # always return a dict
         return {fname: fcontents}
     # end def
@@ -357,7 +355,7 @@ class ProjectFileManagement:
         for _cvarname in self.TAB_TITLE_CVARS:
             fcontents += (
                 "{}: {}\n"
-                .format(_cvarname, self.get_cvar_text(_cvarname))
+                .format(_cvarname, self.cvar_get_text(_cvarname))
             )
         # end for
         # always return a dict
@@ -408,7 +406,7 @@ class ProjectFileManagement:
         """
         # inits
         self.project_path = ""
-        self.slot_project_modified(flag=False)
+        self.slot_modified(flag=False)
     # end def
 
 
@@ -443,14 +441,6 @@ class ProjectFileManagement:
     # end def
 
 
-    def notify (self, message):
-        """
-            notifies @message to application;
-        """
-        self.tk_owner.statusbar.notify(message)
-    # end def
-
-
     @property
     def project_path (self):
         """
@@ -479,9 +469,9 @@ class ProjectFileManagement:
         # inits
         self.project_path = fpath
         # project is now ready for new changes
-        self.slot_project_modified(flag=False)
+        self.slot_modified(flag=False)
         # notify application
-        self.mainframe.events.raise_event(
+        self.tk_owner.events.raise_event(
             "Project:Path:Update", new_path=fpath
         )
     # end def
@@ -570,14 +560,14 @@ class ProjectFileManagement:
                 # supported field name?
                 if _name in self.TAB_TITLE_CVARS:
                     # update value
-                    self.set_cvar_text(_name, _value)
+                    self.cvar_set_text(_name, _value)
                 # end if
             # end if
         # end for
     # end def
 
 
-    def slot_project_export_pdf (self, *args, **kw):
+    def slot_export_pdf (self, *args, **kw):
         """
             event handler for menu Project > Export PDF;
         """
@@ -585,7 +575,7 @@ class ProjectFileManagement:
     # end def
 
 
-    def slot_project_modified (self, *args, flag=True, **kw):
+    def slot_modified (self, *args, flag=True, **kw):
         """
             event handler for project's modification flag;
         """
@@ -600,7 +590,7 @@ class ProjectFileManagement:
     # end def
 
 
-    def slot_project_refresh_info (self, *args, **kw):
+    def slot_refresh_info (self, *args, **kw):
         """
             event handler for tab Title/Data, button 'Refresh';
         """
@@ -608,7 +598,7 @@ class ProjectFileManagement:
     # end def
 
 
-    def slot_project_new (self, *args, **kw):
+    def slot_new (self, *args, **kw):
         """
             event handler for menu Project > New;
         """
@@ -624,7 +614,7 @@ class ProjectFileManagement:
     # end def
 
 
-    def slot_project_open (self, *args, **kw):
+    def slot_open (self, *args, **kw):
         """
             event handler for menu Project > Open;
         """
@@ -651,14 +641,14 @@ class ProjectFileManagement:
     # end def
 
 
-    def slot_project_save (self, *args, **kw):
+    def slot_save (self, *args, **kw):
         """
             event handler for menu Project > Save;
         """
         # unsaved project?
         if not self.is_good_file_format(self.project_path):
             # rather save as...
-            return self.slot_project_save_as()
+            return self.slot_save_as()
         # okay, save by now
         else:
             # use current project's filepath
@@ -667,7 +657,7 @@ class ProjectFileManagement:
     # end def
 
 
-    def slot_project_save_as (self, *args, **kw):
+    def slot_save_as (self, *args, **kw):
         """
             event handler for menu Project > Save as...;
         """
@@ -694,7 +684,7 @@ class ProjectFileManagement:
     # end def
 
 
-    def slot_project_update_path (self, *args, new_path=None, **kw):
+    def slot_update_path (self, *args, new_path=None, **kw):
         """
             event handler for GUI display updates;
         """
@@ -719,18 +709,6 @@ class ProjectFileManagement:
             # reset window title
             self.tk_owner.title(self.tk_owner.app.APP["title"])
         # end if
-    # end def
-
-
-    def text_set_contents (self, tk_text, contents=""):
-        """
-            resets text contents for a tkinter.Text widget;
-        """
-        # inits
-        tk_text.delete("1.0", "end")
-        tk_text.insert("1.0", str(contents))
-        tk_text.edit_modified(False)
-        tk_text.edit_reset()
     # end def
 
 # end class ProjectFileManagement

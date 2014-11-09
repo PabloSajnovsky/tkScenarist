@@ -29,6 +29,7 @@ import tkRAD
 #~ from tkRAD.core import tools
 from tkRAD.core import path as P
 from . import project_file_management as PFM
+from . import project_tab_characters as PTC
 from . import app_database as DB
 
 
@@ -42,16 +43,6 @@ class MainWindow (tkRAD.RADXMLMainWindow):
     ONLINE_DOC_URL = "https://github.com/tarball69/tkScenarist/wiki"
 
 
-    def confirm_quit (self, *args, **kw):
-        """
-            hook method to be reimplemented in subclass;
-            put here user confirmation dialog for quitting app;
-        """
-        # user confirmation dialog
-        return self.project_fm.ensure_saved()
-    # end def
-
-
     def bind_events (self, **kw):
         """
             app-wide event bindings;
@@ -59,9 +50,9 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         self.events.connect_dict(
             {
                 "Characters:List:Add":
-                    self.slot_characters_list_add,
+                    self.tab_characters.slot_list_add,
                 "Characters:List:Delete":
-                    self.slot_characters_list_delete,
+                    self.tab_characters.slot_list_delete,
 
                 "Edit:Preferences":
                     self.slot_edit_preferences,
@@ -81,21 +72,21 @@ class MainWindow (tkRAD.RADXMLMainWindow):
                     self.slot_help_tutorial,
 
                 "Project:Export:PDF":
-                    self.project_fm.slot_project_export_pdf,
+                    self.project_fm.slot_export_pdf,
                 "Project:Information:Refresh":
-                    self.project_fm.slot_project_refresh_info,
+                    self.project_fm.slot_refresh_info,
                 "Project:Modified":
-                    self.project_fm.slot_project_modified,
+                    self.project_fm.slot_modified,
                 "Project:New":
-                    self.project_fm.slot_project_new,
+                    self.project_fm.slot_new,
                 "Project:Open":
-                    self.project_fm.slot_project_open,
+                    self.project_fm.slot_open,
                 "Project:Path:Update":
-                    self.project_fm.slot_project_update_path,
+                    self.project_fm.slot_update_path,
                 "Project:Save:As":
-                    self.project_fm.slot_project_save_as,
+                    self.project_fm.slot_save_as,
                 "Project:Save":
-                    self.project_fm.slot_project_save,
+                    self.project_fm.slot_save,
 
                 "Text:Key:Pressed":
                     self.slot_text_key_pressed,
@@ -107,11 +98,29 @@ class MainWindow (tkRAD.RADXMLMainWindow):
     # end def
 
 
-    def get_cvar_text (self, cvarname):
+    def confirm_quit (self, *args, **kw):
+        """
+            hook method to be reimplemented in subclass;
+            put here user confirmation dialog for quitting app;
+        """
+        # user confirmation dialog
+        return self.project_fm.ensure_saved()
+    # end def
+
+
+    def cvar_get_text (self, cvarname):
         """
             retrieves text from a tk.StringVar() control variable;
         """
         return self.mainframe.get_stringvar(cvarname).get()
+    # end def
+
+
+    def cvar_set_text (self, cvarname, contents):
+        """
+            set text to a tk.StringVar() control variable;
+        """
+        self.mainframe.get_stringvar(cvarname).set(contents)
     # end def
 
 
@@ -131,7 +140,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
         # member inits
         self.project_fm = PFM.ProjectFileManagement(self)
-        self.characters_logs = dict()
+        self.tab_characters = PTC.ProjectTabCharacters(self)
         # looks for ^/xml/menu/topmenu.xml
         self.topmenu.xml_build()
         # toggle statusbar through menu
@@ -152,34 +161,6 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         # put your own code here
         self.database.close_database()
         self.options.save()
-    # end def
-
-
-    def set_cvar_text (self, cvarname, contents):
-        """
-            set text to a tk.StringVar() control variable;
-        """
-        self.mainframe.get_stringvar(cvarname).set(contents)
-    # end def
-
-
-    def slot_characters_list_add (self, *args, **kw):
-        """
-            event handler for characters list;
-        """
-        print("Characters:List:Add")
-        # project has been modified
-        self.events.raise_event("Project:Modified")
-    # end def
-
-
-    def slot_characters_list_delete (self, *args, **kw):
-        """
-            event handler for characters list;
-        """
-        print("Characters:List:Delete")
-        # project has been modified
-        self.events.raise_event("Project:Modified")
     # end def
 
 
@@ -315,6 +296,27 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             event handler for menu Tools > Name database;
         """
         print("Menu:Tools:Name database")
+    # end def
+
+
+    def text_get_contents (self, tk_text):
+        """
+            get text contents from a tkinter.Text widget;
+        """
+        # inits
+        return tk_text.get("1.0", "end")
+    # end def
+
+
+    def text_set_contents (self, tk_text, contents=""):
+        """
+            resets text contents for a tkinter.Text widget;
+        """
+        # inits
+        tk_text.delete("1.0", "end")
+        tk_text.insert("1.0", str(contents))
+        tk_text.edit_modified(False)
+        tk_text.edit_reset()
     # end def
 
 # end class MainWindow

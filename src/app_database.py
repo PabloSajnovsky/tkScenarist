@@ -57,15 +57,21 @@ class AppDatabase (DB.Database):
                 tkScenarist application database
             */
 
+            -- this is for debugging session
+            -- (comment this out in production state)
+
+            -- DROP TABLE IF EXISTS 'character_names';
+
             -- create table for character names
 
             CREATE TABLE IF NOT EXISTS 'character_names'
             (
                 name_key            INTEGER PRIMARY KEY,
-                name_name           NOT NULL,
+                name_name           TEXT NOT NULL,
                 name_male           INTEGER NOT NULL DEFAULT 0,
                 name_female         INTEGER NOT NULL DEFAULT 0,
-                name_origin         NOT NULL
+                name_origin         TEXT NOT NULL,
+                name_description    TEXT NOT NULL DEFAULT ""
             );
         """)
     # end def

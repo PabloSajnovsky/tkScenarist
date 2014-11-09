@@ -27,9 +27,7 @@ import webbrowser
 import tkinter.messagebox as MB
 import tkRAD
 #~ from tkRAD.core import tools
-from tkRAD.core import path as P
 from . import project_file_management as PFM
-from . import project_tab_characters as PTC
 from . import app_database as DB
 
 
@@ -39,7 +37,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
     """
 
     # class constant defs
-    OFFLINE_DOC_URL = "^/html/index.html"
+    OFFLINE_DOC_URL = "^/html/en/index.html"
     ONLINE_DOC_URL = "https://github.com/tarball69/tkScenarist/wiki"
 
 
@@ -49,11 +47,6 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
         self.events.connect_dict(
             {
-                "Characters:List:Add":
-                    self.tab_characters.slot_list_add,
-                "Characters:List:Delete":
-                    self.tab_characters.slot_list_delete,
-
                 "Edit:Preferences":
                     self.slot_edit_preferences,
                 "Edit:Redo":
@@ -73,8 +66,6 @@ class MainWindow (tkRAD.RADXMLMainWindow):
 
                 "Project:Export:PDF":
                     self.project_fm.slot_export_pdf,
-                "Project:Information:Refresh":
-                    self.project_fm.slot_refresh_info,
                 "Project:Modified":
                     self.project_fm.slot_modified,
                 "Project:New":
@@ -140,7 +131,6 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
         # member inits
         self.project_fm = PFM.ProjectFileManagement(self)
-        self.tab_characters = PTC.ProjectTabCharacters(self)
         # looks for ^/xml/menu/topmenu.xml
         self.topmenu.xml_build()
         # toggle statusbar through menu
@@ -151,6 +141,24 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         self.bind_events(**kw)
         # deferred inits
         self.after(10, self.init_deferred)
+    # end def
+
+
+    def launch_web_browser (self, url):
+        """
+            launches web browser with @url URL (online/offline);
+        """
+        # param controls
+        if url:
+            # launching web browser
+            webbrowser.open(url)
+            # warning message
+            MB.showwarning(
+                title=_("Attention"),
+                message=_("Launching web browser, please wait."),
+                parent=self,
+            )
+        # end if
     # end def
 
 
@@ -238,13 +246,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         # launching online documentation
         # CAUTION:
         # keep i18n for localized web pages /!\
-        webbrowser.open(_(self.ONLINE_DOC_URL))
-        # warning message
-        MB.showwarning(
-            title=_("Attention"),
-            message=_("Launching web browser, please wait."),
-            parent=self,
-        )
+        self.launch_web_browser(_(self.ONLINE_DOC_URL))
     # end def
 
 
@@ -255,14 +257,10 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         # launching offline documentation
         # CAUTION:
         # keep i18n for localized web pages /!\
-        webbrowser.open(
-            "file://{}".format(P.normalize(_(self.OFFLINE_DOC_URL)))
-        )
-        # warning message
-        MB.showwarning(
-            title=_("Attention"),
-            message=_("Launching web browser, please wait."),
-            parent=self,
+        self.launch_web_browser(
+            # local file (offline)
+            "file://{}"
+            .format(PFM.P.normalize(_(self.OFFLINE_DOC_URL)))
         )
     # end def
 

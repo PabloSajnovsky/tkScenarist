@@ -26,7 +26,7 @@
 import tkRAD
 
 
-class ProjectTabCharacters (tkRAD.RADXMLFrame):
+class ProjectTabResources (tkRAD.RADXMLFrame):
     """
         application's project tab class;
     """
@@ -37,9 +37,6 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         """
         self.events.connect_dict(
             {
-                "Characters:List:Add": self.slot_list_add,
-                "Characters:List:Delete": self.slot_list_delete,
-
                 "Project:Modified": self.slot_project_modified,
 
                 "Tab:Reset": self.slot_tab_reset,
@@ -50,26 +47,13 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
 
     def get_file_contents (self, fname):
         """
-            returns formatted string as file contents;
+            returns file contents;
         """
-        # multiple files and contents
-        _dict = dict()
-        # list of character names
-        _fname = fname["names"]
-        _fcontents = "\n".join(
-            self.listbox_characters_list.get(0, "end")
-        )
-        _dict[_fname] = _fcontents
-        # character logs
-        _fname = fname["logs"]
-        _fcontents = ""                                                     # FIXME
-        _dict[_fname] = _fcontents
-        # character relations
-        _fname = fname["relations"]
-        _fcontents = ""                                                     # FIXME
-        _dict[_fname] = _fcontents
+        # inits
+        fcontents = ""                                                      # FIXME
+        #~ fcontents = self.text_get_contents(self.text_resources)
         # always return a dict
-        return _dict
+        return {fname: fcontents}
     # end def
 
 
@@ -82,31 +66,20 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         self.mainframe = self.mainwindow.mainframe
         self.text_get_contents = self.mainwindow.text_get_contents
         self.text_set_contents = self.mainwindow.text_set_contents
-        self.character_logs = dict()
-        # looks for ^/xml/widget/tab_characters.xml
-        self.xml_build("tab_characters")
+        # looks for ^/xml/widget/tab_resources.xml
+        self.xml_build("tab_resources")
         # event bindings
         self.bind_events(**kw)
     # end def
 
 
-    def slot_list_add (self, *args, **kw):
+    def setup_tab (self, fname, archive):
         """
-            event handler for characters list;
+            tab setup along @fname and @archive contents;
         """
-        print("Characters:List:Add")
-        # project has been modified
-        self.events.raise_event("Project:Modified")
-    # end def
-
-
-    def slot_list_delete (self, *args, **kw):
-        """
-            event handler for characters list;
-        """
-        print("Characters:List:Delete")
-        # project has been modified
-        self.events.raise_event("Project:Modified")
+        # set text widget contents
+        #~ self.text_set_contents(self.text_resources, fname)
+        pass
     # end def
 
 
@@ -115,7 +88,8 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             event handler for project's modification flag;
         """
         # reset status
-        self.text_characters_log.edit_modified(flag)
+        #~ self.text_resources.edit_modified(flag)
+        pass
     # end def
 
 
@@ -123,14 +97,9 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         """
             event handler: reset tab to new;
         """
-        # member inits
-        self.character_logs.clear()
-        # Listbox widgets
-        self.listbox_characters_list.delete(0, "end")
-        # Text widgets
-        self.text_set_contents(self.text_characters_log, "")
-        # Canvas widgets
-        self.canvas_characters_relations.delete("all")
+        # reset Text widget
+        #~ self.text_set_contents(self.text_resources, "")
+        pass
     # end def
 
-# end class ProjectTabCharacters
+# end class ProjectTabResources

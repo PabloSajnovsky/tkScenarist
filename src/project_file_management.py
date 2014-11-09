@@ -38,9 +38,9 @@ class ProjectFileManagement:
 
     # class constant defs
     ARCHIVE_FILES = {
-        "tab_title": "title_data.txt",
-        "tab_notes": "draft_notes.txt",
-        "tab_pitch": "pitch_concept.txt",
+        "tab_title_data": "title_data.txt",
+        "tab_draft_notes": "draft_notes.txt",
+        "tab_pitch_concept": "pitch_concept.txt",
         "tab_characters": {
             "names": "characters_names.txt",
             "logs": "characters_logs.txt",
@@ -53,27 +53,18 @@ class ProjectFileManagement:
 
     FILE_EXT = "scn"
 
-    TAB_TITLE_CVARS = (
-        "project_title",
-        "project_author",
-        "project_author_email",
-        "project_author_phone"
-    )
-
 
     def __init__ (self, tk_owner):
         """
             class constructor;
         """
         # member inits
-        self.tk_owner = tk_owner
+        self.mainwindow = tk_owner
         self.mainframe = tk_owner.mainframe
         self.notify = tk_owner.statusbar.notify
-        self.cvar_get_text = tk_owner.cvar_get_text
-        self.cvar_set_text = tk_owner.cvar_set_text
-        self.text_set_contents = tk_owner.text_set_contents
-        self.text_get_contents = tk_owner.text_get_contents
-        self.current_dir = "~"
+        self.current_dir = tk_owner.options.get(
+            "dirs", "pfm_preferred_dir", fallback="~"
+        )
         self.ALL_FILES = self.get_files_from_dict(self.ARCHIVE_FILES)
         self.FILE_EXT = self.normalize_file_ext(self.FILE_EXT)
         self.FILE_TYPES = [
@@ -123,7 +114,11 @@ class ProjectFileManagement:
                     # simple file contents
                     if tools.is_pstr(fname):
                         # set contents instead
-                        fname = _archive.read(fname).decode("UTF-8").rstrip()
+                        fname = (
+                            _archive.read(fname)
+                                    .decode("UTF-8")
+                                    .rstrip()
+                        )
                         if fname:
                             fname += "\n"
                         # end if
@@ -147,7 +142,7 @@ class ProjectFileManagement:
                     "Could not open project. "
                     "Incorrect file path or file format."
                 ),
-                parent=self.tk_owner,
+                parent=self.mainwindow,
             )
             # failed
             return False
@@ -162,16 +157,8 @@ class ProjectFileManagement:
         # member resets
         self.init_members()
         # GUI resets
-        for _cvar in self.mainframe.get_stringvars().values():
-            # reset values
-            _cvar.set("")
-        # end for
-        # Text widgets
-        self.text_set_contents(self.mainframe.text_draft_notes, "")
-        self.text_set_contents(self.mainframe.text_pitch_concept, "")
-        self.text_set_contents(self.mainframe.text_scenario, "")
+        self.mainwindow.events.raise_event("Tab:Reset")
         # other resets
-        self.tk_owner.tab_characters.reset()
         self.slot_update_path()
     # end def
 
@@ -191,11 +178,13 @@ class ProjectFileManagement:
                 # browse archive files
                 for tab_id, fname in self.ARCHIVE_FILES.items():
                     # get multiple files and contents
-                    _contents = self.get_files_contents(tab_id, fname)
+                    _contents = self.get_fc_tab(tab_id, fname)
                     # browse contents
                     for _fname, _fcontents in _contents.items():
                         # put files and contents into zip archive
-                        _archive.writestr(_fname, bytes(_fcontents, "UTF-8"))
+                        _archive.writestr(
+                            _fname, bytes(_fcontents, "UTF-8")
+                        )
                     # end for
                 # end for
             # end with
@@ -213,7 +202,7 @@ class ProjectFileManagement:
                 message=_(
                     "Could not save project. Incorrect file path."
                 ),
-                parent=self.tk_owner,
+                parent=self.mainwindow,
             )
             # failed
             return False
@@ -265,110 +254,14 @@ class ProjectFileManagement:
     # end def
 
 
-    def get_fc_tab_characters (self, fname):
-        """
-            specific file contents extractor;
-        """
-        # multiple files and contents
-        _dict = dict()
-        # list of character names
-        _fname = fname["names"]
-        _fcontents = "\n".join(
-            self.mainframe.listbox_characters_list.get(0, "end")
-        )
-        _dict[_fname] = _fcontents
-        # character logs
-        _fname = fname["logs"]
-        _fcontents = ""                                                     # FIXME
-        _dict[_fname] = _fcontents
-        # character relations
-        _fname = fname["relations"]
-        _fcontents = ""                                                     # FIXME
-        _dict[_fname] = _fcontents
-        # always return a dict
-        return _dict
-    # end def
-
-
-    def get_fc_tab_notes (self, fname):
-        """
-            specific file contents extractor;
-        """
-        # inits
-        fcontents = self.text_get_contents(self.mainframe.text_draft_notes)
-        # always return a dict
-        return {fname: fcontents}
-    # end def
-
-
-    def get_fc_tab_pitch (self, fname):
-        """
-            specific file contents extractor;
-        """
-        # inits
-        fcontents = self.text_get_contents(self.mainframe.text_pitch_concept)
-        # always return a dict
-        return {fname: fcontents}
-    # end def
-
-
-    def get_fc_tab_resources (self, fname):
-        """
-            specific file contents extractor;
-        """
-        # coming soon
-        fcontents = ""                                                      # FIXME
-        # always return a dict
-        return {fname: fcontents}
-    # end def
-
-
-    def get_fc_tab_scenario (self, fname):
-        """
-            specific file contents extractor;
-        """
-        # inits
-        fcontents = self.text_get_contents(self.mainframe.text_scenario)
-        # always return a dict
-        return {fname: fcontents}
-    # end def
-
-
-    def get_fc_tab_storyboard (self, fname):
-        """
-            specific file contents extractor;
-        """
-        # coming soon
-        fcontents = ""                                                      # FIXME
-        # always return a dict
-        return {fname: fcontents}
-    # end def
-
-
-    def get_fc_tab_title (self, fname):
-        """
-            specific file contents extractor;
-        """
-        # inits
-        fcontents = ""
-        # browse fields
-        for _cvarname in self.TAB_TITLE_CVARS:
-            fcontents += (
-                "{}: {}\n"
-                .format(_cvarname, self.cvar_get_text(_cvarname))
-            )
-        # end for
-        # always return a dict
-        return {fname: fcontents}
-    # end def
-
-
-    def get_files_contents (self, tab_id, fname):
+    def get_fc_tab (self, tab_id, fname):
         """
             generic file contents dispatcher;
         """
         # init attribute
-        _method = getattr(self, "get_fc_{}".format(tab_id), None)
+        _method = getattr(
+            getattr(self.mainframe, tab_id), "get_file_contents", None
+        )
         # redirect to specific task
         if callable(_method):
             # return dict of {fname:fcontents, ...} items
@@ -467,12 +360,19 @@ class ProjectFileManagement:
             sets project's path + app notifications;
         """
         # inits
+        fpath = P.normalize(fpath)
+        _fname = OP.basename(fpath)
+        _dir = OP.dirname(fpath)
+        # member inits
         self.project_path = fpath
         # project is now ready for new changes
-        self.slot_modified(flag=False)
+        self.mainwindow.events.raise_event(
+            "Project:Modified", flag=False
+        )
         # notify application
-        self.tk_owner.events.raise_event(
-            "Project:Path:Update", new_path=fpath
+        self.mainwindow.events.raise_event(
+            "Project:Path:Update",
+            new_path=fpath, filename=_fname, directory=_dir,
         )
     # end def
 
@@ -483,87 +383,14 @@ class ProjectFileManagement:
             dispatches tasks between specific @tab_id with @fname;
         """
         # init attribute
-        _method = getattr(self, "setup_{}".format(tab_id), None)
+        _method = getattr(
+            getattr(self.mainframe, tab_id), "setup_tab", None
+        )
         # redirect to specific task
         if callable(_method):
             # void methods
             _method(fname, archive)
         # end if
-    # end def
-
-
-    def setup_tab_characters (self, fname, archive):
-        """
-            specific tab initializer;
-        """
-        print("setup_tab:fname:", fname)
-    # end def
-
-
-    def setup_tab_notes (self, fname, archive):
-        """
-            specific tab initializer;
-        """
-        # set text widget contents
-        self.text_set_contents(self.mainframe.text_draft_notes, fname)
-    # end def
-
-
-    def setup_tab_pitch (self, fname, archive):
-        """
-            specific tab initializer;
-        """
-        # set text widget contents
-        self.text_set_contents(self.mainframe.text_pitch_concept, fname)
-    # end def
-
-
-    def setup_tab_resources (self, fname, archive):
-        """
-            specific tab initializer;
-        """
-        print("setup_tab:fname:", fname)
-    # end def
-
-
-    def setup_tab_scenario (self, fname, archive):
-        """
-            specific tab initializer;
-        """
-        # set text widget contents
-        self.text_set_contents(self.mainframe.text_scenario, fname)
-    # end def
-
-
-    def setup_tab_storyboard (self, fname, archive):
-        """
-            specific tab initializer;
-        """
-        print("setup_tab:fname:", fname)
-    # end def
-
-
-    def setup_tab_title (self, fname, archive):
-        """
-            specific tab initializer;
-        """
-        # browse file lines
-        for _line in fname.split("\n"):
-            # inits
-            _line = _line.strip()
-            # got data?
-            if ":" in _line:
-                # get field_name: field_value
-                _name, _value = _line.split(":")
-                _name = _name.strip().lower()
-                _value = _value.strip()
-                # supported field name?
-                if _name in self.TAB_TITLE_CVARS:
-                    # update value
-                    self.cvar_set_text(_name, _value)
-                # end if
-            # end if
-        # end for
     # end def
 
 
@@ -582,19 +409,11 @@ class ProjectFileManagement:
         # inits
         self.project_modified = bool(flag)
         # update visual indicator
-        _title = self.tk_owner.title().rstrip("*")
+        _title = self.mainwindow.title().rstrip("*")
         if flag:
             _title += "*"
         # end if
-        self.tk_owner.title(_title)
-    # end def
-
-
-    def slot_refresh_info (self, *args, **kw):
-        """
-            event handler for tab Title/Data, button 'Refresh';
-        """
-        print("Tab:Title/Data:Information:Refresh")
+        self.mainwindow.title(_title)
     # end def
 
 
@@ -602,7 +421,7 @@ class ProjectFileManagement:
         """
             event handler for menu Project > New;
         """
-        # all is OK?
+        # current project is saved?
         if self.ensure_saved():
             # reset project to new
             self.do_reset_project()
@@ -618,16 +437,21 @@ class ProjectFileManagement:
         """
             event handler for menu Project > Open;
         """
-        # 'open' procedure
-        _fpath = FD.askopenfilename(
-            title=_("Open project file..."),
-            defaultextension=self.FILE_EXT,
-            filetypes=self.FILE_TYPES,
-            initialdir=self.get_current_dir(),
-            multiple=False,
-            parent=self.tk_owner,
-        )
-        # not cancelled?
+        # inits
+        _fpath = None
+        # current project is saved?
+        if self.ensure_saved():
+            # open project file dialog
+            _fpath = FD.askopenfilename(
+                title=_("Open project file..."),
+                defaultextension=self.FILE_EXT,
+                filetypes=self.FILE_TYPES,
+                initialdir=self.get_current_dir(),
+                multiple=False,
+                parent=self.mainwindow,
+            )
+        # end if
+        # got path?
         if _fpath:
             # do open project
             return self.do_open_project(_fpath)
@@ -668,7 +492,7 @@ class ProjectFileManagement:
             filetypes=self.FILE_TYPES,
             initialdir=self.get_current_dir(),
             confirmoverwrite=True,
-            parent=self.tk_owner,
+            parent=self.mainwindow,
         )
         # not cancelled?
         if _fpath:
@@ -684,30 +508,23 @@ class ProjectFileManagement:
     # end def
 
 
-    def slot_update_path (self, *args, new_path=None, **kw):
+    def slot_update_path (self, *args, filename=None, directory=None, **kw):
         """
             event handler for GUI display updates;
         """
         # inits
-        _path = P.normalize(new_path)
+        _title = self.mainwindow.app.APP["title"]
         # param controls
-        if _path:
-            # inits
-            _fname = OP.basename(_path)
-            _dir = OP.dirname(_path)
+        if filename and directory:
             # update members
-            self.current_dir = _dir
+            self.current_dir = directory
+            self.mainwindow.options["dirs"]["pfm_preferred_dir"] = directory
             # update GUI
-            self.mainframe.get_stringvar("project_filename").set(_fname)
-            self.mainframe.get_stringvar("project_directory").set(_dir)
-            self.tk_owner.title(
-                "{} - {}"
-                .format(self.tk_owner.app.APP["title"], _fname)
-            )
+            self.mainwindow.title("{} - {}".format(_title, filename))
         # empty path
         else:
             # reset window title
-            self.tk_owner.title(self.tk_owner.app.APP["title"])
+            self.mainwindow.title(_title)
         # end if
     # end def
 

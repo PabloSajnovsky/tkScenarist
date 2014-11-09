@@ -30,7 +30,7 @@
         <ttklabelframe
             text="Navigation"
             padding="2px"
-            weight="2"
+            weight="1"
         >
             <ttklabel
                 text="dummy text"
@@ -43,7 +43,7 @@
         <ttklabelframe
             text="Scenario"
             padding="2px"
-            weight="1"
+            weight="5"
         >
             <ttkframe
                 layout="pack"
@@ -90,6 +90,7 @@
                 <text
                     id="scenario"
                     name="text_scenario"
+                    font="monospace 12"
                     autoseparators="true"
                     undo="true"
                     layout="grid"
@@ -121,7 +122,7 @@
         <ttklabelframe
             text="Information"
             padding="2px"
-            weight="2"
+            weight="1"
         >
             <ttklabel
                 text="dummy text"

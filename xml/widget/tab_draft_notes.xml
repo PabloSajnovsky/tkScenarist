@@ -30,6 +30,7 @@
         <text
             id="draft_notes"
             name="text_draft_notes"
+            font="monospace 12"
             autoseparators="true"
             undo="true"
             layout="grid"

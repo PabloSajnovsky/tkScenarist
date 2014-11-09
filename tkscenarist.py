@@ -58,7 +58,7 @@ If not, see: http://www.gnu.org/licenses/
     } # end of APP
 
     DIRECTORIES = (
-        "etc", "src", "locale", "xml",
+        "data", "etc", "html", "locale", "src", "tkRAD", "xml",
     ) # end of DIRECTORIES
 
     PYTHON = {

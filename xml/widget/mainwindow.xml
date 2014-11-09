@@ -21,6 +21,48 @@
     If not, see http://www.gnu.org/licenses/
 -->
 <tkwidget>
+    <module
+        id="mtab_title_data"
+        from="src"
+        import="project_tab_title_data"
+        as="PTTD"
+    />
+    <module
+        id="mtab_draft_notes"
+        from="src"
+        import="project_tab_draft_notes"
+        as="PTDN"
+    />
+    <module
+        id="mtab_pitch_concept"
+        from="src"
+        import="project_tab_pitch_concept"
+        as="PTPC"
+    />
+    <module
+        id="mtab_characters"
+        from="src"
+        import="project_tab_characters"
+        as="PTCH"
+    />
+    <module
+        id="mtab_scenario"
+        from="src"
+        import="project_tab_scenario"
+        as="PTSC"
+    />
+    <module
+        id="mtab_storyboard"
+        from="src"
+        import="project_tab_storyboard"
+        as="PTSB"
+    />
+    <module
+        id="mtab_resources"
+        from="src"
+        import="project_tab_resources"
+        as="PTRE"
+    />
     <ttknotebook
         padding="5px 10px 5px 5px"
         layout="pack"
@@ -28,37 +70,79 @@
     >
         <!-- Tab 1 -->
         <ttktab text="Title/Data" padding="5px">
-            <include xml_filename="tab_title_data"/>
+            <widget
+                class="ProjectTabTitleData"
+                name="tab_title_data"
+                module="mtab_title_data"
+                layout="pack"
+                resizable="yes"
+            />
         </ttktab>
 
         <!-- Tab 2 -->
         <ttktab text="Draft/Notes" padding="5px">
-            <include xml_filename="tab_draft_notes"/>
+            <widget
+                class="ProjectTabDraftNotes"
+                name="tab_draft_notes"
+                module="mtab_draft_notes"
+                layout="pack"
+                resizable="yes"
+            />
         </ttktab>
 
         <!-- Tab 3 -->
         <ttktab text="Pitch/Concept" padding="5px">
-            <include xml_filename="tab_pitch_concept"/>
+            <widget
+                class="ProjectTabPitchConcept"
+                name="tab_pitch_concept"
+                module="mtab_pitch_concept"
+                layout="pack"
+                resizable="yes"
+            />
         </ttktab>
 
         <!-- Tab 4 -->
         <ttktab text="Characters" padding="5px">
-            <include xml_filename="tab_characters"/>
+            <widget
+                class="ProjectTabCharacters"
+                name="tab_characters"
+                module="mtab_characters"
+                layout="pack"
+                resizable="yes"
+            />
         </ttktab>
 
         <!-- Tab 5 -->
         <ttktab text="Scenario" padding="5px">
-            <include xml_filename="tab_scenario"/>
+            <widget
+                class="ProjectTabScenario"
+                name="tab_scenario"
+                module="mtab_scenario"
+                layout="pack"
+                resizable="yes"
+            />
         </ttktab>
 
         <!-- Tab 6 -->
         <ttktab text="Storyboard" padding="5px">
-            <include xml_filename="tab_storyboard"/>
+            <widget
+                class="ProjectTabStoryboard"
+                name="tab_storyboard"
+                module="mtab_storyboard"
+                layout="pack"
+                resizable="yes"
+            />
         </ttktab>
 
         <!-- Tab 7 -->
         <ttktab text="Resources" padding="5px">
-            <include xml_filename="tab_resources"/>
+            <widget
+                class="ProjectTabResources"
+                name="tab_resources"
+                module="mtab_resources"
+                layout="pack"
+                resizable="yes"
+            />
         </ttktab>
 
     </ttknotebook>

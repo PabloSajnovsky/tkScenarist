@@ -28,7 +28,7 @@
     >
         <ttkpanedwindow
             orient="vertical"
-            weight="5"
+            weight="10"
         >
             <ttklabelframe
                 text="Characters"
@@ -83,7 +83,7 @@
                 padding="2px"
                 layout="pack"
                 resizable="yes"
-                weight="3"
+                weight="5"
             >
                 <ttkframe
                     layout="pack"

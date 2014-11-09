@@ -36,6 +36,7 @@
         <ttkentry
             id="entry_project_title"
             textvariable="project_title"
+            font="12"
             validate="key"
             validatecommand="@Entry:Key:Pressed"
             layout="grid"

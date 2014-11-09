@@ -27,6 +27,7 @@ import webbrowser
 import tkinter.messagebox as MB
 import tkRAD
 #~ from tkRAD.core import tools
+from tkRAD.core import path as P
 from . import project_file_management as PFM
 from . import app_database as DB
 
@@ -37,32 +38,17 @@ class MainWindow (tkRAD.RADXMLMainWindow):
     """
 
     # class constant defs
+    OFFLINE_DOC_URL = "^/html/index.html"
     ONLINE_DOC_URL = "https://github.com/tarball69/tkScenarist/wiki"
 
 
-    def _slot_quit_app (self, *args, **kw):
+    def confirm_quit (self, *args, **kw):
         """
-            slot method before quitting app definitely;
-            asks for confirmation in dialog before acting;
-            this should be overridden in subclass in order to
-            meet your own needs;
-            no return value (void);
+            hook method to be reimplemented in subclass;
+            put here user confirmation dialog for quitting app;
         """
-        if self.get_pending_task():
-            MB.showwarning(
-                _("Pending operation"),
-                _(
-                    "Some very important task is pending by now. "
-                    "Please wait for completion and then retry."
-                ),
-                parent=self,
-            )
-        elif self.project_fm.ensure_saved():
-            # hook method
-            self.on_quit_app(*args, **kw)
-            # really quit app
-            self.quit()
-        # end if
+        # user confirmation dialog
+        return self.project_fm.ensure_saved()
     # end def
 
 
@@ -285,7 +271,18 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             event handler for menu Help > Tutorial;
         """
-        print("Menu:Help:Tutorial")
+        # launching offline documentation
+        # CAUTION:
+        # keep i18n for localized web pages /!\
+        webbrowser.open(
+            "file://{}".format(P.normalize(_(self.OFFLINE_DOC_URL)))
+        )
+        # warning message
+        MB.showwarning(
+            title=_("Attention"),
+            message=_("Launching web browser, please wait."),
+            parent=self,
+        )
     # end def
 
 

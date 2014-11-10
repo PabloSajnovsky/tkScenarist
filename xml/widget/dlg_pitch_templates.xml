@@ -44,6 +44,28 @@
                 weight="4"
             >
 
+                <!-- info frame -->
+
+                <ttkframe
+                    padding="5px 2px"
+                    layout="pack"
+                    resizable="width"
+                >
+                    <ttklabel
+                        text="Directory:"
+                        layout="grid"
+                        layout_options="row=0, column=0, sticky='w'"
+                        resizable="no"
+                    />
+                    <ttklabel
+                        textvariable="current_dir"
+                        foreground="navy"
+                        layout="grid"
+                        layout_options="row=0, column=1, padx=5"
+                        resizable="width"
+                    />
+                </ttkframe>
+
                 <!-- listbox frame -->
 
                 <ttkframe
@@ -93,6 +115,8 @@
                     />
                     <ttklabel
                         textvariable="template_name"
+                        font="sans 12 bold"
+                        foreground="royal blue"
                         layout="grid"
                         layout_options="row=0, column=1, padx=5"
                         resizable="width"
@@ -109,6 +133,7 @@
                     <text
                         id="template_preview"
                         name="text_template_preview"
+                        font="monospace 10"
                         height="10"
                         width="72"
                         state="disabled"
@@ -123,6 +148,7 @@
                         layout_options="row=0, column=1"
                         resizable="height"
                     />
+<!--
                     <ttkscrollbar
                         connect="template_preview"
                         orient="horizontal"
@@ -130,6 +156,7 @@
                         layout_options="row=1, column=0"
                         resizable="width"
                     />
+-->
                 </ttkframe>
             </ttklabelframe>
         </ttkpanedwindow>
@@ -144,7 +171,7 @@
             resizable="no"
         />
 
-        <!-- editing tools -->
+        <!-- buttons -->
 
         <ttklabelframe
             text="Edition"
@@ -157,15 +184,6 @@
                 name="btn_add"
                 text="Add new"
                 command="@Dialog:Template:New"
-                layout="pack"
-                layout_options="pady=5"
-                resizable="width"
-            />
-            <ttkbutton
-                name="btn_modify"
-                text="Modify"
-                command="@Dialog:Template:Modify"
-                state="disabled"
                 layout="pack"
                 layout_options="pady=5"
                 resizable="width"
@@ -200,6 +218,14 @@
                 name="btn_browse"
                 text="Browse"
                 command="@Dialog:Template:Browse"
+                layout="pack"
+                layout_options="pady=5"
+                resizable="width"
+            />
+            <ttkbutton
+                name="btn_reset_dir"
+                text="Reset to default dir"
+                command="@Dialog:Template:ResetDir"
                 layout="pack"
                 layout_options="pady=5"
                 resizable="width"

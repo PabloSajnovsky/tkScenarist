@@ -68,8 +68,8 @@ class ProjectFileManagement:
         self.ALL_FILES = self.get_files_from_dict(self.ARCHIVE_FILES)
         self.FILE_EXT = self.normalize_file_ext(self.FILE_EXT)
         self.FILE_TYPES = [
-            ("tkScenarist files", "*{}".format(self.FILE_EXT)),
-            ("zip files", "*.zip"),
+            (_("tkScenarist files"), "*{}".format(self.FILE_EXT)),
+            (_("zip files"), "*.zip"),
         ]
         # hook method
         self.init_members()

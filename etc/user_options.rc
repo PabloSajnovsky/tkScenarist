@@ -7,15 +7,15 @@ mainwindow = 640x480+20+20
 
 [xml]
 
-[gui]
-show_statusbar = 1
-
 [dirs]
 pfm_preferred_dir = /home/rs/tmp
 
+[gui]
+show_statusbar = 1
+
 [geometry]
 mainwindow_state = normal
-mainwindow = 771x426+322+122
+mainwindow = 771x426+150+103
 
 [mainwindow]
 

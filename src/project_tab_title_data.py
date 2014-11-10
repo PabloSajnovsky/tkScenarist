@@ -34,6 +34,8 @@ class ProjectTabTitleData (tkRAD.RADXMLFrame):
     # class constant defs
     FIELD_CVARNAMES = (
         "project_title",
+        "project_subtitle",
+        "project_episode",
         "project_author",
         "project_author_email",
         "project_author_phone",
@@ -156,9 +158,9 @@ class ProjectTabTitleData (tkRAD.RADXMLFrame):
         """
             event handler: reset tab to new;
         """
-        # reset entries
-        for _cvarname in (self.FIELD_CVARNAMES + self.INFO_CVARNAMES):
-            self.cvar_set_text(_cvarname, "")
+        # reset stringvars
+        for _cvar in self.get_stringvars().values():
+            _cvar.set("")
         # end for
     # end def
 

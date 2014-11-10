@@ -34,23 +34,22 @@
             resizable="no"
         />
         <ttkentry
-            id="entry_project_title"
             textvariable="project_title"
             font="12"
             validate="key"
             validatecommand="@Entry:Key:Pressed"
             layout="grid"
-            layout_options="row=0, column=1, padx=5, pady=10"
+            layout_options="row=0, column=1, padx=5, pady=2"
             resizable="width"
         />
         <ttklabel
-            text="Author:"
+            text="Project's subtitle:"
             layout="grid"
             layout_options="row=1, column=0, sticky='w'"
             resizable="no"
         />
         <ttkentry
-            textvariable="project_author"
+            textvariable="project_subtitle"
             validate="key"
             validatecommand="@Entry:Key:Pressed"
             layout="grid"
@@ -58,9 +57,45 @@
             resizable="width"
         />
         <ttklabel
-            text="E-mail:"
+            text="Project's episode:"
             layout="grid"
             layout_options="row=2, column=0, sticky='w'"
+            resizable="no"
+        />
+        <ttkentry
+            textvariable="project_episode"
+            validate="key"
+            validatecommand="@Entry:Key:Pressed"
+            layout="grid"
+            layout_options="row=2, column=1, padx=5, pady=2"
+            resizable="width"
+        />
+        <ttkframe
+            padding="0"
+            height="10"
+            width="0"
+            layout="grid"
+            layout_options="row=5, column=0, columnspan=2"
+            resizable="no"
+        />
+        <ttklabel
+            text="Author:"
+            layout="grid"
+            layout_options="row=10, column=0, sticky='w'"
+            resizable="no"
+        />
+        <ttkentry
+            textvariable="project_author"
+            validate="key"
+            validatecommand="@Entry:Key:Pressed"
+            layout="grid"
+            layout_options="row=10, column=1, padx=5, pady=2"
+            resizable="width"
+        />
+        <ttklabel
+            text="E-mail:"
+            layout="grid"
+            layout_options="row=11, column=0, sticky='w'"
             resizable="no"
         />
         <ttkentry
@@ -68,13 +103,13 @@
             validate="key"
             validatecommand="@Entry:Key:Pressed"
             layout="grid"
-            layout_options="row=2, column=1, padx=5, pady=2"
+            layout_options="row=11, column=1, padx=5, pady=2"
             resizable="width"
         />
         <ttklabel
             text="Phone:"
             layout="grid"
-            layout_options="row=3, column=0, sticky='w'"
+            layout_options="row=12, column=0, sticky='w'"
             resizable="no"
         />
         <ttkentry
@@ -82,7 +117,7 @@
             validate="key"
             validatecommand="@Entry:Key:Pressed"
             layout="grid"
-            layout_options="row=3, column=1, padx=5, pady=2"
+            layout_options="row=12, column=1, padx=5, pady=2"
             resizable="width"
         />
     </ttklabelframe>

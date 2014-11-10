@@ -1,21 +1,23 @@
 [DEFAULT]
-maximized = 0
-mainwindow_state = normal
 mainwindow = 640x480+20+20
-
-[files]
+mainwindow_state = normal
+maximized = 0
+dialog_state = normal
 
 [xml]
+
+[files]
 
 [dirs]
 pfm_preferred_dir = /home/rs/tmp
 
-[gui]
-show_statusbar = 1
-
 [geometry]
 mainwindow_state = normal
-mainwindow = 771x426+150+103
+mainwindow = 771x426+224+103
+dialog_state = normal
+
+[gui]
+show_statusbar = 1
 
 [mainwindow]
 
@@ -24,4 +26,6 @@ mainwindow = 771x426+150+103
 [radxmlmenu]
 
 [radstatusbar]
+
+[pitchtemplatesdialog]
 

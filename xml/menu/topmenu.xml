@@ -109,6 +109,11 @@
             label="_Name database"
             command="@Tools:NameDatabase"
         />
+        <separator/>
+        <command
+            label="_Story/pitch templates"
+            command="@Tools:Pitch:Templates"
+        />
     </menu>
 
     <!-- menu HELP -->

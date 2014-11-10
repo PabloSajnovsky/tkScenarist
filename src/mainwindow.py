@@ -29,6 +29,7 @@ import tkRAD
 #~ from tkRAD.core import tools
 from . import project_file_management as PFM
 from . import app_database as DB
+from . import dlg_pitch_templates as DPT
 
 
 class MainWindow (tkRAD.RADXMLMainWindow):
@@ -84,6 +85,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
 
                 "Tools:NameDatabase":
                     self.slot_tools_name_db,
+                "Tools:Pitch:Templates":
+                    self.slot_tools_pitch_templates,
             }
         )
     # end def
@@ -294,6 +297,16 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             event handler for menu Tools > Name database;
         """
         print("Menu:Tools:Name database")
+    # end def
+
+
+    def slot_tools_pitch_templates (self, *args, **kw):
+        """
+            event handler for menu Tools > Pitch templates;
+        """
+        # show story/pitch templates dialog (modal)
+        _dlg = DPT.PitchTemplatesDialog(self)
+        _dlg.show()
     # end def
 
 

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tkwidget>
+<!--
+    tkScenarist - screen writing made simpler
+
+    Copyright (c) 2014+ Raphaël Seban <motus@laposte.net>
+
+    This program is free software: you can redistribute it and/or
+    modify it under the terms of the GNU General Public License as
+    published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+    General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.
+
+    If not, see http://www.gnu.org/licenses/
+-->
+<tkwidget>
+
+    <!-- all tools big frame -->
+
+    <ttkframe
+        layout="pack"
+        resizable="yes"
+    >
+        <ttkpanedwindow
+            orient="vertical"
+            layout="grid"
+            layout_options="row=0, column=0"
+            resizable="yes"
+        >
+
+            <!-- templates list -->
+
+            <ttklabelframe
+                text="Templates"
+                layout="pack"
+                resizable="yes"
+                weight="4"
+            >
+
+                <!-- listbox frame -->
+
+                <ttkframe
+                    padding="5px"
+                    layout="pack"
+                    resizable="yes"
+                >
+                    <listbox
+                        id="templates_list"
+                        name="listbox_templates_list"
+                        height="5"
+                        layout="grid"
+                        layout_options="row=0, column=0"
+                        resizable="yes"
+                    />
+                    <ttkscrollbar
+                        connect="templates_list"
+                        orient="vertical"
+                        layout="grid"
+                        layout_options="row=0, column=1"
+                        resizable="height"
+                    />
+                </ttkframe>
+            </ttklabelframe>
+
+            <!-- template preview -->
+
+            <ttklabelframe
+                text="Preview"
+                layout="pack"
+                resizable="yes"
+                weight="1"
+            >
+
+                <!-- info frame -->
+
+                <ttkframe
+                    padding="5px 2px"
+                    layout="pack"
+                    resizable="width"
+                >
+                    <ttklabel
+                        text="Template name:"
+                        layout="grid"
+                        layout_options="row=0, column=0, sticky='w'"
+                        resizable="no"
+                    />
+                    <ttkentry
+                        textvariable="template_name"
+                        state="disabled"
+                        layout="grid"
+                        layout_options="row=0, column=1, padx=5"
+                        resizable="width"
+                    />
+                </ttkframe>
+
+                <!-- text frame -->
+
+                <ttkframe
+                    padding="5px"
+                    layout="pack"
+                    resizable="yes"
+                >
+                    <text
+                        id="template_preview"
+                        name="text_template_preview"
+                        height="10"
+                        width="72"
+                        state="disabled"
+                        layout="grid"
+                        layout_options="row=0, column=0"
+                        resizable="yes"
+                    />
+                    <ttkscrollbar
+                        connect="template_preview"
+                        orient="vertical"
+                        layout="grid"
+                        layout_options="row=0, column=1"
+                        resizable="height"
+                    />
+                    <ttkscrollbar
+                        connect="template_preview"
+                        orient="horizontal"
+                        layout="grid"
+                        layout_options="row=1, column=0"
+                        resizable="width"
+                    />
+                </ttkframe>
+            </ttklabelframe>
+        </ttkpanedwindow>
+
+        <!-- spacer -->
+
+        <ttkframe
+            width="5"
+            height="0"
+            layout="grid"
+            layout_options="row=0, column=1"
+            resizable="no"
+        />
+
+        <!-- editing tools -->
+
+        <ttklabelframe
+            text="Edition"
+            padding="5px 2px"
+            layout="grid"
+            layout_options="row=0, column=2"
+            resizable="yes"
+        >
+            <ttkbutton
+                name="btn_add"
+                text="Add new"
+                command="@Dialog:Template:New"
+                layout="pack"
+                layout_options="pady=5"
+                resizable="width"
+            />
+            <ttkbutton
+                name="btn_modify"
+                text="Modify"
+                command="@Dialog:Template:Modify"
+                state="disabled"
+                layout="pack"
+                layout_options="pady=5"
+                resizable="width"
+            />
+            <ttkbutton
+                name="btn_delete"
+                text="Delete"
+                command="@Dialog:Template:Delete"
+                state="disabled"
+                layout="pack"
+                layout_options="pady=5"
+                resizable="width"
+            />
+        </ttklabelframe>
+    </ttkframe>
+
+    <!-- options -->
+
+    <ttklabelframe
+        text="Options"
+        padding="5px"
+        layout="pack"
+        resizable="yes"
+    >
+        <ttkcheckbutton
+            text="Insert a copy into Pitch/Concept"
+            variable="chk_copy_to_pitch"
+            onvalue="1"
+            offvalue=""
+            checked="yes"
+            layout="pack"
+            resizable="width"
+        />
+        <ttkcheckbutton
+            text="Insert a copy into Draft/Notes"
+            variable="chk_copy_to_notes"
+            onvalue="1"
+            offvalue=""
+            layout="pack"
+            resizable="width"
+        />
+    </ttklabelframe>
+</tkwidget>

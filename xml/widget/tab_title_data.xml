@@ -70,6 +70,7 @@
             layout_options="row=2, column=1, padx=5, pady=2"
             resizable="width"
         />
+        <!-- spacer -->
         <ttkframe
             padding="0"
             height="10"

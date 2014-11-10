@@ -91,9 +91,8 @@
                         layout_options="row=0, column=0, sticky='w'"
                         resizable="no"
                     />
-                    <ttkentry
+                    <ttklabel
                         textvariable="template_name"
-                        state="disabled"
                         layout="grid"
                         layout_options="row=0, column=1, padx=5"
                         resizable="width"
@@ -176,6 +175,31 @@
                 text="Delete"
                 command="@Dialog:Template:Delete"
                 state="disabled"
+                layout="pack"
+                layout_options="pady=5"
+                resizable="width"
+            />
+            <!-- spacer -->
+            <ttkframe
+                height="5"
+                width="0"
+                layout="pack"
+                resizable="no"
+            />
+            <ttkseparator
+                layout="pack"
+                resizable="width"
+            />
+            <ttkframe
+                height="5"
+                width="0"
+                layout="pack"
+                resizable="no"
+            />
+            <ttkbutton
+                name="btn_browse"
+                text="Browse"
+                command="@Dialog:Template:Browse"
                 layout="pack"
                 layout_options="pady=5"
                 resizable="width"

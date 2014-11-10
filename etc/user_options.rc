@@ -1,23 +1,23 @@
 [DEFAULT]
-mainwindow = 640x480+20+20
 mainwindow_state = normal
+mainwindow = 640x480+20+20
 maximized = 0
 dialog_state = normal
 
-[xml]
-
 [files]
+
+[geometry]
+mainwindow_state = normal
+mainwindow = 771x426+214+93
+dialog_state = normal
 
 [dirs]
 pfm_preferred_dir = /home/rs/tmp
 
-[geometry]
-mainwindow_state = normal
-mainwindow = 771x426+224+103
-dialog_state = normal
-
 [gui]
 show_statusbar = 1
+
+[xml]
 
 [mainwindow]
 

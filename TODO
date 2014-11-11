@@ -1,17 +1,3 @@
 TODO list
 =========
 
-    * trouvé gros souci tkinter.filedialog et tkinter.messagebox qui
-    n'aiment vraiment pas s'afficher par-dessus une Toplevel modale /!\
-
-    * si on ouvre plusieurs fois le dialogue pitch templates, FD et MB
-    partent en live dans des considérations de bad window path
-    (persistance des données dans le module importé ?) ;
-
-    * trouvé l'origine du problème !
-
-    * ça vient de self.events.raise_event() qui garde des références
-    aux slots d'objets censés ne plus exister ;
-
-    * voir pour un mécanisme DANS tkRAD.core.events qui retire les
-    slots dont les appels produisent des exceptions TclError ;

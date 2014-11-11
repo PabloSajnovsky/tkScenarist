@@ -310,12 +310,24 @@ class MainWindow (tkRAD.RADXMLMainWindow):
     # end def
 
 
+    def text_clear_contents (self, tk_text):
+        """
+            clears text contents for a tkinter.Text widget;
+        """
+        # clear text widget
+        tk_text.delete("1.0", "end")
+        # reset flags
+        tk_text.edit_modified(False)
+        tk_text.edit_reset()
+    # end def
+
+
     def text_get_contents (self, tk_text):
         """
             get text contents from a tkinter.Text widget;
         """
         # inits
-        return tk_text.get("1.0", "end")
+        return tk_text.get("1.0", "end").rstrip() + "\n"
     # end def
 
 
@@ -324,10 +336,14 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             resets text contents for a tkinter.Text widget;
         """
         # inits
+        contents = str(contents).rstrip()
+        if contents:
+            contents += "\n"
+        # end if
+        # clear text widget
         tk_text.delete("1.0", "end")
-        tk_text.insert("1.0", str(contents))
-        tk_text.edit_modified(False)
-        tk_text.edit_reset()
+        # set contents
+        tk_text.insert("1.0", contents)
     # end def
 
 # end class MainWindow

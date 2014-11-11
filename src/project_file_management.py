@@ -114,14 +114,7 @@ class ProjectFileManagement:
                     # simple file contents
                     if tools.is_pstr(fname):
                         # set contents instead
-                        fname = (
-                            _archive.read(fname)
-                                    .decode("UTF-8")
-                                    .rstrip()
-                        )
-                        if fname:
-                            fname += "\n"
-                        # end if
+                        fname = _archive.read(fname).decode("UTF-8")
                     # end if
                     # setup notebook tab
                     self.setup_tab(tab_id, fname, _archive)

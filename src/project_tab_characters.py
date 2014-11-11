@@ -80,6 +80,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         # member inits
         self.mainwindow = self.winfo_toplevel()
         self.mainframe = self.mainwindow.mainframe
+        self.text_clear_contents = self.mainwindow.text_clear_contents
         self.text_get_contents = self.mainwindow.text_get_contents
         self.text_set_contents = self.mainwindow.text_set_contents
         self.character_logs = dict()
@@ -128,7 +129,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         # Listbox widgets
         self.listbox_characters_list.delete(0, "end")
         # Text widgets
-        self.text_set_contents(self.text_characters_log, "")
+        self.text_clear_contents(self.text_characters_log)
         # Canvas widgets
         self.canvas_characters_relations.delete("all")
     # end def

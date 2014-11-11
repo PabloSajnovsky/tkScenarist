@@ -63,6 +63,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # member inits
         self.mainwindow = self.winfo_toplevel()
         self.mainframe = self.mainwindow.mainframe
+        self.text_clear_contents = self.mainwindow.text_clear_contents
         self.text_get_contents = self.mainwindow.text_get_contents
         self.text_set_contents = self.mainwindow.text_set_contents
         # looks for ^/xml/widget/tab_scenario.xml
@@ -95,7 +96,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: reset tab to new;
         """
         # reset Text widget
-        self.text_set_contents(self.text_scenario, "")
+        self.text_clear_contents(self.text_scenario)
     # end def
 
 # end class ProjectTabScenario

@@ -37,6 +37,8 @@ class ProjectTabPitchConcept (tkRAD.RADXMLFrame):
         """
         self.events.connect_dict(
             {
+                "Pitch:Template:Insert": self.slot_template_insert,
+
                 "Project:Modified": self.slot_project_modified,
 
                 "Tab:Reset": self.slot_tab_reset,
@@ -63,6 +65,7 @@ class ProjectTabPitchConcept (tkRAD.RADXMLFrame):
         # member inits
         self.mainwindow = self.winfo_toplevel()
         self.mainframe = self.mainwindow.mainframe
+        self.text_clear_contents = self.mainwindow.text_clear_contents
         self.text_get_contents = self.mainwindow.text_get_contents
         self.text_set_contents = self.mainwindow.text_set_contents
         # looks for ^/xml/widget/tab_pitch_concept.xml
@@ -95,7 +98,21 @@ class ProjectTabPitchConcept (tkRAD.RADXMLFrame):
             event handler: reset tab to new;
         """
         # reset Text widget
-        self.text_set_contents(self.text_pitch_concept, "")
+        self.text_clear_contents(self.text_pitch_concept)
+    # end def
+
+
+    def slot_template_insert (self, *args, pitch=None, **kw):
+        """
+            event handler for pitch template dialog text insertion;
+        """
+        # param controls
+        if pitch:
+            # insert text
+            self.text_set_contents(self.text_pitch_concept, pitch)
+            # notify application
+            self.events.raise_event("Project:Modified")
+        # end if
     # end def
 
 # end class ProjectTabPitchConcept

@@ -39,6 +39,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
     """
 
     # class constant defs
+    BUTTONS = ("OK", "Cancel")
     DEFAULT_DIR = "^/data/templates/pitch/"
     FILE_EXT = ".txt"
     FILE_PATTERN = "*" + FILE_EXT
@@ -55,12 +56,10 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         """
         # got something to save?
         if OP.isfile(self.current_fpath):
-            # inits
-            _text = self.container.text_template_preview
             # save file
             with open(self.current_fpath, "w") as _file:
                 # write text contents
-                _file.write(_text.get("1.0", "end").rstrip())
+                _file.write(self.get_preview_text().rstrip())
             # end with
         # end if
     # end def
@@ -165,6 +164,15 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def get_chk_option (self, cvarname):
+        """
+            returns True if checkbox linked to @cvarname is checked,
+            False otherwise;
+        """
+        return bool(self.container.get_stringvar(cvarname).get() == "1")
+    # end def
+
+
     def get_listbox_fpath (self):
         """
             retrieves filepath from current listbox selection;
@@ -190,6 +198,14 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         # end if
         # no path by there
         return ""
+    # end def
+
+
+    def get_preview_text (self):
+        """
+            returns all preview Text widget contents;
+        """
+        return self.container.text_template_preview.get("1.0", "end")
     # end def
 
 
@@ -222,7 +238,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
             )
         )
         # event bindings
-        self.bind_events()
+        self.bind_events(**kw)
     # end def
 
 
@@ -451,8 +467,34 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
             returns True on success, False otherwise;
         """
         # put here your own code in subclass
-        # succeeded
-        return True
+        if OP.isfile(self.current_fpath):
+            # force task right now
+            self.save_now()
+            # inits
+            _pitch = _notes = ""
+            _text = self.get_preview_text()
+            _chk_pitch = self.get_chk_option("chk_copy_to_pitch")
+            _chk_notes = self.get_chk_option("chk_copy_to_notes")
+            # set copy along user option
+            if _chk_pitch:
+                _pitch = _text
+            # end if
+            # set copy along user option
+            if _chk_notes:
+                _notes = _text
+            # end if
+            # got something to send?
+            if _pitch or _notes:
+                # notify application
+                self.events.raise_event(
+                    "Pitch:Template:Insert", pitch=_pitch, notes=_notes
+                )
+                # succeeded
+                return True
+            # end if
+        # end if
+        # failed
+        return False
     # end def
 
 

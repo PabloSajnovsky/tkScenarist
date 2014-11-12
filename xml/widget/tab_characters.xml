@@ -47,6 +47,7 @@
                     <listbox
                         id="characters_list"
                         name="listbox_characters_list"
+                        height="5"
                         layout="grid"
                         layout_options="row=0, column=0"
                         resizable="yes"
@@ -143,6 +144,7 @@
                     <text
                         id="characters_log"
                         name="text_characters_log"
+                        height="10"
                         autoseparators="true"
                         undo="true"
                         state="disabled"

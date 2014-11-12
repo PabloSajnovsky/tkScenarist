@@ -118,12 +118,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
                 # must show error?
                 if show_error:
                     # show error
-                    MB.showwarning(
-                        title=_("Attention"),
-                        message=_("Character '{name}' already exists.")
-                            .format(name=name),
-                        parent=self,
-                    )
+                    self.error_already_exists(name)
                 # use indexed names?
                 else:
                     # CAUTION: *NOT* a good idea in practice /!\
@@ -142,7 +137,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
 
     def do_delete_character_name (self, name, show_error=False, **kw):
         """
-            effective procedure for deleting a new character;
+            effective procedure for deleting a character name;
         """
         # param inits
         name = self.format_name(name)
@@ -157,12 +152,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             # not found
             elif show_error:
                 # show error
-                MB.showwarning(
-                    title=_("Attention"),
-                    message=_("Character '{name}' not found in list.")
-                        .format(name=name),
-                    parent=self,
-                )
+                self.error_not_found(name)
             # end if
         # end if
     # end def
@@ -170,11 +160,11 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
 
     def do_purge_character_names (self, show_error=False, **kw):
         """
-            effective procedure for purgin list of orphan names;
+            effective procedure for purging list of orphan names;
         """
         # inits
         text = self.get_scenario_text()
-        names = list(self.character_logs.keys())
+        names = tuple(self.character_logs.keys())
         # browse names
         for _name in names:
             # not mentioned in scenario?
@@ -200,12 +190,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
                 # must show error?
                 if show_error:
                     # show error
-                    MB.showwarning(
-                        title=_("Attention"),
-                        message=_("Character '{name}' already exists.")
-                            .format(name=new_name),
-                        parent=self,
-                    )
+                    self.error_already_exists(new_name)
                 # end if
             # rename character's name
             else:
@@ -232,6 +217,37 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
     # end def
 
 
+    def error_already_exists (self, name):
+        """
+            shows error dialog box;
+        """
+        # show error
+        MB.showwarning(
+            title=_("Attention"),
+            message=_(
+                "Character name '{name}' already exists."
+            ).format(name=name),
+            parent=self,
+        )
+    # end def
+
+
+    def error_not_found (self, name):
+        """
+            shows error dialog box;
+        """
+        # show error
+        MB.showwarning(
+            title=_("Attention"),
+            message=_(
+                "Character name '{name}' has *NOT* "
+                "been found in list."
+            ).format(name=name),
+            parent=self,
+        )
+    # end def
+
+
     def format_name (self, name):
         """
             returns formatted name along internal policy;
@@ -242,12 +258,12 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
 
     def get_current_name (self):
         """
-            retrieves self.current_name if listbox is *NOT* empty;
+            retrieves self.current_name if name list is *NOT* empty;
             resets self.current_name and returns empty string
             otherwise;
         """
-        # listbox is empty?
-        if not self.LISTBOX.get(0):
+        # name list is empty?
+        if not self.character_logs:
             # reset current name
             self.current_name = ""
         # end if
@@ -300,8 +316,8 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         self.text_clear_contents = self.mainwindow.text_clear_contents
         self.text_get_contents = self.mainwindow.text_get_contents
         self.text_set_contents = self.mainwindow.text_set_contents
-        self.character_logs = dict()
         self.async = ASYNC.get_async_manager()
+        self.character_logs = dict()
         self.current_name = ""
         # looks for ^/xml/widget/tab_characters.xml
         self.xml_build("tab_characters")
@@ -318,6 +334,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         """
             returns True if @name is mentioned at least once in @text,
             False otherwise;
+            uses scenario's text contents if @text is omitted;
         """
         # param inits
         text = text or self.get_scenario_text()
@@ -356,6 +373,8 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             self.current_name = ""
             # update listbox
             self.update_listbox(*args, **kw)
+            # project has been modified
+            self.events.raise_event("Project:Modified")
         # end if
     # end def
 
@@ -386,10 +405,8 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         if old_name and new_name and new_name != old_name:
             # rename name in logs
             self.character_logs[new_name] = self.character_logs[old_name]
-            # remove from listbox
+            # remove old name from listbox
             self.listbox_delete_name(old_name, new_name=new_name)
-            # project has been modified
-            self.events.raise_event("Project:Modified")
         # end if
     # end def
 
@@ -431,13 +448,13 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         if _name:
             # name mentioned in scenario text?
             if self.is_mentioned(_name):
-                # deletion is not allowed
+                # not allowed
                 MB.showwarning(
                     title=_("Attention"),
                     message=_(
                         "Cannot delete name '{name}'.\n"
                         "This character name is still "
-                        "mentioned in scenario text."
+                        "mentioned into scenario's text."
                     ).format(name=_name),
                     parent=self,
                 )
@@ -481,7 +498,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
                     message=_(
                         "Cannot rename '{name}'.\n"
                         "This character name is still "
-                        "mentioned in scenario text."
+                        "mentioned into scenario's text."
                     ).format(name=_old_name),
                     parent=self,
                 )
@@ -613,8 +630,8 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             title=_("Question"),
             message=_(
                 "Character '{name}' has *NOT* "
-                "been found in scenario text.\n"
-                "Are you sure you want to delete "
+                "been found into scenario's text.\n"
+                "Do you really want to delete "
                 "this character?"
             ).format(name=name),
             parent=self,
@@ -629,8 +646,8 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         return MB.askyesno(
             title=_("Question"),
             message=_(
-                "Do you really want to delete all names "
-                "that are *NOT* mentioned into scenario text?"
+                "Do you really want to delete *ALL* names "
+                "that are *NOT* mentioned into scenario's text?"
             ),
             parent=self,
         )

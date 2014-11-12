@@ -52,6 +52,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
                     self.slot_edit_preferences,
                 "Edit:Redo":
                     self.slot_edit_redo,
+                "Edit:Select:All":
+                    self.slot_edit_select_all,
                 "Edit:Undo":
                     self.slot_edit_undo,
 
@@ -89,6 +91,11 @@ class MainWindow (tkRAD.RADXMLMainWindow):
                     self.slot_tools_pitch_templates,
             }
         )
+        # disable unwanted internal bindings
+        self.bind_class(
+            "TEntry", "<Expose>", self.disable_ttkentry_expose
+        )
+        self.bind_class("Text", "<Control-a>", lambda e:None)
     # end def
 
 
@@ -115,6 +122,19 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             set text to a tk.StringVar() control variable;
         """
         self.mainframe.get_stringvar(cvarname).set(contents)
+    # end def
+
+
+    def disable_ttkentry_expose (self, event=None, *args, **kw):
+        """
+            event handler for disabling unwanted tkinter autoselection
+            on ttkEntry widgets;
+        """
+        try:
+            event.widget.selection_clear()
+        except:
+            pass
+        # end try
     # end def
 
 
@@ -196,6 +216,32 @@ class MainWindow (tkRAD.RADXMLMainWindow):
                 pass
             # end try
         # end if
+    # end def
+
+
+    def slot_edit_select_all (self, event=None, *args, **kw):
+        """
+            event handler for menu Edit > Select all;
+        """
+        # select all
+        try:
+            # get last focused widget
+            w = self.focus_lastfor()
+            # Text widget?
+            if hasattr(w, "tag_add"):
+                # select all text
+                w.tag_add("sel", "1.0", "end")
+                # this disables tkinter chain of internal bindings
+                # thanks to Brian Oakley's cool explanation :-)
+                return "break"
+            # ttk/Entry widget?
+            elif hasattr(w, "select_range"):
+                # select all text
+                w.select_range(0, "end")
+            # end if
+        except:
+            pass
+        # end try
     # end def
 
 

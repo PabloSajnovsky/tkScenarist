@@ -71,7 +71,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # event bindings
         self.bind_events(**kw)
         # reset tab
-        self.slot_tab_reset()
+        self.after_idle(self.slot_tab_reset)
     # end def
 
 

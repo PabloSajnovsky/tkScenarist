@@ -80,12 +80,13 @@
         <command label="Copy"/>
         <command label="Cut"/>
         <command label="Paste"/>
-        <separator/>
-        <command label="Select all"/>
-        <separator/>
-        <command label="Delete"/>
-        <command label="Delete all"/>
 -->
+        <separator/>
+        <command
+            label="Select all"
+            accelerator="Ctrl+A"
+            command="@Edit:Select:All"
+        />
         <separator/>
         <command
             label="_Preferences"

@@ -328,7 +328,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         # event bindings
         self.bind_events(**kw)
         # reset tab
-        self.slot_tab_reset()
+        self.after_idle(self.slot_tab_reset)
     # end def
 
 
@@ -477,6 +477,8 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         if self.character_logs:
             # user confirmed?
             if self.user_confirm_purge():
+                # force task right now
+                self.save_now()
                 # purge list from orphan names
                 self.do_purge_character_names()
             # end if
@@ -515,6 +517,8 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
                 )
                 # got something?
                 if _new_name:
+                    # force task right now
+                    self.save_now()
                     # rename character name
                     self.do_rename_character_name(
                         _old_name, _new_name, show_error=True

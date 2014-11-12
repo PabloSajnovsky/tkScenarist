@@ -30,6 +30,7 @@
             orient="vertical"
             weight="10"
         >
+            <!-- characters list -->
             <ttklabelframe
                 text="Characters"
                 padding="2px"
@@ -42,6 +43,7 @@
                     layout_options="row=0, column=0"
                     resizable="yes"
                 >
+                    <!-- characters listbox widget -->
                     <listbox
                         id="characters_list"
                         name="listbox_characters_list"
@@ -57,7 +59,9 @@
                         resizable="height"
                     />
                 </ttkframe>
+                <!-- listbox edition toolbar -->
                 <ttkframe
+                    padding="0 3px 0 0"
                     layout="grid"
                     layout_options="row=1, column=0"
                     resizable="width"
@@ -68,6 +72,7 @@
                         width="2"
                         layout="grid"
                         layout_options="row=0, column=0"
+                        resizable="no"
                     />
                     <ttkbutton
                         text="-"
@@ -75,9 +80,39 @@
                         width="2"
                         layout="grid"
                         layout_options="row=0, column=1"
+                        resizable="no"
+                    />
+                    <!-- spacer -->
+                    <ttkframe
+                        layout="grid"
+                        layout_options="row=0, column=2"
+                        resizable="width"
+                    />
+                    <ttkbutton
+                        text="Rename"
+                        command="@Characters:List:Rename"
+                        layout="grid"
+                        layout_options="row=0, column=3"
+                        resizable="no"
+                    />
+                    <!-- spacer -->
+                    <ttkframe
+                        layout="grid"
+                        layout_options="row=0, column=4"
+                        resizable="width"
+                    />
+                    <ttkbutton
+                        text="Purge"
+                        command="@Characters:List:Purge"
+                        layout="grid"
+                        layout_options="row=0, column=5"
+                        resizable="no"
                     />
                 </ttkframe>
             </ttklabelframe>
+
+            <!-- character's log zone -->
+
             <ttklabelframe
                 text="Character's log"
                 padding="2px"
@@ -85,28 +120,22 @@
                 resizable="yes"
                 weight="5"
             >
+                <!-- character's log info/text -->
                 <ttkframe
                     layout="pack"
                     resizable="yes"
                 >
-                    <ttklabel
-                        text="Name:"
-                        layout="grid"
-                        layout_options="row=0, column=0"
-                        resizable="no"
-                    />
+                    <!-- character's name -->
                     <ttklabel
                         textvariable="log_character_name"
+                        anchor="center"
                         font="sans 12 bold"
+                        foreground="royal blue"
                         layout="grid"
-                        layout_options="row=0, column=1, padx=5, pady=2"
+                        layout_options="row=0, column=0, pady=2"
                         resizable="width"
                     />
-                </ttkframe>
-                <ttkframe
-                    layout="pack"
-                    resizable="yes"
-                >
+                    <!-- character's text widget -->
                     <text
                         id="characters_log"
                         name="text_characters_log"
@@ -114,7 +143,7 @@
                         undo="true"
                         state="disabled"
                         layout="grid"
-                        layout_options="row=0, column=0"
+                        layout_options="row=1, column=0"
                         resizable="yes"
                     />
                     <tkevent
@@ -126,12 +155,14 @@
                         connect="characters_log"
                         orient="vertical"
                         layout="grid"
-                        layout_options="row=0, column=1"
+                        layout_options="row=1, column=1"
                         resizable="height"
                     />
                 </ttkframe>
             </ttklabelframe>
         </ttkpanedwindow>
+
+        <!-- characters' relations -->
 
         <ttkframe weight="1">
             <ttklabelframe
@@ -140,6 +171,7 @@
                 layout="pack"
                 resizable="yes"
             >
+                <!-- characters' relations canvas widget -->
                 <canvas
                     id="characters_relations"
                     name="canvas_characters_relations"

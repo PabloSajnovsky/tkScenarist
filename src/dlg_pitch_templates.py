@@ -26,8 +26,8 @@
 import os
 import os.path as OP
 import glob
-from tkinter import filedialog as FD
-from tkinter import messagebox as MB
+import tkinter.filedialog as FD
+import tkinter.messagebox as MB
 import tkRAD.core.path as P
 import tkRAD.core.async as ASYNC
 import tkRAD.widgets.rad_dialog as DLG

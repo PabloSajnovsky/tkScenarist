@@ -67,6 +67,7 @@
                     resizable="width"
                 >
                     <ttkbutton
+                        name="btn_add"
                         text="+"
                         command="@Characters:List:Add"
                         width="2"
@@ -75,6 +76,7 @@
                         resizable="no"
                     />
                     <ttkbutton
+                        name="btn_delete"
                         text="-"
                         command="@Characters:List:Delete"
                         width="2"
@@ -89,6 +91,7 @@
                         resizable="width"
                     />
                     <ttkbutton
+                        name="btn_rename"
                         text="Rename"
                         command="@Characters:List:Rename"
                         layout="grid"
@@ -102,6 +105,7 @@
                         resizable="width"
                     />
                     <ttkbutton
+                        name="btn_purge"
                         text="Purge"
                         command="@Characters:List:Purge"
                         layout="grid"

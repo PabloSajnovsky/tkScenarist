@@ -327,6 +327,8 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         self.TEXT = self.text_characters_log
         # event bindings
         self.bind_events(**kw)
+        # reset tab
+        self.slot_tab_reset()
     # end def
 
 
@@ -610,6 +612,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         # inits
         _lb = self.LISTBOX
         _names = sorted(self.character_logs)
+        _flag = bool(_names)
         # clear listbox
         _lb.delete(0, "end")
         # got list?
@@ -617,6 +620,10 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             # fill listbox
             _lb.insert(0, *_names)
         # end if
+        # enable/disable widgets
+        self.enable_widget(self.btn_delete, _flag)
+        self.enable_widget(self.btn_rename, _flag)
+        self.enable_widget(self.btn_purge, _flag)
         # update character's log preview
         self.update_character_log(*args, **kw)
     # end def

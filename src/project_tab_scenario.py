@@ -70,6 +70,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.xml_build("tab_scenario")
         # event bindings
         self.bind_events(**kw)
+        # reset tab
+        self.slot_tab_reset()
     # end def
 
 

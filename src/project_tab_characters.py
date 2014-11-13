@@ -373,6 +373,8 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             self.character_logs.pop(name, None)
             # no more current name
             self.current_name = ""
+            # update keywords
+            kw.update(delete=True)
             # update listbox
             self.update_listbox(*args, **kw)
             # project has been modified
@@ -594,8 +596,11 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             _info.set(_name)
             # update text widget
             self.text_set_contents(_text, self.character_logs[_name])
-            # go to edit mode
-            _text.focus_set()
+            # new name?
+            if new_name:
+                # go to edit mode
+                _text.focus_set()
+            # end if
         # nothing selected
         else:
             # clear all
@@ -617,12 +622,35 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         _lb = self.LISTBOX
         _names = sorted(self.character_logs)
         _flag = bool(_names)
+        _new_name = kw.get("new_name")
+        _index = 0
+        # pending deletion?
+        if kw.get("delete"):
+            # keep index
+            if _lb.curselection():
+                # reset index
+                _index = min(_lb.curselection()[0], len(_names) - 1)
+            # end if
+        # end if
         # clear listbox
         _lb.delete(0, "end")
         # got list?
         if _names:
             # fill listbox
             _lb.insert(0, *_names)
+            # new name?
+            if _new_name:
+                # inits
+                _index = _names.index(_new_name)
+                # show selected
+                _lb.selection_set(_index)
+                _lb.see(_index)
+            # return to home index
+            else:
+                # select last selected
+                _lb.selection_set(_index)
+                _lb.see(_index)
+            # end if
         # end if
         # enable/disable widgets
         self.enable_widget(self.btn_delete, _flag)

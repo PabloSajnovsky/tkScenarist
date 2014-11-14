@@ -82,6 +82,8 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         """
             adds a new name into canvas widget;
         """
+        # delegate to widget
+        self.CANVAS.add_name(name)
         # project has been modified
         self.events.raise_event("Project:Modified")
     # end def
@@ -91,6 +93,8 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         """
             deletes a name from canvas widget;
         """
+        # delegate to widget
+        self.CANVAS.delete_name(name)
         # project has been modified
         self.events.raise_event("Project:Modified")
     # end def
@@ -100,6 +104,8 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         """
             renames an item into canvas widget;
         """
+        # delegate to widget
+        self.CANVAS.rename_name(old_name, new_name)
         # project has been modified
         self.events.raise_event("Project:Modified")
     # end def
@@ -571,7 +577,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         self.character_logs.clear()
         # clear widgets
         self.update_listbox()
-        self.CANVAS.delete("all")
+        self.CANVAS.reset()
     # end def
 
 

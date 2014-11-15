@@ -88,6 +88,9 @@ startups;
 all the characters of your story: name list, character's history log,
 characters relations (WIP) and so on;
 
+* You also have a menu `Tools > Name database` utility dialog where you
+can search amongst thousands of names coming from all origins (WIP);
+
 * Fifth tab is the `Scenario` text zone, plus some additional features
 coming soon (WIP);
 
@@ -95,7 +98,8 @@ coming soon (WIP);
 
 * Seventh tab is the `Resources` panel, still in development (WIP);
 
-Notice: **WIP** means **Work In Progress**.
+Notice: **WIP** means **Work In Progress**, that is, in fact, meaning
+still in development state.
 
 
 ## Development status

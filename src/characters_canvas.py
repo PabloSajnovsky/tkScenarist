@@ -59,7 +59,7 @@ class CharactersCanvas (RC.RADCanvas):
             adds a new character name into canvas widget;
         """
         # set name and create item on canvas
-        self.items[name] = self.create_label(
+        self.char_names[name] = self.create_label(
             self.TAG_RADIX_NAME,
             self.viewport_center_xy(),
             text=name,
@@ -177,13 +177,13 @@ class CharactersCanvas (RC.RADCanvas):
             deletes a character name from canvas widget;
         """
         # inits
-        _group = self.items.get(name)
+        _group = self.char_names.get(name)
         # got item?
         if _group:
             # delete items by group tag
             self.delete(_group.get("tag"))
             # remove from list
-            self.items.pop(name, None)
+            self.char_names.pop(name, None)
             # update canvas contents
             self.update_canvas()
         # end if
@@ -370,8 +370,8 @@ class CharactersCanvas (RC.RADCanvas):
         """
         # members only inits
         self.items_counter = 0
-        self.items = dict()
-        self.links = dict()
+        self.char_names = dict()
+        self.rel_links = dict()
         # Drag'n'Drop feature
         self.dnd_reset()
     # end def
@@ -393,10 +393,10 @@ class CharactersCanvas (RC.RADCanvas):
             registers a link between two tags;
         """
         # put tag2 into tag1's list
-        _tags = self.links.setdefault(tag1, dict())
+        _tags = self.rel_links.setdefault(tag1, dict())
         _tags[tag2] = group
         # put tag1 into tag2's list
-        _tags = self.links.setdefault(tag2, dict())
+        _tags = self.rel_links.setdefault(tag2, dict())
         _tags[tag1] = group
     # end def
 
@@ -406,15 +406,15 @@ class CharactersCanvas (RC.RADCanvas):
             renames character name into canvas widget;
         """
         # inits
-        _group = self.items.get(old_name)
+        _group = self.char_names.get(old_name)
         # got item?
         if _group:
             # rename text
             self.update_label(_group, text=new_name)
             # set new name
-            self.items[new_name] = _group
+            self.char_names[new_name] = _group
             # remove old name from list
-            self.items.pop(old_name, None)
+            self.char_names.pop(old_name, None)
             # update canvas contents
             self.update_canvas()
         # end if
@@ -542,7 +542,7 @@ class CharactersCanvas (RC.RADCanvas):
             returns True if linked, False otherwise;
         """
         # inits
-        _tags = self.links.setdefault(tag1, dict())
+        _tags = self.rel_links.setdefault(tag1, dict())
         # get boolean
         return bool(tag2 in _tags)
     # end def

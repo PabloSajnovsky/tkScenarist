@@ -151,16 +151,79 @@ class CharactersCanvas (RC.RADCanvas):
             deletes a character name from canvas widget;
         """
         # inits
-        _dict = self.items.get(name)
+        _group = self.items.get(name)
         # got item?
-        if _dict:
+        if _group:
             # delete items by group tag
-            self.delete(_dict.get("tag"))
+            self.delete(_group.get("tag"))
             # remove from list
             self.items.pop(name, None)
             # update canvas contents
             self.update_canvas()
         # end if
+    # end def
+
+
+    def dnd_reset (self, *args, **kw):
+        """
+            event handler for resetting D'n'D feature;
+        """
+        # inits
+        self.drag_mode = 0
+        self.drag_tag = ""
+        self.drag_start_xy = (0, 0)
+        self.drag_last_pos = (0, 0)
+        self.auto_scroll = False
+    # end def
+
+
+    def do_start_drag (self, event, drag_mode):
+        """
+            effective procedure for starting Drag'n'Drop feature;
+        """
+        # inits
+        self.dnd_reset()
+        # got mouse event?
+        if event:
+            # automatic scrolling feature
+            self.scan_mark(event.x, event.y)
+            # inits
+            x, y = self.get_real_pos(event.x, event.y)
+            # looking for items
+            _ids = self.find_overlapping(x, y, x, y)
+            # got items?
+            if _ids:
+                # store mouse starting point
+                self.drag_start_xy = (x, y)
+                # store mouse last position
+                self.drag_last_pos = (x, y)
+                # store group tag
+                self.drag_tag = self.get_group_tag(_ids)
+                # raise group above all others
+                self.tag_raise(self.drag_tag, "all")
+                # set drag mode
+                self.drag_mode = drag_mode
+            # auto-scrolling mode
+            else:
+                self.auto_scroll = True
+            # end if
+        # end if
+    # end def
+
+
+    def get_group_tag (self, list_ids):
+        """
+            retrieves group tag from @list_ids;
+        """
+        # param controls
+        if list_ids:
+            # get foreground id tags
+            _tags = self.gettags(list_ids[-1]) or [""]
+            # extract group tag
+            return _tags[0]
+        # end if
+        # failed
+        return ""
     # end def
 
 
@@ -172,7 +235,16 @@ class CharactersCanvas (RC.RADCanvas):
         # update counter
         self.items_counter += 1
         # return new tag name
-        return "item#{}".format(self.items_counter)
+        return "group#{}".format(self.items_counter)
+    # end def
+
+
+    def get_real_pos (self, x, y):
+        """
+            returns real position coordinates for canvas viewport
+            coordinates;
+        """
+        return (int(self.canvasx(x)), int(self.canvasy(y)))
     # end def
 
 
@@ -181,9 +253,10 @@ class CharactersCanvas (RC.RADCanvas):
             class members only inits;
         """
         # members only inits
-        self.drag_mode = 0
         self.items_counter = 0
         self.items = dict()
+        # Drag'n'Drop feature
+        self.dnd_reset()
     # end def
 
 
@@ -203,18 +276,18 @@ class CharactersCanvas (RC.RADCanvas):
             renames character name into canvas widget;
         """
         # inits
-        _dict = self.items.get(old_name)
+        _group = self.items.get(old_name)
         # got item?
-        if _dict:
+        if _group:
             # rename text
-            _id1 = _dict["text"]
-            _id2 = _dict["frame"]
+            _id1 = _group["text"]
+            _id2 = _group["frame"]
             self.itemconfigure(_id1, text=new_name)
             # update surrounding frame
             _box = self.bbox_add(self.bbox(_id1), self.ITEM_BOX)
             self.coords(_id2, _box)
             # set new name
-            self.items[new_name] = _dict
+            self.items[new_name] = _group
             # remove old name from list
             self.items.pop(old_name, None)
             # update canvas contents
@@ -247,13 +320,35 @@ class CharactersCanvas (RC.RADCanvas):
         """
             event handler for pending D'n'D on mouse motion;
         """
-        # inits
-        if self.drag_mode:
-            print("Pending D'n'D", event.x, event.y)
-            if self.drag_mode == self.DRAG_MODE_TEXT:
-                print("Dragging character's name")
-            elif self.drag_mode == self.DRAG_MODE_LINK:
-                print("Creating relations link")
+        # param controls
+        if event:
+            # dragging something?
+            if self.drag_mode:
+                # inits
+                x, y = self.get_real_pos(event.x, event.y)
+                x0, y0 = self.drag_last_pos
+                dx, dy = (x - x0), (y - y0)
+                # update pos
+                self.drag_last_pos = (x, y)
+                # dragging text items
+                if self.drag_mode == self.DRAG_MODE_TEXT:
+                    # move items along their group tag
+                    self.move(self.drag_tag, dx, dy)
+                # dragging relations link
+                elif self.drag_mode == self.DRAG_MODE_LINK:
+                    # update link's line representation
+                    self.coords(
+                        self.drag_link_id, self.drag_start_xy + (x, y)
+                    )
+                # end if
+                # update canvas
+                self.update_canvas()
+                # scrolling
+                self.scan_dragto(event.x, event.y, gain=-1)
+            # auto-scrolling mode?
+            elif self.auto_scroll:
+                # scrolling
+                self.scan_dragto(event.x, event.y, gain=-5)
             # end if
         # end if
     # end def
@@ -272,10 +367,22 @@ class CharactersCanvas (RC.RADCanvas):
         """
             event handler for D'n'D dropping on mouse release;
         """
-        # inits
-        print("D'n'D: Dropped!", event.x, event.y)
-        # reset drag mode
-        self.drag_mode = 0
+        # param controls
+        if self.drag_mode and event:
+            # inits
+            x, y = self.get_real_pos(event.x, event.y)
+            # character relations link creation?
+            if self.drag_mode == self.DRAG_MODE_LINK:
+                # delete virtual link
+                self.delete(self.drag_link_id)
+                # create real link with items and registering
+                pass                                                        # FIXME
+            # end if
+        # end if
+        # reset D'n'D mode
+        self.dnd_reset()
+        # update canvas
+        self.update_canvas()
     # end def
 
 
@@ -283,17 +390,8 @@ class CharactersCanvas (RC.RADCanvas):
         """
             event handler for name frame D'n'D;
         """
-        # inits
-        self.drag_mode = 0
-        # got mouse event?
-        if event:
-            # init mouse position
-            x, y = (event.x, event.y)
-            # TODO: find tag @(x,y)                                         # FIXME
-            print("Starting character's name D'n'D", (x, y))
-            # set drag mode
-            self.drag_mode = self.DRAG_MODE_TEXT
-        # end if
+        # start D'n'D for text items
+        self.do_start_drag(event, self.DRAG_MODE_TEXT)
     # end def
 
 
@@ -301,17 +399,12 @@ class CharactersCanvas (RC.RADCanvas):
         """
             event handler for relation linkings;
         """
-        # inits
-        self.drag_mode = 0
-        # got mouse event?
-        if event:
-            # init mouse position
-            x, y = (event.x, event.y)
-            # TODO: find tag @(x,y)                                         # FIXME
-            print("Starting creation of relations link", (x, y))
-            # set drag mode
-            self.drag_mode = self.DRAG_MODE_LINK
-        # end if
+        # start D'n'D for relations link creation
+        self.do_start_drag(event, self.DRAG_MODE_LINK)
+        # create link
+        self.drag_link_id = self.create_line(self.drag_start_xy * 2)
+        # set it under text items
+        self.tag_lower(self.drag_link_id, self.drag_tag)
     # end def
 
 

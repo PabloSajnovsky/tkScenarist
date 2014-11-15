@@ -418,6 +418,11 @@ class CharactersCanvas (RC.RADCanvas):
             # delete label items by tag
             self.delete(_group["tag"])
         # end for
+        # browse links
+        for _tags in self.rel_links.values():
+            # remove linked tag
+            _tags.pop(tag, None)
+        # end for
         # remove tag itself
         self.rel_links.pop(tag, None)
     # end def

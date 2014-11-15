@@ -332,14 +332,14 @@ class CharactersCanvas (RC.RADCanvas):
     def get_new_tag (self, tag_radix=None):
         """
             returns a new canvas tag name indexed with
-            self.items_counter;
+            self.instance_counter;
         """
         # inits
         tag_radix = tag_radix or "group"
         # update counter
-        self.items_counter += 1
+        self.instance_counter += 1
         # return new tag name
-        return "{}#{}".format(tag_radix, self.items_counter)
+        return "{}#{}".format(tag_radix, self.instance_counter)
     # end def
 
 
@@ -369,7 +369,7 @@ class CharactersCanvas (RC.RADCanvas):
             class members only inits;
         """
         # members only inits
-        self.items_counter = 0
+        self.instance_counter = 0
         self.char_names = dict()
         self.rel_links = dict()
         # Drag'n'Drop feature
@@ -459,6 +459,8 @@ class CharactersCanvas (RC.RADCanvas):
                 if self.drag_mode == self.DRAG_MODE_TEXT:
                     # move items along their group tag
                     self.move(self.drag_tag, dx, dy)
+                    # update all tag's link positions
+                    self.update_links(self.drag_tag)
                 # dragging relations link
                 elif self.drag_mode == self.DRAG_MODE_LINK:
                     # update link's line representation
@@ -583,6 +585,15 @@ class CharactersCanvas (RC.RADCanvas):
         # update surrounding frame
         _box = self.bbox_add(self.bbox(_id1), self.ITEM_BOX)
         self.coords(_id2, _box)
+    # end def
+
+
+    def update_links (self, tag):
+        """
+            updates positions for all links of @tag;
+        """
+        # inits
+        _tags = self.rel_links.setdefault(tag1, dict())
     # end def
 
 

@@ -46,6 +46,7 @@ class CharactersCanvas (RC.RADCanvas):
     ITEM_COLOR1 = "royal blue"
     ITEM_COLOR2 = "grey90"
     ITEM_COLOR3 = "grey10"
+    ITEM_COLOR4 = "grey30"
     ITEM_FONT1 = "sans 10 bold"
     ITEM_FONT2 = "sans 8 italic"
 
@@ -142,9 +143,10 @@ class CharactersCanvas (RC.RADCanvas):
         """
         # inits
         _tag = self.get_new_tag(tag_radix)
+        x, y = xy
         # text item
         _id1 = self.create_text(
-            *xy,
+            x, y,
             text=kw.get("text") or "label",
             anchor=kw.get("anchor"),
             font=kw.get("font"),
@@ -226,13 +228,16 @@ class CharactersCanvas (RC.RADCanvas):
                     self.tag_lower(_line, _tag1)
                     self.tag_lower(_line, _tag2)
                     # set relation text
-                    _text = self.create_text(
+                    _dict = self.create_label(
+                        "link",
                         self.get_segment_center(_center1, _center2),
                         text=_("Relation"),
+                        color=self.ITEM_COLOR2,
+                        background=self.ITEM_COLOR4,
+                        width=0,
                     )
-                    pass                                                    # FIXME
                     # register new link
-                    self.register_link(_tag1, _tag2, _line, _text)
+                    #~ self.register_link(_tag1, _tag2, _line, _dict)
                 # already linked
                 else:
                     # warn user

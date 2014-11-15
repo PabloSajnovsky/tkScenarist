@@ -593,7 +593,21 @@ class CharactersCanvas (RC.RADCanvas):
             updates positions for all links of @tag;
         """
         # inits
-        _tags = self.rel_links.setdefault(tag1, dict())
+        _tags = self.rel_links.setdefault(tag, dict())
+        _start_xy = self.get_bbox_center(tag)
+        # browse items
+        for _group in _tags.values():
+            # inits
+            _end_xy = self.coords(_group["line"])[-2:]
+            # update line pos
+            self.coords(_group["line"], _start_xy + _end_xy)
+            # update label pos
+            self.coords(
+                _group["text"],
+                self.get_segment_center(_start_xy, _end_xy)
+            )
+            self.update_label(_group)
+        # end for
     # end def
 
 

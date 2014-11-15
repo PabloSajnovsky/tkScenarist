@@ -100,6 +100,7 @@ class CharactersCanvas (RC.RADCanvas):
             }
         )
         # tkinter event bindings
+        self.bind("<Configure>", self.update_canvas)
         self.bind("<Button-1>", self.slot_start_drag)
         self.bind("<Shift-Button-1>", self.slot_start_link)
         self.bind("<Motion>", self.slot_drag_pending)
@@ -184,7 +185,30 @@ class CharactersCanvas (RC.RADCanvas):
         # got data?
         if self.drag_mode:
             # inits
-            _tag = self.drag_tag
+            _tag1 = self.drag_tag
+            _ids = self.find_overlapping(x, y, x, y)
+            # got ids?
+            if _ids:
+                # inits
+                _tag2 = self.get_group_tag(_ids)
+                # not already linked?
+                if not self.tags_linked(_tag1, _tag2):
+                    # register new link
+                    self.register_link(_tag1, _tag2)
+                    # get center coords
+                    _center1 = self.get_bbox_center(_tag1)
+                    _center2 = self.get_bbox_center(_tag2)
+                    # draw line
+                    _line = self.create_line(
+                        _center1 + _center2,
+                        fill=self.ITEM_COLOR3,
+                        width=1,
+                    )
+                    # put line under items
+                    self.tag_lower(_line, _tag1)
+                    self.tag_lower(_line, _tag2)
+                # end if
+            # end if
         # end if
     # end def
 
@@ -219,6 +243,23 @@ class CharactersCanvas (RC.RADCanvas):
             else:
                 self.auto_scroll = True
             # end if
+        # end if
+    # end def
+
+
+    def get_bbox_center (self, tag):
+        """
+            returns (x, y) coordinates of central point for a bbox
+            identified by group tag;
+        """
+        # inits
+        _bbox = self.bbox(tag)
+        # got bbox?
+        if _bbox:
+            # get coords
+            x1, y1, x2, y2 = _bbox
+            # return center xy
+            return ((x1 + x2) // 2, (y1 + y2) // 2)
         # end if
     # end def
 
@@ -267,6 +308,7 @@ class CharactersCanvas (RC.RADCanvas):
         # members only inits
         self.items_counter = 0
         self.items = dict()
+        self.links = dict()
         # Drag'n'Drop feature
         self.dnd_reset()
     # end def
@@ -413,10 +455,13 @@ class CharactersCanvas (RC.RADCanvas):
         """
         # start D'n'D for relations link creation
         self.do_start_drag(event, self.DRAG_MODE_LINK)
-        # create link
-        self.drag_link_id = self.create_line(self.drag_start_xy * 2)
-        # set it under text items
-        self.tag_lower(self.drag_link_id, self.drag_tag)
+        # started dragging?
+        if self.drag_mode:
+            # create link
+            self.drag_link_id = self.create_line(self.drag_start_xy * 2)
+            # set it under text items
+            self.tag_lower(self.drag_link_id, self.drag_tag)
+        # end if
     # end def
 
 

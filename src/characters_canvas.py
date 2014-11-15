@@ -180,8 +180,12 @@ class CharactersCanvas (RC.RADCanvas):
         _group = self.char_names.get(name)
         # got item?
         if _group:
+            # inits
+            _tag = _group.get("tag")
             # delete items by group tag
-            self.delete(_group.get("tag"))
+            self.delete(_tag)
+            # delete links
+            self.remove_links(_tag)
             # remove from list
             self.char_names.pop(name, None)
             # update canvas contents
@@ -401,6 +405,24 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
+    def remove_links (self, tag):
+        """
+            removes all relation links referred to by @tag;
+        """
+        # inits
+        _tags = self.rel_links.setdefault(tag, dict())
+        # browse items
+        for _group in _tags.values():
+            # delete line from canvas
+            self.delete(_group["line"])
+            # delete label items by tag
+            self.delete(_group["tag"])
+        # end for
+        # remove tag itself
+        self.rel_links.pop(tag, None)
+    # end def
+
+
     def rename_name (self, old_name, new_name):
         """
             renames character name into canvas widget;
@@ -596,9 +618,9 @@ class CharactersCanvas (RC.RADCanvas):
         _tags = self.rel_links.setdefault(tag, dict())
         _start_xy = self.get_bbox_center(tag)
         # browse items
-        for _group in _tags.values():
+        for _tag, _group in _tags.items():
             # inits
-            _end_xy = self.coords(_group["line"])[-2:]
+            _end_xy = self.get_bbox_center(_tag)
             # update line pos
             self.coords(_group["line"], _start_xy + _end_xy)
             # update label pos

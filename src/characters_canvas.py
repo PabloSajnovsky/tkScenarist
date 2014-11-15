@@ -177,6 +177,18 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
+    def do_create_link (self, x, y):
+        """
+            effective procedure for creating chars relations link;
+        """
+        # got data?
+        if self.drag_mode:
+            # inits
+            _tag = self.drag_tag
+        # end if
+    # end def
+
+
     def do_start_drag (self, event, drag_mode):
         """
             effective procedure for starting Drag'n'Drop feature;
@@ -376,7 +388,7 @@ class CharactersCanvas (RC.RADCanvas):
                 # delete virtual link
                 self.delete(self.drag_link_id)
                 # create real link with items and registering
-                pass                                                        # FIXME
+                self.do_create_link(x, y)
             # end if
         # end if
         # reset D'n'D mode

@@ -50,6 +50,9 @@ class CharactersCanvas (RC.RADCanvas):
     ITEM_FONT1 = "sans 10 bold"
     ITEM_FONT2 = "sans 8 italic"
 
+    TAG_RADIX_NAME = "name"
+    TAG_RADIX_LINK = "link"
+
 
     def add_name (self, name):
         """
@@ -57,7 +60,7 @@ class CharactersCanvas (RC.RADCanvas):
         """
         # set name and create item on canvas
         self.items[name] = self.create_label(
-            "name",
+            self.TAG_RADIX_NAME,
             self.viewport_center_xy(),
             text=name,
             font=self.ITEM_FONT1,
@@ -103,7 +106,7 @@ class CharactersCanvas (RC.RADCanvas):
             returns x coordinates for canvas' center point;
         """
         # return center point x coordinates
-        return self.winfo_reqwidth() / 2
+        return self.winfo_reqwidth() // 2
     # end def
 
 
@@ -121,7 +124,7 @@ class CharactersCanvas (RC.RADCanvas):
             returns y coordinates for canvas' center point;
         """
         # return center point y coordinates
-        return self.winfo_reqheight() / 2
+        return self.winfo_reqheight() // 2
     # end def
 
 
@@ -208,11 +211,11 @@ class CharactersCanvas (RC.RADCanvas):
         if self.drag_mode:
             # inits
             _tag1 = self.drag_tag
-            _ids = self.find_overlapping(x, y, x, y)
-            # got ids?
-            if _ids:
-                # inits
-                _tag2 = self.get_group_tag(_ids)
+            _tag2 = self.get_group_tag(
+                self.find_overlapping(x, y, x, y)
+            )
+            # got name items?
+            if self.TAG_RADIX_NAME in _tag2:
                 # not already linked?
                 if not self.tags_linked(_tag1, _tag2):
                     # get center coords
@@ -229,15 +232,17 @@ class CharactersCanvas (RC.RADCanvas):
                     self.tag_lower(_line, _tag2)
                     # set relation text
                     _dict = self.create_label(
-                        "link",
+                        self.TAG_RADIX_LINK,
                         self.get_segment_center(_center1, _center2),
                         text=_("Relation"),
                         color=self.ITEM_COLOR2,
                         background=self.ITEM_COLOR4,
                         width=0,
                     )
+                    # update dict
+                    _dict.update(line=_line)
                     # register new link
-                    #~ self.register_link(_tag1, _tag2, _line, _dict)
+                    self.register_link(_tag1, _tag2, _dict)
                 # already linked
                 else:
                     # warn user
@@ -268,9 +273,11 @@ class CharactersCanvas (RC.RADCanvas):
             # inits
             x, y = self.get_real_pos(event.x, event.y)
             # looking for items
-            _ids = self.find_overlapping(x, y, x, y)
+            _tag = self.get_group_tag(
+                self.find_overlapping(x, y, x, y)
+            )
             # got items?
-            if _ids:
+            if "name" in _tag:
                 # store mouse starting point
                 self.drag_start_xy = (x, y)
                 # store mouse last position
@@ -381,16 +388,16 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
-    def register_link (self, tag1, tag2):
+    def register_link (self, tag1, tag2, group):
         """
             registers a link between two tags;
         """
         # put tag2 into tag1's list
-        _tags = self.links.setdefault(tag1, set())
-        _tags.add(tag2)
+        _tags = self.links.setdefault(tag1, dict())
+        _tags[tag2] = group
         # put tag1 into tag2's list
-        _tags = self.links.setdefault(tag2, set())
-        _tags.add(tag1)
+        _tags = self.links.setdefault(tag2, dict())
+        _tags[tag1] = group
     # end def
 
 
@@ -403,12 +410,7 @@ class CharactersCanvas (RC.RADCanvas):
         # got item?
         if _group:
             # rename text
-            _id1 = _group["text"]
-            _id2 = _group["frame"]
-            self.itemconfigure(_id1, text=new_name)
-            # update surrounding frame
-            _box = self.bbox_add(self.bbox(_id1), self.ITEM_BOX)
-            self.coords(_id2, _box)
+            self.update_label(_group, text=new_name)
             # set new name
             self.items[new_name] = _group
             # remove old name from list
@@ -540,7 +542,7 @@ class CharactersCanvas (RC.RADCanvas):
             returns True if linked, False otherwise;
         """
         # inits
-        _tags = self.links.setdefault(tag1, set())
+        _tags = self.links.setdefault(tag1, dict())
         # get boolean
         return bool(tag2 in _tags)
     # end def
@@ -566,6 +568,21 @@ class CharactersCanvas (RC.RADCanvas):
             # better clean up everything
             self.reset()
         # end if
+    # end def
+
+
+    def update_label (self, group, **kw):
+        """
+            updates label (text + frame) in @group;
+        """
+        # inits
+        _id1 = group["text"]
+        _id2 = group["frame"]
+        # update text
+        self.itemconfigure(_id1, **kw)
+        # update surrounding frame
+        _box = self.bbox_add(self.bbox(_id1), self.ITEM_BOX)
+        self.coords(_id2, _box)
     # end def
 
 

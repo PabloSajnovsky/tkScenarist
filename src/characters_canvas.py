@@ -23,6 +23,7 @@
 """
 
 # lib imports
+import tkinter.messagebox as MB
 import tkRAD.widgets.rad_canvas as RC
 
 
@@ -45,37 +46,25 @@ class CharactersCanvas (RC.RADCanvas):
     ITEM_COLOR1 = "royal blue"
     ITEM_COLOR2 = "grey90"
     ITEM_COLOR3 = "grey10"
-    ITEM_FONT = "sans 10 bold"
+    ITEM_FONT1 = "sans 10 bold"
+    ITEM_FONT2 = "sans 8 italic"
 
 
     def add_name (self, name):
         """
             adds a new character name into canvas widget;
         """
-        # inits
-        _tag = self.get_new_tag()
-        _x, _y = self.viewport_center_xy()
-        # create item on canvas
-        _id1 = self.create_text(
-            _x, _y,
+        # set name and create item on canvas
+        self.items[name] = self.create_label(
+            "name",
+            self.viewport_center_xy(),
             text=name,
-            font=self.ITEM_FONT,
-            fill=self.ITEM_COLOR1,
-            tags=_tag,
-        )
-        # surrounding frame
-        _box = self.bbox_add(self.bbox(_id1), self.ITEM_BOX)
-        _id2 = self.create_rectangle(
-            _box,
+            font=self.ITEM_FONT1,
+            color=self.ITEM_COLOR1,
+            background=self.ITEM_COLOR2,
             outline=self.ITEM_COLOR3,
-            fill=self.ITEM_COLOR2,
             width=1,
-            tags=_tag,
         )
-        # set below text
-        self.tag_lower(_id2, _id1)
-        # set name
-        self.items[name] = dict(tag=_tag, text=_id1, frame=_id2)
         # update canvas contents
         self.update_canvas()
     # end def
@@ -147,6 +136,37 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
+    def create_label (self, tag_radix, xy, **kw):
+        """
+            creates a text label with surrounding frame on canvas;
+        """
+        # inits
+        _tag = self.get_new_tag(tag_radix)
+        # text item
+        _id1 = self.create_text(
+            *xy,
+            text=kw.get("text") or "label",
+            anchor=kw.get("anchor"),
+            font=kw.get("font"),
+            fill=kw.get("color"),
+            tags=_tag,
+        )
+        # surrounding frame
+        _box = self.bbox_add(self.bbox(_id1), self.ITEM_BOX)
+        _id2 = self.create_rectangle(
+            _box,
+            outline=kw.get("outline"),
+            fill=kw.get("background"),
+            width=kw.get("width"),
+            tags=_tag,
+        )
+        # set frame below text
+        self.tag_lower(_id2, _id1)
+        # return dict of items
+        return dict(tag=_tag, text=_id1, frame=_id2)
+    # end def
+
+
     def delete_name (self, name):
         """
             deletes a character name from canvas widget;
@@ -193,8 +213,6 @@ class CharactersCanvas (RC.RADCanvas):
                 _tag2 = self.get_group_tag(_ids)
                 # not already linked?
                 if not self.tags_linked(_tag1, _tag2):
-                    # register new link
-                    self.register_link(_tag1, _tag2)
                     # get center coords
                     _center1 = self.get_bbox_center(_tag1)
                     _center2 = self.get_bbox_center(_tag2)
@@ -207,6 +225,25 @@ class CharactersCanvas (RC.RADCanvas):
                     # put line under items
                     self.tag_lower(_line, _tag1)
                     self.tag_lower(_line, _tag2)
+                    # set relation text
+                    _text = self.create_text(
+                        self.get_segment_center(_center1, _center2),
+                        text=_("Relation"),
+                    )
+                    pass                                                    # FIXME
+                    # register new link
+                    self.register_link(_tag1, _tag2, _line, _text)
+                # already linked
+                else:
+                    # warn user
+                    MB.showwarning(
+                        title=_("Attention"),
+                        message=_(
+                            "These two character names "
+                            "are *ALREADY LINKED* together."
+                        ),
+                        parent=self,
+                    )
                 # end if
             # end if
         # end if
@@ -280,15 +317,17 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
-    def get_new_tag (self):
+    def get_new_tag (self, tag_radix=None):
         """
             returns a new canvas tag name indexed with
             self.items_counter;
         """
+        # inits
+        tag_radix = tag_radix or "group"
         # update counter
         self.items_counter += 1
         # return new tag name
-        return "group#{}".format(self.items_counter)
+        return "{}#{}".format(tag_radix, self.items_counter)
     # end def
 
 
@@ -298,6 +337,18 @@ class CharactersCanvas (RC.RADCanvas):
             coordinates;
         """
         return (int(self.canvasx(x)), int(self.canvasy(y)))
+    # end def
+
+
+    def get_segment_center (self, start_xy, end_xy):
+        """
+            returns (x, y) coordinates of central point for a segment;
+        """
+        # inits
+        x0, y0 = start_xy
+        x1, y1 = end_xy
+        # calculate
+        return ((x0 + x1) // 2, (y0 + y1) // 2)
     # end def
 
 
@@ -322,6 +373,19 @@ class CharactersCanvas (RC.RADCanvas):
         self.init_members(**kw)
         # event bindings
         self.bind_events()
+    # end def
+
+
+    def register_link (self, tag1, tag2):
+        """
+            registers a link between two tags;
+        """
+        # put tag2 into tag1's list
+        _tags = self.links.setdefault(tag1, set())
+        _tags.add(tag2)
+        # put tag1 into tag2's list
+        _tags = self.links.setdefault(tag2, set())
+        _tags.add(tag1)
     # end def
 
 
@@ -462,6 +526,18 @@ class CharactersCanvas (RC.RADCanvas):
             # set it under text items
             self.tag_lower(self.drag_link_id, self.drag_tag)
         # end if
+    # end def
+
+
+    def tags_linked (self, tag1, tag2):
+        """
+            determines if tags are linked together;
+            returns True if linked, False otherwise;
+        """
+        # inits
+        _tags = self.links.setdefault(tag1, set())
+        # get boolean
+        return bool(tag2 in _tags)
     # end def
 
 

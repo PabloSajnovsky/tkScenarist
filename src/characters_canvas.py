@@ -276,14 +276,14 @@ class CharactersCanvas (RC.RADCanvas):
             _tag = self.get_group_tag(
                 self.find_overlapping(x, y, x, y)
             )
-            # got items?
-            if "name" in _tag:
+            # got name items?
+            if self.TAG_RADIX_NAME in _tag:
                 # store mouse starting point
                 self.drag_start_xy = (x, y)
                 # store mouse last position
                 self.drag_last_pos = (x, y)
                 # store group tag
-                self.drag_tag = self.get_group_tag(_ids)
+                self.drag_tag = _tag
                 # raise group above all others
                 self.tag_raise(self.drag_tag, "all")
                 # set drag mode

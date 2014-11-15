@@ -71,8 +71,8 @@ project file and to get each project fragment into a simple text file:
 the .zip archive internal structure has been thought this way to help
 you mastering your data at any moment, in any case;
 
-* First tab is project's data: title, subtitle, episode number, author,
-author e-mail and phone (plus some stats info);
+* First tab is project's data: title, subtitle, episode number/title,
+author, author e-mail and phone (plus some stats info);
 
 * Second tab is a `draft/extra notes` text zone you may need, in order
 to keep some good idea along with your pitch/scenario;

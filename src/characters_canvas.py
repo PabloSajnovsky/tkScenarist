@@ -43,7 +43,8 @@ class CharactersCanvas (RC.RADCanvas):
     DRAG_MODE_TEXT = 0x10
     DRAG_MODE_LINK = 0x20
 
-    ITEM_BOX = (-10, -10, +10, +10)
+    ITEM_BOX_NAME = (-10, -10, +10, +10)
+    ITEM_BOX_LINK = (-5, -5, +5, +5)
     ITEM_COLOR1 = "royal blue"
     ITEM_COLOR2 = "grey90"
     ITEM_COLOR3 = "grey10"
@@ -195,6 +196,7 @@ class CharactersCanvas (RC.RADCanvas):
         """
         # inits
         _tag = self.get_new_tag(tag_radix)
+        _ibox = kw.get("box") or self.ITEM_BOX_NAME
         x, y = xy
         # text item
         _id1 = self.create_text(
@@ -206,7 +208,7 @@ class CharactersCanvas (RC.RADCanvas):
             tags=_tag,
         )
         # surrounding frame
-        _box = self.bbox_add(self.bbox(_id1), self.ITEM_BOX)
+        _box = self.bbox_add(self.bbox(_id1), _ibox)
         _id2 = self.create_rectangle(
             _box,
             outline=kw.get("outline"),
@@ -217,7 +219,9 @@ class CharactersCanvas (RC.RADCanvas):
         # set frame below text
         self.tag_lower(_id2, _id1)
         # return dict of items
-        return self.group_add(_tag, tag=_tag, text=_id1, frame=_id2)
+        return self.group_add(
+            _tag, tag=_tag, text=_id1, frame=_id2, box=_ibox
+        )
     # end def
 
 
@@ -268,6 +272,7 @@ class CharactersCanvas (RC.RADCanvas):
                         text=_("Relation"),
                         color=self.ITEM_COLOR2,
                         background=self.ITEM_COLOR4,
+                        box=self.ITEM_BOX_LINK,
                         width=0,
                     )
                     # update dict
@@ -614,7 +619,9 @@ class CharactersCanvas (RC.RADCanvas):
             # got character name label?
             elif self.TAG_RADIX_NAME in _tag:
                 # rename character
-                self.events.raise_event("Characters:List:Rename")
+                self.events.raise_event(
+                    "Characters:List:Rename", xy=(x, y)
+                )
             # nothing out there?
             elif not _tag:
                 # add new character name
@@ -809,14 +816,11 @@ class CharactersCanvas (RC.RADCanvas):
         """
             updates label (text + frame) in @group;
         """
-        # inits
-        _id1 = group["text"]
-        _id2 = group["frame"]
         # update text
-        self.itemconfigure(_id1, **kw)
+        self.itemconfigure(group["text"], **kw)
         # update surrounding frame
-        _box = self.bbox_add(self.bbox(_id1), self.ITEM_BOX)
-        self.coords(_id2, _box)
+        _box = self.bbox_add(self.bbox(group["text"]), group["box"])
+        self.coords(group["frame"], _box)
     # end def
 
 

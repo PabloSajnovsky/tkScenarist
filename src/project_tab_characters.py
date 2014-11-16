@@ -463,9 +463,8 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         """
         # inits
         _name = SD.askstring(
-            _("Please, insert"),
-            _("Character name"),
-            parent=self.winfo_toplevel(),
+            _("Please, insert"), _("Character name"),
+            parent=self.CANVAS if kw.get("xy") else self,
         )
         # got something?
         if _name:
@@ -548,7 +547,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
                     _("Please, insert"),
                     _("Renaming"),
                     initialvalue=_old_name,
-                    parent=self,
+                    parent=self.CANVAS if kw.get("xy") else self,
                 )
                 # got something?
                 if _new_name:

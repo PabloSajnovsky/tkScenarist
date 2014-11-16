@@ -282,7 +282,7 @@ class CharactersCanvas (RC.RADCanvas):
             # get new text
             _new_text = SD.askstring(
                 _("Characters relation"),
-                _("'{from_name}' --> '{to_name}'")
+                _("Relation '{from_name}' <---> '{to_name}'")
                 .format(from_name=_name0, to_name=_name1),
                 initialvalue=self.itemcget(_text_id, "text"),
                 parent=self,

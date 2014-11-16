@@ -104,7 +104,7 @@ still in development state.
 
 ## Screenshots
 
-[[https://github.com/tarball69/tkScenarist/blob/master/images/screenshots/screenshot-001.png]]
+[[https://github.com/tarball69/tkScenarist/master/images/screenshots/screenshot-001.png]]
 
 
 ## Development status

@@ -79,6 +79,7 @@ class CharactersCanvas (RC.RADCanvas):
         self.bind("<Shift-Button-1>", self.slot_start_link)
         self.bind("<Motion>", self.slot_drag_pending)
         self.bind("<ButtonRelease-1>", self.slot_drop)
+        self.bind("<Control-ButtonRelease-1>", self.slot_remove_item)
         self.bind("<Double-Button-1>", self.slot_double_clicked)
     # end def
 
@@ -107,6 +108,72 @@ class CharactersCanvas (RC.RADCanvas):
         """
         # return center point y coordinates
         return self.winfo_reqheight() // 2
+    # end def
+
+
+    def character_name_add (self, name, **kw):
+        """
+            adds a new character name into canvas widget;
+        """
+        # param inits
+        xy = kw.get("xy") or self.viewport_center_xy()
+        # set name and create item on canvas
+        self.char_names[name] = self.create_label(
+            self.TAG_RADIX_NAME,
+            xy,
+            text=name,
+            font=self.ITEM_FONT1,
+            color=self.ITEM_COLOR1,
+            background=self.ITEM_COLOR2,
+            outline=self.ITEM_COLOR3,
+            width=1,
+        )
+        # update canvas contents
+        self.update_canvas()
+    # end def
+
+
+    def character_name_remove (self, name):
+        """
+            deletes a character name from canvas widget;
+        """
+        # inits
+        _group = self.char_names.get(name)
+        # got item?
+        if _group:
+            # inits
+            _tag = _group.get("tag")
+            # delete items by group tag
+            self.delete(_tag)
+            # delete links
+            self.remove_links(_tag)
+            # remove group
+            self.canvas_groups.pop(_tag, None)
+            # remove from list
+            self.char_names.pop(name, None)
+            # update canvas contents
+            self.update_canvas()
+        # end if
+    # end def
+
+
+    def character_name_rename (self, old_name, new_name):
+        """
+            renames character name into canvas widget;
+        """
+        # inits
+        _group = self.char_names.get(old_name)
+        # got item?
+        if _group:
+            # rename text
+            self.update_label(_group, text=new_name)
+            # set new name
+            self.char_names[new_name] = _group
+            # remove old name from list
+            self.char_names.pop(old_name, None)
+            # update canvas contents
+            self.update_canvas()
+        # end if
     # end def
 
 
@@ -151,50 +218,6 @@ class CharactersCanvas (RC.RADCanvas):
         self.tag_lower(_id2, _id1)
         # return dict of items
         return self.group_add(_tag, tag=_tag, text=_id1, frame=_id2)
-    # end def
-
-
-    def character_name_add (self, name):
-        """
-            adds a new character name into canvas widget;
-        """
-        # set name and create item on canvas
-        self.char_names[name] = self.create_label(
-            self.TAG_RADIX_NAME,
-            self.viewport_center_xy(),
-            text=name,
-            font=self.ITEM_FONT1,
-            color=self.ITEM_COLOR1,
-            background=self.ITEM_COLOR2,
-            outline=self.ITEM_COLOR3,
-            width=1,
-        )
-        # update canvas contents
-        self.update_canvas()
-    # end def
-
-
-    def character_name_remove (self, name):
-        """
-            deletes a character name from canvas widget;
-        """
-        # inits
-        _group = self.char_names.get(name)
-        # got item?
-        if _group:
-            # inits
-            _tag = _group.get("tag")
-            # delete items by group tag
-            self.delete(_tag)
-            # delete links
-            self.remove_links(_tag)
-            # remove group
-            self.canvas_groups.pop(_tag, None)
-            # remove from list
-            self.char_names.pop(name, None)
-            # update canvas contents
-            self.update_canvas()
-        # end if
     # end def
 
 
@@ -293,6 +316,33 @@ class CharactersCanvas (RC.RADCanvas):
                 self.update_label(_group, text=_new_text)
                 # update canvas
                 self.update_canvas()
+            # end if
+        # end if
+    # end def
+
+
+    def do_remove_link (self, tag):
+        """
+            effective procedure for removing a relation link label;
+        """
+        # param controls
+        if self.TAG_RADIX_LINK in tag:
+            # inits
+            _group = self.canvas_groups[tag]
+            _name1 = self.get_name_from_tag(_group["tag1"])
+            # ask for user confirmation
+            _confirm = MB.askyesno(
+                title=_("Attention"),
+                message=_(
+                    "Relation:\n'{from_name}' <---> '{to_name}'.\n"
+                    "Do you really want to remove this relation link?"
+                ).format(from_name=_name0, to_name=_name1),
+                parent=self,
+            )
+            # user confirmed
+            if _confirm:
+                # remove link
+                self.remove_group_link(_group)
             # end if
         # end if
     # end def
@@ -482,6 +532,22 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
+    def remove_group_link (self, group):
+        """
+            removes only one relation link by its group structure;
+        """
+        # param controls
+        if group:
+            # delete line from canvas
+            self.delete(group["line"])
+            # delete label items by tag
+            self.delete(group["tag"])
+            # remove group from list
+            self.canvas_groups.pop(group["tag"], None)
+        # end if
+    # end def
+
+
     def remove_links (self, tag):
         """
             removes all relation links referred to by @tag;
@@ -490,12 +556,8 @@ class CharactersCanvas (RC.RADCanvas):
         _tags = self.rel_links.setdefault(tag, dict())
         # browse tag groups
         for _group in _tags.values():
-            # delete line from canvas
-            self.delete(_group["line"])
-            # delete label items by tag
-            self.delete(_group["tag"])
-            # remove group from list
-            self.canvas_groups.pop(_group["tag"], None)
+            # remove link by its group
+            self.remove_group_link(_group)
         # end for
         # browse all tags linked to tag
         for _tags in self.rel_links.values():
@@ -504,26 +566,6 @@ class CharactersCanvas (RC.RADCanvas):
         # end for
         # remove tag itself
         self.rel_links.pop(tag, None)
-    # end def
-
-
-    def rename_name (self, old_name, new_name):
-        """
-            renames character name into canvas widget;
-        """
-        # inits
-        _group = self.char_names.get(old_name)
-        # got item?
-        if _group:
-            # rename text
-            self.update_label(_group, text=new_name)
-            # set new name
-            self.char_names[new_name] = _group
-            # remove old name from list
-            self.char_names.pop(old_name, None)
-            # update canvas contents
-            self.update_canvas()
-        # end if
     # end def
 
 
@@ -570,7 +612,9 @@ class CharactersCanvas (RC.RADCanvas):
             # nothing out there?
             elif not _tag:
                 # add new character name
-                self.events.raise_event("Characters:List:Add")
+                self.events.raise_event(
+                    "Characters:List:Add", xy=(x, y)
+                )
             # end if
         # end if
     # end def
@@ -616,15 +660,6 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
-    def slot_project_modified (self, *args, flag=True, **kw):
-        """
-            event handler for project's modification flag;
-        """
-        # inits
-        pass
-    # end def
-
-
     def slot_drop (self, event=None, *args, **kw):
         """
             event handler for D'n'D dropping on mouse release;
@@ -656,6 +691,50 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
+    def slot_project_modified (self, *args, flag=True, **kw):
+        """
+            event handler for project's modification flag;
+        """
+        # inits
+        pass
+    # end def
+
+
+    def slot_remove_item (self, event=None, *args, **kw):
+        """
+            event handler for Ctrl+Click;
+        """
+        # param controls
+        if event:
+            # inits
+            x, y = self.get_real_pos(event.x, event.y)
+            # looking for items
+            _tag = self.get_group_tag(
+                self.find_overlapping(x, y, x, y)
+            )
+            # got relation link items?
+            if self.TAG_RADIX_LINK in _tag:
+                # edit relation label
+                self.do_remove_link(_tag)
+            # got character name label?
+            elif self.TAG_RADIX_NAME in _tag:
+                # get name
+                _name = self.get_name_from_tag(_tag)
+                # notify selected name
+                self.events.raise_event(
+                    "Characters:Name:Selected", name=_name
+                )
+                # remove character
+                self.events.raise_event("Characters:List:Delete")
+            # end if
+        # end if
+        # reset D'n'D mode
+        self.dnd_reset()
+        # update canvas
+        self.update_canvas()
+    # end def
+
+
     def slot_start_drag (self, event=None, *args, **kw):
         """
             event handler for name frame D'n'D;
@@ -673,6 +752,8 @@ class CharactersCanvas (RC.RADCanvas):
         self.do_start_drag(event, self.DRAG_MODE_LINK)
         # started dragging?
         if self.drag_mode:
+            # recalculate anchorage position
+            self.drag_start_xy = self.get_bbox_center(self.drag_tag)
             # create link
             self.drag_link_id = self.create_line(self.drag_start_xy * 2)
             # set it under text items

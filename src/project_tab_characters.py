@@ -81,12 +81,12 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
     # end def
 
 
-    def canvas_add_name (self, name):
+    def canvas_add_name (self, name, **kw):
         """
             adds a new name into canvas widget;
         """
         # delegate to widget
-        self.CANVAS.character_name_add(name)
+        self.CANVAS.character_name_add(name, **kw)
         # project has been modified
         self.events.raise_event("Project:Modified")
     # end def
@@ -108,7 +108,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             renames an item into canvas widget;
         """
         # delegate to widget
-        self.CANVAS.rename_name(old_name, new_name)
+        self.CANVAS.character_name_rename(old_name, new_name)
         # project has been modified
         self.events.raise_event("Project:Modified")
     # end def
@@ -136,9 +136,9 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             # new character name
             else:
                 # set into listbox
-                self.listbox_add_name(name)
+                self.listbox_add_name(name, **kw)
                 # set into canvas
-                self.canvas_add_name(name)
+                self.canvas_add_name(name, **kw)
             # end if
         # end if
     # end def
@@ -376,7 +376,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
     # end def
 
 
-    def listbox_add_name (self, name):
+    def listbox_add_name (self, name, **kw):
         """
             adds a new name into listbox widget;
         """
@@ -468,7 +468,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         # got something?
         if _name:
             # add a new character name
-            self.do_add_character_name(_name, show_error=True)
+            self.do_add_character_name(_name, show_error=True, **kw)
         # end if
     # end def
 

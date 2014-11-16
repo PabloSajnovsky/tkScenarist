@@ -333,6 +333,23 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
+    def get_name_from_tag (self, tag):
+        """
+            returns character name along with @tag value;
+        """
+        # browse items
+        for _name, _group in self.char_names.items():
+            # got tag?
+            if _group and _group["tag"] == tag:
+                # return name
+                return _name
+            # end if
+        # end for
+        # failed
+        return ""
+    # end def
+
+
     def get_new_tag (self, tag_radix=None):
         """
             returns a new canvas tag name indexed with
@@ -525,6 +542,14 @@ class CharactersCanvas (RC.RADCanvas):
         if self.drag_mode and event:
             # inits
             x, y = self.get_real_pos(event.x, event.y)
+            # character name label drop down
+            if self.drag_mode == self.DRAG_MODE_TEXT:
+                # get name
+                _name = self.get_name_from_tag(self.drag_tag)
+                # notify selected name
+                self.events.raise_event(
+                    "Characters:Name:Selected", name=_name
+                )
             # character relations link creation?
             if self.drag_mode == self.DRAG_MODE_LINK:
                 # delete virtual link

@@ -427,7 +427,6 @@ class CharactersCanvas (RC.RADCanvas):
         _groups = dict()
         # browse groups
         for _tag, _group in self.canvas_groups.items():
-            print("tag:", _tag)
             # relation link type?
             if self.TAG_RADIX_LINK in _tag:
                 # work on copy
@@ -438,6 +437,8 @@ class CharactersCanvas (RC.RADCanvas):
                 _group.pop("line", None)
                 # replace text IDs by text contents
                 _group["text"] = self.itemcget(_group["text"], "text")
+                # update dict
+                _groups[_tag] = _group
             # end if
         # end for
         return json.dumps(_groups)

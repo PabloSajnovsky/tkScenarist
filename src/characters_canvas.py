@@ -40,27 +40,27 @@ class CharactersCanvas (RC.RADCanvas):
         "highlightthickness": 1,
     } # end of CONFIG
 
-    CONFIG_LINK = dict(
-        font="sans 8 italic",
-        anchor="center",
-        color="grey90",
-        background="grey30",
-        outline="grey10",
-        box=(-5, -5, +5, +5),
-        label_width=150,
-        width=0,
-    )
+    CONFIG_LINK = {
+        "font": "sans 8 italic",
+        "anchor": "center",
+        "color": "grey90",
+        "background": "grey30",
+        "outline": "grey10",
+        "box": (-5, -5, +5, +5),
+        "label_width": 150,
+        "width": 0,
+    }
 
-    CONFIG_NAME = dict(
-        font="sans 10 bold",
-        anchor="center",
-        color="royal blue",
-        background="grey90",
-        outline="grey10",
-        box=(-10, -10, +10, +10),
-        label_width=200,
-        width=1,
-    )
+    CONFIG_NAME = {
+        "font": "sans 10 bold",
+        "anchor": "center",
+        "color": "royal blue",
+        "background": "grey90",
+        "outline": "grey10",
+        "box": (-10, -10, +10, +10),
+        "label_width": 200,
+        "width": 1,
+    }
 
     DRAG_MODE_LINK = 0x10
     DRAG_MODE_TEXT = 0x20
@@ -134,7 +134,7 @@ class CharactersCanvas (RC.RADCanvas):
         # param inits
         xy = kw.get("xy") or self.viewport_center_xy()
         # set name and create item on canvas
-        self.char_names[name] = self.create_label(
+        self.character_names[name] = self.create_label(
             self.TAG_RADIX_NAME, xy, text=name, **self.CONFIG_NAME
         )
         # update canvas contents
@@ -147,7 +147,7 @@ class CharactersCanvas (RC.RADCanvas):
             deletes a character name from canvas widget;
         """
         # inits
-        _group = self.char_names.get(name)
+        _group = self.character_names.get(name)
         # got item?
         if _group:
             # inits
@@ -159,7 +159,7 @@ class CharactersCanvas (RC.RADCanvas):
             # remove group
             self.canvas_groups.pop(_tag, None)
             # remove from list
-            self.char_names.pop(name, None)
+            self.character_names.pop(name, None)
             # update canvas contents
             self.update_canvas()
         # end if
@@ -171,15 +171,15 @@ class CharactersCanvas (RC.RADCanvas):
             renames character name into canvas widget;
         """
         # inits
-        _group = self.char_names.get(old_name)
+        _group = self.character_names.get(old_name)
         # got item?
         if _group:
             # rename text
             self.update_label(_group, text=new_name)
             # set new name
-            self.char_names[new_name] = _group
+            self.character_names[new_name] = _group
             # remove old name from list
-            self.char_names.pop(old_name, None)
+            self.character_names.pop(old_name, None)
             # update canvas contents
             self.update_canvas()
         # end if
@@ -354,9 +354,9 @@ class CharactersCanvas (RC.RADCanvas):
             # user confirmed
             if _confirm:
                 # remove link from lists
-                _tags = self.rel_links.get(_group["tag0"]) or dict()
+                _tags = self.relation_links.get(_group["tag0"]) or dict()
                 _tags.pop(_group["tag1"], None)
-                _tags = self.rel_links.get(_group["tag1"]) or dict()
+                _tags = self.relation_links.get(_group["tag1"]) or dict()
                 _tags.pop(_group["tag0"], None)
                 # remove link from canvas
                 self.remove_group_link(_group)
@@ -439,7 +439,7 @@ class CharactersCanvas (RC.RADCanvas):
             returns character name along with @tag value;
         """
         # browse items
-        for _name, _group in self.char_names.items():
+        for _name, _group in self.character_names.items():
             # got tag?
             if _group and _group["tag"] == tag:
                 # return name
@@ -517,8 +517,8 @@ class CharactersCanvas (RC.RADCanvas):
         """
         # members only inits
         self.instance_counter = 0
-        self.char_names = dict()
-        self.rel_links = dict()
+        self.character_names = dict()
+        self.relation_links = dict()
         self.canvas_groups = dict()
         # Drag'n'Drop feature
         self.dnd_reset()
@@ -541,10 +541,10 @@ class CharactersCanvas (RC.RADCanvas):
             registers a link between two tags;
         """
         # put tag2 into tag1's list
-        _tags = self.rel_links.setdefault(tag1, dict())
+        _tags = self.relation_links.setdefault(tag1, dict())
         _tags[tag2] = group
         # put tag1 into tag2's list
-        _tags = self.rel_links.setdefault(tag2, dict())
+        _tags = self.relation_links.setdefault(tag2, dict())
         _tags[tag1] = group
     # end def
 
@@ -570,19 +570,19 @@ class CharactersCanvas (RC.RADCanvas):
             removes all relation links referred to by @tag;
         """
         # inits
-        _tags = self.rel_links.setdefault(tag, dict())
+        _tags = self.relation_links.setdefault(tag, dict())
         # browse tag groups
         for _group in _tags.values():
             # remove link by its group
             self.remove_group_link(_group)
         # end for
         # browse all tags linked to tag
-        for _tags in self.rel_links.values():
+        for _tags in self.relation_links.values():
             # remove linked tag
             _tags.pop(tag, None)
         # end for
         # remove tag itself
-        self.rel_links.pop(tag, None)
+        self.relation_links.pop(tag, None)
     # end def
 
 
@@ -787,7 +787,7 @@ class CharactersCanvas (RC.RADCanvas):
             returns True if linked, False otherwise;
         """
         # inits
-        _tags = self.rel_links.setdefault(tag1, dict())
+        _tags = self.relation_links.setdefault(tag1, dict())
         # get boolean
         return bool(tag2 in _tags)
     # end def
@@ -835,7 +835,7 @@ class CharactersCanvas (RC.RADCanvas):
             updates positions for all links of @tag;
         """
         # inits
-        _tags = self.rel_links.setdefault(tag, dict())
+        _tags = self.relation_links.setdefault(tag, dict())
         _start_xy = self.get_bbox_center(tag)
         # browse items
         for _tag, _group in _tags.items():

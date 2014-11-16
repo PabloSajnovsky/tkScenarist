@@ -24,6 +24,7 @@
 
 # lib imports
 import re
+import json
 import tkinter.messagebox as MB
 import tkinter.simpledialog as SD
 import tkRAD
@@ -312,15 +313,15 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         _dict = dict()
         # list of character names
         _fname = fname["names"]
-        _fcontents = "\n".join(self.LISTBOX.get(0, "end"))
+        _fcontents = "\n".join(sorted(self.character_logs))
         _dict[_fname] = _fcontents
         # character logs
         _fname = fname["logs"]
-        _fcontents = ""                                                     # FIXME
+        _fcontents = json.dumps(self.character_logs)
         _dict[_fname] = _fcontents
         # character relations
         _fname = fname["relations"]
-        _fcontents = ""                                                     # FIXME
+        _fcontents = json.dumps(self.CANVAS.get_file_contents())
         _dict[_fname] = _fcontents
         # always return a dict
         return _dict

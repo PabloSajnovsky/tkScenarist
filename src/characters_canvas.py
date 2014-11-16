@@ -23,6 +23,7 @@
 """
 
 # lib imports
+import json
 import tkinter.messagebox as MB
 import tkinter.simpledialog as SD
 import tkRAD.widgets.rad_canvas as RC
@@ -415,6 +416,27 @@ class CharactersCanvas (RC.RADCanvas):
             # return center xy
             return ((x1 + x2) // 2, (y1 + y2) // 2)
         # end if
+    # end def
+
+
+    def get_file_contents (self):
+        """
+            returns file contents for characters relation links;
+        """
+        # inits
+        _names = dict()
+        _links = dict()
+        _groups = dict()
+        # browse names
+        for _name, _group in self.character_names.items():
+
+        # inits
+        _dict = {
+            "names": _names,
+            "links": _links,
+            "groups": _groups,
+        }
+        return json.dumps(_dict)
     # end def
 
 

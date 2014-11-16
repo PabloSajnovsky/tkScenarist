@@ -104,7 +104,7 @@ still in development state.
 
 ## Screenshots
 
-! [screenshot-001] ()
+[[images/screenshots/screenshot-001.png]]
 
 
 ## Development status

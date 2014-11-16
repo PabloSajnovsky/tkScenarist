@@ -235,6 +235,43 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
+    def create_relation (self, tag0, tag1, text=None):
+        """
+            creates a graphical characters relation on canvas;
+        """
+        # not already linked?
+        if not self.tags_linked(tag0, tag1):
+            # get center coords
+            _center1 = self.get_bbox_center(tag0)
+            _center2 = self.get_bbox_center(tag1)
+            # draw line
+            _line = self.create_line(
+                _center1 + _center2,
+                fill=self.CONFIG_LINK.get("outline"),
+                width=1,
+            )
+            # put line under items
+            self.tag_lower(_line, tag0)
+            self.tag_lower(_line, tag1)
+            # set relation text
+            _group = self.create_label(
+                self.TAG_RADIX_LINK,
+                self.get_segment_center(_center1, _center2),
+                text=text or _("Relation"),
+                **self.CONFIG_LINK
+            )
+            # update dict
+            _group.update(line=_line, tag0=tag0, tag1=tag1)
+            # register new link
+            self.register_link(tag0, tag1, _group)
+            # succeeded
+            return True
+        # end if
+        # failed - already linked
+        return False
+    # end def
+
+
     def dnd_reset (self, *args, **kw):
         """
             event handler for resetting D'n'D feature;
@@ -261,33 +298,8 @@ class CharactersCanvas (RC.RADCanvas):
             )
             # got name items?
             if self.TAG_RADIX_NAME in _tag2:
-                # not already linked?
-                if not self.tags_linked(_tag1, _tag2):
-                    # get center coords
-                    _center1 = self.get_bbox_center(_tag1)
-                    _center2 = self.get_bbox_center(_tag2)
-                    # draw line
-                    _line = self.create_line(
-                        _center1 + _center2,
-                        fill=self.CONFIG_LINK.get("outline"),
-                        width=1,
-                    )
-                    # put line under items
-                    self.tag_lower(_line, _tag1)
-                    self.tag_lower(_line, _tag2)
-                    # set relation text
-                    _dict = self.create_label(
-                        self.TAG_RADIX_LINK,
-                        self.get_segment_center(_center1, _center2),
-                        text=_("Relation"),
-                        **self.CONFIG_LINK
-                    )
-                    # update dict
-                    _dict.update(line=_line, tag0=_tag1, tag1=_tag2)
-                    # register new link
-                    self.register_link(_tag1, _tag2, _dict)
-                # already linked
-                else:
+                # already linked?
+                if not self.create_relation(_tag1, _tag2):
                     # warn user
                     MB.showwarning(
                         title=_("Attention"),
@@ -579,6 +591,18 @@ class CharactersCanvas (RC.RADCanvas):
         # put tag1 into tag2's list
         _tags = self.relation_links.setdefault(tag2, dict())
         _tags[tag1] = group
+    # end def
+
+
+    def relation_add (self, name0, name1, text):
+        """
+            adds a new relation between names with text;
+        """
+        # names must exist
+        _tag0 = self.character_names[name0]["tag"]
+        _tag1 = self.character_names[name1]["tag"]
+        # create relation
+        self.create_relation(_tag0, _tag1, text)
     # end def
 
 

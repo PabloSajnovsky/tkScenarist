@@ -93,6 +93,17 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
     # end def
 
 
+    def canvas_add_relation (self, **kw):
+        """
+            adds a new characters relation into canvas widget;
+        """
+        # delegate to widget
+        self.CANVAS.relation_add(**kw)
+        # project has been modified
+        self.events.raise_event("Project:Modified")
+    # end def
+
+
     def canvas_delete_name (self, name):
         """
             deletes a name from canvas widget;
@@ -459,12 +470,22 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         """
         # inits
         _get_fc = lambda f: json.loads(archive.read(f).decode("UTF-8"))
-        _logs = _get_fc(fname["logs"])
-        _names = sorted(_logs)
+        self.character_logs = _get_fc(fname["logs"])
         _relations = _get_fc(fname["relations"])
-        print("names:", _names)
-        print("logs:", _logs)
-        print("relations:", _relations)
+        # update listbox
+        self.update_listbox()
+        # add names
+        for _name in self.character_logs:
+            # add character name to canvas
+            self.canvas_add_name(_name)
+        # end for
+        # add relations
+        for _group in _relations:
+            # add relation
+            self.canvas_add_relation(**_group)
+        # end for
+        # project has been just opened
+        self.events.raise_event("Project:Modified", flag=False)
     # end def
 
 

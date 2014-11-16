@@ -33,6 +33,7 @@
             font="monospace 12"
             autoseparators="true"
             undo="true"
+            wrap="word"
             layout="grid"
             layout_options="row=0, column=0"
             resizable="yes"

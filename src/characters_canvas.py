@@ -424,21 +424,20 @@ class CharactersCanvas (RC.RADCanvas):
             returns file contents for characters relation links;
         """
         # inits
-        _groups = dict()
+        _groups = list()
         # browse groups
         for _tag, _group in self.canvas_groups.items():
             # relation link type?
             if self.TAG_RADIX_LINK in _tag:
-                # work on copy
-                _group = _group.copy()
-                # remove frame ID
-                _group.pop("frame", None)
-                # remove line ID
-                _group.pop("line", None)
+                # inits
+                _rels = dict()
+                # replace tags by names
+                _rels["name0"] = self.get_name_from_tag(_group["tag0"])
+                _rels["name1"] = self.get_name_from_tag(_group["tag1"])
                 # replace text IDs by text contents
-                _group["text"] = self.itemcget(_group["text"], "text")
-                # update dict
-                _groups[_tag] = _group
+                _rels["text"] = self.itemcget(_group["text"], "text")
+                # update list
+                _groups.append(_rels)
             # end if
         # end for
         return json.dumps(_groups)

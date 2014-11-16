@@ -26,7 +26,7 @@
         layout="pack"
         resizable="yes"
     >
-
+        <!-- navigation frame -->
         <ttklabelframe
             text="Navigation"
             padding="2px"
@@ -40,11 +40,14 @@
             />
         </ttklabelframe>
 
+        <!-- scenario frame -->
+
         <ttklabelframe
             text="Scenario"
             padding="2px"
             weight="5"
         >
+            <!-- toolbar info -->
             <ttkframe
                 layout="pack"
                 resizable="width"
@@ -83,6 +86,7 @@
                     resizable="yes"
                 />
             </ttkframe>
+            <!-- scenario text frame -->
             <ttkframe
                 layout="pack"
                 resizable="yes"
@@ -93,6 +97,7 @@
                     font="monospace 12"
                     autoseparators="true"
                     undo="true"
+                    wrap="word"
                     layout="grid"
                     layout_options="row=0, column=0"
                     resizable="yes"
@@ -118,6 +123,8 @@
                 />
             </ttkframe>
         </ttklabelframe>
+
+        <!-- information frame -->
 
         <ttklabelframe
             text="Information"

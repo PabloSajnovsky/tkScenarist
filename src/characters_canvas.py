@@ -40,17 +40,32 @@ class CharactersCanvas (RC.RADCanvas):
         "highlightthickness": 1,
     } # end of CONFIG
 
-    DRAG_MODE_TEXT = 0x10
-    DRAG_MODE_LINK = 0x20
+    CONFIG_LINK = dict(
+        font="sans 8 italic",
+        anchor="center",
+        color="grey90",
+        background="grey30",
+        outline="grey10",
+        box=(-5, -5, +5, +5),
+        label_width=150,
+        width=0,
+    )
 
-    ITEM_BOX_NAME = (-10, -10, +10, +10)
-    ITEM_BOX_LINK = (-5, -5, +5, +5)
-    ITEM_COLOR1 = "royal blue"
-    ITEM_COLOR2 = "grey90"
-    ITEM_COLOR3 = "grey10"
-    ITEM_COLOR4 = "grey30"
-    ITEM_FONT1 = "sans 10 bold"
-    ITEM_FONT2 = "sans 8 italic"
+    CONFIG_NAME = dict(
+        font="sans 10 bold",
+        anchor="center",
+        color="royal blue",
+        background="grey90",
+        outline="grey10",
+        box=(-10, -10, +10, +10),
+        label_width=200,
+        width=1,
+    )
+
+    DRAG_MODE_LINK = 0x10
+    DRAG_MODE_TEXT = 0x20
+
+    ITEM_BOX = (-10, -10, +10, +10)
 
     TAG_RADIX_NAME = "name"
     TAG_RADIX_LINK = "link"
@@ -120,14 +135,7 @@ class CharactersCanvas (RC.RADCanvas):
         xy = kw.get("xy") or self.viewport_center_xy()
         # set name and create item on canvas
         self.char_names[name] = self.create_label(
-            self.TAG_RADIX_NAME,
-            xy,
-            text=name,
-            font=self.ITEM_FONT1,
-            color=self.ITEM_COLOR1,
-            background=self.ITEM_COLOR2,
-            outline=self.ITEM_COLOR3,
-            width=1,
+            self.TAG_RADIX_NAME, xy, text=name, **self.CONFIG_NAME
         )
         # update canvas contents
         self.update_canvas()
@@ -196,7 +204,7 @@ class CharactersCanvas (RC.RADCanvas):
         """
         # inits
         _tag = self.get_new_tag(tag_radix)
-        _ibox = kw.get("box") or self.ITEM_BOX_NAME
+        _ibox = kw.get("box") or self.ITEM_BOX
         x, y = xy
         # text item
         _id1 = self.create_text(
@@ -205,6 +213,7 @@ class CharactersCanvas (RC.RADCanvas):
             anchor=kw.get("anchor"),
             font=kw.get("font"),
             fill=kw.get("color"),
+            width=kw.get("label_width"),
             tags=_tag,
         )
         # surrounding frame
@@ -259,7 +268,7 @@ class CharactersCanvas (RC.RADCanvas):
                     # draw line
                     _line = self.create_line(
                         _center1 + _center2,
-                        fill=self.ITEM_COLOR3,
+                        fill=self.CONFIG_LINK.get("outline"),
                         width=1,
                     )
                     # put line under items
@@ -270,10 +279,7 @@ class CharactersCanvas (RC.RADCanvas):
                         self.TAG_RADIX_LINK,
                         self.get_segment_center(_center1, _center2),
                         text=_("Relation"),
-                        color=self.ITEM_COLOR2,
-                        background=self.ITEM_COLOR4,
-                        box=self.ITEM_BOX_LINK,
-                        width=0,
+                        **self.CONFIG_LINK
                     )
                     # update dict
                     _dict.update(line=_line, tag0=_tag1, tag1=_tag2)
@@ -348,9 +354,9 @@ class CharactersCanvas (RC.RADCanvas):
             # user confirmed
             if _confirm:
                 # remove link from lists
-                _tags = self.rel_links.setdefault(_group["tag0"], dict())
+                _tags = self.rel_links.get(_group["tag0"]) or dict()
                 _tags.pop(_group["tag1"], None)
-                _tags = self.rel_links.setdefault(_group["tag1"], dict())
+                _tags = self.rel_links.get(_group["tag1"]) or dict()
                 _tags.pop(_group["tag0"], None)
                 # remove link from canvas
                 self.remove_group_link(_group)

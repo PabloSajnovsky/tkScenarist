@@ -215,6 +215,17 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             effective procedure for selecting a character name into
             listbox;
         """
+        # param controls
+        if name in self.character_logs:
+            # inits
+            _index = sorted(self.character_logs).index(name)
+            # do select name
+            self.LISTBOX.selection_set(_index)
+            self.LISTBOX.see(_index)
+            # update character's history log
+            self.update_character_log()
+        # end if
+    # end def
 
 
     def enable_widget (self, widget, state):

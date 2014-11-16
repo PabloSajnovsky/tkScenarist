@@ -102,6 +102,11 @@ Notice: **WIP** means **Work In Progress**, that is, in fact, meaning
 still in development state.
 
 
+## Screenshots
+
+! [screenshot-001] ()
+
+
 ## Development status
 
     Development Status :: 3 - Alpha

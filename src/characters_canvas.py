@@ -787,7 +787,7 @@ class CharactersCanvas (RC.RADCanvas):
             returns True if linked, False otherwise;
         """
         # inits
-        _tags = self.relation_links.setdefault(tag1, dict())
+        _tags = self.relation_links.get(tag1) or dict()
         # get boolean
         return bool(tag2 in _tags)
     # end def
@@ -827,6 +827,8 @@ class CharactersCanvas (RC.RADCanvas):
         # update surrounding frame
         _box = self.bbox_add(self.bbox(group["text"]), group["box"])
         self.coords(group["frame"], _box)
+        # project has been modified
+        self.events.raise_event("Project:Modified")
     # end def
 
 
@@ -835,7 +837,7 @@ class CharactersCanvas (RC.RADCanvas):
             updates positions for all links of @tag;
         """
         # inits
-        _tags = self.relation_links.setdefault(tag, dict())
+        _tags = self.relation_links.get(tag) or dict()
         _start_xy = self.get_bbox_center(tag)
         # browse items
         for _tag, _group in _tags.items():
@@ -860,7 +862,7 @@ class CharactersCanvas (RC.RADCanvas):
         # inits
         x, y = self.center_xy()
         # viewport's center point
-        return (self.canvasx(x), self.canvasy(y))
+        return (int(self.canvasx(x)), int(self.canvasy(y)))
     # end def
 
 # end class CharactersCanvas

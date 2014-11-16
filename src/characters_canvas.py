@@ -24,6 +24,7 @@
 
 # lib imports
 import tkinter.messagebox as MB
+import tkinter.simpledialog as SD
 import tkRAD.widgets.rad_canvas as RC
 
 
@@ -247,7 +248,7 @@ class CharactersCanvas (RC.RADCanvas):
                         width=0,
                     )
                     # update dict
-                    _dict.update(line=_line)
+                    _dict.update(line=_line, tag0=_tag1, tag1=_tag2)
                     # register new link
                     self.register_link(_tag1, _tag2, _dict)
                 # already linked
@@ -262,6 +263,36 @@ class CharactersCanvas (RC.RADCanvas):
                         parent=self,
                     )
                 # end if
+            # end if
+        # end if
+    # end def
+
+
+    def do_edit_link (self, tag):
+        """
+            effective procedure for editing a relation link label;
+        """
+        # param controls
+        if self.TAG_RADIX_LINK in tag:
+            # inits
+            _group = self.canvas_groups[tag]
+            _text_id = _group["text"]
+            _name0 = self.get_name_from_tag(_group["tag0"])
+            _name1 = self.get_name_from_tag(_group["tag1"])
+            # get new text
+            _new_text = SD.askstring(
+                _("Characters relation"),
+                _("'{from_name}' --> '{to_name}'")
+                .format(from_name=_name0, to_name=_name1),
+                initialvalue=self.item_cget(_text_id, "text"),
+                parent=self,
+            )
+            # got something?
+            if _new_text:
+                # update label
+                self.update_label(_group, text=_new_text)
+                # update canvas
+                self.update_canvas()
             # end if
         # end if
     # end def
@@ -530,7 +561,8 @@ class CharactersCanvas (RC.RADCanvas):
             )
             # got relation link items?
             if self.TAG_RADIX_LINK in _tag:
-                print("group tag:", _tag)
+                # edit relation label
+                self.do_edit_link(_tag)
             # end if
         # end if
     # end def

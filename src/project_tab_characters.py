@@ -63,6 +63,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
                 "Characters:List:Delete": self.slot_list_delete,
                 "Characters:List:Purge": self.slot_list_purge,
                 "Characters:List:Rename": self.slot_list_rename,
+                "Characters:Name:Selected": self.slot_name_selected,
 
                 "Project:Modified": self.slot_project_modified,
 
@@ -207,6 +208,13 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             # end if
         # end if
     # end def
+
+
+    def do_select_character_name (self, name):
+        """
+            effective procedure for selecting a character name into
+            listbox;
+        """
 
 
     def enable_widget (self, widget, state):
@@ -534,6 +542,16 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
                 # end if
             # end if
         # end if
+    # end def
+
+
+    def slot_name_selected (self, *args, name=None, **kw):
+        """
+            event handler: a character name has been selected
+            somewhere;
+        """
+        # really select name
+        self.do_select_character_name(name)
     # end def
 
 

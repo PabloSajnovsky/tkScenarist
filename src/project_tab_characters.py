@@ -463,7 +463,9 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         """
         # inits
         _name = SD.askstring(
-            _("Please, insert"), _("Character name"), parent=self
+            _("Please, insert"),
+            _("Character name"),
+            parent=self.winfo_toplevel(),
         )
         # got something?
         if _name:

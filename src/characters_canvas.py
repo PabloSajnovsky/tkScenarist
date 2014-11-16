@@ -335,7 +335,7 @@ class CharactersCanvas (RC.RADCanvas):
             _confirm = MB.askyesno(
                 title=_("Attention"),
                 message=_(
-                    "Relation:\n'{from_name}' <---> '{to_name}'.\n"
+                    "Relation: '{from_name}' <---> '{to_name}'.\n"
                     "Do you really want to remove this relation link?"
                 ).format(from_name=_name0, to_name=_name1),
                 parent=self,

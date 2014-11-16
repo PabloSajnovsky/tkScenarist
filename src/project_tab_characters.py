@@ -84,7 +84,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             adds a new name into canvas widget;
         """
         # delegate to widget
-        self.CANVAS.add_name(name)
+        self.CANVAS.character_name_add(name)
         # project has been modified
         self.events.raise_event("Project:Modified")
     # end def
@@ -95,7 +95,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             deletes a name from canvas widget;
         """
         # delegate to widget
-        self.CANVAS.delete_name(name)
+        self.CANVAS.character_name_remove(name)
         # project has been modified
         self.events.raise_event("Project:Modified")
     # end def

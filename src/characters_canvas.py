@@ -37,7 +37,6 @@ class CharactersCanvas (RC.RADCanvas):
         "bg": "grey80",
         "highlightbackground": "grey20",
         "highlightthickness": 1,
-        "takefocus": 1,
     } # end of CONFIG
 
     DRAG_MODE_TEXT = 0x10
@@ -53,26 +52,6 @@ class CharactersCanvas (RC.RADCanvas):
 
     TAG_RADIX_NAME = "name"
     TAG_RADIX_LINK = "link"
-
-
-    def add_name (self, name):
-        """
-            adds a new character name into canvas widget;
-        """
-        # set name and create item on canvas
-        self.char_names[name] = self.create_label(
-            self.TAG_RADIX_NAME,
-            self.viewport_center_xy(),
-            text=name,
-            font=self.ITEM_FONT1,
-            color=self.ITEM_COLOR1,
-            background=self.ITEM_COLOR2,
-            outline=self.ITEM_COLOR3,
-            width=1,
-        )
-        # update canvas contents
-        self.update_canvas()
-    # end def
 
 
     def bbox_add (self, bbox1, bbox2):
@@ -99,7 +78,7 @@ class CharactersCanvas (RC.RADCanvas):
         self.bind("<Shift-Button-1>", self.slot_start_link)
         self.bind("<Motion>", self.slot_drag_pending)
         self.bind("<ButtonRelease-1>", self.slot_drop)
-        self.bind("<Delete>", self.slot_delete_name)
+        self.bind("<Double-Button-1>", self.slot_double_clicked)
     # end def
 
 
@@ -170,11 +149,31 @@ class CharactersCanvas (RC.RADCanvas):
         # set frame below text
         self.tag_lower(_id2, _id1)
         # return dict of items
-        return dict(tag=_tag, text=_id1, frame=_id2)
+        return self.group_add(_tag, tag=_tag, text=_id1, frame=_id2)
     # end def
 
 
-    def delete_name (self, name):
+    def character_name_add (self, name):
+        """
+            adds a new character name into canvas widget;
+        """
+        # set name and create item on canvas
+        self.char_names[name] = self.create_label(
+            self.TAG_RADIX_NAME,
+            self.viewport_center_xy(),
+            text=name,
+            font=self.ITEM_FONT1,
+            color=self.ITEM_COLOR1,
+            background=self.ITEM_COLOR2,
+            outline=self.ITEM_COLOR3,
+            width=1,
+        )
+        # update canvas contents
+        self.update_canvas()
+    # end def
+
+
+    def character_name_remove (self, name):
         """
             deletes a character name from canvas widget;
         """
@@ -188,6 +187,8 @@ class CharactersCanvas (RC.RADCanvas):
             self.delete(_tag)
             # delete links
             self.remove_links(_tag)
+            # remove group
+            self.canvas_groups.pop(_tag, None)
             # remove from list
             self.char_names.pop(name, None)
             # update canvas contents
@@ -387,6 +388,31 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
+    def group_add (self, name, **kw):
+        """
+            adds a new canvas group;
+        """
+        # param controls
+        if name:
+            # already exists?
+            if name in self.canvas_groups:
+                raise KeyError(
+                    _("canvas group name '{gname}' already exists.")
+                    .format(gname=name)
+                )
+            # new to list
+            else:
+                # add new group
+                self.canvas_groups[name] = kw
+                # return group
+                return kw
+            # end if
+        # end if
+        # failed
+        return None
+    # end def
+
+
     def init_members (self, **kw):
         """
             class members only inits;
@@ -395,6 +421,7 @@ class CharactersCanvas (RC.RADCanvas):
         self.instance_counter = 0
         self.char_names = dict()
         self.rel_links = dict()
+        self.canvas_groups = dict()
         # Drag'n'Drop feature
         self.dnd_reset()
     # end def
@@ -430,14 +457,16 @@ class CharactersCanvas (RC.RADCanvas):
         """
         # inits
         _tags = self.rel_links.setdefault(tag, dict())
-        # browse items
+        # browse tag groups
         for _group in _tags.values():
             # delete line from canvas
             self.delete(_group["line"])
             # delete label items by tag
             self.delete(_group["tag"])
+            # remove group from list
+            self.canvas_groups.pop(_group["tag"], None)
         # end for
-        # browse links
+        # browse all tags linked to tag
         for _tags in self.rel_links.values():
             # remove linked tag
             _tags.pop(tag, None)
@@ -487,12 +516,23 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
-    def slot_delete_name (self, event=None, *args, **kw):
+    def slot_double_clicked (self, event=None, *args, **kw):
         """
-            event handler for deleting a character name from canvas;
+            event handler for mouse double-clicking;
         """
-        # notify app
-        self.raise_event("Characters:List:Delete")
+        # param controls
+        if event:
+            # inits
+            x, y = self.get_real_pos(event.x, event.y)
+            # looking for items
+            _tag = self.get_group_tag(
+                self.find_overlapping(x, y, x, y)
+            )
+            # got relation link items?
+            if self.TAG_RADIX_LINK in _tag:
+                print("group tag:", _tag)
+            # end if
+        # end if
     # end def
 
 
@@ -550,7 +590,7 @@ class CharactersCanvas (RC.RADCanvas):
             event handler for D'n'D dropping on mouse release;
         """
         # param controls
-        if self.drag_mode and event:
+        if event and self.drag_mode:
             # inits
             x, y = self.get_real_pos(event.x, event.y)
             # character name label drop down
@@ -562,7 +602,7 @@ class CharactersCanvas (RC.RADCanvas):
                     "Characters:Name:Selected", name=_name
                 )
             # character relations link creation?
-            if self.drag_mode == self.DRAG_MODE_LINK:
+            elif self.drag_mode == self.DRAG_MODE_LINK:
                 # delete virtual link
                 self.delete(self.drag_link_id)
                 # create real link with items and registering

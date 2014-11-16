@@ -425,6 +425,13 @@ class CharactersCanvas (RC.RADCanvas):
         """
         # inits
         _groups = list()
+        # swap key <--> value
+        _names = dict(
+            zip(
+                [_g["tag"] for _g in self.character_names.values()],
+                self.character_names.keys()
+            )
+        )
         # browse groups
         for _tag, _group in self.canvas_groups.items():
             # relation link type?
@@ -432,8 +439,8 @@ class CharactersCanvas (RC.RADCanvas):
                 # inits
                 _rels = dict()
                 # replace tags by names
-                _rels["name0"] = self.get_name_from_tag(_group["tag0"])
-                _rels["name1"] = self.get_name_from_tag(_group["tag1"])
+                _rels["name0"] = _names[_group["tag0"]]
+                _rels["name1"] = _names[_group["tag1"]]
                 # replace text IDs by text contents
                 _rels["text"] = self.itemcget(_group["text"], "text")
                 # update list

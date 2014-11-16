@@ -71,6 +71,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             }
         )
         # tkinter event bindings
+        self.bind("<Expose>", self.slot_tab_exposed)
         _lb = self.LISTBOX
         _lb.bind("<ButtonRelease-1>", self.slot_on_listbox_click)
         _lb.bind("<KeyRelease-Up>", self.slot_on_listbox_click)
@@ -555,8 +556,6 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
                         _old_name, _new_name, show_error=True
                     )
                 # end if
-                # reselect name
-                self.do_select_character_name()
             # end if
         # end if
     # end def
@@ -601,6 +600,16 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         """
         # reset status
         self.TEXT.edit_modified(flag)
+    # end def
+
+
+    def slot_tab_exposed (self, *args, **kw):
+        """
+            event handler: tab exposed again after being hidden by some
+            other window;
+        """
+        # reselect previous selected name, if any
+        self.slot_name_selected()
     # end def
 
 

@@ -180,7 +180,7 @@
             >
                 <!-- help text label -->
                 <ttklabel
-                    text="Hint: 'Shift-MouseDown' and drag to create links."
+                    text="Hint: 'Shift-Click-Drag': create links. 'Ctrl-Click': remove item."
                     layout="grid"
                     layout_options="row=0, column=0"
                     resizable="width"

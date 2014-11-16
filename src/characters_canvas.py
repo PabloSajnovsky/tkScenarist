@@ -329,6 +329,7 @@ class CharactersCanvas (RC.RADCanvas):
         if self.TAG_RADIX_LINK in tag:
             # inits
             _group = self.canvas_groups[tag]
+            _name0 = self.get_name_from_tag(_group["tag0"])
             _name1 = self.get_name_from_tag(_group["tag1"])
             # ask for user confirmation
             _confirm = MB.askyesno(

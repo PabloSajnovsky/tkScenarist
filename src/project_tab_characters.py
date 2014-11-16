@@ -210,11 +210,13 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
     # end def
 
 
-    def do_select_character_name (self, name):
+    def do_select_character_name (self, name=None):
         """
             effective procedure for selecting a character name into
             listbox;
         """
+        # inits
+        name = name or self.current_name
         # param controls
         if name in self.character_logs:
             # inits
@@ -553,6 +555,8 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
                         _old_name, _new_name, show_error=True
                     )
                 # end if
+                # reselect name
+                self.do_select_character_name()
             # end if
         # end if
     # end def

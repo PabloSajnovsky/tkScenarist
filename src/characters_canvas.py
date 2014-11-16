@@ -284,7 +284,7 @@ class CharactersCanvas (RC.RADCanvas):
                 _("Characters relation"),
                 _("'{from_name}' --> '{to_name}'")
                 .format(from_name=_name0, to_name=_name1),
-                initialvalue=self.item_cget(_text_id, "text"),
+                initialvalue=self.itemcget(_text_id, "text"),
                 parent=self,
             )
             # got something?
@@ -563,6 +563,14 @@ class CharactersCanvas (RC.RADCanvas):
             if self.TAG_RADIX_LINK in _tag:
                 # edit relation label
                 self.do_edit_link(_tag)
+            # got character name label?
+            elif self.TAG_RADIX_NAME in _tag:
+                # rename character
+                self.events.raise_event("Characters:List:Rename")
+            # nothing out there?
+            elif not _tag:
+                # add new character name
+                self.events.raise_event("Characters:List:Add")
             # end if
         # end if
     # end def

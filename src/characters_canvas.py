@@ -342,7 +342,12 @@ class CharactersCanvas (RC.RADCanvas):
             )
             # user confirmed
             if _confirm:
-                # remove link
+                # remove link from lists
+                _tags = self.rel_links.setdefault(_group["tag0"], dict())
+                _tags.pop(_group["tag1"], None)
+                _tags = self.rel_links.setdefault(_group["tag1"], dict())
+                _tags.pop(_group["tag0"], None)
+                # remove link from canvas
                 self.remove_group_link(_group)
             # end if
         # end if
@@ -715,7 +720,7 @@ class CharactersCanvas (RC.RADCanvas):
             )
             # got relation link items?
             if self.TAG_RADIX_LINK in _tag:
-                # edit relation label
+                # remove relation link
                 self.do_remove_link(_tag)
             # got character name label?
             elif self.TAG_RADIX_NAME in _tag:

@@ -72,6 +72,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         )
         # tkinter event bindings
         self.bind("<Expose>", self.slot_tab_exposed)
+        self.bind("<FocusIn>", self.slot_tab_focused_in)
         _lb = self.LISTBOX
         _lb.bind("<ButtonRelease-1>", self.slot_on_listbox_click)
         _lb.bind("<KeyRelease-Up>", self.slot_on_listbox_click)
@@ -605,8 +606,18 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
 
     def slot_tab_exposed (self, *args, **kw):
         """
-            event handler: tab exposed again after being hidden by some
-            other window;
+            event handler: tab exposed when selected through notebook's
+            tabs;
+        """
+        # what to do?
+        pass
+    # end def
+
+
+    def slot_tab_focused_in (self, *args, **kw):
+        """
+            event handler: tab gets focus again after being hidden by
+            some other dialog window, for example;
         """
         # reselect previous selected name, if any
         self.slot_name_selected()

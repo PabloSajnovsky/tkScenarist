@@ -219,9 +219,11 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         if name in self.character_logs:
             # inits
             _index = sorted(self.character_logs).index(name)
+            _lb = self.LISTBOX
             # do select name
-            self.LISTBOX.selection_set(_index)
-            self.LISTBOX.see(_index)
+            _lb.selection_clear(0, "end")
+            _lb.selection_set(_index)
+            _lb.see(_index)
             # update character's history log
             self.update_character_log()
         # end if

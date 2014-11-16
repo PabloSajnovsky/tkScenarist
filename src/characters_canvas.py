@@ -36,7 +36,8 @@ class CharactersCanvas (RC.RADCanvas):
     CONFIG = {
         "bg": "grey80",
         "highlightbackground": "grey20",
-        "highlightthickness": "1",
+        "highlightthickness": 1,
+        "takefocus": 1,
     } # end of CONFIG
 
     DRAG_MODE_TEXT = 0x10
@@ -98,6 +99,7 @@ class CharactersCanvas (RC.RADCanvas):
         self.bind("<Shift-Button-1>", self.slot_start_link)
         self.bind("<Motion>", self.slot_drag_pending)
         self.bind("<ButtonRelease-1>", self.slot_drop)
+        self.bind("<Delete>", self.slot_delete_name)
     # end def
 
 
@@ -482,6 +484,15 @@ class CharactersCanvas (RC.RADCanvas):
         """
         # get coordinates
         return (self.winfo_reqwidth(), self.winfo_reqheight())
+    # end def
+
+
+    def slot_delete_name (self, event=None, *args, **kw):
+        """
+            event handler for deleting a character name from canvas;
+        """
+        # notify app
+        self.raise_event("Characters:List:Delete")
     # end def
 
 

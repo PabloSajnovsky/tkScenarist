@@ -453,6 +453,21 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
     # end def
 
 
+    def setup_tab (self, fname, archive):
+        """
+            tab setup along @fname and @archive contents;
+        """
+        # inits
+        _get_fc = lambda f: json.loads(archive.read(f).decode("UTF-8"))
+        _logs = _get_fc(fname["logs"])
+        _names = sorted(_logs)
+        _relations = _get_fc(fname["relations"])
+        print("names:", _names)
+        print("logs:", _logs)
+        print("relations:", _relations)
+    # end def
+
+
     def slot_list_add (self, *args, **kw):
         """
             event handler for characters list;

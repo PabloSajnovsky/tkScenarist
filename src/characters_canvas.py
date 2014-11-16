@@ -427,6 +427,7 @@ class CharactersCanvas (RC.RADCanvas):
         _groups = dict()
         # browse groups
         for _tag, _group in self.canvas_groups.items():
+            print("tag:", _tag)
             # relation link type?
             if self.TAG_RADIX_LINK in _tag:
                 # work on copy

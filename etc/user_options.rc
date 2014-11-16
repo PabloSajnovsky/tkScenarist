@@ -1,25 +1,25 @@
 [DEFAULT]
-maximized = 0
+mainwindow_state = normal
 mainwindow = 640x480+20+20
-mainwindow_state = normal
+maximized = 0
 dialog_state = normal
-
-[geometry]
-mainwindow_state = normal
-mainwindow = 734x475+43+82
-dialog_state = normal
-pitchtemplatesdialog = 778x506+215+243
-
-[xml]
 
 [gui]
 show_statusbar = 1
 
-[files]
-
 [dirs]
 pfm_preferred_dir = /home/rs/tmp
 pitch_template_dir = /home/rs/apps/tkScenarist/data/templates/pitch
+
+[geometry]
+mainwindow_state = normal
+mainwindow = 689x457+301+156
+dialog_state = normal
+pitchtemplatesdialog = 778x506+215+243
+
+[files]
+
+[xml]
 
 [mainwindow]
 

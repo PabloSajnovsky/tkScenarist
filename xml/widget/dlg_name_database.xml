@@ -82,13 +82,23 @@
             layout_options="row=0, column=2"
             resizable="yes"
         >
+            <ttklabel
+                text="Mention:"
+                layout="pack"
+                resizable="width"
+            />
             <ttkentry
                 textvariable="entry_search"
                 layout="pack"
                 resizable="width"
             />
+            <ttkseparator
+                layout="pack"
+                layout_options="pady=10"
+                resizable="width"
+            />
             <ttklabel
-                text="into:"
+                text="Into:"
                 layout="pack"
                 resizable="width"
             />
@@ -116,8 +126,13 @@
                 layout="pack"
                 resizable="width"
             />
+            <ttkseparator
+                layout="pack"
+                layout_options="pady=10"
+                resizable="width"
+            />
             <ttklabel
-                text="filter:"
+                text="Filter:"
                 layout="pack"
                 resizable="width"
             />

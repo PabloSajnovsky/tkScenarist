@@ -324,6 +324,7 @@ class CharactersCanvas (RC.RADCanvas):
                         "These two character names "
                         "are *ALREADY LINKED* together."
                     )
+                    # identical tags?
                     if _tag1 == _tag2:
                         _msg = _(
                             "Linking a name to "

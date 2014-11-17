@@ -115,6 +115,17 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
     # end def
 
 
+    def canvas_dispose_label (self, name, coords):
+        """
+            resets label location along its @name and new @coords;
+        """
+        # delegate to widget
+        self.CANVAS.dispose_label(name, coords)
+        # project has been modified
+        self.events.raise_event("Project:Modified")
+    # end def
+
+
     def canvas_rename (self, old_name, new_name):
         """
             renames an item into canvas widget;
@@ -478,9 +489,11 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         for _name in self.character_logs:
             # add character name to canvas
             self.canvas_add_name(_name)
+            # reset label location
+            self.canvas_dispose_label(_name, _relations["label_pos"])
         # end for
         # add relations
-        for _group in _relations:
+        for _group in _relations["links"]:
             # add relation
             self.canvas_add_relation(**_group)
         # end for

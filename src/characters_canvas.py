@@ -272,6 +272,17 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
+    def dispose_label (self, name, coords):
+        """
+            resets label location along its @name and new @coords;
+        """
+        # get tag
+        _tag = self.character_names[name]["tag"]
+        # dispose label
+        self.coords(_tag, coords)
+    # end def
+
+
     def dnd_reset (self, *args, **kw):
         """
             event handler for resetting D'n'D feature;
@@ -436,6 +447,7 @@ class CharactersCanvas (RC.RADCanvas):
             returns file contents for characters relation links;
         """
         # inits
+        _pos = dict()
         _groups = list()
         # swap key <--> value
         _names = dict(
@@ -444,6 +456,11 @@ class CharactersCanvas (RC.RADCanvas):
                 self.character_names.keys()
             )
         )
+        # browse names
+        for _name, _group in self.character_names.items():
+            # store label position
+            _pos[_name] = self.coords(_group["tag"])
+        # end for
         # browse groups
         for _tag, _group in self.canvas_groups.items():
             # relation link type?
@@ -459,7 +476,7 @@ class CharactersCanvas (RC.RADCanvas):
                 _groups.append(_rels)
             # end if
         # end for
-        return json.dumps(_groups)
+        return json.dumps(dict(label_pos=_pos, links=_groups))
     # end def
 
 

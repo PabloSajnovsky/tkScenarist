@@ -239,8 +239,8 @@ class CharactersCanvas (RC.RADCanvas):
         """
             creates a graphical characters relation on canvas;
         """
-        # not already linked?
-        if not self.tags_linked(tag0, tag1):
+        # not the same and not already linked?
+        if tag0 != tag1 and not self.tags_linked(tag0, tag1):
             # get center coords
             _center1 = self.get_bbox_center(tag0)
             _center2 = self.get_bbox_center(tag1)
@@ -266,7 +266,7 @@ class CharactersCanvas (RC.RADCanvas):
             # succeeded
             return True
         # end if
-        # failed - already linked
+        # failed - equal or already linked
         return False
     # end def
 
@@ -319,13 +319,21 @@ class CharactersCanvas (RC.RADCanvas):
             if self.TAG_RADIX_NAME in _tag2:
                 # already linked?
                 if not self.create_relation(_tag1, _tag2):
+                    # inits
+                    _msg = _(
+                        "These two character names "
+                        "are *ALREADY LINKED* together."
+                    )
+                    if _tag1 == _tag2:
+                        _msg = _(
+                            "Linking a name to "
+                            "itself makes *NO* sense."
+                        )
+                    # end if
                     # warn user
                     MB.showwarning(
                         title=_("Attention"),
-                        message=_(
-                            "These two character names "
-                            "are *ALREADY LINKED* together."
-                        ),
+                        message=_msg,
                         parent=self,
                     )
                 # end if

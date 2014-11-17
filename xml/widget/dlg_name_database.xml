@@ -41,8 +41,7 @@
             <ttktreeview
                 name="treeview_names"
                 columns="'Name', 'Male', 'Female', 'Origin'"
-                displaycolumns="#all"
-                show="headings"
+                selectmode="browse"
                 layout="pack"
                 resizable="yes"
             />

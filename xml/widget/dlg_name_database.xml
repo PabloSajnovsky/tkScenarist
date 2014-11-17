@@ -37,6 +37,7 @@
             layout_options="row=0, column=0, rowspan=2"
             resizable="yes"
         >
+            <!-- names listing treeview widget -->
             <ttktreeview
                 layout="pack"
                 resizable="yes"
@@ -78,7 +79,26 @@
             resizable="yes"
         >
             <ttkbutton
-                text="Import"
+                text="Action"
+                command="@Dialog:NameDB:Action"
+                layout="pack"
+                resizable="width"
+            />
+            <ttkbutton
+                text="Action"
+                command="@Dialog:NameDB:Action"
+                layout="pack"
+                resizable="width"
+            />
+            <ttkbutton
+                text="Action"
+                command="@Dialog:NameDB:Action"
+                layout="pack"
+                resizable="width"
+            />
+            <ttkbutton
+                text="Action"
+                command="@Dialog:NameDB:Action"
                 layout="pack"
                 resizable="width"
             />

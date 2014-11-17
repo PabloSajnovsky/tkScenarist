@@ -132,7 +132,6 @@ class CharactersCanvas (RC.RADCanvas):
         """
             adds a new character name into canvas widget;
         """
-        print("character add name:", name)
         # param inits
         xy = kw.get("xy") or self.viewport_center_xy()
         # set name and create item on canvas
@@ -229,7 +228,6 @@ class CharactersCanvas (RC.RADCanvas):
         )
         # set frame below text
         self.tag_lower(_id2, _id1)
-        print("created label:", _tag)
         # return dict of items
         return self.group_add(
             _tag, tag=_tag, text=_id1, frame=_id2, box=_ibox
@@ -241,10 +239,8 @@ class CharactersCanvas (RC.RADCanvas):
         """
             creates a graphical characters relation on canvas;
         """
-        print("tag0:", tag0, "tag1:", tag1, "linked:", self.tags_linked(tag0, tag1))
         # not already linked?
         if not self.tags_linked(tag0, tag1):
-            print("creating visual relation between:", tag0, tag1)
             # get center coords
             _center1 = self.get_bbox_center(tag0)
             _center2 = self.get_bbox_center(tag1)
@@ -254,10 +250,8 @@ class CharactersCanvas (RC.RADCanvas):
                 fill=self.CONFIG_LINK.get("outline"),
                 width=1,
             )
-            # put line under items
-            self.tag_lower(_line, tag0)
-            self.tag_lower(_line, tag1)
-            print("tag lowered line:", _line, "and", tag0, tag1)
+            # put line under all
+            self.tag_lower(_line, "all")
             # set relation text
             _group = self.create_label(
                 self.TAG_RADIX_LINK,
@@ -285,7 +279,6 @@ class CharactersCanvas (RC.RADCanvas):
         _group = self.character_names.get(name)
         # got group?
         if _group:
-            print("disposing label:", name, _group["tag"], "coords:", coords)
             # dispose label
             self.coords(_group["text"], *coords)
             # update label
@@ -628,7 +621,6 @@ class CharactersCanvas (RC.RADCanvas):
         """
             adds a new relation between names with text;
         """
-        print("adding relation between:", name0, name1, text)
         # names must exist
         _tag0 = self.character_names[name0]["tag"]
         _tag1 = self.character_names[name1]["tag"]
@@ -925,7 +917,6 @@ class CharactersCanvas (RC.RADCanvas):
             updates positions for all links of @tag;
         """
         # inits
-        print("updating links for tag:", tag)
         _tags = self.relation_links.get(tag) or dict()
         _start_xy = self.get_bbox_center(tag)
         # browse items
@@ -934,6 +925,8 @@ class CharactersCanvas (RC.RADCanvas):
             _end_xy = self.get_bbox_center(_tag)
             # update line pos
             self.coords(_group["line"], _start_xy + _end_xy)
+            # set line under all
+            self.tag_lower(_group["line"], "all")
             # update label pos
             self.coords(
                 _group["text"],

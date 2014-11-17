@@ -490,7 +490,9 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             # add character name to canvas
             self.canvas_add_name(_name)
             # reset label location
-            self.canvas_dispose_label(_name, _relations["label_pos"])
+            self.canvas_dispose_label(
+                _name, _relations["label_pos"][_name]
+            )
         # end for
         # add relations
         for _group in _relations["links"]:

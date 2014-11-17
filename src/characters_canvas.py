@@ -276,10 +276,12 @@ class CharactersCanvas (RC.RADCanvas):
         """
             resets label location along its @name and new @coords;
         """
-        # get tag
-        _tag = self.character_names[name]["tag"]
+        # inits
+        _group = self.character_names[name]
         # dispose label
-        self.coords(_tag, coords)
+        self.coords(_group["text"], *coords)
+        # update label
+        self.update_label(_group)
     # end def
 
 
@@ -459,7 +461,7 @@ class CharactersCanvas (RC.RADCanvas):
         # browse names
         for _name, _group in self.character_names.items():
             # store label position
-            _pos[_name] = self.coords(_group["tag"])
+            _pos[_name] = self.coords(_group["text"])
         # end for
         # browse groups
         for _tag, _group in self.canvas_groups.items():

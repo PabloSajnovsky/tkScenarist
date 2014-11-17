@@ -37,11 +37,10 @@
             layout_options="row=0, column=0, rowspan=2"
             resizable="yes"
         >
-            <!-- names listing treeview widget -->
-            <ttktreeview
-                name="treeview_names"
-                columns="'Name', 'Male', 'Female', 'Origin'"
-                selectmode="browse"
+            <!-- names listing DBView widget -->
+            <canvas
+                name="db_view_names"
+                background="white"
                 layout="pack"
                 resizable="yes"
             />

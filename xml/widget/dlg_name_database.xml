@@ -92,31 +92,27 @@
                 layout="pack"
                 resizable="width"
             />
-            <ttkradiobutton
-                text="name"
-                value="name"
-                variable="search_field"
+            <ttkcheckbutton
+                text="Name"
+                variable="chk_name"
+                onvalue="1"
+                offvalue="0"
                 layout="pack"
                 resizable="width"
             />
-            <ttkradiobutton
-                text="origin"
-                value="origin"
-                variable="search_field"
+            <ttkcheckbutton
+                text="Origin"
+                variable="chk_origin"
+                onvalue="1"
+                offvalue="0"
                 layout="pack"
                 resizable="width"
             />
-            <ttkradiobutton
-                text="description"
-                value="description"
-                variable="search_field"
-                layout="pack"
-                resizable="width"
-            />
-            <ttkradiobutton
-                text="all"
-                value="all"
-                variable="search_field"
+            <ttkcheckbutton
+                text="Description"
+                variable="chk_description"
+                onvalue="1"
+                offvalue="0"
                 layout="pack"
                 resizable="width"
             />
@@ -126,7 +122,7 @@
                 resizable="width"
             />
             <ttkcheckbutton
-                text="Male"
+                text="Male names"
                 variable="chk_male"
                 onvalue="1"
                 offvalue="0"
@@ -134,7 +130,7 @@
                 resizable="width"
             />
             <ttkcheckbutton
-                text="Female"
+                text="Female names"
                 variable="chk_female"
                 onvalue="1"
                 offvalue="0"

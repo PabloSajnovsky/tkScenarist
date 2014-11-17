@@ -285,6 +285,8 @@ class CharactersCanvas (RC.RADCanvas):
             self.update_label(_group)
             # update links
             self.update_links(_group["tag"])
+            # update canvas
+            self.update_canvas()
         # end if
     # end def
 

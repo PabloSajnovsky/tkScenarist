@@ -38,11 +38,29 @@
             resizable="yes"
         >
             <!-- names listing DBView widget -->
-            <canvas
-                name="db_view_names"
-                background="white"
-                layout="pack"
+            <text
+                id="dbview_names"
+                name="text_dbview_names"
+                font="monospace 10"
+                height="20"
+                width="60"
+                layout="grid"
+                layout_options="row=0, column=0"
                 resizable="yes"
+            />
+            <ttkscrollbar
+                connect="dbview_names"
+                orient="vertical"
+                layout="grid"
+                layout_options="row=0, column=1"
+                resizable="height"
+            />
+            <ttkscrollbar
+                connect="dbview_names"
+                orient="horizontal"
+                layout="grid"
+                layout_options="row=1, column=0"
+                resizable="width"
             />
         </ttklabelframe>
 
@@ -65,7 +83,61 @@
             resizable="yes"
         >
             <ttkentry
-                textvariable="entry_search_kw"
+                textvariable="entry_search"
+                layout="pack"
+                resizable="width"
+            />
+            <ttklabel
+                text="into:"
+                layout="pack"
+                resizable="width"
+            />
+            <ttkradiobutton
+                text="name"
+                value="name"
+                variable="search_field"
+                layout="pack"
+                resizable="width"
+            />
+            <ttkradiobutton
+                text="origin"
+                value="origin"
+                variable="search_field"
+                layout="pack"
+                resizable="width"
+            />
+            <ttkradiobutton
+                text="description"
+                value="description"
+                variable="search_field"
+                layout="pack"
+                resizable="width"
+            />
+            <ttkradiobutton
+                text="all"
+                value="all"
+                variable="search_field"
+                layout="pack"
+                resizable="width"
+            />
+            <ttklabel
+                text="filter:"
+                layout="pack"
+                resizable="width"
+            />
+            <ttkcheckbutton
+                text="Male"
+                variable="chk_male"
+                onvalue="1"
+                offvalue="0"
+                layout="pack"
+                resizable="width"
+            />
+            <ttkcheckbutton
+                text="Female"
+                variable="chk_female"
+                onvalue="1"
+                offvalue="0"
                 layout="pack"
                 resizable="width"
             />

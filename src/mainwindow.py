@@ -29,6 +29,7 @@ import tkRAD
 #~ from tkRAD.core import tools
 from . import project_file_management as PFM
 from . import app_database as DB
+from . import dlg_name_database as DND
 from . import dlg_pitch_templates as DPT
 
 
@@ -342,7 +343,9 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             event handler for menu Tools > Name database;
         """
-        print("Menu:Tools:Name database")
+        # show name database dialog (modal)
+        _dlg = DND.NameDatabaseDialog(self)
+        _dlg.show()
     # end def
 
 

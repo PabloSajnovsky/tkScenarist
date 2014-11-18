@@ -216,7 +216,7 @@
                 onvalue="1"
                 offvalue="0"
                 layout="grid"
-                layout_options="row=0, column=5, padx=5"
+                layout_options="row=0, column=5, padx=5, sticky='w'"
                 resizable="no"
             />
             <ttkcheckbutton
@@ -225,8 +225,8 @@
                 onvalue="1"
                 offvalue="0"
                 layout="grid"
-                layout_options="row=0, column=6, padx=5"
-                resizable="no"
+                layout_options="row=0, column=6"
+                resizable="width"
             />
             <ttklabel
                 text="Origin:"
@@ -234,8 +234,12 @@
                 layout_options="row=1, column=0"
                 resizable="no"
             />
-            <ttkentry
+            <ttkcombobox
                 textvariable="edit_origin"
+                height="10"
+                postcommand="@Dialog:Edit:Origin:Drop:List"
+                validate="key"
+                validatecommand="@Dialog:Edit:Origin:Keypress"
                 layout="grid"
                 layout_options="row=1, column=1"
                 resizable="width"
@@ -243,7 +247,7 @@
             <ttklabel
                 text="Description:"
                 layout="grid"
-                layout_options="row=1, column=5"
+                layout_options="row=1, column=5, padx=5, sticky='w'"
                 resizable="no"
             />
             <ttkentry

@@ -45,11 +45,19 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             event bindings;
         """
         # app-wide event bindings
-        #~ self.events.connect_dict(
-            #~ {
+        self.events.connect_dict(
+            {
                 #~ "Dialog:NameDB:Action": self.slot_action,
-            #~ }
-        #~ )
+
+                "Dialog:NameDB:Edit:Origin:Drop:List":
+                    self.slot_edit_origin_drop_list,
+                "Dialog:NameDB:Edit:Origin:Keypress":
+                    self.slot_edit_origin_keypress,
+
+                "Dialog:NameDB:Search:Criteria:Changed":
+                    self.slot_search_criteria_changed,
+            }
+        )
         # tkinter widget event bindings
         self.bind("<Escape>", self._slot_button_cancel)
     # end def
@@ -83,6 +91,30 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         self.database = self.tk_owner.database
         # event bindings
         self.bind_events(**kw)
+    # end def
+
+
+    def slot_edit_origin_drop_list (self, *args, **kw):
+        """
+            event handler;
+        """
+        print(__name__)
+    # end def
+
+
+    def slot_edit_origin_keypress (self, *args, **kw):
+        """
+            event handler;
+        """
+        print(__name__)
+    # end def
+
+
+    def slot_search_criteria_changed (self, *args, **kw):
+        """
+            event handler;
+        """
+        print(__name__)
     # end def
 
 

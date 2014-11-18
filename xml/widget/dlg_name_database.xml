@@ -108,6 +108,7 @@
                 variable="search_chk_name"
                 onvalue="1"
                 offvalue="0"
+                checked="true"
                 layout="pack"
                 resizable="width"
             />

@@ -116,7 +116,7 @@ class DBViewCanvas (RC.RADCanvas):
         _id1 = self.create_text(
             x, y,
             anchor="nw",
-            text=kw.get("text") or "label",
+            text=_(kw.get("text") or "label"),
             font=kw.get("font") or "monospace 10",
             fill=kw.get("foreground") or "black",
             width=kw.get("max_width"),
@@ -177,6 +177,8 @@ class DBViewCanvas (RC.RADCanvas):
         self.init_members(**kw)
         # event bindings
         self.bind_events()
+        # test
+        self.set_field_names("Name", "Male", "Female", "Origin", "Description")
     # end def
 
 

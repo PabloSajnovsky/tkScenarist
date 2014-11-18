@@ -216,8 +216,8 @@
                 onvalue="1"
                 offvalue="0"
                 layout="grid"
-                layout_options="row=0, column=5"
-                resizable="width"
+                layout_options="row=0, column=5, padx=5"
+                resizable="no"
             />
             <ttkcheckbutton
                 text="Female"
@@ -225,8 +225,8 @@
                 onvalue="1"
                 offvalue="0"
                 layout="grid"
-                layout_options="row=0, column=6"
-                resizable="width"
+                layout_options="row=0, column=6, padx=5"
+                resizable="no"
             />
             <ttklabel
                 text="Origin:"

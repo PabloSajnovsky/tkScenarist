@@ -226,15 +226,6 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def size_xy (self):
-        """
-            returns (width, height) coordinates;
-        """
-        # get coordinates
-        return (self.winfo_reqwidth(), self.winfo_reqheight())
-    # end def
-
-
     def slot_project_modified (self, *args, flag=True, **kw):
         """
             event handler for project's modification flag;
@@ -260,17 +251,6 @@ class DBViewCanvas (RC.RADCanvas):
             # better clean up everything
             self.reset()
         # end if
-    # end def
-
-
-    def viewport_center_xy (self):
-        """
-            returns (x, y) coordinates of viewport's center point;
-        """
-        # inits
-        x, y = self.center_xy()
-        # viewport's center point
-        return (int(self.canvasx(x)), int(self.canvasy(y)))
     # end def
 
 # end class DBViewCanvas

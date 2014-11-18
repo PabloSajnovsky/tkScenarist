@@ -65,6 +65,20 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
+    def bbox_size (self, tag_or_bbox):
+        """
+            returns (width, height) bbox size along tag or bbox;
+        """
+        # param controls
+        if tag_or_bbox:
+            # tag type?
+            if not isinstance(tag_or_bbox, (tuple, list)):
+                # search bbox
+                tag_or_bbox = self.bbox(tag_or_bbox) or (0, 0, 0, 0)
+        # end if
+    # end def
+
+
     def bind_events (self, **kw):
         """
             event bindings;

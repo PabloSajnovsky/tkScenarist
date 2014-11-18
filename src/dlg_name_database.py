@@ -94,6 +94,14 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def on_search_criteria (self, *args, **kw):
+        """
+            event handler;
+        """
+        print("on_search_criteria")
+    # end def
+
+
     def slot_edit_origin_drop_list (self, *args, **kw):
         """
             event handler;
@@ -115,6 +123,8 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             event handler;
         """
         print("slot_search_criteria_changed")
+        # deferred action
+        self.async.run_after(1000, self.on_search_criteria)
     # end def
 
 

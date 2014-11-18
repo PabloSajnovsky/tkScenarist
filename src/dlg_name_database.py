@@ -98,7 +98,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         """
             event handler;
         """
-        print(__name__)
+        print("slot_edit_origin_drop_list")
     # end def
 
 
@@ -106,7 +106,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         """
             event handler;
         """
-        print(__name__)
+        print("slot_edit_origin_keypress")
     # end def
 
 
@@ -114,7 +114,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         """
             event handler;
         """
-        print(__name__)
+        print("slot_search_criteria_changed")
     # end def
 
 

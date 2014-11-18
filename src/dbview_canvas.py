@@ -134,8 +134,21 @@ class DBViewCanvas (RC.RADCanvas):
             text=kw.get("text") or "label",
             font=kw.get("font"),
             fill=kw.get("foreground") or "black",
-            width=self.get_best_width(**kw),
+            width=kw.get("max_width"),
+            tags=kw.get("tags"),
         )
+        # recalc bbox for surrounding frame box
+        _bbox = self.bbox_add(self.bbox(_id1), self.LABEL_BOX)
+        # init surrounding frame
+        _id2 = self.create_rectangle(
+            _bbox,
+            fill=kw.get("background") or "white",
+            outline=kw.get("outline") or "black",
+            width=kw.get("outline_width") or 1,
+            tags=kw.get("tags"),
+        )
+        # set frame under text
+        self.tag_lower(_id2, _id1)
     # end def
 
 
@@ -243,6 +256,20 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
+    def set_field_options (self, name, **options):
+        """
+            sets field's new @options along with its @name;
+        """
+        # inits
+        _options = self.fields.get(name) or self.CONFIG_HEADERS.copy()
+        _options.update(options)
+        # set new options
+        self.fields[name] = _options
+        # return new options
+        return _options
+    # end def
+
+
     def set_field_names (self, *names, **options):
         """
             resets view and rebuilds along with new field @names and
@@ -253,13 +280,11 @@ class DBViewCanvas (RC.RADCanvas):
         # browse names
         for _index, _name in enumerate(names):
             # inits
-            _opts = self.CONFIG_HEADERS.copy()
-            _opts.update(options)
-            _opts.update(name=_name, index=_index)
-            # set field name and structure
-            self.fields[_name] = _opts
+            options.update(name=_name, index=_index)
+            # set field options
+            _opts = self.set_field_options(_name, **options)
             # add field label on canvas
-            self.header_add(_name, _opts)
+            self.header_add(_name, **_opts)
         # end for
     # end def
 

@@ -91,6 +91,8 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         self.database = self.tk_owner.database
         # event bindings
         self.bind_events(**kw)
+        # first time query
+        self.slot_search_criteria_changed()
     # end def
 
 

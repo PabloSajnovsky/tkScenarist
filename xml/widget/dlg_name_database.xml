@@ -38,12 +38,17 @@
             resizable="yes"
         >
             <!-- names listing DBView widget -->
-            <text
+            <module
+                id="mdbviewcanvas"
+                from="src"
+                import="dbview_canvas"
+            />
+            <widget
                 id="dbview_names"
                 name="text_dbview_names"
+                class="DBViewCanvas"
+                module="mdbviewcanvas"
                 font="monospace 10"
-                height="20"
-                width="60"
                 layout="grid"
                 layout_options="row=0, column=0"
                 resizable="yes"

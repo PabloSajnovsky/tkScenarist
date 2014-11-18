@@ -104,6 +104,7 @@
             />
             <ttkcheckbutton
                 text="Name"
+                command="@Dialog:NameDB:Search:Criteria:Changed"
                 variable="search_chk_name"
                 onvalue="1"
                 offvalue="0"
@@ -112,6 +113,7 @@
             />
             <ttkcheckbutton
                 text="Origin"
+                command="@Dialog:NameDB:Search:Criteria:Changed"
                 variable="search_chk_origin"
                 onvalue="1"
                 offvalue="0"
@@ -120,6 +122,7 @@
             />
             <ttkcheckbutton
                 text="Description"
+                command="@Dialog:NameDB:Search:Criteria:Changed"
                 variable="search_chk_description"
                 onvalue="1"
                 offvalue="0"
@@ -138,6 +141,7 @@
             />
             <ttkcheckbutton
                 text="Male names"
+                command="@Dialog:NameDB:Search:Criteria:Changed"
                 variable="search_chk_male"
                 onvalue="1"
                 offvalue="0"
@@ -146,6 +150,7 @@
             />
             <ttkcheckbutton
                 text="Female names"
+                command="@Dialog:NameDB:Search:Criteria:Changed"
                 variable="search_chk_female"
                 onvalue="1"
                 offvalue="0"
@@ -237,9 +242,9 @@
             <ttkcombobox
                 textvariable="edit_origin"
                 height="10"
-                postcommand="@Dialog:Edit:Origin:Drop:List"
+                postcommand="@Dialog:NameDB:Edit:Origin:Drop:List"
                 validate="key"
-                validatecommand="@Dialog:Edit:Origin:Keypress"
+                validatecommand="@Dialog:NameDB:Edit:Origin:Keypress"
                 layout="grid"
                 layout_options="row=1, column=1"
                 resizable="width"

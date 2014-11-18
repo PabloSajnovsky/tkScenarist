@@ -23,7 +23,7 @@
 """
 
 # lib imports
-import tkRAD.core.asyn as ASYNC
+import tkRAD.core.async as ASYNC
 import tkRAD.widgets.rad_canvas as RC
 
 

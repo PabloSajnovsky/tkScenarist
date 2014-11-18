@@ -217,7 +217,7 @@
                 offvalue="0"
                 layout="grid"
                 layout_options="row=0, column=5"
-                resizable="no"
+                resizable="width"
             />
             <ttkcheckbutton
                 text="Female"
@@ -226,30 +226,30 @@
                 offvalue="0"
                 layout="grid"
                 layout_options="row=0, column=6"
-                resizable="no"
+                resizable="width"
             />
             <ttklabel
-                text="origin:"
+                text="Origin:"
                 layout="grid"
-                layout_options="row=0, column=10"
+                layout_options="row=1, column=0"
                 resizable="no"
             />
             <ttkentry
                 textvariable="edit_origin"
                 layout="grid"
-                layout_options="row=0, column=11"
+                layout_options="row=1, column=1"
                 resizable="width"
             />
             <ttklabel
-                text="description:"
+                text="Description:"
                 layout="grid"
-                layout_options="row=0, column=15"
+                layout_options="row=1, column=5"
                 resizable="no"
             />
             <ttkentry
                 textvariable="edit_description"
                 layout="grid"
-                layout_options="row=0, column=16"
+                layout_options="row=1, column=6"
                 resizable="width"
             />
         </ttklabelframe>

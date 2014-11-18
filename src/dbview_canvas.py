@@ -139,60 +139,6 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def get_bbox_center (self, tag):
-        """
-            returns (x, y) coordinates of central point for a bbox
-            identified by group tag;
-        """
-        # inits
-        _bbox = self.bbox(tag)
-        # got bbox?
-        if _bbox:
-            # get coords
-            x1, y1, x2, y2 = _bbox
-            # return center xy
-            return ((x1 + x2) // 2, (y1 + y2) // 2)
-        # end if
-    # end def
-
-
-    def get_group_tag (self, list_ids):
-        """
-            retrieves group tag from @list_ids;
-        """
-        # param controls
-        if list_ids:
-            # get foreground id tags
-            _tags = self.gettags(list_ids[-1]) or [""]
-            # extract group tag
-            return _tags[0]
-        # end if
-        # failed
-        return ""
-    # end def
-
-
-    def get_real_pos (self, x, y):
-        """
-            returns real position coordinates for canvas viewport
-            coordinates;
-        """
-        return (int(self.canvasx(x)), int(self.canvasy(y)))
-    # end def
-
-
-    def get_segment_center (self, start_xy, end_xy):
-        """
-            returns (x, y) coordinates of central point for a segment;
-        """
-        # inits
-        x0, y0 = start_xy
-        x1, y1 = end_xy
-        # calculate
-        return ((x0 + x1) // 2, (y0 + y1) // 2)
-    # end def
-
-
     def header_add (self, name, **options):
         """
             adds a field header label on canvas;

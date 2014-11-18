@@ -42,13 +42,11 @@ class DBViewCanvas (RC.RADCanvas):
     CONFIG_DATA = {
         "font": "monospace 10",
         "max_width": None,
-        "current_width": None,
     }
 
     CONFIG_HEADERS = {
         "font": "monospace 11",
         "max_width": None,
-        "current_width": None,
     }
 
     LABEL_BOX = (-5, -5, +5, +5)
@@ -69,13 +67,15 @@ class DBViewCanvas (RC.RADCanvas):
         """
             returns (width, height) bbox size along tag or bbox;
         """
-        # param controls
-        if tag_or_bbox:
-            # tag type?
-            if not isinstance(tag_or_bbox, (tuple, list)):
-                # search bbox
-                tag_or_bbox = self.bbox(tag_or_bbox) or (0, 0, 0, 0)
+        # tag type?
+        if not isinstance(tag_or_bbox, (tuple, list)):
+            # search bbox
+            tag_or_bbox = self.bbox(tag_or_bbox) or (0, 0, 0, 0)
         # end if
+        # inits
+        x0, y0, x1, y1 = tag_or_bbox
+        # return bbox size (width, height)
+        return (abs(x1 - x0), abs(y1 - y0))
     # end def
 
 

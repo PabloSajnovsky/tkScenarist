@@ -39,29 +39,29 @@
         >
             <!-- names listing DBView widget -->
             <module
-                id="mdbviewcanvas"
+                id="m_dbviewcanvas"
                 from="src"
                 import="dbview_canvas"
             />
             <widget
-                id="dbview_names"
-                name="text_dbview_names"
+                id="w_dbview_names"
+                name="dbview_names"
                 class="DBViewCanvas"
-                module="mdbviewcanvas"
+                module="m_dbviewcanvas"
                 font="monospace 10"
                 layout="grid"
                 layout_options="row=0, column=0"
                 resizable="yes"
             />
             <ttkscrollbar
-                connect="dbview_names"
+                connect="w_dbview_names"
                 orient="vertical"
                 layout="grid"
                 layout_options="row=0, column=1"
                 resizable="height"
             />
             <ttkscrollbar
-                connect="dbview_names"
+                connect="w_dbview_names"
                 orient="horizontal"
                 layout="grid"
                 layout_options="row=1, column=0"

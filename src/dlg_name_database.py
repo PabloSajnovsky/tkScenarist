@@ -89,6 +89,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         # member inits
         self.async = ASYNC.get_async_manager()
         self.database = self.tk_owner.database
+        self.DBVIEW = self.container.dbview_names
         # event bindings
         self.bind_events(**kw)
         # first time query

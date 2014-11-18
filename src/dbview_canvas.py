@@ -197,6 +197,7 @@ class DBViewCanvas (RC.RADCanvas):
         """
             event handler for canvas contents updating;
         """
+        print("dbview_canvas.update_canvas()")
         # inits
         _bbox = self.bbox("all")
         # got items?

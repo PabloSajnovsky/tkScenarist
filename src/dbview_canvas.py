@@ -139,25 +139,6 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def header_add (self, name, **options):
-        """
-            adds a field header label on canvas;
-        """
-        # retrieve previous header labels
-        _tag = self.TAG_HEADERS
-        _bbox = self.bbox(_tag)
-        x, y = (0, 0)
-        # got previous?
-        if _bbox:
-            # inits
-            x0, y0, x1, y1 = _bbox
-            x, y = (x1, y0)
-        # end if
-        # create label
-        self.create_label(x, y, text=name, tags=_tag, **options)
-    # end def
-
-
     def init_members (self, **kw):
         """
             class members only inits;
@@ -193,6 +174,36 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
+    def set_field_names (self, *names, **options):
+        """
+            resets view and rebuilds along with new field @names and
+            @options;
+        """
+        # reset all
+        self.reset()
+        # update field names ordered sequence
+        self.field_sequence = names
+        # inits
+        _tag = self.TAG_HEADERS
+        # browse names
+        for _name in names:
+            # set field options
+            _opts = self.set_field_options(_name, **options)
+            # get last pos
+            _bbox = self.bbox(_tag)
+            x, y = (0, 0)
+            # got previous?
+            if _bbox:
+                # inits
+                x0, y0, x1, y1 = _bbox
+                x, y = (x1, y0)
+            # end if
+            # create label
+            self.create_label(x, y, text=name, tags=_tag, **_opts)
+        # end for
+    # end def
+
+
     def set_field_options (self, name, **options):
         """
             sets field's new @options along with its field @name;
@@ -206,25 +217,6 @@ class DBViewCanvas (RC.RADCanvas):
         self.fields[name] = _options
         # return new options
         return _options
-    # end def
-
-
-    def set_field_names (self, *names, **options):
-        """
-            resets view and rebuilds along with new field @names and
-            @options;
-        """
-        # reset all
-        self.reset()
-        # update field names ordered sequence
-        self.field_sequence = names
-        # browse names
-        for _name in names:
-            # set field options
-            _opts = self.set_field_options(_name, **options)
-            # add field label on canvas
-            self.header_add(_name, **_opts)
-        # end for
     # end def
 
 

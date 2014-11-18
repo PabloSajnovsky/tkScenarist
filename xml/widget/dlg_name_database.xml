@@ -250,7 +250,7 @@
                 height="10"
                 postcommand="@Dialog:NameDB:Edit:Origin:Drop:List"
                 validate="key"
-                validatecommand="@Dialog:NameDB:Edit:Origin:Keypress"
+                validatecommand=".slot_edit_origin_keypress"
                 layout="grid"
                 layout_options="row=1, column=1"
                 resizable="width"

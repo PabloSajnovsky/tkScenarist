@@ -51,8 +51,6 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
 
                 "Dialog:NameDB:Edit:Origin:Drop:List":
                     self.slot_edit_origin_drop_list,
-                "Dialog:NameDB:Edit:Origin:Keypress":
-                    self.slot_edit_origin_keypress,
 
                 "Dialog:NameDB:Search:Criteria:Changed":
                     self.slot_search_criteria_changed,
@@ -118,6 +116,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             event handler;
         """
         print("slot_edit_origin_keypress")
+        return False
     # end def
 
 

@@ -23,6 +23,7 @@
 """
 
 # lib imports
+import tkRAD.core.asyn as ASYNC
 import tkRAD.widgets.rad_canvas as RC
 
 
@@ -37,6 +38,23 @@ class DBViewCanvas (RC.RADCanvas):
         "highlightbackground": "grey80",
         "highlightthickness": 1,
     } # end of CONFIG
+
+    CONFIG_DATA = {
+        "font": "monospace 10",
+        "max_width": None,
+        "current_width": None,
+    }
+
+    CONFIG_HEADERS = {
+        "font": "monospace 11",
+        "max_width": None,
+        "current_width": None,
+    }
+
+    LABEL_BOX = (-5, -5, +5, +5)
+
+    TAG_DATA = "data"
+    TAG_HEADERS = "headers"
 
 
     def bbox_add (self, bbox1, bbox2):
@@ -58,7 +76,7 @@ class DBViewCanvas (RC.RADCanvas):
             }
         )
         # tkinter event bindings
-        self.bind("<Configure>", self.update_canvas)
+        #~ self.bind("<Configure>", self.update_canvas)
     # end def
 
 
@@ -98,6 +116,26 @@ class DBViewCanvas (RC.RADCanvas):
         self.configure(scrollregion=(0, 0, 0, 0))
         self.xview_moveto(0)
         self.yview_moveto(0)
+    # end def
+
+
+    def create_label (self, left_x, top_y, **kw):
+        """
+            creates a text label on canvas along with @kw keyword
+            options;
+        """
+        # inits
+        x0, y0, x1, y1 = self.LABEL_BOX
+        x, y = (left_x - x0, top_y - y0)
+        # create text
+        _id1 = self.create_text(
+            x, y,
+            anchor="nw",
+            text=kw.get("text") or "label",
+            font=kw.get("font"),
+            fill=kw.get("foreground") or "black",
+            width=self.get_best_width(**kw),
+        )
     # end def
 
 
@@ -155,11 +193,30 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
+    def header_add (self, name, **options):
+        """
+            adds a field header label on canvas;
+        """
+        # retrieve previous header labels
+        _bbox = self.bbox(self.TAG_HEADERS)
+        left_x, top_y = (0, 0)
+        # got previous?
+        if _bbox:
+            # inits
+            x0, y0, x1, y1 = _bbox
+            left_x, top_y = (x1, y0)
+        # end if
+        # create label
+        self.create_label(left_x, top_y, text=name, **options)
+    # end def
+
+
     def init_members (self, **kw):
         """
             class members only inits;
         """
         # members only inits
+        self.async = ASYNC.get_async_manager()
         self.fields = dict()
     # end def
 
@@ -172,6 +229,38 @@ class DBViewCanvas (RC.RADCanvas):
         self.init_members(**kw)
         # event bindings
         self.bind_events()
+    # end def
+
+
+    def reset (self, *args, **kw):
+        """
+            event handler: resets all in widget;
+        """
+        # reset members
+        self.init_members(**kw)
+        # clear canvas
+        self.clear_canvas(*args, **kw)
+    # end def
+
+
+    def set_field_names (self, *names, **options):
+        """
+            resets view and rebuilds along with new field @names and
+            @options;
+        """
+        # reset all
+        self.reset()
+        # browse names
+        for _index, _name in enumerate(names):
+            # inits
+            _opts = self.CONFIG_HEADERS.copy()
+            _opts.update(options)
+            _opts.update(name=_name, index=_index)
+            # set field name and structure
+            self.fields[_name] = _opts
+            # add field label on canvas
+            self.header_add(_name, _opts)
+        # end for
     # end def
 
 
@@ -207,7 +296,7 @@ class DBViewCanvas (RC.RADCanvas):
         # no items
         else:
             # better clean up everything
-            self.clear_canvas()
+            self.reset()
         # end if
     # end def
 

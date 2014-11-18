@@ -75,35 +75,6 @@ class DBViewCanvas (RC.RADCanvas):
                 "Project:Modified": self.slot_project_modified,
             }
         )
-        # tkinter event bindings
-        #~ self.bind("<Configure>", self.update_canvas)
-    # end def
-
-
-    def center_x (self):
-        """
-            returns x coordinates for canvas' center point;
-        """
-        # return center point x coordinates
-        return self.winfo_reqwidth() // 2
-    # end def
-
-
-    def center_xy (self):
-        """
-            returns (x, y) coordinates for canvas' center point;
-        """
-        # return center point coordinates
-        return (self.center_x(), self.center_y())
-    # end def
-
-
-    def center_y (self):
-        """
-            returns y coordinates for canvas' center point;
-        """
-        # return center point y coordinates
-        return self.winfo_reqheight() // 2
     # end def
 
 
@@ -132,7 +103,7 @@ class DBViewCanvas (RC.RADCanvas):
             x, y,
             anchor="nw",
             text=kw.get("text") or "label",
-            font=kw.get("font"),
+            font=kw.get("font") or "monospace 10",
             fill=kw.get("foreground") or "black",
             width=kw.get("max_width"),
             tags=kw.get("tags"),
@@ -149,6 +120,8 @@ class DBViewCanvas (RC.RADCanvas):
         )
         # set frame under text
         self.tag_lower(_id2, _id1)
+        # update canvas by now
+        self.update_canvas()
     # end def
 
 
@@ -211,16 +184,17 @@ class DBViewCanvas (RC.RADCanvas):
             adds a field header label on canvas;
         """
         # retrieve previous header labels
-        _bbox = self.bbox(self.TAG_HEADERS)
-        left_x, top_y = (0, 0)
+        _tag = self.TAG_HEADERS
+        _bbox = self.bbox(_tag)
+        x, y = (0, 0)
         # got previous?
         if _bbox:
             # inits
             x0, y0, x1, y1 = _bbox
-            left_x, top_y = (x1, y0)
+            x, y = (x1, y0)
         # end if
         # create label
-        self.create_label(left_x, top_y, text=name, **options)
+        self.create_label(x, y, text=name, tags=_tag, **options)
     # end def
 
 
@@ -230,6 +204,7 @@ class DBViewCanvas (RC.RADCanvas):
         """
         # members only inits
         self.async = ASYNC.get_async_manager()
+        self.field_sequence = None
         self.fields = dict()
     # end def
 
@@ -258,11 +233,13 @@ class DBViewCanvas (RC.RADCanvas):
 
     def set_field_options (self, name, **options):
         """
-            sets field's new @options along with its @name;
+            sets field's new @options along with its field @name;
         """
         # inits
         _options = self.fields.get(name) or self.CONFIG_HEADERS.copy()
         _options.update(options)
+        # last but not least
+        _options.update(name=name)
         # set new options
         self.fields[name] = _options
         # return new options
@@ -277,10 +254,10 @@ class DBViewCanvas (RC.RADCanvas):
         """
         # reset all
         self.reset()
+        # update field names ordered sequence
+        self.field_sequence = names
         # browse names
-        for _index, _name in enumerate(names):
-            # inits
-            options.update(name=_name, index=_index)
+        for _name in names:
             # set field options
             _opts = self.set_field_options(_name, **options)
             # add field label on canvas

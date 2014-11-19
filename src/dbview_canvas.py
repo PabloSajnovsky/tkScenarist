@@ -319,7 +319,19 @@ class DBViewCanvas (RC.RADCanvas):
         # got items?
         if _bbox:
             # reset scroll region size
-            self.configure(scrollregion=_bbox)
+            self.configure(
+                scrollregion=(
+                    0, 0,
+                    max(
+                        self.frame_body.winfo_reqwidth(),
+                        self.frame_header.winfo_reqwidth()
+                    ),
+                    max(
+                        self.frame_body.winfo_reqheight(),
+                        self.frame_header.winfo_reqheight()
+                    ),
+                )
+            )
         # no items
         else:
             # better clean up everything

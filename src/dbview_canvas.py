@@ -497,8 +497,7 @@ class DBViewCanvas (RC.RADCanvas):
         """
             event unbindings;
         """
-        # app-wide event unbindings
-        pass
+        # CAUTION: tkRAD event unbindings are automatic
         # tkinter event unbindings
         # mouse wheel support
         for _seq in ("<Button-4>", "<Button-5>", "<MouseWheel>"):

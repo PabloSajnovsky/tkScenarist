@@ -40,12 +40,15 @@ class DBViewCanvas (RC.RADCanvas):
         "highlightthickness": 1,
     } # end of CONFIG
 
-    CONFIG_BODY = {
-        "font": "monospace 10",
-    }
+    CONFIG_FIELD = {
 
-    CONFIG_HEADER = {
-        "font": "monospace 11",
+        "body": {
+            "font": "monospace 10",
+        },
+
+        "header": {
+            "font": "monospace 11",
+        },
     }
 
 
@@ -103,8 +106,7 @@ class DBViewCanvas (RC.RADCanvas):
         # members only inits
         self.async = ASYNC.get_async_manager()
         self.field_sequence = None
-        self.options_body = dict()
-        self.options_header = dict()
+        self.field_options = dict(body=dict(), header=dict())
         self.column_index = 0
         self.row_index = 0
         # widget inits
@@ -235,7 +237,7 @@ class DBViewCanvas (RC.RADCanvas):
         # browse names
         for _name in names:
             # set field options
-            _opts = self.set_options_header(_name, **options)
+            _opts = self.set_field_options("both", _name, **options)
             # set header label
             self.insert_label(self.frame_header, text=_name, **_opts)
         # end for
@@ -244,35 +246,39 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def set_options_body (self, name, **options):
+    def set_field_options (self, section, name, **options):
         """
             sets @options for a given field @name;
         """
+        # inner function
+        def _set_options(section, name, **options):
+            # inits
+            _options = self.field_options[section].get(name) or \
+                                    self.CONFIG_FIELD[section].copy()
+            # override new options
+            _options.update(options)
+            # last but not least
+            _options.update(name=name)
+            # update field options
+            self.field_options[section][name] = _options
+            # return new options
+            return _options
+        # end def
         # inits
-        _options = self.options_body.get(name) or self.CONFIG_BODY.copy()
-        _options.update(options)
-        # last but not least
-        _options.update(name=name)
-        # set field options
-        self.options_body[name] = _options
-        # return new options
-        return _options
-    # end def
-
-
-    def set_options_header (self, name, **options):
-        """
-            sets @options for a given field @name;
-        """
-        # inits
-        _options = self.options_header.get(name) or self.CONFIG_HEADER.copy()
-        _options.update(options)
-        # last but not least
-        _options.update(name=name)
-        # set field options
-        self.options_header[name] = _options
-        # return new options
-        return _options
+        section = str(section).lower()
+        _bopts = _hopts = dict()
+        # body options
+        if section in ("body", "both", "all"):
+            # set options for body fields
+            _bopts = _set_options("body", name, **options)
+        # end if
+        # header options
+        if section in ("header", "both", "all"):
+            # set options for header fields
+            _hopts = _set_options("header", name, **options)
+        # end if
+        # return all options
+        return self.field_options
     # end def
 
 

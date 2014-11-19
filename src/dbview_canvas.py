@@ -52,7 +52,24 @@ class DBViewCanvas (RC.RADCanvas):
     }
 
 
-    def _do_set_field_options(self, section, name, **options):
+    def _do_resync_body_header (self, row=None, column=None):
+        """
+            protected method def for internal use;
+        """
+        # got to resync body position along header line height?
+        if row is None and column is None:
+            # resync box height
+            self.coords(
+                self.id_body, 0, self.frame_header.winfo_reqheight()
+            )
+        # resync column widths
+        else:
+            pass
+        # end if
+    # end def
+
+
+    def _do_set_field_options (self, section, name, **options):
         """
             protected method def for internal use;
         """
@@ -273,6 +290,18 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
+    def resync_body_header (self, row=None, column=None):
+        """
+            resyncs body/header column width;
+            resyncs body position if @row/@column omitted;
+        """
+        # defer task
+        self.async.run_after_idle(
+            self._do_resync_body_header, row, column
+        )
+    # end def
+
+
     def set_field_names (self, *names, **options):
         """
             resets view and rebuilds along with new field @names and
@@ -294,9 +323,7 @@ class DBViewCanvas (RC.RADCanvas):
         # reset column index
         self.column_index = 0
         # reset body frame position on canvas
-        self.coords(
-            self.id_body, 0, self.frame_header.winfo_reqheight()
-        )
+        self.resync_body_header()
     # end def
 
 

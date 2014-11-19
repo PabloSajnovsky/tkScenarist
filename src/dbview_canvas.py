@@ -87,6 +87,15 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
+    def get_field_options (self, name):
+        """
+            retrieves field options for field @name;
+            returns empty dict() otherwise;
+        """
+        return self.options_header.get(name) or dict()
+    # end def
+
+
     def init_members (self, **kw):
         """
             class members only inits;
@@ -94,7 +103,8 @@ class DBViewCanvas (RC.RADCanvas):
         # members only inits
         self.async = ASYNC.get_async_manager()
         self.field_sequence = None
-        self.fields = dict()
+        self.options_body = dict()
+        self.options_header = dict()
         self.column_index = 0
         self.row_index = 0
         # widget inits
@@ -152,13 +162,43 @@ class DBViewCanvas (RC.RADCanvas):
         )
         # insert into frame
         _label.grid(
-            row=self.row_index, column=self.column_index,
+            row=kw.get("row") or self.row_index,
+            column=kw.get("column") or self.column_index,
             sticky=kw.get("sticky") or "nwse",
         )
         # next column
-        self.column_index += 1
+        if kw.get("column") is None:
+            # update pos
+            self.column_index += 1
+        # end if
         # update canvas
         self.update_canvas()
+    # end def
+
+
+    def insert_row (self, row_dict, row_index=None):
+        """
+            inserts a given @row_dict into data body at @row_index
+            line, starting from 0;
+        """
+        # param inits
+        if row_index is None:
+            # reset value
+            row_index = self.row_index
+            # set next row
+            self.next_row()
+        # end if
+        # browse field names
+        for _column, _name in enumerate(self.field_sequence):
+            # inits
+            _data = str(row_dict.get(_name) or "")
+            # get field options
+            _opts = self.get_field_options(_name)
+            # create label
+            self.insert_label(
+                self.frame_body, column=_column, text=_data, **_opts
+            )
+        # end for
     # end def
 
 
@@ -195,7 +235,7 @@ class DBViewCanvas (RC.RADCanvas):
         # browse names
         for _name in names:
             # set field options
-            _opts = self.set_field_options(_name, **options)
+            _opts = self.set_options_header(_name, **options)
             # set header label
             self.insert_label(self.frame_header, text=_name, **_opts)
         # end for
@@ -204,17 +244,33 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def set_field_options (self, name, **options):
+    def set_options_body (self, name, **options):
         """
             sets @options for a given field @name;
         """
         # inits
-        _options = self.fields.get(name) or self.CONFIG_HEADER.copy()
+        _options = self.options_body.get(name) or self.CONFIG_BODY.copy()
         _options.update(options)
         # last but not least
         _options.update(name=name)
         # set field options
-        self.fields[name] = _options
+        self.options_body[name] = _options
+        # return new options
+        return _options
+    # end def
+
+
+    def set_options_header (self, name, **options):
+        """
+            sets @options for a given field @name;
+        """
+        # inits
+        _options = self.options_header.get(name) or self.CONFIG_HEADER.copy()
+        _options.update(options)
+        # last but not least
+        _options.update(name=name)
+        # set field options
+        self.options_header[name] = _options
         # return new options
         return _options
     # end def

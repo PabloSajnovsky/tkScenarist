@@ -103,7 +103,7 @@ class DBViewCanvas (RC.RADCanvas):
 
 
     def _do_test (self):
-        print("do test")
+        #~ print("do test")
         self.set_field_names(
             "Name", "Male", "Female", "Origin", "Description",
             **{
@@ -111,7 +111,7 @@ class DBViewCanvas (RC.RADCanvas):
                 "Female": dict(align="center"),
             }
         )
-        for i in range(25):
+        for i in range(10):
             self.insert_row(
                 dict(
                     Name="toto",
@@ -489,7 +489,7 @@ class DBViewCanvas (RC.RADCanvas):
             event handler for testing session;
         """
         # deferred task
-        self.async.run_after(1000, self._do_test)
+        self.async.run_after(500, self._do_test)
     # end def
 
 

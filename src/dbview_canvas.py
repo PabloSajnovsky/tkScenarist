@@ -102,6 +102,54 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
+    def _do_test (self):
+        print("do test")
+        self.set_field_names(
+            "Name", "Male", "Female", "Origin", "Description",
+            **{
+                "Male": dict(align="center"),
+                "Female": dict(align="center"),
+            }
+        )
+        for i in range(25):
+            self.insert_row(
+                dict(
+                    Name="toto",
+                    Male="M",
+                    Origin="unknown",
+                    Description="bla bla bla qmlskdj "
+                        "mlq kjsdfm sf qls dmlf jqsdmlf jqmls "
+                        "dfjml sjdlfm jqmlsdj fmlqjsdk fml sf",
+                )
+            )
+            self.insert_row(
+                dict(
+                    Name="tutu",
+                    Female="F",
+                    Origin="South african",
+                    Description="bla bla bla",
+                )
+            )
+            self.insert_row(
+                dict(
+                    Name="titi",
+                    Male="M",
+                    Female="F",
+                    Origin="French (Paris)",
+                    Description="qlmksj dfmlqskjd fmqlj f",
+                )
+            )
+            self.insert_row(
+                dict(
+                    Name="tata",
+                    Origin="Tarloose planet",
+                    Description="qsldkjf mqlkjfqsdmlkj qmlsdkjf",
+                )
+            )
+        # end for
+    # end def
+
+
     def _do_update_canvas (self):
         """
             protected method def for internal use;
@@ -438,54 +486,8 @@ class DBViewCanvas (RC.RADCanvas):
         """
             event handler for testing session;
         """
-        def do_test ():
-            print("do test")
-            self.set_field_names(
-                "Name", "Male", "Female", "Origin", "Description",
-                **{
-                    "Male": dict(align="center"),
-                    "Female": dict(align="center"),
-                }
-            )
-            for i in range(25):
-                self.insert_row(
-                    dict(
-                        Name="toto",
-                        Male="M",
-                        Origin="unknown",
-                        Description="bla bla bla qmlskdj "
-                            "mlq kjsdfm sf qls dmlf jqsdmlf jqmls "
-                            "dfjml sjdlfm jqmlsdj fmlqjsdk fml sf",
-                    )
-                )
-                self.insert_row(
-                    dict(
-                        Name="tutu",
-                        Female="F",
-                        Origin="South african",
-                        Description="bla bla bla",
-                    )
-                )
-                self.insert_row(
-                    dict(
-                        Name="titi",
-                        Male="M",
-                        Female="F",
-                        Origin="French (Paris)",
-                        Description="qlmksj dfmlqskjd fmqlj f",
-                    )
-                )
-                self.insert_row(
-                    dict(
-                        Name="tata",
-                        Origin="Tarloose planet",
-                        Description="qsldkjf mqlkjfqsdmlkj qmlsdkjf",
-                    )
-                )
-            # end for
-        # end def
         # deferred task
-        self.async.run_after(500, do_test)
+        self.async.run_after_idle(self._do_test)
     # end def
 
 

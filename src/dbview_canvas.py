@@ -52,6 +52,43 @@ class DBViewCanvas (RC.RADCanvas):
     }
 
 
+    def _do_set_field_options(self, section, name, **options):
+        """
+            protected method def for internal use;
+        """
+        # param controls
+        if section in self.field_options:
+            # inits
+            _options = self.field_options[section].get(name) or \
+                                    self.CONFIG_FIELD[section].copy()
+            # override new options
+            _options.update(options)
+            # last but not least
+            _options.update(name=name)
+            # update field options
+            self.field_options[section][name] = _options
+        # end if
+    # end def
+
+
+    def _do_update_canvas (self):
+        """
+            protected method def for internal use;
+        """
+        # inits
+        _bbox = self.bbox("all")
+        # got items?
+        if _bbox:
+            # reset scroll region size
+            self.configure(scrollregion=_bbox)
+        # no items
+        else:
+            # better clean up everything
+            self.reset()
+        # end if
+    # end def
+
+
     def bind_events (self, **kw):
         """
             event bindings;
@@ -279,29 +316,17 @@ class DBViewCanvas (RC.RADCanvas):
         """
         # param controls
         if name in self.field_sequence:
-            # inner function
-            def _set_options(section, name, **options):
-                # inits
-                _options = self.field_options[section].get(name) or \
-                                        self.CONFIG_FIELD[section].copy()
-                # override new options
-                _options.update(options)
-                # last but not least
-                _options.update(name=name)
-                # update field options
-                self.field_options[section][name] = _options
-            # end def
             # inits
             section = str(section).lower()
             # body options
             if section in ("body", "both", "all"):
                 # set options for body field name
-                _set_options("body", name, **options)
+                self._do_set_field_options("body", name, **options)
             # end if
             # header options
             if section in ("header", "both", "all"):
                 # set options for header field name
-                _set_options("header", name, **options)
+                self._do_set_field_options("header", name, **options)
             # end if
             # return all options
             return self.field_options
@@ -313,30 +338,8 @@ class DBViewCanvas (RC.RADCanvas):
         """
             event handler for canvas contents updating;
         """
-        print("dbview_canvas.update_canvas()")
-        # inits
-        _bbox = self.bbox("all")
-        # got items?
-        if _bbox:
-            # reset scroll region size
-            self.configure(
-                scrollregion=(
-                    0, 0,
-                    max(
-                        self.frame_body.winfo_reqwidth(),
-                        self.frame_header.winfo_reqwidth()
-                    ),
-                    max(
-                        self.frame_body.winfo_reqheight(),
-                        self.frame_header.winfo_reqheight()
-                    ),
-                )
-            )
-        # no items
-        else:
-            # better clean up everything
-            self.reset()
-        # end if
+        # defer task
+        self.async.run_after_idle(self._do_update_canvas)
     # end def
 
 # end class DBViewCanvas

@@ -30,7 +30,7 @@ import tkRAD.widgets.rad_canvas as RC
 
 class DBViewCanvas (RC.RADCanvas):
     """
-        Database Query View canvas class;
+        Database View canvas class;
     """
 
     # class constant defs
@@ -48,24 +48,27 @@ class DBViewCanvas (RC.RADCanvas):
 
         "header": {
             "font": "sans 11 bold",
+            "width": 0,
         },
     }
 
 
-    def _do_resync_body_header (self, column=None):
+    def _do_resync_body_header (self, column, width):
         """
             protected method def for internal use;
         """
-        # got to resync body position along header line height?
-        if column is None:
-            # resync box height
-            self.coords(
-                self.id_body, 0, self.frame_header.winfo_reqheight()
-            )
-        # resync column widths
-        else:
-            pass
-        # end if
+        # inits
+        print("resync body header: param @width:", width)
+        _name = self.field_sequence[column]
+        _width = max(
+            width,
+            self.get_field_options("header", _name).get("width") or 0
+        )
+        # update column widths
+        self.frame_body.columnconfigure(column, minsize=_width)
+        self.frame_header.columnconfigure(column, minsize=_width)
+        # update header option
+        self.set_field_options("header", _name, width=_width)
         # update canvas
         self.update_canvas()
     # end def
@@ -207,7 +210,7 @@ class DBViewCanvas (RC.RADCanvas):
             frame,
             anchor=kw.get("anchor"),
             background=kw.get("background") or "white",
-            borderwidth=kw.get("borderwidth") or 1,
+            borderwidth=kw.get("borderwidth", 1),
             class_=kw.get("class_"),
             compound=kw.get("compound"),
             cursor=kw.get("cursor"),
@@ -226,11 +229,14 @@ class DBViewCanvas (RC.RADCanvas):
             wraplength=kw.get("wraplength"),
         )
         # insert into frame
+        _column = kw.get("column", self.column_index)
         _label.grid(
-            row=kw.get("row") or self.row_index,
-            column=kw.get("column") or self.column_index,
+            row=kw.get("row", self.row_index),
+            column=_column,
             sticky=kw.get("sticky") or "nwse",
         )
+        # resync body/header column widths
+        self.resync_body_header(_column, _label.winfo_reqwidth())
         # next column
         if kw.get("column") is None:
             # update pos
@@ -292,13 +298,25 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def resync_body_header (self, column=None):
+    def resync_body_header (self, column, width):
         """
             resyncs body/header column width;
-            resyncs body position if @row/@column omitted;
         """
         # deferred task
-        self.async.run_after_idle(self._do_resync_body_header, column)
+        self.async.run_after_idle(
+            self._do_resync_body_header, column, width
+        )
+    # end def
+
+
+    def resync_body_position (self):
+        """
+            resyncs body position along with header's line height;
+        """
+        # resync body position
+        self.coords(
+            self.id_body, 0, self.frame_header.winfo_reqheight()
+        )
     # end def
 
 
@@ -323,7 +341,7 @@ class DBViewCanvas (RC.RADCanvas):
         # reset column index
         self.column_index = 0
         # reset body frame position on canvas
-        self.resync_body_header()
+        self.async.run_after_idle(self.resync_body_position)
     # end def
 
 

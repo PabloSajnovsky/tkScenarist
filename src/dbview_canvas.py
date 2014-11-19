@@ -52,12 +52,12 @@ class DBViewCanvas (RC.RADCanvas):
     }
 
 
-    def _do_resync_body_header (self, row=None, column=None):
+    def _do_resync_body_header (self, column=None):
         """
             protected method def for internal use;
         """
         # got to resync body position along header line height?
-        if row is None and column is None:
+        if column is None:
             # resync box height
             self.coords(
                 self.id_body, 0, self.frame_header.winfo_reqheight()
@@ -66,6 +66,8 @@ class DBViewCanvas (RC.RADCanvas):
         else:
             pass
         # end if
+        # update canvas
+        self.update_canvas()
     # end def
 
 
@@ -290,15 +292,13 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def resync_body_header (self, row=None, column=None):
+    def resync_body_header (self, column=None):
         """
             resyncs body/header column width;
             resyncs body position if @row/@column omitted;
         """
-        # defer task
-        self.async.run_after_idle(
-            self._do_resync_body_header, row, column
-        )
+        # deferred task
+        self.async.run_after_idle(self._do_resync_body_header, column)
     # end def
 
 
@@ -377,7 +377,7 @@ class DBViewCanvas (RC.RADCanvas):
         """
             event handler for canvas contents updating;
         """
-        # defer task
+        # deferred task
         self.async.run_after_idle(self._do_update_canvas)
     # end def
 

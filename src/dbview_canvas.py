@@ -211,7 +211,7 @@ class DBViewCanvas (RC.RADCanvas):
         # event bindings
         self.bind_events()
         # test
-        self.async.run_after_idle(self.test_session)
+        self.async.run_after(1000, self.test_session)
     # end def
 
 
@@ -250,7 +250,7 @@ class DBViewCanvas (RC.RADCanvas):
             textvariable=kw.get("textvariable"),
             underline=kw.get("underline"),
             width=kw.get("width"),
-            wraplength=kw.get("wraplength"),
+            wraplength=kw.get("wraplength", 500),
         )
         # insert into frame
         _column = kw.get("column", self.column_index)
@@ -428,7 +428,7 @@ class DBViewCanvas (RC.RADCanvas):
         )
         self.set_field_options("body", "Male", align="center")
         self.set_field_options("body", "Female", align="center")
-        for i in range(10):
+        for i in range(50):
             self.insert_row(
                 dict(
                     Name="toto",

@@ -205,6 +205,8 @@ class DBViewCanvas (RC.RADCanvas):
         """
         # unbind events first
         self.unbind_events()
+        # reset all for faster widget destruction
+        self.reset()
         # then delegate to super class
         super().destroy(*args, **kw)
     # end def
@@ -487,7 +489,7 @@ class DBViewCanvas (RC.RADCanvas):
             event handler for testing session;
         """
         # deferred task
-        self.async.run_after_idle(self._do_test)
+        self.async.run_after(1000, self._do_test)
     # end def
 
 

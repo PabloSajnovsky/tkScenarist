@@ -36,8 +36,10 @@ class DBViewCanvas (RC.RADCanvas):
     # class constant defs
     CONFIG = {
         "bg": "white",
+        "height": 480,
         "highlightbackground": "grey80",
         "highlightthickness": 1,
+        "width": 640,
     } # end of CONFIG
 
     CONFIG_FIELD = {
@@ -58,7 +60,6 @@ class DBViewCanvas (RC.RADCanvas):
             protected method def for internal use;
         """
         # inits
-        print("resync body header: param @width:", width)
         _name = self.field_sequence[column]
         _width = max(
             width,
@@ -214,7 +215,7 @@ class DBViewCanvas (RC.RADCanvas):
             class_=kw.get("class_"),
             compound=kw.get("compound"),
             cursor=kw.get("cursor"),
-            font=kw.get("font") or "sans 10",
+            font=kw.get("font"),
             foreground=kw.get("foreground") or "black",
             image=kw.get("image"),
             justify=kw.get("justify"),
@@ -222,7 +223,7 @@ class DBViewCanvas (RC.RADCanvas):
             relief=kw.get("relief") or "solid",
             style=kw.get("style"),
             takefocus=kw.get("takefocus"),
-            text=_(kw.get("text") or "label"),          # i18n support
+            text=_(kw.get("text", "label")),            # i18n support
             textvariable=kw.get("textvariable"),
             underline=kw.get("underline"),
             width=kw.get("width"),
@@ -303,7 +304,9 @@ class DBViewCanvas (RC.RADCanvas):
             resyncs body/header column width;
         """
         # deferred task
-        self.async.run_after_idle(
+        # CAUTION:
+        # this must *NOT* be cancelled, rescheduled or any other /!\
+        self.after_idle(
             self._do_resync_body_header, column, width
         )
     # end def
@@ -385,6 +388,30 @@ class DBViewCanvas (RC.RADCanvas):
                     Description="bla bla bla qmlskdj "
                         "mlq kjsdfm sf qls dmlf jqsdmlf jqmls "
                         "dfjml sjdlfm jqmlsdj fmlqjsdk fml sf",
+                )
+            )
+            self.insert_row(
+                dict(
+                    Name="tutu",
+                    Female="F",
+                    Origin="South african",
+                    Description="bla bla bla",
+                )
+            )
+            self.insert_row(
+                dict(
+                    Name="titi",
+                    Male="M",
+                    Female="F",
+                    Origin="French (Paris)",
+                    Description="qlmksj dfmlqskjd fmqlj f",
+                )
+            )
+            self.insert_row(
+                dict(
+                    Name="tata",
+                    Origin="Tarloose planet",
+                    Description="qsldkjf mqlkjfqsdmlkj qmlsdkjf",
                 )
             )
         # end for

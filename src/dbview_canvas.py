@@ -130,15 +130,31 @@ class DBViewCanvas (RC.RADCanvas):
         # inits
         _label = ttk.Label(
             frame,
-            text=_(kw.get("text") or "label"),          # i18n support
-            font=kw.get("font") or "monospace 10",
+            anchor=kw.get("anchor"),
             background=kw.get("background") or "white",
-            foreground=kw.get("foreground") or "black",
             borderwidth=kw.get("borderwidth") or 1,
+            class_=kw.get("class_"),
+            compound=kw.get("compound"),
+            cursor=kw.get("cursor"),
+            font=kw.get("font") or "monospace 10",
+            foreground=kw.get("foreground") or "black",
+            image=kw.get("image"),
+            justify=kw.get("justify"),
+            padding=kw.get("padding") or "2px",
             relief=kw.get("relief") or "solid",
+            style=kw.get("style"),
+            takefocus=kw.get("takefocus"),
+            text=_(kw.get("text") or "label"),          # i18n support
+            textvariable=kw.get("textvariable"),
+            underline=kw.get("underline"),
+            width=kw.get("width"),
+            wraplength=kw.get("wraplength"),
         )
         # insert into frame
-        _label.grid(row=self.row_index, column=self.column_index)
+        _label.grid(
+            row=self.row_index, column=self.column_index,
+            sticky=kw.get("sticky") or "nwse",
+        )
         # next column
         self.column_index += 1
         # update canvas

@@ -39,8 +39,7 @@ class DBViewCanvas (RC.RADCanvas):
         "bg": "white",
         "height": 300,
         "highlightbackground": "grey80",
-        "highlightthickness": 1,
-        "takefocus": 1,
+        "highlightthickness": 0,
         "width": 600,
     } # end of CONFIG
 
@@ -126,11 +125,11 @@ class DBViewCanvas (RC.RADCanvas):
             event bindings;
         """
         # app-wide event bindings
-        #~ self.events.connect_dict(
-            #~ {
-                #~ "Project:Modified": self.slot_project_modified,
-            #~ }
-        #~ )
+        self.events.connect_dict(
+            {
+                "DBView:Test": self.slot_test_session,
+            }
+        )
         # tkinter event bindings
         # mouse wheel support
         for _seq in ("<Button-4>", "<Button-5>", "<MouseWheel>"):
@@ -152,15 +151,31 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
+    def destroy (self, *args, **kw):
+        """
+            event handler: tkinter widget destruction procedure;
+        """
+        # unbind events first
+        self.unbind_events()
+        # then delegate to super class
+        super().destroy(*args, **kw)
+    # end def
+
+
     def ensure_visible_header (self, *args, **kw):
         """
             event handler: ensures header frame is always visible while
-            scrolling canvas;
+            scrolling canvas vertically;
         """
-        # reset pos
-        self.coords(self.id_header, 0, self.canvasy(0))
-        # set to foreground
-        self.tag_raise(self.id_header, "all")
+        # try out
+        try:
+            # reset pos
+            self.coords(self.id_header, 0, self.canvasy(0))
+            # set to foreground
+            self.tag_raise(self.id_header, "all")
+        except:
+            pass
+        # end try
     # end def
 
 
@@ -210,8 +225,6 @@ class DBViewCanvas (RC.RADCanvas):
         self.init_members(**kw)
         # event bindings
         self.bind_events()
-        # test
-        self.async.run_after(1000, self.test_session)
     # end def
 
 
@@ -357,8 +370,10 @@ class DBViewCanvas (RC.RADCanvas):
         self.field_sequence = names
         # browse names
         for _name in names:
+            # init specific / generic options
+            _options = options.get(_name) or options
             # set field options
-            _opts = self.set_field_options("all", _name, **options)
+            _opts = self.set_field_options("all", _name, **_options)
             # set header label
             self.insert_label(
                 self.frame_header, text=_name, **_opts["header"][_name]
@@ -419,16 +434,18 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def test_session (self, *args, **kw):
+    def slot_test_session (self, *args, **kw):
         """
             event handler for testing session;
         """
         self.set_field_names(
-            "Name", "Male", "Female", "Origin", "Description"
+            "Name", "Male", "Female", "Origin", "Description",
+            **{
+                "Male": dict(align="center"),
+                "Female": dict(align="center"),
+            }
         )
-        self.set_field_options("body", "Male", align="center")
-        self.set_field_options("body", "Female", align="center")
-        for i in range(50):
+        for i in range(25):
             self.insert_row(
                 dict(
                     Name="toto",
@@ -467,12 +484,60 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
+    def unbind_events (self, **kw):
+        """
+            event unbindings;
+        """
+        # app-wide event unbindings
+        pass
+        # tkinter event unbindings
+        # mouse wheel support
+        for _seq in ("<Button-4>", "<Button-5>", "<MouseWheel>"):
+            # tk event unbindings
+            self.unbind_all(_seq)
+        # end for
+    # end def
+
+
     def update_canvas (self, *args, **kw):
         """
             event handler for canvas contents updating;
         """
         # deferred task
         self.async.run_after_idle(self._do_update_canvas)
+    # end def
+
+
+    def yview (self, *args):
+        """
+            hack for header visibility;
+        """
+        # delegate to super
+        super().yview(*args)
+        # ensure header is always visible
+        self.ensure_visible_header()
+    # end def
+
+
+    def yview_moveto (self, *args):
+        """
+            hack for header visibility;
+        """
+        # delegate to super
+        super().yview_moveto(*args)
+        # ensure header is always visible
+        self.ensure_visible_header()
+    # end def
+
+
+    def yview_scroll (self, *args):
+        """
+            hack for header visibility;
+        """
+        # delegate to super
+        super().yview_scroll(*args)
+        # ensure header is always visible
+        self.ensure_visible_header()
     # end def
 
 # end class DBViewCanvas

@@ -175,8 +175,8 @@
             resizable="yes"
         >
             <ttkbutton
-                text="Action"
-                command="@Dialog:NameDB:Action"
+                text="DBView test"
+                command="@DBView:Test"
                 layout="pack"
                 resizable="width"
             />

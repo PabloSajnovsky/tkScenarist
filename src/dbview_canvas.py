@@ -101,10 +101,10 @@ class DBViewCanvas (RC.RADCanvas):
         self.frame_body = ttk.Frame(self)
         self.frame_header = ttk.Frame(self)
         self.id_body = self.create_window(
-            0, 0, window=self.frame_body
+            0, 0, anchor="nw", window=self.frame_body
         )
         self.id_header = self.create_window(
-            0, 0, window=self.frame_header
+            0, 0, anchor="nw", window=self.frame_header
         )
     # end def
 
@@ -134,6 +134,8 @@ class DBViewCanvas (RC.RADCanvas):
             font=kw.get("font") or "monospace 10",
             background=kw.get("background") or "white",
             foreground=kw.get("foreground") or "black",
+            borderwidth=kw.get("borderwidth") or 1,
+            relief=kw.get("relief") or "solid",
         )
         # insert into frame
         _label.grid(row=self.row_index, column=self.column_index)

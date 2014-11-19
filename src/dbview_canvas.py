@@ -47,15 +47,20 @@ class DBViewCanvas (RC.RADCanvas):
     CONFIG_FIELD = {
 
         "body": {
+            "align": "left",
             "font": "sans 10",
-            "anchor": "w",
         },
 
         "header": {
+            "align": "center",
             "font": "sans 11 bold",
-            "anchor": "center",
             "width": 0,
         },
+    }
+
+    FIELD_ALIGN = {
+        "left": "w",
+        "right": "e",
     }
 
 
@@ -216,9 +221,18 @@ class DBViewCanvas (RC.RADCanvas):
             internal (self.row_index, self.column_index) indices;
         """
         # inits
+        _align = kw.get("align")
+        # param override?
+        if _align:
+            # override anchor
+            _anchor = kw.get(
+                "anchor", self.FIELD_ALIGN.get(_align, "center")
+            )
+        # end if
+        # inits
         _label = ttk.Label(
             frame,
-            anchor=kw.get("anchor"),
+            anchor=_anchor,
             background=kw.get("background") or "white",
             borderwidth=kw.get("borderwidth", 1),
             class_=kw.get("class_"),
@@ -412,6 +426,8 @@ class DBViewCanvas (RC.RADCanvas):
         self.set_field_names(
             "Name", "Male", "Female", "Origin", "Description"
         )
+        self.set_field_options("body", "Male", align="center")
+        self.set_field_options("body", "Female", align="center")
         for i in range(10):
             self.insert_row(
                 dict(

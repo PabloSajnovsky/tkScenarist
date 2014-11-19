@@ -23,6 +23,7 @@
 """
 
 # lib imports
+import os
 from tkinter import ttk
 import tkRAD.core.async as ASYNC
 import tkRAD.widgets.rad_canvas as RC
@@ -39,6 +40,7 @@ class DBViewCanvas (RC.RADCanvas):
         "height": 300,
         "highlightbackground": "grey80",
         "highlightthickness": 1,
+        "takefocus": 1,
         "width": 600,
     } # end of CONFIG
 
@@ -124,7 +126,12 @@ class DBViewCanvas (RC.RADCanvas):
                 #~ "Project:Modified": self.slot_project_modified,
             #~ }
         #~ )
-        pass
+        # tkinter event bindings
+        # mouse wheel support
+        for _seq in ("<Button-4>", "<Button-5>", "<MouseWheel>"):
+            # tk event bindings
+            self.bind_all(_seq, self.slot_on_mouse_wheel)
+        # end for
     # end def
 
 
@@ -371,6 +378,30 @@ class DBViewCanvas (RC.RADCanvas):
             # return all options
             return self.field_options
         # end if
+    # end def
+
+
+    def slot_on_mouse_wheel (self, event=None, *args, **kw):
+        r"""
+            event handler: mouse wheel support;
+        """
+        # inits
+        _platform = os.name.lower()
+        # MS-Windows specifics
+        if _platform == "nt":
+            # init step
+            _step = -event.delta // 120
+        # Apple MacOS specifics
+        elif _platform == "mac":
+            # init step
+            _step = -event.delta
+        # other POSIX / UNIX-like
+        else:
+            # init step
+            _step = (event.num == 5) - (event.num == 4)
+        # end if
+        # do vertical scrolling
+        self.yview_scroll(_step, "units")
     # end def
 
 

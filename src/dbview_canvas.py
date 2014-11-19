@@ -293,6 +293,10 @@ class DBViewCanvas (RC.RADCanvas):
         # end for
         # reset column index
         self.column_index = 0
+        # reset body frame position on canvas
+        self.coords(
+            self.id_body, 0, self.frame_header.winfo_reqheight()
+        )
     # end def
 
 

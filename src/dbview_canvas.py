@@ -43,11 +43,11 @@ class DBViewCanvas (RC.RADCanvas):
     CONFIG_FIELD = {
 
         "body": {
-            "font": "monospace 10",
+            "font": "sans 10",
         },
 
         "header": {
-            "font": "monospace 11",
+            "font": "sans 11 bold",
         },
     }
 
@@ -174,21 +174,7 @@ class DBViewCanvas (RC.RADCanvas):
         # event bindings
         self.bind_events()
         # test
-        self.set_field_names(
-            "Name", "Male", "Female", "Origin", "Description"
-        )
-        for i in range(10):
-            self.insert_row(
-                dict(
-                    Name="toto",
-                    Male="M",
-                    Origin="unknown",
-                    Description="bla bla bla qmlskdj "
-                        "mlq kjsdfm sf qls dmlf jqsdmlf jqmls "
-                        "dfjml sjdlfm jqmlsdj fmlqjsdk fml sf",
-                )
-            )
-        # end for
+        self.async.run_after_idle(self.test_session)
     # end def
 
 
@@ -206,7 +192,7 @@ class DBViewCanvas (RC.RADCanvas):
             class_=kw.get("class_"),
             compound=kw.get("compound"),
             cursor=kw.get("cursor"),
-            font=kw.get("font") or "monospace 10",
+            font=kw.get("font") or "sans 10",
             foreground=kw.get("foreground") or "black",
             image=kw.get("image"),
             justify=kw.get("justify"),
@@ -302,7 +288,7 @@ class DBViewCanvas (RC.RADCanvas):
             _opts = self.set_field_options("all", _name, **options)
             # set header label
             self.insert_label(
-                self.frame_header, text=_name, **_opts["header"]
+                self.frame_header, text=_name, **_opts["header"][_name]
             )
         # end for
         # reset column index
@@ -331,6 +317,28 @@ class DBViewCanvas (RC.RADCanvas):
             # return all options
             return self.field_options
         # end if
+    # end def
+
+
+    def test_session (self, *args, **kw):
+        """
+            event handler for testing session;
+        """
+        self.set_field_names(
+            "Name", "Male", "Female", "Origin", "Description"
+        )
+        for i in range(10):
+            self.insert_row(
+                dict(
+                    Name="toto",
+                    Male="M",
+                    Origin="unknown",
+                    Description="bla bla bla qmlskdj "
+                        "mlq kjsdfm sf qls dmlf jqsdmlf jqmls "
+                        "dfjml sjdlfm jqmlsdj fmlqjsdk fml sf",
+                )
+            )
+        # end for
     # end def
 
 

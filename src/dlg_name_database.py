@@ -125,7 +125,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             event handler;
         """
         # deferred task
-        self.async.run_after_idle(self.on_search_criteria)
+        self.async.run_after(1000, self.on_search_criteria)
     # end def
 
 

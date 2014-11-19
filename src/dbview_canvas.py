@@ -36,20 +36,22 @@ class DBViewCanvas (RC.RADCanvas):
     # class constant defs
     CONFIG = {
         "bg": "white",
-        "height": 480,
+        "height": 300,
         "highlightbackground": "grey80",
         "highlightthickness": 1,
-        "width": 640,
+        "width": 600,
     } # end of CONFIG
 
     CONFIG_FIELD = {
 
         "body": {
             "font": "sans 10",
+            "anchor": "w",
         },
 
         "header": {
             "font": "sans 11 bold",
+            "anchor": "center",
             "width": 0,
         },
     }
@@ -234,7 +236,7 @@ class DBViewCanvas (RC.RADCanvas):
         _label.grid(
             row=kw.get("row", self.row_index),
             column=_column,
-            sticky=kw.get("sticky") or "nwse",
+            sticky="nwse",
         )
         # resync body/header column widths
         self.resync_body_header(_column, _label.winfo_reqwidth())

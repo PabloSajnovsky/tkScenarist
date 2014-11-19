@@ -90,12 +90,19 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def get_field_options (self, name):
+    def get_field_options (self, section, name):
         """
-            retrieves field options for field @name;
-            returns empty dict() otherwise;
+            retrieves field options for @section and field @name;
         """
-        return self.options_header.get(name) or dict()
+        # section exists?
+        if section in self.field_options:
+            # return options by field name
+            return self.field_options[section].get(name)
+        # unsupported
+        else:
+            # no options
+            return dict()
+        # end if
     # end def
 
 
@@ -130,7 +137,21 @@ class DBViewCanvas (RC.RADCanvas):
         # event bindings
         self.bind_events()
         # test
-        self.set_field_names("Name", "Male", "Female", "Origin", "Description")
+        self.set_field_names(
+            "Name", "Male", "Female", "Origin", "Description"
+        )
+        for i in range(10):
+            self.insert_row(
+                dict(
+                    Name="toto",
+                    Male="M",
+                    Origin="unknown",
+                    Description="bla bla bla qmlskdj "
+                        "mlq kjsdfm sf qls dmlf jqsdmlf jqmls "
+                        "dfjml sjdlfm jqmlsdj fmlqjsdk fml sf",
+                )
+            )
+        # end for
     # end def
 
 
@@ -195,10 +216,14 @@ class DBViewCanvas (RC.RADCanvas):
             # inits
             _data = str(row_dict.get(_name) or "")
             # get field options
-            _opts = self.get_field_options(_name)
+            _opts = self.get_field_options("body", _name)
             # create label
             self.insert_label(
-                self.frame_body, column=_column, text=_data, **_opts
+                self.frame_body,
+                row=row_index,
+                column=_column,
+                text=_data,
+                **_opts
             )
         # end for
     # end def
@@ -237,9 +262,11 @@ class DBViewCanvas (RC.RADCanvas):
         # browse names
         for _name in names:
             # set field options
-            _opts = self.set_field_options("both", _name, **options)
+            _opts = self.set_field_options("all", _name, **options)
             # set header label
-            self.insert_label(self.frame_header, text=_name, **_opts)
+            self.insert_label(
+                self.frame_header, text=_name, **_opts["header"]
+            )
         # end for
         # reset column index
         self.column_index = 0
@@ -250,35 +277,35 @@ class DBViewCanvas (RC.RADCanvas):
         """
             sets @options for a given field @name;
         """
-        # inner function
-        def _set_options(section, name, **options):
+        # param controls
+        if name in self.field_sequence:
+            # inner function
+            def _set_options(section, name, **options):
+                # inits
+                _options = self.field_options[section].get(name) or \
+                                        self.CONFIG_FIELD[section].copy()
+                # override new options
+                _options.update(options)
+                # last but not least
+                _options.update(name=name)
+                # update field options
+                self.field_options[section][name] = _options
+            # end def
             # inits
-            _options = self.field_options[section].get(name) or \
-                                    self.CONFIG_FIELD[section].copy()
-            # override new options
-            _options.update(options)
-            # last but not least
-            _options.update(name=name)
-            # update field options
-            self.field_options[section][name] = _options
-            # return new options
-            return _options
-        # end def
-        # inits
-        section = str(section).lower()
-        _bopts = _hopts = dict()
-        # body options
-        if section in ("body", "both", "all"):
-            # set options for body fields
-            _bopts = _set_options("body", name, **options)
+            section = str(section).lower()
+            # body options
+            if section in ("body", "both", "all"):
+                # set options for body field name
+                _set_options("body", name, **options)
+            # end if
+            # header options
+            if section in ("header", "both", "all"):
+                # set options for header field name
+                _set_options("header", name, **options)
+            # end if
+            # return all options
+            return self.field_options
         # end if
-        # header options
-        if section in ("header", "both", "all"):
-            # set options for header fields
-            _hopts = _set_options("header", name, **options)
-        # end if
-        # return all options
-        return self.field_options
     # end def
 
 

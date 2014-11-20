@@ -102,49 +102,6 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def _do_test (self):
-        #~ print("do test")
-        self.set_field_names(
-            "Name", "Gender", "Origin", "Description",
-            Gender=dict(align="center"),
-        )
-        for i in range(10):
-            self.insert_row(
-                dict(
-                    Name="Aaron",
-                    Gender="M",
-                    Origin="Hebrew",
-                    Description="bla",
-                )
-            )
-            self.insert_row(
-                dict(
-                    Name="Beatrix",
-                    Gender="F",
-                    Origin="Latin",
-                    Description="bla bla",
-                )
-            )
-            self.insert_row(
-                dict(
-                    Name="Camille",
-                    Gender="MF",
-                    Origin="French",
-                    Description="bla bla bla",
-                )
-            )
-            self.insert_row(
-                dict(
-                    Name="Dooloo",
-                    Gender="-",
-                    Origin="Alien",
-                    Description="bla bla bla bla",
-                )
-            )
-        # end for
-    # end def
-
-
     def _do_update_canvas (self):
         """
             protected method def for internal use;
@@ -168,11 +125,11 @@ class DBViewCanvas (RC.RADCanvas):
             event bindings;
         """
         # app-wide event bindings
-        self.events.connect_dict(
-            {
-                "DBView:Test": self.slot_test_session,
-            }
-        )
+        #~ self.events.connect_dict(
+            #~ {
+                #~ "DBView:Test": self.slot_test_session,
+            #~ }
+        #~ )
         # tkinter event bindings
         # mouse wheel support
         for _seq in ("<Button-4>", "<Button-5>", "<MouseWheel>"):
@@ -476,15 +433,6 @@ class DBViewCanvas (RC.RADCanvas):
         # end if
         # do vertical scrolling
         self.yview_scroll(_step, "units")
-    # end def
-
-
-    def slot_test_session (self, *args, **kw):
-        """
-            event handler for testing session;
-        """
-        # deferred task
-        self.async.run_after(500, self._do_test)
     # end def
 
 

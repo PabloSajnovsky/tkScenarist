@@ -153,7 +153,7 @@
             />
             <ttkcheckbutton
                 text="Male names"
-                command="@Dialog:NameDB:Search:Criteria:Changed"
+                command="@Dialog:NameDB:Search:Filter:Clicked"
                 variable="search_chk_male"
                 onvalue="1"
                 layout="pack"
@@ -161,7 +161,7 @@
             />
             <ttkcheckbutton
                 text="Female names"
-                command="@Dialog:NameDB:Search:Criteria:Changed"
+                command="@Dialog:NameDB:Search:Filter:Clicked"
                 variable="search_chk_female"
                 onvalue="1"
                 layout="pack"

@@ -52,7 +52,8 @@ class AppDatabase (DB.Database):
     SQL_NAMES = """\
         SELECT
             name_name AS Name,
-            name_male || name_female AS Gender,
+            CASE name_male WHEN 1 THEN 'M' ELSE '' END ||
+            CASE name_female WHEN 1 THEN 'F' ELSE '' END AS Gender,
             name_origin AS Origin,
             name_description AS Description
         FROM
@@ -150,7 +151,6 @@ class AppDatabase (DB.Database):
         _sql = self.SQL_NAMES.format(
             where=_where, limit=limit, offset=offset
         )
-        print("SQL query:\n", _sql)
         # try out
         try:
             # retrieve results

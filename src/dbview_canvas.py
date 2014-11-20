@@ -105,45 +105,40 @@ class DBViewCanvas (RC.RADCanvas):
     def _do_test (self):
         #~ print("do test")
         self.set_field_names(
-            "Name", "Male", "Female", "Origin", "Description",
-            **{
-                "Male": dict(align="center"),
-                "Female": dict(align="center"),
-            }
+            "Name", "Gender", "Origin", "Description",
+            Gender=dict(align="center"),
         )
         for i in range(10):
             self.insert_row(
                 dict(
-                    Name="toto",
-                    Male="M",
-                    Origin="unknown",
-                    Description="bla bla bla qmlskdj "
-                        "mlq kjsdfm sf qls dmlf jqsdmlf jqmls "
-                        "dfjml sjdlfm jqmlsdj fmlqjsdk fml sf",
+                    Name="Aaron",
+                    Gender="M",
+                    Origin="Hebrew",
+                    Description="bla",
                 )
             )
             self.insert_row(
                 dict(
-                    Name="tutu",
-                    Female="F",
-                    Origin="South african",
+                    Name="Beatrix",
+                    Gender="F",
+                    Origin="Latin",
+                    Description="bla bla",
+                )
+            )
+            self.insert_row(
+                dict(
+                    Name="Camille",
+                    Gender="MF",
+                    Origin="French",
                     Description="bla bla bla",
                 )
             )
             self.insert_row(
                 dict(
-                    Name="titi",
-                    Male="M",
-                    Female="F",
-                    Origin="French (Paris)",
-                    Description="qlmksj dfmlqskjd fmqlj f",
-                )
-            )
-            self.insert_row(
-                dict(
-                    Name="tata",
-                    Origin="Tarloose planet",
-                    Description="qsldkjf mqlkjfqsdmlkj qmlsdkjf",
+                    Name="Dooloo",
+                    Gender="-",
+                    Origin="Alien",
+                    Description="bla bla bla bla",
                 )
             )
         # end for

@@ -83,7 +83,7 @@ class AppDatabase (DB.Database):
         """
         # inits
         _where = ""
-        _query = criteria.pop("query", "")
+        _query = repr(criteria.pop("query", "")).strip("'")
         _crit = dict()
         # reset values
         for _field, _value in criteria.items():
@@ -158,7 +158,8 @@ class AppDatabase (DB.Database):
             # fetch all rows
             return self.fetch(self.ALL)
         # failed
-        except:
+        except Exception as e:
+            print("got an error:", e)
             return None
         # end try
     # end def

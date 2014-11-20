@@ -94,6 +94,8 @@
             />
             <ttkentry
                 textvariable="search_mention"
+                validate="key"
+                validatecommand="@Dialog:NameDB:Search:Criteria:Changed"
                 layout="pack"
                 resizable="width"
             />

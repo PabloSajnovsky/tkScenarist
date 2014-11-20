@@ -108,7 +108,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             # limit offset to offset max
             self.current_offset = self.offset_max
             # restart query
-            self.slot_search_criteria_changed()
+            self.do_search_criteria()
         # end if
     # end def
 

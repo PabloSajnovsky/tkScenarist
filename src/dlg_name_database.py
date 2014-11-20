@@ -95,6 +95,21 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             *self.database.get_column_names(),
             Gender=dict(align="center")
         )
+        # got results?
+        if _rows:
+            # update offset max
+            self.offset_max = max(self.current_offset, self.offset_max)
+            # show rows in DBView
+            for _row in _rows:
+                self.DBVIEW.insert_row(_row)
+            # end for
+        # no results
+        elif self.current_offset > self.offset_max:
+            # limit offset to offset max
+            self.current_offset = self.offset_max
+            # restart query
+            self.slot_search_criteria_changed()
+        # end if
     # end def
 
 
@@ -180,9 +195,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             event handler: shows next limited nb of rows;
         """
         # inits
-        self.current_offset = min(
-            self.current_offset + self.ROW_LIMIT, self.offset_max
-        )
+        self.current_offset += self.ROW_LIMIT
         # refresh query
         self.slot_search_criteria_changed()
     # end def

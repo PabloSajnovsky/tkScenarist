@@ -150,6 +150,7 @@ class AppDatabase (DB.Database):
         _sql = self.SQL_NAMES.format(
             where=_where, limit=limit, offset=offset
         )
+        print("SQL query:\n", _sql)
         # try out
         try:
             # retrieve results

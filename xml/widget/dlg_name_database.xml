@@ -31,7 +31,7 @@
         <!-- names listing zone -->
 
         <ttklabelframe
-            text="Names"
+            text="View"
             padding="5px"
             layout="grid"
             layout_options="row=0, column=0, rowspan=2"

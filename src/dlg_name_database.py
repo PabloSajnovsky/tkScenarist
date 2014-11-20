@@ -37,7 +37,8 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
     """
 
     # class constant defs
-    BUTTONS = ("OK", "Cancel")
+    #~ BUTTONS = ("OK", "Cancel")
+    BUTTONS = ("OK",)
 
     # nb of rows to show at once
     ROW_LIMIT = 50
@@ -202,8 +203,8 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             this *MUST* be overridden in subclass;
             returns True on success, False otherwise;
         """
-        # failed
-        return False
+        # all is good
+        return True
     # end def
 
 

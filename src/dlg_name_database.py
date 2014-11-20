@@ -39,6 +39,9 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
     # class constant defs
     BUTTONS = ("OK", "Cancel")
 
+    # nb of rows to show at once
+    ROW_LIMIT = 50
+
 
     def bind_events (self, **kw):
         """
@@ -54,6 +57,9 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
 
                 "Dialog:NameDB:Search:Criteria:Changed":
                     self.slot_search_criteria_changed,
+
+                "Dialog:NameDB:Show:Next": self.slot_show_next,
+                "Dialog:NameDB:Show:Previous": self.slot_show_previous,
             }
         )
         # tkinter widget event bindings
@@ -126,6 +132,24 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         """
         # deferred task
         self.async.run_after(1000, self.on_search_criteria)
+    # end def
+
+
+    def slot_show_next (self, *args, **kw):
+        """
+            event handler: shows next limited nb of rows;
+        """
+        # init
+        print("slot_show_next")
+    # end def
+
+
+    def slot_show_previous (self, *args, **kw):
+        """
+            event handler: shows previous limited nb of rows;
+        """
+        # init
+        print("slot_show_previous")
     # end def
 
 

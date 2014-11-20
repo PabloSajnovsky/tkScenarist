@@ -175,14 +175,14 @@
             resizable="yes"
         >
             <ttkbutton
-                text="DBView test"
-                command="@DBView:Test"
+                text="Show next"
+                command="@Dialog:NameDB:Show:Next"
                 layout="pack"
                 resizable="width"
             />
             <ttkbutton
-                text="Action"
-                command="@Dialog:NameDB:Action"
+                text="Show previous"
+                command="@Dialog:NameDB:Show:Previous"
                 layout="pack"
                 resizable="width"
             />

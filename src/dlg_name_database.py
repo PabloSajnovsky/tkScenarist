@@ -68,6 +68,21 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             event handler;
         """
         print("do_search_criteria")
+        # search
+        _query = self.get_cvar("search_mention", checkbutton=False)
+        _name = self.get_cvar("search_chk_name")
+        _origin = self.get_cvar("search_chk_origin")
+        _description = self.get_cvar("search_chk_description")
+        # filters
+        _all = self.get_cvar("search_chk_all")
+        _male = self.get_cvar("search_chk_male")
+        _female = self.get_cvar("search_chk_female")
+        # all names priority?
+        if _all:
+            # clear others
+            _male["cvar"].set("")
+            _female["cvar"].set("")
+        # end if
     # end def
 
 
@@ -85,6 +100,30 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def get_cvar (self, cvarname, checkbutton=True):
+        """
+            returns a dict(cvar=object, value=obj_value); if
+            @checkbutton is True, changes obj_value to boolean;
+        """
+        # inits
+        _cvar = self.container.get_stringvar(cvarname)
+        # got object?
+        if _cvar:
+            # get raw value
+            _value = _cvar.get()
+            # asked for a checkbutton value?
+            if checkbutton:
+                # get boolean
+                _value = bool(_value == "1")
+            # end if
+            # succeeded
+            return dict(cvar=_cvar, value=_value)
+        # end if
+        # failed
+        return None
+    # end def
+
+
     def init_widget (self, **kw):
         r"""
             widget main inits;
@@ -98,6 +137,8 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         self.async = ASYNC.get_async_manager()
         self.database = self.tk_owner.database
         self.DBVIEW = self.container.dbview_names
+        self.current_offset = 0
+        self.offset_max = 0
         # event bindings
         self.bind_events(**kw)
         # first time query
@@ -127,8 +168,12 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         """
             event handler: shows next limited nb of rows;
         """
-        # init
-        print("slot_show_next")
+        # inits
+        self.current_offset = min(
+            self.current_offset + self.ROW_LIMIT, self.offset_max
+        )
+        # refresh query
+        self.slot_search_criteria_changed()
     # end def
 
 
@@ -136,8 +181,12 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         """
             event handler: shows previous limited nb of rows;
         """
-        # init
-        print("slot_show_previous")
+        # inits
+        self.current_offset = max(
+            0, self.current_offset - self.ROW_LIMIT
+        )
+        # refresh query
+        self.slot_search_criteria_changed()
     # end def
 
 

@@ -141,12 +141,12 @@
                 resizable="width"
             />
             <ttklabel
-                text="Filter:"
+                text="Show:"
                 layout="pack"
                 resizable="width"
             />
             <ttkcheckbutton
-                text="ALL names"
+                text="All names"
                 command="@Dialog:NameDB:Search:Criteria:Changed"
                 variable="search_chk_all"
                 onvalue="1"

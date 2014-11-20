@@ -67,7 +67,7 @@ class AppDatabase (DB.Database):
     """
 
 
-    def get_boolean (self, value):
+    def get_int_boolean (self, value):
         """
             returns 1 if @value is evaluated to something True;
             returns 0 otherwise;
@@ -88,28 +88,78 @@ class AppDatabase (DB.Database):
         # reset values
         for _field, _value in criteria.items():
             # reset
-            _crit[_field] = self.get_boolean(criteria.get(_field))
+            _crit[_field] = self.get_int_boolean(criteria[_field])
         # end for
         # got criteria?
         if any(_crit.values()):
             # inits
-            _where = "WHERE {criteria}"
             _criteria = list()
+            # ----------------------- gender ---------------------------
             # selective gender?
-            if not _all:
+            if not _crit.get("all"):
                 # reformat field
                 _criteria.append(
-                    tools.str_complete("name_male = {}", _crit["male"])
+                    tools.str_complete(
+                        "name_male = {}", str(_crit.get("male", ""))
+                    )
                 )
+                # reformat field
+                _criteria.append(
+                    tools.str_complete(
+                        "name_female = {}", str(_crit.get("female", ""))
+                    )
+                )
+            # end if
+            # -------------------- searching ---------------------------
+            # got a query?
+            if _query:
+                # into name
+                if _crit.get("name"):
+                    # reformat field
+                    _criteria.append(
+                        tools.str_complete(
+                            "name_name like '%{}%'", _query
+                        )
+                    )
+                # end if
+                # into origin
+                if _crit.get("origin"):
+                    # reformat field
+                    _criteria.append(
+                        tools.str_complete(
+                            "name_origin like '%{}%'", _query
+                        )
+                    )
+                # end if
+                # into description
+                if _crit.get("description"):
+                    # reformat field
+                    _criteria.append(
+                        tools.str_complete(
+                            "name_description like '%{}%'", _query
+                        )
+                    )
+                # end if
+            # end if
+            # sanitize criteria
+            _criteria = " AND ".join(tuple(filter(None, _criteria)))
+            # set WHERE clause, if any
+            _where = tools.str_complete("WHERE {}", _criteria)
         # end if
         # setup SQL query
         _sql = self.SQL_NAMES.format(
             where=_where, limit=limit, offset=offset
         )
-        # retrieve results
-        self.sql_query(_sql)
-        # fetch all rows
-        return self.fetch(self.ALL)
+        # try out
+        try:
+            # retrieve results
+            self.sql_query(_sql)
+            # fetch all rows
+            return self.fetch(self.ALL)
+        # failed
+        except:
+            return None
+        # end try
     # end def
 
 

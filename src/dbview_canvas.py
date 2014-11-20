@@ -261,7 +261,7 @@ class DBViewCanvas (RC.RADCanvas):
             relief=kw.get("relief") or "solid",
             style=kw.get("style"),
             takefocus=kw.get("takefocus"),
-            text=_(kw.get("text", "label")),            # i18n support
+            text=kw.get("text", "label"),
             textvariable=kw.get("textvariable"),
             underline=kw.get("underline"),
             width=kw.get("width"),
@@ -361,33 +361,6 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def set_field_names (self, *names, **options):
-        """
-            resets view and rebuilds along with new field @names and
-            @options;
-        """
-        # reset all
-        self.reset()
-        # update field names ordered sequence
-        self.field_sequence = names
-        # browse names
-        for _name in names:
-            # init specific / generic options
-            _options = options.get(_name) or options
-            # set field options
-            _opts = self.set_field_options("all", _name, **_options)
-            # set header label
-            self.insert_label(
-                self.frame_header, text=_name, **_opts["header"][_name]
-            )
-        # end for
-        # reset column index
-        self.column_index = 0
-        # reset body frame position on canvas
-        self.async.run_after_idle(self.resync_body_position)
-    # end def
-
-
     def set_field_options (self, section, name, **options):
         """
             sets @options for a given field @name;
@@ -409,6 +382,35 @@ class DBViewCanvas (RC.RADCanvas):
             # return all options
             return self.field_options
         # end if
+    # end def
+
+
+    def set_header (self, *names, **options):
+        """
+            resets view and rebuilds along with new field @names and
+            @options;
+        """
+        # reset all
+        self.reset()
+        # update field names ordered sequence
+        self.field_sequence = names
+        # browse names
+        for _name in names:
+            # init specific / generic options
+            _options = options.get(_name) or options
+            # set field options
+            _opts = self.set_field_options("all", _name, **_options)
+            # set header label
+            self.insert_label(
+                self.frame_header,
+                text=_(_name),          # i18n support for header names
+                **_opts["header"][_name]
+            )
+        # end for
+        # reset column index
+        self.column_index = 0
+        # reset body frame position on canvas
+        self.async.run_after_idle(self.resync_body_position)
     # end def
 
 

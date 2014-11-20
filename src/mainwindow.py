@@ -26,6 +26,7 @@
 import webbrowser
 import tkinter.messagebox as MB
 import tkRAD
+import tkRAD.core.async as ASYNC
 #~ from tkRAD.core import tools
 from . import project_file_management as PFM
 from . import app_database as DB
@@ -154,6 +155,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             hook method to be reimplemented by subclass;
         """
         # member inits
+        self.async = ASYNC.get_async_manager()
         self.project_fm = PFM.ProjectFileManagement(self)
         # looks for ^/xml/menu/topmenu.xml
         self.topmenu.xml_build()
@@ -193,6 +195,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         # do it safely
         try:
             # make some terminations
+            self.async.clear_all()
             self.database.close_database()
             self.options.save()
         except:

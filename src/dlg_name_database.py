@@ -73,21 +73,28 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             event handler;
         """
         print("do_search_criteria")
-        # search
-        _query = self.get_cvar("search_mention", checkbutton=False)
-        _name = self.get_cvar("search_chk_name")
-        _origin = self.get_cvar("search_chk_origin")
-        _description = self.get_cvar("search_chk_description")
-        # filters
-        _all = self.get_cvar("search_chk_all")
-        _male = self.get_cvar("search_chk_male")
-        _female = self.get_cvar("search_chk_female")
-        # all names priority?
-        if _all["value"]:
-            # clear others
-            _male["cvar"].set("")
-            _female["cvar"].set("")
-        # end if
+        # inits
+        _cvar = lambda n: self.container.get_stringvar(n).get()
+        _criteria = {
+            "query": _cvar("search_mention"),
+            "name": _cvar("search_chk_name"),
+            "origin": _cvar("search_chk_origin"),
+            "description": _cvar("search_chk_description"),
+            "all": _cvar("search_chk_all"),
+            "male": _cvar("search_chk_male"),
+            "female": _cvar("search_chk_female"),
+        }
+        # get DB rows
+        _rows = self.database.get_character_names(
+            limit=self.ROW_LIMIT,
+            offset=self.current_offset,
+            **_criteria
+        )
+        # show query header
+        self.DBVIEW.set_header(
+            *self.database.get_column_names(),
+            Gender=dict(align="center")
+        )
     # end def
 
 
@@ -102,30 +109,6 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
                 state={True: "normal"}.get(bool(state), "disabled")
             )
         # end if
-    # end def
-
-
-    def get_cvar (self, cvarname, checkbutton=True):
-        """
-            returns a dict(cvar=object, value=obj_value); if
-            @checkbutton is True, changes obj_value to boolean;
-        """
-        # inits
-        _cvar = self.container.get_stringvar(cvarname)
-        # got object?
-        if _cvar:
-            # get raw value
-            _value = _cvar.get()
-            # asked for a checkbutton value?
-            if checkbutton:
-                # get boolean
-                _value = bool(_value == "1")
-            # end if
-            # succeeded
-            return dict(cvar=_cvar, value=_value)
-        # end if
-        # failed
-        return None
     # end def
 
 

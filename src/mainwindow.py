@@ -190,9 +190,14 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             hook method to be reimplemented in subclass;
         """
-        # put your own code here
-        self.database.close_database()
-        self.options.save()
+        # do it safely
+        try:
+            # make some terminations
+            self.database.close_database()
+            self.options.save()
+        except:
+            pass
+        # end try
     # end def
 
 

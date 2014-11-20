@@ -73,6 +73,21 @@ class AppDatabase (DB.Database):
                 name_origin         TEXT NOT NULL,
                 name_description    TEXT NOT NULL DEFAULT ""
             );
+
+            -- create view for character names
+
+            DROP VIEW IF EXISTS 'view_names'; -- for elder versions
+
+            CREATE TEMPORARY VIEW 'view_names' AS
+                SELECT
+                    name_name AS Name,
+                    -- SQLite CONCAT()-like operation
+                    name_male || name_female AS Gender,
+                    name_origin AS Origin,
+                    name_description AS Description
+                FROM
+                    'character_names'
+            ;
         """)
     # end def
 

@@ -50,16 +50,9 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         # app-wide event bindings
         self.events.connect_dict(
             {
-                #~ "Dialog:NameDB:Action": self.slot_action,
-
-                "Dialog:NameDB:Edit:Origin:Drop:List":
-                    self.slot_edit_origin_drop_list,
-
                 "Dialog:NameDB:Search:Criteria:Changed":
                     self.slot_search_criteria_changed,
 
-                "Dialog:NameDB:Add:Name": self.slot_add_name,
-                "Dialog:NameDB:Delete:Name": self.slot_delete_name,
                 "Dialog:NameDB:Import:File": self.slot_import_file,
                 "Dialog:NameDB:Show:Next": self.slot_show_next,
                 "Dialog:NameDB:Show:Previous": self.slot_show_previous,
@@ -112,41 +105,6 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def slot_add_name (self, *args, **kw):
-        """
-            event handler;
-        """
-        # init
-        print("slot_add_name")
-    # end def
-
-
-    def slot_delete_name (self, *args, **kw):
-        """
-            event handler;
-        """
-        # init
-        print("slot_delete_name")
-    # end def
-
-
-    def slot_edit_origin_drop_list (self, *args, **kw):
-        """
-            event handler;
-        """
-        print("slot_edit_origin_drop_list")
-    # end def
-
-
-    def slot_edit_origin_keypress (self, *args, **kw):
-        """
-            event handler;
-        """
-        print("slot_edit_origin_keypress")
-        return False
-    # end def
-
-
     def slot_import_file (self, *args, **kw):
         """
             event handler;
@@ -180,18 +138,6 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         """
         # init
         print("slot_show_previous")
-    # end def
-
-
-    def user_confirm (self):
-        """
-            user confirmation dialog;
-        """
-        return MB.askyesno(
-            title=_("Question"),
-            message=_("Are you sure?"),
-            parent=self,
-        )
     # end def
 
 

@@ -202,7 +202,7 @@
                 resizable="width"
             />
             <ttkbutton
-                text="Import file"
+                text="Import file (CSV)"
                 command="@Dialog:NameDB:Import:File"
                 layout="pack"
                 resizable="width"

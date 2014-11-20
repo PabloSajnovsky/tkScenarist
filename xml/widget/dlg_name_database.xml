@@ -113,7 +113,7 @@
                 variable="search_chk_name"
                 onvalue="1"
                 offvalue="0"
-                checked="true"
+                checked="checked"
                 layout="pack"
                 resizable="width"
             />
@@ -160,6 +160,16 @@
                 variable="search_chk_female"
                 onvalue="1"
                 offvalue="0"
+                layout="pack"
+                resizable="width"
+            />
+            <ttkcheckbutton
+                text="ALL names"
+                command="@Dialog:NameDB:Search:Criteria:Changed"
+                variable="search_chk_all"
+                onvalue="1"
+                offvalue="0"
+                checked="checked"
                 layout="pack"
                 resizable="width"
             />

@@ -24,6 +24,7 @@
 
 # lib imports
 import tkRAD.core.database as DB
+from tkRAD.core import tools
 
 
 # private module member
@@ -46,6 +47,71 @@ class AppDatabase (DB.Database):
     """
         SQLite database layer;
     """
+
+    # class constant defs
+    SQL_NAMES = """\
+        SELECT
+            name_name AS Name,
+            name_male || name_female AS Gender,
+            name_origin AS Origin,
+            name_description AS Description
+        FROM
+            'character_names'
+        {where}
+        ORDER BY
+            name_name ASC, name_origin ASC
+        LIMIT
+            {limit}
+        OFFSET
+            {offset}
+    """
+
+
+    def get_boolean (self, value):
+        """
+            returns 1 if @value is evaluated to something True;
+            returns 0 otherwise;
+        """
+        return int(bool(tools.ensure_int(value) != 0))
+    # end def
+
+
+    def get_character_names (self, limit=50, offset=0, **criteria):
+        """
+            selects rows in table 'character_names' along with
+            @criteria dictionary;
+        """
+        # inits
+        _where = ""
+        _query = criteria.pop("query", "")
+        _crit = dict()
+        # reset values
+        for _field, _value in criteria.items():
+            # reset
+            _crit[_field] = self.get_boolean(criteria.get(_field))
+        # end for
+        # got criteria?
+        if any(_crit.values()):
+            # inits
+            _where = "WHERE {criteria}"
+            _criteria = list()
+            # selective gender?
+            if not _all:
+                # reformat field
+                _criteria.append(
+                    tools.str_complete("name_male = {}", _crit["male"])
+                )
+        # end if
+        # setup SQL query
+        _sql = self.SQL_NAMES.format(
+            where=_where, limit=limit, offset=offset
+        )
+        # retrieve results
+        self.sql_query(_sql)
+        # fetch all rows
+        return self.fetch(self.ALL)
+    # end def
+
 
     def init_database (self, **kw):
         """

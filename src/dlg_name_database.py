@@ -204,10 +204,13 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         """
             event handler: shows next limited nb of rows;
         """
-        # inits
-        self.current_offset += self.ROW_LIMIT
-        # refresh query
-        self.async.run_after(500, self.do_search_criteria)
+        # not reached the end?
+        if self.offset_max and self.current_offset < self.offset_max:
+            # inits
+            self.current_offset += self.ROW_LIMIT
+            # refresh query
+            self.async.run_after(500, self.do_search_criteria)
+        # end if
     # end def
 
 
@@ -215,12 +218,15 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         """
             event handler: shows previous limited nb of rows;
         """
-        # inits
-        self.current_offset = max(
-            0, self.current_offset - self.ROW_LIMIT
-        )
-        # refresh query
-        self.async.run_after(500, self.do_search_criteria)
+        # not at beginning?
+        if self.current_offset > 0:
+            # inits
+            self.current_offset = max(
+                0, self.current_offset - self.ROW_LIMIT
+            )
+            # refresh query
+            self.async.run_after(500, self.do_search_criteria)
+        # end if
     # end def
 
 

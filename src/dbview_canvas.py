@@ -335,7 +335,7 @@ class DBViewCanvas (RC.RADCanvas):
         self.clear_canvas(*args, **kw)
         # reset members
         self.init_members(**kw)
-        # garbage collection
+        # force garbage collection
         gc.collect()
     # end def
 

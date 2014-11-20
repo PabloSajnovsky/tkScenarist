@@ -37,7 +37,6 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
     """
 
     # class constant defs
-    #~ BUTTONS = ("OK", "Cancel")
     BUTTONS = ("OK",)
 
     # nb of rows to show at once

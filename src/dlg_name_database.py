@@ -237,6 +237,8 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             this *MUST* be overridden in subclass;
             returns True on success, False otherwise;
         """
+        # stop all running threads
+        self.async.lock(self.do_search_criteria)
         # all is good
         return True
     # end def

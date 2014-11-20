@@ -24,6 +24,7 @@
 
 # lib imports
 import os
+import gc
 from tkinter import ttk
 import tkRAD.core.async as ASYNC
 import tkRAD.widgets.rad_canvas as RC
@@ -334,6 +335,8 @@ class DBViewCanvas (RC.RADCanvas):
         self.clear_canvas(*args, **kw)
         # reset members
         self.init_members(**kw)
+        # garbage collection
+        gc.collect()
     # end def
 
 

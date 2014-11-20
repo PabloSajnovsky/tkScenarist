@@ -331,6 +331,11 @@ class DBViewCanvas (RC.RADCanvas):
         """
             event handler: resets all in widget;
         """
+        # stop pending threads
+        self.async.stop(
+            self.resync_body_position,
+            self._do_update_canvas,
+        )
         # clear canvas
         self.clear_canvas(*args, **kw)
         # reset members

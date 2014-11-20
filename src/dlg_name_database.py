@@ -58,12 +58,23 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
                 "Dialog:NameDB:Search:Criteria:Changed":
                     self.slot_search_criteria_changed,
 
+                "Dialog:NameDB:Add:Name": self.slot_add_name,
+                "Dialog:NameDB:Delete:Name": self.slot_delete_name,
+                "Dialog:NameDB:Import:File": self.slot_import_file,
                 "Dialog:NameDB:Show:Next": self.slot_show_next,
                 "Dialog:NameDB:Show:Previous": self.slot_show_previous,
             }
         )
         # tkinter widget event bindings
         self.bind("<Escape>", self._slot_button_cancel)
+    # end def
+
+
+    def do_search_criteria (self, *args, **kw):
+        """
+            event handler;
+        """
+        print("do_search_criteria")
     # end def
 
 
@@ -101,11 +112,21 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def on_search_criteria (self, *args, **kw):
+    def slot_add_name (self, *args, **kw):
         """
             event handler;
         """
-        print("on_search_criteria")
+        # init
+        print("slot_add_name")
+    # end def
+
+
+    def slot_delete_name (self, *args, **kw):
+        """
+            event handler;
+        """
+        # init
+        print("slot_delete_name")
     # end def
 
 
@@ -126,12 +147,21 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def slot_import_file (self, *args, **kw):
+        """
+            event handler;
+        """
+        # init
+        print("slot_import_file")
+    # end def
+
+
     def slot_search_criteria_changed (self, *args, **kw):
         """
             event handler;
         """
         # deferred task
-        self.async.run_after(1000, self.on_search_criteria)
+        self.async.run_after(1000, self.do_search_criteria)
     # end def
 
 

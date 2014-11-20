@@ -186,15 +186,23 @@
                 layout="pack"
                 resizable="width"
             />
+            <ttkseparator />
             <ttkbutton
-                text="Action"
-                command="@Dialog:NameDB:Action"
+                text="Import names"
+                command="@Dialog:NameDB:Import:File"
+                layout="pack"
+                resizable="width"
+            />
+            <ttkseparator />
+            <ttkbutton
+                text="Add new name"
+                command="@Dialog:NameDB:Add:Name"
                 layout="pack"
                 resizable="width"
             />
             <ttkbutton
-                text="Action"
-                command="@Dialog:NameDB:Action"
+                text="Delete name"
+                command="@Dialog:NameDB:Delete:Name"
                 layout="pack"
                 resizable="width"
             />

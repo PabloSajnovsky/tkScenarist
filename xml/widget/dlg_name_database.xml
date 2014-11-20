@@ -207,23 +207,6 @@
                 layout="pack"
                 resizable="width"
             />
-            <ttkseparator
-                layout="pack"
-                layout_options="pady=5"
-                resizable="width"
-            />
-            <ttkbutton
-                text="Add new name"
-                command="@Dialog:NameDB:Add:Name"
-                layout="pack"
-                resizable="width"
-            />
-            <ttkbutton
-                text="Delete name"
-                command="@Dialog:NameDB:Delete:Name"
-                layout="pack"
-                resizable="width"
-            />
         </ttklabelframe>
 
         <!-- DB record edition zone -->

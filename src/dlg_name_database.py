@@ -53,6 +53,8 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
                 "Dialog:NameDB:Search:Criteria:Changed":
                     self.slot_search_criteria_changed,
 
+                "Dialog:NameDB:Search:Filter:All":
+                    self.slot_search_filter_all,
                 "Dialog:NameDB:Search:Filter:Clicked":
                     self.slot_search_filter_clicked,
 
@@ -164,6 +166,18 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         """
         # deferred task
         self.async.run_after(1000, self.do_search_criteria)
+    # end def
+
+
+    def slot_search_filter_all (self, *args, **kw):
+        """
+            event handler;
+        """
+        # uncheck 'male'/'female' checkboxes
+        self.container.get_stringvar("search_chk_male").set("")
+        self.container.get_stringvar("search_chk_female").set("")
+        # refresh query
+        self.slot_search_criteria_changed()
     # end def
 
 

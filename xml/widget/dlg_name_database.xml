@@ -144,7 +144,7 @@
             />
             <ttkcheckbutton
                 text="All names"
-                command="@Dialog:NameDB:Search:Criteria:Changed"
+                command="@Dialog:NameDB:Search:Filter:All"
                 variable="search_chk_all"
                 onvalue="1"
                 checked="checked"

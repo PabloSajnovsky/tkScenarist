@@ -101,7 +101,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             self.offset_max = max(self.current_offset, self.offset_max)
             # show rows in DBView
             for _row in _rows:
-                self.DBVIEW.insert_row(_row)
+                self.DBVIEW.insert_row(dict(_row))
             # end for
         # no results
         elif self.current_offset > self.offset_max:

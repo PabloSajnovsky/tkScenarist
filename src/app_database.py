@@ -83,7 +83,7 @@ class AppDatabase (DB.Database):
         """
         # inits
         _where = ""
-        _query = repr(criteria.pop("query", "")).strip("'")
+        _query = self.sanitize(criteria.pop("query", ""))
         _crit = dict()
         # reset values
         for _field, _value in criteria.items():
@@ -191,6 +191,17 @@ class AppDatabase (DB.Database):
                 name_origin         TEXT NOT NULL,
                 name_description    TEXT NOT NULL DEFAULT ""
             );
+
+            -- for testing session
+            INSERT INTO 'character_names' VALUES
+                (NULL, 'aaron', 1, 0, 'hebrew', 'qlsmdjfmqlskjdf'),
+                (NULL, 'ibn''abdul', 1, 0, 'arab', 'qlsmd jfmqls kjdf'),
+                (NULL, 'éloïse', 0, 1, 'french', 'mlqskjd f qmsldj fqsd'),
+                (NULL, 'michelle', 0, 1, 'french', 'mlqskjd f qmsldj fqsd'),
+                (NULL, 'camille', 1, 1, 'french', 'qmlkjd  qsldjf qsdl k'),
+                (NULL, 'dominique', 1, 1, 'french', 'qmlkjd  qsldjf qsdl k'),
+                (NULL, 'alf', 0, 0, 'alien', 'soucoupe violente')
+            ;
         """)
     # end def
 
@@ -201,6 +212,18 @@ class AppDatabase (DB.Database):
         """
         # put your own code here
         pass
+    # end def
+
+
+    def sanitize (self, value):
+        """
+            returns a quote-protected string;
+        """
+        # param controls
+        if value:
+            value = str(value).replace(r"\'", "'").replace("'", "''")
+        # end if
+        return value
     # end def
 
 # end class AppDatabase

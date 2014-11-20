@@ -72,7 +72,6 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         """
             event handler;
         """
-        print("do_search_criteria")
         # inits
         _cvar = lambda n: self.container.get_stringvar(n).get()
         _criteria = {
@@ -140,12 +139,21 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         self.async = ASYNC.get_async_manager()
         self.database = self.tk_owner.database
         self.DBVIEW = self.container.dbview_names
-        self.current_offset = 0
-        self.offset_max = 0
+        self.reset_offset()
         # event bindings
         self.bind_events(**kw)
         # first time query
         self.slot_search_criteria_changed()
+    # end def
+
+
+    def reset_offset (self, *args, **kw):
+        """
+            event handler: resets offset pointers;
+        """
+        # inits
+        self.current_offset = 0
+        self.offset_max = 0
     # end def
 
 
@@ -162,6 +170,8 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         """
             event handler;
         """
+        # reset offset
+        self.reset_offset()
         # deferred task
         self.async.run_after(1000, self.do_search_criteria)
     # end def
@@ -197,7 +207,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         # inits
         self.current_offset += self.ROW_LIMIT
         # refresh query
-        self.slot_search_criteria_changed()
+        self.async.run_after(500, self.do_search_criteria)
     # end def
 
 
@@ -210,7 +220,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             0, self.current_offset - self.ROW_LIMIT
         )
         # refresh query
-        self.slot_search_criteria_changed()
+        self.async.run_after(500, self.do_search_criteria)
     # end def
 
 

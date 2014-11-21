@@ -153,9 +153,14 @@ class DBViewCanvas (RC.RADCanvas):
         # try out
         try:
             # reset pos
-            self.coords(self.id_header, 0, self.canvasy(0))
+            _bbox = self.bbox("header")
+            if _bbox:
+                x0, y0, x1, y1 = _bbox
+                y = self.canvasy(0)
+                self.move("header", 0, y - y0)
+            # end if
             # set to foreground
-            self.tag_raise(self.id_header, "all")
+            self.tag_raise("header", "all")
         except:
             pass
         # end try
@@ -188,7 +193,7 @@ class DBViewCanvas (RC.RADCanvas):
         self.field_options = dict(body=dict(), header=dict())
         self.column_index = 0
         self.row_index = 0
-        self.gridman = dict(rows=dict(height=0), columns=dict(width=0))
+        self.gridman = dict(rows=dict(), columns=dict())
     # end def
 
 
@@ -203,11 +208,17 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def insert_label (self, frame, **kw):
+    def insert_label (self, group_tag, **kw):
         """
-            inserts a ttk.Label widget into @frame along with grid
-            internal (self.row_index, self.column_index) indices;
+            inserts a text label into virtual grid;
         """
+        # inits
+        _text = kw.get("text")
+        # param controls
+        if not _text:
+            # useless to go further
+            return
+        # end if
         # inits
         _align = kw.get("align")
         # param override?
@@ -218,37 +229,18 @@ class DBViewCanvas (RC.RADCanvas):
             )
         # end if
         # inits
-        _label = ttk.Label(
-            frame,
-            anchor=_anchor,
-            background=kw.get("background") or "white",
-            borderwidth=kw.get("borderwidth", 1),
-            class_=kw.get("class_"),
-            compound=kw.get("compound"),
-            cursor=kw.get("cursor"),
+        _row = kw.get("row") or self.row_index
+        _column = kw.get("column") or self.column_index
+        x, y = self.get_insertion_xy(_row, _column)
+        # create label
+        self.create_text(
+            x, y,
+            anchor="nw",
+            text=_text,
             font=kw.get("font"),
-            foreground=kw.get("foreground") or "black",
-            image=kw.get("image"),
-            justify=kw.get("justify"),
-            padding=kw.get("padding") or "2px",
-            relief=kw.get("relief") or "solid",
-            style=kw.get("style"),
-            takefocus=kw.get("takefocus"),
-            text=kw.get("text", "label"),
-            textvariable=kw.get("textvariable"),
-            underline=kw.get("underline"),
-            width=kw.get("width"),
-            wraplength=kw.get("wraplength", 500),
+            fill=kw.get("foreground"),
+            tags=group_tag,
         )
-        # insert into frame
-        _column = kw.get("column", self.column_index)
-        _label.grid(
-            row=kw.get("row", self.row_index),
-            column=_column,
-            sticky="nwse",
-        )
-        # resync body/header column widths
-        self.resync_body_header(_column, _label.winfo_reqwidth())
         # next column
         if kw.get("column") is None:
             # update pos
@@ -279,10 +271,7 @@ class DBViewCanvas (RC.RADCanvas):
             _opts = self.get_field_options("body", _name)
             # create label
             self.insert_label(
-                self.frame_body,
-                row=row_index,
-                column=_column,
-                text=_data,
+                "body", row=row_index, column=_column, text=_data,
                 **_opts
             )
         # end for

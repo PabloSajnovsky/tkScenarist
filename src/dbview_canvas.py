@@ -235,22 +235,30 @@ class DBViewCanvas (RC.RADCanvas):
         x, y = (0, 0)
         _rtags = self.get_grid_tags("row", row)
         _ctags = self.get_grid_tags("column", column)
+        print("row tags:", _rtags, "column tags:", _ctags)
         # calculate y along row
         _bbox = self.bbox(_rtags["tag"])
+        print("bbox('{}') = {}".format(_rtags["tag"], _bbox))
         if _bbox:
             x0, y0, x1, y1 = _bbox
             y = y0
+            print("bbox y:", y)
         else:
             y = self.gridman["rows"].get("next_y") or 0
+            print("gridman y:", y)
         # end if
         # calculate x along column
-        _bbox = self.bbox(_ctags["tag"])
+        _bbox = self.bbox(_ctags["box"])
+        print("bbox('{}') = {}".format(_ctags["tag"], _bbox))
         if _bbox:
             x0, y0, x1, y1 = _bbox
             x = x0
+            print("bbox x:", x)
         else:
             x = self.gridman["columns"].get("next_x") or 0
+            print("gridman x:", x)
         # end if
+        print("final (x, y):", (x, y))
         # return results
         return (x, y)
     # end def
@@ -310,7 +318,7 @@ class DBViewCanvas (RC.RADCanvas):
         xb, yb = self.LABEL_BOX[:2]
         # create label
         _id = self.create_text(
-            x, y,
+            x - xb + 2, y - yb,
             anchor="nw",
             text=_text,
             font=kw.get("font"),

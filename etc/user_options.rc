@@ -11,15 +11,15 @@ show_statusbar = 1
 pfm_preferred_dir = /home/rs/tmp
 pitch_template_dir = /home/rs/apps/tkScenarist/data/templates/pitch
 
-[files]
-
-[xml]
-
 [geometry]
 mainwindow_state = normal
 mainwindow = 774x447+153+85
 dialog_state = normal
 pitchtemplatesdialog = 778x506+215+243
+
+[files]
+
+[xml]
 
 [mainwindow]
 

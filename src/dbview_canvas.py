@@ -232,32 +232,23 @@ class DBViewCanvas (RC.RADCanvas):
             insertion point;
         """
         # inits
-        #~ print("-" * 60)
         x, y = (0, 0)
         _rtag = self.get_grid_tags("row", row)["tag"]
         _ctag = self.get_grid_tags("column", column)["tag"]
-        #~ print("tags:", (_rtag, _ctag))
         # calculate y along row
         _box = self.coords(_rtag)
-        #~ print("coords('{}') = {}".format(_rtag, _box))
         if _box:
             y = _box[1]
-            #~ print("box y:", y)
         else:
             y = self.gridman["rows"].get("next_y") or 0
-            #~ print("gridman y:", y)
         # end if
         # calculate x along column
         _box = self.coords(_ctag)
-        #~ print("coords('{}') = {}".format(_ctag, _box))
         if _box:
             x = _box[0]
-            #~ print("box x:", x)
         else:
             x = self.gridman["columns"].get("next_x") or 0
-            #~ print("gridman x:", x)
         # end if
-        #~ print("final (x, y):", (x, y))
         # return results
         return (x, y)
     # end def
@@ -293,22 +284,6 @@ class DBViewCanvas (RC.RADCanvas):
             inserts a text label into virtual grid;
         """
         # inits
-        _text = kw.get("text")
-        # param controls
-        #~ if not _text:
-            #~ # no use to go further
-            #~ return
-        # end if
-        # inits
-        _align = kw.get("align")
-        # param override?
-        if _align:
-            # override anchor
-            _anchor = kw.get(
-                "anchor", self.FIELD_ALIGN.get(_align, "center")
-            )
-        # end if
-        # inits
         _row = kw.get("row") or self.row_index
         _column = kw.get("column") or self.column_index
         _rtags = self.get_grid_tags("row", _row)
@@ -319,7 +294,7 @@ class DBViewCanvas (RC.RADCanvas):
         _id = self.create_text(
             x - xb + 1, y - yb,
             anchor="nw",
-            text=_text,
+            text=kw.get("text"),
             font=kw.get("font"),
             fill=kw.get("foreground") or "black",
             tags=(
@@ -328,11 +303,8 @@ class DBViewCanvas (RC.RADCanvas):
                 _ctags["tag"], _ctags["label"],
             ),
         )
-        #~ print("creating text at", self.coords(_id))
-        #~ print("bbox(text_id) = ", self.bbox(_id), self.LABEL_BOX)
         # surrounding frame
         _bbox = self.bbox_add(self.bbox(_id), self.LABEL_BOX)
-        #~ print("creating surrounding box frame:", _bbox)
         _id2 = self.create_rectangle(
             _bbox,
             outline=kw.get("outline") or "black",
@@ -349,9 +321,31 @@ class DBViewCanvas (RC.RADCanvas):
         # update some data
         x0, y0, x1, y1 = _bbox
         _width, _height = self.get_bbox_size(_id2)
-        #~ print("bbox size (width, height):", (_width, _height))
         self.update_grid("rows", _rtags, _row, _height, next_y=y1)
         self.update_grid("columns", _ctags, _column, _width, next_x=x1)
+        # ----------------------- text alignment ----------------------
+        _align = kw.get("align")
+        _anchor = kw.get("anchor")
+        x0, y0, x1, y1 = self.coords(_id2)
+        # param override?
+        if _align:
+            # override anchor
+            _anchor = self.FIELD_ALIGN.get(_align) or "center"
+        # end if
+        # align center?
+        if _anchor == "center":
+            # box center
+            x, y = ((x0 + x1)//2, (y0 + y1)//2)
+            self.coords(_id, x, y)
+            self.itemconfigure(_id, anchor="center")
+        # align right hand?
+        elif "e" in _anchor:
+            # box padding
+            xb, yb = self.LABEL_BOX[-2:]
+            x, y = (x1 - xb, y1 - yb)
+            self.coords(_id, x, y)
+            self.itemconfigure(_id, anchor="se")
+        # end if
         # next column
         if kw.get("column") is None:
             # update pos
@@ -527,7 +521,6 @@ class DBViewCanvas (RC.RADCanvas):
             _dim0 = self.gridman[section].get(_tag) or 0
             _dim1 = max(dimension, _dim0)
             self.gridman[section][_tag] = _dim1
-            #~ print("for tag:", _tag, "dimension:", dimension, "dim0:", _dim0, "dim1:", _dim1)
             # got to update all dims in section?
             if dimension != _dim0:
                 # do move labels
@@ -547,7 +540,6 @@ class DBViewCanvas (RC.RADCanvas):
                     self.move(_t, dx, dy)
                 # end for
                 # resize cells
-                #~ print("resizing '{}':".format(tags["box"]), _dim1)
                 _index = {"rows": -1, "columns": -2}[section]
                 for _id in self.find_withtag(tags["box"]):
                     _coords = self.coords(_id)

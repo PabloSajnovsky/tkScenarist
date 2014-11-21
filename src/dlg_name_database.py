@@ -40,7 +40,6 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
     BUTTONS = ("OK",)
 
     # nb of rows to show at once
-    #~ ROW_LIMIT = 50
     ROW_LIMIT = 50
 
 
@@ -73,6 +72,8 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         """
             event handler;
         """
+        # switch off buttons
+        self.switch_buttons(False)
         # inits
         _cvar = lambda n: self.container.get_stringvar(n).get()
         _criteria = {
@@ -110,6 +111,8 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             # restart query
             self.do_search_criteria()
         # end if
+        # switch on buttons
+        self.switch_buttons(True)
     # end def
 
 
@@ -228,6 +231,17 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             # refresh query
             self.async.run_after(500, self.do_search_criteria)
         # end if
+    # end def
+
+
+    def switch_buttons (self, flag=True):
+        """
+            enables/disables buttons group;
+        """
+        # buttons
+        self.enable_widget(self.container.btn_show_next, flag)
+        self.enable_widget(self.container.btn_show_previous, flag)
+        self.enable_widget(self.container.btn_import_file, flag)
     # end def
 
 

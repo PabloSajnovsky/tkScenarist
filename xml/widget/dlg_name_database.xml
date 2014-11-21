@@ -181,12 +181,14 @@
             resizable="yes"
         >
             <ttkbutton
+                name="btn_show_next"
                 text="Show next"
                 command="@Dialog:NameDB:Show:Next"
                 layout="pack"
                 resizable="width"
             />
             <ttkbutton
+                name="btn_show_previous"
                 text="Show previous"
                 command="@Dialog:NameDB:Show:Previous"
                 layout="pack"
@@ -198,6 +200,7 @@
                 resizable="width"
             />
             <ttkbutton
+                name="btn_import_file"
                 text="Import file (CSV)"
                 command="@Dialog:NameDB:Import:File"
                 layout="pack"

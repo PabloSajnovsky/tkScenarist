@@ -41,7 +41,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
 
     # nb of rows to show at once
     #~ ROW_LIMIT = 50
-    ROW_LIMIT = 5
+    ROW_LIMIT = 50
 
 
     def bind_events (self, **kw):

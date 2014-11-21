@@ -182,7 +182,7 @@ class DBViewCanvas (RC.RADCanvas):
             returns (width, height) bbox size along with @tag_or_id;
         """
         # inits
-        _bbox = self.bbox(tag_or_id)
+        _bbox = self.coords(tag_or_id)
         # got something?
         if _bbox:
             # init coords
@@ -232,34 +232,32 @@ class DBViewCanvas (RC.RADCanvas):
             insertion point;
         """
         # inits
-        print("get_insertion_xy()", "-" * 40)
+        #~ print("-" * 60)
         x, y = (0, 0)
         _rtag = self.get_grid_tags("row", row)["tag"]
         _ctag = self.get_grid_tags("column", column)["tag"]
-        print("tags:", (_rtag, _ctag))
+        #~ print("tags:", (_rtag, _ctag))
         # calculate y along row
-        _bbox = self.bbox(_rtag)
-        print("bbox('{}') = {}".format(_rtag, _bbox))
-        if _bbox:
-            x0, y0, x1, y1 = _bbox
-            y = y0 + 1
-            print("bbox y:", y)
+        _box = self.coords(_rtag)
+        #~ print("coords('{}') = {}".format(_rtag, _box))
+        if _box:
+            y = _box[1]
+            #~ print("box y:", y)
         else:
             y = self.gridman["rows"].get("next_y") or 0
-            print("gridman y:", y)
+            #~ print("gridman y:", y)
         # end if
         # calculate x along column
-        _bbox = self.bbox(_ctag)
-        print("bbox('{}') = {}".format(_ctag, _bbox))
-        if _bbox:
-            x0, y0, x1, y1 = _bbox
-            x = x0
-            print("bbox x:", x)
+        _box = self.coords(_ctag)
+        #~ print("coords('{}') = {}".format(_ctag, _box))
+        if _box:
+            x = _box[0]
+            #~ print("box x:", x)
         else:
             x = self.gridman["columns"].get("next_x") or 0
-            print("gridman x:", x)
+            #~ print("gridman x:", x)
         # end if
-        print("final (x, y):", (x, y))
+        #~ print("final (x, y):", (x, y))
         # return results
         return (x, y)
     # end def
@@ -330,11 +328,11 @@ class DBViewCanvas (RC.RADCanvas):
                 _ctags["tag"], _ctags["label"],
             ),
         )
-        print("creating text at", self.coords(_id))
-        print("bbox(text_id) = ", self.bbox(_id), self.LABEL_BOX)
+        #~ print("creating text at", self.coords(_id))
+        #~ print("bbox(text_id) = ", self.bbox(_id), self.LABEL_BOX)
         # surrounding frame
         _bbox = self.bbox_add(self.bbox(_id), self.LABEL_BOX)
-        print("creating surrounding box frame:", _bbox)
+        #~ print("creating surrounding box frame:", _bbox)
         _id2 = self.create_rectangle(
             _bbox,
             outline=kw.get("outline") or "black",
@@ -351,6 +349,7 @@ class DBViewCanvas (RC.RADCanvas):
         # update some data
         x0, y0, x1, y1 = _bbox
         _width, _height = self.get_bbox_size(_id2)
+        #~ print("bbox size (width, height):", (_width, _height))
         self.update_grid("rows", _rtags, _height, next_y=y1)
         self.update_grid("columns", _ctags, _width, next_x=x1)
         # next column
@@ -519,7 +518,6 @@ class DBViewCanvas (RC.RADCanvas):
         """
             updates all grid dimensions along with new parameters;
         """
-        pass                                                                # FIXME
         # param controls
         if section in self.gridman:
             # update keywords
@@ -527,12 +525,20 @@ class DBViewCanvas (RC.RADCanvas):
             # update dimension
             _tag = tags.get("tag")
             _dim0 = self.gridman[section].get(_tag) or 0
-            _dim1 = max(_dim0, dimension)
+            _dim1 = max(dimension, _dim0)
             self.gridman[section][_tag] = _dim1
             # got to update all dims in section?
-            if _dim0 != _dim1:
+            if dimension != _dim0:
                 # do move labels
                 pass
+                # resize cells
+                #~ print("resizing '{}':".format(tags["box"]), _dim1)
+                _index = {"rows": -1, "columns": -2}[section]
+                for _id in self.find_withtag(tags["box"]):
+                    _coords = self.coords(_id)
+                    _coords[_index] = _coords[_index - 2] + _dim1
+                    self.coords(_id, *_coords)
+                # end for
             # end if
         # end if
     # end def

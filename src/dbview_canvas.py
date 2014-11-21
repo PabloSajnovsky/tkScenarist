@@ -232,13 +232,14 @@ class DBViewCanvas (RC.RADCanvas):
             insertion point;
         """
         # inits
+        print("get_insertion_xy()", "-" * 40)
         x, y = (0, 0)
-        _rtags = self.get_grid_tags("row", row)
-        _ctags = self.get_grid_tags("column", column)
-        print("row tags:", _rtags, "column tags:", _ctags)
+        _rtag = self.get_grid_tags("row", row)["tag"]
+        _ctag = self.get_grid_tags("column", column)["tag"]
+        print("row tag:", _rtag, "column tag:", _ctag)
         # calculate y along row
-        _bbox = self.bbox(_rtags["tag"])
-        print("bbox('{}') = {}".format(_rtags["tag"], _bbox))
+        _bbox = self.bbox(_rtag)
+        print("bbox('{}') = {}".format(_rtag, _bbox))
         if _bbox:
             x0, y0, x1, y1 = _bbox
             y = y0
@@ -248,8 +249,8 @@ class DBViewCanvas (RC.RADCanvas):
             print("gridman y:", y)
         # end if
         # calculate x along column
-        _bbox = self.bbox(_ctags["box"])
-        print("bbox('{}') = {}".format(_ctags["tag"], _bbox))
+        _bbox = self.bbox(_ctag)
+        print("bbox('{}') = {}".format(_ctag, _bbox))
         if _bbox:
             x0, y0, x1, y1 = _bbox
             x = x0
@@ -317,8 +318,9 @@ class DBViewCanvas (RC.RADCanvas):
         x, y = self.get_insertion_xy(_row, _column)
         xb, yb = self.LABEL_BOX[:2]
         # create label
+        print("creating text at", (x - xb, y - yb))
         _id = self.create_text(
-            x - xb + 2, y - yb,
+            x - xb, y - yb,
             anchor="nw",
             text=_text,
             font=kw.get("font"),
@@ -332,6 +334,7 @@ class DBViewCanvas (RC.RADCanvas):
         # surrounding frame
         _bbox = self.bbox_add(self.bbox(_id), self.LABEL_BOX)
         x0, y0, x1, y1 = _bbox
+        print("creating surrounding box frame:", _bbox)
         _id2 = self.create_rectangle(
             _bbox,
             outline=kw.get("outline") or "black",

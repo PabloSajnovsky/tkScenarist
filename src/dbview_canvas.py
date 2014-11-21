@@ -63,6 +63,8 @@ class DBViewCanvas (RC.RADCanvas):
         "right": "e",
     }
 
+    LABEL_BOX = (-5, -5, +5, +5)
+
 
     def _do_set_field_options (self, section, name, **options):
         """
@@ -98,6 +100,14 @@ class DBViewCanvas (RC.RADCanvas):
             # better clean up everything
             self.reset()
         # end if
+    # end def
+
+
+    def bbox_add (self, bbox1, bbox2):
+        """
+            returns coordinates sum of bounding boxes;
+        """
+        return tuple(map(lambda x: sum(x), zip(bbox1, bbox2)))
     # end def
 
 
@@ -201,11 +211,18 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def get_grid_tag (self, radix, index):
+    def get_grid_tags (self, radix, index):
         """
             composes a grid tag name along with @radix and @index;
         """
-        return "{}#{}".format(radix, index)
+        # inits
+        _tag = "{}#{}".format(radix, index)
+        # return tag, label tag, box tag
+        return dict(
+            tag=_tag,
+            label="label_" + _tag,
+            box="box_" + _tag
+        )
     # end def
 
 
@@ -216,10 +233,10 @@ class DBViewCanvas (RC.RADCanvas):
         """
         # inits
         x, y = (0, 0)
-        _rtag = self.get_grid_tag("row", row)
-        _ctag = self.get_grid_tag("column", column)
+        _rtagsl, _rtagsb = self.get_grid_tags("row", row)
+        _ctags = self.get_grid_tags("column", column)
         # calculate y along row
-        _bbox = self.bbox(_rtag)
+        _bbox = self.bbox(_rtags)
         if _bbox:
             x0, y0, x1, y1 = _bbox
             y = y0
@@ -227,10 +244,10 @@ class DBViewCanvas (RC.RADCanvas):
             y = self.gridman["rows"].get("next_y") or 0
         # end if
         # calculate x along column
-        _bbox = self.bbox(_ctag)
+        _bbox = self.bbox(_ctags)
         if _bbox:
             x0, y0, x1, y1 = _bbox
-            x = x1
+            x = x0 + 1
         else:
             x = self.gridman["columns"].get("next_x") or 0
         # end if
@@ -272,7 +289,7 @@ class DBViewCanvas (RC.RADCanvas):
         _text = kw.get("text")
         # param controls
         if not _text:
-            # useless to go further
+            # no use to go further
             return
         # end if
         # inits
@@ -287,8 +304,8 @@ class DBViewCanvas (RC.RADCanvas):
         # inits
         _row = kw.get("row") or self.row_index
         _column = kw.get("column") or self.column_index
-        _rtag = self.get_grid_tag("row", _row)
-        _ctag = self.get_grid_tag("column", _column)
+        _rtags = self.get_grid_tags("row", _row)
+        _ctags = self.get_grid_tags("column", _column)
         x, y = self.get_insertion_xy(_row, _column)
         # create label
         _id = self.create_text(
@@ -297,12 +314,21 @@ class DBViewCanvas (RC.RADCanvas):
             text=_text,
             font=kw.get("font"),
             fill=kw.get("foreground") or "black",
-            tags=(group_tag, _rtag, _ctag),
+            tags=(
+                group_tag,
+                _rtags["tag"], _rtags["label"],
+                _ctags["tag"], _ctags["label"],
+            ),
+        )
+        # surrounding frame
+        _bbox = self.bbox_add(self.bbox(_id), self.LABEL_BOX)
+        _id2 = self.create_rectangle(
+
         )
         # update some data
         _width, _height = self.get_bbox_size(_id)
-        self.update_grid("rows", _rtag, _height, next_y=(y + _height))
-        self.update_grid("columns", _ctag, _width, next_x=(x + _width))
+        self.update_grid("rows", _rtags, _height, next_y=(y + _height))
+        self.update_grid("columns", _ctags, _width, next_x=(x + _width))
         # next column
         if kw.get("column") is None:
             # update pos
@@ -470,6 +496,20 @@ class DBViewCanvas (RC.RADCanvas):
             updates all grid dimensions along with new parameters;
         """
         pass                                                                # FIXME
+        # param controls
+        if section in self.gridman:
+            # update keywords
+            self.gridman[section].update(kw)
+            # update dimension
+            _dim0 = self.gridman[section].get(tag) or 0
+            _dim1 = max(_dim0, dimension)
+            self.gridman[section][tag] = _dim1
+            # got to update all dims in section?
+            if _dim0 != _dim1:
+                # do move labels
+                pass
+            # end if
+        # end if
     # end def
 
 

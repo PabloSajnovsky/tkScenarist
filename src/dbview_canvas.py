@@ -357,15 +357,13 @@ class DBViewCanvas (RC.RADCanvas):
             _opts = self.set_field_options("all", _name, **_options)
             # set header label
             self.insert_label(
-                self.frame_header,
+                "header",
                 text=_(_name),          # i18n support for header names
                 **_opts["header"][_name]
             )
         # end for
-        # reset column index
-        self.column_index = 0
-        # reset body frame position on canvas
-        self.async.run_after_idle(self.resync_body_position)
+        # new line
+        self.next_row()
     # end def
 
 

@@ -166,7 +166,7 @@ class DBViewCanvas (RC.RADCanvas):
             _bbox = self.bbox("header")
             if _bbox:
                 x0, y0, x1, y1 = _bbox
-                y = self.canvasy(0)
+                y = self.canvasy(-0.5)
                 self.move("header", 0, y - y0)
             # end if
             # set to foreground
@@ -295,9 +295,9 @@ class DBViewCanvas (RC.RADCanvas):
         # inits
         _text = kw.get("text")
         # param controls
-        if not _text:
-            # no use to go further
-            return
+        #~ if not _text:
+            #~ # no use to go further
+            #~ return
         # end if
         # inits
         _align = kw.get("align")
@@ -527,10 +527,11 @@ class DBViewCanvas (RC.RADCanvas):
             _dim0 = self.gridman[section].get(_tag) or 0
             _dim1 = max(dimension, _dim0)
             self.gridman[section][_tag] = _dim1
+            #~ print("for tag:", _tag, "dimension:", dimension, "dim0:", _dim0, "dim1:", _dim1)
             # got to update all dims in section?
             if dimension != _dim0:
                 # do move labels
-                pass
+                pass                                                        # FIXME!
                 # resize cells
                 #~ print("resizing '{}':".format(tags["box"]), _dim1)
                 _index = {"rows": -1, "columns": -2}[section]

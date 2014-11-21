@@ -140,7 +140,7 @@ on your machine.
 
 **No dependencies**, no third-part lib to install on more.
 
-If you have Python3 correctly installed, Tkinter library should also
+If you have Python3 programming language correctly installed, Tkinter library should also
 be installed **by default** as a Python standard lib.
 
 Any **ImportError** will mean either you are trying to launch the

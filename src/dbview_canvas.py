@@ -236,13 +236,13 @@ class DBViewCanvas (RC.RADCanvas):
         x, y = (0, 0)
         _rtag = self.get_grid_tags("row", row)["tag"]
         _ctag = self.get_grid_tags("column", column)["tag"]
-        print("row tag:", _rtag, "column tag:", _ctag)
+        print("tags:", (_rtag, _ctag))
         # calculate y along row
         _bbox = self.bbox(_rtag)
         print("bbox('{}') = {}".format(_rtag, _bbox))
         if _bbox:
             x0, y0, x1, y1 = _bbox
-            y = y0
+            y = y0 + 1
             print("bbox y:", y)
         else:
             y = self.gridman["rows"].get("next_y") or 0
@@ -318,9 +318,8 @@ class DBViewCanvas (RC.RADCanvas):
         x, y = self.get_insertion_xy(_row, _column)
         xb, yb = self.LABEL_BOX[:2]
         # create label
-        print("creating text at", (x - xb, y - yb))
         _id = self.create_text(
-            x - xb, y - yb,
+            x - xb + 1, y - yb,
             anchor="nw",
             text=_text,
             font=kw.get("font"),
@@ -331,10 +330,10 @@ class DBViewCanvas (RC.RADCanvas):
                 _ctags["tag"], _ctags["label"],
             ),
         )
+        print("creating text at", self.coords(_id))
         print("bbox(text_id) = ", self.bbox(_id), self.LABEL_BOX)
         # surrounding frame
         _bbox = self.bbox_add(self.bbox(_id), self.LABEL_BOX)
-        x0, y0, x1, y1 = _bbox
         print("creating surrounding box frame:", _bbox)
         _id2 = self.create_rectangle(
             _bbox,
@@ -350,7 +349,8 @@ class DBViewCanvas (RC.RADCanvas):
         # put text over box
         self.tag_raise(_id, _id2)
         # update some data
-        _width, _height = self.get_bbox_size(_id)
+        x0, y0, x1, y1 = _bbox
+        _width, _height = self.get_bbox_size(_id2)
         self.update_grid("rows", _rtags, _height, next_y=y1)
         self.update_grid("columns", _ctags, _width, next_x=x1)
         # next column

@@ -307,6 +307,7 @@ class DBViewCanvas (RC.RADCanvas):
         _rtags = self.get_grid_tags("row", _row)
         _ctags = self.get_grid_tags("column", _column)
         x, y = self.get_insertion_xy(_row, _column)
+        xb, yb = self.LABEL_BOX[:2]
         # create label
         _id = self.create_text(
             x, y,

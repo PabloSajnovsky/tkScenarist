@@ -64,26 +64,6 @@ class DBViewCanvas (RC.RADCanvas):
     }
 
 
-    def _do_resync_body_header (self, column, width):
-        """
-            protected method def for internal use;
-        """
-        # inits
-        _name = self.field_sequence[column]
-        _width = max(
-            width,
-            self.get_field_options("header", _name).get("width") or 0
-        )
-        # update column widths
-        self.frame_body.columnconfigure(column, minsize=_width)
-        self.frame_header.columnconfigure(column, minsize=_width)
-        # update header option
-        self.set_field_options("header", _name, width=_width)
-        # update canvas
-        self.update_canvas()
-    # end def
-
-
     def _do_set_field_options (self, section, name, **options):
         """
             protected method def for internal use;
@@ -208,15 +188,7 @@ class DBViewCanvas (RC.RADCanvas):
         self.field_options = dict(body=dict(), header=dict())
         self.column_index = 0
         self.row_index = 0
-        # widget inits
-        self.frame_body = ttk.Frame(self)
-        self.frame_header = ttk.Frame(self)
-        self.id_body = self.create_window(
-            0, 0, anchor="nw", window=self.frame_body
-        )
-        self.id_header = self.create_window(
-            0, 0, anchor="nw", window=self.frame_header
-        )
+        self.gridman = dict(rows=dict(height=0), columns=dict(width=0))
     # end def
 
 
@@ -333,7 +305,6 @@ class DBViewCanvas (RC.RADCanvas):
         """
         # stop pending threads
         self.async.stop(
-            self.resync_body_position,
             self._do_update_canvas,
         )
         # clear canvas
@@ -342,30 +313,6 @@ class DBViewCanvas (RC.RADCanvas):
         self.init_members(**kw)
         # force garbage collection
         gc.collect()
-    # end def
-
-
-    def resync_body_header (self, column, width):
-        """
-            resyncs body/header column width;
-        """
-        # deferred task
-        # CAUTION:
-        # this must *NOT* be cancelled, rescheduled or any other /!\
-        self.after_idle(
-            self._do_resync_body_header, column, width
-        )
-    # end def
-
-
-    def resync_body_position (self):
-        """
-            resyncs body position along with header's line height;
-        """
-        # resync body position
-        self.coords(
-            self.id_body, 0, self.frame_header.winfo_reqheight()
-        )
     # end def
 
 

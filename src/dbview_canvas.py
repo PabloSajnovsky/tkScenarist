@@ -350,8 +350,8 @@ class DBViewCanvas (RC.RADCanvas):
         x0, y0, x1, y1 = _bbox
         _width, _height = self.get_bbox_size(_id2)
         #~ print("bbox size (width, height):", (_width, _height))
-        self.update_grid("rows", _rtags, _height, next_y=y1)
-        self.update_grid("columns", _ctags, _width, next_x=x1)
+        self.update_grid("rows", _rtags, _row, _height, next_y=y1)
+        self.update_grid("columns", _ctags, _column, _width, next_x=x1)
         # next column
         if kw.get("column") is None:
             # update pos
@@ -514,7 +514,7 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def update_grid (self, section, tags, dimension, **kw):
+    def update_grid (self, section, tags, index, dimension, **kw):
         """
             updates all grid dimensions along with new parameters;
         """
@@ -531,7 +531,21 @@ class DBViewCanvas (RC.RADCanvas):
             # got to update all dims in section?
             if dimension != _dim0:
                 # do move labels
-                pass                                                        # FIXME!
+                _seq = self.gridman[section].setdefault(
+                    "sequence", list()
+                )
+                # new tag?
+                if _tag not in _seq:
+                    # insert tag into sequence
+                    _seq.insert(index, _tag)
+                # end if
+                # inits
+                dd = _dim1 - _dim0
+                dx, dy = {"rows": (0, dd), "columns": (dd, 0)}[section]
+                # move by tags
+                for _t in _seq[index + 1:]:
+                    self.move(_t, dx, dy)
+                # end for
                 # resize cells
                 #~ print("resizing '{}':".format(tags["box"]), _dim1)
                 _index = {"rows": -1, "columns": -2}[section]

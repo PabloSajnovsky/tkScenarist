@@ -178,7 +178,7 @@ class AppDatabase (DB.Database):
             -- this is for debugging session
             -- (comment this out in production state)
 
-            -- DROP TABLE IF EXISTS 'character_names';
+            DROP TABLE IF EXISTS 'character_names';
 
             -- create table for character names
 
@@ -194,6 +194,27 @@ class AppDatabase (DB.Database):
 
             -- for testing session
             INSERT INTO 'character_names' VALUES
+                (NULL, 'aaron', 1, 0, 'hebrew', 'qlsmdjfmqlskjdf'),
+                (NULL, 'ibn''abdul', 1, 0, 'arab', 'qlsmd jfmqls kjdf'),
+                (NULL, 'éloïse', 0, 1, 'french', 'mlqskjd f qmsldj fqsd'),
+                (NULL, 'michelle', 0, 1, 'french', 'mlqskjd f qmsldj fqsd'),
+                (NULL, 'camille', 1, 1, 'french', 'qmlkjd  qsldjf qsdl k'),
+                (NULL, 'dominique', 1, 1, 'french', 'qmlkjd  qsldjf qsdl k'),
+                (NULL, 'alf', 0, 0, 'alien', 'soucoupe violente'),
+                (NULL, 'aaron', 1, 0, 'hebrew', 'qlsmdjfmqlskjdf'),
+                (NULL, 'ibn''abdul', 1, 0, 'arab', 'qlsmd jfmqls kjdf'),
+                (NULL, 'éloïse', 0, 1, 'french', 'mlqskjd f qmsldj fqsd'),
+                (NULL, 'michelle', 0, 1, 'french', 'mlqskjd f qmsldj fqsd'),
+                (NULL, 'camille', 1, 1, 'french', 'qmlkjd  qsldjf qsdl k'),
+                (NULL, 'dominique', 1, 1, 'french', 'qmlkjd  qsldjf qsdl k'),
+                (NULL, 'alf', 0, 0, 'alien', 'soucoupe violente'),
+                (NULL, 'aaron', 1, 0, 'hebrew', 'qlsmdjfmqlskjdf'),
+                (NULL, 'ibn''abdul', 1, 0, 'arab', 'qlsmd jfmqls kjdf'),
+                (NULL, 'éloïse', 0, 1, 'french', 'mlqskjd f qmsldj fqsd'),
+                (NULL, 'michelle', 0, 1, 'french', 'mlqskjd f qmsldj fqsd'),
+                (NULL, 'camille', 1, 1, 'french', 'qmlkjd  qsldjf qsdl k'),
+                (NULL, 'dominique', 1, 1, 'french', 'qmlkjd  qsldjf qsdl k'),
+                (NULL, 'alf', 0, 0, 'alien', 'soucoupe violente'),
                 (NULL, 'aaron', 1, 0, 'hebrew', 'qlsmdjfmqlskjdf'),
                 (NULL, 'ibn''abdul', 1, 0, 'arab', 'qlsmd jfmqls kjdf'),
                 (NULL, 'éloïse', 0, 1, 'french', 'mlqskjd f qmsldj fqsd'),

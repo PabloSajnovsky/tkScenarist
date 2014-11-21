@@ -331,6 +331,7 @@ class DBViewCanvas (RC.RADCanvas):
                 _ctags["tag"], _ctags["label"],
             ),
         )
+        print("bbox(text_id) = ", self.bbox(_id), self.LABEL_BOX)
         # surrounding frame
         _bbox = self.bbox_add(self.bbox(_id), self.LABEL_BOX)
         x0, y0, x1, y1 = _bbox

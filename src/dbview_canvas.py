@@ -167,6 +167,24 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
+    def get_bbox_size (self, tag_or_id):
+        """
+            returns (width, height) bbox size along with @tag_or_id;
+        """
+        # inits
+        _bbox = self.bbox(tag_or_id)
+        # got something?
+        if _bbox:
+            # init coords
+            x0, y0, x1, y1 = _bbox
+            # return size
+            return (abs(x1 - x0), abs(y1 - y0))
+        # end if
+        # failed
+        return (0, 0)
+    # end def
+
+
     def get_field_options (self, section, name):
         """
             retrieves field options for @section and field @name;
@@ -180,6 +198,44 @@ class DBViewCanvas (RC.RADCanvas):
             # no options
             return dict()
         # end if
+    # end def
+
+
+    def get_grid_tag (self, radix, index):
+        """
+            composes a grid tag name along with @radix and @index;
+        """
+        return "{}#{}".format(radix, index)
+    # end def
+
+
+    def get_insertion_xy (self, row, column):
+        """
+            returns text (x, y) top left corner coordinates for
+            insertion point;
+        """
+        # inits
+        x, y = (0, 0)
+        _rtag = self.get_grid_tag("row", row)
+        _ctag = self.get_grid_tag("column", column)
+        # calculate y along row
+        _bbox = self.bbox(_rtag)
+        if _bbox:
+            x0, y0, x1, y1 = _bbox
+            y = y0
+        else:
+            y = self.gridman["rows"].get("next_y") or 0
+        # end if
+        # calculate x along column
+        _bbox = self.bbox(_ctag)
+        if _bbox:
+            x0, y0, x1, y1 = _bbox
+            x = x1
+        else:
+            x = self.gridman["columns"].get("next_x") or 0
+        # end if
+        # return results
+        return (x, y)
     # end def
 
 
@@ -231,16 +287,22 @@ class DBViewCanvas (RC.RADCanvas):
         # inits
         _row = kw.get("row") or self.row_index
         _column = kw.get("column") or self.column_index
+        _rtag = self.get_grid_tag("row", _row)
+        _ctag = self.get_grid_tag("column", _column)
         x, y = self.get_insertion_xy(_row, _column)
         # create label
-        self.create_text(
+        _id = self.create_text(
             x, y,
             anchor="nw",
             text=_text,
             font=kw.get("font"),
-            fill=kw.get("foreground"),
-            tags=group_tag,
+            fill=kw.get("foreground") or "black",
+            tags=(group_tag, _rtag, _ctag),
         )
+        # update some data
+        _width, _height = self.get_bbox_size(_id)
+        self.update_grid("rows", _rtag, _height, next_y=(y + _height))
+        self.update_grid("columns", _ctag, _width, next_x=(x + _width))
         # next column
         if kw.get("column") is None:
             # update pos
@@ -400,6 +462,14 @@ class DBViewCanvas (RC.RADCanvas):
         """
         # deferred task
         self.async.run_after_idle(self._do_update_canvas)
+    # end def
+
+
+    def update_grid (self, section, tag, dimension, **kw):
+        """
+            updates all grid dimensions along with new parameters;
+        """
+        pass                                                                # FIXME
     # end def
 
 

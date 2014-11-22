@@ -801,7 +801,7 @@ class DBViewLabel:
         # delegate
         self.box_resize(width, height)
         # should align text?
-        if width is not None:
+        if width:
             # update text alignment
             self.update_text()
         # end if

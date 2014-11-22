@@ -120,9 +120,9 @@ class DBViewCanvas (RC.RADCanvas):
             parameter @move_matrix determines move direction;
         """
         # inits
-        _sx, _sy = move_matrix
-        _previous = None
         _dmove = 0
+        _previous = None
+        _sx, _sy = move_matrix
         # browse collection
         for _manager in collection:
             # resize all items at once

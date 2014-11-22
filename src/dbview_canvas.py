@@ -573,7 +573,8 @@ class DBViewLabel:
         self.__text_options = self.TEXT_OPTIONS.copy()
         # member inits
         self.canvas = dbviewcanvas
-        self.on_size_changed = kw.get("on_size_changed")
+        self.on_width_changed = kw.get("on_width_changed")
+        self.on_height_changed = kw.get("on_height_changed")
         self.text_options = kw.get("text_options")
         self.box_options = kw.get("box_options")
         self.id_box = 0
@@ -709,14 +710,20 @@ class DBViewLabel:
     # end def
 
 
-    def label_size_changed (self, old_size, new_size, delta):
+    def label_size_changed (self, widths, heights):
         """
             notifies owner about inner size changes;
         """
+        print("label size changed: widths:", widths, "heights:", heights)
         # got callback?
-        if callable(self.on_size_changed):
+        if callable(self.on_width_changed):
             # notify owner
-            self.on_size_changed(old_size, new_size, delta)
+            self.on_width_changed(widths)
+        # end if
+        # got callback?
+        if callable(self.on_height_changed):
+            # notify owner
+            self.on_height_changed(heights)
         # end if
     # end def
 
@@ -779,16 +786,14 @@ class DBViewLabel:
             # size changed?
             if _dw or _dh:
                 # reset width
-                _box[-2] = _box[0] + _w1
+                _box[2] = _box[0] + _w1
                 # reset height
-                _box[-1] = _box[1] + _h1
+                _box[3] = _box[1] + _h1
                 # update box size
                 self.canvas.coords(self.id_box, *_box)
                 # notify changes
                 self.label_size_changed(
-                    old_size=(_w0, _h0),
-                    new_size=(_w1, _h1),
-                    delta=(_dw, _dh)
+                    width=(_w0, _w1, _dw), height=(_h0, _h1, _dh)
                 )
             # end if
         # end if

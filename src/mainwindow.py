@@ -241,7 +241,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
                 # select all text
                 w.tag_add("sel", "1.0", "end")
                 # this disables tkinter chain of internal bindings
-                # thanks to Brian Oakley's cool explanation :-)
+                # thanks to Brian Oakley's cool explanation
                 return "break"
             # ttk/Entry widget?
             elif hasattr(w, "select_range"):

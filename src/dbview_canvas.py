@@ -595,13 +595,13 @@ class DBViewLabel:
 
     # class constant defs
 
-    BOX_LABEL = (-5, -5, +5, +5)
-
     BOX_OPTIONS = {
         "fill": "white",
         "outline": "black",
         "width": 1,
     }
+
+    LABEL_BOX = (-5, -5, +5, +5)
 
     TEXT_OPTIONS = {
         "align": "left",
@@ -615,6 +615,9 @@ class DBViewLabel:
         """
             class constructor;
         """
+        # instance safe inits
+        self.__box_options = self.BOX_OPTIONS.copy()
+        self.__text_options = self.TEXT_OPTIONS.copy()
         # member inits
         self.canvas = canvas
         self.text_options = text_options
@@ -635,8 +638,6 @@ class DBViewLabel:
 
     @box_options.setter
     def box_options (self, options):
-        # init defaults
-        self.__box_options = self.BOX_OPTIONS.copy()
         # got overridings?
         if options:
             # override defaults
@@ -657,8 +658,10 @@ class DBViewLabel:
         """
         # allowed to work?
         if self.id_box:
+            # param inits
+            self.box_options = box_options
             # configure canvas item
-            self.canvas.itemconfigure(self.id_box, **box_options)
+            self.canvas.itemconfigure(self.id_box, **self.box_options)
         # end if
     # end def
 
@@ -669,15 +672,19 @@ class DBViewLabel:
         """
         # allowed to work?
         if self.id_text:
+            # param inits
+            self.text_options = text_options
             # configure canvas item
             self.canvas.itemconfigure(
-                self.id_text, text=text, **text_options
+                self.id_text, text=text, **self.text_options
             )
+            # update surrounding box frame along with new constraints
+            self.update_box()
         # end if
     # end def
 
 
-    def create_label (self, text, **text_options):
+    def create_label (self, left_x, top_y, text, **text_options):
         """
             creates canvas label object the first time;
             updates text contents if already created;
@@ -686,12 +693,29 @@ class DBViewLabel:
         if self.id_text:
             # update text contents
             self.configure_text(text, **text_options)
-            # update cell
-            self.update_label()
         # first time creation
         else:
-            pass
+            # inits
+            xb0, yb0, xb1, yb1 = self.LABEL_BOX
+            self.text_options = text_options
+            # create text item
+            self.id_text = self.canvas.create_text(
+                left_x - xb0 + 1, top_y - yb0,
+            )
         # end if
+    # end def
+
+
+    def reset (self, *args, **kw):
+        """
+            event handler: resets all canvas items to new;
+        """
+        # delete from canvas
+        self.canvas.delete(self.id_box)
+        self.canvas.delete(self.id_text)
+        # reset IDs
+        self.id_box = 0
+        self.id_text = 0
     # end def
 
 
@@ -706,8 +730,6 @@ class DBViewLabel:
 
     @text_options.setter
     def text_options (self, options):
-        # init defaults
-        self.__text_options = self.TEXT_OPTIONS.copy()
         # got overridings?
         if options:
             # override defaults
@@ -719,6 +741,18 @@ class DBViewLabel:
     def text_options (self):
         # delete private member
         del self.__text_options
+    # end def
+
+
+    def update_box (self, *args, **kw):
+        """
+            event handler: updates box dims along text item new
+            constraints;
+        """
+        # allowed to proceed?
+        if self.id_box:
+            pass
+        # end if
     # end def
 
 

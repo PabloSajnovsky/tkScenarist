@@ -43,15 +43,21 @@ class DBViewCanvas (RC.RADCanvas):
     } # end of CONFIG
 
     CONFIG_FIELD = {
-
         "body": {
-            "align": "left",
-            "font": "sans 10",
+            "text": {
+                "align": "left",
+                "font": "sans 10",
+            },
+            "box": {
+            },
         },
-
         "header": {
-            "align": "center",
-            "font": "sans 11 bold",
+            "text": {
+                "align": "center",
+                "font": "sans 11 bold",
+            },
+            "box": {
+            },
         },
     }
 
@@ -159,6 +165,25 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
+    def get_column_manager (self, index):
+        """
+            returns the DBViewColumnManager object located at @index,
+            if already exists; creates and then returns otherwise;
+        """
+        # get manager
+        _manager = self.columns[index:index+1]
+        # not found?
+        if not _manager:
+            # create a new one
+            _manager = DBViewColumnManager()
+            # register
+            self.columns.insert(index, _manager)
+        # end if
+        # return current manager
+        return _manager
+    # end def
+
+
     def get_field_options (self, group_tag, name):
         """
             retrieves field options for @group_tag and field @name;
@@ -172,6 +197,25 @@ class DBViewCanvas (RC.RADCanvas):
             # no options
             return dict()
         # end if
+    # end def
+
+
+    def get_row_manager (self, index):
+        """
+            returns the DBViewRowManager object located at @index, if
+            already exists; creates and then returns otherwise;
+        """
+        # get manager
+        _manager = self.rows[index:index+1]
+        # not found?
+        if not _manager:
+            # create a new one
+            _manager = DBViewRowManager()
+            # register
+            self.rows.insert(index, _manager)
+        # end if
+        # return current manager
+        return _manager
     # end def
 
 
@@ -208,9 +252,14 @@ class DBViewCanvas (RC.RADCanvas):
         # inits
         _row = kw.get("row") or self.row_index
         _column = kw.get("column") or self.column_index
+        _fopts = kw.get("field_options") or dict()
+        _text_opts = _fopts.get("text")
+        _box_opts = _fopts.get("box")
         # get managers
         _rman = self.get_row_manager(_row)
         _cman = self.get_column_manager(_column)
+        # other inits
+        _tags = (group_tag, _rman.tag, _cman.tag)
         # next column
         if kw.get("column") is None:
             # update pos
@@ -240,7 +289,7 @@ class DBViewCanvas (RC.RADCanvas):
             # create label
             self.insert_label(
                 "body", row=row_index, column=_column, text=_data,
-                **_opts
+                field_options=_opts,
             )
         # end for
     # end def

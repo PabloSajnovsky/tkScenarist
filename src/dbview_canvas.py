@@ -594,8 +594,13 @@ class DBViewLabel:
     """
 
     # class constant defs
+
     BOX_LABEL = (-5, -5, +5, +5)
+
     BOX_OPTIONS = {
+        "fill": "white",
+        "outline": "black",
+        "width": 1,
     }
 
     TEXT_OPTIONS = {
@@ -610,33 +615,39 @@ class DBViewLabel:
         """
             class constructor;
         """
-        # instance safe inits
-        self.BOX_OPTIONS = self.BOX_OPTIONS.copy()
-        self.TEXT_OPTIONS = self.TEXT_OPTIONS.copy()
         # member inits
         self.canvas = canvas
-        self.text_options = text_options or self.TEXT_OPTIONS
-        self.box_options = box_options or self.BOX_OPTIONS
+        self.text_options = text_options
+        self.box_options = box_options
         self.id_box = 0
         self.id_text = 0
     # end def
 
 
-    def create_label (self, text, **text_options):
+    @property
+    def box_options (self):
         """
-            creates canvas label object the first time;
-            updates text contents if already created;
+            internal property def;
         """
-        # already created?
-        if self.id_text:
-            # update text contents
-            self.configure_text(text, **text_options)
-            # update cell
-            self.update_label()
-        # first time creation
-        else:
-            pass
+        # return private member
+        return self.__box_options
+    # end def
+
+    @box_options.setter
+    def box_options (self, options):
+        # init defaults
+        self.__box_options = self.BOX_OPTIONS.copy()
+        # got overridings?
+        if options:
+            # override defaults
+            self.__box_options.update(options)
         # end if
+    # end def
+
+    @box_options.deleter
+    def box_options (self):
+        # delete private member
+        del self.__box_options
     # end def
 
 
@@ -663,6 +674,51 @@ class DBViewLabel:
                 self.id_text, text=text, **text_options
             )
         # end if
+    # end def
+
+
+    def create_label (self, text, **text_options):
+        """
+            creates canvas label object the first time;
+            updates text contents if already created;
+        """
+        # already created?
+        if self.id_text:
+            # update text contents
+            self.configure_text(text, **text_options)
+            # update cell
+            self.update_label()
+        # first time creation
+        else:
+            pass
+        # end if
+    # end def
+
+
+    @property
+    def text_options (self):
+        """
+            internal property def;
+        """
+        # return private member
+        return self.__text_options
+    # end def
+
+    @text_options.setter
+    def text_options (self, options):
+        # init defaults
+        self.__text_options = self.TEXT_OPTIONS.copy()
+        # got overridings?
+        if options:
+            # override defaults
+            self.__text_options.update(options)
+        # end if
+    # end def
+
+    @text_options.deleter
+    def text_options (self):
+        # delete private member
+        del self.__text_options
     # end def
 
 

@@ -208,13 +208,14 @@ class DBViewCanvas (RC.RADCanvas):
         # inits
         _row = kw.get("row") or self.row_index
         _column = kw.get("column") or self.column_index
+        # get managers
+        _rman = self.get_row_manager(_row)
+        _cman = self.get_column_manager(_column)
         # next column
         if kw.get("column") is None:
             # update pos
             self.column_index += 1
         # end if
-        # update canvas (deferred task)
-        self.update_canvas()
     # end def
 
 

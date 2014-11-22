@@ -86,6 +86,40 @@ class DBViewCanvas (RC.RADCanvas):
             protected method def for internal use;
         """
         print("_do_update_all")
+        # inits
+        _previous = None
+        # browse columns
+        for _cman in self.columns:
+            # resize all items at once
+            _cman.resize_all()
+            # got to move column?
+            if _previous:
+                # move all column by tag
+                self.move(_cman.tag, _previous.get_move_delta(), 0)
+                # column has moved
+                _previous.reset_move()
+            # end if
+            # update item
+            _previous = _cman
+        # end for
+        # inits
+        _previous = None
+        # browse rows
+        for _rman in self.rows:
+            # resize all items at once
+            _rman.resize_all()
+            # got to move row?
+            if _previous:
+                # move all row by tag
+                self.move(_rman.tag, 0, _previous.get_move_delta())
+                # row has moved
+                _previous.reset_move()
+            # end if
+            # update item
+            _previous = _cman
+        # end for
+        # now, we can update scrolling area (deferred)
+        self.update_canvas()
     # end def
 
 
@@ -276,6 +310,8 @@ class DBViewCanvas (RC.RADCanvas):
         _cman = self.get_column_manager(_column)
         # other inits
         _tags = (group_tag, _rman.tag, _cman.tag)
+        _text_opts.update(tags=_tags)
+        _box_opts.update(tags=_tags)
         # next column
         if kw.get("column") is None:
             # update pos

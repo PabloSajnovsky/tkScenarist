@@ -1,12 +1,10 @@
 [DEFAULT]
-mainwindow = 640x480+20+20
-maximized = 0
 mainwindow_state = normal
+maximized = 0
+mainwindow = 640x480+20+20
 dialog_state = normal
 
 [files]
-
-[xml]
 
 [dirs]
 pfm_preferred_dir = /home/rs/tmp
@@ -17,6 +15,8 @@ mainwindow_state = normal
 mainwindow = 721x441+299+183
 dialog_state = normal
 pitchtemplatesdialog = 778x506+215+243
+
+[xml]
 
 [gui]
 show_statusbar = 1

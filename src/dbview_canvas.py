@@ -213,6 +213,8 @@ class DBViewCanvas (RC.RADCanvas):
             # update pos
             self.column_index += 1
         # end if
+        # update canvas (deferred task)
+        self.update_canvas()
     # end def
 
 
@@ -265,8 +267,6 @@ class DBViewCanvas (RC.RADCanvas):
         self.clear_canvas(*args, **kw)
         # reset members
         self.init_members(**kw)
-        # force garbage collection
-        gc.collect()
     # end def
 
 
@@ -365,69 +365,6 @@ class DBViewCanvas (RC.RADCanvas):
         """
         # deferred task
         self.async.run_after_idle(self._do_update_canvas)
-    # end def
-
-
-    def update_grid (self, group_tag, section, tags, index, dimension, **kw):
-        """
-            updates all grid dimensions along with new parameters;
-        """
-        # param controls
-        if section in self.gridman:
-            # update keywords
-            self.gridman[section].update(kw)
-            # update dimension
-            _tag = tags.get("tag")
-            _dim0 = self.gridman[section].get(_tag) or 0
-            _dim1 = max(dimension, _dim0)
-            self.gridman[section][_tag] = _dim1
-            # got to update all dims in section?
-            if dimension != _dim0:
-                # do move labels
-                _seq = self.gridman[section].setdefault(
-                    "sequence", list()
-                )
-                # new tag?
-                if _tag not in _seq:
-                    # insert tag into sequence
-                    _seq.insert(index, _tag)
-                # end if
-                # inits
-                dd = _dim1 - _dim0
-                dx, dy = {"rows": (0, dd), "columns": (dd, 0)}[section]
-                # move by tags
-                for _t in _seq[index + 1:]:
-                    self.move(_t, dx, dy)
-                # end for
-                # resize cells
-                _index = {"rows": -1, "columns": -2}[section]
-                for _id in self.find_withtag(tags["box"]):
-                    # resize relative to coordinates
-                    _coords = self.coords(_id)
-                    _coords[_index] = _coords[_index - 2] + _dim1
-                    self.coords(_id, *_coords)
-                    # got text alignment?
-                    if _anchor:
-                        # inits
-                        x0, y0, x1, y1 = _coords
-                        # align center?
-                        if _anchor == "center":
-                            # box center
-                            x, y = ((x0 + x1)//2, (y0 + y1)//2)
-                            self.coords(_id, x, y)
-                            self.itemconfigure(_id, anchor="center")
-                        # align right hand?
-                        elif "e" in _anchor:
-                            # box padding
-                            xb, yb = self.LABEL_BOX[-2:]
-                            x, y = (x1 - xb, y1 - yb)
-                            self.coords(_id, x, y)
-                            self.itemconfigure(_id, anchor="se")
-                        # end if
-                    # end if
-                # end for
-            # end if
-        # end if
     # end def
 
 

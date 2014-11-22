@@ -476,20 +476,6 @@ class DBViewCanvas (RC.RADCanvas):
 
 
 
-class DBViewColumnManager (DBViewDimensionManager):
-    """
-        DBView Column labels collection manager;
-    """
-
-    # class constant defs
-    # redefine this in subclasses to fit your needs
-    # e.g. "width", "height", ...
-    DIMENSION_NAME = "width"
-
-# end class
-
-
-
 class DBViewDimensionManager:
     """
         DBView Row/Column labels collection manager;
@@ -574,6 +560,34 @@ class DBViewDimensionManager:
     # end def
 
 # end class DBViewDimensionManager
+
+
+
+class DBViewColumnManager (DBViewDimensionManager):
+    """
+        DBView Column labels collection manager;
+    """
+
+    # class constant defs
+    # redefine this in subclasses to fit your needs
+    # e.g. "width", "height", ...
+    DIMENSION_NAME = "width"
+
+# end class
+
+
+
+class DBViewRowManager (DBViewDimensionManager):
+    """
+        DBView Row labels collection manager;
+    """
+
+    # class constant defs
+    # redefine this in subclasses to fit your needs
+    # e.g. "width", "height", ...
+    DIMENSION_NAME = "height"
+
+# end class DBViewRowManager
 
 
 
@@ -943,17 +957,3 @@ class DBViewLabel:
     # end def
 
 # end class DBViewLabel
-
-
-
-class DBViewRowManager (DBViewDimensionManager):
-    """
-        DBView Row labels collection manager;
-    """
-
-    # class constant defs
-    # redefine this in subclasses to fit your needs
-    # e.g. "width", "height", ...
-    DIMENSION_NAME = "height"
-
-# end class

@@ -279,45 +279,6 @@ class DBViewCanvas (RC.RADCanvas):
         _rtags = self.get_grid_tags("row", _row)
         _ctags = self.get_grid_tags("column", _column)
         x, y = self.get_insertion_xy(_row, _column)
-        xb, yb = self.LABEL_BOX[:2]
-        # create label
-        _id = self.create_text(
-            x - xb + 1, y - yb,
-            anchor="nw",
-            text=kw.get("text"),
-            font=kw.get("font"),
-            fill=kw.get("foreground") or "black",
-            tags=(
-                group_tag,
-                _rtags["tag"], _rtags["label"],
-                _ctags["tag"], _ctags["label"],
-            ),
-        )
-        # surrounding frame
-        _bbox = self.bbox_add(self.bbox(_id), self.LABEL_BOX)
-        _id2 = self.create_rectangle(
-            _bbox,
-            outline=kw.get("outline") or "black",
-            fill=kw.get("background") or "white",
-            width=kw.get("outline_width") or 1,
-            tags=(
-                group_tag,
-                _rtags["tag"], _rtags["box"],
-                _ctags["tag"], _ctags["box"],
-            ),
-        )
-        # put text over box
-        self.tag_raise(_id, _id2)
-        # update some data
-        x0, y0, x1, y1 = _bbox
-        _width, _height = self.get_bbox_size(_id2)
-        # update grid
-        self.update_grid(
-            group_tag, "rows", _rtags, _row, _height, next_y=y1
-        )
-        self.update_grid(
-            group_tag, "columns", _ctags, _column, _width, next_x=x1
-        )
         # next column
         if kw.get("column") is None:
             # update pos
@@ -612,6 +573,7 @@ class DBViewLabel:
         self.__text_options = self.TEXT_OPTIONS.copy()
         # member inits
         self.canvas = dbviewcanvas
+        self.on_size_change = kw.get("on_size_change")
         self.text_options = kw.get("text_options")
         self.box_options = kw.get("box_options")
         self.id_box = 0
@@ -649,6 +611,24 @@ class DBViewLabel:
     def box_options (self):
         # delete private member
         del self.__box_options
+    # end def
+
+
+    def box_size (self, box):
+        """
+            returns (width, height) size of given @box;
+        """
+        # param controls
+        if box:
+            # inits
+            x0, y0, x1, y1 = box
+            # return (width, height)
+            return (abs(x1 - x0), abs(y1 - y0))
+        # no box
+        else:
+            # no size
+            return (0, 0)
+        # end if
     # end def
 
 
@@ -708,6 +688,8 @@ class DBViewLabel:
             self.id_box = self.canvas.create_rectangle(
                 _box, **self.box_options
             )
+            # put text over box frame
+            self.canvas.tag_raise(self.id_text, self.id_box)
         # end if
     # end def
 
@@ -775,7 +757,24 @@ class DBViewLabel:
         # allowed to proceed?
         if self.id_box and self.id_text:
             # inits
-            _box = self.get_surrounding_box()
+            _box = self.canvas.coords(self.id_box)
+            _w0, _h0 = self.box_size(_box)
+            _w1, _h1 = self.box_size(self.get_surrounding_box())
+            # width delta
+            _dw = _w1 - _w0
+            # height delta
+            _dh = _h1 - _h0
+            # size changed?
+            if _dw or _dh:
+                # reset width
+                _box[-2] = _box[0] + _w1
+                # reset height
+                _box[-1] = _box[1] + _h1
+                # update box size
+                self.canvas.coords(self.id_box, *_box)
+                # notify changes
+                self.label_size_changed(_dw, _dh)
+            # end if
         # end if
     # end def
 

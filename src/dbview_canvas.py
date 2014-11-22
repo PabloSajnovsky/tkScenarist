@@ -24,7 +24,6 @@
 
 # lib imports
 import os
-import gc
 from tkinter import ttk
 import tkRAD.core.async as ASYNC
 import tkRAD.widgets.rad_canvas as RC
@@ -54,13 +53,7 @@ class DBViewCanvas (RC.RADCanvas):
         "header": {
             "align": "center",
             "font": "sans 11 bold",
-            "width": 0,
         },
-    }
-
-    FIELD_ALIGN = {
-        "left": "w",
-        "right": "e",
     }
 
 
@@ -167,24 +160,6 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def get_bbox_size (self, tag_or_id):
-        """
-            returns (width, height) bbox size along with @tag_or_id;
-        """
-        # inits
-        _bbox = self.coords(tag_or_id)
-        # got something?
-        if _bbox:
-            # init coords
-            x0, y0, x1, y1 = _bbox
-            # return size
-            return (abs(x1 - x0), abs(y1 - y0))
-        # end if
-        # failed
-        return (0, 0)
-    # end def
-
-
     def get_field_options (self, group_tag, name):
         """
             retrieves field options for @group_tag and field @name;
@@ -201,49 +176,6 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def get_grid_tags (self, radix, index):
-        """
-            composes a grid tag name along with @radix and @index;
-        """
-        # inits
-        _tag = "{}#{}".format(radix, index)
-        # return tag, label tag, box tag
-        return dict(
-            tag=_tag,
-            label="label_" + _tag,
-            box="box_" + _tag
-        )
-    # end def
-
-
-    def get_insertion_xy (self, row, column):
-        """
-            returns text (x, y) top left corner coordinates for
-            insertion point;
-        """
-        # inits
-        x, y = (0, 0)
-        _rtag = self.get_grid_tags("row", row)["tag"]
-        _ctag = self.get_grid_tags("column", column)["tag"]
-        # calculate y along row
-        _box = self.coords(_rtag)
-        if _box:
-            y = _box[1]
-        else:
-            y = self.gridman["rows"].get("next_y") or 0
-        # end if
-        # calculate x along column
-        _box = self.coords(_ctag)
-        if _box:
-            x = _box[0]
-        else:
-            x = self.gridman["columns"].get("next_x") or 0
-        # end if
-        # return results
-        return (x, y)
-    # end def
-
-
     def init_members (self, **kw):
         """
             class members only inits;
@@ -254,7 +186,8 @@ class DBViewCanvas (RC.RADCanvas):
         self.field_options = dict(body=dict(), header=dict())
         self.column_index = 0
         self.row_index = 0
-        self.gridman = dict(rows=dict(), columns=dict())
+        self.rows = []
+        self.columns = []
     # end def
 
 
@@ -540,13 +473,26 @@ class DBViewCanvas (RC.RADCanvas):
 
 
 
+class DBViewColumnManager (DBViewDimensionManager):
+    """
+        DBView Column labels collection manager;
+    """
+
+    # class constant defs
+    # redefine this in subclasses to fit your needs
+    # e.g. "width", "height", ...
+    DIMENSION_NAME = "width"
+
+# end class
+
+
+
 class DBViewDimensionManager:
     """
         DBView Row/Column labels collection manager;
     """
 
     # class constant defs
-
     # redefine this in subclasses to fit your needs
     # e.g. "width", "height", ...
     DIMENSION_NAME = "dimension"
@@ -994,3 +940,17 @@ class DBViewLabel:
     # end def
 
 # end class DBViewLabel
+
+
+
+class DBViewRowManager (DBViewDimensionManager):
+    """
+        DBView Row labels collection manager;
+    """
+
+    # class constant defs
+    # redefine this in subclasses to fit your needs
+    # e.g. "width", "height", ...
+    DIMENSION_NAME = "height"
+
+# end class

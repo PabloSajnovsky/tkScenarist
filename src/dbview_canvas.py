@@ -81,6 +81,14 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
+    def _do_update_all (self):
+        """
+            protected method def for internal use;
+        """
+        print("_do_update_all")
+    # end def
+
+
     def _do_update_canvas (self):
         """
             protected method def for internal use;
@@ -292,6 +300,8 @@ class DBViewCanvas (RC.RADCanvas):
                 field_options=_opts,
             )
         # end for
+        # update all (deferred)
+        self.update_all()
     # end def
 
 
@@ -311,6 +321,7 @@ class DBViewCanvas (RC.RADCanvas):
         """
         # stop pending threads
         self.async.stop(
+            self._do_update_all,
             self._do_update_canvas,
         )
         # clear canvas
@@ -368,6 +379,8 @@ class DBViewCanvas (RC.RADCanvas):
         # end for
         # new line
         self.next_row()
+        # update all (deferred)
+        self.update_all()
     # end def
 
 
@@ -409,9 +422,18 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
+    def update_all (self, *args, **kw):
+        """
+            event handler: updates all rows and columns (deferred);
+        """
+        # deferred task
+        self.async.run_after_idle(self._do_update_all)
+    # end def
+
+
     def update_canvas (self, *args, **kw):
         """
-            event handler for canvas contents updating;
+            event handler: updates canvas scrollregion (deferred);
         """
         # deferred task
         self.async.run_after_idle(self._do_update_canvas)

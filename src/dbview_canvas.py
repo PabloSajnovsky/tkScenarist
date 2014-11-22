@@ -179,7 +179,11 @@ class DBViewCanvas (RC.RADCanvas):
             if already exists; creates and then returns otherwise;
         """
         # get manager
-        _manager = self.columns[index:index+1]
+        try:
+            _manager = self.columns[index]
+        except:
+            _manager = None
+        # end try
         # not found?
         if not _manager:
             # create a new one
@@ -214,7 +218,11 @@ class DBViewCanvas (RC.RADCanvas):
             already exists; creates and then returns otherwise;
         """
         # get manager
-        _manager = self.rows[index:index+1]
+        try:
+            _manager = self.rows[index]
+        except:
+            _manager = None
+        # end try
         # not found?
         if not _manager:
             # create a new one

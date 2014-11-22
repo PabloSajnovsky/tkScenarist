@@ -61,7 +61,7 @@ That's all, folks!
 
 ## Features
 
-At this time, the software supports:
+At this time:
 
 * All project management stays in one and unique project file
 (extension: `.scn` or `.zip`, as if you like);

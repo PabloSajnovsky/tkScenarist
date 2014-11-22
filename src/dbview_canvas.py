@@ -573,12 +573,14 @@ class DBViewLabel:
         self.__text_options = self.TEXT_OPTIONS.copy()
         # member inits
         self.canvas = dbviewcanvas
-        self.on_width_changed = kw.get("on_width_changed")
-        self.on_height_changed = kw.get("on_height_changed")
-        self.text_options = kw.get("text_options")
-        self.box_options = kw.get("box_options")
         self.id_box = 0
         self.id_text = 0
+        # callbacks
+        self.on_width_changed = kw.get("on_width_changed")
+        self.on_height_changed = kw.get("on_height_changed")
+        # options
+        self.text_options = kw.get("text_options")
+        self.box_options = kw.get("box_options")
     # end def
 
 
@@ -587,6 +589,36 @@ class DBViewLabel:
             returns coordinates sum of many boxes;
         """
         return tuple(map(lambda x: sum(x), zip(*boxes)))
+    # end def
+
+
+    def box_center (self, x0, y0, x1, y1):
+        """
+            returns (x, y) coordinates of @box central point;
+        """
+        # return center coords
+        return ((x0 + x1) // 2, (y0 + y1) // 2)
+    # end def
+
+
+    def box_coords (self, new_coords=None):
+        """
+            returns current coordinates of text surrounding box frame
+            if @new_coords omitted;
+            sets up new coords otherwise;
+        """
+        # allowed to proceed?
+        if self.id_box:
+            # need coords
+            if not new_coords:
+                # return coords
+                return self.canvas.coords(self.id_box)
+            # set new coords
+            else:
+                # setup
+                self.canvas.coords(self.id_box, *new_coords)
+            # end if
+        # end if
     # end def
 
 
@@ -612,6 +644,27 @@ class DBViewLabel:
     def box_options (self):
         # delete private member
         del self.__box_options
+    # end def
+
+
+    def box_resize (self, width=None, height=None, box=None):
+        """
+            forces surrounding box frame to fit new dims;
+        """
+        # inits
+        _box = box or self.box_coords()
+        # resize width?
+        if width:
+            # reset width
+            _box[2] = _box[0] + width
+        # end if
+        # resize height?
+        if height:
+            # reset width
+            _box[3] = _box[1] + height
+        # end if
+        # resize box
+        self.box_coords(_box)
     # end def
 
 
@@ -712,7 +765,7 @@ class DBViewLabel:
 
     def label_size_changed (self, widths, heights):
         """
-            notifies owner about inner size changes;
+            notifies owners about inner size changes;
         """
         print("label size changed: widths:", widths, "heights:", heights)
         # got callback?
@@ -738,6 +791,20 @@ class DBViewLabel:
         # reset IDs
         self.id_box = 0
         self.id_text = 0
+    # end def
+
+
+    def resize (self, width=None, height=None):
+        """
+            forces label's surrounding box frame to fit new dims;
+        """
+        # delegate
+        self.box_resize(width, height)
+        # should align text?
+        if width is not None:
+            # update text alignment
+            self.update_text()
+        # end if
     # end def
 
 
@@ -776,7 +843,7 @@ class DBViewLabel:
         # allowed to proceed?
         if self.id_box and self.id_text:
             # inits
-            _box = self.canvas.coords(self.id_box)
+            _box = self.box_coords()
             _w0, _h0 = self.box_size(_box)
             _w1, _h1 = self.box_size(self.get_surrounding_box())
             # width delta
@@ -785,15 +852,11 @@ class DBViewLabel:
             _dh = _h1 - _h0
             # size changed?
             if _dw or _dh:
-                # reset width
-                _box[2] = _box[0] + _w1
-                # reset height
-                _box[3] = _box[1] + _h1
                 # update box size
-                self.canvas.coords(self.id_box, *_box)
+                self.box_resize(box=_box, width=_w1, height=_h1)
                 # notify changes
                 self.label_size_changed(
-                    width=(_w0, _w1, _dw), height=(_h0, _h1, _dh)
+                    widths=(_w0, _w1, _dw), heights=(_h0, _h1, _dh)
                 )
             # end if
         # end if
@@ -816,7 +879,29 @@ class DBViewLabel:
         # allowed to proceed?
         if self.id_box and self.id_text:
             # inits
-            pass
+            _align = self.text_options.get("align") or "left"
+            x0, y0, x1, y1 = kw.get("box") or self.box_coords()
+            xb0, yb0, xb1, yb1 = self.LABEL_BOX
+            # should center text?
+            if _align == "center":
+                # get central point coords
+                x, y = self.box_center(x0, y0, x1, y1)
+                _anchor = "center"
+            # align right hand?
+            elif _align == "right":
+                # get bottom right point coords
+                x, y = (x1 - xb1, y1, - yb1)
+                _anchor = "se"
+            # align left hand by default
+            else:
+                # get top left point coords
+                x, y = (x0 - xb0 + 1, y0 - yb0)
+                _anchor = "nw"
+            # end if
+            # update text position
+            self.canvas.coords(self.id_text, x, y)
+            # update anchorage
+            self.canvas.itemconfigure(self.id_text, anchor=_anchor)
         # end if
     # end def
 

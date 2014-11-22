@@ -603,7 +603,7 @@ class DBViewLabel:
     }
 
 
-    def __init__ (self, canvas, text_options=None, box_options=None):
+    def __init__ (self, dbviewcanvas, **kw):
         """
             class constructor;
         """
@@ -611,9 +611,9 @@ class DBViewLabel:
         self.__box_options = self.BOX_OPTIONS.copy()
         self.__text_options = self.TEXT_OPTIONS.copy()
         # member inits
-        self.canvas = canvas
-        self.text_options = text_options
-        self.box_options = box_options
+        self.canvas = dbviewcanvas
+        self.text_options = kw.get("text_options")
+        self.box_options = kw.get("box_options")
         self.id_box = 0
         self.id_text = 0
     # end def
@@ -656,10 +656,10 @@ class DBViewLabel:
         """
             configures box canvas item only;
         """
-        # allowed to work?
+        # param inits
+        self.box_options = box_options
+        # item exists?
         if self.id_box:
-            # param inits
-            self.box_options = box_options
             # configure canvas item
             self.canvas.itemconfigure(self.id_box, **self.box_options)
         # end if
@@ -670,10 +670,10 @@ class DBViewLabel:
         """
             configures text canvas item only;
         """
-        # allowed to work?
+        # param inits
+        self.text_options = text_options
+        # item exists?
         if self.id_text:
-            # param inits
-            self.text_options = text_options
             # configure canvas item
             self.canvas.itemconfigure(
                 self.id_text, text=text, **self.text_options
@@ -704,11 +704,24 @@ class DBViewLabel:
             )
             self.configure_text(text, **text_options)
             # create surrounding box frame item
-            _box = self.box_add(
-                self.canvas.bbox(self.id_text), self.LABEL_BOX
-            )
+            _box = self.get_surrounding_box()
             self.id_box = self.canvas.create_rectangle(
                 _box, **self.box_options
+            )
+        # end if
+    # end def
+
+
+    def get_surrounding_box (self):
+        """
+            returns coordinates of text item's immediate surrounding
+            box;
+        """
+        # allowed to proceed?
+        if self.id_text:
+            # return surrounding box
+            return self.box_add(
+                self.canvas.bbox(self.id_text), self.LABEL_BOX
             )
         # end if
     # end def
@@ -760,8 +773,9 @@ class DBViewLabel:
             constraints;
         """
         # allowed to proceed?
-        if self.id_box:
-            pass
+        if self.id_box and self.id_text:
+            # inits
+            _box = self.get_surrounding_box()
         # end if
     # end def
 
@@ -771,6 +785,19 @@ class DBViewLabel:
             event handler: updates all inner canvas items at once;
         """
         pass
+    # end def
+
+
+    def update_text (self, *args, **kw):
+        """
+            event handler: updates text alignment along box item new
+            constraints;
+        """
+        # allowed to proceed?
+        if self.id_box and self.id_text:
+            # inits
+            pass
+        # end if
     # end def
 
 # end class DBViewLabel

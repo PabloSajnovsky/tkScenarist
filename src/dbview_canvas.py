@@ -86,38 +86,10 @@ class DBViewCanvas (RC.RADCanvas):
             protected method def for internal use;
         """
         print("_do_update_all")
-        # inits
-        _previous = None
-        # browse columns
-        for _cman in self.columns:
-            # resize all items at once
-            _cman.resize_all()
-            # got to move column?
-            if _previous:
-                # move all column by tag
-                self.move(_cman.tag, _previous.get_move_delta(), 0)
-                # column has moved
-                _previous.reset_move()
-            # end if
-            # update item
-            _previous = _cman
-        # end for
-        # inits
-        _previous = None
-        # browse rows
-        for _rman in self.rows:
-            # resize all items at once
-            _rman.resize_all()
-            # got to move row?
-            if _previous:
-                # move all row by tag
-                self.move(_rman.tag, 0, _previous.get_move_delta())
-                # row has moved
-                _previous.reset_move()
-            # end if
-            # update item
-            _previous = _cman
-        # end for
+        # update all columns
+        self._do_update_dimension(self.columns, (1, 0))
+        # update all rows
+        self._do_update_dimension(self.rows, (0, 1))
         # now, we can update scrolling area (deferred)
         self.update_canvas()
     # end def
@@ -138,6 +110,35 @@ class DBViewCanvas (RC.RADCanvas):
             # better clean up everything
             self.reset()
         # end if
+    # end def
+
+
+    def _do_update_dimension (self, collection, move_matrix):
+        """
+            updates size and position of all items in all managers of
+            @collection;
+            parameter @move_matrix determines move direction;
+        """
+        # inits
+        _sx, _sy = move_matrix
+        _previous = None
+        _dmove = 0
+        # browse collection
+        for _manager in collection:
+            # resize all items at once
+            _manager.resize_all()
+            # got to move?
+            if _previous:
+                # update move delta
+                _dmove += _previous.get_move_delta()
+                # move all by tag
+                self.move(_manager.tag, _sx * _dmove, _sy * _dmove)
+                # has moved
+                _previous.reset_move()
+            # end if
+            # update item
+            _previous = _manager
+        # end for
     # end def
 
 

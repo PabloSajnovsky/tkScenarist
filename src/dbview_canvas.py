@@ -374,7 +374,7 @@ class DBViewCanvas (RC.RADCanvas):
             self.insert_label(
                 "header",
                 text=_(_name),          # i18n support for header names
-                **_opts["header"][_name]
+                field_options=_opts["header"][_name]
             )
         # end for
         # new line

@@ -66,21 +66,21 @@ class DBViewCanvas (RC.RADCanvas):
     LABEL_BOX = (-5, -5, +5, +5)
 
 
-    def _do_set_field_options (self, section, name, **options):
+    def _do_set_field_options (self, group_tag, name, **options):
         """
             protected method def for internal use;
         """
         # param controls
-        if section in self.field_options:
+        if group_tag in self.field_options:
             # inits
-            _options = self.field_options[section].get(name) or \
-                                    self.CONFIG_FIELD[section].copy()
+            _options = self.field_options[group_tag].get(name) or \
+                                    self.CONFIG_FIELD[group_tag].copy()
             # override new options
             _options.update(options)
             # last but not least
             _options.update(name=name)
             # update field options
-            self.field_options[section][name] = _options
+            self.field_options[group_tag][name] = _options
         # end if
     # end def
 
@@ -195,14 +195,14 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def get_field_options (self, section, name):
+    def get_field_options (self, group_tag, name):
         """
-            retrieves field options for @section and field @name;
+            retrieves field options for @group_tag and field @name;
         """
-        # section exists?
-        if section in self.field_options:
+        # group_tag exists?
+        if group_tag in self.field_options:
             # return options by field name
-            return self.field_options[section].get(name)
+            return self.field_options[group_tag].get(name)
         # unsupported
         else:
             # no options
@@ -321,31 +321,12 @@ class DBViewCanvas (RC.RADCanvas):
         # update some data
         x0, y0, x1, y1 = _bbox
         _width, _height = self.get_bbox_size(_id2)
-        self.update_grid("rows", _rtags, _row, _height, next_y=y1)
-        self.update_grid("columns", _ctags, _column, _width, next_x=x1)
-        # ----------------------- text alignment ----------------------
-        _align = kw.get("align")
-        _anchor = kw.get("anchor")
-        x0, y0, x1, y1 = self.coords(_id2)
-        # param override?
-        if _align:
-            # override anchor
-            _anchor = self.FIELD_ALIGN.get(_align) or "center"
-        # end if
-        # align center?
-        if _anchor == "center":
-            # box center
-            x, y = ((x0 + x1)//2, (y0 + y1)//2)
-            self.coords(_id, x, y)
-            self.itemconfigure(_id, anchor="center")
-        # align right hand?
-        elif "e" in _anchor:
-            # box padding
-            xb, yb = self.LABEL_BOX[-2:]
-            x, y = (x1 - xb, y1 - yb)
-            self.coords(_id, x, y)
-            self.itemconfigure(_id, anchor="se")
-        # end if
+        self.update_grid(
+            "rows", _rtags, _row, _height, next_y=y1
+        )
+        self.update_grid(
+            "columns", _ctags, _column, _width, next_x=x1, **kw
+        )
         # next column
         if kw.get("column") is None:
             # update pos
@@ -410,21 +391,21 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def set_field_options (self, section, name, **options):
+    def set_field_options (self, group_tag, name, **options):
         """
             sets @options for a given field @name;
         """
         # param controls
         if name in self.field_sequence:
             # inits
-            section = str(section).lower()
+            group_tag = str(group_tag).lower()
             # body options
-            if section in ("body", "both", "all"):
+            if group_tag in ("body", "both", "all"):
                 # set options for body field name
                 self._do_set_field_options("body", name, **options)
             # end if
             # header options
-            if section in ("header", "both", "all"):
+            if group_tag in ("header", "both", "all"):
                 # set options for header field name
                 self._do_set_field_options("header", name, **options)
             # end if
@@ -539,12 +520,40 @@ class DBViewCanvas (RC.RADCanvas):
                 for _t in _seq[index + 1:]:
                     self.move(_t, dx, dy)
                 # end for
+                # text alignment
+                _align = kw.get("align")
+                _anchor = kw.get("anchor")
+                # param override?
+                if _align:
+                    # override anchor
+                    _anchor = self.FIELD_ALIGN.get(_align) or "center"
+                # end if
                 # resize cells
                 _index = {"rows": -1, "columns": -2}[section]
                 for _id in self.find_withtag(tags["box"]):
+                    # resize relative to coordinates
                     _coords = self.coords(_id)
                     _coords[_index] = _coords[_index - 2] + _dim1
                     self.coords(_id, *_coords)
+                    # got text alignment?
+                    if _anchor:
+                        # inits
+                        x0, y0, x1, y1 = _coords
+                        # align center?
+                        if _anchor == "center":
+                            # box center
+                            x, y = ((x0 + x1)//2, (y0 + y1)//2)
+                            self.coords(_id, x, y)
+                            self.itemconfigure(_id, anchor="center")
+                        # align right hand?
+                        elif "e" in _anchor:
+                            # box padding
+                            xb, yb = self.LABEL_BOX[-2:]
+                            x, y = (x1 - xb, y1 - yb)
+                            self.coords(_id, x, y)
+                            self.itemconfigure(_id, anchor="se")
+                        # end if
+                    # end if
                 # end for
             # end if
         # end if

@@ -24,7 +24,6 @@
 
 # lib imports
 import os
-from tkinter import ttk
 import tkRAD.core.async as ASYNC
 import tkRAD.widgets.rad_canvas as RC
 
@@ -209,16 +208,11 @@ class DBViewCanvas (RC.RADCanvas):
         # inits
         _row = kw.get("row") or self.row_index
         _column = kw.get("column") or self.column_index
-        _rtags = self.get_grid_tags("row", _row)
-        _ctags = self.get_grid_tags("column", _column)
-        x, y = self.get_insertion_xy(_row, _column)
         # next column
         if kw.get("column") is None:
             # update pos
             self.column_index += 1
         # end if
-        # update canvas
-        self.update_canvas()
     # end def
 
 

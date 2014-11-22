@@ -540,6 +540,94 @@ class DBViewCanvas (RC.RADCanvas):
 
 
 
+class DBViewDimensionManager:
+    """
+        DBView Row/Column labels collection manager;
+    """
+
+    # class constant defs
+
+    # redefine this in subclasses to fit your needs
+    # e.g. "width", "height", ...
+    DIMENSION_NAME = "dimension"
+
+
+    def __init__ (self, tag=None):
+        """
+            class constructor;
+        """
+        # member inits
+        self.tag = tag or "group#{}".format(id(self))
+        self.dimension = 0
+        self.move_delta = 0
+        self.collection = list()
+    # end def
+
+
+    def add_item (self, item):
+        """
+            adds a new item to collection;
+        """
+        self.collection.append(item)
+    # end def
+
+
+    def get_move_delta (self):
+        """
+            returns current move delta;
+        """
+        return self.move_delta
+    # end def
+
+
+    def insert_item (self, index, item):
+        """
+            inserts a new item into collection, at given @index
+            position;
+        """
+        self.collection.insert(index, item)
+    # end def
+
+
+    def on_dimension_changed (self, old, new, delta=None):
+        """
+            updates global collection dimension;
+        """
+        # inits
+        _dmove = new - self.dimension
+        # got to enlarge?
+        if _dmove > 0:
+            # update to largest dimension
+            self.dimension = new
+            # add to future collection moves
+            self.move_delta += _dmove
+        # end if
+    # end def
+
+
+    def reset_move (self, *args, **kw):
+        """
+            event handler: resets move delta;
+        """
+        self.move_delta = 0
+    # end def
+
+
+    def resize_all (self, *args, **kw):
+        """
+            event handler: resizes all items in collection;
+        """
+        # browse items in collection
+        for _item in self.collection:
+            # force resizing
+            _item.resize(**{self.DIMENSION_NAME: self.dimension})
+        # end for
+    # end def
+
+# end class DBViewDimensionManager
+
+
+
 class DBViewLabel:
     """
         DBView grid cell structure;

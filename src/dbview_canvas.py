@@ -63,8 +63,6 @@ class DBViewCanvas (RC.RADCanvas):
         "right": "e",
     }
 
-    LABEL_BOX = (-5, -5, +5, +5)
-
 
     def _do_set_field_options (self, group_tag, name, **options):
         """
@@ -321,11 +319,12 @@ class DBViewCanvas (RC.RADCanvas):
         # update some data
         x0, y0, x1, y1 = _bbox
         _width, _height = self.get_bbox_size(_id2)
+        # update grid
         self.update_grid(
-            "rows", _rtags, _row, _height, next_y=y1
+            group_tag, "rows", _rtags, _row, _height, next_y=y1
         )
         self.update_grid(
-            "columns", _ctags, _column, _width, next_x=x1, **kw
+            group_tag, "columns", _ctags, _column, _width, next_x=x1
         )
         # next column
         if kw.get("column") is None:
@@ -489,7 +488,7 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def update_grid (self, section, tags, index, dimension, **kw):
+    def update_grid (self, group_tag, section, tags, index, dimension, **kw):
         """
             updates all grid dimensions along with new parameters;
         """
@@ -520,14 +519,6 @@ class DBViewCanvas (RC.RADCanvas):
                 for _t in _seq[index + 1:]:
                     self.move(_t, dx, dy)
                 # end for
-                # text alignment
-                _align = kw.get("align")
-                _anchor = kw.get("anchor")
-                # param override?
-                if _align:
-                    # override anchor
-                    _anchor = self.FIELD_ALIGN.get(_align) or "center"
-                # end if
                 # resize cells
                 _index = {"rows": -1, "columns": -2}[section]
                 for _id in self.find_withtag(tags["box"]):
@@ -593,3 +584,93 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 # end class DBViewCanvas
+
+
+
+class DBViewLabel:
+    """
+        DBView grid cell structure;
+        Simplifies resizing and text alignment features;
+    """
+
+    # class constant defs
+    BOX_LABEL = (-5, -5, +5, +5)
+    BOX_OPTIONS = {
+    }
+
+    TEXT_OPTIONS = {
+        "align": "left",
+        "fill": "black",
+        "font": "sans 10",
+        "width": None,
+    }
+
+
+    def __init__ (self, canvas, text_options=None, box_options=None):
+        """
+            class constructor;
+        """
+        # instance safe inits
+        self.BOX_OPTIONS = self.BOX_OPTIONS.copy()
+        self.TEXT_OPTIONS = self.TEXT_OPTIONS.copy()
+        # member inits
+        self.canvas = canvas
+        self.text_options = text_options or self.TEXT_OPTIONS
+        self.box_options = box_options or self.BOX_OPTIONS
+        self.id_box = 0
+        self.id_text = 0
+    # end def
+
+
+    def create_label (self, text, **text_options):
+        """
+            creates canvas label object the first time;
+            updates text contents if already created;
+        """
+        # already created?
+        if self.id_text:
+            # update text contents
+            self.configure_text(text, **text_options)
+            # update cell
+            self.update_label()
+        # first time creation
+        else:
+            pass
+        # end if
+    # end def
+
+
+    def configure_box (self, **box_options):
+        """
+            configures box canvas item only;
+        """
+        # allowed to work?
+        if self.id_box:
+            # configure canvas item
+            self.canvas.itemconfigure(self.id_box, **box_options)
+        # end if
+    # end def
+
+
+    def configure_text (self, text, **text_options):
+        """
+            configures text canvas item only;
+        """
+        # allowed to work?
+        if self.id_text:
+            # configure canvas item
+            self.canvas.itemconfigure(
+                self.id_text, text=text, **text_options
+            )
+        # end if
+    # end def
+
+
+    def update_label (self, *args, **kw):
+        """
+            event handler: updates all inner canvas items at once;
+        """
+        pass
+    # end def
+
+# end class DBViewLabel

@@ -101,14 +101,6 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def bbox_add (self, bbox1, bbox2):
-        """
-            returns coordinates sum of bounding boxes;
-        """
-        return tuple(map(lambda x: sum(x), zip(bbox1, bbox2)))
-    # end def
-
-
     def bind_events (self, **kw):
         """
             event bindings;
@@ -627,6 +619,14 @@ class DBViewLabel:
     # end def
 
 
+    def box_add (self, *boxes):
+        """
+            returns coordinates sum of many boxes;
+        """
+        return tuple(map(lambda x: sum(x), zip(*boxes)))
+    # end def
+
+
     @property
     def box_options (self):
         """
@@ -697,10 +697,18 @@ class DBViewLabel:
         else:
             # inits
             xb0, yb0, xb1, yb1 = self.LABEL_BOX
-            self.text_options = text_options
             # create text item
             self.id_text = self.canvas.create_text(
                 left_x - xb0 + 1, top_y - yb0,
+                anchor="nw",
+            )
+            self.configure_text(text, **text_options)
+            # create surrounding box frame item
+            _box = self.box_add(
+                self.canvas.bbox(self.id_text), self.LABEL_BOX
+            )
+            self.id_box = self.canvas.create_rectangle(
+                _box, **self.box_options
             )
         # end if
     # end def
@@ -734,6 +742,8 @@ class DBViewLabel:
         if options:
             # override defaults
             self.__text_options.update(options)
+            # strip forbidden options
+            self.__text_options.pop("anchor", None)
         # end if
     # end def
 

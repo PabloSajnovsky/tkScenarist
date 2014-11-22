@@ -573,7 +573,7 @@ class DBViewLabel:
         self.__text_options = self.TEXT_OPTIONS.copy()
         # member inits
         self.canvas = dbviewcanvas
-        self.on_size_change = kw.get("on_size_change")
+        self.on_size_changed = kw.get("on_size_changed")
         self.text_options = kw.get("text_options")
         self.box_options = kw.get("box_options")
         self.id_box = 0
@@ -709,6 +709,18 @@ class DBViewLabel:
     # end def
 
 
+    def label_size_changed (self, old_size, new_size, delta):
+        """
+            notifies owner about inner size changes;
+        """
+        # got callback?
+        if callable(self.on_size_changed):
+            # notify owner
+            self.on_size_changed(old_size, new_size, delta)
+        # end if
+    # end def
+
+
     def reset (self, *args, **kw):
         """
             event handler: resets all canvas items to new;
@@ -773,7 +785,11 @@ class DBViewLabel:
                 # update box size
                 self.canvas.coords(self.id_box, *_box)
                 # notify changes
-                self.label_size_changed(_dw, _dh)
+                self.label_size_changed(
+                    old_size=(_w0, _h0),
+                    new_size=(_w1, _h1),
+                    delta=(_dw, _dh)
+                )
             # end if
         # end if
     # end def

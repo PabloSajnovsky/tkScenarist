@@ -39,7 +39,7 @@
         >
             <!-- browse file zone -->
             <ttklabel
-                text="Import:"
+                text="Location:"
                 layout="grid"
                 layout_options="row=0, column=0"
                 resizable="no"
@@ -58,6 +58,22 @@
                 layout="grid"
                 layout_options="row=0, column=2"
                 resizable="no"
+            />
+        </ttklabelframe>
+
+        <!-- file contents zone -->
+
+        <ttklabelframe
+            text="Contents"
+            padding="5px"
+            layout="grid"
+            layout_options="row=1, column=0"
+            resizable="yes"
+        >
+            <ttklabel
+                text="dummy"
+                layout="pack"
+                resizable="yes"
             />
         </ttklabelframe>
 

@@ -38,7 +38,27 @@
             resizable="yes"
         >
             <!-- browse file zone -->
-
+            <ttklabel
+                text="Import:"
+                layout="grid"
+                layout_options="row=0, column=0"
+                resizable="no"
+            />
+            <ttklabel
+                textvariable="lbl_file_path"
+                foreground="royal blue"
+                width="40"
+                layout="grid"
+                layout_options="row=0, column=1"
+                resizable="no"
+            />
+            <ttkbutton
+                name="btn_browse_file"
+                text="Browse"
+                layout="grid"
+                layout_options="row=0, column=2"
+                resizable="no"
+            />
         </ttklabelframe>
 
     </ttkframe>

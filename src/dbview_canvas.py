@@ -246,7 +246,7 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def get_insertion_xy (self, row, column, rman, cman):
+    def get_insertion_xy (self, rman, cman):
         """
             returns (x, y) coordinates of top left insertion point;
         """
@@ -344,7 +344,7 @@ class DBViewCanvas (RC.RADCanvas):
             on_height_changed=_rman.on_dimension_changed,
         )
         # insert label
-        x, y = self.get_insertion_xy(_row, _column, _rman, _cman)
+        x, y = self.get_insertion_xy(_rman, _cman)
         _label.create_label(x, y, text)
         # register label
         _rman.insert_item(_row, _label)

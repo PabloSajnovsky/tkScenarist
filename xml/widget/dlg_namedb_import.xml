@@ -33,8 +33,7 @@
         <ttklabelframe
             text="File to import"
             padding="5px"
-            layout="grid"
-            layout_options="row=0, column=0"
+            layout="pack"
             resizable="yes"
         >
             <!-- browse file zone -->
@@ -67,8 +66,7 @@
         <ttklabelframe
             text="Preview"
             padding="5px"
-            layout="grid"
-            layout_options="row=1, column=0"
+            layout="pack"
             resizable="yes"
         >
             <!-- file contents preview frame -->
@@ -105,8 +103,7 @@
         <ttklabelframe
             text="Fields"
             padding="5px"
-            layout="grid"
-            layout_options="row=2, column=0"
+            layout="pack"
             resizable="yes"
         >
             <!-- labels -->
@@ -173,5 +170,50 @@
             />
         </ttklabelframe>
 
+        <!-- importing tool zone -->
+
+        <ttklabelframe
+            text="Import"
+            padding="5px"
+            layout="pack"
+            resizable="yes"
+        >
+            <!-- labels -->
+            <ttkframe
+                layout="pack"
+                resizable="yes"
+            >
+                <ttklabel
+                    text="Status:"
+                    layout="grid"
+                    layout_options="row=0, column=0"
+                    resizable="no"
+                />
+                <ttklabel
+                    textvariable="lbl_status"
+                    layout="grid"
+                    layout_options="row=0, column=1"
+                    resizable="width"
+                />
+            </ttkframe>
+            <!-- tools -->
+            <ttkframe
+                layout="pack"
+                resizable="yes"
+            >
+                <ttkprogressbar
+                    layout="grid"
+                    layout_options="row=0, column=0"
+                    resizable="width"
+                />
+                <ttkbutton
+                    text="Import"
+                    command="@Dialog:Import:File:Import"
+                    layout="grid"
+                    layout_options="row=0, column=1"
+                    resizable="no"
+                />
+            </ttkframe>
+        </ttklabelframe>
     </ttkframe>
 </tkwidget>

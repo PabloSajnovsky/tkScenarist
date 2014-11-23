@@ -59,6 +59,8 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         if self.is_csv(fpath):
             # update options dir
             self.options["dirs"]["namedb_import_dir"] = OP.dirname(fpath)
+            # update current path
+            self.current_path = fpath
             # update file infos
             self.container.get_stringvar("lbl_file_path")\
                 .set(P.shorten_path(fpath, limit=50))
@@ -78,13 +80,13 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def _fill_combos (self, choices, matches=None):
+    def _fill_combos (self, choices=None, matches=None):
         """
             fills all combobox widgets with same @choices;
         """
         # inits
         _choices = [_("--- not found ---")]
-        _choices.extend(choices)
+        _choices.extend(choices or [])
         matches = matches or (0,) * len(self.FIELD_NAMES)
         # fill widgets
         for _index, _field in enumerate(self.FIELD_NAMES):
@@ -117,7 +119,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             # search matchups
             for _field in self.FIELD_NAMES:
                 try:
-                    _index = _row.index(_field.lower())
+                    _index = _row.index(_field.lower()) + 1
                 except:
                     _index = 0
                 # end try
@@ -161,6 +163,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         self.events.connect_dict(
             {
                 "Dialog:Import:File:Browse": self.slot_file_browse,
+                "Dialog:Import:File:Import": self.slot_file_import,
             }
         )
         # tkinter widget event bindings
@@ -193,6 +196,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         )
         # member inits
         self.async = ASYNC.get_async_manager()
+        self.current_path = ""
         self.database = self.tk_owner.database
         self.DEFAULT_DIR = P.normalize(self.DEFAULT_DIR)
         # dialog widgets
@@ -244,18 +248,26 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def switch_buttons (self, flag=True):
+    def slot_file_import (self, *args, **kw):
         """
-            enables/disables buttons group;
+            event handler: launches importation procedure;
         """
-        # buttons
-        #~ self.enable_widget(self.container.btn_, flag)
-        #~ self.enable_widget(self.container.btn_, flag)
-        #~ self.enable_widget(self.container.btn_, flag)
-        #~ self.enable_widget(self.container.btn_, flag)
-        #~ self.enable_widget(self.container.btn_, flag)
-        #~ self.enable_widget(self.container.btn_, flag)
-        pass
+        # got file path?
+        if self.current_path:
+            # do import
+            self._do_import_file()
+        # nothing selected
+        else:
+            # notify user
+            MB.showwarning(
+                title=_("Attention"),
+                message=_(
+                    "Please, select at first a comma-separated "
+                    "values (CSV) file to import."
+                ),
+                parent=self,
+            )
+        # end if
     # end def
 
 

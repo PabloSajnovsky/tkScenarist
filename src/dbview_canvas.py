@@ -940,6 +940,7 @@ class DBViewLabel:
         self.box_resize(width, height)
         # should align text?
         if width:
+            print("DBViewLabel.resize(): aligning text")
             # update text alignment
             self.update_text()
         # end if
@@ -1016,6 +1017,7 @@ class DBViewLabel:
         if self.id_box and self.id_text:
             # inits
             _align = self.text_options.get("align") or "left"
+            print("align:", _align, "text options:", self.text_options)
             x0, y0, x1, y1 = kw.get("box") or self.box_coords()
             xb0, yb0, xb1, yb1 = self.LABEL_BOX
             # should center text?

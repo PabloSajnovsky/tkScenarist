@@ -61,6 +61,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             self.container.get_stringvar("lbl_file_path")\
                 .set(P.shorten_path(fpath, limit=45))
             # update dialect fields
+            self._fill_preview(fpath)
         # not a CSV file
         else:
             # notify user
@@ -70,6 +71,27 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
                 parent=self,
             )
         # end if
+    # end def
+
+
+    def _fill_preview (self, fpath):
+        """
+            fills preview Text widget with CSV file contents;
+        """
+        # inits
+        _index = 1
+        # enable preview
+        self.enable_widget(self.PREVIEW, True)
+        # fill with some rows
+        with open(fpath) as csvfile:
+            for _row in csv.reader(csvfile):
+                self.PREVIEW.insert("{}.0".format(_index), _row)
+                _index += 1
+                if _index > 10: break
+            # end for
+        # end with
+        # disable preview
+        self.enable_widget(self.PREVIEW, False)
     # end def
 
 
@@ -115,6 +137,8 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         self.async = ASYNC.get_async_manager()
         self.database = self.tk_owner.database
         self.DEFAULT_DIR = P.normalize(self.DEFAULT_DIR)
+        # dialog widgets
+        self.PREVIEW = self.container.text_fc_preview
         # event bindings
         self.bind_events(**kw)
     # end def

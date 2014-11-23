@@ -25,6 +25,7 @@
 # lib imports
 import tkRAD.core.async as ASYNC
 import tkRAD.widgets.rad_dialog as DLG
+from . import dlg_namedb_import as DNI
 
 
 class NameDatabaseDialog (DLG.RADButtonsDialog):
@@ -164,8 +165,8 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         """
             event handler;
         """
-        # init
-        print("slot_import_file")
+        # show file import dialog
+        DNI.NameDBImportDialog(self).show()
     # end def
 
 

@@ -352,8 +352,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             event handler for menu Tools > Name database;
         """
         # show name database dialog (modal)
-        _dlg = DND.NameDatabaseDialog(self)
-        _dlg.show()
+        DND.NameDatabaseDialog(self).show()
     # end def
 
 
@@ -362,8 +361,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             event handler for menu Tools > Pitch templates;
         """
         # show story/pitch templates dialog (modal)
-        _dlg = DPT.PitchTemplatesDialog(self)
-        _dlg.show()
+        DPT.PitchTemplatesDialog(self).show()
     # end def
 
 

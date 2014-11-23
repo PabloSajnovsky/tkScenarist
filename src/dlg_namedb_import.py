@@ -59,9 +59,11 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             self.options["dirs"]["namedb_import_dir"] = OP.dirname(fpath)
             # update file infos
             self.container.get_stringvar("lbl_file_path")\
-                .set(P.shorten_path(fpath, limit=45))
-            # update dialect fields
+                .set(P.shorten_path(fpath, limit=50))
+            # show contents preview
             self._fill_preview(fpath)
+            # update field assignment order
+            self._fill_fields(fpath)
         # not a CSV file
         else:
             # notify user
@@ -71,6 +73,25 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
                 parent=self,
             )
         # end if
+    # end def
+
+
+    def _fill_fields (self, fpath):
+        """
+            fills column assignment order along with CSV file contents;
+        """
+        # inits
+        _choices = [_("--- not found ---")]
+        # try to get nbr of columns
+        with open(fpath) as csvfile:
+            # get nb of fields
+            _nb_fields = len(next(csv.reader(csvfile), ""))
+            # fill choice list
+            _choices.extend(
+                [_("Column#{}").format(i+1) for i in range(_nb_fields)]
+            )
+        # end with
+        # fill widgets
     # end def
 
 

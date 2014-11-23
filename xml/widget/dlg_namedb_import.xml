@@ -136,33 +136,41 @@
                 resizable="width"
             />
             <!-- choice lists -->
-            <optionmenu
+            <listbox
                 name="column_name"
                 choices="'--- not found ---'"
                 start="@0"
+                width="10"
+                height="5"
                 layout="grid"
                 layout_options="row=1, column=0"
                 resizable="width"
             />
-            <optionmenu
+            <listbox
                 name="column_gender"
                 choices="'--- not found ---'"
                 start="@0"
+                width="10"
+                height="5"
                 layout="grid"
                 layout_options="row=1, column=1"
                 resizable="width"
             />
-            <optionmenu
+            <listbox
                 name="column_origin"
                 choices="'--- not found ---'"
+                width="10"
+                height="5"
                 start="@0"
                 layout="grid"
                 layout_options="row=1, column=2"
                 resizable="width"
             />
-            <optionmenu
+            <listbox
                 name="column_description"
                 choices="'--- not found ---'"
+                width="10"
+                height="5"
                 start="@0"
                 layout="grid"
                 layout_options="row=1, column=3"
@@ -202,15 +210,24 @@
                 resizable="yes"
             >
                 <ttkprogressbar
+                    name="pgbar_import"
                     layout="grid"
                     layout_options="row=0, column=0"
                     resizable="width"
                 />
+                <!-- spacer -->
+                <ttkframe
+                    width="10"
+                    layout="grid"
+                    layout_options="row=0, column=1"
+                    resizable="no"
+                />
                 <ttkbutton
+                    name="btn_import"
                     text="Import"
                     command="@Dialog:Import:File:Import"
                     layout="grid"
-                    layout_options="row=0, column=1"
+                    layout_options="row=0, column=2"
                     resizable="no"
                 />
             </ttkframe>

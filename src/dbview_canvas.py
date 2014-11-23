@@ -606,16 +606,16 @@ class DBViewDimensionManager:
     # end def
 
 
-    def on_dimension_changed (self, old, new, delta=None):
+    def on_dimension_changed (self, new_dimension):
         """
             updates global collection dimension;
         """
         # inits
-        _dmove = new - self.dimension
+        _dmove = new_dimension - self.dimension
         # got to enlarge?
         if _dmove > 0:
             # update to largest dimension
-            self.dimension = new
+            self.dimension = new_dimension
             # add to future collection moves
             self.move_delta += _dmove
         # end if
@@ -873,12 +873,13 @@ class DBViewLabel:
                 left_x - xb0 + 1, top_y - yb0,
                 anchor="nw",
             )
-            self.configure_text(text, **text_options)
             # create surrounding box frame item
             _box = self.get_surrounding_box()
             self.id_box = self.canvas.create_rectangle(
                 _box, **self.box_options
             )
+            # setup label text
+            self.configure_text(text, **text_options)
             # put text over box frame
             self.canvas.tag_raise(self.id_text, self.id_box)
         # end if
@@ -900,20 +901,20 @@ class DBViewLabel:
     # end def
 
 
-    def label_size_changed (self, widths, heights):
+    def label_size_changed (self, width, height):
         """
             notifies owners about inner size changes;
         """
-        print("label size changed: widths:", widths, "heights:", heights)
+        print("label size changed: width:", width, "height:", height)
         # got callback?
         if callable(self.on_width_changed):
             # notify owner
-            self.on_width_changed(widths)
+            self.on_width_changed(width)
         # end if
         # got callback?
         if callable(self.on_height_changed):
             # notify owner
-            self.on_height_changed(heights)
+            self.on_height_changed(height)
         # end if
     # end def
 
@@ -992,9 +993,7 @@ class DBViewLabel:
                 # update box size
                 self.box_resize(box=_box, width=_w1, height=_h1)
                 # notify changes
-                self.label_size_changed(
-                    widths=(_w0, _w1, _dw), heights=(_h0, _h1, _dh)
-                )
+                self.label_size_changed(width=_w1, height=_h1)
             # end if
         # end if
     # end def

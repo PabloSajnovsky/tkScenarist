@@ -40,7 +40,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
     BUTTONS = ("OK",)
 
     # nb of rows to show at once
-    ROW_LIMIT = 5
+    ROW_LIMIT = 50
 
 
     def bind_events (self, **kw):
@@ -94,7 +94,10 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         # show query header
         self.DBVIEW.set_header(
             *self.database.get_column_names(),
-            body_options={"Gender": {"text": {"align": "right"}}}
+            body_options={
+                "Gender": {"text": {"align": "center"}},
+                "Description": {"text": {"width": 400}},
+            }
         )
         # got results?
         if _rows:

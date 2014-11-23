@@ -79,15 +79,16 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             fills preview Text widget with CSV file contents;
         """
         # inits
-        _index = 1
+        _line = 1
         # enable preview
         self.enable_widget(self.PREVIEW, True)
+        self.PREVIEW.delete("1.0", "end")
         # fill with some rows
-        with open(fpath) as csvfile:
-            for _row in csv.reader(csvfile):
-                self.PREVIEW.insert("{}.0".format(_index), _row)
-                _index += 1
-                if _index > 10: break
+        with open(fpath) as txtfile:
+            for _row in txtfile:
+                self.PREVIEW.insert("end", _row)
+                _line += 1
+                if _line > 10: break
             # end for
         # end with
         # disable preview
@@ -149,7 +150,15 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             returns True if @fpath is evaluated to be a CSV file
             format, False otherwise;
         """
-        return True # FIXME
+        # try to sniff dialect in file
+        with open(fpath) as csvfile:
+            try:
+                csv.Sniffer().sniff(csvfile.read(1024))
+                return True
+            except:
+                return False
+            # end try
+        # end with
     # end def
 
 

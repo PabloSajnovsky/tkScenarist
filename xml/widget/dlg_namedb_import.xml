@@ -139,42 +139,34 @@
                 resizable="width"
             />
             <!-- choice lists -->
-            <listbox
+            <optionmenu
                 name="column_name"
-                choices="'--- not found ---', 'column#1', 'column#2', 'column#3', 'column#4', 'column#5', 'column#6'"
+                choices="'--- not found ---'"
                 start="@0"
-                height="5"
-                width="10"
                 layout="grid"
                 layout_options="row=1, column=0"
                 resizable="width"
             />
-            <listbox
+            <optionmenu
                 name="column_gender"
-                choices="'--- not found ---', 'column#1', 'column#2', 'column#3', 'column#4', 'column#5', 'column#6'"
+                choices="'--- not found ---'"
                 start="@0"
-                height="5"
-                width="10"
                 layout="grid"
                 layout_options="row=1, column=1"
                 resizable="width"
             />
-            <listbox
+            <optionmenu
                 name="column_origin"
-                choices="'--- not found ---', 'column#1', 'column#2', 'column#3', 'column#4', 'column#5', 'column#6'"
+                choices="'--- not found ---'"
                 start="@0"
-                height="5"
-                width="10"
                 layout="grid"
                 layout_options="row=1, column=2"
                 resizable="width"
             />
-            <listbox
+            <optionmenu
                 name="column_description"
-                choices="'--- not found ---', 'column#1', 'column#2', 'column#3', 'column#4', 'column#5', 'column#6'"
+                choices="'--- not found ---'"
                 start="@0"
-                height="5"
-                width="10"
                 layout="grid"
                 layout_options="row=1, column=3"
                 resizable="width"

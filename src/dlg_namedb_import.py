@@ -25,7 +25,7 @@
 # lib imports
 import csv
 import os.path as OP
-#~ import tkinter.messagebox as MB
+import tkinter.messagebox as MB
 import tkinter.filedialog as FD
 import tkRAD.core.async as ASYNC
 import tkRAD.core.path as P
@@ -57,6 +57,10 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         if self.is_csv(fpath):
             # update options dir
             self.options["dirs"]["namedb_import_dir"] = OP.dirname(fpath)
+            # update file infos
+            self.container.get_stringvar("lbl_file_path")\
+                .set(P.shorten_path(fpath, limit=45))
+            # update dialect fields
         # not a CSV file
         else:
             # notify user
@@ -121,7 +125,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             returns True if @fpath is evaluated to be a CSV file
             format, False otherwise;
         """
-        return False # FIXME
+        return True # FIXME
     # end def
 
 

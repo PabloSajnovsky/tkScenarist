@@ -60,7 +60,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             }
         )
         # tkinter widget event bindings
-        self.bind("<Escape>", self._slot_button_cancel)
+        self.bind("<Escape>", self._slot_button_ok)
     # end def
 
 

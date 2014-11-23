@@ -37,7 +37,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
     """
 
     # class constant defs
-    BUTTONS = ("OK", "Cancel")
+    BUTTONS = ("OK", )
 
 
     def bind_events (self, **kw):
@@ -51,7 +51,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             }
         )
         # tkinter widget event bindings
-        self.bind("<Escape>", self._slot_button_cancel)
+        self.bind("<Escape>", self._slot_button_ok)
     # end def
 
 

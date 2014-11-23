@@ -92,12 +92,11 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             )
         # end with
         # fill widgets
-        for _field in ("name", "gender", "origin", "description"):
+        for _field in ("name", ):#"gender", "origin", "description"):
             _field = getattr(self.container, "column_{}".format(_field))
-            _field.delete(0, "end")
-            _field.insert(0, *_choices)
-            _field.selection_set(0)
-            _field.see(0)
+            _field.configure(values=_choices)
+            _field.state("readonly")
+            _field.current(0)
         # end for
     # end def
 

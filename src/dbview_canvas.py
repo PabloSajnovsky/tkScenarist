@@ -155,7 +155,7 @@ class DBViewCanvas (RC.RADCanvas):
         # mouse wheel support
         for _seq in ("<Button-4>", "<Button-5>", "<MouseWheel>"):
             # tk event bindings
-            self.bind_all(_seq, self.slot_on_mouse_wheel)
+            self.bind(_seq, self.slot_on_mouse_wheel)
         # end for
     # end def
 
@@ -503,7 +503,7 @@ class DBViewCanvas (RC.RADCanvas):
         # mouse wheel support
         for _seq in ("<Button-4>", "<Button-5>", "<MouseWheel>"):
             # tk event unbindings
-            self.unbind_all(_seq)
+            self.unbind(_seq)
         # end for
     # end def
 

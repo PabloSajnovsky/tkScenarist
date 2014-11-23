@@ -456,13 +456,13 @@ class DBViewCanvas (RC.RADCanvas):
             _hopts = header_options.get(_name) or header_options
             _bopts = body_options.get(_name) or body_options
             # set field options
-            _hopts = self.set_field_options("header", _name, **_hopts)
-            _bopts = self.set_field_options("body", _name, **_bopts)
+            self.set_field_options("header", _name, **_hopts)
+            _fopts = self.set_field_options("body", _name, **_bopts)
             # set header label
             self.insert_label(
                 "header",
                 text=_(_name),          # i18n support for header names
-                field_options=_opts["header"][_name]
+                field_options=_fopts["header"][_name]
             )
         # end for
         # new line

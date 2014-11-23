@@ -24,6 +24,7 @@
 
 # lib imports
 import csv
+import os.path as OP
 #~ import tkinter.messagebox as MB
 import tkinter.filedialog as FD
 import tkRAD.core.async as ASYNC
@@ -46,6 +47,26 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         (_("Text files"), "*.txt"),
         (_("All files"), "*.*"),
     )
+
+
+    def _do_open_file (self, fpath):
+        """
+            effective procedure for opening file to import;
+        """
+        # is a genuine CSV file?
+        if self.is_csv(fpath):
+            # update options dir
+            self.options["dirs"]["namedb_import_dir"] = OP.dirname(fpath)
+        # not a CSV file
+        else:
+            # notify user
+            MB.showwarning(
+                title=_("Attention"),
+                message=_("Invalid CSV file format. Not supported."),
+                parent=self,
+            )
+        # end if
+    # end def
 
 
     def bind_events (self, **kw):
@@ -95,6 +116,15 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def is_csv (self, fpath):
+        """
+            returns True if @fpath is evaluated to be a CSV file
+            format, False otherwise;
+        """
+        return False # FIXME
+    # end def
+
+
     def slot_file_browse (self, *args, **kw):
         """
             event handler: shows a file dialog for importing file
@@ -112,8 +142,8 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         )
         # user selected a path?
         if _path:
-            # update options dir
-            self.options["dirs"]["namedb_import_dir"] = OP.dirname(_path)
+            # do open file for importation
+            self._do_open_file(_path)
         # end if
     # end def
 

@@ -841,9 +841,13 @@ class DBViewLabel:
         self.text_options = text_options
         # item exists?
         if self.id_text:
+            # inits
+            _tk_opts = self.text_options.copy()
+            # strip unwanted
+            _tk_opts.pop("align", None)
             # configure canvas item
             self.canvas.itemconfigure(
-                self.id_text, text=text, **self.text_options
+                self.id_text, text=text, **_tk_opts
             )
             # update surrounding box frame along with new constraints
             self.update_box()

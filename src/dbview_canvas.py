@@ -376,6 +376,7 @@ class DBViewCanvas (RC.RADCanvas):
             _data = str(row_dict.get(_name) or "")
             # get field options
             _opts = self.get_field_options("body", _name)
+            print("field:", _name, "options:", _opts)
             # create label
             self.insert_label(
                 "body", row=row_index, column=_column, text=_data,
@@ -437,7 +438,7 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def set_header (self, *names, **options):
+    def set_header (self, *names, header_options=None, body_options=None):
         """
             resets view and rebuilds along with new field @names and
             @options;
@@ -446,12 +447,17 @@ class DBViewCanvas (RC.RADCanvas):
         self.reset()
         # update field names ordered sequence
         self.field_sequence = names
+        # default inits
+        header_options = header_options or dict()
+        body_options = body_options or dict()
         # browse names
         for _name in names:
             # init specific / generic options
-            _options = options.get(_name) or options
+            _hopts = header_options.get(_name) or header_options
+            _bopts = body_options.get(_name) or body_options
             # set field options
-            _opts = self.set_field_options("all", _name, **_options)
+            _hopts = self.set_field_options("header", _name, **_hopts)
+            _bopts = self.set_field_options("body", _name, **_bopts)
             # set header label
             self.insert_label(
                 "header",

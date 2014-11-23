@@ -188,7 +188,7 @@
                 <ttklabel
                     textvariable="lbl_status"
                     layout="grid"
-                    layout_options="row=0, column=1"
+                    layout_options="row=0, column=1, padx=5"
                     resizable="width"
                 />
             </ttkframe>

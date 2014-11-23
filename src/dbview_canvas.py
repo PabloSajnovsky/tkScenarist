@@ -247,6 +247,29 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
+    def get_insertion_xy (self, row, column, rman, cman):
+        """
+            returns (x, y) coordinates of top left insertion point;
+        """
+        # inits
+        x, y = (0, 0)
+        _coordx = self.coords(cman.tag)
+        _coordy = self.coords(rman.tag)
+        # can evaluate?
+        if _coordx:
+            # reset x
+            x = _coordx[0]
+        # end if
+        # can evaluate?
+        if _coordy:
+            # reset y
+            y = _coordy[1]
+        # end if
+        # return coords
+        return (x, y)
+    # end def
+
+
     def get_row_manager (self, index):
         """
             returns the DBViewRowManager object located at @index, if
@@ -296,7 +319,7 @@ class DBViewCanvas (RC.RADCanvas):
     # end def
 
 
-    def insert_label (self, group_tag, **kw):
+    def insert_label (self, group_tag, text, **kw):
         """
             inserts a text label into virtual grid;
         """
@@ -313,6 +336,20 @@ class DBViewCanvas (RC.RADCanvas):
         _tags = (group_tag, _rman.tag, _cman.tag)
         _text_opts.update(tags=_tags)
         _box_opts.update(tags=_tags)
+        # create label
+        _label = DBViewLabel(
+            self,
+            text_options=_text_opts,
+            box_options=_box_opts,
+            on_width_changed=_cman.on_dimension_changed,
+            on_height_changed=_rman.on_dimension_changed,
+        )
+        # insert label
+        x, y = self.get_insertion_xy(_row, _column, _rman, _cman)
+        _label.create_label(x, y, text)
+        # register label
+        _rman.insert_item(_row, _label)
+        _cman.insert_item(_column, _label)
         # next column
         if kw.get("column") is None:
             # update pos

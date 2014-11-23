@@ -150,7 +150,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         # event bindings
         self.bind_events(**kw)
         # first time query
-        self.slot_search_criteria_changed()
+        self.slot_search_criteria_changed(delay=200)
     # end def
 
 

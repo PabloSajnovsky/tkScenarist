@@ -76,28 +76,38 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def _fill_combos (self, *choices):
+        """
+            fills all combobox widgets with same @choices;
+        """
+        # inits
+        _choices = [_("--- not found ---")]
+        _choices.extend(choices)
+        # fill widgets
+        for _field in ("name", "gender", "origin", "description"):
+            _field = getattr(self.container, "column_{}".format(_field))
+            _field.configure(values=_choices)
+            _field.state(["readonly"])
+            _field.current(0)
+        # end for
+    # end def
+
+
     def _fill_fields (self, fpath):
         """
             fills column assignment order along with CSV file contents;
         """
-        # inits
-        _choices = [_("--- not found ---")]
         # try to get nbr of columns
         with open(fpath) as csvfile:
             # get nb of fields
-            _nb_fields = len(next(csv.reader(csvfile), ""))
+            _nbf = len(next(csv.reader(csvfile), ""))
             # fill choice list
-            _choices.extend(
-                [_("Column#{}").format(i+1) for i in range(_nb_fields)]
-            )
+            _choices = [
+                _("Column#{}").format(i + 1) for i in range(_nbf)
+            ]
         # end with
         # fill widgets
-        for _field in ("name", ):#"gender", "origin", "description"):
-            _field = getattr(self.container, "column_{}".format(_field))
-            _field.configure(values=_choices)
-            _field.state("readonly")
-            _field.current(0)
-        # end for
+        self._fill_combos(*_choices)
     # end def
 
 
@@ -167,6 +177,8 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         self.DEFAULT_DIR = P.normalize(self.DEFAULT_DIR)
         # dialog widgets
         self.PREVIEW = self.container.text_fc_preview
+        # reset combos
+        self._fill_combos()
         # event bindings
         self.bind_events(**kw)
     # end def

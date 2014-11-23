@@ -138,10 +138,30 @@
             <!-- choice lists -->
             <ttkcombobox
                 name="column_name"
-                values="'--- not found ---'"
                 width="1"
                 layout="grid"
                 layout_options="row=1, column=0"
+                resizable="width"
+            />
+            <ttkcombobox
+                name="column_gender"
+                width="1"
+                layout="grid"
+                layout_options="row=1, column=1"
+                resizable="width"
+            />
+            <ttkcombobox
+                name="column_origin"
+                width="1"
+                layout="grid"
+                layout_options="row=1, column=2"
+                resizable="width"
+            />
+            <ttkcombobox
+                name="column_description"
+                width="1"
+                layout="grid"
+                layout_options="row=1, column=3"
                 resizable="width"
             />
         </ttklabelframe>

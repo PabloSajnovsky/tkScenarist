@@ -23,17 +23,13 @@
 """
 
 # lib imports
-import os.path as OP
-import tkinter.filedialog as FD
-import tkinter.messagebox as MB
-import tkRAD.core.path as P
 import tkRAD.core.async as ASYNC
 import tkRAD.widgets.rad_dialog as DLG
 
 
 class NameDatabaseDialog (DLG.RADButtonsDialog):
     """
-        Pitch templates management dialog;
+        Name database preview dialog;
     """
 
     # class constant defs

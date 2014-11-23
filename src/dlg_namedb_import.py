@@ -24,9 +24,9 @@
 
 # lib imports
 import csv
-import tkinter.messagebox as MB
+#~ import tkinter.messagebox as MB
 import tkinter.filedialog as FD
-import tkRAD.core.async as ASYNC
+#~ import tkRAD.core.async as ASYNC
 import tkRAD.core.path as P
 import tkRAD.widgets.rad_dialog as DLG
 
@@ -39,6 +39,14 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
     # class constant defs
     BUTTONS = ("OK", )
 
+    DEFAULT_DIR = "^/data/csv"
+
+    FILE_TYPES = (
+        (_("CSV files"), "*.csv"),
+        (_("Text files"), "*.txt"),
+        (_("All files"), "*.*"),
+    )
+
 
     def bind_events (self, **kw):
         """
@@ -47,7 +55,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         # app-wide event bindings
         self.events.connect_dict(
             {
-                "Dialog:Import:Action": self.slot_action,
+                "Dialog:Import:File:Browse": self.slot_file_browse,
             }
         )
         # tkinter widget event bindings
@@ -81,16 +89,32 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         # member inits
         self.async = ASYNC.get_async_manager()
         self.database = self.tk_owner.database
+        self.DEFAULT_DIR = P.normalize(self.DEFAULT_DIR)
         # event bindings
         self.bind_events(**kw)
     # end def
 
 
-    def slot_action (self, *args, **kw):
+    def slot_file_browse (self, *args, **kw):
         """
-            event handler;
+            event handler: shows a file dialog for importing file
+            selection;
         """
-        print("slot_action")
+        # init
+        _path = FD.askopenfilename(
+            title=_("Please, select a file to import"),
+            initialdir=self.options.get(
+                "dirs", "namedb_import_dir", fallback=self.DEFAULT_DIR
+            ),
+            filetypes=self.FILE_TYPES,
+            multiple=False,
+            parent=self,
+        )
+        # user selected a path?
+        if _path:
+            # update options dir
+            self.options["dirs"]["namedb_import_dir"] = OP.dirname(_path)
+        # end if
     # end def
 
 

@@ -55,6 +55,7 @@
             <ttkbutton
                 name="btn_browse_file"
                 text="Browse"
+                command="@Dialog:Import:File:Browse"
                 layout="grid"
                 layout_options="row=0, column=2"
                 resizable="no"

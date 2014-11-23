@@ -159,9 +159,9 @@
             <listbox
                 name="column_origin"
                 choices="'--- not found ---'"
+                start="@0"
                 width="10"
                 height="5"
-                start="@0"
                 layout="grid"
                 layout_options="row=1, column=2"
                 resizable="width"
@@ -169,9 +169,9 @@
             <listbox
                 name="column_description"
                 choices="'--- not found ---'"
+                start="@0"
                 width="10"
                 height="5"
-                start="@0"
                 layout="grid"
                 layout_options="row=1, column=3"
                 resizable="width"
@@ -217,7 +217,7 @@
                 />
                 <!-- spacer -->
                 <ttkframe
-                    width="10"
+                    width="5"
                     layout="grid"
                     layout_options="row=0, column=1"
                     resizable="no"

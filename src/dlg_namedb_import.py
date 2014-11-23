@@ -26,7 +26,7 @@
 import csv
 #~ import tkinter.messagebox as MB
 import tkinter.filedialog as FD
-#~ import tkRAD.core.async as ASYNC
+import tkRAD.core.async as ASYNC
 import tkRAD.core.path as P
 import tkRAD.widgets.rad_dialog as DLG
 

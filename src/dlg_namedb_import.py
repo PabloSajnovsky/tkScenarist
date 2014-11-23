@@ -42,6 +42,8 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
 
     DEFAULT_DIR = "^/data/csv"
 
+    FIELD_NAMES = ("name", "gender", "origin", "description")
+
     FILE_TYPES = (
         (_("CSV files"), "*.csv"),
         (_("Text files"), "*.txt"),
@@ -76,19 +78,20 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def _fill_combos (self, *choices):
+    def _fill_combos (self, choices, matches=None):
         """
             fills all combobox widgets with same @choices;
         """
         # inits
         _choices = [_("--- not found ---")]
         _choices.extend(choices)
+        matches = matches or (0,) * len(self.FIELD_NAMES)
         # fill widgets
-        for _field in ("name", "gender", "origin", "description"):
-            _field = getattr(self.container, "column_{}".format(_field))
-            _field.configure(values=_choices)
-            _field.state(["readonly"])
-            _field.current(0)
+        for _index, _field in enumerate(self.FIELD_NAMES):
+            _combo = getattr(self.container, "column_{}".format(_field))
+            _combo.configure(values=_choices)
+            _combo.state(["readonly"])
+            _combo.current(matches[_index])
         # end for
     # end def
 
@@ -98,16 +101,31 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             fills column assignment order along with CSV file contents;
         """
         # try to get nbr of columns
-        with open(fpath) as csvfile:
+        with open(fpath, newline='') as csvfile:
+            # get first row
+            _row = next(csv.reader(csvfile), [])
             # get nb of fields
-            _nbf = len(next(csv.reader(csvfile), ""))
+            _nbf = len(_row)
             # fill choice list
             _choices = [
                 _("Column#{}").format(i + 1) for i in range(_nbf)
             ]
+            # set to lower case
+            _row = tuple(map(lambda s: str(s).lower(), _row))
+            # inits
+            _matches = []
+            # search matchups
+            for _field in self.FIELD_NAMES:
+                try:
+                    _index = _row.index(_field.lower())
+                except:
+                    _index = 0
+                # end try
+                _matches.append(_index)
+            # end for
         # end with
         # fill widgets
-        self._fill_combos(*_choices)
+        self._fill_combos(_choices, _matches)
     # end def
 
 
@@ -128,6 +146,8 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
                 if _line > 10: break
             # end for
         # end with
+        # and so on
+        self.PREVIEW.insert("end", "...")
         # disable preview
         self.enable_widget(self.PREVIEW, False)
     # end def
@@ -190,7 +210,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             format, False otherwise;
         """
         # try to sniff dialect in file
-        with open(fpath) as csvfile:
+        with open(fpath, newline='') as csvfile:
             try:
                 csv.Sniffer().sniff(csvfile.read(1024))
                 return True

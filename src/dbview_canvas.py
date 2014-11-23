@@ -1034,7 +1034,7 @@ class DBViewLabel:
             # align right hand?
             elif _align == "right":
                 # get bottom right point coords
-                x, y = (x1 - xb1, y1, - yb1)
+                x, y = (x1 - xb1, y1 - yb1)
                 _anchor = "se"
             # align left hand by default
             else:

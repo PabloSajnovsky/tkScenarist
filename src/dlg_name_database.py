@@ -94,7 +94,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         # show query header
         self.DBVIEW.set_header(
             *self.database.get_column_names(),
-            body_options={"Gender": {"text": {"align": "center"}}}
+            body_options={"Gender": {"text": {"align": "right"}}}
         )
         # got results?
         if _rows:

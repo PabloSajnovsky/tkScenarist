@@ -51,6 +51,15 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
     )
 
 
+    def _do_import_file (self):
+        """
+            effective procedure for importing CSV file into name DB;
+        """
+        # notify user
+        self.show_status("importing CSV file, please wait...")
+    # end def
+
+
     def _do_open_file (self, fpath):
         """
             effective procedure for opening file to import;
@@ -201,10 +210,20 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         self.DEFAULT_DIR = P.normalize(self.DEFAULT_DIR)
         # dialog widgets
         self.PREVIEW = self.container.text_fc_preview
+        self.STATUS = self.container.get_stringvar("lbl_status")
         # reset combos
         self._fill_combos()
         # event bindings
         self.bind_events(**kw)
+    # end def
+
+
+    def show_status (self, message):
+        """
+            shows status message in importing zone;
+        """
+        # show status message
+        self.STATUS.set(str(message))
     # end def
 
 
@@ -262,7 +281,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             MB.showwarning(
                 title=_("Attention"),
                 message=_(
-                    "Please, select at first a comma-separated "
+                    "Please, select a comma-separated "
                     "values (CSV) file to import."
                 ),
                 parent=self,

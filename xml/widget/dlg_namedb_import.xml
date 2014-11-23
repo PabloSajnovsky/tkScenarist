@@ -83,6 +83,7 @@
                     width="40"
                     height="5"
                     wrap="none"
+                    state="disabled"
                     layout="grid"
                     layout_options="row=0, column=0"
                     resizable="yes"

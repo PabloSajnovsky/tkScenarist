@@ -65,44 +65,104 @@
         <!-- file contents zone -->
 
         <ttklabelframe
-            text="Contents"
+            text="Preview"
             padding="5px"
             layout="grid"
             layout_options="row=1, column=0"
             resizable="yes"
         >
             <!-- file contents preview frame -->
-            <ttkframe
-                layout="pack"
+            <text
+                id="dni_fc_preview"
+                name="text_fc_preview"
+                font="monospace 8"
+                width="40"
+                height="5"
+                wrap="none"
+                state="disabled"
+                layout="grid"
+                layout_options="row=0, column=0"
                 resizable="yes"
-            >
-                <text
-                    id="dni_fc_preview"
-                    name="text_fc_preview"
-                    font="monospace 8"
-                    width="40"
-                    height="5"
-                    wrap="none"
-                    state="disabled"
-                    layout="grid"
-                    layout_options="row=0, column=0"
-                    resizable="yes"
-                />
-                <ttkscrollbar
-                    connect="dni_fc_preview"
-                    orient="vertical"
-                    layout="grid"
-                    layout_options="row=0, column=1"
-                    resizable="height"
-                />
-                <ttkscrollbar
-                    connect="dni_fc_preview"
-                    orient="horizontal"
-                    layout="grid"
-                    layout_options="row=1, column=0"
-                    resizable="width"
-                />
-            </ttkframe>
+            />
+            <ttkscrollbar
+                connect="dni_fc_preview"
+                orient="vertical"
+                layout="grid"
+                layout_options="row=0, column=1"
+                resizable="height"
+            />
+            <ttkscrollbar
+                connect="dni_fc_preview"
+                orient="horizontal"
+                layout="grid"
+                layout_options="row=1, column=0"
+                resizable="width"
+            />
+        </ttklabelframe>
+
+        <!-- fields to import zone -->
+
+        <ttklabelframe
+            text="Fields to import"
+            padding="5px"
+            layout="grid"
+            layout_options="row=1, column=0"
+            resizable="yes"
+        >
+            <!-- labels -->
+            <ttklabel
+                text="Name"
+                layout="grid"
+                layout_options="row=0, column=0"
+                resizable="width"
+            />
+            <ttklabel
+                text="Gender"
+                layout="grid"
+                layout_options="row=0, column=1"
+                resizable="width"
+            />
+            <ttklabel
+                text="Origin"
+                layout="grid"
+                layout_options="row=0, column=2"
+                resizable="width"
+            />
+            <ttklabel
+                text="Description"
+                layout="grid"
+                layout_options="row=0, column=3"
+                resizable="width"
+            />
+            <!-- choice lists -->
+            <ttkcombobox
+                name="combo_name"
+                values="'--- not found ---'"
+                layout="grid"
+                layout_options="row=0, column=0"
+                resizable="width"
+            />
+            <ttkcombobox
+                name="combo_gender"
+                values="'--- not found ---'"
+                layout="grid"
+                layout_options="row=0, column=1"
+                resizable="width"
+            />
+            <ttkcombobox
+                name="combo_origin"
+                values="'--- not found ---'"
+                layout="grid"
+                layout_options="row=0, column=2"
+                resizable="width"
+            />
+            <ttkcombobox
+                name="combo_description"
+                values="'--- not found ---'"
+                layout="grid"
+                layout_options="row=0, column=3"
+                resizable="width"
+            />
         </ttklabelframe>
 
     </ttkframe>

@@ -17,10 +17,10 @@ mainwindow = 721x441+249+133
 dialog_state = normal
 pitchtemplatesdialog = 778x506+215+243
 
+[xml]
+
 [gui]
 show_statusbar = 1
-
-[xml]
 
 [mainwindow]
 

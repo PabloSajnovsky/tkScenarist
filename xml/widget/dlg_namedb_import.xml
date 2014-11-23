@@ -50,7 +50,7 @@
                 width="40"
                 layout="grid"
                 layout_options="row=0, column=1, padx=5"
-                resizable="no"
+                resizable="width"
             />
             <ttkbutton
                 name="btn_browse_file"
@@ -111,56 +111,42 @@
         >
             <!-- labels -->
             <ttklabel
-                text="Name"
+                text="Name:"
+                anchor="center"
                 layout="grid"
                 layout_options="row=0, column=0"
                 resizable="width"
             />
             <ttklabel
-                text="Gender"
+                text="Gender:"
+                anchor="center"
                 layout="grid"
                 layout_options="row=0, column=1"
                 resizable="width"
             />
             <ttklabel
-                text="Origin"
+                text="Origin:"
+                anchor="center"
                 layout="grid"
                 layout_options="row=0, column=2"
                 resizable="width"
             />
             <ttklabel
-                text="Description"
+                text="Description:"
+                anchor="center"
                 layout="grid"
                 layout_options="row=0, column=3"
                 resizable="width"
             />
             <!-- choice lists -->
-            <ttkcombobox
-                name="combo_name"
-                values="'--- not found ---'"
+            <listbox
+                name="column_name"
+                choices="'--- not found ---', 'column#1', 'column#2', 'column#3', 'column#4'"
+                start="@0"
+                height="5"
+                width="10"
                 layout="grid"
-                layout_options="row=0, column=0"
-                resizable="width"
-            />
-            <ttkcombobox
-                name="combo_gender"
-                values="'--- not found ---'"
-                layout="grid"
-                layout_options="row=0, column=1"
-                resizable="width"
-            />
-            <ttkcombobox
-                name="combo_origin"
-                values="'--- not found ---'"
-                layout="grid"
-                layout_options="row=0, column=2"
-                resizable="width"
-            />
-            <ttkcombobox
-                name="combo_description"
-                values="'--- not found ---'"
-                layout="grid"
-                layout_options="row=0, column=3"
+                layout_options="row=1, column=0"
                 resizable="width"
             />
         </ttklabelframe>

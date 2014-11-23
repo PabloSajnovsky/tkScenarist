@@ -180,7 +180,9 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         # reset offset
         self.reset_offset()
         # deferred task
-        self.async.run_after(1000, self.do_search_criteria)
+        self.async.run_after(
+            kw.get("delay") or 1000, self.do_search_criteria
+        )
     # end def
 
 
@@ -192,7 +194,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         self.container.get_stringvar("search_chk_male").set("")
         self.container.get_stringvar("search_chk_female").set("")
         # refresh query
-        self.slot_search_criteria_changed()
+        self.slot_search_criteria_changed(delay=500)
     # end def
 
 
@@ -203,7 +205,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         # uncheck 'all' checkbox
         self.container.get_stringvar("search_chk_all").set("")
         # refresh query
-        self.slot_search_criteria_changed()
+        self.slot_search_criteria_changed(delay=500)
     # end def
 
 

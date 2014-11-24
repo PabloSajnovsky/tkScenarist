@@ -79,10 +79,14 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             )
         # got name to import
         else:
+            # lock task
+            self._slot_pending_task_on()
             # notify user
             self.show_status("importing CSV file, please wait...")
             # reset progressbar
             self.reset_progressbar()
+            # release task
+            #~ self._slot_pending_task_off()
         # end if
     # end def
 

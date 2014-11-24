@@ -77,7 +77,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         # enter the loop
         self.async.run_after_idle(
             self._import_loop,
-            _csvfile, _csvreader, findices, OP.get_size(fpath), 0
+            _csvfile, _csvreader, findices, OP.getsize(fpath), 0
         )
     # end def
 

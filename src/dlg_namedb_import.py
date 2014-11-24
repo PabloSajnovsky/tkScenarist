@@ -74,6 +74,8 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         _csvreader = csv.reader(_csvfile)
         # first row is header - trap it
         next(_csvreader, None)
+        # switch off auto_commit mode
+        self.database.auto_commit = False
         # enter the loop
         self.async.run_after_idle(
             self._import_loop,
@@ -213,8 +215,19 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             self.show_status(
                 _("importing name '{name}'").format(**_fields)
             )
-            # import data into database
-            self.database.import_character_name(**_fields)
+            # try out
+            try:
+                # import data into database
+                self.database.import_character_name(**_fields)
+            # caught exception
+            except:
+                print("[WARNING]\tFailed to import row:", _fields)
+            # end try
+            # commit data each kilobyte
+            if int(consumed) % 1024 == 0:
+                # commit
+                self.database.commit()
+            # end if
             # loop once again
             self.async.run_after_idle(
                 self._import_loop,

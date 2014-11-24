@@ -62,6 +62,12 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         self.show_status("importing CSV file, please wait...")
         # reset progressbar
         self.reset_progressbar()
+        # switch import button
+
+        # file size
+        _fsize = OP.get_size(fpath)
+        # consumed bytes
+        _consumed = 0
         # release task
         #~ self._slot_pending_task_off()
     # end def
@@ -247,6 +253,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         self.database = self.tk_owner.database
         self.DEFAULT_DIR = P.normalize(self.DEFAULT_DIR)
         # dialog widgets
+        self.BTN_IMPORT = self.contaner.btn_import
         self.PREVIEW = self.container.text_fc_preview
         self.PROGRESSBAR = self.container.pgbar_import
         self.PBAR_VALUE = self.container.get_stringvar("pgbar_value")

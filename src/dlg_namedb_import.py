@@ -29,6 +29,7 @@ import tkinter.messagebox as MB
 import tkinter.filedialog as FD
 import tkRAD.core.async as ASYNC
 import tkRAD.core.path as P
+from tkRAD.core import tools
 import tkRAD.widgets.rad_dialog as DLG
 
 

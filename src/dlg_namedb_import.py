@@ -58,18 +58,27 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         """
         # lock task
         self._slot_pending_task_on()
+        # switch import button
+        self.BTN_IMPORT.configure(
+            text=_("Stop"), command=self.slot_stop_import
+        )
+        # inits
+        self.stop_import = False
         # notify user
-        self.show_status("importing CSV file, please wait...")
+        self.show_status(_("importing CSV file, please wait..."))
         # reset progressbar
         self.reset_progressbar()
-        # switch import button
-
-        # file size
-        _fsize = OP.get_size(fpath)
-        # consumed bytes
-        _consumed = 0
-        # release task
-        #~ self._slot_pending_task_off()
+        # open CSV file
+        _csvfile = open(fpath, newline='')
+        # get CSV reader
+        _csvreader = csv.reader(_csvfile)
+        # first row is header - trap it
+        next(_csvreader, None)
+        # enter the loop
+        self.async.run_after_idle(
+            self._import_loop,
+            _csvfile, _csvreader, findices, OP.get_size(fpath), 0
+        )
     # end def
 
 
@@ -90,6 +99,11 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             self._fill_preview(fpath)
             # update field assignment order
             self._fill_fields(fpath)
+            # prepare to import
+            self.BTN_IMPORT.configure(
+                text=_("Import"), command=self.slot_file_import
+            )
+            self.stop_import = False
         # not a CSV file
         else:
             # notify user
@@ -177,6 +191,51 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def _import_loop (self, csvfile, csvreader, findices, fsize, consumed):
+        """
+            tkinter-threaded importation loop;
+        """
+        # consume one row of data
+        _row = next(csvreader, None)
+        # got data to import?
+        if _row and not self.stop_import:
+            # update data consumption info
+            consumed += len("".join(_row))
+            self.set_progressbar(consumed // fsize)
+            # inits
+            _fields = dict()
+            # browse redirection indices
+            for _fname, _index in findices.items():
+                # redirect field / data
+                _fields[_fname] = _row[_index]
+            # end for
+            # import data into database
+            self.database.import_character_name(**_fields)
+            # loop once again
+            self.async.run_after_idle(
+                self._import_loop,
+                csvfile, csvreader, findices, fsize, consumed
+            )
+        # time to close
+        else:
+            # stopped by user?
+            if self.stop_import:
+                # notify user
+                self.show_status(_("importation stopped by user."))
+            else:
+                # notify user
+                self.show_status(_("importation succeeded. OK."))
+                # set progressbar to max value
+                self.set_progressbar(100)
+            # end if
+            # close CSV file
+            csvfile.close()
+            # release task
+            self._slot_pending_task_off()
+        # end if
+    # end def
+
+
     def bind_events (self, **kw):
         """
             event bindings;
@@ -190,6 +249,20 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         )
         # tkinter widget event bindings
         self.bind("<Escape>", self._slot_button_ok)
+    # end def
+
+
+    def cancel_dialog (self, tk_event=None, *args, **kw):
+        r"""
+            user dialog cancellation method;
+            this is a hook called by '_slot_button_cancel()';
+            this *MUST* be overridden in subclass;
+            returns True on success, False otherwise;
+        """
+        # stop all pending threads
+        self.stop_threads()
+        # succeeded
+        return True
     # end def
 
 
@@ -251,9 +324,10 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         self.async = ASYNC.get_async_manager()
         self.current_path = ""
         self.database = self.tk_owner.database
+        self.stop_import = False
         self.DEFAULT_DIR = P.normalize(self.DEFAULT_DIR)
         # dialog widgets
-        self.BTN_IMPORT = self.contaner.btn_import
+        self.BTN_IMPORT = self.container.btn_import
         self.PREVIEW = self.container.text_fc_preview
         self.PROGRESSBAR = self.container.pgbar_import
         self.PBAR_VALUE = self.container.get_stringvar("pgbar_value")
@@ -387,6 +461,23 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def slot_stop_import (self, *args, **kw):
+        """
+            event handler: asks for stopping threaded importation loop;
+        """
+        # inits
+        self.stop_import = True
+    # end def
+
+
+    def stop_threads (self, *args, **kw):
+        """
+            event handler: stops and locks all pending threads;
+        """
+        self.async.lock(self._import_loop)
+    # end def
+
+
     def validate_dialog (self, tk_event=None, *args, **kw):
         r"""
             user dialog validation method;
@@ -394,10 +485,15 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             this *MUST* be overridden in subclass;
             returns True on success, False otherwise;
         """
-        # stop all running threads
-        #~ self.async.lock(self.do_search_criteria)
-        # all is good
-        return not self.verify_pending_task()
+        # pending task control
+        if not self.verify_pending_task():
+            # stop all pending threads
+            self.stop_threads()
+            # all is good
+            return True
+        # end if
+        # do not quit
+        return False
     # end def
 
 

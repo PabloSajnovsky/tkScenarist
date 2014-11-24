@@ -400,7 +400,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         # stop all running threads
         #~ self.async.lock(self.do_search_criteria)
         # all is good
-        return True
+        return not self.get_pending_task()
     # end def
 
 

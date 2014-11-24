@@ -58,7 +58,6 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         """
         # get column names to import
         _names = self.get_field_names()
-        print("field names:", _names)
         # got nothing at all?
         if not _names:
             # notify user
@@ -400,7 +399,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         # stop all running threads
         #~ self.async.lock(self.do_search_criteria)
         # all is good
-        return not self.get_pending_task()
+        return not self.verify_pending_task()
     # end def
 
 

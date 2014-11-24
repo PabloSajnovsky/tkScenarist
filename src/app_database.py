@@ -49,6 +49,14 @@ class AppDatabase (DB.Database):
     """
 
     # class constant defs
+
+    FIELD_NAMES = ("name", "male", "female", "origin", "description")
+
+    SQL_IMPORT = """\
+        INSERT OR IGNORE INTO 'character_names'
+        VALUES (NULL, :name, :male, :female, :origin, :description)
+    """
+
     SQL_NAMES = """\
         SELECT
             name_name AS Name,
@@ -68,12 +76,20 @@ class AppDatabase (DB.Database):
     """
 
 
-    def get_int_boolean (self, value):
+    def clean_up (self, fields, field_names):
         """
-            returns 1 if @value is evaluated to something True;
-            returns 0 otherwise;
+            resets @fields data row along with @field_names column
+            names;
         """
-        return int(bool(tools.ensure_int(value) != 0))
+        # inits
+        _row = dict()
+        # browse mandatory field names
+        for _name in field_names:
+            # reset value
+            _row[_name] = str(fields.get(_name) or "")
+        # end for
+        # return clean-ups
+        return _row
     # end def
 
 
@@ -165,6 +181,41 @@ class AppDatabase (DB.Database):
     # end def
 
 
+    def get_int_boolean (self, value):
+        """
+            returns 1 if @value is evaluated to something True;
+            returns 0 otherwise;
+        """
+        return int(bool(tools.ensure_int(value) != 0))
+    # end def
+
+
+    def import_character_name (self, **fields):
+        """
+            imports a new character name into database;
+        """
+        # param inits
+        self.parse_gender(fields)
+        # all mandatory fields *DO* exist by now (and *ONLY* them)
+        _row = self.clean_up(fields, self.FIELD_NAMES)
+        # 'name' value *MUST* exist (plain string of chars)
+        if _row["name"]:
+            # inits
+            _row["origin"] = _row["origin"].lower()
+            _row["description"] = _row["description"].capitalize()
+            # do SQL query
+            self.sql_query(self.SQL_IMPORT, **_row)
+        # no name to import
+        else:
+            # error
+            raise ValueError(
+                "cannot import character name without a given name. "
+                "Expected plain string of chars for field 'name'."
+            )
+        # end if
+    # end def
+
+
     def init_database (self, **kw):
         """
             hook method to be reimplemented in subclass;
@@ -189,7 +240,8 @@ class AppDatabase (DB.Database):
                 name_male           INTEGER NOT NULL DEFAULT 0,
                 name_female         INTEGER NOT NULL DEFAULT 0,
                 name_origin         TEXT NOT NULL,
-                name_description    TEXT NOT NULL DEFAULT ""
+                name_description    TEXT NOT NULL DEFAULT "",
+                UNIQUE (name_name, name_origin)
             );
 
             -- for testing session
@@ -288,6 +340,18 @@ class AppDatabase (DB.Database):
         """
         # put your own code here
         pass
+    # end def
+
+
+    def parse_gender (self, row):
+        """
+            parses different values for 'gender' field name in @row;
+            resets @row to match table columns constraints;
+        """
+        # inits
+        _gender = str(row.pop("gender", "")).lower()
+        # got female value?
+        if "f" in _gender or "b" in _gender:
     # end def
 
 

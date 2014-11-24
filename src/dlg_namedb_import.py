@@ -58,13 +58,21 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         """
         # get column names to import
         _names = self.get_field_names()
+        # got nothing at all?
+        if not _names:
+            # notify user
+            MB.showwarning(
+                title=_("Attention"),
+                message=_("Nothing to import."),
+                parent=self,
+            )
         # must have a 'name' field to import
-        if "name" not in _names:
+        elif "name" not in _names:
             # notify user
             MB.showwarning(
                 title=_("Attention"),
                 message=_(
-                    "cannot import names without a valid 'name' field."
+                    "Cannot import names without a valid 'name' field."
                 ),
                 parent=self,
             )
@@ -116,8 +124,8 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         _choices.extend(choices or [])
         matches = matches or (0,) * len(self.FIELD_NAMES)
         # fill widgets
-        for _index, _field in enumerate(self.FIELD_NAMES):
-            _combo = getattr(self.container, "column_{}".format(_field))
+        for _index, _fname in enumerate(self.FIELD_NAMES):
+            _combo = self.get_combobox(_fname)
             _combo.configure(values=_choices)
             _combo.state(["readonly"])
             _combo.current(matches[_index])
@@ -212,11 +220,36 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def get_combobox (self, field_name):
+        """
+            returns combobox widget based on @field_name;
+        """
+        return getattr(self.container, "column_{}".format(field_name))
+    # end def
+
+
     def get_field_names (self):
         """
             gathers all user input field names for importation process;
         """
-        return self.FIELD_NAMES # FIXME
+        # inits
+        _indices = []
+        # browse user inputs
+        for _fname in self.FIELD_NAMES:
+            # get widget
+            _combo = self.get_combobox(_fname)
+            # get index
+            _indices.append(_combo.current())
+        # end for
+        # inits
+        _fnames = ["void"] * max(_indices)
+        # rebuild field names
+        for _index, _fname in enumerate(self.FIELD_NAMES):
+            # reset matching
+            _fnames[_indices[_index]] = _fname
+        # end for
+        # return results
+        return tuple(_fnames)
     # end def
 
 

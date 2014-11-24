@@ -58,6 +58,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         """
         # get column names to import
         _names = self.get_field_names()
+        print("field names:", _names)
         # got nothing at all?
         if not _names:
             # notify user
@@ -243,11 +244,14 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         # end for
         # inits
         _fnames = ["void"] * max(_indices)
-        # rebuild field names
-        for _index, _fname in enumerate(self.FIELD_NAMES):
-            # reset matching
-            _fnames[_indices[_index]] = _fname
-        # end for
+        # got field names?
+        if _fnames:
+            # rebuild field names
+            for _index, _fname in enumerate(self.FIELD_NAMES):
+                # reset matching
+                _fnames[_indices[_index]] = _fname
+            # end for
+        # end if
         # return results
         return tuple(_fnames)
     # end def

@@ -88,7 +88,7 @@ class AppDatabase (DB.Database):
         # browse mandatory field names
         for _name in field_names:
             # reset value
-            _row[_name] = str(fields.get(_name) or "")
+            _row[_name] = fields.get(_name, "")
         # end for
         # return clean-ups
         return _row

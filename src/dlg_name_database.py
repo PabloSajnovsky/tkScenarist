@@ -170,7 +170,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         DNI.NameDBImportDialog(self).show()
         # reset DB view
         self.slot_search_criteria_changed(delay=100)
-        self.database.dump_tables("character_names", 20)
+        self.database.dump_tables("character_names", limit=20)
     # end def
 
 

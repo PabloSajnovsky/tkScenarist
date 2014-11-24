@@ -55,10 +55,10 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         """
             effective procedure for importing CSV file into name DB;
         """
-        # get column indices
-        _indices = self.get_field_indices()
-        # must have a name to import
-        if "name" not in _indices:
+        # get column names to import
+        _names = self.get_field_names()
+        # must have a 'name' field to import
+        if "name" not in _names:
             # notify user
             MB.showwarning(
                 title=_("Attention"),
@@ -208,6 +208,14 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
                 state={True: "normal"}.get(bool(state), "disabled")
             )
         # end if
+    # end def
+
+
+    def get_field_names (self):
+        """
+            gathers all user input field names for importation process;
+        """
+        return self.FIELD_NAMES # FIXME
     # end def
 
 

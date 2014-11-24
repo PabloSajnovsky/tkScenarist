@@ -228,6 +228,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         # dialog widgets
         self.PREVIEW = self.container.text_fc_preview
         self.PROGRESSBAR = self.container.pgbar_import
+        self.PBAR_VALUE = self.container.get_stringvar("pgbar_value")
         self.STATUS = self.container.get_stringvar("lbl_status")
         # reset combos
         self._fill_combos()
@@ -259,6 +260,32 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
                 return False
             # end try
         # end with
+    # end def
+
+
+    def reset_progressbar (self, *args, **kw):
+        """
+            event handler: resets progressbar to indeterminate mode;
+        """
+        # inits
+        self.set_progressbar(0)
+        # set indeterminate mode
+        self.PROGRESSBAR.configure(mode="indeterminate")
+        # start animation
+        self.PROGRESSBAR.start()
+    # end def
+
+
+    def set_progressbar (self, value):
+        """
+            sets progressbar to @value (between 0 and 100);
+        """
+        # set determinate mode
+        self.PROGRESSBAR.configure(mode="determinate")
+        # stop animation
+        self.PROGRESSBAR.stop()
+        # set value
+        self.PBAR_VALUE.set(str(tools.ensure_int(value)))
     # end def
 
 

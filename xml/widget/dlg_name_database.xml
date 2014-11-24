@@ -181,6 +181,13 @@
             resizable="yes"
         >
             <ttkbutton
+                name="btn_show_first"
+                text="Show first"
+                command="@Dialog:NameDB:Show:First"
+                layout="pack"
+                resizable="width"
+            />
+            <ttkbutton
                 name="btn_show_next"
                 text="Show next"
                 command="@Dialog:NameDB:Show:Next"

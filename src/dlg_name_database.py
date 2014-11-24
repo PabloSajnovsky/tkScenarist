@@ -56,6 +56,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
                     self.slot_search_filter_clicked,
 
                 "Dialog:NameDB:Import:File": self.slot_import_file,
+                "Dialog:NameDB:Show:First": self.slot_show_first,
                 "Dialog:NameDB:Show:Next": self.slot_show_next,
                 "Dialog:NameDB:Show:Previous": self.slot_show_previous,
             }
@@ -205,6 +206,20 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         self.container.get_stringvar("search_chk_all").set("")
         # refresh query
         self.slot_search_criteria_changed(delay=500)
+    # end def
+
+
+    def slot_show_first (self, *args, **kw):
+        """
+            event handler: shows first rows;
+        """
+        # not a the beginning?
+        if self.current_offset:
+            # inits
+            self.current_offset = 0
+            # refresh query
+            self.async.run_after(500, self.do_search_criteria)
+        # end if
     # end def
 
 

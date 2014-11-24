@@ -247,6 +247,7 @@ class AppDatabase (DB.Database):
             );
 
             -- for testing session
+            /*
             INSERT INTO 'character_names' VALUES
                 (NULL, 'aaron', 1, 0, 'hebrew', 'qlsmdjfmqlskjdf'),
                 (NULL, 'bernard', 1, 0, 'french', 'qlsmdjfm qlskjdf'),
@@ -332,6 +333,7 @@ class AppDatabase (DB.Database):
                 (NULL, 'case', 0, 0, 'robot', ''),
                 (NULL, 'zorglub', 0, 0, 'alien', 'mlsqkjd fmqslk jdf')
             ;
+            */
         """)
     # end def
 

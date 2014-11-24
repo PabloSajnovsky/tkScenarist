@@ -235,6 +235,8 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             )
         # time to close
         else:
+            # commit last transaction
+            self.database.commit()
             # stopped by user?
             if self.stop_import:
                 # notify user

@@ -199,6 +199,7 @@
             >
                 <ttkprogressbar
                     name="pgbar_import"
+                    variable="pgbar_value"
                     layout="grid"
                     layout_options="row=0, column=0"
                     resizable="width"

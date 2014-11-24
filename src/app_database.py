@@ -200,8 +200,8 @@ class AppDatabase (DB.Database):
         self.parse_gender(fields)
         # all mandatory fields *DO* exist by now (and *ONLY* them)
         _row = self.clean_up(fields, self.FIELD_NAMES)
-        # 'name' value *MUST* exist (plain string of chars)
-        if _row["name"]:
+        # value *MUST* be a plain string of chars
+        if tools.is_pstr(_row["name"]):
             # inits
             _row["origin"] = _row["origin"].lower()
             _row["description"] = _row["description"].capitalize()

@@ -55,8 +55,25 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         """
             effective procedure for importing CSV file into name DB;
         """
-        # notify user
-        self.show_status("importing CSV file, please wait...")
+        # get column indices
+        _indices = self.get_field_indices()
+        # must have a name to import
+        if "name" not in _indices:
+            # notify user
+            MB.showwarning(
+                title=_("Attention"),
+                message=_(
+                    "cannot import names without a valid 'name' field."
+                ),
+                parent=self,
+            )
+        # got name to import
+        else:
+            # notify user
+            self.show_status("importing CSV file, please wait...")
+            # reset progressbar
+            self.reset_progressbar()
+        # end if
     # end def
 
 
@@ -210,6 +227,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         self.DEFAULT_DIR = P.normalize(self.DEFAULT_DIR)
         # dialog widgets
         self.PREVIEW = self.container.text_fc_preview
+        self.PROGRESSBAR = self.container.pgbar_import
         self.STATUS = self.container.get_stringvar("lbl_status")
         # reset combos
         self._fill_combos()

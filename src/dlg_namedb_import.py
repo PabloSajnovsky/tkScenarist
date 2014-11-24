@@ -224,10 +224,9 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             # got field redirection?
             if _index:
                 # add to field indices
-                _indices[_fname] = _index
+                _indices[_fname] = _index - 1
             # end if
         # end for
-        print("field redirections:", _indices)
         # return results
         return _indices
     # end def

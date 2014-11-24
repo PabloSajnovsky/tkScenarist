@@ -167,6 +167,8 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         """
         # show file import dialog
         DNI.NameDBImportDialog(self).show()
+        # reset DB view
+        self.slot_search_criteria_changed(delay=100)
     # end def
 
 

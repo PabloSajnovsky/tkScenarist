@@ -201,7 +201,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         if _row and not self.stop_import:
             # update data consumption info
             consumed += len("".join(_row))
-            self.set_progressbar(consumed // fsize)
+            self.set_progressbar(100 * consumed / fsize)
             # inits
             _fields = dict()
             # browse redirection indices
@@ -209,6 +209,10 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
                 # redirect field / data
                 _fields[_fname] = _row[_index]
             # end for
+            # notify user
+            self.show_status(
+                _("importing name '{name}'").format(**_fields)
+            )
             # import data into database
             self.database.import_character_name(**_fields)
             # loop once again

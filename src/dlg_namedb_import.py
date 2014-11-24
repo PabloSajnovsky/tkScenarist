@@ -52,7 +52,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
     )
 
 
-    def _do_import_file (self, fpath, fnames):
+    def _do_import_file (self, fpath, findices):
         """
             effective procedure for importing CSV file into name DB;
         """
@@ -209,36 +209,27 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def get_field_names (self):
+    def get_field_indices (self):
         """
             gathers all user input field names for importation process;
         """
         # inits
-        _indices = []
+        _indices = dict()
         # browse user inputs
         for _fname in self.FIELD_NAMES:
             # get widget
             _combo = self.get_combobox(_fname)
             # get index
-            _indices.append(_combo.current())
+            _index = _combo.current()
+            # got field redirection?
+            if _index:
+                # add to field indices
+                _indices[_fname] = _index
+            # end if
         # end for
-        # inits
-        _fnames = ["void"] * max(_indices)
-        # got field names?
-        if _fnames:
-            # rebuild field names
-            for _index, _fname in enumerate(self.FIELD_NAMES):
-                # column index
-                _cindex = _indices[_index]
-                # got real column index?
-                if _cindex:
-                    # reset matching
-                    _fnames[_cindex - 1] = _fname
-                # end if
-            # end for
-        # end if
+        print("field redirections:", _indices)
         # return results
-        return tuple(_fnames)
+        return _indices
     # end def
 
 
@@ -360,10 +351,10 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             )
         # got file path
         else:
-            # get field names from user input
-            _names = self.get_field_names()
+            # get field redirections from user input
+            _indices = self.get_field_indices()
             # nothing at all?
-            if not _names:
+            if not _indices:
                 # notify user
                 MB.showwarning(
                     title=_("Attention"),
@@ -371,7 +362,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
                     parent=self,
                 )
             # must have a 'name' field to import
-            elif "name" not in _names:
+            elif "name" not in _indices:
                 # notify user
                 MB.showwarning(
                     title=_("Attention"),
@@ -384,7 +375,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             # all is okay
             else:
                 # do import
-                self._do_import_file(self.current_path, _names)
+                self._do_import_file(self.current_path, _indices)
             # end if
         # end if
     # end def

@@ -231,7 +231,7 @@ class AppDatabase (DB.Database):
             -- this is for debugging session
             -- (comment this out in production state)
 
-            DROP TABLE IF EXISTS 'character_names';
+            -- DROP TABLE IF EXISTS 'character_names';
 
             -- create table for character names
 

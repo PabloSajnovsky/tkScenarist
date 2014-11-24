@@ -248,8 +248,13 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         if _fnames:
             # rebuild field names
             for _index, _fname in enumerate(self.FIELD_NAMES):
-                # reset matching
-                _fnames[_indices[_index] - 1] = _fname
+                # column index
+                _cindex = _indices[_index]
+                # got real column index?
+                if _cindex:
+                    # reset matching
+                    _fnames[_cindex - 1] = _fname
+                # end if
             # end for
         # end if
         # return results

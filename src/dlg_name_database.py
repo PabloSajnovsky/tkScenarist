@@ -255,6 +255,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             enables/disables buttons group;
         """
         # buttons
+        self.enable_widget(self.container.btn_show_first, flag)
         self.enable_widget(self.container.btn_show_next, flag)
         self.enable_widget(self.container.btn_show_previous, flag)
         self.enable_widget(self.container.btn_import_file, flag)

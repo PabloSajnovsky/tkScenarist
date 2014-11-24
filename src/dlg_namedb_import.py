@@ -52,41 +52,18 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
     )
 
 
-    def _do_import_file (self):
+    def _do_import_file (self, fpath, fnames):
         """
             effective procedure for importing CSV file into name DB;
         """
-        # get column names to import
-        _names = self.get_field_names()
-        # got nothing at all?
-        if not _names:
-            # notify user
-            MB.showwarning(
-                title=_("Attention"),
-                message=_("Nothing to import."),
-                parent=self,
-            )
-        # must have a 'name' field to import
-        elif "name" not in _names:
-            # notify user
-            MB.showwarning(
-                title=_("Attention"),
-                message=_(
-                    "Cannot import names without a valid 'name' field."
-                ),
-                parent=self,
-            )
-        # got name to import
-        else:
-            # lock task
-            self._slot_pending_task_on()
-            # notify user
-            self.show_status("importing CSV file, please wait...")
-            # reset progressbar
-            self.reset_progressbar()
-            # release task
-            #~ self._slot_pending_task_off()
-        # end if
+        # lock task
+        self._slot_pending_task_on()
+        # notify user
+        self.show_status("importing CSV file, please wait...")
+        # reset progressbar
+        self.reset_progressbar()
+        # release task
+        #~ self._slot_pending_task_off()
     # end def
 
 
@@ -370,12 +347,8 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         """
             event handler: launches importation procedure;
         """
-        # got file path?
-        if self.current_path:
-            # do import
-            self._do_import_file()
-        # nothing selected
-        else:
+        # nothing selected?
+        if not self.current_path:
             # notify user
             MB.showwarning(
                 title=_("Attention"),
@@ -385,6 +358,34 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
                 ),
                 parent=self,
             )
+        # got file path
+        else:
+            # get field names from user input
+            _names = self.get_field_names()
+            # nothing at all?
+            if not _names:
+                # notify user
+                MB.showwarning(
+                    title=_("Attention"),
+                    message=_("Nothing to import."),
+                    parent=self,
+                )
+            # must have a 'name' field to import
+            elif "name" not in _names:
+                # notify user
+                MB.showwarning(
+                    title=_("Attention"),
+                    message=_(
+                        "Cannot import names without "
+                        "a valid 'name' field."
+                    ),
+                    parent=self,
+                )
+            # all is okay
+            else:
+                # do import
+                self._do_import_file(self.current_path, _names)
+            # end if
         # end if
     # end def
 

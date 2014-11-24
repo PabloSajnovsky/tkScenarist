@@ -249,7 +249,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             # rebuild field names
             for _index, _fname in enumerate(self.FIELD_NAMES):
                 # reset matching
-                _fnames[_indices[_index]] = _fname
+                _fnames[_indices[_index] - 1] = _fname
             # end for
         # end if
         # return results

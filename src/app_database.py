@@ -50,6 +50,8 @@ class AppDatabase (DB.Database):
 
     # class constant defs
 
+    FALSE_VALUES = (None, 0, "", "0", "-", "no", "false", "na", "n/a")
+
     FIELD_NAMES = ("name", "male", "female", "origin", "description")
 
     SQL_IMPORT = """\
@@ -349,9 +351,27 @@ class AppDatabase (DB.Database):
             resets @row to match table columns constraints;
         """
         # inits
+        row.setdefault("male", 0)
+        row.setdefault("female", 0)
+        # try to get 'gender' data
         _gender = str(row.pop("gender", "")).lower()
+        # got male value?
+        if _gender in ("m", "mf", "fm", "male", "both"):
+            # inits
+            row["male"] = 1
+        # end if
         # got female value?
-        if "f" in _gender or "b" in _gender:
+        if _gender in ("f", "mf", "fm", "female", "both"):
+            # inits
+            row["female"] = 1
+        # end if
+        # parse genuine values
+        row["male"] = self.get_int_boolean(
+            row["male"] not in self.FALSE_VALUES
+        )
+        row["female"] = self.get_int_boolean(
+            row["female"] not in self.FALSE_VALUES
+        )
     # end def
 
 

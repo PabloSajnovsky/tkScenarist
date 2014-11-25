@@ -57,6 +57,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
 
                 "Dialog:NameDB:Import:File": self.slot_import_file,
                 "Dialog:NameDB:Show:First": self.slot_show_first,
+                "Dialog:NameDB:Show:Last": self.slot_show_last,
                 "Dialog:NameDB:Show:Next": self.slot_show_next,
                 "Dialog:NameDB:Show:Previous": self.slot_show_previous,
             }
@@ -219,6 +220,21 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
             self.current_offset = 0
             # refresh query
             self.async.run_after(500, self.do_search_criteria)
+        # end if
+    # end def
+
+
+    def slot_show_last (self, *args, **kw):
+        """
+            event handler: shows first rows;
+        """
+        print("row count:", self.database.cursor.rowcount)
+        # not a the beginning?
+        #~ if self.current_offset:
+            #~ # inits
+            #~ self.current_offset = 0
+            #~ # refresh query
+            #~ self.async.run_after(500, self.do_search_criteria)
         # end if
     # end def
 

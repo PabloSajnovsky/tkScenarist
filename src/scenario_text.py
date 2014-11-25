@@ -221,25 +221,16 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
         """
             event handler: on keyboard key press;
         """
+        # inits
+        _char = event.char
+        _modifiers = (event.state & 0x8c)
         # letter char?
-        if ord(event.char or " ") > 32:
-            # no modifiers (Ctrl, Alt, ...)?
-            if not (event.state & 0x8c):
-                # set to uppercase
-                self.insert(TK.INSERT, event.char.upper())
-            # end if
+        if _char and ord(_char) > 31 and not _modifiers:
+            # set to uppercase
+            self.insert(TK.INSERT, event.char.upper())
             # break the tkevent chain
             return "break"
         # end if
-    # end def
-
-
-    def slot_project_modified (self, *args, flag=True, **kw):
-        """
-            event handler for project's modification flag;
-        """
-        # inits
-        pass
     # end def
 
 # end class ScenarioText

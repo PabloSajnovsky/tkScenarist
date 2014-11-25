@@ -174,7 +174,8 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
             event handler: on keyboard key press;
         """
         # inits
-        if len(event.keysym) == 1:
+        print(event.char, event.state)
+        if len(event.keysym) == 1 and not (event.state & 0b10011100):
             self.insert(TK.INSERT, event.char.upper())
             return "break"
         # end if

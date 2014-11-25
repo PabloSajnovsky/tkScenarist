@@ -148,8 +148,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # inits
         self.async = ASYNC.get_async_manager()
-        self.ELEMENT_NAMES = sorted(self.ELEMENT.keys())
-        print("element names:", self.ELEMENT_NAMES)
+        self.ELEMENT_NAMES = tuple(sorted(self.ELEMENT.keys()))
         # member inits
         self.init_members(**kw)
         # tag styles inits

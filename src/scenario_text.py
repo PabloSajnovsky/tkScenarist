@@ -28,7 +28,7 @@ import tkRAD.widgets.rad_widget_base as RW
 import tkRAD.core.async as ASYNC
 
 
-class ScenarioText (RW.RADWidgetBase, TK.Text):
+class ScenarioText (TK.Text, RW.RADWidgetBase):
     """
         Scenario-specific text widget class;
     """
@@ -108,7 +108,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             #~ }
         #~ )
         # tkinter event bindings
-        self.bind("<KeyRelease>", self.slot_on_keypress)
+        self.bind("<Key>", self.slot_on_keypress)
     # end def
 
 
@@ -154,7 +154,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # tag styles inits
         self.init_styles(**kw)
         # event bindings
-        self.bind_events(**kw)
+        self.after(100, self.bind_events)
     # end def
 
 
@@ -174,9 +174,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on keyboard key press;
         """
         # inits
-        print("slot_on_keypress:", event.char)
-        self.delete("insert-1c", "insert")
-        self.insert("insert", event.char.upper())
+        if len(event.keysym) == 1:
+            self.insert(TK.INSERT, event.char.upper())
+            return "break"
+        # end if
     # end def
 
 

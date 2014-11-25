@@ -92,13 +92,6 @@
                 layout="pack"
                 resizable="width"
             />
-            <ttkentry
-                textvariable="search_mention"
-                validate="key"
-                validatecommand="@Dialog:NameDB:Search:Criteria:Changed"
-                layout="pack"
-                resizable="width"
-            />
             <ttkradiobutton
                 text="contains"
                 command="@Dialog:NameDB:Search:Criteria:Changed"
@@ -129,6 +122,13 @@
                 command="@Dialog:NameDB:Search:Criteria:Changed"
                 variable="search_rdo_query"
                 value="x"
+                layout="pack"
+                resizable="width"
+            />
+            <ttkentry
+                textvariable="search_mention"
+                validate="key"
+                validatecommand="@Dialog:NameDB:Search:Criteria:Changed"
                 layout="pack"
                 resizable="width"
             />

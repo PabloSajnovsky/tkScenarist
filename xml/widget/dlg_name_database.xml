@@ -104,7 +104,7 @@
                 command="@Dialog:NameDB:Search:Criteria:Changed"
                 variable="search_rdo_query"
                 value="c"
-                checked="checked"
+                selected="selected"
                 layout="pack"
                 resizable="width"
             />

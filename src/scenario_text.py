@@ -38,8 +38,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "background": "white",
         "font": "monospace 12",
         "foreground": "black",
-        "highlightbackground": "grey20",
-        "highlightthickness": 0,
+        "highlightthickness": 1,
         "undo": True,
         "wrap": "word",
     } # end of CONFIG

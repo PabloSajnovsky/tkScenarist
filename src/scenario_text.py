@@ -173,10 +173,11 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
         """
             event handler: on keyboard key press;
         """
-        # inits
-        print(event.char, event.state)
-        if ord(event.char) > 32 and not (event.state & 0b10001100):
+        # filters letter char without modifiers (Ctrl, Alt, ...)
+        if ord(event.char or " ") > 32 and not (event.state & 0x8c):
+            # set to uppercase
             self.insert(TK.INSERT, event.char.upper())
+            # break the tkevent chain
             return "break"
         # end if
     # end def

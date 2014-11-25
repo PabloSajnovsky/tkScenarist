@@ -28,7 +28,7 @@ import tkRAD.widgets.rad_widget_base as RW
 import tkRAD.core.async as ASYNC
 
 
-class ScenarioText (TK.Text, RW.RADWidgetBase):
+class ScenarioText (RW.RADWidgetBase, TK.Text):
     """
         Scenario-specific text widget class;
     """
@@ -45,6 +45,45 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
     }
 
     DEFAULT_ELEMENT = "scene"
+
+    ELEMENT = {
+        "act break": {
+            "tag": "_actbreak_",
+            "config": dict(),
+        },
+        "action": {
+            "tag": "_action_",
+            "config": dict(),
+        },
+        "character": {
+            "tag": "_character_",
+            "config": dict(),
+        },
+        "dialogue": {
+            "tag": "_dialogue_",
+            "config": dict(),
+        },
+        "note": {
+            "tag": "_note_",
+            "config": dict(),
+        },
+        "parenthetical": {
+            "tag": "_parenthetical_",
+            "config": dict(),
+        },
+        "scene": {
+            "tag": "_scene_",
+            "config": dict(background="grey80"),
+        },
+        "shot": {
+            "tag": "_shot_",
+            "config": dict(),
+        },
+        "transition": {
+            "tag": "_transition_",
+            "config": dict(),
+        },
+    }
 
 
     def __init__ (self, master=None, **kw):
@@ -69,16 +108,11 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
             #~ }
         #~ )
         # tkinter event bindings
-        # browse elements
-        for _element in self.ELEMENT.values():
-            # got event slots?
-            _events = _element.get("events") or dict()
-            for _seq, _slot in _events.items():
-                # bind element's tag
-                self.tag_bind(_element["tag"], _seq, _slot)
-            # end for
-        # end for
-        self.bind("<Key>", lambda e:"break")
+        # CAUTION:
+        # self.tag_bind() triggers events only when mouse pointer
+        # is *OVER* the tag region - WTF? /!\
+        # must work with a tag dispatcher
+        self.bind("<Key>", self.slot_on_keypress)
     # end def
 
 
@@ -123,48 +157,6 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
         """
         # members only inits
         self.current_element = self.DEFAULT_ELEMENT
-        self.ELEMENT = {
-            "act break": {
-                "tag": "_actbreak_",
-                "config": dict(),
-            },
-            "action": {
-                "tag": "_action_",
-                "config": dict(),
-            },
-            "character": {
-                "tag": "_character_",
-                "config": dict(),
-            },
-            "dialogue": {
-                "tag": "_dialogue_",
-                "config": dict(),
-            },
-            "note": {
-                "tag": "_note_",
-                "config": dict(),
-            },
-            "parenthetical": {
-                "tag": "_parenthetical_",
-                "config": dict(),
-            },
-            "scene": {
-                "tag": "_scene_",
-                "config": dict(background="grey80"),
-                "events": {
-                    "<Key>": self.slot_keypress_scene,
-                },
-            },
-            "shot": {
-                "tag": "_shot_",
-                "config": dict(),
-            },
-            "transition": {
-                "tag": "_transition_",
-                "config": dict(),
-            },
-        }
-        self.ELEMENT_NAMES = tuple(sorted(self.ELEMENT.keys()))
     # end def
 
 
@@ -186,6 +178,7 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
         """
         # inits
         self.async = ASYNC.get_async_manager()
+        self.ELEMENT_NAMES = tuple(sorted(self.ELEMENT.keys()))
         # member inits
         self.init_members(**kw)
         # deferred inits
@@ -232,6 +225,15 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
             # break the tkevent chain
             return "break"
         # end if
+    # end def
+
+
+    def slot_on_keypress (self, event=None, *args, **kw):
+        """
+            event handler: on keyboard key press;
+        """
+        # inits
+        pass
     # end def
 
 # end class ScenarioText

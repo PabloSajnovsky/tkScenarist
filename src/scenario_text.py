@@ -174,7 +174,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on keyboard key press;
         """
         # inits
-        pass
+        print("slot_on_keypress:", event.char)
+        self.delete("insert-1c", "insert")
+        self.insert("insert", event.char.upper())
     # end def
 
 

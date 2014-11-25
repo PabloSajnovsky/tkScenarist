@@ -74,6 +74,9 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
         "scene": {
             "tag": "_scene_",
             "config": dict(background="grey80"),
+            "events": {
+                "<Key>": self.slot_keypress_scene,
+            },
         },
         "shot": {
             "tag": "_shot_",
@@ -108,7 +111,14 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
             #~ }
         #~ )
         # tkinter event bindings
-        self.bind("<Key>", self.slot_on_keypress)
+        # browse elements
+        for _element in self.ELEMENT.values():
+            # got event slots?
+            _events = _element.get("events") or dict()
+            for _seq, _slot in _events.items():
+                self.bind(_seq, _slot)
+            # end for
+        # end for
     # end def
 
 
@@ -129,6 +139,8 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
         self.init_styles(**kw)
         # event bindings
         self.bind_events(**kw)
+        # first time init
+        self.put_element_tag()
     # end def
 
 
@@ -167,6 +179,15 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
     # end def
 
 
+    def put_element_tag (self, *args, **kw):
+        """
+            event handler: put element tag at linestart if no tags are
+            already out there;
+        """
+        pass
+    # end def
+
+
     def reset (self, *args, **kw):
         """
             resets text to new;
@@ -178,14 +199,17 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
     # end def
 
 
-    def slot_on_keypress (self, event=None, *args, **kw):
+    def slot_keypress_scene (self, event=None, *args, **kw):
         """
             event handler: on keyboard key press;
         """
-        # filters letter char without modifiers (Ctrl, Alt, ...)
-        if ord(event.char or " ") > 32 and not (event.state & 0x8c):
-            # set to uppercase
-            self.insert(TK.INSERT, event.char.upper())
+        # letter char?
+        if ord(event.char or " ") > 64:
+            # no modifiers (Ctrl, Alt, ...)?
+            if not (event.state & 0x8c):
+                # set to uppercase
+                self.insert(TK.INSERT, event.char.upper())
+            # end if
             # break the tkevent chain
             return "break"
         # end if

@@ -228,6 +228,7 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
         if _char and ord(_char) > 31 and not _modifiers:
             # set to uppercase
             self.insert(TK.INSERT, event.char.upper())
+            self.put_element_tag()
             # break the tkevent chain
             return "break"
         # end if

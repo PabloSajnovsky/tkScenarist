@@ -78,6 +78,7 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
                 self.tag_bind(_element["tag"], _seq, _slot)
             # end for
         # end for
+        self.bind("<Key>", lambda e:"break")
     # end def
 
 
@@ -197,10 +198,10 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
             event handler: put element tag at linestart if no tags are
             already out there;
         """
+        # inits
+        _tag = self.get_element_tag()
         self.tag_add(
-            self.get_element_tag(),
-            "linestart",
-            "linestart + 1 line"
+            _tag, "insert linestart", "insert linestart + 1 line"
         )
     # end def
 

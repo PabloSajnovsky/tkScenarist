@@ -175,7 +175,7 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
         """
         # inits
         print(event.char, event.state)
-        if len(event.keysym) == 1 and not (event.state & 0b10011100):
+        if ord(event.char) > 32 and not (event.state & 0b10001100):
             self.insert(TK.INSERT, event.char.upper())
             return "break"
         # end if

@@ -199,8 +199,8 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
         """
         self.tag_add(
             self.get_element_tag(),
-            "insert linestart",
-            "insert linestart + 1 line"
+            "linestart",
+            "linestart + 1 line"
         )
     # end def
 
@@ -221,7 +221,7 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
             event handler: on keyboard key press;
         """
         # letter char?
-        if ord(event.char or " ") > 64:
+        if ord(event.char or " ") > 32:
             # no modifiers (Ctrl, Alt, ...)?
             if not (event.state & 0x8c):
                 # set to uppercase

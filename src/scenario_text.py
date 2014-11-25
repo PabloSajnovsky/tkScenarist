@@ -46,48 +46,6 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
 
     DEFAULT_ELEMENT = "scene"
 
-    ELEMENT = {
-        "act break": {
-            "tag": "_actbreak_",
-            "config": dict(),
-        },
-        "action": {
-            "tag": "_action_",
-            "config": dict(),
-        },
-        "character": {
-            "tag": "_character_",
-            "config": dict(),
-        },
-        "dialogue": {
-            "tag": "_dialogue_",
-            "config": dict(),
-        },
-        "note": {
-            "tag": "_note_",
-            "config": dict(),
-        },
-        "parenthetical": {
-            "tag": "_parenthetical_",
-            "config": dict(),
-        },
-        "scene": {
-            "tag": "_scene_",
-            "config": dict(background="grey80"),
-            "events": {
-                "<Key>": self.slot_keypress_scene,
-            },
-        },
-        "shot": {
-            "tag": "_shot_",
-            "config": dict(),
-        },
-        "transition": {
-            "tag": "_transition_",
-            "config": dict(),
-        },
-    }
-
 
     def __init__ (self, master=None, **kw):
         # default values
@@ -150,6 +108,48 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
         """
         # members only inits
         self.current_element = self.DEFAULT_ELEMENT
+        self.ELEMENT = {
+            "act break": {
+                "tag": "_actbreak_",
+                "config": dict(),
+            },
+            "action": {
+                "tag": "_action_",
+                "config": dict(),
+            },
+            "character": {
+                "tag": "_character_",
+                "config": dict(),
+            },
+            "dialogue": {
+                "tag": "_dialogue_",
+                "config": dict(),
+            },
+            "note": {
+                "tag": "_note_",
+                "config": dict(),
+            },
+            "parenthetical": {
+                "tag": "_parenthetical_",
+                "config": dict(),
+            },
+            "scene": {
+                "tag": "_scene_",
+                "config": dict(background="grey80"),
+                "events": {
+                    "<Key>": self.slot_keypress_scene,
+                },
+            },
+            "shot": {
+                "tag": "_shot_",
+                "config": dict(),
+            },
+            "transition": {
+                "tag": "_transition_",
+                "config": dict(),
+            },
+        }
+        self.ELEMENT_NAMES = tuple(sorted(self.ELEMENT.keys()))
     # end def
 
 
@@ -171,7 +171,6 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
         """
         # inits
         self.async = ASYNC.get_async_manager()
-        self.ELEMENT_NAMES = tuple(sorted(self.ELEMENT.keys()))
         # member inits
         self.init_members(**kw)
         # deferred inits

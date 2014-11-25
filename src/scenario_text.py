@@ -74,7 +74,8 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
             # got event slots?
             _events = _element.get("events") or dict()
             for _seq, _slot in _events.items():
-                self.bind(_seq, _slot)
+                # bind element's tag
+                self.tag_bind(_element["tag"], _seq, _slot)
             # end for
         # end for
     # end def

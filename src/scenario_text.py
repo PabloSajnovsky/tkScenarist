@@ -34,12 +34,13 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
 
     # class constant defs
     CONFIG = {
-        "autoseparators": 1,
-        "bg": "white",
-        "font": "monospace 10",
+        "autoseparators": True,
+        "background": "white",
+        "font": "monospace 12",
+        "foreground": "black",
         "highlightbackground": "grey20",
-        "highlightthickness": 1,
-        "undo": 1,
+        "highlightthickness": 0,
+        "undo": True,
         "wrap": "word",
     } # end of CONFIG
 
@@ -48,7 +49,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # default values
         self.CONFIG = self.CONFIG.copy()
         self.CONFIG.update(kw)
-        print(kw)
         # super inits
         TK.Text.__init__(self, master)
         self.configure(**self._only_tk(self.CONFIG))

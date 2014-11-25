@@ -102,7 +102,6 @@
                     name="text_scenario"
                     class="ScenarioText"
                     module="mscenario_text"
-                    font="monospace 12"
                     layout="grid"
                     layout_options="row=0, column=0"
                     resizable="yes"

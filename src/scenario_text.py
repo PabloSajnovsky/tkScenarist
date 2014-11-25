@@ -25,6 +25,7 @@
 # lib imports
 import tkinter as TK
 import tkRAD.widgets.rad_widget_base as RW
+import tkRAD.core.async as ASYNC
 
 
 class ScenarioText (RW.RADWidgetBase, TK.Text):
@@ -41,7 +42,48 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "highlightthickness": 1,
         "undo": True,
         "wrap": "word",
-    } # end of CONFIG
+    }
+
+    DEFAULT_ELEMENT = "scene"
+
+    ELEMENT = {
+        "act break": {
+            "tag": "_actbreak_",
+            "config": dict(),
+        },
+        "action": {
+            "tag": "_action_",
+            "config": dict(),
+        },
+        "character": {
+            "tag": "_character_",
+            "config": dict(),
+        },
+        "dialogue": {
+            "tag": "_dialogue_",
+            "config": dict(),
+        },
+        "note": {
+            "tag": "_note_",
+            "config": dict(),
+        },
+        "parenthetical": {
+            "tag": "_parenthetical_",
+            "config": dict(),
+        },
+        "scene": {
+            "tag": "_scene_",
+            "config": dict(background="grey80"),
+        },
+        "shot": {
+            "tag": "_shot_",
+            "config": dict(),
+        },
+        "transition": {
+            "tag": "_transition_",
+            "config": dict(),
+        },
+    }
 
 
     def __init__ (self, master=None, **kw):
@@ -60,13 +102,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event bindings;
         """
         # app-wide event bindings
-        self.events.connect_dict(
-            {
-                "Project:Modified": self.slot_project_modified,
-            }
-        )
+        #~ self.events.connect_dict(
+            #~ {
+                #~ "Project:Modified": self.slot_project_modified,
+            #~ }
+        #~ )
         # tkinter event bindings
-        self.bind("<ButtonRelease>", self.update_insertion_row)
         self.bind("<KeyRelease>", self.slot_on_keypress)
     # end def
 
@@ -77,7 +118,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # clear text
         self.delete("1.0", "end")
-        self.update_insertion_row()
     # end def
 
 
@@ -86,7 +126,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             class members only inits;
         """
         # members only inits
-        self.ins_row_index = "1.0"
+        self.current_element = self.DEFAULT_ELEMENT
     # end def
 
 
@@ -94,11 +134,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             tag styles inits;
         """
-        # inits
-        self.tag_configure(
-            TK.INSERT,
-            background="grey90",
-        )
+        # browse elements
+        for _element in self.ELEMENT.values():
+            # init element style
+            self.tag_configure(_element["tag"], **_element["config"])
+        # end for
     # end def
 
 
@@ -106,14 +146,16 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         r"""
             virtual method to be implemented in subclass;
         """
+        # inits
+        self.async = ASYNC.get_async_manager()
+        self.ELEMENT_NAMES = sorted(self.ELEMENT.keys())
+        print("element names:", self.ELEMENT_NAMES)
         # member inits
         self.init_members(**kw)
         # tag styles inits
         self.init_styles(**kw)
         # event bindings
         self.bind_events(**kw)
-        # clear text
-        self.clear_text()
     # end def
 
 
@@ -133,7 +175,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on keyboard key press;
         """
         # inits
-        self.update_insertion_row()
+        pass
     # end def
 
 
@@ -143,21 +185,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # inits
         pass
-    # end def
-
-
-    def update_insertion_row (self, *args, **kw):
-        """
-            event handler: updates style for current insertion row;
-        """
-        # remove previous
-        self.tag_remove(TK.INSERT, self.ins_row_index, "end")
-        # new position
-        self.ins_row_index = self.index("insert linestart")
-        # new tag
-        self.tag_add(
-            TK.INSERT, "insert linestart", "insert linestart + 1 line"
-        )
     # end def
 
 # end class ScenarioText

@@ -66,6 +66,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             }
         )
         # tkinter event bindings
+        self.bind("<ButtonRelease>", self.update_insertion_row)
+        self.bind("<KeyRelease>", self.slot_on_keypress)
     # end def
 
 
@@ -75,6 +77,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # clear text
         self.delete("1.0", "end")
+        self.update_insertion_row()
     # end def
 
 
@@ -83,7 +86,19 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             class members only inits;
         """
         # members only inits
-        pass
+        self.ins_row_index = "1.0"
+    # end def
+
+
+    def init_styles (self, **kw):
+        """
+            tag styles inits;
+        """
+        # inits
+        self.tag_configure(
+            TK.INSERT,
+            background="grey90",
+        )
     # end def
 
 
@@ -93,8 +108,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # member inits
         self.init_members(**kw)
+        # tag styles inits
+        self.init_styles(**kw)
         # event bindings
-        self.bind_events()
+        self.bind_events(**kw)
+        # clear text
+        self.clear_text()
     # end def
 
 
@@ -109,12 +128,36 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def slot_on_keypress (self, event=None, *args, **kw):
+        """
+            event handler: on keyboard key press;
+        """
+        # inits
+        self.update_insertion_row()
+    # end def
+
+
     def slot_project_modified (self, *args, flag=True, **kw):
         """
             event handler for project's modification flag;
         """
         # inits
         pass
+    # end def
+
+
+    def update_insertion_row (self, *args, **kw):
+        """
+            event handler: updates style for current insertion row;
+        """
+        # remove previous
+        self.tag_remove(TK.INSERT, self.ins_row_index, "end")
+        # new position
+        self.ins_row_index = self.index("insert linestart")
+        # new tag
+        self.tag_add(
+            TK.INSERT, "insert linestart", "insert linestart + 1 line"
+        )
     # end def
 
 # end class ScenarioText

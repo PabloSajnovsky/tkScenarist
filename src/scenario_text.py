@@ -121,6 +121,17 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
     # end def
 
 
+    def init_deferred (self, kw):
+        """
+            deferred inits;
+        """
+        # tag styles inits
+        self.init_styles(**kw)
+        # event bindings
+        self.bind_events(**kw)
+    # end def
+
+
     def init_members (self, **kw):
         """
             class members only inits;
@@ -151,10 +162,8 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
         self.ELEMENT_NAMES = tuple(sorted(self.ELEMENT.keys()))
         # member inits
         self.init_members(**kw)
-        # tag styles inits
-        self.init_styles(**kw)
-        # event bindings
-        self.after(100, self.bind_events)
+        # deferred inits
+        self.after(100, self.init_deferred, kw)
     # end def
 
 

@@ -91,9 +91,17 @@
                 layout="pack"
                 resizable="yes"
             >
-                <text
+                <module
+                    id="mscenario_text"
+                    from="src"
+                    import="scenario_text"
+                    as="SCT"
+                />
+                <widget
                     id="scenario"
                     name="text_scenario"
+                    class="ScenarioText"
+                    module="mscenario_text"
                     font="monospace 12"
                     autoseparators="true"
                     undo="true"

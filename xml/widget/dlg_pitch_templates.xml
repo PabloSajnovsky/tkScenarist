@@ -59,7 +59,7 @@
                     />
                     <ttklabel
                         textvariable="current_dir"
-                        foreground="navy"
+                        foreground="royal blue"
                         layout="grid"
                         layout_options="row=0, column=1, padx=5"
                         resizable="width"

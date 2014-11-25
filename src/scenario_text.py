@@ -90,6 +90,19 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
     # end def
 
 
+    def get_element_tag (self, element_name=None):
+        """
+            returns element tag from @element_name, if exists;
+            returns None otherwise;
+        """
+        # inits
+        element_name = element_name or self.current_element
+        _element = self.ELEMENT.get(element_name) or dict()
+        # return result
+        return _element.get("tag")
+    # end def
+
+
     def init_deferred (self, kw):
         """
             deferred inits;
@@ -184,7 +197,11 @@ class ScenarioText (TK.Text, RW.RADWidgetBase):
             event handler: put element tag at linestart if no tags are
             already out there;
         """
-        pass
+        self.tag_add(
+            self.get_element_tag(),
+            "insert linestart",
+            "insert linestart + 1 line"
+        )
     # end def
 
 

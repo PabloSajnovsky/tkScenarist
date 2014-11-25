@@ -77,6 +77,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         _cvar = lambda n: self.container.get_stringvar(n).get()
         _criteria = {
             "query": _cvar("search_mention"),
+            "matchup": _cvar("search_rdo_query"),
             "name": _cvar("search_chk_name"),
             "origin": _cvar("search_chk_origin"),
             "description": _cvar("search_chk_description"),

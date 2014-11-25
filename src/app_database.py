@@ -102,7 +102,12 @@ class AppDatabase (DB.Database):
         """
         # inits
         _where = ""
-        _query = self.sanitize(criteria.pop("query", ""))
+        _matchup = {
+            "s": "{}%", "e": "%{}", "x": "{}",
+        }.get(criteria.pop("matchup", "")) or "%{}%"
+        _query = _matchup.format(
+            self.sanitize(criteria.pop("query", ""))
+        )
         _crit = dict()
         # reset values
         for _field, _value in criteria.items():
@@ -137,7 +142,7 @@ class AppDatabase (DB.Database):
                     # reformat field
                     _criteria.append(
                         tools.str_complete(
-                            "name_name like '%{}%'", _query
+                            "name_name like '{}'", _query
                         )
                     )
                 # end if
@@ -146,7 +151,7 @@ class AppDatabase (DB.Database):
                     # reformat field
                     _criteria.append(
                         tools.str_complete(
-                            "name_origin like '%{}%'", _query
+                            "name_origin like '{}'", _query
                         )
                     )
                 # end if
@@ -155,7 +160,7 @@ class AppDatabase (DB.Database):
                     # reformat field
                     _criteria.append(
                         tools.str_complete(
-                            "name_description like '%{}%'", _query
+                            "name_description like '{}'", _query
                         )
                     )
                 # end if

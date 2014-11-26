@@ -306,6 +306,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on keyboard key press;
         """
+        print("slot_on_keypress")
         # notify app
         self.events.raise_event("Project:Modified")
         return self.slot_keypress_scene(event)

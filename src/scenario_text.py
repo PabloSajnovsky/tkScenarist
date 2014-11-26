@@ -53,7 +53,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "on_return": "scene",
             "on_tab": "action",
             "tab_switch": "scene",
-            "shift_tab": "",
+            "shift_tab": "scene",
         },
         "action": {
             "tag": "_action_",
@@ -61,7 +61,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "on_return": "action",
             "on_tab": "character",
             "tab_switch": "character",
-            "shift_tab": "",
+            "shift_tab": "character",
         },
         "character": {
             "tag": "_character_",
@@ -69,7 +69,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "on_return": "dialogue",
             "on_tab": "parenthetical",
             "tab_switch": "action",
-            "shift_tab": "",
+            "shift_tab": "action",
         },
         "dialogue": {
             "tag": "_dialogue_",

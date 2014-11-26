@@ -25,7 +25,6 @@
 # lib imports
 import tkinter as TK
 import tkRAD.widgets.rad_widget_base as RW
-import tkRAD.core.async as ASYNC
 
 
 class ScenarioText (RW.RADWidgetBase, TK.Text):
@@ -47,14 +46,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # NOTICE: element name == element tag
     DEFAULT_ELEMENT = "scene"
 
+    # NOTICE: element name == element tag
     ELEMENT = {
-        "act_break": {
-            "label": _("Act break"),
-            "on_return": "scene",
-            "on_tab": "action",
-            "tab_switch": "scene",
-            "ctrl_return": "scene",
-        },
         "action": {
             "label": _("Action"),
             "on_return": "action",
@@ -76,13 +69,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "tab_switch": "parenthetical",
             "ctrl_return": "action",
         },
-        "note": {
-            "label": _("Note"),
-            "on_return": "action",
-            "on_tab": "character",
-            "tab_switch": "action",
-            "ctrl_return": "character",
-        },
         "parenthetical": {
             "label": _("Parenthetical"),
             "on_return": "dialogue",
@@ -97,13 +83,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "on_tab": "character",
             "tab_switch": "action",
             "ctrl_return": "transition",
-        },
-        "shot": {
-            "label": _("Shot"),
-            "on_return": "action",
-            "on_tab": "character",
-            "tab_switch": "action",
-            "ctrl_return": "scene",
         },
         "transition": {
             "label": _("Transition"),
@@ -159,19 +138,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def get_element_tag (self, element_name=None):
-        """
-            returns element tag from @element_name, if exists;
-            returns None otherwise;
-        """
-        # inits
-        element_name = element_name or self.current_element
-        _element = self.ELEMENT.get(element_name) or dict()
-        # return result
-        return _element.get("label")
-    # end def
-
-
     def init_deferred (self, kw):
         """
             deferred inits;
@@ -190,6 +156,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             class members only inits;
         """
         # members only inits
+        self.ELEMENT_TAGS = tuple(sorted(self.ELEMENT.keys()))
         self.current_element = self.DEFAULT_ELEMENT
     # end def
 
@@ -199,11 +166,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             tag styles inits;
         """
         # browse elements
-        for _element in self.ELEMENT.values():
+        for _tag, _element in self.ELEMENT.items():
             # inits
             _config = _element.get("config") or dict()
             # init element style
-            self.tag_configure(_element["label"], **_config)
+            self.tag_configure(_tag, **_config)
         # end for
     # end def
 
@@ -212,35 +179,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         r"""
             virtual method to be implemented in subclass;
         """
-        # inits
-        self.async = ASYNC.get_async_manager()
+        # safe inits
         self.ELEMENT = self.ELEMENT.copy()
-        self.ELEMENT_NAMES = tuple(sorted(self.ELEMENT.keys()))
         # member inits
         self.init_members(**kw)
         # deferred inits
         self.after(100, self.init_deferred, kw)
-    # end def
-
-
-    def put_element_tag (self, *args, **kw):
-        """
-            event handler: put element tag at linestart if no tags are
-            already out there;
-        """
-        # inits
-        _tags = self.tag_names(TK.INSERT)
-        # no tags out there?
-        if not _tags:
-            # set new tag
-            self.update_line_tag()
-        # warn dev
-        else:
-            print(
-                "put_element_tag() - current line already tagged:",
-                _tags
-            )
-        # end if
     # end def
 
 
@@ -257,7 +201,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
 
     def slot_keypress_scene (self, event=None, *args, **kw):
         """
-            event handler: on keyboard key press;
+            event handler: on 'scene' key press;
         """
         # inits
         _char = event.char
@@ -305,7 +249,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
 
     def slot_on_keypress (self, event=None, *args, **kw):
         """
-            event handler: on keyboard key press;
+            event handler: general keyboard key press;
         """
         print("slot_on_keypress")
         # notify app
@@ -314,9 +258,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def switch_to_element (self, element_name, text_index=None):
+    def switch_to_element (self, element_tag, text_index=None):
         """
-            switches to element @element_name at @text_index, if
+            switches to element @element_tag at @text_index, if
             possible;
         """
         # inits
@@ -325,10 +269,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         if False:                                                           # FIXME
             # create element
             # update current element
-            self.current_element = element_name
+            self.current_element = element_tag
             # notify app
             self.events.raise_event(
-                "Scenario:Current:Element", element_name=element_name
+                "Scenario:Current:Element", element_tag=element_tag
             )
         # end if
     # end def

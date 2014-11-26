@@ -286,7 +286,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # reset members
         self.init_members(**kw)
         # reset default tag
-        self.tag_add(self.DEFAULT_TAG, "1.0")
+        self.tag_add(self.DEFAULT_TAG, "1.0", "end")
     # end def
 
 
@@ -297,15 +297,14 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # inits
         _char = event.char
         _modifiers = (event.state & 0x8c)
-        _ret = None
         # letter char?
         if _char and ord(_char) > 31 and not _modifiers:
-            try:
-                # delete previous selected
-                self.delete(TK.SEL_FIRST, TK.SEL_LAST)
-            except:
-                pass
-            # end try
+            #~ try:
+                #~ # delete previous selected
+                #~ self.delete(TK.SEL_FIRST, TK.SEL_LAST)
+            #~ except:
+                #~ pass
+            #~ # end try
             # set to uppercase
             self.insert(TK.INSERT, event.char.upper())
             # update line infos
@@ -413,6 +412,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # inits
         _tag = self.get_current_line_tag()
+        print("current line tag:", _tag)
         # got tag?
         if _tag:
             # remove tag

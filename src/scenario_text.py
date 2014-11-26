@@ -149,6 +149,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # inits
         _tags = self.tag_names(TK.INSERT)
+        print("all tags in line:", _tags)
         # got tags?
         if _tags:
             # return first tag only
@@ -157,27 +158,26 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def get_element_mappings (self, element_tag=None):
+    def get_element_mappings (self, element_tag):
         """
             returns dict() of hotkey/element mappings along with
             inserted chars in current line;
         """
         # inits
-        element_tag = element_tag or self.current_element
-        _element = self.ELEMENT[element_tag]
+        _element = self.ELEMENT.get(element_tag) or dict()
         # got inserted chars?
         if self.inserted_chars(element_tag):
             # init values
             _map = {
-                "tab": _element["on_tab"],
-                "return": _element["on_return"],
-                "ctrl_return": _element["ctrl_return"],
+                "tab": _element.get("on_tab") or "",
+                "return": _element.get("on_return") or "",
+                "ctrl_return": _element.get("ctrl_return") or "",
             }
         # virgin line
         else:
             # init values
             _map = {
-                "tab": _element["tab_switch"],
+                "tab": _element.get("tab_switch") or "",
                 "return": "",
                 "ctrl_return": "",
             }
@@ -217,7 +217,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             class members only inits;
         """
         # members only inits
-        self.ELEMENT_TAGS = tuple(sorted(self.ELEMENT.keys()))
+        pass
     # end def
 
 
@@ -286,7 +286,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # reset members
         self.init_members(**kw)
         # reset default tag
-        self.tag_add(self.DEFAULT_TAG, "1.0", "end")
+        self.after_idle(self.tag_add, self.DEFAULT_TAG, "1.0", "end")
     # end def
 
 
@@ -414,7 +414,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         _tag = self.get_current_line_tag()
         print("current line tag:", _tag)
         # got tag?
-        if _tag:
+        if _tag in self.ELEMENT:
             # remove tag
             self.tag_remove(_tag, *self.INS_LINE)
             # reset tag all line long

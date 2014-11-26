@@ -277,6 +277,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Ctrl-Return> key press;
         """
         print("slot_on_key_ctrl_return")
+        # break the tkevent chain
+        return "break"
     # end def
 
 
@@ -285,6 +287,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Return> key press;
         """
         print("slot_on_key_return")
+        # break the tkevent chain
+        return "break"
     # end def
 
 
@@ -293,6 +297,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Tab> key press;
         """
         print("slot_on_key_tab")
+        # break the tkevent chain
+        return "break"
     # end def
 
 

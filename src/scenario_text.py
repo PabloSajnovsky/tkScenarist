@@ -247,7 +247,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             otherwise;
         """
         # inits
-        _chars = self.get(*self.INS_LINE).strip()
+        _chars = self.get(*self.INS_LINE).strip("\n\t")
         # special case
         if element_tag == "parenthetical":
             # inserted if different than '()'

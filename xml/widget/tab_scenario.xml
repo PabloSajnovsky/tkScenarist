@@ -58,7 +58,7 @@
                     layout_options="row=0, column=0"
                 />
                 <ttklabel
-                    textvariable="scenario_current_element"
+                    textvariable="lbl_current_element"
                     layout="grid"
                     layout_options="row=0, column=1"
                     resizable="yes"
@@ -69,7 +69,7 @@
                     layout_options="row=0, column=2"
                 />
                 <ttklabel
-                    textvariable="scenario_tab_element"
+                    textvariable="lbl_on_tab"
                     layout="grid"
                     layout_options="row=0, column=3"
                     resizable="yes"
@@ -80,9 +80,20 @@
                     layout_options="row=0, column=4"
                 />
                 <ttklabel
-                    textvariable="scenario_return_element"
+                    textvariable="lbl_on_return"
                     layout="grid"
                     layout_options="row=0, column=5"
+                    resizable="yes"
+                />
+                <ttklabel
+                    text="&lt;CTRL-RETURN&gt;:"
+                    layout="grid"
+                    layout_options="row=0, column=6"
+                />
+                <ttklabel
+                    textvariable="lbl_on_ctrl_return"
+                    layout="grid"
+                    layout_options="row=0, column=7"
                     resizable="yes"
                 />
             </ttkframe>

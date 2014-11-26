@@ -44,53 +44,54 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "wrap": "word",
     }
 
+    # NOTICE: element name == element tag
     DEFAULT_ELEMENT = "scene"
 
     ELEMENT = {
         "act_break": {
-            "label": "_actbreak_",
+            "label": _("Act break"),
             "on_return": "scene",
             "on_tab": "action",
             "tab_switch": "scene",
             "ctrl_return": "scene",
         },
         "action": {
-            "label": "_action_",
+            "label": _("Action"),
             "on_return": "action",
             "on_tab": "character",
             "tab_switch": "character",
             "ctrl_return": "character",
         },
         "character": {
-            "label": "_character_",
+            "label": _("Character"),
             "on_return": "dialogue",
             "on_tab": "parenthetical",
             "tab_switch": "action",
             "ctrl_return": "action",
         },
         "dialogue": {
-            "label": "_dialogue_",
+            "label": _("Dialogue"),
             "on_return": "character",
             "on_tab": "action",
             "tab_switch": "parenthetical",
             "ctrl_return": "action",
         },
         "note": {
-            "label": "_note_",
+            "label": _("Note"),
             "on_return": "action",
             "on_tab": "character",
             "tab_switch": "action",
             "ctrl_return": "character",
         },
         "parenthetical": {
-            "label": "_parenthetical_",
+            "label": _("Parenthetical"),
             "on_return": "dialogue",
             "on_tab": "action",
             "tab_switch": "character",
             "ctrl_return": "dialogue",
         },
         "scene": {
-            "label": "_scene_",
+            "label": _("Scene"),
             "config": dict(background="grey90"),
             "on_return": "action",
             "on_tab": "character",
@@ -98,14 +99,14 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "ctrl_return": "transition",
         },
         "shot": {
-            "label": "_shot_",
+            "label": _("Shot"),
             "on_return": "action",
             "on_tab": "character",
             "tab_switch": "action",
             "ctrl_return": "scene",
         },
         "transition": {
-            "label": "_transition_",
+            "label": _("Transition"),
             "on_return": "scene",
             "on_tab": "transition",
             "tab_switch": "scene",
@@ -139,9 +140,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         #~ )
         # tkinter event bindings
         # CAUTION:
-        # self.tag_bind() triggers events only when mouse pointer
-        # is *OVER* the tag region - WTF? /!\
-        # must work with a tag dispatcher
+        # self.tag_bind() triggers event only when mouse pointer
+        # is *OVER* tag's region - WTF? /!\
+        # we have to work with a tag dispatcher
         self.bind("<Key>", self.slot_on_keypress)
         self.bind("<Return>", self.slot_on_key_return)
         self.bind("<Tab>", self.slot_on_key_tab)

@@ -47,53 +47,59 @@
             padding="2px"
             weight="5"
         >
-            <!-- toolbar info -->
+            <!-- toolbar info - current element -->
             <ttkframe
                 layout="pack"
                 resizable="width"
             >
                 <ttklabel
                     text="Current element:"
-                    layout="grid"
-                    layout_options="row=0, column=0"
+                    layout="pack"
+                    layout_options="side='left'"
                 />
                 <ttklabel
                     textvariable="lbl_current_element"
-                    layout="grid"
-                    layout_options="row=0, column=1"
+                    layout="pack"
+                    layout_options="side='left'"
                     resizable="yes"
                 />
+            </ttkframe>
+            <!-- toolbar info - Tab/Return hotkeys -->
+            <ttkframe
+                layout="pack"
+                resizable="width"
+            >
                 <ttklabel
-                    text="&lt;TAB&gt;:"
-                    layout="grid"
-                    layout_options="row=0, column=2"
+                    text="&lt;Tab&gt;:"
+                    layout="pack"
+                    layout_options="side='left'"
                 />
                 <ttklabel
                     textvariable="lbl_on_tab"
-                    layout="grid"
-                    layout_options="row=0, column=3"
+                    layout="pack"
+                    layout_options="side='left'"
                     resizable="yes"
                 />
                 <ttklabel
-                    text="&lt;RETURN&gt;:"
-                    layout="grid"
-                    layout_options="row=0, column=4"
+                    text="&lt;Return&gt;:"
+                    layout="pack"
+                    layout_options="side='left'"
                 />
                 <ttklabel
                     textvariable="lbl_on_return"
-                    layout="grid"
-                    layout_options="row=0, column=5"
+                    layout="pack"
+                    layout_options="side='left'"
                     resizable="yes"
                 />
                 <ttklabel
-                    text="&lt;CTRL-RETURN&gt;:"
-                    layout="grid"
-                    layout_options="row=0, column=6"
+                    text="&lt;Ctrl-Return&gt;:"
+                    layout="pack"
+                    layout_options="side='left'"
                 />
                 <ttklabel
                     textvariable="lbl_on_ctrl_return"
-                    layout="grid"
-                    layout_options="row=0, column=7"
+                    layout="pack"
+                    layout_options="side='left'"
                     resizable="yes"
                 />
             </ttkframe>

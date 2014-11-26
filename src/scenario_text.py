@@ -338,7 +338,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             self.current_element = element_tag
             # notify app
             self.events.raise_event(
-                "Scenario:Current:Element", element_tag=element_tag
+                "Scenario:Current:Element:Update",
+                element_tag=element_tag
             )
         # end if
     # end def
@@ -353,6 +354,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.tag_remove(self.current_element, *self.INS_LINE)
         # reset tag
         self.tag_add(self.current_element, *self.INS_LINE)
+        # notify app
+        self.events.raise_event(
+            "Scenario:Current:Element:Update",
+            element_tag=self.current_element
+        )
     # end def
 
 # end class ScenarioText

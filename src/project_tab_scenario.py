@@ -39,7 +39,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             {
                 "Project:Modified": self.slot_project_modified,
 
-                "Scenario:Current:Element": self.slot_update_element,
+                "Scenario:Current:Element:Update":
+                    self.slot_update_current_element,
 
                 "Tab:Reset": self.slot_tab_reset,
             }
@@ -110,7 +111,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
-    def slot_update_element (self, *args, element_tag=None, **kw):
+    def slot_update_current_element (self, *args, element_tag=None, **kw):
         """
             event handler: updates current element info;
         """

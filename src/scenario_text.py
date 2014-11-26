@@ -334,7 +334,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         print("slot_on_key_delete")
         # inits
-        _tag = self.get_line_tag(TK.SEL_FIRST)
+        try:
+            _tag = self.get_line_tag(TK.SEL_FIRST)
+        except:
+            _tag = self.get_line_tag()
+        # end try
     # end def
 
 

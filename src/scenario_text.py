@@ -123,6 +123,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # is *OVER* tag's region - WTF? /!\
         # we have to work with a tag dispatcher
         self.bind("<Key>", self.slot_on_keypress)
+        self.bind("<KeyRelease>", self.slot_on_keyrelease)
         self.bind("<Return>", self.slot_on_key_return)
         self.bind("<Tab>", self.slot_on_key_tab)
         self.bind("<Control-Return>", self.slot_on_key_ctrl_return)
@@ -277,8 +278,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         if _char and ord(_char) > 31 and not _modifiers:
             # set to uppercase
             self.insert(TK.INSERT, event.char.upper())
-            # update line infos
-            self.update_line_tag()
             # break the tkevent chain
             return "break"
         # end if
@@ -320,11 +319,19 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: general keyboard key press;
         """
         print("slot_on_keypress")
-        # update line infos
-        self.update_line_tag()
         # notify app
         #~ self.events.raise_event("Project:Modified")
         return self.slot_keypress_scene(event)
+    # end def
+
+
+    def slot_on_keyrelease (self, event=None, *args, **kw):
+        """
+            event handler: general keyboard key release;
+        """
+        print("slot_on_keyrelease")
+        # update line infos
+        self.update_line_tag()
     # end def
 
 

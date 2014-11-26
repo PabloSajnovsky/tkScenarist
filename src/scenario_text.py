@@ -142,6 +142,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             retrieves element tag for current insertion point's line;
         """
+        # inits
+        _tags = self.tag_names("insert linestart")
+        print("tags:", _tags)
+        return _tags
+    # end def
 
 
     def init_deferred (self, kw):

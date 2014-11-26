@@ -77,7 +77,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "on_return": "character",
             "on_tab": "action",
             "tab_switch": "parenthetical",
-            "shift_tab": "",
+            "shift_tab": "action",
         },
         "note": {
             "tag": "_note_",
@@ -85,7 +85,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "on_return": "action",
             "on_tab": "character",
             "tab_switch": "action",
-            "shift_tab": "",
+            "shift_tab": "character",
         },
         "parenthetical": {
             "tag": "_parenthetical_",
@@ -93,15 +93,15 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "on_return": "dialogue",
             "on_tab": "action",
             "tab_switch": "character",
-            "shift_tab": "",
+            "shift_tab": "dialogue",
         },
         "scene": {
             "tag": "_scene_",
-            "config": dict(background="grey80"),
+            "config": dict(background="grey90"),
             "on_return": "action",
             "on_tab": "character",
             "tab_switch": "action",
-            "shift_tab": "",
+            "shift_tab": "transition",
         },
         "shot": {
             "tag": "_shot_",
@@ -109,7 +109,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "on_return": "action",
             "on_tab": "character",
             "tab_switch": "action",
-            "shift_tab": "",
+            "shift_tab": "scene",
         },
         "transition": {
             "tag": "_transition_",
@@ -117,7 +117,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "on_return": "scene",
             "on_tab": "transition",
             "tab_switch": "scene",
-            "shift_tab": "",
+            "shift_tab": "character",
         },
     }
 

@@ -44,7 +44,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     }
 
     # NOTICE: element name == element tag
-    DEFAULT_ELEMENT = "scene"
+    DEFAULT_TAG = "scene"
 
     # NOTICE: element name == element tag
     ELEMENT = {
@@ -127,8 +127,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.bind("<Return>", self.slot_on_key_return)
         self.bind("<Tab>", self.slot_on_key_tab)
         self.bind("<Control-Return>", self.slot_on_key_ctrl_return)
-        self.bind("<Control-a>", self.slot_select_all)
-        self.bind("<Control-A>", self.slot_select_all)
+        self.bind("<Control-a>", self.slot_on_select_all)
+        self.bind("<Control-A>", self.slot_on_select_all)
         self.bind("<Delete>", self.slot_on_key_delete)
     # end def
 
@@ -139,6 +139,21 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # clear text
         self.delete("1.0", "end")
+    # end def
+
+
+    def get_current_line_tag (self):
+        """
+            retrieves insertion point line tag;
+            returns None otherwise;
+        """
+        # inits
+        _tags = self.tag_names(TK.INSERT)
+        # got tags?
+        if _tags:
+            # return first tag only
+            return _tags[0]
+        # end if
     # end def
 
 
@@ -193,7 +208,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # event bindings
         self.bind_events(**kw)
         # first time init
-        self.switch_to_element(self.DEFAULT_ELEMENT)
+        self.reset()
     # end def
 
 
@@ -203,7 +218,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # members only inits
         self.ELEMENT_TAGS = tuple(sorted(self.ELEMENT.keys()))
-        self.current_element = self.DEFAULT_ELEMENT
     # end def
 
 
@@ -271,6 +285,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.clear_text()
         # reset members
         self.init_members(**kw)
+        # reset default tag
+        self.tag_add(self.DEFAULT_TAG, "1.0")
     # end def
 
 
@@ -315,18 +331,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Del> key press;
         """
         print("slot_on_key_delete")
-        # look for selection
-        try:
-            _chars = self.get(TK.SEL_FIRST, TK.SEL_LAST)
-        # no selection, look for cursor
-        except:
-            _chars = self.get(TK.INSERT)
-        # end try
-        # do *NOT* delete multiple lines
-        if "\n" in _chars:
-            # don't do that!
-            return "break"
-        # end if
     # end def
 
 
@@ -371,13 +375,15 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def slot_select_all (self, event=None, *args, **kw):
+    def slot_on_select_all (self, event=None, *args, **kw):
         """
             event handler: on <Ctrl-A> key press;
         """
         # select only current line
-        # not all text widget's contents
         self.tag_add(TK.SEL, *self.INS_LINE)
+        # not all widget's contents
+        # break the tkevent chain
+        return "break"
     # end def
 
 
@@ -391,8 +397,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # do setup element?
         if not self.tag_names(text_index):
             # create element
-            # update current element
-            self.current_element = element_tag
             # notify app
             self.events.raise_event(
                 "Scenario:Current:Element:Update",
@@ -407,15 +411,19 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: updates line tag to keep it at the right
             place;
         """
-        # remove tag
-        self.tag_remove(self.current_element, *self.INS_LINE)
-        # reset tag
-        self.tag_add(self.current_element, *self.INS_LINE)
-        # notify app
-        self.events.raise_event(
-            "Scenario:Current:Element:Update",
-            element_tag=self.current_element
-        )
+        # inits
+        _tag = self.get_current_line_tag()
+        # got tag?
+        if _tag:
+            # remove tag
+            self.tag_remove(_tag, *self.INS_LINE)
+            # reset tag all line long
+            self.tag_add(_tag, *self.INS_LINE)
+            # notify app
+            self.events.raise_event(
+                "Scenario:Current:Element:Update", element_tag=_tag
+            )
+        # end if
     # end def
 
 # end class ScenarioText

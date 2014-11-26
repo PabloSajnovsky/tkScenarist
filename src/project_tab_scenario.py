@@ -52,7 +52,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             returns file contents;
         """
         # inits
-        fcontents = self.text_get_contents(self.text_scenario)
+        fcontents = self.text_get_contents(self.TEXT)
         # always return a dict
         return {fname: fcontents}
     # end def
@@ -70,6 +70,12 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.text_set_contents = self.mainwindow.text_set_contents
         # looks for ^/xml/widget/tab_scenario.xml
         self.xml_build("tab_scenario")
+        # widget inits
+        self.TEXT = self.text_scenario
+        self.LBL_CUR_ELT = self.get_stringvar("lbl_current_element")
+        self.LBL_TAB = self.get_stringvar("lbl_on_tab")
+        self.LBL_RET = self.get_stringvar("lbl_on_return")
+        self.LBL_CTRL_RET = self.get_stringvar("lbl_on_ctrl_return")
         # event bindings
         self.bind_events(**kw)
         # reset tab
@@ -82,7 +88,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             tab setup along @fname and @archive contents;
         """
         # set text widget contents
-        self.text_set_contents(self.text_scenario, fname)
+        self.text_set_contents(self.TEXT, fname)
     # end def
 
 
@@ -91,7 +97,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler for project's modification flag;
         """
         # reset status
-        self.text_scenario.edit_modified(flag)
+        self.TEXT.edit_modified(flag)
     # end def
 
 
@@ -100,7 +106,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: reset tab to new;
         """
         # reset Text widget
-        self.text_clear_contents(self.text_scenario)
+        self.text_clear_contents(self.TEXT)
     # end def
 
 
@@ -112,19 +118,13 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         if element_tag:
             # inits
             _cvar = lambda s: self.get_stringvar(s)
-            _label = lambda n: self.text_scenario.ELEMENT[n]["label"]
-            _element = self.text_scenario.ELEMENT[element_tag]
+            _label = lambda n: self.TEXT.g
+            _map = self.TEXT.get_element_mappings(element_tag)
             # reset widgets
-            _cvar("lbl_current_element").set(_element["label"])
-            _cvar("lbl_on_tab").set(
-                _label(_element["on_tab"])
-            )
-            _cvar("lbl_on_return").set(
-                _label(_element["on_return"])
-            )
-            _cvar("lbl_on_ctrl_return").set(
-                _label(_element["ctrl_return"])
-            )
+            _cvar("lbl_current_element").set(_label(element_tag))
+            _cvar("lbl_on_tab").set(_label(_map["tab"]))
+            _cvar("lbl_on_return").set(_label(_map["return"]))
+            _cvar("lbl_on_ctrl_return").set(_label(_map["ctrl_return"]))
         # end if
     # end def
 

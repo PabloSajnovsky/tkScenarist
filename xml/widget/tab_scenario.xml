@@ -60,7 +60,7 @@
                 <ttklabel
                     textvariable="lbl_current_element"
                     layout="pack"
-                    layout_options="side='left'"
+                    layout_options="side='left', padx=5"
                     resizable="yes"
                 />
             </ttkframe>
@@ -77,7 +77,7 @@
                 <ttklabel
                     textvariable="lbl_on_tab"
                     layout="pack"
-                    layout_options="side='left'"
+                    layout_options="side='left', padx=5"
                     resizable="yes"
                 />
                 <ttklabel
@@ -88,7 +88,7 @@
                 <ttklabel
                     textvariable="lbl_on_return"
                     layout="pack"
-                    layout_options="side='left'"
+                    layout_options="side='left', padx=5"
                     resizable="yes"
                 />
                 <ttklabel
@@ -99,7 +99,7 @@
                 <ttklabel
                     textvariable="lbl_on_ctrl_return"
                     layout="pack"
-                    layout_options="side='left'"
+                    layout_options="side='left', padx=5"
                     resizable="yes"
                 />
             </ttkframe>

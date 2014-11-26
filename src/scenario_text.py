@@ -129,7 +129,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.bind("<Control-Return>", self.slot_on_key_ctrl_return)
         self.bind("<Control-a>", self.slot_on_select_all)
         self.bind("<Control-A>", self.slot_on_select_all)
-        self.bind("<Delete>", self.slot_on_key_delete)
+        self.bind("<KeyRelease-Delete>", self.slot_on_key_delete)
     # end def
 
 
@@ -414,6 +414,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: updates line tag to keep it at the right
             place;
         """
+        print("update_line_tag")
         # inits
         _tag = self.get_line_tag()
         print("current line tag:", _tag)

@@ -151,10 +151,13 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # inits
         index = index or TK.INSERT
         _tags = self.tag_names(index)
+        print("all tags:", _tags)
         # got tags?
         if _tags:
-            # return first tag only
-            return _tags[0]
+            # first tag only
+            if _tags[0] in self.ELEMENT:
+                return _tags[0]
+            # end if
         # end if
     # end def
 

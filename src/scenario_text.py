@@ -301,12 +301,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         _modifiers = (event.state & 0x8c)
         # letter char?
         if _char and ord(_char) > 31 and not _modifiers:
-            #~ try:
-                #~ # delete previous selected
-                #~ self.delete(TK.SEL_FIRST, TK.SEL_LAST)
-            #~ except:
-                #~ pass
-            #~ # end try
+            try:
+                # delete previous selected
+                self.delete(TK.SEL_FIRST, TK.SEL_LAST)
+            except:
+                pass
+            # end try
             # set to uppercase
             self.insert(TK.INSERT, event.char.upper())
             # update line infos

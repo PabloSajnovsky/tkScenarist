@@ -168,9 +168,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # browse elements
         for _tag, _element in self.ELEMENT.items():
             # inits
-            _config = _element.get("config") or dict()
-            # init element style
-            self.tag_configure(_tag, **_config)
+            _config = _element.get("config")
+            # got tag configuration?
+            if _config:
+                # init element style
+                self.tag_configure(_tag, **_config)
+            # end if
         # end for
     # end def
 
@@ -184,7 +187,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # member inits
         self.init_members(**kw)
         # deferred inits
-        self.after(100, self.init_deferred, kw)
+        self.after_idle(self.init_deferred, kw)
     # end def
 
 
@@ -283,12 +286,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: updates line tag to keep it at the right
             place;
         """
-        # inits
-        _tag = self.get_element_tag()
         # remove tag
-        self.tag_remove(_tag, *self.INS_LINE)
+        self.tag_remove(self.current_element, *self.INS_LINE)
         # reset tag
-        self.tag_add(_tag, *self.INS_LINE)
+        self.tag_add(self.current_element, *self.INS_LINE)
     # end def
 
 # end class ScenarioText

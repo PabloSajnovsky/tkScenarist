@@ -127,6 +127,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.bind("<Return>", self.slot_on_key_return)
         self.bind("<Tab>", self.slot_on_key_tab)
         self.bind("<Control-Return>", self.slot_on_key_ctrl_return)
+        self.bind("<Control-a>", self.slot_select_all)
+        self.bind("<Control-A>", self.slot_select_all)
+        self.bind("<Del>", self.slot_on_key_delete)
     # end def
 
 
@@ -220,7 +223,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # end for
         # configure selection tag
         self.tag_configure(
-            TK.SEL, background="darkblue", foreground="white"
+            TK.SEL, background="grey30", foreground="white"
         )
         # selection tag should always be upon all others
         self.tag_raise(TK.SEL)
@@ -281,6 +284,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         _ret = None
         # letter char?
         if _char and ord(_char) > 31 and not _modifiers:
+            try:
+                # delete previous selected
+                self.delete(TK.SEL_FIRST, TK.SEL_LAST)
+            except:
+                pass
+            # end try
             # set to uppercase
             self.insert(TK.INSERT, event.char.upper())
             # update line infos
@@ -326,8 +335,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: general keyboard key press;
         """
         #~ print("slot_on_keypress")
-        # update line infos
-        self.update_line_tag()
         # notify app
         #~ self.events.raise_event("Project:Modified")
         return self.slot_keypress_scene(event)
@@ -341,6 +348,16 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         #~ print("slot_on_keyrelease")
         # update line infos
         self.update_line_tag()
+    # end def
+
+
+    def slot_select_all (self, event=None, *args, **kw):
+        """
+            event handler: on <Ctrl-A> key press;
+        """
+        # select only current line
+        # not all text widget's contents
+        self.tag_add(TK.SEL, *self.INS_LINE)
     # end def
 
 

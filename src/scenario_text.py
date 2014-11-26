@@ -239,7 +239,18 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             according to @element_tag constraints; returns False
             otherwise;
         """
-        return True                                                         # FIXME
+        # inits
+        _chars = self.get(*self.INS_LINE).strip()
+        print("chars: '{}'".format(_chars))
+        # special case
+        if element_tag == "parenthetical":
+            # inserted if different than '()'
+            return bool(_chars != "()")
+        # default case
+        else:
+            # inserted if not empty
+            return bool(_chars)
+        # end if
     # end def
 
 

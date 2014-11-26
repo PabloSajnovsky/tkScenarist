@@ -115,9 +115,9 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             _element = self.text_scenario.ELEMENT[element_tag]
             # reset widgets
             _cvar("lbl_current_element").set(_element["label"])
-            _cvar("on_tab").set(_element["on_tab"])
-            _cvar("on_return").set(_element["on_return"])
-            _cvar("on_ctrl_return").set(_element["ctrl_return"])
+            _cvar("lbl_on_tab").set(_element["on_tab"])
+            _cvar("lbl_on_return").set(_element["on_return"])
+            _cvar("lbl_on_ctrl_return").set(_element["ctrl_return"])
         # end if
     # end def
 

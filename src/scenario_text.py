@@ -272,10 +272,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # inits
         _char = event.char
         _modifiers = (event.state & 0x8c)
+        _ret = None
         # letter char?
         if _char and ord(_char) > 31 and not _modifiers:
             # set to uppercase
             self.insert(TK.INSERT, event.char.upper())
+            # update line infos
             self.update_line_tag()
             # break the tkevent chain
             return "break"
@@ -318,6 +320,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: general keyboard key press;
         """
         print("slot_on_keypress")
+        # update line infos
+        self.update_line_tag()
         # notify app
         #~ self.events.raise_event("Project:Modified")
         return self.slot_keypress_scene(event)

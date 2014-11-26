@@ -85,6 +85,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         },
     }
 
+    INS_LINE = ("insert linestart", "insert linestart + 1 line")
+
 
     def __init__ (self, master=None, **kw):
         # default values
@@ -143,7 +145,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             retrieves element tag for current insertion point's line;
         """
         # inits
-        _tags = self.tag_names("insert linestart")
+        _tags = self.tag_nextrange("all", *self.INS_LINE)
         print("tags:", _tags)
         return _tags
     # end def
@@ -204,9 +206,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # inits
         _tag = self.get_element_tag()
-        self.tag_add(
-            _tag, "insert linestart", "insert linestart + 1 line"
-        )
+        self.tag_add(_tag, *self.INS_LINE)
+        print(self.get_line_tag())
     # end def
 
 
@@ -243,8 +244,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on keyboard key press;
         """
-        # inits
-        self.slot_keypress_scene(event)
+        # notify app
+        self.events.raise_event("Project:Modified")
+        return self.slot_keypress_scene(event)
     # end def
 
 
@@ -254,12 +256,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             place;
         """
         # inits
-        _tag = self.get_line_tag()
-        _region = ("insert linestart", "insert linestart + 1 line")
+        _tag = self.get_element_tag()
         # remove tag
-        self.tag_remove(_tag, *_region)
+        self.tag_remove(_tag, *self.INS_LINE)
         # reset tag
-        self.tag_add(_tag, *_region)
+        self.tag_add(_tag, *self.INS_LINE)
     # end def
 
 # end class ScenarioText

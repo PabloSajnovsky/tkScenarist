@@ -138,6 +138,48 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def get_element_mappings (self, element_tag=None):
+        """
+            returns dict() of hotkey/element mappings along with
+            inserted chars in current line;
+        """
+        # inits
+        element_tag = element_tag or self.current_element
+        _element = self.ELEMENT[element_tag]
+        # got inserted chars?
+        if self.inserted_chars(element_tag):
+            # init values
+            _map = {
+                "tab": _element["on_tab"],
+                "return": _element["on_return"],
+                "ctrl_return": _element["ctrl_return"],
+            }
+        # virgin line
+        else:
+            # init values
+            _map = {
+                "tab": _element["tab_switch"],
+                "return": "",
+                "ctrl_return": "",
+            }
+        # end if
+        # return mappings
+        return _map
+    # end def
+
+
+    def get_label (self, element_tag):
+        """
+            returns label text corresponding to @element_tag;
+            returns an empty string otherwise;
+        """
+        # inits
+        _element = self.ELEMENT.get(element_tag) or dict()
+        # return result
+        return _element.get("label") or ""
+    # end def
+
+
     def init_deferred (self, kw):
         """
             deferred inits;
@@ -188,6 +230,16 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.init_members(**kw)
         # deferred inits
         self.after_idle(self.init_deferred, kw)
+    # end def
+
+
+    def inserted_chars (self, element_tag):
+        """
+            returns True if chars have been inserted in current line
+            according to @element_tag constraints; returns False
+            otherwise;
+        """
+        return True                                                         # FIXME
     # end def
 
 

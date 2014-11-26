@@ -117,14 +117,13 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # param controls
         if element_tag:
             # inits
-            _cvar = lambda s: self.get_stringvar(s)
-            _label = lambda n: self.TEXT.g
+            _label = lambda n: self.TEXT.get_label(n)
             _map = self.TEXT.get_element_mappings(element_tag)
             # reset widgets
-            _cvar("lbl_current_element").set(_label(element_tag))
-            _cvar("lbl_on_tab").set(_label(_map["tab"]))
-            _cvar("lbl_on_return").set(_label(_map["return"]))
-            _cvar("lbl_on_ctrl_return").set(_label(_map["ctrl_return"]))
+            self.LBL_CUR_ELT.set(_label(element_tag))
+            self.LBL_TAB.set(_label(_map["tab"]))
+            self.LBL_RET.set(_label(_map["return"]))
+            self.LBL_CTRL_RET.set(_label(_map["ctrl_return"]))
         # end if
     # end def
 

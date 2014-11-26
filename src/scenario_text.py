@@ -218,6 +218,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 self.tag_configure(_tag, **_config)
             # end if
         # end for
+        # configure selection tag
+        self.tag_configure(
+            TK.SEL, background="darkblue", foreground="white"
+        )
+        # selection tag should always be upon all others
+        self.tag_raise(TK.SEL)
     # end def
 
 
@@ -319,7 +325,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: general keyboard key press;
         """
-        print("slot_on_keypress")
+        #~ print("slot_on_keypress")
+        # update line infos
+        self.update_line_tag()
         # notify app
         #~ self.events.raise_event("Project:Modified")
         return self.slot_keypress_scene(event)
@@ -330,7 +338,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: general keyboard key release;
         """
-        print("slot_on_keyrelease")
+        #~ print("slot_on_keyrelease")
         # update line infos
         self.update_line_tag()
     # end def

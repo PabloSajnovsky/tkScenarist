@@ -50,38 +50,56 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "act break": {
             "tag": "_actbreak_",
             "config": dict(),
+            "on_tab": "",
+            "on_return": "",
         },
         "action": {
             "tag": "_action_",
             "config": dict(),
+            "on_tab": "character",
+            "on_return": "action",
         },
         "character": {
             "tag": "_character_",
             "config": dict(),
+            "on_tab": "parenthetical",
+            "on_return": "dialogue",
         },
         "dialogue": {
             "tag": "_dialogue_",
             "config": dict(),
+            "on_tab": "action",
+            "on_return": "character",
         },
         "note": {
             "tag": "_note_",
             "config": dict(),
+            "on_tab": "character",
+            "on_return": "action",
         },
         "parenthetical": {
             "tag": "_parenthetical_",
             "config": dict(),
+            "on_tab": "action",
+            "on_return": "dialogue",
         },
         "scene": {
             "tag": "_scene_",
             "config": dict(background="grey80"),
+            "on_tab": "character",
+            "on_return": "action",
         },
         "shot": {
             "tag": "_shot_",
             "config": dict(),
+            "on_tab": "character",
+            "on_return": "action",
         },
         "transition": {
             "tag": "_transition_",
             "config": dict(),
+            "on_tab": "transition",
+            "on_return": "scene",
         },
     }
 
@@ -140,14 +158,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def get_line_tags (self):
-        """
-            retrieves element tag for current insertion point's line;
-        """
-        return self.tag_names(TK.INSERT)
-    # end def
-
-
     def init_deferred (self, kw):
         """
             deferred inits;
@@ -157,7 +167,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # event bindings
         self.bind_events(**kw)
         # first time init
-        self.put_element_tag()
+        self.switch_to_element(self.DEFAULT_ELEMENT)
     # end def
 
 
@@ -188,6 +198,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # inits
         self.async = ASYNC.get_async_manager()
+        self.ELEMENT = self.ELEMENT.copy()
         self.ELEMENT_NAMES = tuple(sorted(self.ELEMENT.keys()))
         # member inits
         self.init_members(**kw)
@@ -201,15 +212,17 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: put element tag at linestart if no tags are
             already out there;
         """
+        # inits
+        _tags = self.tag_names(TK.INSERT)
         # no tags out there?
-        if not self.get_line_tags():
+        if not _tags:
             # set new tag
             self.update_line_tag()
         # warn dev
         else:
             print(
                 "put_element_tag() - current line already tagged:",
-                self.get_line_tags()
+                _tags
             )
         # end if
     # end def

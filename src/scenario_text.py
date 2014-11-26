@@ -244,7 +244,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on keyboard key press;
         """
         # inits
-        pass
+        self.slot_keypress_scene(event)
     # end def
 
 

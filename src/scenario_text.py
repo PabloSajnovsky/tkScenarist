@@ -49,7 +49,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     ELEMENT = {
         "act break": {
             "tag": "_actbreak_",
-            "config": dict(),
             "on_return": "scene",
             "on_tab": "action",
             "tab_switch": "scene",
@@ -57,7 +56,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         },
         "action": {
             "tag": "_action_",
-            "config": dict(),
             "on_return": "action",
             "on_tab": "character",
             "tab_switch": "character",
@@ -65,7 +63,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         },
         "character": {
             "tag": "_character_",
-            "config": dict(),
             "on_return": "dialogue",
             "on_tab": "parenthetical",
             "tab_switch": "action",
@@ -73,7 +70,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         },
         "dialogue": {
             "tag": "_dialogue_",
-            "config": dict(),
             "on_return": "character",
             "on_tab": "action",
             "tab_switch": "parenthetical",
@@ -81,7 +77,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         },
         "note": {
             "tag": "_note_",
-            "config": dict(),
             "on_return": "action",
             "on_tab": "character",
             "tab_switch": "action",
@@ -89,7 +84,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         },
         "parenthetical": {
             "tag": "_parenthetical_",
-            "config": dict(),
             "on_return": "dialogue",
             "on_tab": "action",
             "tab_switch": "character",
@@ -105,7 +99,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         },
         "shot": {
             "tag": "_shot_",
-            "config": dict(),
             "on_return": "action",
             "on_tab": "character",
             "tab_switch": "action",
@@ -113,7 +106,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         },
         "transition": {
             "tag": "_transition_",
-            "config": dict(),
             "on_return": "scene",
             "on_tab": "transition",
             "tab_switch": "scene",
@@ -204,8 +196,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # browse elements
         for _element in self.ELEMENT.values():
+            # inits
+            _config = _element.get("config") or dict()
             # init element style
-            self.tag_configure(_element["tag"], **_element["config"])
+            self.tag_configure(_element["tag"], **_config)
         # end for
     # end def
 
@@ -282,6 +276,26 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # notify app
         self.events.raise_event("Project:Modified")
         return self.slot_keypress_scene(event)
+    # end def
+
+
+    def switch_to_element (self, element_name, text_index=None):
+        """
+            switches to element @element_name at @text_index, if
+            possible;
+        """
+        # inits
+        text_index = text_index or TK.INSERT
+        # do setup element?
+        if False:                                                           # FIXME
+            # create element
+            # update current element
+            self.current_element = element_name
+            # notify app
+            self.events.raise_event(
+                "Scenario:Current:Element", element_name=element_name
+            )
+        # end if
     # end def
 
 

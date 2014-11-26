@@ -129,6 +129,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.bind("<Control-Return>", self.slot_on_key_ctrl_return)
         self.bind("<Control-a>", self.slot_on_select_all)
         self.bind("<Control-A>", self.slot_on_select_all)
+        self.bind("<KeyPress-Delete>", self.slot_on_key_delete)
         self.bind("<KeyRelease-Delete>", self.slot_on_key_delete)
     # end def
 

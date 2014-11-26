@@ -52,42 +52,42 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "on_return": "scene",
             "on_tab": "action",
             "tab_switch": "scene",
-            "shift_tab": "scene",
+            "ctrl_return": "scene",
         },
         "action": {
             "tag": "_action_",
             "on_return": "action",
             "on_tab": "character",
             "tab_switch": "character",
-            "shift_tab": "character",
+            "ctrl_return": "character",
         },
         "character": {
             "tag": "_character_",
             "on_return": "dialogue",
             "on_tab": "parenthetical",
             "tab_switch": "action",
-            "shift_tab": "action",
+            "ctrl_return": "action",
         },
         "dialogue": {
             "tag": "_dialogue_",
             "on_return": "character",
             "on_tab": "action",
             "tab_switch": "parenthetical",
-            "shift_tab": "action",
+            "ctrl_return": "action",
         },
         "note": {
             "tag": "_note_",
             "on_return": "action",
             "on_tab": "character",
             "tab_switch": "action",
-            "shift_tab": "character",
+            "ctrl_return": "character",
         },
         "parenthetical": {
             "tag": "_parenthetical_",
             "on_return": "dialogue",
             "on_tab": "action",
             "tab_switch": "character",
-            "shift_tab": "dialogue",
+            "ctrl_return": "dialogue",
         },
         "scene": {
             "tag": "_scene_",
@@ -95,21 +95,21 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "on_return": "action",
             "on_tab": "character",
             "tab_switch": "action",
-            "shift_tab": "transition",
+            "ctrl_return": "transition",
         },
         "shot": {
             "tag": "_shot_",
             "on_return": "action",
             "on_tab": "character",
             "tab_switch": "action",
-            "shift_tab": "scene",
+            "ctrl_return": "scene",
         },
         "transition": {
             "tag": "_transition_",
             "on_return": "scene",
             "on_tab": "transition",
             "tab_switch": "scene",
-            "shift_tab": "character",
+            "ctrl_return": "character",
         },
     }
 
@@ -145,7 +145,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.bind("<Key>", self.slot_on_keypress)
         self.bind("<Return>", self.slot_on_key_return)
         self.bind("<Tab>", self.slot_on_key_tab)
-        self.bind("<Shift-Tab>", self.slot_on_key_shift_tab)
+        self.bind("<Control-Return>", self.slot_on_key_ctrl_return)
     # end def
 
 
@@ -272,19 +272,19 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def slot_on_key_ctrl_return (self, event=None, *args, **kw):
+        """
+            event handler: on <Ctrl-Return> key press;
+        """
+        print("slot_on_key_ctrl_return")
+    # end def
+
+
     def slot_on_key_return (self, event=None, *args, **kw):
         """
             event handler: on <Return> key press;
         """
         print("slot_on_key_return")
-    # end def
-
-
-    def slot_on_key_shift_tab (self, event=None, *args, **kw):
-        """
-            event handler: on <Shift-Tab> key press;
-        """
-        print("slot_on_key_shift_tab")
     # end def
 
 

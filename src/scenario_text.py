@@ -142,13 +142,15 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def get_current_line_tag (self):
+    def get_line_tag (self, index=None):
         """
-            retrieves insertion point line tag;
+            retrieves @index line tag, if given;
+            retrieves insertion point line tag, if omitted;
             returns None otherwise;
         """
         # inits
-        _tags = self.tag_names(TK.INSERT)
+        index = index or TK.INSERT
+        _tags = self.tag_names(index)
         print("all tags in line:", _tags)
         # got tags?
         if _tags:
@@ -330,6 +332,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Del> key press;
         """
         print("slot_on_key_delete")
+        # inits
+        _tag = self.get_line_tag(TK.SEL_FIRST)
     # end def
 
 
@@ -411,7 +415,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             place;
         """
         # inits
-        _tag = self.get_current_line_tag()
+        _tag = self.get_line_tag()
         print("current line tag:", _tag)
         # got tag?
         if _tag in self.ELEMENT:

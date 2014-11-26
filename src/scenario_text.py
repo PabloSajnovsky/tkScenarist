@@ -138,6 +138,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def get_line_tag (self):
+        """
+            retrieves element tag for current insertion point's line;
+        """
+
+
     def init_deferred (self, kw):
         """
             deferred inits;
@@ -221,7 +227,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         if _char and ord(_char) > 31 and not _modifiers:
             # set to uppercase
             self.insert(TK.INSERT, event.char.upper())
-            self.put_element_tag()
+            self.update_line_tag()
             # break the tkevent chain
             return "break"
         # end if
@@ -234,6 +240,21 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # inits
         pass
+    # end def
+
+
+    def update_line_tag (self, *args, **kw):
+        """
+            event handler: updates line tag to keep it at the right
+            place;
+        """
+        # inits
+        _tag = self.get_line_tag()
+        _region = ("insert linestart", "insert linestart + 1 line")
+        # remove tag
+        self.tag_remove(_tag, *_region)
+        # reset tag
+        self.tag_add(_tag, *_region)
     # end def
 
 # end class ScenarioText

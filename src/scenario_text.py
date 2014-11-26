@@ -143,6 +143,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # is *OVER* the tag region - WTF? /!\
         # must work with a tag dispatcher
         self.bind("<Key>", self.slot_on_keypress)
+        self.bind("<Return>", self.slot_on_key_return)
+        self.bind("<Tab>", self.slot_on_key_tab)
+        self.bind("<Shift-Tab>", self.slot_on_key_shift_tab)
     # end def
 
 
@@ -266,6 +269,30 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # break the tkevent chain
             return "break"
         # end if
+    # end def
+
+
+    def slot_on_key_return (self, event=None, *args, **kw):
+        """
+            event handler: on <Return> key press;
+        """
+        print("slot_on_key_return")
+    # end def
+
+
+    def slot_on_key_shift_tab (self, event=None, *args, **kw):
+        """
+            event handler: on <Shift-Tab> key press;
+        """
+        print("slot_on_key_shift_tab")
+    # end def
+
+
+    def slot_on_key_tab (self, event=None, *args, **kw):
+        """
+            event handler: on <Tab> key press;
+        """
+        print("slot_on_key_tab")
     # end def
 
 

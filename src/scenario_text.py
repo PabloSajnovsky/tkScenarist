@@ -129,8 +129,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.bind("<Control-Return>", self.slot_on_key_ctrl_return)
         self.bind("<Control-a>", self.slot_on_select_all)
         self.bind("<Control-A>", self.slot_on_select_all)
-        self.bind("<KeyPress-Delete>", self.slot_on_key_delete)
-        self.bind("<KeyRelease-Delete>", self.slot_on_key_delete)
+        self.bind("<Delete>", self.slot_on_key_delete)
     # end def
 
 
@@ -152,7 +151,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # inits
         index = index or TK.INSERT
         _tags = self.tag_names(index)
-        print("all tags in line:", _tags)
         # got tags?
         if _tags:
             # return first tag only
@@ -167,20 +165,20 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             inserted chars in current line;
         """
         # inits
-        _element = self.ELEMENT.get(element_tag) or dict()
+        _element = self.ELEMENT[element_tag]
         # got inserted chars?
         if self.inserted_chars(element_tag):
             # init values
             _map = {
-                "tab": _element.get("on_tab") or "",
-                "return": _element.get("on_return") or "",
-                "ctrl_return": _element.get("ctrl_return") or "",
+                "tab": _element["on_tab"],
+                "return": _element["on_return"],
+                "ctrl_return": _element["ctrl_return"],
             }
         # virgin line
         else:
             # init values
             _map = {
-                "tab": _element.get("tab_switch") or "",
+                "tab": _element["tab_switch"],
                 "return": "",
                 "ctrl_return": "",
             }
@@ -333,12 +331,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Del> key press;
         """
         print("slot_on_key_delete")
-        # inits
-        try:
-            _tag = self.get_line_tag(TK.SEL_FIRST)
-        except:
-            _tag = self.get_line_tag()
-        # end try
     # end def
 
 
@@ -419,7 +411,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: updates line tag to keep it at the right
             place;
         """
-        print("update_line_tag")
         # inits
         _tag = self.get_line_tag()
         print("current line tag:", _tag)

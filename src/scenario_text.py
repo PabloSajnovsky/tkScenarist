@@ -140,14 +140,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def get_line_tag (self):
+    def get_line_tags (self):
         """
             retrieves element tag for current insertion point's line;
         """
-        # inits
-        _tags = self.tag_nextrange("all", *self.INS_LINE)
-        print("tags:", _tags)
-        return _tags
+        return self.tag_names(TK.INSERT)
     # end def
 
 
@@ -204,10 +201,17 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: put element tag at linestart if no tags are
             already out there;
         """
-        # inits
-        _tag = self.get_element_tag()
-        self.tag_add(_tag, *self.INS_LINE)
-        print(self.get_line_tag())
+        # no tags out there?
+        if not self.get_line_tags():
+            # set new tag
+            self.update_line_tag()
+        # warn dev
+        else:
+            print(
+                "put_element_tag() - current line already tagged:",
+                self.get_line_tags()
+            )
+        # end if
     # end def
 
 

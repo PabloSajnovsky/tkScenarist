@@ -256,7 +256,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         print("slot_on_keypress")
         # notify app
-        self.events.raise_event("Project:Modified")
+        #~ self.events.raise_event("Project:Modified")
         return self.slot_keypress_scene(event)
     # end def
 
@@ -269,7 +269,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # inits
         text_index = text_index or TK.INSERT
         # do setup element?
-        if False:                                                           # FIXME
+        if not self.tag_names(text_index):
             # create element
             # update current element
             self.current_element = element_tag

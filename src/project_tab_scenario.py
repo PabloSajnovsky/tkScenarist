@@ -39,6 +39,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             {
                 "Project:Modified": self.slot_project_modified,
 
+                "Scenario:Current:Element": self.slot_update_element,
+
                 "Tab:Reset": self.slot_tab_reset,
             }
         )
@@ -99,6 +101,24 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # reset Text widget
         self.text_clear_contents(self.text_scenario)
+    # end def
+
+
+    def slot_update_element (self, *args, element_tag=None, **kw):
+        """
+            event handler: updates current element info;
+        """
+        # param controls
+        if element_tag:
+            # inits
+            _cvar = lambda s: self.get_stringvar(s)
+            _element = self.text_scenario.ELEMENT[element_tag]
+            # reset widgets
+            _cvar("lbl_current_element").set(_element["label"])
+            _cvar("on_tab").set(_element["on_tab"])
+            _cvar("on_return").set(_element["on_return"])
+            _cvar("on_ctrl_return").set(_element["ctrl_return"])
+        # end if
     # end def
 
 # end class ProjectTabScenario

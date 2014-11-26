@@ -129,7 +129,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.bind("<Control-Return>", self.slot_on_key_ctrl_return)
         self.bind("<Control-a>", self.slot_select_all)
         self.bind("<Control-A>", self.slot_select_all)
-        self.bind("<Del>", self.slot_on_key_delete)
+        self.bind("<Delete>", self.slot_on_key_delete)
     # end def
 
 
@@ -310,13 +310,33 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def slot_on_key_delete (self, event=None, *args, **kw):
+        """
+            event handler: on <Del> key press;
+        """
+        print("slot_on_key_delete")
+        # look for selection
+        try:
+            _chars = self.get(TK.SEL_FIRST, TK.SEL_LAST)
+        # no selection, look for cursor
+        except:
+            _chars = self.get(TK.INSERT)
+        # end try
+        # do *NOT* delete multiple lines
+        if "\n" in _chars:
+            # don't do that!
+            return "break"
+        # end if
+    # end def
+
+
     def slot_on_key_return (self, event=None, *args, **kw):
         """
             event handler: on <Return> key press;
         """
         print("slot_on_key_return")
         # break the tkevent chain
-        return "break"
+        #~ return "break"
     # end def
 
 

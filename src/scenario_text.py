@@ -242,7 +242,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # inits
         _chars = self.get(*self.INS_LINE).strip()
-        print("chars: '{}'".format(_chars))
         # special case
         if element_tag == "parenthetical":
             # inserted if different than '()'
@@ -278,6 +277,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         if _char and ord(_char) > 31 and not _modifiers:
             # set to uppercase
             self.insert(TK.INSERT, event.char.upper())
+            # update line infos
+            self.update_line_tag()
             # break the tkevent chain
             return "break"
         # end if

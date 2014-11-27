@@ -50,7 +50,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "action": {
             "label": _("Action"),
             "config": {
-                "spacing1": "10",
+                "spacing3": "5",
             },
             "on_return": "action",
             "on_tab": "character",
@@ -162,10 +162,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # got element tag?
         if element_tag in self.ELEMENT:
             # init specific creation method
-            print(
-                "trying to create new element line '{}' at index '{}'"
-                .format(element_tag, index)
-            )
             _method = getattr(
                 self,
                 "create_element_line_{}".format(element_tag),
@@ -174,6 +170,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             if callable(_method):
                 # redirect to specific line creation
                 return _method(element_tag, index)
+            # end if
         # end if
     # end def
 
@@ -473,16 +470,20 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Return> key press;
         """
-        print("slot_on_key_return")
+        #~ print("slot_on_key_return")
         # inits
         _map = self.get_element_mappings()
         # allowed to create new element line?
         if _map and _map["return"]:
+            """
+                FIXME:
+                look ahead if next line is not already of
+                _map["return"] element type;
+                if so, just self.move_cursor(index) to this line;
+                if not, then self.create_element_line(tag);
+            """
             # allow new line
             self.create_element_line(_map["return"])
-        else:
-            # debugging
-            print("[WARNING] *NOT* allowed to create new line")
         # end if
         # break the tkevent chain
         return "break"

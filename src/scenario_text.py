@@ -150,7 +150,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             inserts at insertion point if @index omitted;
         """
         # inits
-        index = (
+        index = self.index(
             "{} linestart + 1 line"
             .format(self.index(index or TK.INSERT))
         )

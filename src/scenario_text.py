@@ -443,7 +443,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # allowed to create new element line?
         if _map and _map["return"]:
             # create new line
-            self.create_element_line(_map["return"])
+            return self.create_element_line(_map["return"])
         else:
             # debugging
             print("[WARNING] *NOT* allowed to create new line")

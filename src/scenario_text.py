@@ -127,6 +127,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.bind("<Key>", self.slot_on_keypress)
         self.bind("<KeyRelease>", self.slot_on_keyrelease)
         self.bind("<Return>", self.slot_on_key_return)
+        self.bind("<KeyReleaseReturn>", self.slot_on_keyup_return)
         self.bind("<Tab>", self.slot_on_key_tab)
         self.bind("<Control-Return>", self.slot_on_key_ctrl_return)
         self.bind("<Control-a>", self.slot_on_select_all)
@@ -444,6 +445,26 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Return> key press;
         """
         print("slot_on_key_return")
+        # inits
+        _map = self.get_element_mappings()
+        # allowed to create new element line?
+        if _map and _map["return"]:
+            # allow new line
+            return None
+        else:
+            # debugging
+            print("[WARNING] *NOT* allowed to create new line")
+        # end if
+        # break the tkevent chain
+        return "break"
+    # end def
+
+
+    def slot_on_keyup_return (self, event=None, *args, **kw):
+        """
+            event handler: on <Return> key press;
+        """
+        print("slot_on_keyup_return")
         # inits
         _map = self.get_element_mappings()
         # allowed to create new element line?

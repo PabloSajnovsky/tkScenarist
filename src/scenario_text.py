@@ -144,6 +144,28 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def create_element_line (self, element_tag, index=None):
+        """
+            inserts a new element-formatted line at @index;
+            inserts at insertion point if @index omitted;
+        """
+        # inits
+        index = index or TK.INSERT
+        # got element tag?
+        if element_tag in self.ELEMENT:
+            # init specific creation method
+            _method = getattr(
+                self,
+                "create_element_line_{}".format(element_tag),
+                None
+            )
+            if callable(_method):
+                # redirect to specific line creation
+                return _method(index)
+        # end if
+    # end def
+
+
     def get_line_tag (self, index=None, strict=False):
         """
             retrieves @index line tag, if given; retrieves insertion
@@ -182,6 +204,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             if self.inserted_chars(index):
                 # init values
                 _map = {
+                    "tag": _tag,
                     "tab": _element["on_tab"],
                     "tab_switch": "",
                     "return": _element["on_return"],
@@ -191,6 +214,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             else:
                 # init values
                 _map = {
+                    "tag": _tag,
                     "tab": "",
                     "tab_switch": _element["tab_switch"],
                     "return": "",
@@ -360,6 +384,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         print("slot_on_key_return")
         # inits
         _map = self.get_element_mappings()
+        # allowed to create new element line?
+        if _map and _map["return"]:
+            # create new line
+            self.create_element_line(_map["tag"])
+        # end if
         # break the tkevent chain
         return "break"
     # end def

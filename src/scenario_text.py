@@ -177,9 +177,14 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             creates a new line of 'action' element type;
         """
+        self.insert(TK.INSERT, "\n")
         self.insert(index, "hello!")
+        _tag = self.get_line_tag()
+        print("tag:", _tag)
+        self.tag_remove(_tag, index, index + " lineend")
         self.current_tag = tag
         self.update_line_tag()
+        return "break"
     # end def
 
 

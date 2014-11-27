@@ -181,7 +181,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         _tag = self.get_line_tag()
         print("tag:", _tag)
         # insert new line
-        self.insert("{} lineend".format(TK.INSERT), "\n", tags=(tag,))
+        self.insert("{} lineend".format(TK.INSERT), "\n", (tag,))
         # move to index location
         self.move_cursor(index)
         # remove previous

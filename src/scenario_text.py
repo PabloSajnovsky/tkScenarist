@@ -154,6 +154,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # got element tag?
         if element_tag in self.ELEMENT:
             # init specific creation method
+            print("trying to create new element line:", element_tag, "at index:", index)
             _method = getattr(
                 self,
                 "create_element_line_{}".format(element_tag),
@@ -388,6 +389,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         if _map and _map["return"]:
             # create new line
             self.create_element_line(_map["tag"])
+        else:
+            # debugging
+            print("[WARNING] *NOT* allowed to create new line")
         # end if
         # break the tkevent chain
         return "break"

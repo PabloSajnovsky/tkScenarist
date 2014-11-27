@@ -162,7 +162,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def get_element_mappings (self, element_tag):
+    def get_element_mappings (self, element_tag, index=None):
         """
             returns dict() of hotkey/element mappings along with
             inserted chars in current line;
@@ -170,10 +170,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # inits
         _element = self.ELEMENT[element_tag]
         # got inserted chars?
-        if self.inserted_chars(element_tag):
+        if self.inserted_chars(element_tag, index):
             # init values
             _map = {
                 "tab": _element["on_tab"],
+                "tab_switch": "",
                 "return": _element["on_return"],
                 "ctrl_return": _element["ctrl_return"],
             }
@@ -181,7 +182,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         else:
             # init values
             _map = {
-                "tab": _element["tab_switch"],
+                "tab": "",
+                "tab_switch": _element["tab_switch"],
                 "return": "",
                 "ctrl_return": "",
             }
@@ -261,14 +263,18 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def inserted_chars (self, element_tag):
+    def inserted_chars (self, element_tag, index=None):
         """
-            returns True if chars have been inserted in current line
+            returns True if chars have been inserted in @index line
             according to @element_tag constraints; returns False
             otherwise;
         """
         # inits
-        _chars = self.get(*self.INS_LINE).strip("\n\t")
+        index = index or TK.INSERT
+        _chars = self.get(
+            "{} linestart".format(index),
+            "{} linestart + 1 line".format(index)
+        ).strip("\n\t")
         # special case
         if element_tag == "parenthetical":
             # inserted if different than '()'

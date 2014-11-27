@@ -126,7 +126,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # we have to work with a tag dispatcher
         self.bind("<Key>", self.slot_on_keypress)
         self.bind("<KeyRelease>", self.slot_on_keyrelease)
-        self.bind("<Return>", self.slot_on_key_return)
+        self.bind("<KeyRelease-Return>", self.slot_on_key_return)
         self.bind("<Tab>", self.slot_on_key_tab)
         self.bind("<Control-Return>", self.slot_on_key_ctrl_return)
         self.bind("<Control-a>", self.slot_on_select_all)
@@ -177,8 +177,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             creates a new line of 'action' element type;
         """
+        self.delete(
+            "{} linestart".format(index), "{} lineend".format(index)
+        )
         self.current_tag = tag
-        self.after_idle(self.update_line_tag)
+        self.update_line_tag()
     # end def
 
 

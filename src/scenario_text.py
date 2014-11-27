@@ -182,18 +182,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             creates a new line of 'action' element type;
         """
-        # get current tag
-        _tag = self.get_line_tag()
-        print("tag:", _tag)
-        # insert new line
-        self.insert("{} lineend".format(TK.INSERT), "\n")
-        # move to index location
-        self.move_cursor(index)
-        # remove previous
-        self.tag_remove(_tag, *self.INS_LINE)
-        self.tag_add(tag, *self.INS_LINE)
-        print("new tag:", self.get_line_tag())
-        return "break"
+        # simply insert new line
+        self.insert_new_line(tag, index)
     # end def
 
 
@@ -201,7 +191,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             creates a new line of 'character' element type;
         """
-        pass
+        # simply insert new line
+        self.insert_new_line(tag, index)
     # end def
 
 
@@ -209,7 +200,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             creates a new line of 'dialogue' element type;
         """
-        pass
+        # simply insert new line
+        self.insert_new_line(tag, index)
     # end def
 
 
@@ -217,7 +209,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             creates a new line of 'parenthetical' element type;
         """
-        pass
+        # simply insert new line
+        self.insert_new_line(tag, index)
     # end def
 
 
@@ -225,7 +218,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             creates a new line of 'scene' element type;
         """
-        pass
+        # simply insert new line
+        self.insert_new_line(tag, index)
     # end def
 
 
@@ -233,7 +227,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             creates a new line of 'transition' element type;
         """
-        pass
+        # simply insert new line
+        self.insert_new_line(tag, index)
     # end def
 
 
@@ -368,6 +363,23 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def insert_new_line (self, new_tag, index):
+        """
+            inserts a new @tag element-formatted line at @index;
+        """
+        # get current tag
+        _current_tag = self.get_line_tag()
+        # insert new line
+        self.insert("{} lineend".format(TK.INSERT), "\n")
+        # move to index location
+        self.move_cursor(index)
+        # remove previous tag
+        self.tag_remove(_current_tag, *self.INS_LINE)
+        # set new tag instead
+        self.tag_add(new_tag, *self.INS_LINE)
+    # end def
+
+
     def inserted_chars (self, index=None):
         """
             returns True if chars have been inserted in @index line;
@@ -467,7 +479,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # allowed to create new element line?
         if _map and _map["return"]:
             # allow new line
-            return self.create_element_line(_map["return"])
+            self.create_element_line(_map["return"])
         else:
             # debugging
             print("[WARNING] *NOT* allowed to create new line")

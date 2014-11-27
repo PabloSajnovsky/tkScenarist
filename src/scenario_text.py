@@ -161,16 +161,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         )
         # got element tag?
         if element_tag in self.ELEMENT:
-            # init specific creation method
-            _method = getattr(
-                self,
+            # switch to specific method
+            return self.switch_to_method(
                 "create_element_line_{}".format(element_tag),
-                None
+                element_tag, index
             )
-            if callable(_method):
-                # redirect to specific line creation
-                return _method(element_tag, index)
-            # end if
         # end if
     # end def
 
@@ -507,7 +502,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         #~ print("slot_on_keypress")
         # notify app
         #~ self.events.raise_event("Project:Modified")
-        return self.slot_keypress_scene(event)
+        # switch to specific method
+        return self.switch_to_method(
+            "slot_keypress_{}".format(self.get_line_tag()), event
+        )
     # end def
 
 
@@ -530,6 +528,31 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # not all widget's contents
         # break the tkevent chain
         return "break"
+    # end def
+
+
+    def switch_to_method (self, method_name, *args, **kw):
+        """
+            calls inner class method by @method_name string value and
+            returns method's retvalue, if exists; returns None
+            otherwise;
+        """
+        # param controls
+        if method_name:
+            # inits
+            _method = getattr(self, method_name, None)
+            # callable?
+            if callable(_method):
+                # call with args and get retvalue
+                return _method(*args, **kw)
+            # debugging
+            else:
+                # notify dev
+                print("[WARNING]\tUnable to call method:", method_name)
+            # end if
+        # end if
+        # failed
+        return None
     # end def
 
 

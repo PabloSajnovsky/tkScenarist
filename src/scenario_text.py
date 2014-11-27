@@ -43,7 +43,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "wrap": "word",
     }
 
-    # NOTICE: element name == element tag
     DEFAULT_TAG = "scene"
 
     # NOTICE: element name == element tag
@@ -93,7 +92,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         },
     }
 
-    INS_LINE = ("insert linestart", "insert linestart + 1 line")
+    INS_LINE = (
+        "{} linestart".format(TK.INSERT),
+        "{} linestart + 1 line".format(TK.INSERT),
+    )
 
 
     def __init__ (self, master=None, **kw):
@@ -142,54 +144,62 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def get_line_tag (self, index=None):
+    def get_line_tag (self, index=None, strict=False):
         """
-            retrieves @index line tag, if given;
-            retrieves insertion point line tag, if omitted;
-            returns None otherwise;
+            retrieves @index line tag, if given; retrieves insertion
+            point line tag, if @index omitted; returns self.current_tag
+            if @strict=False and no previous tag found; returns None
+            otherwise;
         """
         # inits
         index = index or TK.INSERT
         _tags = self.tag_names(index)
-        print("all tags:", _tags)
-        # got tags?
-        if _tags:
-            # first tag only
-            if _tags[0] in self.ELEMENT:
-                return _tags[0]
-            # end if
+        # got element tag?
+        if _tags and _tags[0] in self.ELEMENT:
+            return _tags[0]
+        # end if
+        # allow default value?
+        if not strict:
+            # return current available tag
+            return self.current_tag
         # end if
     # end def
 
 
-    def get_element_mappings (self, element_tag, index=None):
+    def get_element_mappings (self, index=None):
         """
             returns dict() of hotkey/element mappings along with
-            inserted chars in current line;
+            inserted chars in @index line;
         """
         # inits
-        _element = self.ELEMENT[element_tag]
-        # got inserted chars?
-        if self.inserted_chars(element_tag, index):
-            # init values
-            _map = {
-                "tab": _element["on_tab"],
-                "tab_switch": "",
-                "return": _element["on_return"],
-                "ctrl_return": _element["ctrl_return"],
-            }
-        # virgin line
-        else:
-            # init values
-            _map = {
-                "tab": "",
-                "tab_switch": _element["tab_switch"],
-                "return": "",
-                "ctrl_return": "",
-            }
+        index = index or TK.INSERT
+        _tag = self.get_line_tag(index)
+        # got element tag?
+        if _tag in self.ELEMENT:
+            # inits
+            _element = self.ELEMENT[_tag]
+            # got inserted chars?
+            if self.inserted_chars(index):
+                # init values
+                _map = {
+                    "tab": _element["on_tab"],
+                    "tab_switch": "",
+                    "return": _element["on_return"],
+                    "ctrl_return": _element["ctrl_return"],
+                }
+            # virgin line
+            else:
+                # init values
+                _map = {
+                    "tab": "",
+                    "tab_switch": _element["tab_switch"],
+                    "return": "",
+                    "ctrl_return": "",
+                }
+            # end if
+            # return mappings
+            return _map
         # end if
-        # return mappings
-        return _map
     # end def
 
 
@@ -263,11 +273,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def inserted_chars (self, element_tag, index=None):
+    def inserted_chars (self, index=None):
         """
-            returns True if chars have been inserted in @index line
-            according to @element_tag constraints; returns False
-            otherwise;
+            returns True if chars have been inserted in @index line;
+            returns False otherwise;
         """
         # inits
         index = index or TK.INSERT
@@ -275,8 +284,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "{} linestart".format(index),
             "{} linestart + 1 line".format(index)
         ).strip("\n\t")
+        _tag = self.get_line_tag(index)
         # special case
-        if element_tag == "parenthetical":
+        if _tag == "parenthetical":
             # inserted if different than '()'
             return bool(_chars != "()")
         # default case
@@ -348,8 +358,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Return> key press;
         """
         print("slot_on_key_return")
+        # inits
+        _map = self.get_element_mappings()
         # break the tkevent chain
-        #~ return "break"
+        return "break"
     # end def
 
 
@@ -396,25 +408,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def switch_to_element (self, element_tag, text_index=None):
-        """
-            switches to element @element_tag at @text_index, if
-            possible;
-        """
-        # inits
-        text_index = text_index or TK.INSERT
-        # do setup element?
-        if not self.tag_names(text_index):
-            # create element
-            # notify app
-            self.events.raise_event(
-                "Scenario:Current:Element:Update",
-                element_tag=element_tag
-            )
-        # end if
-    # end def
-
-
     def update_current_tag (self, *args, index=None, **kw):
         """
             event handler: updates current line tag pointer;
@@ -438,7 +431,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # inits
         _tag = self.update_current_tag()
-        print("current tag:", _tag)
         # got element tag?
         if _tag in self.ELEMENT:
             # remove tag

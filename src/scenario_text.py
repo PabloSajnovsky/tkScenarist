@@ -150,11 +150,17 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             inserts at insertion point if @index omitted;
         """
         # inits
-        index = index or TK.INSERT
+        index = (
+            "{} linestart + 1 line"
+            .format(self.index(index or TK.INSERT))
+        )
         # got element tag?
         if element_tag in self.ELEMENT:
             # init specific creation method
-            print("trying to create new element line:", element_tag, "at index:", index)
+            print(
+                "trying to create new element line '{}' at index '{}'"
+                .format(element_tag, index)
+            )
             _method = getattr(
                 self,
                 "create_element_line_{}".format(element_tag),

@@ -177,15 +177,18 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             creates a new line of 'action' element type;
         """
+        # init current tag
         _tag = self.get_line_tag()
         print("tag:", _tag)
-        self.insert("{} lineend".format(TK.INSERT), "\n")
-        self.tag_remove(_tag, index, index + " linestart+1l")
-        self.tag_add(tag, index, index + " linestart+1l")
+        # insert new line
+        self.insert("{} lineend".format(TK.INSERT), "\n", tags=(tag,))
+        # move to index location
+        self.move_cursor(index)
+        # remove previous
+        #~ self.tag_remove(_tag, *self.INS_LINE)
+        #~ self.tag_add(tag, *self.INS_LINE)
         self.insert(index, "hello!")
-        self.move_cursor(index + "lineend")
-        self.current_tag = tag
-        self.update_line_tag()
+        print("new tag:", self.get_line_tag())
         return "break"
     # end def
 

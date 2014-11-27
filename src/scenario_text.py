@@ -418,9 +418,41 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def slot_keypress_action (self, event=None, *args, **kw):
+        """
+            event handler: on 'action' element key press;
+        """
+        pass                                                                # FIXME
+    # end def
+
+
+    def slot_keypress_character (self, event=None, *args, **kw):
+        """
+            event handler: on 'character' element key press;
+        """
+        pass                                                                # FIXME
+    # end def
+
+
+    def slot_keypress_dialogue (self, event=None, *args, **kw):
+        """
+            event handler: on 'dialogue' element key press;
+        """
+        pass                                                                # FIXME
+    # end def
+
+
+    def slot_keypress_parenthetical (self, event=None, *args, **kw):
+        """
+            event handler: on 'parenthetical' element key press;
+        """
+        pass                                                                # FIXME
+    # end def
+
+
     def slot_keypress_scene (self, event=None, *args, **kw):
         """
-            event handler: on 'scene' key press;
+            event handler: on 'scene' element key press;
         """
         # inits
         _char = event.char
@@ -440,6 +472,14 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # break the tkevent chain
             return "break"
         # end if
+    # end def
+
+
+    def slot_keypress_transition (self, event=None, *args, **kw):
+        """
+            event handler: on 'transition' element key press;
+        """
+        pass                                                                # FIXME
     # end def
 
 

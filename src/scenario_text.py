@@ -168,8 +168,57 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             )
             if callable(_method):
                 # redirect to specific line creation
-                return _method(index)
+                return _method(element_tag, index)
         # end if
+    # end def
+
+
+    def create_element_line_action (self, tag, index):
+        """
+            creates a new line of 'action' element type;
+        """
+        self.current_tag = tag
+        self.after_idle(self.update_line_tag)
+    # end def
+
+
+    def create_element_line_character (self, tag, index):
+        """
+            creates a new line of 'character' element type;
+        """
+        pass
+    # end def
+
+
+    def create_element_line_dialogue (self, tag, index):
+        """
+            creates a new line of 'dialogue' element type;
+        """
+        pass
+    # end def
+
+
+    def create_element_line_parenthetical (self, tag, index):
+        """
+            creates a new line of 'parenthetical' element type;
+        """
+        pass
+    # end def
+
+
+    def create_element_line_scene (self, tag, index):
+        """
+            creates a new line of 'scene' element type;
+        """
+        pass
+    # end def
+
+
+    def create_element_line_transition (self, tag, index):
+        """
+            creates a new line of 'transition' element type;
+        """
+        pass
     # end def
 
 
@@ -357,7 +406,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 pass
             # end try
             # set to uppercase
-            self.insert(TK.INSERT, event.char.upper())
+            self.insert(TK.INSERT, _char.upper())
             # update line infos
             self.update_line_tag()
             # break the tkevent chain
@@ -394,7 +443,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # allowed to create new element line?
         if _map and _map["return"]:
             # create new line
-            self.create_element_line(_map["tag"])
+            self.create_element_line(_map["return"])
         else:
             # debugging
             print("[WARNING] *NOT* allowed to create new line")
@@ -470,6 +519,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # inits
         _tag = self.update_current_tag()
+        print("update_line_tag: current line tag:", _tag)
         # got element tag?
         if _tag in self.ELEMENT:
             # remove tag

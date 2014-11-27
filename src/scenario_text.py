@@ -337,7 +337,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # reset members
         self.init_members(**kw)
         # reset default tag
-        self.after_idle(self.tag_add, self.DEFAULT_TAG, "1.0", "end")
+        self.after_idle(self.update_line_tag)
     # end def
 
 

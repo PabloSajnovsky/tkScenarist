@@ -49,6 +49,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     ELEMENT = {
         "action": {
             "label": _("Action"),
+            "config": {
+                "spacing1": "10",
+            },
             "on_return": "action",
             "on_tab": "character",
             "tab_switch": "character",
@@ -77,7 +80,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         },
         "scene": {
             "label": _("Scene"),
-            "config": dict(background="grey90"),
+            "config": {
+                "background": "grey90",
+            },
             "on_return": "action",
             "on_tab": "character",
             "tab_switch": "action",
@@ -177,17 +182,16 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             creates a new line of 'action' element type;
         """
-        # init current tag
+        # get current tag
         _tag = self.get_line_tag()
         print("tag:", _tag)
         # insert new line
-        self.insert("{} lineend".format(TK.INSERT), "\n", (tag,))
+        self.insert("{} lineend".format(TK.INSERT), "\n")
         # move to index location
         self.move_cursor(index)
         # remove previous
-        #~ self.tag_remove(_tag, *self.INS_LINE)
-        #~ self.tag_add(tag, *self.INS_LINE)
-        self.insert(index, "hello!")
+        self.tag_remove(_tag, *self.INS_LINE)
+        self.tag_add(tag, *self.INS_LINE)
         print("new tag:", self.get_line_tag())
         return "break"
     # end def

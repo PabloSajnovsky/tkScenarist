@@ -221,7 +221,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             class members only inits;
         """
         # members only inits
-        self.current_tag = ""
+        self.current_tag = self.DEFAULT_TAG
     # end def
 
 
@@ -409,18 +409,32 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def update_current_tag (self, *args, index=None, **kw):
+        """
+            event handler: updates current line tag pointer;
+        """
+        # inits
+        _tag = self.get_line_tag(index)
+        # got element tag?
+        if _tag in self.ELEMENT:
+            # update current tag
+            self.current_tag = _tag
+        # end if
+        # return last available tag
+        return self.current_tag
+    # end def
+
+
     def update_line_tag (self, *args, **kw):
         """
             event handler: updates line tag to keep it at the right
             place;
         """
         # inits
-        _tag = self.get_line_tag() or self.current_tag
-        print("current line tag:", _tag)
-        # got tag?
+        _tag = self.update_current_tag()
+        print("current tag:", _tag)
+        # got element tag?
         if _tag in self.ELEMENT:
-            # update current tag
-            self.current_tag = _tag
             # remove tag
             self.tag_remove(_tag, *self.INS_LINE)
             # reset tag all line long

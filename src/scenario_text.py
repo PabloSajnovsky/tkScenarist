@@ -108,8 +108,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             },
             "on_return": "action",
             "on_tab": "character",
-            "tab_switch": "",
-            "ctrl_return": "",
+            "tab_switch": "action",
+            "ctrl_return": "transition",
         },
         "transition": {
             "label": _("Transition"),
@@ -120,7 +120,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "on_return": "scene",
             "on_tab": "transition",
             "tab_switch": "scene",
-            "ctrl_return": "",
+            "ctrl_return": "action",
         },
     }
 

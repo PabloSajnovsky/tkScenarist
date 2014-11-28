@@ -236,12 +236,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             found; returns None otherwise;
         """
         # get tags at line start
-        index = "{} linestart".format(self.index(index or TK.INSERT))
+        index = "{} linestart".format(index or TK.INSERT)
         _tags = self.tag_names(index)
-        print("all tags:", _tags)
         # got element tag?
-        if _tags and _tags[-1] in self.ELEMENT:
-            return _tags[-1]
+        if _tags and _tags[0] in self.ELEMENT:
+            return _tags[0]
         # end if
         # allow default value?
         if not strict:
@@ -631,13 +630,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # inits
         _tag = self.update_current_tag()
-        print("update_line_tag: current line tag:", _tag)
         # got element tag?
         if _tag in self.ELEMENT:
-            print("1.all tags @insert:", self.tag_names(TK.INSERT))
-            # remove tags
+            # remove all line tags
             self.tag_remove(self.tag_names(TK.INSERT), *self.INS_LINE)
-            print("2.all tags @insert:", self.tag_names(TK.INSERT))
             # reset tag all line long
             self.tag_add(_tag, *self.INS_LINE)
             # notify app

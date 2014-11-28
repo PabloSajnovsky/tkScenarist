@@ -79,7 +79,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "dialogue": {
             "label": _("Dialogue"),
             "config": {
-                "background": "cornsilk",
+                "background": "lemon chiffon",
                 "lmargin1": "3c",
                 "lmargin2": "3c",
                 "rmargin": "1c",
@@ -92,7 +92,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "parenthetical": {
             "label": _("Parenthetical"),
             "config": {
-                "background": "old lace",
+                "background": "lemon chiffon",
                 "lmargin1": "4c",
                 "lmargin2": "4c",
                 "rmargin": "1c",

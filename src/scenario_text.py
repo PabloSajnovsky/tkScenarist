@@ -62,6 +62,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         },
         "character": {
             "label": _("Character"),
+            "config": {
+                "background": "lemon chiffon",
+                "lmargin": "5cm",
+            },
             "on_return": "dialogue",
             "on_tab": "parenthetical",
             "tab_switch": "action",
@@ -481,7 +485,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on 'character' element key press;
         """
-        pass                                                                # FIXME
+        # same as SCENE
+        self.slot_keypress_scene(event, *args, **kw)
     # end def
 
 

@@ -64,8 +64,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "label": _("Character"),
             "config": {
                 "background": "lemon chiffon",
-                "lmargin1": "5cm",
-                "lmargin2": "5cm",
+                "lmargin1": "5c",
+                "lmargin2": "5c",
             },
             "on_return": "dialogue",
             "on_tab": "parenthetical",

@@ -139,6 +139,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.bind("<Control-A>", self.slot_on_select_all)
         self.bind("<Delete>", self.slot_on_key_delete)
         self.bind("<BackSpace>", self.slot_on_key_delete)
+        self.bind("<KeyRelease-Delete>", self.slot_on_keyup_delete)
+        self.bind("<KeyRelease-BackSpace>", self.slot_on_keyup_delete)
     # end def
 
 
@@ -502,8 +504,16 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         print("slot_on_key_delete")
         print("line tag:", self.get_line_tag(index="insert-1c", strict=True))
+    # end def
+
+
+    def slot_on_keyup_delete (self, event=None, *args, **kw):
+        """
+            event handler: on <Del> key release;
+        """
+        print("first char:", repr(self.get("1.0")))
         # text area is empty?
-        if not self.get("1.0"):
+        if not self.get("1.0", "2.0").strip("\n"):
             # reset widget
             self.reset()
         # end if

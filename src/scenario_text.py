@@ -116,13 +116,13 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def _do_update_line (self, *args, force_tag=None, **kw):
+    def _do_update_line (self, args, kw):
         """
             updates line contents in order to keep it correctly
             up-to-date;
         """
         # get tag at insertion cursor
-        _tag = force_tag or self.update_current_tag(TK.INSERT)
+        _tag = self.update_current_tag(TK.INSERT, **kw)
         # got element tag?
         if _tag in self.ELEMENT:
             # remove all line tags
@@ -593,7 +593,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Del> key release;
         """
         # text area is empty?
-        if not self.get("1.0").strip("\n"):
+        if len(self.get("1.0", "3.0")) < 2:
             # reset widget
             self.reset()
         # end if
@@ -642,7 +642,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: updates current line tag pointer;
         """
         # inits
-        _tag = self.get_line_tag(index)
+        _tag = kw.get("force_tag") or self.get_line_tag(index)
         # got element tag?
         if _tag in self.ELEMENT:
             # update current tag
@@ -659,7 +659,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             correctly up-to-date;
         """
         # deferred task (after idle tasks)
-        self.after_idle(self._do_update_line)
+        self.after_idle(self._do_update_line, args, kw)
     # end def
 
 # end class ScenarioText

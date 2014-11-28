@@ -503,8 +503,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Del> key press;
         """
         print("slot_on_key_delete")
-        self.update_current_tag(index="insert-1c")
-        print("self.current_tag:", self.current_tag)
     # end def
 
 
@@ -625,22 +623,28 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def update_line_tag (self, *args, **kw):
+    def update_line_tag (self, *args, index=None, **kw):
         """
             event handler: updates line tag to keep it at the right
             place;
         """
         # inits
-        _tag = self.update_current_tag()
+        index = index or TK.INSERT
+        _tag = self.update_current_tag(index)
         print("update_line_tag: current line tag:", _tag)
         # got element tag?
         if _tag in self.ELEMENT:
+            # inits
+            _line = (
+                "{} linestart".format(index),
+                "{} linestart+1l".format(index)
+            )
             # remove tags
-            for _t in self.tag_names(TK.INSERT):
-                self.tag_remove(_t, *self.INS_LINE)
+            for _t in self.tag_names(index):
+                self.tag_remove(_t, *_line)
             # end for
             # reset tag all line long
-            self.tag_add(_tag, *self.INS_LINE)
+            self.tag_add(_tag, *_line)
             # notify app
             self.events.raise_event(
                 "Scenario:Current:Element:Update", element_tag=_tag

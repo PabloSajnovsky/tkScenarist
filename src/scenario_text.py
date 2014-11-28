@@ -116,13 +116,13 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def _do_update_line (self, *args, **kw):
+    def _do_update_line (self, *args, force_tag=None, **kw):
         """
             updates line contents in order to keep it correctly
             up-to-date;
         """
         # get tag at insertion cursor
-        _tag = self.update_current_tag(TK.INSERT)
+        _tag = force_tag or self.update_current_tag(TK.INSERT)
         # got element tag?
         if _tag in self.ELEMENT:
             # remove all line tags
@@ -154,6 +154,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # we have to work with a tag dispatcher
         self.bind("<Key>", self.slot_on_keypress)
         self.bind("<KeyRelease>", self.slot_on_keyrelease)
+        self.bind("<ButtonRelease>", self.slot_on_keyrelease)
         self.bind("<Return>", self.slot_on_key_return)
         self.bind("<Tab>", self.slot_on_key_tab)
         self.bind("<Control-Return>", self.slot_on_key_ctrl_return)
@@ -531,7 +532,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         _map = self.get_element_mappings()
         # allowed to create new element line?
         if _map and _map["return"]:
-            # allow new line
+            # create new line
             self.create_element_line(_map["return"])
         # end if
         # break the tkevent chain
@@ -543,7 +544,21 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Tab> key press;
         """
-        print("slot_on_key_tab")
+        #~ print("slot_on_key_tab")
+        # inits
+        _map = self.get_element_mappings()
+        # got mappings?
+        if _map:
+            # allowed to create line?
+            if _map["tab"]:
+                # create new line
+                self.create_element_line(_map["tab"])
+            # switch current line?
+            elif _map["tab_switch"]:
+                # switch tag for current line
+                self.update_line(force_tag=_map["tab_switch"])
+            # end if
+        # end if
         # break the tkevent chain
         return "break"
     # end def

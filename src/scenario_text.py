@@ -504,6 +504,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         print("slot_on_key_delete")
         self.update_current_tag(index="insert-1c")
+        self.update_line_tag()
     # end def
 
 
@@ -538,7 +539,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: general keyboard key press;
         """
-        #~ print("slot_on_keypress")
+        print("slot_on_keypress")
         # notify app
         #~ self.events.raise_event("Project:Modified")
         # switch to specific method
@@ -552,7 +553,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: general keyboard key release;
         """
-        #~ print("slot_on_keyrelease")
+        print("slot_on_keyrelease")
         # update line infos
         self.update_line_tag()
     # end def
@@ -562,6 +563,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Del> key release;
         """
+        #~ print("slot_on_keyup_delete")
         # text area is empty?
         if not self.get("1.0").strip("\n"):
             # reset widget

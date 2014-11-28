@@ -623,6 +623,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # update line infos (deferred)
         self.update_line()
+        # not a mousewheel feature?
+        if event.type == 3:
+            # show insertion cursor
+            self.see(TK.INSERT)
+        # end if
     # end def
 
 

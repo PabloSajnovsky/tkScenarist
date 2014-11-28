@@ -74,6 +74,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         },
         "dialogue": {
             "label": _("Dialogue"),
+            "config": {
+                "background": "orange",
+                "lmargin1": "3c",
+                "lmargin2": "3c",
+            },
             "on_return": "character",
             "on_tab": "action",
             "tab_switch": "parenthetical",
@@ -81,6 +86,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         },
         "parenthetical": {
             "label": _("Parenthetical"),
+            "config": {
+                "background": "yello",
+                "lmargin1": "4c",
+                "lmargin2": "4c",
+            },
             "on_return": "dialogue",
             "on_tab": "action",
             "tab_switch": "character",
@@ -419,7 +429,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # special case
         if _tag == "parenthetical":
             # inserted if different than '()'
-            return bool(_chars != "()")
+            return bool(len(_chars) > 2)
         # default case
         else:
             # inserted if not empty
@@ -487,7 +497,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on 'character' element key press;
         """
         # same as SCENE
-        self.slot_keypress_scene(event, *args, **kw)
+        return self.slot_keypress_scene(event, *args, **kw)
     # end def
 
 

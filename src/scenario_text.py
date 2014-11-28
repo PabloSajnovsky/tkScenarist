@@ -138,6 +138,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.bind("<Control-a>", self.slot_on_select_all)
         self.bind("<Control-A>", self.slot_on_select_all)
         self.bind("<Delete>", self.slot_on_key_delete)
+        self.bind("<Backspace>", self.slot_on_key_delete)
     # end def
 
 
@@ -235,6 +236,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # inits
         index = index or TK.INSERT
         _tags = self.tag_names(index)
+        print("all tags:", _tags)
         # got element tag?
         if _tags and _tags[0] in self.ELEMENT:
             return _tags[0]
@@ -499,6 +501,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Del> key press;
         """
         print("slot_on_key_delete")
+        print("line tag:", self.get_line_tag())
     # end def
 
 

@@ -231,12 +231,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     def get_line_tag (self, index=None, strict=False):
         """
             retrieves @index line tag, if given; retrieves insertion
-            point line tag, if @index omitted; returns self.current_tag
-            if @strict=False and no previous tag found; returns None
-            otherwise;
+            cursor line tag, if @index omitted; returns
+            self.current_tag if @strict=False and no previous tag
+            found; returns None otherwise;
         """
-        # inits
-        index = index or TK.INSERT
+        # get tags at line start
+        index = "{} linestart".format(self.index(index or TK.INSERT))
         _tags = self.tag_names(index)
         print("all tags:", _tags)
         # got element tag?
@@ -623,28 +623,21 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def update_line_tag (self, *args, index=None, **kw):
+    def update_line_tag (self, *args, **kw):
         """
             event handler: updates line tag to keep it at the right
             place;
         """
         # inits
-        index = index or TK.INSERT
-        _tag = self.update_current_tag(index)
+        _tag = self.update_current_tag()
         print("update_line_tag: current line tag:", _tag)
         # got element tag?
         if _tag in self.ELEMENT:
-            # inits
-            _line = (
-                "{} linestart".format(index),
-                "{} linestart+1l".format(index)
-            )
             # remove tags
-            for _t in self.tag_names(index):
-                self.tag_remove(_t, *_line)
+            self.tag_remove(_tag, *self.INS_LINE)
             # end for
             # reset tag all line long
-            self.tag_add(_tag, *_line)
+            self.tag_add(_tag, *self.INS_LINE)
             # notify app
             self.events.raise_event(
                 "Scenario:Current:Element:Update", element_tag=_tag

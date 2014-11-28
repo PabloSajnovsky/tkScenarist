@@ -51,7 +51,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "label": _("Action"),
             "config": {
                 "background": "sky blue",
-                "spacing3": "5",
+                "spacing1": "3",
+                "spacing3": "2",
             },
             "on_return": "action",
             "on_tab": "character",

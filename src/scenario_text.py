@@ -240,8 +240,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         _tags = self.tag_names(index)
         print("all tags:", _tags)
         # got element tag?
-        if _tags and _tags[0] in self.ELEMENT:
-            return _tags[0]
+        if _tags and _tags[-1] in self.ELEMENT:
+            return _tags[-1]
         # end if
         # allow default value?
         if not strict:
@@ -504,7 +504,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         print("slot_on_key_delete")
         self.update_current_tag(index="insert-1c")
-        self.update_line_tag()
+        print("self.current_tag:", self.current_tag)
     # end def
 
 
@@ -512,7 +512,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Return> key press;
         """
-        #~ print("slot_on_key_return")
+        print("slot_on_key_return")
         # inits
         _map = self.get_element_mappings()
         # allowed to create new element line?
@@ -563,7 +563,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Del> key release;
         """
-        #~ print("slot_on_keyup_delete")
+        print("slot_on_keyup_delete")
         # text area is empty?
         if not self.get("1.0").strip("\n"):
             # reset widget

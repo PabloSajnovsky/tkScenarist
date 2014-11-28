@@ -153,6 +153,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             self.tag_remove(self.tag_names(TK.INSERT), *self.INS_LINE)
             # reset tag all line long
             self.tag_add(_tag, *self.INS_LINE)
+            # show line
+            self.see(TK.INSERT)
             # notify app
             self.events.raise_event(
                 "Scenario:Current:Element:Update", element_tag=_tag

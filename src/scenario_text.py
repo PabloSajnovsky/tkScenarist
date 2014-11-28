@@ -472,7 +472,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # set to uppercase
             self.insert(TK.INSERT, _char.upper())
             # update line infos
-            self.update_line_tag()
+            #~ self.update_line_tag()
             # break the tkevent chain
             return "break"
         # end if
@@ -501,7 +501,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Del> key press;
         """
-        print("slot_on_key_delete")
+        #~ print("slot_on_key_delete")
+        pass
     # end def
 
 
@@ -509,7 +510,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Return> key press;
         """
-        print("slot_on_key_return")
+        #~ print("slot_on_key_return")
         # inits
         _map = self.get_element_mappings()
         # allowed to create new element line?
@@ -536,7 +537,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: general keyboard key press;
         """
-        print("slot_on_keypress")
+        #~ print("slot_on_keypress")
         # notify app
         #~ self.events.raise_event("Project:Modified")
         # switch to specific method
@@ -550,7 +551,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: general keyboard key release;
         """
-        print("slot_on_keyrelease")
+        #~ print("slot_on_keyrelease")
         # update line infos
         self.update_line_tag()
     # end def
@@ -560,7 +561,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Del> key release;
         """
-        print("slot_on_keyup_delete")
+        #~ print("slot_on_keyup_delete")
+        # update line infos
         self.update_line_tag()
         # text area is empty?
         if not self.get("1.0").strip("\n"):

@@ -25,6 +25,7 @@
 # lib imports
 import tkinter as TK
 import tkRAD.widgets.rad_widget_base as RW
+import tkRAD.core.async as ASYNC
 
 
 class ScenarioText (RW.RADWidgetBase, TK.Text):
@@ -120,6 +121,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             updates line contents in order to keep it correctly
             up-to-date;
         """
+        print("=== do update line ===")
         # get tag at insertion cursor
         _tag = self.update_current_tag(TK.INSERT)
         # got element tag?
@@ -372,6 +374,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # safe inits
         self.ELEMENT = self.ELEMENT.copy()
+        self.async = ASYNC.get_async_manager()
         # member inits
         self.init_members(**kw)
         # deferred inits
@@ -643,7 +646,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             correctly up-to-date;
         """
         # deferred task (after idle tasks)
-        self.after_idle(self._do_update_line)
+        self.async.run_after_idle(self._do_update_line)
     # end def
 
 # end class ScenarioText

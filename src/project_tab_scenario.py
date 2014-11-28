@@ -111,21 +111,18 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
-    def slot_update_current_element (self, *args, element_tag=None, **kw):
+    def slot_update_current_element (self, *args, **kw):
         """
             event handler: updates current element info;
         """
-        # param controls
-        if element_tag:
-            # inits
-            _label = lambda n: self.TEXT.get_label(n)
-            _map = self.TEXT.get_element_mappings()
-            # reset widgets
-            self.LBL_CUR_ELT.set(_label(_map["tag"]))
-            self.LBL_TAB.set(_label(_map["tab"] or _map["tab_switch"]))
-            self.LBL_RET.set(_label(_map["return"]))
-            self.LBL_CTRL_RET.set(_label(_map["ctrl_return"]))
-        # end if
+        # inits
+        _label = lambda n: self.TEXT.get_label(n)
+        _map = self.TEXT.get_element_mappings()
+        # reset widgets
+        self.LBL_CUR_ELT.set(_label(_map["tag"]))
+        self.LBL_TAB.set(_label(_map["tab"] or _map["tab_switch"]))
+        self.LBL_RET.set(_label(_map["return"]))
+        self.LBL_CTRL_RET.set(_label(_map["ctrl_return"]))
     # end def
 
 # end class ProjectTabScenario

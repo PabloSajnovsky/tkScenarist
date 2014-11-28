@@ -566,8 +566,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on 'transition' element key press;
         """
-        # notify app
-        self.events.raise_event("Project:Modified")
+        # same as SCENE
+        return self.slot_keypress_scene(event, *args, **kw)
     # end def
 
 

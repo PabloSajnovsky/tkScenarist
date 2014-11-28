@@ -50,6 +50,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "action": {
             "label": _("Action"),
             "config": {
+                "background": "sky blue",
                 "spacing3": "5",
             },
             "on_return": "action",

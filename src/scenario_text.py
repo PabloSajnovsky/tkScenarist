@@ -153,8 +153,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             self.tag_remove(self.tag_names(TK.INSERT), *self.INS_LINE)
             # reset tag all line long
             self.tag_add(_tag, *self.INS_LINE)
-            # show line
-            self.see(TK.INSERT)
             # notify app
             self.events.raise_event(
                 "Scenario:Current:Element:Update", element_tag=_tag
@@ -425,6 +423,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.tag_remove(self.tag_names(TK.INSERT), *self.INS_LINE)
         # set new tag instead
         self.tag_add(new_tag, *self.INS_LINE)
+        # notify app
+        self.events.raise_event("Project:Modified")
     # end def
 
 
@@ -469,6 +469,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             elif _map.get(switch_key):
                 # switch tag for current line
                 self.update_line(force_tag=_map.get(switch_key))
+                # notify app
+                self.events.raise_event("Project:Modified")
             # end if
         # end if
         # break the tkevent chain
@@ -502,7 +504,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on 'action' element key press;
         """
-        pass                                                                # FIXME
+        # notify app
+        self.events.raise_event("Project:Modified")
     # end def
 
 
@@ -519,7 +522,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on 'dialogue' element key press;
         """
-        pass                                                                # FIXME
+        # notify app
+        self.events.raise_event("Project:Modified")
     # end def
 
 
@@ -527,7 +531,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on 'parenthetical' element key press;
         """
-        pass                                                                # FIXME
+        # notify app
+        self.events.raise_event("Project:Modified")
     # end def
 
 
@@ -548,6 +553,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # end try
             # set to uppercase
             self.insert(TK.INSERT, _char.upper())
+            # notify app
+            self.events.raise_event("Project:Modified")
             # break the tkevent chain
             return "break"
         # end if
@@ -558,7 +565,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on 'transition' element key press;
         """
-        pass                                                                # FIXME
+        # notify app
+        self.events.raise_event("Project:Modified")
     # end def
 
 
@@ -602,8 +610,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: general keyboard key press;
         """
-        # notify app
-        #~ self.events.raise_event("Project:Modified")
         # update line infos (deferred)
         self.update_line()
         # switch to specific method

@@ -50,9 +50,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "action": {
             "label": _("Action"),
             "config": {
-                "lmargin1": "10",
-                "lmargin2": "10",
-                "rmargin": "10",
                 "spacing1": "5",
                 "spacing3": "5",
             },

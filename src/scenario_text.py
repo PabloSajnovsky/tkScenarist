@@ -637,6 +637,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # reset widget
             self.reset()
         # end if
+        # notify app
+        self.events.raise_event("Project:Modified")
     # end def
 
 

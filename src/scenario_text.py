@@ -507,19 +507,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def slot_on_keyup_delete (self, event=None, *args, **kw):
-        """
-            event handler: on <Del> key release;
-        """
-        print("first char:", repr(self.get("1.0")))
-        # text area is empty?
-        if not self.get("1.0", "2.0").strip("\n"):
-            # reset widget
-            self.reset()
-        # end if
-    # end def
-
-
     def slot_on_key_return (self, event=None, *args, **kw):
         """
             event handler: on <Return> key press;
@@ -568,6 +555,18 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         #~ print("slot_on_keyrelease")
         # update line infos
         self.update_line_tag()
+    # end def
+
+
+    def slot_on_keyup_delete (self, event=None, *args, **kw):
+        """
+            event handler: on <Del> key release;
+        """
+        # text area is empty?
+        if not self.get("1.0").strip("\n"):
+            # reset widget
+            self.reset()
+        # end if
     # end def
 
 

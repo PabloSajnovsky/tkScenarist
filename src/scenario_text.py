@@ -635,8 +635,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         print("update_line_tag: current line tag:", _tag)
         # got element tag?
         if _tag in self.ELEMENT:
-            # remove tag
-            self.tag_remove(_tag, *self.INS_LINE)
+            # remove tags
+            self.tag_remove(self.tag_names(TK.INSERT), *self.INS_LINE)
             # reset tag all line long
             self.tag_add(_tag, *self.INS_LINE)
             # notify app

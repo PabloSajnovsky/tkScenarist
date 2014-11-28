@@ -50,7 +50,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "action": {
             "label": _("Action"),
             "config": {
-                "background": "sky blue",
+                #~ "background": "sky blue",
                 "spacing1": "3",
                 "spacing3": "2",
             },
@@ -66,6 +66,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 "background": "lemon chiffon",
                 "lmargin1": "5c",
                 "lmargin2": "5c",
+                "rmargin": "1c",
             },
             "on_return": "dialogue",
             "on_tab": "parenthetical",
@@ -75,31 +76,35 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "dialogue": {
             "label": _("Dialogue"),
             "config": {
-                "background": "orange",
+                #~ "background": "orange",
                 "lmargin1": "3c",
                 "lmargin2": "3c",
+                "rmargin": "1c",
             },
             "on_return": "character",
             "on_tab": "action",
             "tab_switch": "parenthetical",
-            "ctrl_return": "action",
+            "ctrl_return": "scene",
         },
         "parenthetical": {
             "label": _("Parenthetical"),
             "config": {
-                "background": "yellow",
+                #~ "background": "yellow",
                 "lmargin1": "4c",
                 "lmargin2": "4c",
+                "rmargin": "1c",
             },
             "on_return": "dialogue",
-            "on_tab": "action",
-            "tab_switch": "character",
-            "ctrl_return": "dialogue",
+            "on_tab": "dialogue",
+            "tab_switch": "dialogue",
+            "ctrl_return": "action",
         },
         "scene": {
             "label": _("Scene"),
             "config": {
                 "background": "grey90",
+                "spacing1": "5",
+                "spacing3": "5",
             },
             "on_return": "action",
             "on_tab": "character",
@@ -245,6 +250,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # simply insert new line
         self.insert_new_line(tag, index)
+        # insert parenthesis
+        self.insert(index, "()", (tag,))
+        # put cursor
+        self.move_cursor("{}+1c".format(index))
     # end def
 
 

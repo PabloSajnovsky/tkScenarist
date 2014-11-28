@@ -471,8 +471,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # end try
             # set to uppercase
             self.insert(TK.INSERT, _char.upper())
-            # update line infos
-            #~ self.update_line_tag()
             # break the tkevent chain
             return "break"
         # end if
@@ -502,7 +500,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Del> key press;
         """
         #~ print("slot_on_key_delete")
-        pass
+        # update line infos
+        self.after_idle(self.update_line_tag)
     # end def
 
 
@@ -540,6 +539,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         #~ print("slot_on_keypress")
         # notify app
         #~ self.events.raise_event("Project:Modified")
+        # update line infos
+        self.after_idle(self.update_line_tag)
         # switch to specific method
         return self.switch_to_method(
             "slot_keypress_{}".format(self.get_line_tag()), event
@@ -562,8 +563,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Del> key release;
         """
         #~ print("slot_on_keyup_delete")
-        # update line infos
-        self.update_line_tag()
         # text area is empty?
         if not self.get("1.0").strip("\n"):
             # reset widget

@@ -510,13 +510,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         _map = self.get_element_mappings()
         # allowed to create new element line?
         if _map and _map["return"]:
-            """
-                FIXME:
-                look ahead if next line is not already of
-                _map["return"] element type;
-                if so, just self.move_cursor(index) to this line;
-                if not, then self.create_element_line(tag);
-            """
             # allow new line
             self.create_element_line(_map["return"])
         # end if

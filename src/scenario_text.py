@@ -562,6 +562,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Del> key release;
         """
         print("slot_on_keyup_delete")
+        self.update_line_tag()
         # text area is empty?
         if not self.get("1.0").strip("\n"):
             # reset widget
@@ -633,9 +634,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         print("update_line_tag: current line tag:", _tag)
         # got element tag?
         if _tag in self.ELEMENT:
+            print("1.all tags @insert:", self.tag_names(TK.INSERT))
             # remove tags
-            self.tag_remove(_tag, *self.INS_LINE)
-            # end for
+            self.tag_remove(self.tag_names(TK.INSERT), *self.INS_LINE)
+            print("2.all tags @insert:", self.tag_names(TK.INSERT))
             # reset tag all line long
             self.tag_add(_tag, *self.INS_LINE)
             # notify app

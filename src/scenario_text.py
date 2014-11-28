@@ -58,6 +58,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "on_tab": "character",
             "tab_switch": "character",
             "ctrl_return": "character",
+            "ctrl_switch": "scene",
         },
         "character": {
             "label": _("Character"),
@@ -289,10 +290,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 # init values
                 _map = {
                     "tag": _tag,
-                    "tab": _element["on_tab"],
+                    "tab": _element.get("on_tab") or "",
                     "tab_switch": "",
-                    "return": _element["on_return"],
-                    "ctrl_return": _element["ctrl_return"],
+                    "return": _element.get("on_return") or "",
+                    "ctrl_return": _element.get("ctrl_return") or "",
+                    "ctrl_switch": "",
                 }
             # virgin line
             else:
@@ -300,9 +302,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 _map = {
                     "tag": _tag,
                     "tab": "",
-                    "tab_switch": _element["tab_switch"],
+                    "tab_switch": _element.get("tab_switch") or "",
                     "return": "",
                     "ctrl_return": "",
+                    "ctrl_switch": _element.get("ctrl_switch") or "",
                 }
             # end if
             # return mappings
@@ -420,6 +423,30 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def manage_line (self, create_key, switch_key):
+        """
+            determines whether to create/switch line at insertion
+            cursor index;
+        """
+        # inits
+        _map = self.get_element_mappings()
+        # got mappings?
+        if _map:
+            # allowed to create line?
+            if _map.get(create_key):
+                # create new line
+                self.create_element_line(_map.get(create_key))
+            # switch current line?
+            elif _map.get(switch_key):
+                # switch tag for current line
+                self.update_line(force_tag=_map.get(switch_key))
+            # end if
+        # end if
+        # break the tkevent chain
+        return "break"
+    # end def
+
+
     def move_cursor (self, index):
         """
             moves insertion cursor programmatically;
@@ -509,9 +536,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Ctrl-Return> key press;
         """
-        print("slot_on_key_ctrl_return")
-        # break the tkevent chain
-        return "break"
+        # manage line (create/switch)
+        return self.manage_line("ctrl_return", "ctrl_switch")
     # end def
 
 
@@ -528,15 +554,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Return> key press;
         """
-        # inits
-        _map = self.get_element_mappings()
-        # allowed to create new element line?
-        if _map and _map["return"]:
-            # create new line
-            self.create_element_line(_map["return"])
-        # end if
-        # break the tkevent chain
-        return "break"
+        # manage line (create/switch)
+        return self.manage_line("return", "return_switch")
     # end def
 
 
@@ -544,23 +563,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Tab> key press;
         """
-        #~ print("slot_on_key_tab")
-        # inits
-        _map = self.get_element_mappings()
-        # got mappings?
-        if _map:
-            # allowed to create line?
-            if _map["tab"]:
-                # create new line
-                self.create_element_line(_map["tab"])
-            # switch current line?
-            elif _map["tab_switch"]:
-                # switch tag for current line
-                self.update_line(force_tag=_map["tab_switch"])
-            # end if
-        # end if
-        # break the tkevent chain
-        return "break"
+        # manage line (create/switch)
+        return self.manage_line("tab", "tab_switch")
     # end def
 
 

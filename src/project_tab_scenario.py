@@ -122,7 +122,9 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.LBL_CUR_ELT.set(_label(_map["tag"]))
         self.LBL_TAB.set(_label(_map["tab"] or _map["tab_switch"]))
         self.LBL_RET.set(_label(_map["return"]))
-        self.LBL_CTRL_RET.set(_label(_map["ctrl_return"]))
+        self.LBL_CTRL_RET.set(
+            _label(_map["ctrl_return"] or _map["ctrl_switch"])
+        )
     # end def
 
 # end class ProjectTabScenario

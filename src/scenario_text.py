@@ -503,7 +503,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Del> key press;
         """
         print("slot_on_key_delete")
-        print("line tag:", self.get_line_tag(index="insert-1c", strict=True))
+        self.update_current_tag(index="insert-1c")
     # end def
 
 

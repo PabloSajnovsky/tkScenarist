@@ -385,10 +385,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # browse tags
         for _tag in self.ELEMENT:
             # get ranges
-            _dict[_tag] = self.tag_ranges(_tag)
+            _dict[_tag] = [str(_i) for _i in self.tag_ranges(_tag)]
         # end for
-        print("JSON dump:", json.dumps(_dict))
-        # FIXME
+        # return file contents as JSON string dump
         return json.dumps(_dict)
     # end def
 

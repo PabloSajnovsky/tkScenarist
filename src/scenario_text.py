@@ -340,7 +340,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 self.tag_add(
                     _tag,
                     "{} linestart".format(_index),
-                    "{} lineend".format(_index)
+                    "{} linestart + 1 line".format(_index)
                 )
             # end for
         # end for
@@ -420,8 +420,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         _dict = dict()
         # browse tags
         for _tag in self.ELEMENT:
-            # get ranges
-            _dict[_tag] = [str(_i) for _i in self.tag_ranges(_tag)]
+            # browse ranges
+            for _i in self.tag_ranges(_tag):
+                # reset values
+                _dict[int(_i)] = _tag
+            # end for
         # end for
         # return file contents as JSON string dump
         return json.dumps(_dict)

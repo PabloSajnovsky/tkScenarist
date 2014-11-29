@@ -503,14 +503,14 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         _text = self.get(*self.INS_LINE_END)
         _cursor = self.index(TK.INSERT)
         # reformat along with element tag constraints
-        _text = self.switch_to_method(
+        _text, _adjust = self.switch_to_method(
             "reformat_line_{}".format(_tag), _text
         )
         # reset text
         self.delete(*self.INS_LINE_END)
         self.insert(self.INS_LINE_END[0], _text, _tag)
         # reset cursor
-        #~ self.move_cursor(_cursor)
+        self.move_cursor("{} {}".format(_cursor, _adjust))
     # end def
 
 
@@ -519,7 +519,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             reformats current line along with element constraints;
         """
         # nothing to do here
-        return text
+        return (text, "")
     # end def
 
 
@@ -528,7 +528,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             reformats current line along with element constraints;
         """
         # ensure upper case
-        return text.upper()
+        return (text.upper(), "")
     # end def
 
 
@@ -537,7 +537,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             reformats current line along with element constraints;
         """
         # ensure not parenthetical
-        return text.strip("()")
+        return (text.strip("()"), "")
     # end def
 
 
@@ -545,10 +545,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             reformats current line along with element constraints;
         """
-        # move cursor
-        self.move_cursor("insert+1c")
         # ensure parenthetical
-        return "({})".format(text.strip("()"))
+        return ("({})".format(text.strip("()")), "+1c")
     # end def
 
 
@@ -557,7 +555,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             reformats current line along with element constraints;
         """
         # ensure upper case
-        return text.upper()
+        return (text.upper(), "")
     # end def
 
 
@@ -566,7 +564,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             reformats current line along with element constraints;
         """
         # ensure upper case
-        return text.upper()
+        return (text.upper(), "")
     # end def
 
 

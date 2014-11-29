@@ -46,7 +46,11 @@ class ProjectFileManagement:
             "logs": "characters_logs.txt",
             "relations": "characters_relations.txt",
         },
-        "tab_scenario": "scenario.txt",
+        "tab_scenario": {
+            "text": "scenario_text.txt",
+            "tags": "scenario_tags.txt",
+            "elements": "scenario_elements.txt",
+        },
         "tab_storyboard": "storyboard.txt",
         "tab_resources": "resources.txt",
     }

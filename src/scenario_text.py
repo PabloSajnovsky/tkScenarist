@@ -516,10 +516,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # reset text
         self.delete(*self.INS_LINE_END)
         self.insert(self.INS_LINE_END[0], _text, _tag)
-        # reset cursor
+        # forbid adjustments?
         if not kw.get("no_adjust"):
-            self.move_cursor("{} {}".format(_cursor, _adjust))
+            _adjust = ""
         # end if
+        # reset cursor
+        self.move_cursor("{} {}".format(_cursor, _adjust))
     # end def
 
 

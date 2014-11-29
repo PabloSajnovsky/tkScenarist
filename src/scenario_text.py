@@ -36,12 +36,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
 
     # class constant defs
     CONFIG = {
-        "autoseparators": False,
+        "autoseparators": True,
         "background": "white",
         "font": "monospace 12",
         "foreground": "black",
         "highlightthickness": 1,
-        "undo": False,
+        "undo": True,
         "wrap": "word",
     }
 
@@ -79,6 +79,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "dialogue": {
             "label": _("Dialogue"),
             "config": {
+                "foreground": "red",
                 "lmargin1": "3c",
                 "lmargin2": "3c",
                 "rmargin": "1c",
@@ -489,7 +490,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             _config = _element.get("config")
             # got tag configuration?
             if _config:
-                # init element style
+                # delete tag first
+                self.tag_delete(_tag)
+                # reset config
                 self.tag_configure(_tag, **_config)
             # end if
         # end for

@@ -36,12 +36,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
 
     # class constant defs
     CONFIG = {
-        "autoseparators": True,
+        "autoseparators": False,
         "background": "white",
         "font": "monospace 12",
         "foreground": "black",
         "highlightthickness": 1,
-        "undo": True,
+        "undo": False,
         "wrap": "word",
     }
 
@@ -233,6 +233,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # clear text
         self.delete("1.0", "end")
+        self.edit_reset()
     # end def
 
 
@@ -323,7 +324,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         _get_fc = lambda k: archive.read(fname[k]).decode("UTF-8")
         # reset widget
         self.reset()
-        print("tags:", self.tag_names())
+        print("tags:", self.tag_names("1.0"))
         # put text
         self.insert("1.0", _get_fc("text").rstrip())
         # put elements

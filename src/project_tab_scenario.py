@@ -105,7 +105,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: reset tab to new;
         """
         # reset Text widget
-        self.text_clear_contents(self.TEXT)
+        self.TEXT.reset()
     # end def
 
 

@@ -474,7 +474,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 # switch tag for current line
                 self.update_line(force_tag=_map.get(switch_key))
                 # reformat text along element tag
-                self.reformat_line(force_tag=_map.get(switch_key))
+                self.after_idle(self.reformat_line)
                 # notify app
                 self.events.raise_event("Project:Modified")
             # end if
@@ -499,8 +499,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             to match element tag constraints;
         """
         # inits
-        _tag = self.update_current_tag(**kw)
-        print ("tag:", _tag, self.tag_names(TK.INSERT))
+        _tag = self.update_current_tag(TK.INSERT)
         _text = self.get(*self.INS_LINE_END)
         _cursor = self.index(TK.INSERT)
         # reformat along with element tag constraints
@@ -511,7 +510,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.delete(*self.INS_LINE_END)
         self.insert(self.INS_LINE_END[0], _text, _tag)
         # reset cursor
-        self.move_cursor(_cursor)
+        #~ self.move_cursor(_cursor)
     # end def
 
 
@@ -546,6 +545,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             reformats current line along with element constraints;
         """
+        # move cursor
+        self.move_cursor("insert+1c")
         # ensure parenthetical
         return "({})".format(text.strip("()"))
     # end def

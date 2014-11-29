@@ -62,6 +62,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "character": {
             "label": _("Character"),
             "config": {
+                "font": "monospace 12 bold",
                 "foreground": "grey40",
                 "lmargin1": "5c",
                 "lmargin2": "5c",

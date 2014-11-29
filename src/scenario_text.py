@@ -323,7 +323,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # reset widget
         self.reset()
         # put text
-        self.insert(TK.END, _get_fc("text").rstrip())
+        self.insert("1.0", _get_fc("text").rstrip())
         # put elements
         self.ELEMENT = json.loads(_get_fc("elements"))
         # reconfigure styles
@@ -340,10 +340,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 self.tag_add(
                     _tag,
                     "{} linestart".format(_index),
-                    "{} linestart+1l".format(_index)
+                    "{} lineend".format(_index)
                 )
             # end for
         # end for
+        # move insertion cursor
+        self.move_cursor("1.0")
     # end def
 
 

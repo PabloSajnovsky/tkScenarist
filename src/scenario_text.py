@@ -332,21 +332,18 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # put tags
         _tags = json.loads(_get_fc("tags"))
         # browse items
-        for _tag, _ranges in _tags.items():
-            # remove tag from widget
-            self.tag_remove(_tag, "1.0", TK.END)
-            # browse indices
-            for _index in _ranges:
-                # reset tag at correct indices
-                self.tag_add(
-                    _tag,
-                    "{} linestart".format(_index),
-                    "{} linestart + 1 line".format(_index)
-                )
-            # end for
+        for _index, _tag in enumerate(_tags):
+            # reset tag at correct indices
+            self.tag_add(
+                _tag,
+                "{}.0".format(_index + 1),
+                "{}.0".format(_index + 2)
+            )
         # end for
         # move insertion cursor
         self.move_cursor("1.0")
+        # update line data
+        self.update_line()
     # end def
 
 
@@ -429,7 +426,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 _tags.append(_tn[0])
             # end if
         # end for
-        print("json dumps:", json.dumps(_tags))
         # return file contents as JSON string dump
         return json.dumps(_tags)
     # end def

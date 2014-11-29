@@ -91,6 +91,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "parenthetical": {
             "label": _("Parenthetical"),
             "config": {
+                "foreground": "grey50",
+                "font": "monospace 12 italic",
                 "lmargin1": "4c",
                 "lmargin2": "4c",
                 "rmargin": "1c",

@@ -474,7 +474,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 # switch tag for current line
                 self.update_line(force_tag=_map.get(switch_key))
                 # reformat text along element tag
-                self.reformat_line()
+                self.reformat_line(force_tag=_map.get(switch_key))
                 # notify app
                 self.events.raise_event("Project:Modified")
             # end if
@@ -499,7 +499,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             to match element tag constraints;
         """
         # inits
-        _tag = self.update_current_tag(TK.INSERT)
+        _tag = self.update_current_tag(**kw)
+        print ("tag:", _tag, self.tag_names(TK.INSERT))
         _text = self.get(*self.INS_LINE_END)
         _cursor = self.index(TK.INSERT)
         # reformat along with element tag constraints

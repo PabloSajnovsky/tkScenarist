@@ -677,7 +677,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on 'action' element key press;
         """
         # notify app
-        if event.char:
+        if event.char and not (event.state & 0x8c):
             self.events.raise_event("Project:Modified")
         # end if
     # end def
@@ -696,10 +696,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on 'dialogue' element key press;
         """
-        # notify app
-        if event.char:
-            self.events.raise_event("Project:Modified")
-        # end if
+        # same as ACTION
+        self.slot_keypress_action(event)
     # end def
 
 
@@ -707,10 +705,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on 'parenthetical' element key press;
         """
-        # notify app
-        if event.char:
-            self.events.raise_event("Project:Modified")
-        # end if
+        # same as ACTION
+        self.slot_keypress_action(event)
     # end def
 
 

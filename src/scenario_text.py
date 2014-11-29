@@ -111,7 +111,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "label": _("Transition"),
             "config": {
                 "justify": "right",
-                "rmargin": "1c",
+                "rmargin": "10",
             },
             "on_return": "scene",
             "on_tab": "transition",
@@ -721,6 +721,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         if len(self.get("1.0", "3.0")) < 2:
             # reset widget
             self.reset()
+        else:
+            # ensure line format
+            self.reformat_line()
         # end if
         # notify app
         self.events.raise_event("Project:Modified")

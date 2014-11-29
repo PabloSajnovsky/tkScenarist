@@ -550,7 +550,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 pass
             # end try
             # set to uppercase
-            self.insert(TK.INSERT, _char.upper())
+            self.insert(
+                TK.INSERT, _char.upper(), self.tag_names(TK.INSERT)
+            )
             # notify app
             self.events.raise_event("Project:Modified")
             # break the tkevent chain
@@ -610,6 +612,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # update line infos (deferred)
         self.update_line()
+        # show insertion cursor
+        self.see(TK.INSERT)
         # switch to specific method
         return self.switch_to_method(
             "slot_keypress_{}".format(self.get_line_tag()), event
@@ -623,11 +627,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # update line infos (deferred)
         self.update_line()
-        # not a mousewheel feature?
-        if event.type == 3:
-            # show insertion cursor
-            self.see(TK.INSERT)
-        # end if
     # end def
 
 

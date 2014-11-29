@@ -59,6 +59,7 @@
                 />
                 <ttklabel
                     textvariable="lbl_current_element"
+                    foreground="royal blue"
                     layout="pack"
                     layout_options="side='left', padx=5"
                     resizable="yes"

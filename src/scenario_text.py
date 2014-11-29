@@ -313,6 +313,40 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def file_setup (self, fname, archive):
+        """
+            sets up widget along with all files/contents in @fname and
+            @archive;
+        """
+        # inits
+        _get_fc = lamba k: archive.read(fname[k]).decode("UTF-8")
+        # reset widget
+        self.reset()
+        # put text
+        self.insert(TK.END, _get_fc("text").rstrip())
+        # put elements
+        self.ELEMENT = json.loads(_get_fc("elements"))
+        # reconfigure styles
+        self.init_styles()
+        # put tags
+        _tags = json.loads(_get_fc("tags"))
+        # browse items
+        for _tag, _ranges in _tags.items():
+            # remove tag from widget
+            self.tag_remove(_tag, "1.0", TK.END)
+            # browse indices
+            for _index in _ranges:
+                # reset tag at correct indices
+                self.tag_add(
+                    _tag,
+                    "{} linestart".format(_index),
+                    "{} linestart+1l".format(_index)
+                )
+            # end for
+        # end for
+    # end def
+
+
     def get_line_tag (self, index=None, strict=False):
         """
             retrieves @index line tag, if given; retrieves insertion

@@ -87,7 +87,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             tab setup along @fname and @archive contents;
         """
         # set text widget contents
-        self.text_set_contents(self.TEXT, fname)
+        self.TEXT.file_setup(fname, archive)
     # end def
 
 

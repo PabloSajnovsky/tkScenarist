@@ -459,6 +459,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         _map = self.get_element_mappings()
         # got mappings?
         if _map:
+            # show insertion cursor
+            self.see(TK.INSERT)
             # allowed to create line?
             if _map.get(create_key):
                 # create new line

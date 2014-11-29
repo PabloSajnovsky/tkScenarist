@@ -324,7 +324,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         _get_fc = lambda k: archive.read(fname[k]).decode("UTF-8")
         # reset widget
         self.reset()
-        print("tags:", self.tag_names("1.0"))
         # put text
         self.insert("1.0", _get_fc("text").rstrip())
         # put elements

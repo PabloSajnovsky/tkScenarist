@@ -62,7 +62,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "character": {
             "label": _("Character"),
             "config": {
-                "background": "lemon chiffon",
                 "lmargin1": "5c",
                 "lmargin2": "5c",
                 "rmargin": "1c",
@@ -124,6 +123,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     INS_LINE = (
         "{} linestart".format(TK.INSERT),
         "{} linestart + 1 line".format(TK.INSERT),
+    )
+
+    INS_LINE_END = (
+        "{} linestart".format(TK.INSERT),
+        "{} lineend".format(TK.INSERT),
     )
 
 
@@ -469,6 +473,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             elif _map.get(switch_key):
                 # switch tag for current line
                 self.update_line(force_tag=_map.get(switch_key))
+                # reformat text along element tag
+                self.reformat_line()
                 # notify app
                 self.events.raise_event("Project:Modified")
             # end if
@@ -484,6 +490,81 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # move insertion cursor
         self.mark_set(TK.INSERT, index)
+    # end def
+
+
+    def reformat_line (self, *args, **kw):
+        """
+            event handler: reformats insertion cursor's line in order
+            to match element tag constraints;
+        """
+        # inits
+        _tag = self.update_current_tag(TK.INSERT)
+        _text = self.get(*self.INS_LINE_END)
+        _cursor = self.index(TK.INSERT)
+        # reformat along with element tag constraints
+        _text = self.switch_to_method(
+            "reformat_line_{}".format(_tag), _text
+        )
+        # reset text
+        self.delete(*self.INS_LINE_END)
+        self.insert(self.INS_LINE_END[0], _text, _tag)
+        # reset cursor
+        self.move_cursor(_cursor)
+    # end def
+
+
+    def reformat_line_action (self, text):
+        """
+            reformats current line along with element constraints;
+        """
+        # nothing to do here
+        return text
+    # end def
+
+
+    def reformat_line_character (self, text):
+        """
+            reformats current line along with element constraints;
+        """
+        # ensure upper case
+        return text.upper()
+    # end def
+
+
+    def reformat_line_dialogue (self, text):
+        """
+            reformats current line along with element constraints;
+        """
+        # ensure not parenthetical
+        return text.strip("()")
+    # end def
+
+
+    def reformat_line_parenthetical (self, text):
+        """
+            reformats current line along with element constraints;
+        """
+        # ensure parenthetical
+        return "({})".format(text.strip("()"))
+    # end def
+
+
+    def reformat_line_scene (self, text):
+        """
+            reformats current line along with element constraints;
+        """
+        # ensure upper case
+        return text.upper()
+    # end def
+
+
+    def reformat_line_transition (self, text):
+        """
+            reformats current line along with element constraints;
+        """
+        # ensure upper case
+        return text.upper()
     # end def
 
 

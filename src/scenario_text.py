@@ -423,7 +423,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # browse ranges
             for _i in self.tag_ranges(_tag):
                 # reset values
-                _dict[int(str(_i))] = _tag
+                _dict["{:012d}".format(str(_i))] = _tag
             # end for
         # end for
         print("json dumps:", json.dumps(_dict))

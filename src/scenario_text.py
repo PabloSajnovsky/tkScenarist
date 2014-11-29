@@ -376,6 +376,23 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def get_fc_tags (self):
+        """
+            returns file contents for tags in widget;
+        """
+        # inits
+        _dict = dict()
+        # browse tags
+        for _tag in self.ELEMENT:
+            # get ranges
+            _dict[_tag] = self.tag_ranges(_tag)
+        # end for
+        print("JSON dump:", json.dumps(_dict))
+        # FIXME
+        return json.dumps(_dict)
+    # end def
+
+
     def get_file_contents (self, fname):
         """
             returns file(s) contents;

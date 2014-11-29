@@ -26,6 +26,7 @@
 import json
 import tkinter as TK
 import tkRAD.widgets.rad_widget_base as RW
+from tkRAD.core import tools
 
 
 class ScenarioText (RW.RADWidgetBase, TK.Text):
@@ -417,18 +418,20 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             returns file contents for tags in widget;
         """
         # inits
-        _dict = dict()
-        # browse tags
-        for _tag in self.ELEMENT:
-            # browse ranges
-            for _i in self.tag_ranges(_tag):
-                # reset values
-                _dict["{:012d}".format(str(_i))] = _tag
-            # end for
+        _tags = list()
+        # browse widget lines
+        for _line in range(tools.ensure_int(self.index(TK.END))):
+            # inits
+            _tn = self.tag_names("{}.0".format(_line + 1))
+            # got tag names?
+            if _tn:
+                # add to list
+                _tags.append(_tn[0])
+            # end if
         # end for
-        print("json dumps:", json.dumps(_dict))
+        print("json dumps:", json.dumps(_tags))
         # return file contents as JSON string dump
-        return json.dumps(_dict)
+        return json.dumps(_tags)
     # end def
 
 

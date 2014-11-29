@@ -426,6 +426,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 _dict[int(_i)] = _tag
             # end for
         # end for
+        print("json dumps:", json.dumps(_dict))
         # return file contents as JSON string dump
         return json.dumps(_dict)
     # end def

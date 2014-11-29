@@ -165,6 +165,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # reset text
         self.delete(*self.INS_LINE_END)
         self.insert(self.INS_LINE_END[0], _text, _tag)
+        # disable adjustements?
+        if kw.get("no_adjust"):
+            _adjust = ""
+        # end if
         # reset cursor
         self.move_cursor("{} {}".format(_cursor, _adjust))
     # end def
@@ -686,7 +690,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # update line infos (deferred)
         self.update_line()
         # ensure line format (deferred)
-        self.reformat_line()
+        self.reformat_line(no_adjust=True)
     # end def
 
 

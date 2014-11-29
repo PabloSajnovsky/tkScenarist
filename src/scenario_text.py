@@ -48,7 +48,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     DEFAULT_TAG = "scene"
 
     # NOTICE: element name == element tag
-    ELEMENT = {
+    ELEMENT_DEFAULTS = {
         "action": {
             "label": _("Action"),
             "config": {
@@ -476,6 +476,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             class members only inits;
         """
         # members only inits
+        self.ELEMENT = self.ELEMENT_DEFAULTS.copy()
         self.current_tag = self.DEFAULT_TAG
     # end def
 
@@ -509,8 +510,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         r"""
             virtual method to be implemented in subclass;
         """
-        # safe inits
-        self.ELEMENT = self.ELEMENT.copy()
         # member inits
         self.init_members(**kw)
         # deferred inits

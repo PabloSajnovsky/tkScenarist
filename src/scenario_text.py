@@ -319,7 +319,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             @archive;
         """
         # inits
-        _get_fc = lamba k: archive.read(fname[k]).decode("UTF-8")
+        _get_fc = lambda k: archive.read(fname[k]).decode("UTF-8")
         # reset widget
         self.reset()
         # put text

@@ -52,10 +52,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             returns file contents;
         """
-        # inits
-        fcontents = self.text_get_contents(self.TEXT)
         # always return a dict
-        return {fname: fcontents}
+        return self.TEXT.get_file_contents(fname)
     # end def
 
 

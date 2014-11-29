@@ -23,6 +23,7 @@
 """
 
 # lib imports
+import json
 import tkinter as TK
 import tkRAD.widgets.rad_widget_base as RW
 
@@ -372,6 +373,19 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # return mappings
             return _map
         # end if
+    # end def
+
+
+    def get_file_contents (self, fname):
+        """
+            returns file(s) contents;
+        """
+        # always return a dict
+        return {
+            fname["text"]: self.get("1.0", TK.END),
+            fname["tags"]: self.get_fc_tags(),
+            fname["elements"]: json.dumps(self.ELEMENT),
+        }
     # end def
 
 

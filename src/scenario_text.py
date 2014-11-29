@@ -697,7 +697,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on 'dialogue' element key press;
         """
         # notify app
-        self.events.raise_event("Project:Modified")
+        if event.char:
+            self.events.raise_event("Project:Modified")
+        # end if
     # end def
 
 
@@ -706,7 +708,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on 'parenthetical' element key press;
         """
         # notify app
-        self.events.raise_event("Project:Modified")
+        if event.char:
+            self.events.raise_event("Project:Modified")
+        # end if
     # end def
 
 

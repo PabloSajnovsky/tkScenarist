@@ -149,6 +149,27 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def _do_reformat_line (self, args, kw):
+        """
+            reformats insertion cursor's line in order to match element
+            tag constraints;
+        """
+        # inits
+        _tag = self.update_current_tag(TK.INSERT)
+        _text = self.get(*self.INS_LINE_END)
+        _cursor = self.index(TK.INSERT)
+        # reformat along with element tag constraints
+        _text, _adjust = self.switch_to_method(
+            "reformat_line_{}".format(_tag), _text
+        )
+        # reset text
+        self.delete(*self.INS_LINE_END)
+        self.insert(self.INS_LINE_END[0], _text, _tag)
+        # reset cursor
+        self.move_cursor("{} {}".format(_cursor, _adjust))
+    # end def
+
+
     def _do_update_line (self, args, kw):
         """
             updates line contents in order to keep it correctly
@@ -480,8 +501,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             elif _map.get(switch_key):
                 # switch tag for current line
                 self.update_line(force_tag=_map.get(switch_key))
-                # reformat text along element tag
-                self.after_idle(self.reformat_line)
+                # ensure line format (deferred)
+                self.reformat_line()
                 # notify app
                 self.events.raise_event("Project:Modified")
             # end if
@@ -505,23 +526,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: reformats insertion cursor's line in order
             to match element tag constraints;
         """
-        # inits
-        _tag = self.update_current_tag(TK.INSERT)
-        _text = self.get(*self.INS_LINE_END)
-        _cursor = self.index(TK.INSERT)
-        # reformat along with element tag constraints
-        _text, _adjust = self.switch_to_method(
-            "reformat_line_{}".format(_tag), _text
-        )
-        # reset text
-        self.delete(*self.INS_LINE_END)
-        self.insert(self.INS_LINE_END[0], _text, _tag)
-        # forbid adjustments?
-        if not kw.get("no_adjust"):
-            _adjust = ""
-        # end if
-        # reset cursor
-        self.move_cursor("{} {}".format(_cursor, _adjust))
+        # deferred task (after idle tasks)
+        self.after_idle(self._do_reformat_line, args, kw)
     # end def
 
 
@@ -679,6 +685,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # update line infos (deferred)
         self.update_line()
+        # ensure line format (deferred)
+        self.reformat_line()
     # end def
 
 
@@ -732,9 +740,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         if len(self.get("1.0", "3.0")) < 2:
             # reset widget
             self.reset()
-        else:
-            # ensure line format
-            self.reformat_line(no_adjust=True)
         # end if
         # notify app
         self.events.raise_event("Project:Modified")

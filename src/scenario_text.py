@@ -517,7 +517,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.delete(*self.INS_LINE_END)
         self.insert(self.INS_LINE_END[0], _text, _tag)
         # reset cursor
-        self.move_cursor("{} {}".format(_cursor, _adjust))
+        if not kw.get("no_adjust"):
+            self.move_cursor("{} {}".format(_cursor, _adjust))
+        # end if
     # end def
 
 
@@ -730,7 +732,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             self.reset()
         else:
             # ensure line format
-            self.reformat_line()
+            self.reformat_line(no_adjust=True)
         # end if
         # notify app
         self.events.raise_event("Project:Modified")

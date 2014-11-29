@@ -36,12 +36,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
 
     # class constant defs
     CONFIG = {
-        "autoseparators": True,
+        "autoseparators": False,
         "background": "white",
         "font": "monospace 12",
         "foreground": "black",
         "highlightthickness": 1,
-        "undo": True,
+        "undo": False,  # do *NOT* change this /!\
         "wrap": "word",
     }
 
@@ -79,7 +79,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "dialogue": {
             "label": _("Dialogue"),
             "config": {
-                "foreground": "red",
+                "foreground": "grey30",
                 "lmargin1": "3c",
                 "lmargin2": "3c",
                 "rmargin": "1c",
@@ -666,11 +666,13 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             resets text to new;
         """
         # clear text
-        self.clear_text()
+        self.clear_text(**kw)
         # reset members
         self.init_members(**kw)
+        # reset styles to defaults
+        self.init_styles(**kw)
         # update line infos (deferred)
-        self.update_line()
+        self.update_line(**kw)
     # end def
 
 

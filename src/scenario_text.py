@@ -763,7 +763,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: disables unwanted key press;
         """
         # break the tkevent chain
-        return "break"
+        pass
+        #~ return "break"
     # end def
 
 

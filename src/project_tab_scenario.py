@@ -37,7 +37,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
 
     # class constant defs
     DEFAULT_HINT = _(
-        "One page of script is generally equal to one minute of movie."
+        "one page of script is generally equal to one minute of movie."
     )
 
     # use i18n support to redefine filepath

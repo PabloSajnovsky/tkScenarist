@@ -1,0 +1,29 @@
+{
+    "default": [
+        "One page of script is generally equal to one minute of movie."
+    ],
+
+    "action": [
+        ""
+    ],
+
+    "character": [
+        ""
+    ],
+
+    "dialogue": [
+        ""
+    ],
+
+    "parenthetical": [
+        ""
+    ],
+
+    "scene": [
+        "a SCENE element should be composed of: INT/EXT - DAY/NIGHT - LOCATION"
+    ],
+
+    "transition": [
+        ""
+    ]
+}

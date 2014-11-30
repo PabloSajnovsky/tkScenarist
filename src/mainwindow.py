@@ -97,7 +97,14 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         self.bind_class(
             "TEntry", "<Expose>", self.disable_ttkentry_expose
         )
-        self.bind_class("Text", "<Control-a>", lambda e:None)
+        for _char in "ako":
+            self.unbind_class(
+                "Text", "<Control-{}>".format(_char.lower())
+            )
+            self.unbind_class(
+                "Text", "<Control-{}>".format(_char.upper())
+            )
+        # end for
     # end def
 
 
@@ -238,6 +245,10 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             w = self.focus_lastfor()
             # Text widget?
             if hasattr(w, "tag_add"):
+                # configure selection tag
+                self.tag_configure(
+                    "sel", background="grey30", foreground="white"
+                )
                 # select all text
                 w.tag_add("sel", "1.0", "end")
                 # this disables tkinter chain of internal bindings

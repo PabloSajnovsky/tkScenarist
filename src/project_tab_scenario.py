@@ -115,7 +115,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: item has been selected on combobox;
         """
-        print("combobox selected")
         # inits
         _text = self.CBO_CUR_ELT.get()
         # got something new?

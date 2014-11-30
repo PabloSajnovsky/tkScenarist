@@ -225,8 +225,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.bind("<BackSpace>", self.slot_on_key_delete)
         self.bind("<KeyRelease-Delete>", self.slot_on_keyup_delete)
         self.bind("<KeyRelease-BackSpace>", self.slot_on_keyup_delete)
-        self.unbind("<Control-Key>")
-        self.unbind("<Control-Shift-Key>")
     # end def
 
 

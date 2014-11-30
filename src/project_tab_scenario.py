@@ -86,6 +86,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # member inits
         self.mainwindow = self.winfo_toplevel()
         self.mainframe = self.mainwindow.mainframe
+        # get data
+        self.INFO_HINTS = self.reset_hints()
         # looks for ^/xml/widget/tab_scenario.xml
         self.xml_build("tab_scenario")
         # widget inits
@@ -99,8 +101,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.LBL_RET = self.get_stringvar("lbl_on_return")
         self.LBL_CTRL_RET = self.get_stringvar("lbl_on_ctrl_return")
         self.LBL_HINT = self.get_stringvar("lbl_info_hint")
-        # get data
-        self.INFO_HINTS = self.reset_hints()
         # event bindings
         self.bind_events(**kw)
     # end def

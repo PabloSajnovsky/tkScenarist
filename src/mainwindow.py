@@ -93,6 +93,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
                     self.slot_tools_pitch_templates,
             }
         )
+        # tkinter event bindings
+        self.bind_all("<Control-Q>", self._slot_quit_app)
         # disable unwanted internal bindings
         self.bind_class(
             "TEntry", "<Expose>", self.disable_ttkentry_expose

@@ -232,9 +232,13 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         _hints = (
             self.INFO_HINTS.get(element_tag)
             or self.INFO_HINTS.get("default")
-            or []
+            or [self.DEFAULT_HINT]
         )
-        _hints.append(self.DEFAULT_HINT)
+        # ensure to show default hint sometimes
+        if random.randint(10) == 3:
+            # force default
+            _hints = [self.DEFAULT_HINT]
+        # end if
         # update hints text
         self.LBL_HINT.set(str(random.choice(_hints)))
     # end def

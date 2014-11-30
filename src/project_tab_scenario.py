@@ -72,7 +72,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # widget inits
         self.TEXT = self.text_scenario
         self.COMBO = self.combo_elements
-        self.COMBO.state("readonly")
+        self.COMBO.state(["readonly"])
         self.CBO_CUR_ELT = self.get_stringvar("combo_current_element")
         self.LBL_TAB = self.get_stringvar("lbl_on_tab")
         self.LBL_RET = self.get_stringvar("lbl_on_return")

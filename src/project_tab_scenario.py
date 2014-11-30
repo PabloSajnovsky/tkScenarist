@@ -68,23 +68,35 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # member inits
         self.mainwindow = self.winfo_toplevel()
         self.mainframe = self.mainwindow.mainframe
-        self.text_clear_contents = self.mainwindow.text_clear_contents
-        self.text_get_contents = self.mainwindow.text_get_contents
-        self.text_set_contents = self.mainwindow.text_set_contents
         # looks for ^/xml/widget/tab_scenario.xml
         self.xml_build("tab_scenario")
         # widget inits
         self.TEXT = self.text_scenario
         self.COMBO = self.combo_elements
         self.COMBO.state(["readonly"])
+        self.COMBO.current_selected = ""
+        self.COMBO.elements = dict()
         self.CBO_CUR_ELT = self.get_stringvar("combo_current_element")
         self.LBL_TAB = self.get_stringvar("lbl_on_tab")
         self.LBL_RET = self.get_stringvar("lbl_on_return")
         self.LBL_CTRL_RET = self.get_stringvar("lbl_on_ctrl_return")
         # event bindings
         self.bind_events(**kw)
-        # reset tab
-        #~ self.after_idle(self.slot_tab_reset)
+    # end def
+
+
+    def set_combo_text (self, text):
+        """
+            sets combobox' entry text;
+        """
+        # param controls
+        if text in self.COMBO.elements and \
+                                    text != self.COMBO.current_selected:
+            # reset current selected
+            self.COMBO.current_selected = text
+            # set text
+            self.CBO_CUR_ELT.set(text)
+        # end if
     # end def
 
 
@@ -110,6 +122,21 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: elements have been init'ed;
         """
         print("slot_elements_init")
+        # param controls
+        if elements:
+            # inits
+            self.COMBO.current_selected = ""
+            self.COMBO.elements = dict()
+            # browse elements
+            for _element in elements:
+                # reset values
+                self.COMBO.elements[
+                    self.TEXT.get_label(_element)
+                    ] = _element
+            # end for
+            # reset combobox contents
+            self.COMBO.configure(values=elements)
+        # end if
     # end def
 
 
@@ -139,7 +166,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         _label = lambda n: self.TEXT.get_label(n)
         _map = self.TEXT.get_element_mappings()
         # reset widgets
-        self.CBO_CUR_ELT.set(_label(_map["tag"]))
+        self.set_combo_text(_label(_map["tag"]))
         self.LBL_TAB.set(_label(_map["tab"] or _map["tab_switch"]))
         self.LBL_RET.set(_label(_map["return"]))
         self.LBL_CTRL_RET.set(

@@ -92,10 +92,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # param controls
         if text in self.COMBO.elements and \
                                     text != self.COMBO.current_selected:
-            # reset current selected
-            self.COMBO.current_selected = text
-            # reset selection
-            self.COMBO.selection_clear()
+            # update current selected
+            self.update_selected(text)
             # set text
             self.CBO_CUR_ELT.set(text)
         # end if
@@ -115,13 +113,12 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: item has been selected on combobox;
         """
-        print("slot_combo_item_selected")
         # inits
         _text = self.CBO_CUR_ELT.get()
         # got something new?
         if _text != self.COMBO.current_selected:
             # update current selected
-            self.COMBO.current_selected = _text
+            self.update_selected(_text)
             # notify app
             self.events.raise_event(
                 "Scenario:Switch:Line",
@@ -185,6 +182,17 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.LBL_CTRL_RET.set(
             _label(_map["ctrl_return"] or _map["ctrl_switch"])
         )
+    # end def
+
+
+    def update_selected (self, text):
+        """
+            updates current selected value;
+        """
+        # reset current selected
+        self.COMBO.current_selected = text
+        # reset selection
+        self.COMBO.selection_clear()
     # end def
 
 # end class ProjectTabScenario

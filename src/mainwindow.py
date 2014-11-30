@@ -246,7 +246,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             # Text widget?
             if hasattr(w, "tag_add"):
                 # configure selection tag
-                self.tag_configure(
+                w.tag_configure(
                     "sel", background="grey30", foreground="white"
                 )
                 # select all text

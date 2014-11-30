@@ -41,10 +41,10 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                 "Project:Modified": self.slot_project_modified,
 
                 "Scenario:Combo:Item:Selected":
-                    self.slot_combo_on_mouseup,
-
+                    self.slot_combo_item_selected,
                 "Scenario:Current:Element:Update":
                     self.slot_update_current_element,
+                "Scenario:Elements:Init": self.slot_elements_init,
 
                 "Tab:Reset": self.slot_tab_reset,
             }
@@ -97,11 +97,19 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
-    def slot_combo_on_mouseup (self, *args, **kw):
+    def slot_combo_item_selected (self, *args, **kw):
         """
-            event handler: mouse release on combobox;
+            event handler: item has been selected on combobox;
         """
-        print("slot_combo_on_mouseup")
+        print("slot_combo_item_selected")
+    # end def
+
+
+    def slot_elements_init (self, *args, elements=None, **kw):
+        """
+            event handler: elements have been init'ed;
+        """
+        print("slot_elements_init")
     # end def
 
 

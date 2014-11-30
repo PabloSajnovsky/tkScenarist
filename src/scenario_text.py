@@ -328,9 +328,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # put text
         self.insert("1.0", _get_fc("text").rstrip())
         # put elements
-        self.ELEMENT = json.loads(_get_fc("elements"))
-        # reconfigure styles
-        self.init_styles()
+        self.reset_elements(json.loads(_get_fc("elements")))
         # put tags
         _tags = json.loads(_get_fc("tags"))
         # browse items
@@ -462,12 +460,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             deferred inits;
         """
-        # tag styles inits
-        self.init_styles(**kw)
-        # event bindings
-        self.bind_events(**kw)
         # first time init
         self.reset()
+        # event bindings
+        self.bind_events(**kw)
     # end def
 
 
@@ -476,8 +472,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             class members only inits;
         """
         # members only inits
-        self.ELEMENT = self.ELEMENT_DEFAULTS.copy()
         self.current_tag = self.DEFAULT_TAG
+        self.reset_elements(self.ELEMENT_DEFAULTS.copy())
     # end def
 
 
@@ -510,8 +506,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         r"""
             virtual method to be implemented in subclass;
         """
-        # member inits
-        self.init_members(**kw)
         # deferred inits
         self.after_idle(self.init_deferred, kw)
     # end def
@@ -665,10 +659,26 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.clear_text(**kw)
         # reset members
         self.init_members(**kw)
-        # reset styles to defaults
-        self.init_styles(**kw)
         # update line infos (deferred)
         self.update_line(**kw)
+    # end def
+
+
+    def reset_elements (self, new_dict):
+        """
+            resets self.ELEMENT dictionnary with @new_dict;
+        """
+        if tools.is_pdict(new_dict):
+            # reset dict
+            self.ELEMENT = new_dict
+            # reset configs
+            self.init_styles()
+            # notify app
+            self.events.raise_event(
+                "Scenario:Elements:Init",
+                elements=tuple(sorted(self.ELEMENT))
+            )
+        # end if
     # end def
 
 

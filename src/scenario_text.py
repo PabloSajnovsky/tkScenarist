@@ -666,7 +666,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
 
     def reset_elements (self, new_dict):
         """
-            resets self.ELEMENT dictionnary with @new_dict;
+            resets self.ELEMENT dictionary with @new_dict;
         """
         if tools.is_pdict(new_dict):
             # reset dict

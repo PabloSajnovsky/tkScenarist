@@ -235,7 +235,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             or [self.DEFAULT_HINT]
         )
         # ensure to show default hint sometimes
-        if random.randint(10) == 3:
+        if random.randint(1, 10) == 7:
             # force default
             _hints = [self.DEFAULT_HINT]
         # end if

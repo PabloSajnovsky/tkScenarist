@@ -601,8 +601,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             reformats current line along with element constraints;
         """
-        # nothing to do here
-        return (text, "")
+        # reset to standard line of text
+        return (text.strip("()").capitalize(), "")
     # end def
 
 
@@ -610,8 +610,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             reformats current line along with element constraints;
         """
-        # ensure upper case
-        return (text.upper(), "")
+        # same as SCENE
+        return self.reformat_line_scene(text)
     # end def
 
 
@@ -619,8 +619,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             reformats current line along with element constraints;
         """
-        # ensure not parenthetical
-        return (text.strip("()"), "")
+        # same as ACTION
+        return self.reformat_line_action(text)
     # end def
 
 
@@ -629,7 +629,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             reformats current line along with element constraints;
         """
         # ensure parenthetical
-        return ("({})".format(text.strip("()")), "+1c")
+        return ("({})".format(text.strip("()").lower()), "+1c")
     # end def
 
 
@@ -638,7 +638,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             reformats current line along with element constraints;
         """
         # ensure upper case
-        return (text.upper(), "")
+        return (text.strip("()").upper(), "")
     # end def
 
 
@@ -646,8 +646,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             reformats current line along with element constraints;
         """
-        # ensure upper case
-        return (text.upper(), "")
+        # same as SCENE
+        return self.reformat_line_scene(text)
     # end def
 
 

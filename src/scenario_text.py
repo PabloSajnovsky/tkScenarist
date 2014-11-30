@@ -575,12 +575,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 self.create_element_line(_map.get(create_key))
             # switch current line?
             elif _map.get(switch_key):
-                # switch tag for current line
-                self.update_line(force_tag=_map.get(switch_key))
-                # ensure line format (deferred)
-                self.reformat_line()
-                # notify app
-                self.events.raise_event("Project:Modified")
+                # switch new tag
+                self.switch_line(new_tag=_map.get(switch_key))
             # end if
         # end if
         # break the tkevent chain
@@ -835,6 +831,20 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # not all widget's contents
         # break the tkevent chain
         return "break"
+    # end def
+
+
+    def switch_line (self, *args, new_tag=None, **kw):
+        """
+            event handler: switches current insertion line to @new_tag
+            element constraints;
+        """
+        # switch tag for current line
+        self.update_line(force_tag=new_tag)
+        # ensure line format (deferred)
+        self.reformat_line()
+        # notify app
+        self.events.raise_event("Project:Modified")
     # end def
 
 

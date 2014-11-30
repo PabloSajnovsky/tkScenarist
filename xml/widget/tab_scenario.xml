@@ -161,7 +161,7 @@
             />
             <ttklabel
                 textvariable="lbl_info_hint"
-                wraplength="180"
+                wraplength="200"
                 layout="pack"
                 resizable="width"
             />

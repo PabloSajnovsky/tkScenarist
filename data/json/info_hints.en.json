@@ -4,26 +4,34 @@
     ],
 
     "action": [
-        "character names should be set to upper case in an ACTION element."
+        "an ACTION element is used to describe some immediate facts.",
+        "to indicate an ACTION, prefer using verbs in present time.",
+        "AVOID the use of PRETERIT while describing immediate ACTION."
     ],
 
     "character": [
-        "character names should always be set to upper case."
+        "CHARACTER names should always be set to UPPERCASE."
     ],
 
     "dialogue": [
+        "a DIALOGUE element is used to indicate the character is now speaking."
     ],
 
     "parenthetical": [
-        "a PARENTHETICAL element is used to give more indication on character's emotional state e.g. smiling, sad, furious..."
+        "a PARENTHETICAL element is used to give more indication on character's EMOTIONAL STATE e.g. smiling, sad, furious...",
+        "a PARENTHETICAL element is also used to indicate SILENT ACTIONS e.g. unplugging the device, adding more fuel, still swimming..."
     ],
 
     "scene": [
-        "a SCENE element should be composed of: INT/EXT - DAY/NIGHT - LOCATION"
+        "a SCENE element should be composed of: INT/EXT - DAY/NIGHT - LOCATION",
+        "always start a SCENE element with INT (interior) or EXT (exterior).",
+        "it is important to specify WHERE (int/ext) the action takes place.",
+        "it is also important to indicate WHEN (day/night) the action happens.",
+        "it is a good practice to precise the LOCATION of the action."
     ],
 
     "transition": [
-        "a TRANSITION element is generally used to indicate scene transition e.g. CUT, FADE IN, FADE OUT...",
-        "it is generally *NOT* recommended to use TRANSITION elements into scenario scripts, especially if scripts are intended for professional advice."
+        "a TRANSITION element is mainly used to indicate technical transition e.g. CUT, FADE IN, FADE OUT...",
+        "it is *NOT* recommended to use TRANSITION elements, especially if scripts are intended for professional advice."
     ]
 }

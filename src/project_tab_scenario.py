@@ -35,6 +35,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             app-wide event bindings;
         """
+        # app-wide event bindings
         self.events.connect_dict(
             {
                 "Project:Modified": self.slot_project_modified,
@@ -45,6 +46,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                 "Tab:Reset": self.slot_tab_reset,
             }
         )
+        # tkinter event bindings
+        self.COMBO.bind("<ButtonRelease", self.slot_combo_on_mouseup)
     # end def
 
 
@@ -90,6 +93,14 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # set text widget contents
         self.TEXT.file_setup(fname, archive)
+    # end def
+
+
+    def slot_combo_on_mouseup (self, *args, **kw):
+        """
+            event handler: mouse release on combobox;
+        """
+        print("slot_combo_on_mouseup")
     # end def
 
 

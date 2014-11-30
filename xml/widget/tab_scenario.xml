@@ -161,14 +161,15 @@
             />
             <ttklabel
                 textvariable="lbl_info_hint"
-                wraplength="300"
+                wraplength="180"
                 layout="pack"
                 resizable="width"
             />
             <!-- spacer -->
             <ttkframe
+                width="240"
                 layout="pack"
-                resizable="yes"
+                resizable="height"
             />
         </ttklabelframe>
     </ttkpanedwindow>

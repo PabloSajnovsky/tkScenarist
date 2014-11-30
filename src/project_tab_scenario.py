@@ -94,6 +94,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                                     text != self.COMBO.current_selected:
             # reset current selected
             self.COMBO.current_selected = text
+            # reset selection
+            self.COMBO.current(-1)
             # set text
             self.CBO_CUR_ELT.set(text)
         # end if
@@ -135,7 +137,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                     ] = _element
             # end for
             # reset combobox contents
-            self.COMBO.configure(values=elements)
+            self.COMBO.configure(values=sorted(self.COMBO.elements))
         # end if
     # end def
 

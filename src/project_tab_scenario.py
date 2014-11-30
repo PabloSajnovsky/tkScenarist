@@ -47,7 +47,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             }
         )
         # tkinter event bindings
-        self.COMBO.bind("<ButtonRelease", self.slot_combo_on_mouseup)
+        self.COMBO.bind("<ButtonRelease>", self.slot_combo_on_mouseup)
     # end def
 
 

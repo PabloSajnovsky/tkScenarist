@@ -155,8 +155,18 @@
             weight="1"
         >
             <ttklabel
-                text="dummy text"
-                width="20"
+                text="Hint:"
+                layout="pack"
+                resizable="width"
+            />
+            <ttklabel
+                textvariable="lbl_info_hint"
+                wraplength="300"
+                layout="pack"
+                resizable="width"
+            />
+            <!-- spacer -->
+            <ttkframe
                 layout="pack"
                 resizable="yes"
             />

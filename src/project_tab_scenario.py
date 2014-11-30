@@ -40,14 +40,16 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             {
                 "Project:Modified": self.slot_project_modified,
 
-                "Scenario:Combo:Item:Selected":
-                    self.slot_combo_item_selected,
                 "Scenario:Current:Element:Update":
                     self.slot_update_current_element,
                 "Scenario:Elements:Init": self.slot_elements_init,
 
                 "Tab:Reset": self.slot_tab_reset,
             }
+        )
+        # tkinter event bindings
+        self.COMBO.bind(
+            "<<ComboboxSelected>>", self.slot_combo_item_selected
         )
     # end def
 
@@ -113,6 +115,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: item has been selected on combobox;
         """
+        print("combobox selected")
         # inits
         _text = self.CBO_CUR_ELT.get()
         # got something new?

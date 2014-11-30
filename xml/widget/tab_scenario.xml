@@ -57,14 +57,21 @@
                     layout="pack"
                     layout_options="side='left'"
                 />
-                <ttklabel
-                    textvariable="lbl_current_element"
-                    font="sans 9 bold"
-                    foreground="royal blue"
+                <ttkcombobox
+                    name="combo_elements"
+                    textvariable="combo_current_element"
+                    state="readonly"
                     layout="pack"
                     layout_options="side='left', padx=5"
-                    resizable="yes"
                 />
+                <!-- spacer -->
+<!--
+                <ttkframe
+                    layout="pack"
+                    layout_options="side='left'"
+                    resizable="width"
+                />
+-->
             </ttkframe>
             <!-- toolbar info - Tab/Return hotkeys -->
             <ttkframe

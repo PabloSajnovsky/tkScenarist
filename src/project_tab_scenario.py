@@ -71,7 +71,9 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.xml_build("tab_scenario")
         # widget inits
         self.TEXT = self.text_scenario
-        self.LBL_CUR_ELT = self.get_stringvar("lbl_current_element")
+        self.COMBO = self.combo_elements
+        self.COMBO.state("readonly")
+        self.CBO_CUR_ELT = self.get_stringvar("combo_current_element")
         self.LBL_TAB = self.get_stringvar("lbl_on_tab")
         self.LBL_RET = self.get_stringvar("lbl_on_return")
         self.LBL_CTRL_RET = self.get_stringvar("lbl_on_ctrl_return")
@@ -117,7 +119,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         _label = lambda n: self.TEXT.get_label(n)
         _map = self.TEXT.get_element_mappings()
         # reset widgets
-        self.LBL_CUR_ELT.set(_label(_map["tag"]))
+        self.CBO_CUR_ELT.set(_label(_map["tag"]))
         self.LBL_TAB.set(_label(_map["tab"] or _map["tab_switch"]))
         self.LBL_RET.set(_label(_map["return"]))
         self.LBL_CTRL_RET.set(

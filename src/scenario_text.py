@@ -203,11 +203,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event bindings;
         """
         # app-wide event bindings
-        #~ self.events.connect_dict(
-            #~ {
-                #~ "Project:Modified": self.slot_project_modified,
-            #~ }
-        #~ )
+        self.events.connect_dict(
+            {
+                "Scenario:Switch:Line": self.switch_line,
+            }
+        )
         # tkinter event bindings
         # CAUTION:
         # self.tag_bind() triggers event only when mouse pointer

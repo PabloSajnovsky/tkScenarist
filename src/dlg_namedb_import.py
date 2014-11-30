@@ -237,6 +237,10 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         else:
             # commit last transaction
             self.database.commit()
+            # switch on auto_commit mode
+            self.database.auto_commit = True
+            # close CSV file
+            csvfile.close()
             # stopped by user?
             if self.stop_import:
                 # notify user
@@ -247,8 +251,6 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
                 # set progressbar to max value
                 self.set_progressbar(100)
             # end if
-            # close CSV file
-            csvfile.close()
             # release task
             self._slot_pending_task_off()
         # end if

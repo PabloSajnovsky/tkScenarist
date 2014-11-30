@@ -95,7 +95,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             # reset current selected
             self.COMBO.current_selected = text
             # reset selection
-            self.COMBO.current(-1)
+            self.COMBO.selection_clear()
             # set text
             self.CBO_CUR_ELT.set(text)
         # end if
@@ -116,6 +116,18 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: item has been selected on combobox;
         """
         print("slot_combo_item_selected")
+        # inits
+        _text = self.CBO_CUR_ELT.get()
+        # got something new?
+        if _text != self.COMBO.current_selected:
+            # update current selected
+            self.COMBO.current_selected = _text
+            # notify app
+            self.events.raise_event(
+                "Scenario:Switch:Line",
+                new_tag=self.COMBO.elements[_text]
+            )
+        # end if
     # end def
 
 
@@ -123,7 +135,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: elements have been init'ed;
         """
-        print("slot_elements_init")
         # param controls
         if elements:
             # inits

@@ -27,7 +27,8 @@
         "always start a SCENE element with INT (interior) or EXT (exterior).",
         "in a SCENE element, it is important to specify WHERE (int/ext) the action takes place.",
         "in a SCENE element, it is also important to indicate WHEN (day/night) the action happens.",
-        "in a SCENE element, it is a good practice to precise the LOCATION of the action."
+        "in a SCENE element, it is a good practice to precise the LOCATION of the action.",
+        "a SCENE element should always be set to UPPERCASE."
     ],
 
     "transition": [

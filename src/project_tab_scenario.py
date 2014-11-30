@@ -40,14 +40,15 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             {
                 "Project:Modified": self.slot_project_modified,
 
+                "Scenario:Combo:Item:Selected":
+                    self.slot_combo_on_mouseup,
+
                 "Scenario:Current:Element:Update":
                     self.slot_update_current_element,
 
                 "Tab:Reset": self.slot_tab_reset,
             }
         )
-        # tkinter event bindings
-        self.COMBO.bind("<ButtonRelease>", self.slot_combo_on_mouseup)
     # end def
 
 

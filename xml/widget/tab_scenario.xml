@@ -62,6 +62,8 @@
                     textvariable="combo_current_element"
                     font="sans 9 bold"
                     foreground="royal blue"
+                    validate="focusin"
+                    validatecommand="@Scenario:Combo:Item:Selected"
                     layout="pack"
                     layout_options="side='left', padx=5"
                 />

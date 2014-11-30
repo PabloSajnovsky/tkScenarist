@@ -26,6 +26,7 @@
 import json
 import random
 import tkRAD
+import tkRAD.core.async as ASYNC
 import tkRAD.core.path as P
 
 
@@ -83,6 +84,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # member inits
         self.mainwindow = self.winfo_toplevel()
         self.mainframe = self.mainwindow.mainframe
+        self.async = ASYNC.get_async_manager()
         # looks for ^/xml/widget/tab_scenario.xml
         self.xml_build("tab_scenario")
         # widget inits
@@ -219,7 +221,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             _label(_map["ctrl_return"] or _map["ctrl_switch"])
         )
         # update hints
-        self.after_idle(self.update_hints, _tag)
+        self.async.run_after(1000, self.update_hints, _tag)
     # end def
 
 

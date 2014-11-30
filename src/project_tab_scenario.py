@@ -35,12 +35,9 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     """
 
     # class constant defs
-    DEFAULT_HINT = [
-        _(
-            "One page of script is generally equal to "
-            "one minute of movie."
-        )
-    ]
+    DEFAULT_HINT = _(
+        "One page of script is generally equal to one minute of movie."
+    )
 
     # use i18n support to redefine filepath
     # according to locale language
@@ -235,8 +232,9 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         _hints = (
             self.INFO_HINTS.get(element_tag)
             or self.INFO_HINTS.get("default")
-            or self.DEFAULT_HINT
+            or []
         )
+        _hints.append(self.DEFAULT_HINT)
         # update hints text
         self.LBL_HINT.set(str(random.choice(_hints)))
     # end def

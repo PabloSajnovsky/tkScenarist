@@ -35,7 +35,16 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     """
 
     # class constant defs
-    INFO_HINTS_FPATH = "^/data/json/info_hints.en.json"
+    DEFAULT_HINT = [
+        _(
+            "One page of script is generally equal to "
+            "one minute of movie."
+        )
+    ]
+
+    # use i18n support to redefine filepath
+    # according to locale language
+    INFO_HINTS_FPATH = _("^/data/json/info_hints.en.json")
 
 
     def bind_events (self, **kw):
@@ -77,11 +86,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # member inits
         self.mainwindow = self.winfo_toplevel()
         self.mainframe = self.mainwindow.mainframe
-        # use i18n support to redefine filepath
-        # along with locale language
-        self.INFO_HINTS_FPATH = _(self.INFO_HINTS_FPATH)
-        # get data
-        self.INFO_HINTS = self.reset_hints(self.INFO_HINTS_FPATH)
         # looks for ^/xml/widget/tab_scenario.xml
         self.xml_build("tab_scenario")
         # widget inits
@@ -95,18 +99,20 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.LBL_RET = self.get_stringvar("lbl_on_return")
         self.LBL_CTRL_RET = self.get_stringvar("lbl_on_ctrl_return")
         self.LBL_HINT = self.get_stringvar("lbl_info_hint")
+        # get data
+        self.INFO_HINTS = self.reset_hints()
         # event bindings
         self.bind_events(**kw)
     # end def
 
 
-    def reset_hints (self, fpath):
+    def reset_hints (self, fpath=None):
         """
             resets self.INFO_HINTS class member along with @fpath JSON
             file contents;
         """
         # param inits
-        fpath = P.normalize(fpath)
+        fpath = P.normalize(fpath or self.INFO_HINTS_FPATH)
         # get data
         with open(fpath) as _file:
             # reset member
@@ -195,6 +201,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # reset Text widget
         self.TEXT.reset()
+        # reset hints
+        self.reset_hints()
     # end def
 
 
@@ -205,13 +213,32 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # inits
         _label = lambda n: self.TEXT.get_label(n)
         _map = self.TEXT.get_element_mappings()
+        _tag = _map["tag"]
         # reset widgets
-        self.set_combo_text(_label(_map["tag"]))
+        self.set_combo_text(_label(_tag))
         self.LBL_TAB.set(_label(_map["tab"] or _map["tab_switch"]))
         self.LBL_RET.set(_label(_map["return"]))
         self.LBL_CTRL_RET.set(
             _label(_map["ctrl_return"] or _map["ctrl_switch"])
         )
+        # update hints
+        self.after_idle(self.update_hints, _tag)
+    # end def
+
+
+    def update_hints (self, element_tag):
+        """
+            shows off hints text according to @element_tag value;
+            displays default hints otherwise;
+        """
+        # inits
+        _hints = (
+            self.INFO_HINTS.get(element_tag)
+            or self.INFO_HINTS.get("default")
+            or self.DEFAULT_HINT
+        )
+        # update hints text
+        self.LBL_HINT.set(str(random.choice(_hints)))
     # end def
 
 

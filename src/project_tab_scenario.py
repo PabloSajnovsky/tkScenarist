@@ -23,6 +23,7 @@
 """
 
 # lib imports
+import json
 import random
 import tkRAD
 import tkRAD.core.path as P
@@ -77,9 +78,10 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.mainwindow = self.winfo_toplevel()
         self.mainframe = self.mainwindow.mainframe
         # use i18n support to redefine filepath
-        self.INFO_HINTS_FPATH = P.normalize(_(self.INFO_HINTS_FPATH))
+        # along with locale language
+        self.INFO_HINTS_FPATH = _(self.INFO_HINTS_FPATH)
         # get data
-        self.INFO_HINTS = json.load(self.INFO_HINTS_FPATH)
+        self.INFO_HINTS = self.reset_hints(self.INFO_HINTS_FPATH)
         # looks for ^/xml/widget/tab_scenario.xml
         self.xml_build("tab_scenario")
         # widget inits
@@ -95,6 +97,21 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.LBL_HINT = self.get_stringvar("lbl_info_hint")
         # event bindings
         self.bind_events(**kw)
+    # end def
+
+
+    def reset_hints (self, fpath):
+        """
+            resets self.INFO_HINTS class member along with @fpath JSON
+            file contents;
+        """
+        # param inits
+        fpath = P.normalize(fpath)
+        # get data
+        with open(fpath) as _file:
+            # reset member
+            self.INFO_HINTS = json.load(_file)
+        # end with
     # end def
 
 

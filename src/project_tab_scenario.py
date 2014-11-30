@@ -221,7 +221,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             _label(_map["ctrl_return"] or _map["ctrl_switch"])
         )
         # update hints
-        self.async.run_after(1000, self.update_hints, _tag)
+        self.async.run_after(700, self.update_hints, _tag)
     # end def
 
 

@@ -72,12 +72,10 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             }
         )
         # tkinter event bindings
-        self.bind("<Expose>", self.slot_tab_exposed)
         self.bind("<FocusIn>", self.slot_tab_focused_in)
-        _lb = self.LISTBOX
-        _lb.bind("<ButtonRelease-1>", self.slot_on_listbox_click)
-        _lb.bind("<KeyRelease-Up>", self.slot_on_listbox_click)
-        _lb.bind("<KeyRelease-Down>", self.slot_on_listbox_click)
+        self.LISTBOX.bind(
+            "<<ListboxSelect>>", self.slot_listbox_item_selected
+        )
         self.TEXT.bind("<KeyRelease>", self.slot_on_text_keypress)
     # end def
 
@@ -610,19 +608,9 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
     # end def
 
 
-    def slot_name_selected (self, *args, name=None, **kw):
+    def slot_listbox_item_selected (self, event=None, *args, **kw):
         """
-            event handler: a character name has been selected
-            somewhere;
-        """
-        # really select name
-        self.do_select_character_name(name)
-    # end def
-
-
-    def slot_on_listbox_click (self, event=None, *args, **kw):
-        """
-            event handler: mouse click on listbox;
+            event handler: item selected in listbox;
         """
         # get selected name
         _name = self.listbox_get_selected_name()
@@ -631,6 +619,16 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             # update preview
             self.update_character_log()
         # end if
+    # end def
+
+
+    def slot_name_selected (self, *args, name=None, **kw):
+        """
+            event handler: a character name has been selected
+            somewhere;
+        """
+        # really select name
+        self.do_select_character_name(name)
     # end def
 
 
@@ -649,16 +647,6 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         """
         # reset status
         self.TEXT.edit_modified(flag)
-    # end def
-
-
-    def slot_tab_exposed (self, *args, **kw):
-        """
-            event handler: tab exposed when selected through notebook's
-            tabs;
-        """
-        # what to do?
-        pass
     # end def
 
 

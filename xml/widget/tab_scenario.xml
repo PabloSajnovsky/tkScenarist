@@ -46,6 +46,7 @@
                     name="listbox_scene_browser"
                     font="sans 8"
                     width="30"
+                    choices="'toto', 'tutu', 'titi', 'tata'"
                     layout="grid"
                     layout_options="row=0, column=0"
                     resizable="height"

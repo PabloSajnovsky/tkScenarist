@@ -65,6 +65,9 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.COMBO.bind(
             "<<ComboboxSelected>>", self.slot_combo_item_selected
         )
+        self.LISTBOX.bind(
+            "<<ListboxSelect>>", self.slot_listbox_item_selected
+        )
     # end def
 
 
@@ -98,6 +101,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.LBL_RET = self.get_stringvar("lbl_on_return")
         self.LBL_CTRL_RET = self.get_stringvar("lbl_on_ctrl_return")
         self.LBL_HINT = self.get_stringvar("lbl_info_hint")
+        self.LISTBOX = self.listbox_scene_browser
         # get hints data
         self.reset_hints()
         # event bindings
@@ -146,7 +150,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
 
     def slot_combo_item_selected (self, *args, **kw):
         """
-            event handler: item has been selected on combobox;
+            event handler: item has been selected in combobox;
         """
         # inits
         _text = self.CBO_CUR_ELT.get()
@@ -160,6 +164,15 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                 new_tag=self.COMBO.elements[_text]
             )
         # end if
+    # end def
+
+
+    def slot_listbox_item_selected (self, *args, **kw):
+        """
+            event handler: item has been selected in listbox;
+        """
+        # inits
+        print("slot_listbox_item_selected")
     # end def
 
 

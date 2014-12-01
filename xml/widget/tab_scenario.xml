@@ -33,8 +33,12 @@
             weight="1"
         >
             <ttklabel
-                text="dummy text"
-                width="20"
+                text="Scene browser"
+                layout="pack"
+                resizable="width"
+            />
+            <listbox
+                name="listbox_scene_browser"
                 layout="pack"
                 resizable="yes"
             />

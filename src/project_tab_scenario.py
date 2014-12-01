@@ -280,7 +280,22 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             updates navigation listbox (scene browser);
         """
         print("update_scene_browser")
-        print("ranges:", self.TEXT.get_lines("scene"))
+        # inits
+        _dict = self.TEXT.get_lines("scene")
+        _cursor = _dict["current"]
+        _lines = self.LISTBOX.current_lines = _dict["lines"]
+        # reset listbox
+        self.LISTBOX.delete(0, "end")
+        self.LISTBOX.insert(0, *_dict["texts"])
+        # insertion cursor is on a scene line?
+        if _cursor in _lines:
+            # inits
+            _index = _lines.index(_cursor)
+            # select item
+            self.LISTBOX.selection_set(_index)
+            # show item
+            self.LISTBOX.see(_index)
+        # end if
     # end def
 
 

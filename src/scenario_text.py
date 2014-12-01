@@ -335,9 +335,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         for _index, _tag in enumerate(_tags):
             # reset tag at correct indices
             self.tag_add(
-                _tag,
-                "{}.0".format(_index + 1),
-                "{}.0".format(_index + 2)
+                _tag, float(_index + 1), float(_index + 2)
             )
         # end for
         # move insertion cursor

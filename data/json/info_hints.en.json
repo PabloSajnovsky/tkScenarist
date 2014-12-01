@@ -33,6 +33,6 @@
 
     "transition": [
         "a TRANSITION element is mainly used to indicate technical transition e.g. CUT, FADE IN, FADE OUT...",
-        "it is *NOT* recommended to use TRANSITION elements, especially if scripts are intended for professional advice."
+        "it is *NOT* recommended to use TRANSITION elements, especially when scripts are intended for professional advice."
     ]
 }

@@ -1008,7 +1008,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # debugging
             else:
                 # notify dev
-                print("[WARNING]\tUnable to call method:", method_name)
+                raise AttributeError(
+                    _("[WARNING]\tUnable to call method: '{method}()'")
+                    .format(method=method_name)
+                )
             # end if
         # end if
         # failed

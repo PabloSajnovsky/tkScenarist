@@ -100,7 +100,7 @@
                 <ttklabel
                     text="&lt;Tab&gt;:"
                     layout="pack"
-                    layout_options="side='left'"
+                    layout_options="side='left', pady=3"
                 />
                 <ttklabel
                     textvariable="lbl_on_tab"

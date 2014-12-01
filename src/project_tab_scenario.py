@@ -175,6 +175,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                 "Scenario:Switch:Line",
                 new_tag=self.COMBO.elements[_text]
             )
+            # keep text focused
+            self.after_idle(self.TEXT.focus_set)
         # end if
     # end def
 

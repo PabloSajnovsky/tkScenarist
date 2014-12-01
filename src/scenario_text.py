@@ -216,6 +216,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.bind("<Key>", self.slot_on_keypress)
         self.bind("<KeyRelease>", self.slot_on_keyrelease)
         self.bind("<ButtonRelease>", self.slot_on_keyrelease)
+        self.bind("<FocusIn>", self.slot_on_keyrelease)
         self.bind("<Return>", self.slot_on_key_return)
         self.bind("<Tab>", self.slot_on_key_tab)
         self.bind("<Control-Return>", self.slot_on_key_ctrl_return)

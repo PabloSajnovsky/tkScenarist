@@ -222,8 +222,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.bind("<Control-a>", self.slot_on_select_all)
         self.bind("<Control-A>", self.slot_on_select_all)
         self.bind("<Delete>", self.slot_on_key_delete)
+        self.bind("<Control-Delete>", self.slot_on_key_ctrl_delete)
         self.bind("<BackSpace>", self.slot_on_key_delete)
-        self.bind("<Control-BackSpace>", self.slot_on_delete_word)
+        self.bind("<Control-BackSpace>", self.slot_on_key_ctrl_backspace)
         self.bind("<KeyRelease-Delete>", self.slot_on_keyup_delete)
         self.bind("<KeyRelease-BackSpace>", self.slot_on_keyup_delete)
     # end def
@@ -839,7 +840,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def slot_on_delete_word (self, event=None, *args, **kw):
+    def slot_on_key_ctrl_backspace (self, event=None, *args, **kw):
         """
             event handler: on <Ctrl-BackSpace> key press;
         """
@@ -855,6 +856,27 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # end if
         # remove a word at once
         self.delete(_start, TK.INSERT)
+        # break the tkevent chain
+        return "break"
+    # end def
+
+
+    def slot_on_key_ctrl_delete (self, event=None, *args, **kw):
+        """
+            event handler: on <Ctrl-Delete> key press;
+        """
+        # get contents
+        _end = self.index("{} lineend".format(TK.INSERT))
+        _text = self.get(TK.INSERT, _end)
+        # try to find a white space
+        _pos = _text.find(" ")
+        # got one?
+        if _pos >= 0:
+            # reset index
+            _end = self.index("{}+{}c".format(TK.INSERT, _pos + 1))
+        # end if
+        # remove a word at once
+        self.delete(TK.INSERT, _end)
         # break the tkevent chain
         return "break"
     # end def

@@ -44,9 +44,7 @@
                 <listbox
                     id="lbox_scene_browser"
                     name="listbox_scene_browser"
-                    font="monospace 9"
                     width="30"
-                    choices="'toto', 'tutu', 'titi', 'tata'"
                     layout="grid"
                     layout_options="row=0, column=0"
                     resizable="height"

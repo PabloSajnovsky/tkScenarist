@@ -843,8 +843,18 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Ctrl-BackSpace> key press;
         """
-        # remove a whole word at once
-        self.delete("{} - 1 word".format(TK.INSERT), TK.INSERT)
+        # get contents
+        _start = self.index("{} linestart".format(TK.INSERT))
+        _text = self.get(_start, TK.INSERT)
+        # try to find a white space
+        _pos = _text.rfind(" ")
+        # got one?
+        if _pos >= 0:
+            # reset index
+            _start = self.index("{}+{}c".format(_start, _pos))
+        # end if
+        # remove a word at once
+        self.delete(_start, TK.INSERT)
         # break the tkevent chain
         return "break"
     # end def

@@ -347,49 +347,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def get_line_tag (self, index=None, strict=False):
+    def get_all_lines_range (self):
         """
-            retrieves @index line tag, if given; retrieves insertion
-            cursor line tag, if @index omitted; returns
-            self.current_tag if @strict=False and no previous tag
-            found; returns None otherwise;
+            returns range() object for all lines in widget;
         """
-        # get tags at line start
-        index = "{} linestart".format(index or TK.INSERT)
-        _tags = self.tag_names(index)
-        # got element tag?
-        if _tags and _tags[0] in self.ELEMENT:
-            return _tags[0]
-        # end if
-        # allow default value?
-        if not strict:
-            # return current available tag
-            return self.current_tag
-        # end if
-    # end def
-
-
-    def get_lines (self, element_tag):
-        """
-            retrieves tuple list of line numbers where @element_tag
-            resides;
-        """
-        # inits
-        _lines = []
-        # browse all lines
-        for _line in range(tools.ensure_int(self.index(TK.END))):
-            # get line tag
-            _tag = self.get_line_tag(
-                index=float(_line + 1), strict=True
-            )
-            # line tag matches up?
-            if _tag == element_tag:
-                # add line number
-                _lines.append(_line + 1)
-            # end if
-        # end for
-        # return results
-        return _lines
+        return range(1, 1 + self.get_line_number(TK.END))
     # end def
 
 
@@ -441,9 +403,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # inits
         _tags = list()
         # browse widget lines
-        for _line in range(tools.ensure_int(self.index(TK.END))):
+        for _line in self.get_all_lines_range():
             # inits
-            _tn = self.tag_names("{}.0".format(_line + 1))
+            _tn = self.tag_names(float(_line))
             # got tag names?
             if _tn:
                 # add to list
@@ -477,6 +439,87 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         _element = self.ELEMENT.get(element_tag) or dict()
         # return result
         return _element.get("label") or ""
+    # end def
+
+
+    def get_line_contents (self, index=None):
+        """
+            retrieves line text contents at @index or insertion cursor,
+            if omitted;
+        """
+        # inits
+        index = index or TK.INSERT
+        # return contents
+        return self.get(
+            "{} linestart".format(index), "{} lineend".format(index)
+        )
+    # end def
+
+
+    def get_line_number (self, index=None):
+        """
+            retrieves line number at @index or insertion cursor,
+            if omitted;
+        """
+        # inits
+        index = index or TK.INSERT
+        # return result
+        return tools.ensure_int(
+            self.index("{} linestart".format(index))
+        )
+    # end def
+
+
+    def get_line_tag (self, index=None, strict=False):
+        """
+            retrieves @index line tag, if given; retrieves insertion
+            cursor line tag, if @index omitted; returns
+            self.current_tag if @strict=False and no previous tag
+            found; returns None otherwise;
+        """
+        # get tags at line start
+        index = "{} linestart".format(index or TK.INSERT)
+        _tags = self.tag_names(index)
+        # got element tag?
+        if _tags and _tags[0] in self.ELEMENT:
+            return _tags[0]
+        # end if
+        # allow default value?
+        if not strict:
+            # return current available tag
+            return self.current_tag
+        # end if
+    # end def
+
+
+    def get_lines (self, element_tag):
+        """
+            retrieves dict() of line numbers, texts where @element_tag
+            resides plus line number of current insertion cursor;
+        """
+        # inits
+        _lines = []
+        _texts = []
+        # browse all lines
+        for _line in self.get_all_lines_range():
+            # init index
+            _index = float(_line)
+            # get line tag
+            _tag = self.get_line_tag(_index, strict=True)
+            # line tag matches up?
+            if _tag == element_tag:
+                # add line number
+                _lines.append(_line)
+                # add text contents
+                _texts.append(self.get_line_contents(_index))
+            # end if
+        # end for
+        # return results
+        return {
+            "current": self.get_line_number(),
+            "lines": _lines,
+            "texts": _texts,
+        }
     # end def
 
 

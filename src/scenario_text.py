@@ -630,9 +630,15 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             returns True if line at @index is currently selected;
         """
         # inits
-        index = index or TK.INSERT
-        # evaluate selection
-        return bool(TK.SEL in self.tag_names(index))
+        _line = self.get_line_number(index)
+        # try out
+        try:
+            _sel = self.get_line_number(TK.SEL_FIRST)
+        except:
+            return False
+        else:
+            return bool(_line == _sel)
+        # end try
     # end def
 
 

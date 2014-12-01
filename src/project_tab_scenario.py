@@ -185,6 +185,15 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # inits
         print("slot_listbox_item_selected")
+        _sel = self.LISTBOX.curselection()
+        # got selected?
+        if _sel:
+            # inits
+            _index = float(self.LISTBOX.current_lines[_sel[0]])
+            # show line in text widget
+            self.TEXT.see(_index)
+            self.TEXT.move_cursor(_index)
+        # end if
     # end def
 
 

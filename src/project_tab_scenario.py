@@ -233,6 +233,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.LBL_CTRL_RET.set(
             _label(_map["ctrl_return"] or _map["ctrl_switch"])
         )
+        # update scene browser
+        self.async.run_after(500, self.update_scene_browser)
         # update hints
         self.async.run_after(700, self.update_hints, _tag)
     # end def
@@ -256,6 +258,15 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # end if
         # update hints text
         self.LBL_HINT.set(str(random.choice(_hints)))
+    # end def
+
+
+    def update_scene_browser (self):
+        """
+            updates navigation listbox (scene browser);
+        """
+        print("update_scene_browser")
+        print("ranges:", self.TEXT.get_lines("scene"))
     # end def
 
 

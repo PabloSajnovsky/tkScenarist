@@ -369,6 +369,30 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def get_lines (self, element_tag):
+        """
+            retrieves tuple list of line numbers where @element_tag
+            resides;
+        """
+        # inits
+        _lines = []
+        # browse all lines
+        for _line in range(tools.ensure_int(self.index(TK.END))):
+            # get line tag
+            _tag = self.get_line_tag(
+                index=float(_line + 1), strict=True
+            )
+            # line tag matches up?
+            if _tag == element_tag:
+                # add line number
+                _lines.append(_line + 1)
+            # end if
+        # end for
+        # return results
+        return _lines
+    # end def
+
+
     def get_element_mappings (self, index=None):
         """
             returns dict() of hotkey/element mappings along with

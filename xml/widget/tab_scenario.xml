@@ -39,7 +39,7 @@
             />
             <ttkframe
                 layout="pack"
-                resizable="height"
+                resizable="yes"
             >
                 <listbox
                     id="scene_browser"
@@ -47,7 +47,7 @@
                     width="30"
                     layout="grid"
                     layout_options="row=0, column=0"
-                    resizable="height"
+                    resizable="yes"
                 />
                 <ttkscrollbar
                     connect="scene_browser"

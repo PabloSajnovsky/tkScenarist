@@ -184,7 +184,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: item has been selected in listbox;
         """
         # inits
-        print("slot_listbox_item_selected")
         _sel = self.LISTBOX.curselection()
         # got selected?
         if _sel:
@@ -192,7 +191,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             _index = float(self.LISTBOX.current_lines[_sel[0]])
             # show line in text widget
             self.TEXT.see(_index)
-            self.TEXT.move_cursor(_index)
+            self.TEXT.move_cursor("{} lineend".format(_index))
+            self.after_idle(self.TEXT.focus_set)
         # end if
     # end def
 
@@ -257,7 +257,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             _label(_map["ctrl_return"] or _map["ctrl_switch"])
         )
         # update scene browser
-        self.async.run_after(500, self.update_scene_browser)
+        self.async.run_after(300, self.update_scene_browser)
         # update hints
         self.async.run_after(700, self.update_hints, _tag)
     # end def

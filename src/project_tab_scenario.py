@@ -296,17 +296,14 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.LISTBOX.delete(0, "end")
         self.LISTBOX.insert(0, *_dict["texts"])
         # insertion cursor is on a scene line?
-        if _cursor in _lines:
+        if _cursor in _lines and \
+                            not self.TEXT.line_selected(float(_cursor)):
             # inits
             _index = _lines.index(_cursor)
             # select item
             self.LISTBOX.selection_set(_index)
             # show item
             self.LISTBOX.see(_index)
-        # no selection
-        else:
-            # clear selection
-            self.LISTBOX.selection_clear(0, "end")
         # end if
     # end def
 

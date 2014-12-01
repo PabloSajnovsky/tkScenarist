@@ -623,6 +623,17 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def line_selected (self, index=None):
+        """
+            returns True if line at @index is currently selected;
+        """
+        # inits
+        index = index or TK.INSERT
+        # evaluate selection
+        return bool(TK.SEL in self.tag_names(index))
+    # end def
+
+
     def manage_line (self, create_key, switch_key):
         """
             determines whether to create/switch line at insertion

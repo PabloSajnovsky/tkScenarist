@@ -498,6 +498,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # inits
         _lines = []
         _texts = []
+        _count = 1
         # browse all lines
         for _line in self.get_all_lines_range():
             # init index
@@ -509,7 +510,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 # add line number
                 _lines.append(_line)
                 # add text contents
-                _texts.append(self.get_line_contents(_index))
+                _texts.append(
+                    "#{} {}"
+                    .format(_count, self.get_line_contents(_index))
+                )
+                # update counter
+                _count += 1
             # end if
         # end for
         # return results

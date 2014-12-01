@@ -39,7 +39,7 @@
             />
             <ttkframe
                 layout="pack"
-                resizable="width"
+                resizable="yes"
             >
                 <listbox
                     id="lbox_scene_browser"

@@ -223,6 +223,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.bind("<Control-A>", self.slot_on_select_all)
         self.bind("<Delete>", self.slot_on_key_delete)
         self.bind("<BackSpace>", self.slot_on_key_delete)
+        self.bind("<Control-BackSpace>", self.slot_on_delete_word)
         self.bind("<KeyRelease-Delete>", self.slot_on_keyup_delete)
         self.bind("<KeyRelease-BackSpace>", self.slot_on_keyup_delete)
     # end def
@@ -838,13 +839,14 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def slot_disable_keypress (self, event=None, *args, **kw):
+    def slot_on_delete_word (self, event=None, *args, **kw):
         """
-            event handler: disables unwanted key press;
+            event handler: on <Ctrl-BackSpace> key press;
         """
+        # remove a whole word at once
+        self.delete("{} - 1 word".format(TK.INSERT), TK.INSERT)
         # break the tkevent chain
-        pass
-        #~ return "break"
+        return "break"
     # end def
 
 

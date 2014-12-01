@@ -102,6 +102,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.LBL_CTRL_RET = self.get_stringvar("lbl_on_ctrl_return")
         self.LBL_HINT = self.get_stringvar("lbl_info_hint")
         self.LISTBOX = self.listbox_scene_browser
+        # reset listbox
+        self.reset_scene_browser()
         # get hints data
         self.reset_hints()
         # event bindings
@@ -121,6 +123,16 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             # reset member
             self.INFO_HINTS = json.load(_file)
         # end with
+    # end def
+
+
+    def reset_scene_browser (self, *args, **kw):
+        """
+            event handler: resets navigation listbox (scene browser);
+        """
+        # inits
+        self.LISTBOX.current_lines = []
+        self.LISTBOX.delete(0, "end")
     # end def
 
 
@@ -213,6 +225,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # reset Text widget
         self.TEXT.reset()
+        # reset listbox
+        self.reset_scene_browser()
         # reset hints
         self.reset_hints()
     # end def

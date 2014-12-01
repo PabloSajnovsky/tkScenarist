@@ -39,14 +39,16 @@
             />
             <ttkframe
                 layout="pack"
-                resizable="yes"
+                resizable="height"
             >
                 <listbox
                     id="lbox_scene_browser"
                     name="listbox_scene_browser"
+                    font="sans 8"
+                    width="30"
                     layout="grid"
                     layout_options="row=0, column=0"
-                    resizable="yes"
+                    resizable="height"
                 />
                 <ttkscrollbar
                     connect="lbox_scene_browser"

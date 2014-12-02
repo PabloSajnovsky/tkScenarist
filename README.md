@@ -86,10 +86,10 @@ startups;
 
 * Fourth tab is a great tool named `Characters`, where you can manage
 all the characters of your story: name list, character's history log,
-characters relations (WIP) and so on;
+characters relations and so on;
 
 * You also have a menu `Tools > Name database` utility dialog where you
-can search amongst thousands of names coming from all origins (WIP);
+can search amongst thousands of names coming from all origins;
 
 * Fifth tab is the `Scenario` text zone, with scene browser, contextual
 hints, estimated page count and estimated movie duration (still WIP);

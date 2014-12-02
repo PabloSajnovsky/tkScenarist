@@ -91,8 +91,8 @@ characters relations (WIP) and so on;
 * You also have a menu `Tools > Name database` utility dialog where you
 can search amongst thousands of names coming from all origins (WIP);
 
-* Fifth tab is the `Scenario` text zone, plus some additional features
-coming soon (WIP);
+* Fifth tab is the `Scenario` text zone, with scene browser, contextual
+hints, estimated page count and estimated movie duration (still WIP);
 
 * Sixth tab is the `Storyboard` panel, still in development (WIP);
 

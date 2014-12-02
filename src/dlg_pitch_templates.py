@@ -80,7 +80,9 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         )
         # tkinter widget event bindings
         self.bind("<Escape>", self._slot_button_cancel)
-        self.LISTBOX.bind("<<ListboxSelect>>", self.slot_listbox_item_selected)
+        self.LISTBOX.bind(
+            "<<ListboxSelect>>", self.slot_listbox_item_selected
+        )
         self.TEXT.bind(
             "<KeyRelease>", self.slot_on_text_keypress
         )
@@ -100,7 +102,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
             clears up template preview frame widgets;
         """
         # inits
-        _text = self.container.text_template_preview
+        _text = self.TEXT
         # backup state
         _flag = self.widget_enabled(_text) and not lock
         # enable
@@ -134,8 +136,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
             # auto-update options
             self.options["dirs"]["pitch_template_dir"] = value
             # update info
-            self.container.get_stringvar("current_dir")\
-                .set(P.shorten_path(value, limit=70))
+            self.LBL_CUR_DIR.set(P.shorten_path(value, limit=70))
         else:
             raise NotADirectoryError("not a directory.")
         # end if
@@ -175,7 +176,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
             retrieves filepath from current listbox selection;
         """
         # inits
-        _lb = self.container.listbox_templates_list
+        _lb = self.LISTBOX
         _cursel = _lb.curselection()
         # got selection?
         if _cursel:
@@ -202,7 +203,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         """
             returns all preview Text widget contents;
         """
-        return self.container.text_template_preview.get("1.0", "end")
+        return self.TEXT.get("1.0", "end")
     # end def
 
 
@@ -210,7 +211,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         """
             retrieves template name;
         """
-        return self.container.get_stringvar("template_name").get()
+        return self.LBL_TPL_NAME.get()
     # end def
 
 
@@ -223,10 +224,17 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
             # looks for ^/xml/widget/dlg_pitch_templates.xml
             xml="dlg_pitch_templates",
         )
+        # widget inits
+        _w = self.container
+        self.LISTBOX = _w.listbox_templates_list
+        self.TEXT = _w.text_template_preview
+        self.LBL_TPL_NAME = _w.get_stringvar("template_name")
+        self.LBL_CUR_DIR = _w.get_stringvar("current_dir")
+        self.BTN_DELETE = _w.btn_delete
         # member inits
         self.DEFAULT_DIR = P.normalize(_(self.DEFAULT_DIR))
-        self.current_fpath = ""
         self.async = ASYNC.get_async_manager()
+        self.current_fpath = ""
         self.update_current_dir(
             self.options.get(
                 "dirs",
@@ -234,9 +242,6 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
                 fallback=self.DEFAULT_DIR
             )
         )
-        # widget inits
-        self.LISTBOX = self.container.listbox_templates_list
-        self.TEXT = self.container.text_template_preview
         # event bindings
         self.bind_events(**kw)
     # end def
@@ -258,8 +263,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
             sets template name along @value;
         """
         # inits
-        self.container.get_stringvar("template_name")\
-            .set(self.clean_name(value))
+        self.LBL_TPL_NAME.set(self.clean_name(value))
     # end def
 
 
@@ -346,7 +350,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
             # update preview only after dir updates
             self.update_preview(_fpath)
             # new template: go directly to edit mode
-            self.container.text_template_preview.focus_set()
+            self.TEXT.focus_set()
         # end if
     # end def
 
@@ -387,7 +391,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         # param controls
         if OP.isdir(new_dir):
             # init listbox
-            _lb = self.container.listbox_templates_list
+            _lb = self.LISTBOX
             # clear listbox
             _lb.delete(0, "end")
             # file list
@@ -405,7 +409,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
                 self.clear_preview(lock=True)
             # end if
             # disable delete button
-            self.enable_widget(self.container.btn_delete, False)
+            self.enable_widget(self.BTN_DELETE, False)
         # end if
     # end def
 
@@ -422,7 +426,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         # clear preview frame widgets
         self.clear_preview(lock=True)
         # disable delete button
-        self.enable_widget(self.container.btn_delete, False)
+        self.enable_widget(self.BTN_DELETE, False)
         # params controls
         if OP.isfile(fpath):
             # keep track
@@ -430,7 +434,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
             # set info
             self.set_template_name(fpath)
             # inits
-            _text = self.container.text_template_preview
+            _text = self.TEXT
             # enable preview text
             self.enable_widget(_text, True)
             # get file contents
@@ -442,7 +446,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
                 _text.insert("1.0", _data)
             # end with
             # enable delete button
-            self.enable_widget(self.container.btn_delete, True)
+            self.enable_widget(self.BTN_DELETE, True)
         # end if
     # end def
 

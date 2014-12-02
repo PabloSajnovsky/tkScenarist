@@ -80,11 +80,8 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         )
         # tkinter widget event bindings
         self.bind("<Escape>", self._slot_button_cancel)
-        _lb = self.container.listbox_templates_list
-        _lb.bind("<ButtonRelease-1>", self.slot_on_listbox_click)
-        _lb.bind("<KeyRelease-Up>", self.slot_on_listbox_click)
-        _lb.bind("<KeyRelease-Down>", self.slot_on_listbox_click)
-        self.container.text_template_preview.bind(
+        self.LISTBOX.bind("<<ListboxSelect>>", self.slot_listbox_item_selected)
+        self.TEXT.bind(
             "<KeyRelease>", self.slot_on_text_keypress
         )
     # end def
@@ -237,6 +234,9 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
                 fallback=self.DEFAULT_DIR
             )
         )
+        # widget inits
+        self.LISTBOX = self.container.listbox_templates_list
+        self.TEXT = self.container.text_template_preview
         # event bindings
         self.bind_events(**kw)
     # end def
@@ -263,9 +263,9 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def slot_on_listbox_click (self, event=None, *args, **kw):
+    def slot_listbox_item_selected (self, event=None, *args, **kw):
         """
-            event handler: mouse click on listbox;
+            event handler: item selected in listbox;
         """
         # inits
         _fpath = self.get_listbox_fpath()

@@ -90,6 +90,10 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # member inits
         self.mainwindow = self.winfo_toplevel()
         self.mainframe = self.mainwindow.mainframe
+        self.tab_characters = self.mainframe.tab_characters
+        self.text_clear_contents = self.mainwindow.text_clear_contents
+        self.text_get_contents = self.mainwindow.text_get_contents
+        self.text_set_contents = self.mainwindow.text_set_contents
         self.async = ASYNC.get_async_manager()
         # looks for ^/xml/widget/tab_scenario.xml
         self.xml_build("tab_scenario")
@@ -284,7 +288,24 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: updates character's log info, if any;
         """
         # inits
-        _name = self.TEXT.get_line_contents()
+        _tc = self.tab_characters
+        _name = _tc.format_name(self.TEXT.get_line_contents())
+        # known character name?
+        if _tc.is_registered(_name):
+            # update info
+            self.LBL_CHAR_NAME.set(_name)
+            self.TXT_CHAR_LOG.configure(state="normal")
+            self.text_set_contents(
+                self.TXT_CHAR_LOG,
+                _tc.get_character_log(_name)
+            )
+            self.TXT_CHAR_LOG.configure(state="disabled")
+        # unknown
+        else:
+            # clear info
+            self.LBL_CHAR_NAME.set("")
+            self.text_clear_contents(self.TXT_CHAR_LOG)
+        # end if
     # end def
 
 

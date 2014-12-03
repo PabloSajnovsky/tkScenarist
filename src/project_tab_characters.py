@@ -308,6 +308,18 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
     # end def
 
 
+    def get_character_log (self, character_name):
+        """
+            retrieves character log history according to
+            @character_name, if exists;
+            returns empty string otherwise;
+        """
+        return self.character_logs.get(
+            self.format_name(character_name)
+        ) or ""
+    # end def
+
+
     def get_current_name (self):
         """
             retrieves self.current_name if name list is *NOT* empty;
@@ -389,6 +401,15 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         text = text or self.get_scenario_text()
         # look if name is mentioned in text
         return bool(re.search(r"(?i)\b{}\b".format(name), text))
+    # end def
+
+
+    def is_registered (self, name):
+        """
+            returns True if character's @name is registered, False
+            otherwise;
+        """
+        return bool(self.format_name(name) in self.character_logs)
     # end def
 
 

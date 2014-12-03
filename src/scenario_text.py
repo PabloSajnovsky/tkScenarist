@@ -352,7 +352,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             returns range() object for all lines in widget;
         """
-        return range(1, 1 + self.get_line_number(TK.END))
+        return range(1, 1 + self.get_nb_of_lines())
     # end def
 
 
@@ -534,7 +534,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             retrieves total nb of lines in widget;
         """
-        return self.get_line_number(TK.END)
+        return self.get_line_number(TK.END) - 1
     # end def
 
 

@@ -229,7 +229,7 @@
                             id="info_char_log"
                             name="text_characters_log"
                             height="10"
-                            width="1"
+                            width="20"
                             state="disabled"
                             wrap="word"
                             layout="grid"

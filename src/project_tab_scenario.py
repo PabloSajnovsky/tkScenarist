@@ -44,6 +44,9 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # according to locale language
     INFO_HINTS_FPATH = _("^/data/json/info_hints.en.json")
 
+    # average nb of lines per page (estimation)
+    LINES_PER_PAGE = 42
+
 
     def bind_events (self, **kw):
         """
@@ -334,7 +337,14 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: updates scenario stats;
         """
-        print("update_stats")
+        # inits
+        _nb_pages = self.get_nb_of_lines() // self.LINES_PER_PAGE + 1
+        _cur_page = self.get_line_number() // self.LINES_PER_PAGE + 1
+        # show info
+        self.LBL_PAGE_COUNT.set(
+            _("{page} of {total}")
+            .format(page=_cur_page, total=_nb_pages)
+        )
     # end def
 
 # end class ProjectTabScenario

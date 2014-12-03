@@ -103,9 +103,6 @@ class ProjectTabTitleData (tkRAD.RADXMLFrame):
         """
             hook method to be reimplemented by subclass;
         """
-        # member inits
-        self.mainwindow = self.winfo_toplevel()
-        self.mainframe = self.mainwindow.mainframe
         # looks for ^/xml/widget/tab_title_data.xml
         self.xml_build("tab_title_data")
         # event bindings

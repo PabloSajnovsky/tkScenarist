@@ -530,6 +530,14 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def get_nb_of_lines (self):
+        """
+            retrieves total nb of lines in widget;
+        """
+        return self.get_line_number(TK.END)
+    # end def
+
+
     def init_deferred (self, kw):
         """
             deferred inits;

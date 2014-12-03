@@ -290,22 +290,24 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # inits
         _tc = self.tab_characters
         _name = _tc.format_name(self.TEXT.get_line_contents())
+        # enable widget
+        self.TXT_CHAR_LOG.configure(state="normal")
         # known character name?
         if _tc.is_registered(_name):
             # update info
             self.LBL_CHAR_NAME.set(_name)
-            self.TXT_CHAR_LOG.configure(state="normal")
             self.text_set_contents(
                 self.TXT_CHAR_LOG,
                 _tc.get_character_log(_name)
             )
-            self.TXT_CHAR_LOG.configure(state="disabled")
         # unknown
         else:
             # clear info
             self.LBL_CHAR_NAME.set("")
             self.text_clear_contents(self.TXT_CHAR_LOG)
         # end if
+        # disable widget
+        self.TXT_CHAR_LOG.configure(state="disabled")
     # end def
 
 

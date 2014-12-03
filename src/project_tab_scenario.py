@@ -285,6 +285,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # inits
         _name = self.TEXT.get_line_contents()
+    # end def
 
 
     def update_hints (self, element_tag):

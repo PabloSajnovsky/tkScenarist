@@ -538,6 +538,43 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def get_word (self, index=None):
+        """
+            retrieves word located at or around @index, if any.
+            returns empty string otherwise;
+        """
+        # inits
+        index = index or TK.INSERT
+        _start = "{} linestart".format(index)
+        _end = "{} lineend".format(index)
+        _word = ""
+        # look backward
+        _text = self.get(_start, index)
+        _pos = _text.rfind(" ")
+        # found?
+        if _pos >= 0:
+            # set first part of word
+            _word += _text[_pos + 1:]
+        else:
+            # take all
+            _word += _text
+        # end if
+        # look forward
+        _text = self.get(index, _end).rstrip(".:,;?!\"']})")
+        _pos = _text.find(" ")
+        # found?
+        if _pos >= 0:
+            # set last part of word
+            _word += _text[:_pos]
+        else:
+            # take all
+            _word += _text
+        # end if
+        # return result
+        return _word
+    # end def
+
+
     def init_deferred (self, kw):
         """
             deferred inits;

@@ -289,7 +289,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # inits
         _tc = self.tab_characters
-        _name = _tc.format_name(self.TEXT.get_line_contents())
+        _name = _tc.format_name(self.TEXT.get_word())
+        print("word:", self.TEXT.get_word())
         # enable widget
         self.TXT_CHAR_LOG.configure(state="normal")
         # known character name?

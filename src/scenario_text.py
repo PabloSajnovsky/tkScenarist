@@ -560,7 +560,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             _word += _text
         # end if
         # look forward
-        _text = self.get(index, _end).rstrip(".:,;?!\"']})")
+        _text = self.get(index, _end)
         _pos = _text.find(" ")
         # found?
         if _pos >= 0:
@@ -571,7 +571,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             _word += _text
         # end if
         # return result
-        return _word
+        return _word.rstrip(" .:,;?!\"']})")
     # end def
 
 

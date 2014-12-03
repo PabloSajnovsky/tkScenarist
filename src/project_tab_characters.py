@@ -307,9 +307,17 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             returns empty string otherwise;
         """
         # inits
-        contents = str(contents).upper()
-        # browser character names
-        for _name in reversed(self.get_character_names()):
+        contents = self.format_name(contents)
+        _names = self.get_character_names()
+        # are contents a full name?
+        if contents in _names:
+            # return contents as name
+            return contents
+        # end if
+        # browse character names
+        for _name in reversed(_names):
+            # inits
+            _name = self.format_name(_name)
             # look for name in contents
             _pos = contents.find(_name)
             # found a name nearby index?

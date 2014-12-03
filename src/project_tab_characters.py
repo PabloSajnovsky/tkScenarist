@@ -315,13 +315,12 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             return contents
         # end if
         # browse character names
-        for _name in reversed(_names):
+        for _name in _names:
             # inits
             _name = self.format_name(_name)
-            # look for name in contents
-            _pos = contents.find(_name)
+            _len = len(_name)
             # found a name nearby index?
-            if _pos >= 0 and 0 <= index - _pos <= len(_name):
+            if _name in contents[max(0, index - _len):(index + _len)]:
                 # give that name
                 return _name
             # end if

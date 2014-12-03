@@ -341,7 +341,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         _lpp = self.LINES_PER_PAGE
         _nb_pages = self.TEXT.get_nb_of_lines() // _lpp + 1
         _cur_page = self.TEXT.get_line_number() // _lpp + 1
-        _mduration = 0.9 * _nb_pages
+        _mduration = int(0.9 * _nb_pages)
         # show info
         self.LBL_PAGE_COUNT.set(
             _("{page} of {total}")
@@ -349,7 +349,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         )
         # time format
         if _mduration < 1:
-            _time_fmt = _("less than a minute")
+            _time_fmt = _("< 1 minute")
         else:
             _time_fmt = _(
                 "{hours:02d} h {minutes:02d} min"

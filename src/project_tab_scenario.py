@@ -338,13 +338,27 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: updates scenario stats;
         """
         # inits
-        _nb_pages = self.get_nb_of_lines() // self.LINES_PER_PAGE + 1
-        _cur_page = self.get_line_number() // self.LINES_PER_PAGE + 1
+        _lpp = self.LINES_PER_PAGE
+        _nb_pages = self.TEXT.get_nb_of_lines() // _lpp + 1
+        _cur_page = self.TEXT.get_line_number() // _lpp + 1
+        _mduration = 0.9 * _nb_pages
         # show info
         self.LBL_PAGE_COUNT.set(
             _("{page} of {total}")
             .format(page=_cur_page, total=_nb_pages)
         )
+        # time format
+        if _mduration < 1:
+            _time_fmt = _("less than a minute")
+        else:
+            _time_fmt = _(
+                "{hours:02d} h {minutes:02d} min"
+            ).format(
+                hours=(_mduration//60),
+                minutes=(_mduration % 60)
+            )
+        # end if
+        self.LBL_MOVIE_DURATION.set(_time_fmt)
     # end def
 
 # end class ProjectTabScenario

@@ -309,7 +309,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         # inits
         contents = str(contents).upper()
         # browser character names
-        for _name in self.get_character_names():
+        for _name in reversed(self.get_character_names()):
             # look for name in contents
             _pos = contents.find(_name)
             # found a name nearby index?

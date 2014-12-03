@@ -262,6 +262,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.async.run_after(300, self.update_scene_browser)
         # update hints
         self.async.run_after(700, self.update_hints, _tag)
+        # update stats
+        self.async.run_after(1000, self.update_stats)
     # end def
 
 
@@ -318,6 +320,14 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.COMBO.current_selected = text
         # reset selection
         self.COMBO.selection_clear()
+    # end def
+
+
+    def update_stats (self, *args, **kw):
+        """
+            event handler: updates scenario stats;
+        """
+        print("nb of lines:", self.TEXT.get_nb_of_lines())
     # end def
 
 # end class ProjectTabScenario

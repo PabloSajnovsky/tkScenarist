@@ -315,7 +315,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             return contents
         # end if
         # browse character names
-        for _name in _names:
+        for _name in reversed(_names):
             # inits
             _name = self.format_name(_name)
             _len = len(_name)

@@ -180,8 +180,9 @@
             padding="2px"
             weight="1"
         >
+            <!-- hints -->
             <ttklabel
-                text="Hint:"
+                text="Hints:"
                 layout="pack"
                 resizable="width"
             />
@@ -197,6 +198,41 @@
                 layout="pack"
                 resizable="height"
             />
+            <!-- stats -->
+            <ttklabel
+                text="Stats:"
+                layout="pack"
+                resizable="width"
+            />
+            <ttkframe
+                layout="pack"
+                resizable="yes"
+            >
+                <ttklabel
+                    text="Est. page:"
+                    layout="grid"
+                    layout_options="row=0, column=0"
+                />
+                <ttklabel
+                    textvariable="lbl_page_count"
+                    width="10"
+                    layout="grid"
+                    layout_options="row=0, column=1"
+                    resizable="width"
+                />
+                <ttklabel
+                    text="Est. movie duration:"
+                    layout="grid"
+                    layout_options="row=1, column=0"
+                />
+                <ttklabel
+                    textvariable="lbl_movie_duration"
+                    width="10"
+                    layout="grid"
+                    layout_options="row=1, column=1"
+                    resizable="width"
+                />
+            </ttkframe>
         </ttklabelframe>
     </ttkpanedwindow>
 </tkwidget>

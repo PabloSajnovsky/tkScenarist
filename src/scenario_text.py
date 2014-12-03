@@ -701,7 +701,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             reformats current line along with element constraints;
         """
         # reset to standard line of text
-        return (text.strip("()").capitalize(), "")
+        return (text.strip("()"), "")
     # end def
 
 

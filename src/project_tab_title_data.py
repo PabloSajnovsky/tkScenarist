@@ -55,9 +55,9 @@ class ProjectTabTitleData (tkRAD.RADXMLFrame):
         """
         self.events.connect_dict(
             {
-                "Project:Information:Refresh": self.slot_refresh_info,
-                "Project:Modified": self.slot_project_modified,
                 "Project:Path:Update": self.slot_update_path,
+
+                "Scenario:Stats:Updated": self.slot_update_stats,
 
                 "Tab:Reset": self.slot_tab_reset,
             }
@@ -137,23 +137,6 @@ class ProjectTabTitleData (tkRAD.RADXMLFrame):
     # end def
 
 
-    def slot_project_modified (self, *args, flag=True, **kw):
-        """
-            event handler for project's modification flag;
-        """
-        # reset status
-        pass
-    # end def
-
-
-    def slot_refresh_info (self, *args, **kw):
-        """
-            event handler for button 'Refresh';
-        """
-        print("Tab:Title/Data:Information:Refresh")
-    # end def
-
-
     def slot_tab_reset (self, *args, **kw):
         """
             event handler: reset tab to new;
@@ -175,6 +158,22 @@ class ProjectTabTitleData (tkRAD.RADXMLFrame):
             self.cvar_set_text("project_filename", filename)
             self.cvar_set_text("project_directory", directory)
         # end if
+    # end def
+
+
+    def slot_update_stats (self, *args, **kw):
+        """
+            event handler: updates stats info;
+        """
+        # update info
+        self.cvar_set_text(
+            "scenario_nb_of_pages",
+            kw.get("total_pages") or ""
+        )
+        self.cvar_set_text(
+            "scenario_movie_duration",
+            kw.get("movie_duration_label") or ""
+        )
     # end def
 
 # end class ProjectTabTitleData

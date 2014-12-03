@@ -1,10 +1,8 @@
 [DEFAULT]
-mainwindow = 640x480+20+20
-mainwindow_state = normal
 maximized = 0
+mainwindow_state = normal
+mainwindow = 640x480+20+20
 dialog_state = normal
-
-[xml]
 
 [geometry]
 mainwindow_state = normal
@@ -21,6 +19,8 @@ namedb_import_dir = /home/rs/apps/tkScenarist/data/csv
 
 [gui]
 show_statusbar = 1
+
+[xml]
 
 [mainwindow]
 

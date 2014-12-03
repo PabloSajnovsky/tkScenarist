@@ -371,6 +371,15 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             )
         # end if
         self.LBL_MOVIE_DURATION.set(_time_fmt)
+        # notify app
+        self.events.raise_event(
+            "Scenario:Stats:Updated",
+            nb_of_lines=_lines,
+            total_pages=_nb_pages,
+            current_page=_cur_page,
+            movie_duration=_mduration,
+            movie_duration_label=_time_fmt,
+        )
     # end def
 
 # end class ProjectTabScenario

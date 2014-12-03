@@ -174,17 +174,10 @@
             resizable="no"
         />
         <ttklabel
-            textvariable="lbl_movie_duration"
+            textvariable="scenario_movie_duration"
             layout="grid"
             layout_options="row=3, column=1, padx=5, pady=2"
             resizable="width"
-        />
-        <ttkbutton
-            text="Refresh"
-            command="@Project:Information:Refresh"
-            layout="grid"
-            layout_options="row=10, column=0, columnspan=2, pady=10"
-            resizable="no"
         />
     </ttklabelframe>
 </tkwidget>

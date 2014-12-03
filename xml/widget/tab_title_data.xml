@@ -174,7 +174,7 @@
             resizable="no"
         />
         <ttklabel
-            textvariable="scenario_movie_duration"
+            textvariable="lbl_movie_duration"
             layout="grid"
             layout_options="row=3, column=1, padx=5, pady=2"
             resizable="width"

@@ -279,6 +279,8 @@
                         />
                         <ttklabel
                             textvariable="lbl_movie_duration"
+                            font="sans 9 bold"
+                            foreground="royal blue"
                             width="10"
                             layout="grid"
                             layout_options="row=1, column=1, padx=5"

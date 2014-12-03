@@ -270,11 +270,21 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         )
         # update scene browser
         self.async.run_after(300, self.update_scene_browser)
+        # update character log
+        self.async.run_after(500, self.update_character_log)
         # update hints
         self.async.run_after(700, self.update_hints, _tag)
         # update stats
         self.async.run_after(1000, self.update_stats)
     # end def
+
+
+    def update_character_log (self, *args, **kw):
+        """
+            event handler: updates character's log info, if any;
+        """
+        # inits
+        _name = self.TEXT.get_line_contents()
 
 
     def update_hints (self, element_tag):

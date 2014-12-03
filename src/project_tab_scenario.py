@@ -91,6 +91,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # looks for ^/xml/widget/tab_scenario.xml
         self.xml_build("tab_scenario")
         # widget inits
+        # scenario zone
         self.TEXT = self.text_scenario
         self.COMBO = self.combo_elements
         self.COMBO.state(["readonly"])
@@ -100,8 +101,14 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.LBL_TAB = self.get_stringvar("lbl_on_tab")
         self.LBL_RET = self.get_stringvar("lbl_on_return")
         self.LBL_CTRL_RET = self.get_stringvar("lbl_on_ctrl_return")
-        self.LBL_HINT = self.get_stringvar("lbl_info_hint")
+        # navigation zone
         self.LISTBOX = self.listbox_scene_browser
+        # information zone
+        self.LBL_HINT = self.get_stringvar("lbl_info_hint")
+        self.LBL_CHAR_NAME = self.get_stringvar("lbl_character_name")
+        self.TXT_CHAR_LOG = self.text_characters_log
+        self.LBL_PAGE_COUNT = self.get_stringvar("lbl_page_count")
+        self.LBL_MOVIE_DURATION = self.get_stringvar("lbl_movie_duration")
         # reset listbox
         self.reset_scene_browser()
         # get hints data

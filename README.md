@@ -92,7 +92,8 @@ characters relations and so on;
 can search amongst thousands of names coming from all origins;
 
 * Fifth tab is the `Scenario` text zone, with scene browser, contextual
-hints, estimated page count and estimated movie duration (still WIP);
+hints, character's log reminder, estimated page count and movie
+duration;
 
 * Sixth tab is the `Storyboard` panel, still in development (WIP);
 

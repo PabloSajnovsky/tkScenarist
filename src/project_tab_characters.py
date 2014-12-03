@@ -300,6 +300,29 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
     # end def
 
 
+    def find_nearest_name (self, contents, index):
+        """
+            retrieves nearest character name found in @contents, at or
+            about @index location;
+            returns empty string otherwise;
+        """
+        # inits
+        contents = str(contents).upper()
+        # browser character names
+        for _name in self.get_character_names():
+            # look for name in contents
+            _pos = contents.find(_name)
+            # found a name nearby index?
+            if _pos >= 0 and 0 <= index - _pos <= len(_name):
+                # give that name
+                return _name
+            # end if
+        # end for
+        # failed
+        return ""
+    # end def
+
+
     def format_name (self, name):
         """
             returns formatted name along internal policy;
@@ -352,6 +375,14 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         }
         # always return a dict
         return _dict
+    # end def
+
+
+    def get_character_names (self):
+        """
+            retrieves a sorted list of character names;
+        """
+        return sorted(self.character_logs.keys())
     # end def
 
 

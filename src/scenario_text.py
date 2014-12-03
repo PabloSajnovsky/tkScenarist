@@ -356,6 +356,17 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def get_column_index (self, index=None):
+        """
+            retrieves column index as integer for @index location;
+        """
+        # inits
+        index = self.index(index or TK.INSERT)
+        # return integer
+        return tools.ensure_int(index.split(".")[-1])
+    # end def
+
+
     def get_element_mappings (self, index=None):
         """
             returns dict() of hotkey/element mappings along with

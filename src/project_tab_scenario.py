@@ -334,7 +334,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: updates scenario stats;
         """
-        print("nb of lines:", self.TEXT.get_nb_of_lines())
+        print("update_stats")
     # end def
 
 # end class ProjectTabScenario

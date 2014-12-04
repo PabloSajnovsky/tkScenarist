@@ -967,8 +967,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Del> key press;
         """
-        # update line infos (deferred)
-        self.update_line()
+        # same as KEYRELEASE
+        self.slot_on_keyrelease(event)
         # ensure line format (deferred)
         self.reformat_line(no_adjust=True)
     # end def

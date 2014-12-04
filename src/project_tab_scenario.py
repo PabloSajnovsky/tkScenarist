@@ -200,6 +200,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # inits
         choices = kw.get("choices")
         start_index = kw.get("start_index") or "insert"
+        anchor = kw.get("anchor") or "word"
         # param controls
         if choices:
             _lb = self.POPUP_LBOX
@@ -214,7 +215,10 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # new position?
         if not self.POPUP.top_left_xy:
             # recalc pos
-            _x, _y, _w, _h = self.TEXT.bbox(start_index)
+            _x, _y, _w, _h = {
+                "word": self.TEXT.bbox,
+                "line": self.TEXT.dlineinfo,
+            }.get(anchor)(start_index)
             _x += self.TEXT.winfo_rootx()
             _y += self.TEXT.winfo_rooty() + _h
             # reset pos
@@ -234,6 +238,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # inits
         _word = self.TEXT.get_word()
         _si = _word["start_index"]
+        _anchor="word"
         # look for matching names
         _names = self.tab_characters.get_matching_names(_word["word"])
         # no matching names for word?
@@ -243,11 +248,13 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                 self.TEXT.get_line_contents()
             )
             _si = "insert linestart"
+            _anchor="line"
         # end if
         # got matching names?
         if _names:
             # show popup list
-            self.show_popup_list(choices=_names, start_index=_si)
+            self.show_popup_list(
+                choices=_names, start_index=_si, anchor=_anchor)
         else:
             # hide popup list
             self.hide_popup_list()

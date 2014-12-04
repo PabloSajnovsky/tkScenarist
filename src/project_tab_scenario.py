@@ -232,7 +232,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         _word = self.TEXT.get_word()
         # look for matching names
         _names = self.tab_characters.get_matching_names(
-            _word["word"], self.TEXT.get_line_contents()
+            _word["word"], #self.TEXT.get_line_contents()
         )
         # got matching names?
         if _names:

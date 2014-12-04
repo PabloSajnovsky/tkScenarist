@@ -231,9 +231,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # inits
         _word = self.TEXT.get_word()
         # look for matching names
-        _names = self.tab_characters.get_matching_names(
-            _word["word"], #self.TEXT.get_line_contents()
-        )
+        _names = self.tab_characters.get_matching_names(_word["word"])
         # got matching names?
         if _names:
             # show popup list

@@ -385,33 +385,29 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
     # end def
 
 
-    def get_matching_names (self, *words):
+    def get_matching_names (self, word):
         """
             retrieves sorted list of character names matching @word;
         """
         # inits
         _matchups = []
-        # browse words
-        for _word in words:
-            # inits
-            _word = self.format_name(_word)
-            # got buffered word?
-            if _word:
-                # browse names
-                for _name in self.get_character_names():
-                    # got something like?
-                    if _name.startswith(_word):
-                        # add to list
-                        _matchups.append(_name)
-                    # end if
-                # end for
-                # only one exact match?
-                if len(_matchups) == 1 and _matchups[0] == _word:
-                    # no use to go further
-                    _matchups = []
+        _word = self.format_name(word)
+        # got buffered word?
+        if _word:
+            # browse names
+            for _name in self.get_character_names():
+                # got something like?
+                if _name.startswith(_word):
+                    # add to list
+                    _matchups.append(_name)
                 # end if
+            # end for
+            # only one exact match?
+            if len(_matchups) == 1 and _matchups[0] == _word:
+                # no use to go further
+                _matchups = []
             # end if
-        # end for
+        # end if
         # return results
         return _matchups
     # end def

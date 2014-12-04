@@ -61,7 +61,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                     self.slot_update_current_element,
                 "Scenario:Elements:Init": self.slot_elements_init,
                 "Scenario:Text:Clicked": self.slot_text_clicked,
-                "Scenario:Word:Detected": self.slot_autocomplete,
 
                 "Tab:Reset": self.slot_tab_reset,
             }
@@ -339,7 +338,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # update scene browser
         self.async.run_after(300, self.update_scene_browser)
         # update character log
-        self.async.run_after(500, self.update_character_log)
+        self.async.run_after(200, self.update_character_log)
         # update hints
         self.async.run_after(700, self.update_hints, _tag)
         # update stats
@@ -370,11 +369,14 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # unknown
         else:
             # clear info
+            _name = self.TEXT.get_word()
             self.LBL_CHAR_NAME.set("")
             self.text_clear_contents(self.TXT_CHAR_LOG)
         # end if
         # disable widget
         self.TXT_CHAR_LOG.configure(state="disabled")
+        # look out for autocompletion
+        self.slot_autocomplete(word=_name)
     # end def
 
 

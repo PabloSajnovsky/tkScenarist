@@ -734,19 +734,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def notify_word (self, *args, **kw):
-        """
-            event handler: notifies app a new word is being buffered;
-        """
-        def deferred ():
-            self.events.raise_event(
-                "Scenario:Word:Detected", word=self.get_word()
-            )
-        # end def
-        self.after_idle(deferred)
-    # end def
-
-
     def reformat_line (self, *args, **kw):
         """
             event handler: reformats insertion cursor's line in order
@@ -1026,8 +1013,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: general keyboard key release;
         """
-        # buffered new word (deferred)
-        self.notify_word()
         # update line infos (deferred)
         self.update_line()
     # end def

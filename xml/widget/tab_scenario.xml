@@ -298,4 +298,36 @@
             </ttkpanedwindow>
         </ttklabelframe>
     </ttkpanedwindow>
+
+    <!-- text autocompletion popup list widget -->
+    <toplevel
+        name="toplevel_popup_list"
+        overrideredirect="true"
+        transient="@parent"
+        visibility="normal"
+        resizable="no"
+    >
+        <listbox
+            id="lbox_popup_list"
+            name="listbox_popup_list"
+            choices="'toto', 'tutu', 'titi', 'tata'"
+            background="lemon chiffon"
+            foreground="black"
+            selectbackground="black"
+            selectforeground="lemon chiffon"
+            height="7"
+            width="12"
+            layout="grid"
+            layout_options="row=0, column=0"
+            resizable="no"
+        />
+        <ttkscrollbar
+            connect="lbox_popup_list"
+            orient="vertical"
+            width="10"
+            layout="grid"
+            layout_options="row=0, column=1"
+            resizable="height"
+        />
+    </toplevel>
 </tkwidget>

@@ -185,7 +185,10 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # got matching names?
         if _names:
             # show popup list
-            print("show popup list:", _names)
+            self.show_popup_list(_names)
+        else:
+            # hide popup list
+            self.hide_popup_list()
         # end if
     # end def
 

@@ -1,8 +1,12 @@
 [DEFAULT]
-maximized = 0
 mainwindow = 640x480+20+20
+maximized = 0
 mainwindow_state = normal
 dialog_state = normal
+
+[xml]
+
+[files]
 
 [dirs]
 pfm_preferred_dir = /home/rs/tmp
@@ -11,10 +15,6 @@ namedb_import_dir = /home/rs/apps/tkScenarist/data/csv
 
 [gui]
 show_statusbar = 1
-
-[xml]
-
-[files]
 
 [geometry]
 mainwindow_state = normal

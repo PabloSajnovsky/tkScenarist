@@ -188,10 +188,18 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
-    def show_popup_list (self, *args, **kw):
+    def show_popup_list (self, *args, choices=None, **kw):
         """
             event handler: shows autocompletion popup list;
         """
+        # param controls
+        if choices:
+            _lb = self.POPUP.listbox_popup_list
+            _lb.delete(0, "end")
+            _lb.insert(0, *choices)
+            _lb.selection_set(0)
+        # end if
+        # show popup list
         self.POPUP.deiconify()
     # end def
 
@@ -206,7 +214,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # got matching names?
         if _names:
             # show popup list
-            self.show_popup_list(_names)
+            self.show_popup_list(choices=_names)
         else:
             # hide popup list
             self.hide_popup_list()

@@ -214,11 +214,15 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # end if
         # new position?
         if not self.POPUP.top_left_xy:
-            # recalc pos
-            _x, _y, _w, _h = {
-                "word": self.TEXT.bbox,
-                "line": self.TEXT.dlineinfo,
-            }.get(anchor)(start_index)
+            # need word anchorage?
+            if anchor == "word":
+                # recalc pos
+                _x, _y, _w, _h = self.TEXT.bbox(start_index)
+            # other anchorage
+            else:
+                # recalc pos
+                _x, _y, _w, _h, _b = self.TEXT.dlineinfo(start_index)
+            # end if
             _x += self.TEXT.winfo_rootx()
             _y += self.TEXT.winfo_rooty() + _h
             # reset pos

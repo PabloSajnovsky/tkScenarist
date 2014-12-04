@@ -88,7 +88,9 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: hides autocompletion popup list;
         """
+        # hide popup list
         self.POPUP.withdraw()
+        self.POPUP.top_left_xy = None
     # end def
 
 
@@ -127,8 +129,9 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.LBL_MOVIE_DURATION = self.get_stringvar("lbl_movie_duration")
         # popup list
         self.POPUP = self.toplevel_popup_list
-        #~ self.POPUP.transient(self.TEXT)
+        self.POPUP.transient(self.TEXT)
         self.POPUP.overrideredirect(True)
+        self.POPUP.top_left_xy = None
         self.POPUP_LBOX = self.listbox_popup_list
         # reset listbox
         self.reset_scene_browser()
@@ -205,7 +208,16 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                 width=min(49, max(map(len, choices))),
             )
         # end if
-        self.POPUP.geometry("+{x}+{y}".format(x=600, y=334))
+        # new position?
+        if not self.POPUP.top_left_xy:
+            # recalc pos
+            _x, _y, _w, _h = self.TEXT.bbox("insert")
+            _x += self.TEXT.winfo_rootx()
+            _y += self.TEXT.winfo_rooty()
+            # reset pos
+            self.POPUP.top_left_xy = dict(x=_x, y=_y)
+        # end if
+        self.POPUP.geometry("+{x}+{y}".format(**self.POPUP.top_left_xy))
         # show popup list
         self.POPUP.deiconify()
     # end def

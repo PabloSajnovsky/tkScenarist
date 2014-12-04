@@ -552,7 +552,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     def get_word (self, index=None):
         """
             retrieves word located at or around @index, if any.
-            returns empty string otherwise;
         """
         # inits
         index = index or TK.INSERT
@@ -566,6 +565,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         if _pos >= 0:
             # set first part of word
             _word += _text[_pos + 1:]
+            # update start index
+            _start = "{}+{}c".format(_start, _pos + 1)
         else:
             # take all
             _word += _text
@@ -577,12 +578,18 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         if _pos >= 0:
             # set last part of word
             _word += _text[:_pos]
+            # update end index
+            _end = "{}+{}c".format(_start, _pos)
         else:
             # take all
             _word += _text
         # end if
         # return result
-        return _word.rstrip(" .:,;?!\"']})")
+        return {
+            "word": _word.rstrip(" .:,;?!\"']})"),
+            "start_index": _start,
+            "end_index": _end,
+        }
     # end def
 
 

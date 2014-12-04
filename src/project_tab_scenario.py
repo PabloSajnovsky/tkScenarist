@@ -193,7 +193,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
-    def show_popup_list (self, *args, choices=None, **kw):
+    def show_popup_list (self, *args, choices=None, start_index=None, **kw):
         """
             event handler: shows autocompletion popup list;
         """
@@ -211,9 +211,9 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # new position?
         if not self.POPUP.top_left_xy:
             # recalc pos
-            _x, _y, _w, _h = self.TEXT.bbox("insert")
+            _x, _y, _w, _h = self.TEXT.bbox(start_index)
             _x += self.TEXT.winfo_rootx()
-            _y += self.TEXT.winfo_rooty()
+            _y += self.TEXT.winfo_rooty() + _h
             # reset pos
             self.POPUP.top_left_xy = dict(x=_x, y=_y)
         # end if
@@ -223,17 +223,21 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
-    def slot_autocomplete (self, *args, word=None, **kw):
+    def slot_autocomplete (self, *args, **kw):
         """
             event handler: a word has been detected in scenario text
             widget while buffering keystrokes;
         """
+        # inits
+        _word = self.TEXT.get_word()
         # look for matching names
-        _names = self.tab_characters.get_matching_names(word)
+        _names = self.tab_characters.get_matching_names(_word["word"])
         # got matching names?
         if _names:
             # show popup list
-            self.show_popup_list(choices=_names)
+            self.show_popup_list(
+                choices=_names, start_index=_word["start_index"],
+            )
         else:
             # hide popup list
             self.hide_popup_list()
@@ -387,7 +391,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             self.LBL_CHAR_NAME.set("")
             self.text_clear_contents(self.TXT_CHAR_LOG)
             # look out for autocompletion
-            self.slot_autocomplete(word=self.TEXT.get_word())
+            self.after_idle(self.slot_autocomplete)
         # end if
         # disable widget
         self.TXT_CHAR_LOG.configure(state="disabled")

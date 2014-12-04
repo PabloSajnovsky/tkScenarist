@@ -233,14 +233,21 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # inits
         _word = self.TEXT.get_word()
+        _si = _word["start_index"]
         # look for matching names
         _names = self.tab_characters.get_matching_names(_word["word"])
+        # no matching names for word?
+        if not _names:
+            # try out full line
+            _names = self.tab_characters.get_matching_names(
+                self.TEXT.get_line_contents()
+            )
+            _si = "insert linestart"
+        # end if
         # got matching names?
         if _names:
             # show popup list
-            self.show_popup_list(
-                choices=_names, start_index=_word["start_index"],
-            )
+            self.show_popup_list(choices=_names, start_index=_si)
         else:
             # hide popup list
             self.hide_popup_list()

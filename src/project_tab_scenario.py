@@ -199,8 +199,12 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             _lb.delete(0, "end")
             _lb.insert(0, *choices)
             _lb.selection_set(0)
-            _lb.configure(height=min(7, len(choices)))
+            _lb.configure(
+                height=min(7, len(choices)),
+                width=min(28, max(map(len, choices))),
+            )
         # end if
+        self.POPUP.geometry("+{x}+{y}".format(x=600, y=334))
         # show popup list
         self.POPUP.deiconify()
     # end def

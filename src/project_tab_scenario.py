@@ -193,10 +193,13 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
-    def show_popup_list (self, *args, choices=None, start_index=None, **kw):
+    def show_popup_list (self, *args, **kw):
         """
             event handler: shows autocompletion popup list;
         """
+        # inits
+        choices = kw.get("choices")
+        start_index = kw.get("start_index") or "insert"
         # param controls
         if choices:
             _lb = self.POPUP_LBOX

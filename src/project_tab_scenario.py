@@ -128,6 +128,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # popup list
         self.POPUP = self.toplevel_popup_list
         self.POPUP.overrideredirect(True)
+        self.POPUP_LBOX = self.listbox_popup_list
         # reset listbox
         self.reset_scene_browser()
         # get hints data
@@ -194,10 +195,11 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # param controls
         if choices:
-            _lb = self.POPUP.listbox_popup_list
+            _lb = self.POPUP_LBOX
             _lb.delete(0, "end")
             _lb.insert(0, *choices)
             _lb.selection_set(0)
+            _lb.configure(height=min(7, len(choices)))
         # end if
         # show popup list
         self.POPUP.deiconify()

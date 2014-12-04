@@ -90,7 +90,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # hide popup list
         self.POPUP.withdraw()
-        self.POPUP.top_left_xy = None
     # end def
 
 
@@ -131,7 +130,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.POPUP = self.toplevel_popup_list
         self.POPUP.transient(self.TEXT)
         self.POPUP.overrideredirect(True)
-        self.POPUP.top_left_xy = None
         self.POPUP_LBOX = self.listbox_popup_list
         # reset listbox
         self.reset_scene_browser()
@@ -211,17 +209,13 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                 width=min(49, max(map(len, choices))),
             )
         # end if
-        # new position?
-        if not self.POPUP.top_left_xy:
-            # recalc pos
-            _x, _y, _w, _h = self.TEXT.bbox(start_index)
-            _xi, _yi, _wi, _hi = self.TEXT.bbox("insert")
-            _x += self.TEXT.winfo_rootx()
-            _y = self.TEXT.winfo_rooty() + _h + max(_y, _yi)
-            # reset pos
-            self.POPUP.top_left_xy = dict(x=_x, y=_y)
-        # end if
-        self.POPUP.geometry("+{x}+{y}".format(**self.POPUP.top_left_xy))
+        # recalc pos
+        _x, _y, _w, _h = self.TEXT.bbox(start_index)
+        _xi, _yi, _wi, _hi = self.TEXT.bbox("insert")
+        _x += self.TEXT.winfo_rootx()
+        _y = self.TEXT.winfo_rooty() + _h + max(_y, _yi)
+        # reset popup window pos
+        self.POPUP.geometry("+{}+{}".format(_x, _y))
         # show popup list
         self.POPUP.deiconify()
     # end def

@@ -198,6 +198,16 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def auto_completion (self, *args, **kw):
+        """
+            event handler: looks for character names autocompletion;
+        """
+        # inits
+        _buffer = self.get_word()
+        print("current buffering word:", _buffer)
+    # end def
+
+
     def bind_events (self, **kw):
         """
             event bindings;
@@ -1002,6 +1012,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: general keyboard key release;
         """
+        # look for some autocompletion
+        self.auto_completion()
         # update line infos (deferred)
         self.update_line()
     # end def

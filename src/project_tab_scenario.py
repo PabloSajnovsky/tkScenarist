@@ -90,6 +90,10 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # hide popup list
         self.POPUP.withdraw()
+        self.POPUP.start_index = None
+        # unbind events
+        self.TEXT.unbind("<Tab>", self.slot_insert_completion)
+        self.TEXT.unbind("<Return>", self.slot_insert_completion)
     # end def
 
 
@@ -198,6 +202,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # inits
         choices = kw.get("choices")
         start_index = kw.get("start_index") or "insert"
+        self.POPUP.start_index = start_index
         # param controls
         if choices:
             _lb = self.POPUP_LBOX
@@ -218,6 +223,9 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.POPUP.geometry("+{}+{}".format(_x, _y))
         # show popup list
         self.POPUP.deiconify()
+        # bind events
+        self.TEXT.bind("<Tab>", self.slot_insert_completion, add="+")
+        self.TEXT.bind("<Return>", self.slot_insert_completion, add="+")
     # end def
 
 
@@ -268,6 +276,15 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             # keep text focused
             self.after_idle(self.TEXT.focus_set)
         # end if
+    # end def
+
+
+    def slot_insert_completion (self, event=None, *args, **kw):
+        """
+            event handler: inserts popup list completion text;
+        """
+        print("slot_insert_completion")
+        return "break"
     # end def
 
 

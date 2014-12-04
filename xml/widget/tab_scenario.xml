@@ -302,8 +302,7 @@
     <!-- text autocompletion popup list widget -->
     <toplevel
         name="toplevel_popup_list"
-        transient="@parent"
-        visibility="normal"
+        visibility="hidden"
         resizable="no"
     >
         <listbox

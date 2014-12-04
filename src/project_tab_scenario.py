@@ -127,6 +127,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.LBL_MOVIE_DURATION = self.get_stringvar("lbl_movie_duration")
         # popup list
         self.POPUP = self.toplevel_popup_list
+        #~ self.POPUP.transient(self.TEXT)
         self.POPUP.overrideredirect(True)
         self.POPUP_LBOX = self.listbox_popup_list
         # reset listbox
@@ -366,17 +367,18 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                 self.TXT_CHAR_LOG,
                 _tc.get_character_log(_name)
             )
+            # no need to autocomplete
+            self.hide_popup_list()
         # unknown
         else:
             # clear info
-            _name = self.TEXT.get_word()
             self.LBL_CHAR_NAME.set("")
             self.text_clear_contents(self.TXT_CHAR_LOG)
+            # look out for autocompletion
+            self.slot_autocomplete(word=self.TEXT.get_word())
         # end if
         # disable widget
         self.TXT_CHAR_LOG.configure(state="disabled")
-        # look out for autocompletion
-        self.slot_autocomplete(word=_name)
     # end def
 
 

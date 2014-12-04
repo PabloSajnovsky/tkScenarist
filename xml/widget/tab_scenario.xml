@@ -196,7 +196,7 @@
                     />
                     <ttklabel
                         textvariable="lbl_info_hint"
-                        wraplength="240"
+                        wraplength="200"
                         layout="pack"
                         resizable="width"
                     />
@@ -222,7 +222,7 @@
                         anchor="center"
                         font="sans 12 bold"
                         foreground="royal blue"
-                        wraplength="240"
+                        wraplength="200"
                         layout="pack"
                         layout_options="pady=2"
                         resizable="width"

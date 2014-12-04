@@ -318,11 +318,18 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         for _name in reversed(_names):
             # inits
             _name = self.format_name(_name)
-            _len = len(_name)
+            _len = len(_name) + 1
+            _sub = contents[max(0, index - _len):(index + _len)]
             # found a name nearby index?
-            if _name in contents[max(0, index - _len):(index + _len)]:
-                # give that name
-                return _name
+            if _name in _sub:
+                # ensure it is *NOT* a composed name
+                _pos1 = _sub.find(_name)
+                _pos2 = _pos1 + _len
+                # not a composed name?
+                if _sub[max(0, _pos1 - 1)] != "-" and _sub[_pos2] != "-":
+                    # return name
+                    return _name
+                # end if
             # end if
         # end for
         # failed

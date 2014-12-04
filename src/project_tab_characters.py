@@ -318,7 +318,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         for _name in reversed(_names):
             # inits
             _name = self.format_name(_name)
-            _len = len(_name) + 1
+            _len = len(_name)
             _sub = contents[max(0, index - _len):(index + _len)]
             # found a single name nearby index?
             if re.search(r"\b{}\b".format(_name), _sub):

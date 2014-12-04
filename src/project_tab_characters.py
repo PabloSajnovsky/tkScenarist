@@ -320,16 +320,10 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             _name = self.format_name(_name)
             _len = len(_name) + 1
             _sub = contents[max(0, index - _len):(index + _len)]
-            # found a name nearby index?
-            if _name in _sub:
-                # ensure it is *NOT* a composed name
-                _pos1 = _sub.find(_name)
-                _pos2 = _pos1 + _len
-                # not a composed name?
-                if _sub[max(0, _pos1 - 1)] != "-" and _sub[_pos2] != "-":
-                    # return name
-                    return _name
-                # end if
+            # found a single name nearby index?
+            if re.find(r"\b{}\b".format(_name), _sub):
+                # return name
+                return _name
             # end if
         # end for
         # failed

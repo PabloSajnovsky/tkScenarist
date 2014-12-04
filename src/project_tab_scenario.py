@@ -60,6 +60,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                 "Scenario:Current:Element:Update":
                     self.slot_update_current_element,
                 "Scenario:Elements:Init": self.slot_elements_init,
+                "Scenario:Word:Detected": self.slot_autocomplete,
 
                 "Tab:Reset": self.slot_tab_reset,
             }
@@ -171,6 +172,21 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # set text widget contents
         self.TEXT.file_setup(fname, archive)
+    # end def
+
+
+    def slot_autocomplete (self, *args, word=None, **kw):
+        """
+            event handler: a word has been detected in scenario text
+            widget while buffering keystrokes;
+        """
+        # look for matching names
+        _names = self.tab_characters.get_matching_names(word)
+        # got matching names?
+        if _names:
+            # show popup list
+            print("show popup list:", _names)
+        # end if
     # end def
 
 

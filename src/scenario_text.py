@@ -920,6 +920,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: mouse click;
         """
+        # notify app
+        self.events.raise_event("Scenario:Text:Clicked", event=event)
         # update line infos (deferred)
         self.update_line()
     # end def

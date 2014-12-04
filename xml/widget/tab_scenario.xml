@@ -315,7 +315,6 @@
             selectbackground="grey30"
             selectforeground="lemon chiffon"
             borderwidth="1"
-            bordercolor="black"
             relief="flat"
             layout="grid"
             layout_options="row=0, column=0"

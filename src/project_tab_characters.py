@@ -402,6 +402,11 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
                     _matchups.append(_name)
                 # end if
             # end for
+            # only one match?
+            if len(_matchups) == 1 and _matchups[0] == word:
+                # no use to go further
+                _matchups = []
+            # end if
         # end if
         # return results
         return _matchups

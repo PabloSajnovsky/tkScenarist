@@ -60,6 +60,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                 "Scenario:Current:Element:Update":
                     self.slot_update_current_element,
                 "Scenario:Elements:Init": self.slot_elements_init,
+                "Scenario:Text:Clicked": self.slot_text_clicked,
                 "Scenario:Word:Detected": self.slot_autocomplete,
 
                 "Tab:Reset": self.slot_tab_reset,
@@ -201,7 +202,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             _lb.selection_set(0)
             _lb.configure(
                 height=min(7, len(choices)),
-                width=min(28, max(map(len, choices))),
+                width=min(49, max(map(len, choices))),
             )
         # end if
         self.POPUP.geometry("+{x}+{y}".format(x=600, y=334))
@@ -308,6 +309,15 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.reset_scene_browser()
         # reset hints
         self.reset_hints()
+    # end def
+
+
+    def slot_text_clicked (self, event=None, *args, **kw):
+        """
+            event handler: text widget has been clicked;
+        """
+        # hide popup list
+        self.hide_popup_list()
     # end def
 
 

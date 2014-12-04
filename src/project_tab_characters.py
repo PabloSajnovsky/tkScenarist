@@ -321,7 +321,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             _len = len(_name) + 1
             _sub = contents[max(0, index - _len):(index + _len)]
             # found a single name nearby index?
-            if re.find(r"\b{}\b".format(_name), _sub):
+            if re.search(r"\b{}\b".format(_name), _sub):
                 # return name
                 return _name
             # end if

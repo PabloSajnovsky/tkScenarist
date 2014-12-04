@@ -302,7 +302,6 @@
     <!-- text autocompletion popup list widget -->
     <toplevel
         name="toplevel_popup_list"
-        overrideredirect="true"
         transient="@parent"
         visibility="normal"
         resizable="no"
@@ -311,9 +310,10 @@
             id="lbox_popup_list"
             name="listbox_popup_list"
             choices="'toto', 'tutu', 'titi', 'tata'"
+            font="monospace 12"
             background="lemon chiffon"
-            foreground="black"
-            selectbackground="black"
+            foreground="grey30"
+            selectbackground="grey30"
             selectforeground="lemon chiffon"
             height="7"
             width="12"
@@ -324,7 +324,6 @@
         <ttkscrollbar
             connect="lbox_popup_list"
             orient="vertical"
-            width="10"
             layout="grid"
             layout_options="row=0, column=1"
             resizable="height"

@@ -84,6 +84,14 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
+    def hide_popup_list (self, *args, **kw):
+        """
+            event handler: hides autocompletion popup list;
+        """
+        self.POPUP.withdraw()
+    # end def
+
+
     def init_widget (self, **kw):
         """
             hook method to be reimplemented by subclass;
@@ -117,10 +125,15 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.TXT_CHAR_LOG = self.text_characters_log
         self.LBL_PAGE_COUNT = self.get_stringvar("lbl_page_count")
         self.LBL_MOVIE_DURATION = self.get_stringvar("lbl_movie_duration")
+        # popup list
+        self.POPUP = self.toplevel_popup_list
+        self.POPUP.overrideredirect(True)
         # reset listbox
         self.reset_scene_browser()
         # get hints data
         self.reset_hints()
+        # hide popup list
+        self.hide_popup_list()
         # event bindings
         self.bind_events(**kw)
     # end def
@@ -172,6 +185,14 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # set text widget contents
         self.TEXT.file_setup(fname, archive)
+    # end def
+
+
+    def show_popup_list (self, *args, **kw):
+        """
+            event handler: shows autocompletion popup list;
+        """
+        self.POPUP.deiconify()
     # end def
 
 

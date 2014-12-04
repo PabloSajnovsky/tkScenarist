@@ -92,8 +92,10 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.POPUP.withdraw()
         self.POPUP.start_index = None
         # unbind events
-        self.TEXT.unbind("<Tab>", self.slot_insert_completion)
-        self.TEXT.unbind("<Return>", self.slot_insert_completion)
+        self.TEXT.unbind("<Tab>", self.POPUP.bind_tab_id)
+        self.TEXT.unbind("<Return>", self.POPUP.bind_ret_id)
+        self.TEXT.unbind("<Up>", self.POPUP.bind_up_id)
+        self.TEXT.unbind("<Down>", self.POPUP.bind_dn_id)
     # end def
 
 
@@ -134,6 +136,10 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.POPUP = self.toplevel_popup_list
         self.POPUP.transient(self.TEXT)
         self.POPUP.overrideredirect(True)
+        self.POPUP.bind_tab_id = None
+        self.POPUP.bind_ret_id = None
+        self.POPUP.bind_up_id = None
+        self.POPUP.bind_dn_id = None
         self.POPUP_LBOX = self.listbox_popup_list
         # reset listbox
         self.reset_scene_browser()
@@ -224,8 +230,10 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # show popup list
         self.POPUP.deiconify()
         # bind events
-        self.TEXT.bind("<Tab>", self.slot_insert_completion, add="+")
-        self.TEXT.bind("<Return>", self.slot_insert_completion, add="+")
+        self.POPUP.bind_tab_id = self.TEXT.bind("<Tab>", self.slot_insert_completion, add="+")
+        self.POPUP.bind_ret_id = self.TEXT.bind("<Return>", self.slot_insert_completion, add="+")
+        self.POPUP.bind_up_id = self.TEXT.bind("<Up>", lambda e:"break")
+        self.POPUP.bind_dn_id = self.TEXT.bind("<Down>", lambda e:"break")
     # end def
 
 

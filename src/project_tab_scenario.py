@@ -565,9 +565,9 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # update stats
         self.async.run_after(1000, self.update_stats)
         # update hints
-        self.async.run_after(700, self.update_hints, _tag)
+        self.async.run_after(500, self.update_hints, _tag)
         # update scene browser
-        self.async.run_after(300, self.update_scene_browser)
+        self.async.run_after(200, self.update_scene_browser)
         # update character log
         self.async.run_after(100, self.update_character_log)
     # end def
@@ -640,15 +640,23 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # reset listbox
         self.LISTBOX.delete(0, "end")
         self.LISTBOX.insert(0, *_dict["texts"])
+        self.LISTBOX.selection_clear(0, "end")
         # insertion cursor is on a scene line?
-        if _cursor in _lines and \
-                            not self.TEXT.line_selected(float(_cursor)):
-            # inits
-            _index = _lines.index(_cursor)
-            # select item
-            self.LISTBOX.selection_set(_index)
-            # show item
-            self.LISTBOX.see(_index)
+        if _cursor in _lines:
+            # init
+            all_is_clear = not (
+                self.TEXT.line_selected(float(_cursor))
+                or self.popup_is_active()
+            )
+            # all is clear?
+            if all_is_clear:
+                # inits
+                _index = _lines.index(_cursor)
+                # select item
+                self.LISTBOX.selection_set(_index)
+                # show item
+                self.LISTBOX.see(_index)
+            # end if
         # end if
     # end def
 

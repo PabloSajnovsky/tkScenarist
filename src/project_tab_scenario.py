@@ -228,9 +228,9 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # ensure no tkinter.messagebox is up there
         try:
-            if self.grab_current(): return
+            if self.grab_current(): return self.hide_popup_list()
         except:
-            return
+            return self.hide_popup_list()
         # end try
         # stop pending tasks
         self.async.stop(self.hide_popup_list, self.slot_autocomplete)

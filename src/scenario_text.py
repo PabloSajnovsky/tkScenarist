@@ -883,7 +883,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # notify app
         if event.char and not (event.state & 0x8c):
             # need to capitalize first word of sentence?
-            if self.compare(TK.INSERT, "==", self.INS_LINE[0]):
+            if self.compare(TK.INSERT, "==", self.INS_LINE[0]) or \
+                    self.get("{}-2c".format(TK.INSERT)) == ".":
                 # same as SCENE
                 return self.slot_keypress_scene(event, *args, **kw)
             # end if

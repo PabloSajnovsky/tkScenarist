@@ -810,6 +810,23 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def replace_text (self, text, start=None, end=None):
+        """
+            replaces text segment found between @start and @end by
+            @text contents;
+        """
+        # inits
+        start = start or TK.INSERT
+        end = end or TK.INSERT
+        # keep tags
+        tags = tuple(set(self.tag_names(start) + self.tag_names(end)))
+        # remove old text
+        self.delete(start, end)
+        # insert new text
+        self.insert(start, text, tags)
+    # end def
+
+
     def reset (self, *args, **kw):
         """
             resets text to new;

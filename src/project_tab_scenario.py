@@ -408,6 +408,11 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # ensure popup is shown up
         if self.popup_is_active():
+            # inits
+            _lb = self.POPUP_LBOX
+            _name = _lb.get(_lb.curselection()[0])
+            # replace text
+            self.TEXT.replace_text(_name, self.POPUP.start_index)
             # break tkevent chain
             return "break"
         # end if

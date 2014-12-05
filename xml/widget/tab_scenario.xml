@@ -320,14 +320,14 @@
             layout_options="row=0, column=0"
             resizable="no"
         />
-<!--
-        <ttkscrollbar
+        <scrollbar
             connect="lbox_popup_list"
             orient="vertical"
+            relief="flat"
+            width="5"
             layout="grid"
             layout_options="row=0, column=1"
             resizable="height"
         />
--->
     </toplevel>
 </tkwidget>

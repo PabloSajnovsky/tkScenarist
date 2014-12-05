@@ -381,6 +381,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: mouse click on popup;
         """
+        print("slot_popup_clicked")
         # ensure popup is shown up
         if self.popup_is_active():
             # stop pending tasks
@@ -397,6 +398,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: mouse double click on popup;
         """
+        print("slot_popup_double_clicked")
         # do insert text completion
         return self.slot_popup_insert()
     # end def
@@ -431,6 +433,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: up/down keypress on popup;
         """
+        print("slot_popup_key_arrows")
         # ensure popup is shown up
         if self.popup_is_active():
             # inits
@@ -456,6 +459,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: any keypress on popup;
         """
+        print("slot_popup_keypress")
         # ensure popup is shown up
         if self.popup_is_active():
             # inits
@@ -487,6 +491,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: any keyrelease on popup;
         """
+        print("slot_popup_keyrelease")
         # ensure popup is shown up
         if self.popup_is_active():
             # inits

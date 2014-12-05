@@ -72,6 +72,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.LISTBOX.bind(
             "<<ListboxSelect>>", self.slot_listbox_item_selected
         )
+        self.POPUP_LBOX.bind("<Key>", self.slot_popup_keypress)
     # end def
 
 
@@ -132,9 +133,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.POPUP.transient(self.TEXT)
         self.POPUP.overrideredirect(True)
         self.POPUP_LBOX = self.listbox_popup_list
-        self.POPUP_LBOX.bindtags("Listbox")
-        # set callback
-        self.TEXT.set_before_keypress(self.slot_popup_keypress)
+        # (re)route events (POPUP_LBOX has priority on TEXT)
+        self.route_events(self.POPUP_LBOX, self.TEXT)
         # reset listbox
         self.reset_scene_browser()
         # get hints data
@@ -168,6 +168,20 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # inits
         self.LISTBOX.current_lines = []
         self.LISTBOX.delete(0, "end")
+    # end def
+
+
+    def route_events (self, tk_master, tk_slave):
+        """
+            (re)routes event chain so that @tk_master has priority on
+            @tk_slave in event handling;
+        """
+        # inits
+        _tags = list(tk_slave.bindtags())
+        # route events
+        _tags.insert(0, tk_master)
+        # reset event chain
+        tk_slave.bindtags(tuple(_tags))
     # end def
 
 
@@ -345,8 +359,10 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: any keypress on popup;
         """
+        print("slot_popup_keypress")
         # ensure popup is shown up
         if self.POPUP.state() == "normal":
+            print("POPUP shown up")
             # specific keystrokes
             if event.keysym in ("Up", "Down"):
                 self.slot_popup_key_arrows(event, *args, **kw)
@@ -355,6 +371,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                 self.slot_popup_insert(event, *args, **kw)
                 return "break"
             # end if
+        else:
+            print("POPUP inactive")
         # end if
     # end def
 

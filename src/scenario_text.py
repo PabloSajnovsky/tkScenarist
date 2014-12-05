@@ -826,11 +826,15 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # inits
             _endl = "{} lineend".format(end)
             _text = self.get(end, _endl)
+            # search for a non-alphabetical char
             _found = re.search(r"[\W\-]", _text)
+            # found word separator?
             if _found:
-                print("found:", _found.groups(), _found.start())
+                # update end index
                 end = "{} +{}c".format(end, _found.start())
+            # not found?
             else:
+                # expand to line end
                 end = _endl
             # end if
         # end if

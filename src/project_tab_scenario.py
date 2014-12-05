@@ -328,7 +328,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: any keypress on popup;
         """
-        print("slot_popup_keypress")
+        print("slot_popup_keypress:", event.keysym)
     # end def
 
 

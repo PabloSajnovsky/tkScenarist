@@ -159,6 +159,15 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
+    def popup_is_active (self):
+        """
+            returns True if popup window is detected as active (showing
+            up);
+        """
+        return bool(self.POPUP.state() == "normal")
+    # end def
+
+
     def reset_hints (self, fpath=None):
         """
             resets self.INFO_HINTS class member along with @fpath JSON
@@ -363,12 +372,15 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: mouse click on popup;
         """
-        # stop pending tasks
-        self.after_idle(
-            self.async.stop,
-            self.hide_popup_list,
-            self.slot_autocomplete
-        )
+        # ensure popup is shown up
+        if self.popup_is_active():
+            # stop pending tasks
+            self.after_idle(
+                self.async.stop,
+                self.hide_popup_list,
+                self.slot_autocomplete
+            )
+        # end if
     # end def
 
 
@@ -377,7 +389,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: mouse double click on popup;
         """
         # do insert text completion
-        self.slot_popup_insert()
+        return self.slot_popup_insert()
     # end def
 
 
@@ -386,7 +398,11 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: tab/return keypress on popup;
         """
         print("slot_popup_insert")
-        pass
+        # ensure popup is shown up
+        if self.popup_is_active():
+            # break tkevent chain
+            return "break"
+        # end if
     # end def
 
 
@@ -394,8 +410,25 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: up/down keypress on popup;
         """
-        print("slot_popup_key_arrows")
-        pass
+        # ensure popup is shown up
+        if self.popup_is_active():
+            # inits
+            _key = event.keysym.lower()
+            _lb = self.POPUP_LBOX
+            _cur_index = _lb.curselection()[0]
+            print("current index:", _cur_index)
+            # update index
+            _cur_index += int(_key == "down") - int(_key == "up")
+            # rebind index
+            _cur_index = max(0, min(_cur_index, _lb.size()))
+            print("new index:", _cur_index)
+            # reset selection
+            _lb.selection_clear(0, "end")
+            _lb.selection_set(_cur_index)
+            _lb.see(_cur_index)
+            # break tkevent chain
+            return "break"
+        # end if
     # end def
 
 
@@ -404,7 +437,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: any keypress on popup;
         """
         # ensure popup is shown up
-        if self.POPUP.state() == "normal":
+        if self.popup_is_active():
             # inits
             _key = event.keysym
             # specific keystrokes
@@ -414,11 +447,11 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             # up/down arrow keys
             elif _key in ("Up", "Down"):
                 # manage into popup
-                self.slot_popup_key_arrows(event, *args, **kw)
+                return self.slot_popup_key_arrows(event, *args, **kw)
             # tab/return keystrokes
             elif _key in ("Tab", "Return"):
                 # manage into popup
-                self.slot_popup_insert(event, *args, **kw)
+                return self.slot_popup_insert(event, *args, **kw)
             # unsupported keystrokes
             else:
                 # delegate event chain
@@ -435,7 +468,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: any keyrelease on popup;
         """
         # ensure popup is shown up
-        if self.POPUP.state() == "normal":
+        if self.popup_is_active():
             # inits
             _key = event.keysym
             # specific keystrokes

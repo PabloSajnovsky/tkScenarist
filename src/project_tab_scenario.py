@@ -370,7 +370,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             # inits
             _key = event.keysym
             # specific keystrokes
-            if _key in ("Escape",) + self.DEAD_KEYS:
+            if _key in ("Escape",):
                 # hide popup (transferred to slot_popup_keyrelease)
                 pass
             # up/down arrow keys
@@ -401,7 +401,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             # inits
             _key = event.keysym
             # specific keystrokes
-            if _key in ("Escape",) + self.DEAD_KEYS:
+            if _key in ("Escape",):
                 # hide popup
                 self.hide_popup_list()
                 # break tkevent chain

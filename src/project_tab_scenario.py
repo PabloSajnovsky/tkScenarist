@@ -74,7 +74,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         )
         self.POPUP_LBOX.bind("<Key>", self.slot_popup_keypress)
         self.POPUP_LBOX.bind("<KeyRelease>", self.slot_popup_keyrelease)
-        self.TEXT.bind("<FocusOut>", self.hide_popup_list, "+")
     # end def
 
 
@@ -148,6 +147,23 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.hide_popup_list()
         # event bindings
         self.bind_events(**kw)
+    # end def
+
+
+    def lock_popup_list (self, *args, **kw):
+        """
+            event handler: locks popup list openings;
+        """
+        self.async.lock(self.slot_autocomplete)
+        self.hide_popup_list()
+    # end def
+
+
+    def unlock_popup_list (self, *args, **kw):
+        """
+            event handler: unlocks popup list openings;
+        """
+        self.async.release(self.slot_autocomplete)
     # end def
 
 

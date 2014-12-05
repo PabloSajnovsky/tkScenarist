@@ -950,8 +950,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         print("slot_on_focus_in")
         # update line infos (deferred)
         self.update_line()
-        # notify app
-        self.events.raise_event("Scenario:Text:Clicked", event=event)
     # end def
 
 
@@ -959,7 +957,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Ctrl-BackSpace> key press;
         """
-        print("slot_on_key_ctrl_backspace")
         # get contents
         _start = self.index("{} linestart".format(TK.INSERT))
         _text = self.get(_start, TK.INSERT)
@@ -981,7 +978,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Ctrl-Delete> key press;
         """
-        print("slot_on_key_ctrl_delete")
         # get contents
         _end = self.index("{} lineend".format(TK.INSERT))
         _text = self.get(TK.INSERT, _end)
@@ -1003,7 +999,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Ctrl-Return> key press;
         """
-        print("slot_on_key_ctrl_return")
         # manage line (create/switch)
         return self.manage_line("ctrl_return", "ctrl_switch")
     # end def
@@ -1013,7 +1008,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Del> key press;
         """
-        print("slot_on_key_delete")
         # same as KEYRELEASE
         self.slot_on_keyrelease(event)
         # ensure line format (deferred)
@@ -1025,7 +1019,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Return> key press;
         """
-        print("slot_on_key_return")
         # manage line (create/switch)
         return self.manage_line("return", "return_switch")
     # end def
@@ -1035,7 +1028,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Tab> key press;
         """
-        print("slot_on_key_tab")
         # manage line (create/switch)
         return self.manage_line("tab", "tab_switch")
     # end def
@@ -1047,7 +1039,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         print("slot_on_keypress")
         # param controls
-        if not (event.state & 0x8c):
+        if event.keysym not in self.DEAD_KEYS:
             # update line infos (deferred)
             self.update_line()
         # end if
@@ -1066,7 +1058,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         print("slot_on_keyrelease")
         # param controls
-        if not (event.state & 0x8c):
+        if event.keysym not in self.DEAD_KEYS:
             # update line infos (deferred)
             self.update_line()
         # end if
@@ -1077,7 +1069,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Del> key release;
         """
-        print("slot_on_keyup_delete")
         # text area is empty?
         if len(self.get("1.0", "3.0")) < 2:
             # reset widget
@@ -1092,7 +1083,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Ctrl-A> key press;
         """
-        print("slot_on_select_all")
         # select only current line
         self.tag_add(TK.SEL, *self.INS_LINE)
         # not all widget's contents
@@ -1106,7 +1096,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: switches current insertion line to @new_tag
             element constraints;
         """
-        print("switch_line")
         # switch tag for current line
         self.update_line(force_tag=new_tag)
         # ensure line format (deferred)
@@ -1122,7 +1111,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             returns method's retvalue, if exists; returns None
             otherwise;
         """
-        print("switch_to_method")
         # param controls
         if method_name:
             # inits

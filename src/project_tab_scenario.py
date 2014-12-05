@@ -80,6 +80,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             "<KeyRelease>": self.slot_popup_keyrelease,
             "<Button>": self.slot_popup_clicked,
             "<Double-Button>": self.slot_popup_double_clicked,
+            "<<ListboxSelect>>": self.slot_popup_item_selected,
         }
         for _seq, _slot in _events.items():
             self.POPUP_LBOX.bind(_seq, _slot)
@@ -105,7 +106,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # hide popup list
         self.POPUP.withdraw()
         self.POPUP.start_index = None
-        self.POPUP.current_index = None
+        self.POPUP_LBOX.current_index = 0
     # end def
 
 
@@ -253,7 +254,11 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             _lb = self.POPUP_LBOX
             _lb.delete(0, "end")
             _lb.insert(0, *choices)
-            _lb.selection_set(0)
+            try:
+                _lb.selection_set(_lb.current_index)
+            except:
+                _lb.selection_set(0)
+            # end try
             _lb.configure(
                 height=min(7, len(choices)),
                 width=min(49, max(map(len, choices))),
@@ -407,6 +412,18 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
+    def slot_popup_item_selected (self, event=None, *args, **kw):
+        """
+            event handler: item selected on popup;
+        """
+        print("slot_popup_item_selected")
+        # update current index
+        self.POPUP_LBOX.current_index = self.POPUP_LBOX.curselection()[0]
+        # break tkevent chain
+        return "break"
+    # end def
+
+
     def slot_popup_key_arrows (self, event=None, *args, **kw):
         """
             event handler: up/down keypress on popup;
@@ -416,18 +433,15 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             # inits
             _key = event.keysym.lower()
             _lb = self.POPUP_LBOX
-            _cur_index = _lb.current_index or _lb.curselection()[0]
-            print("current index:", _cur_index)
+            _ci = _lb.current_index
             # update index
-            _cur_index += int(_key == "down") - int(_key == "up")
+            _ci += int(_key == "down") - int(_key == "up")
             # rebind index
-            _cur_index = max(0, min(_cur_index, _lb.size() - 1))
-            print("new index:", _cur_index)
+            _ci = max(0, min(_ci, _lb.size() - 1))
             # reset selection
-            _lb.current_index = _cur_index
             _lb.selection_clear(0, "end")
-            _lb.selection_set(_cur_index)
-            _lb.see(_cur_index)
+            _lb.selection_set(_ci)
+            _lb.see(_ci)
             # break tkevent chain
             return "break"
         # end if

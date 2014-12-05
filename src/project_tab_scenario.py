@@ -131,8 +131,9 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.POPUP = self.toplevel_popup_list
         self.POPUP.transient(self.TEXT)
         self.POPUP.overrideredirect(True)
-        self.POPUP.bind("<Key>", self.slot_popup_keypress)
         self.POPUP_LBOX = self.listbox_popup_list
+        # set callback
+        self.TEXT.set_before_keypress(self.slot_popup_keypress)
         # reset listbox
         self.reset_scene_browser()
         # get hints data
@@ -221,8 +222,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.POPUP.geometry("+{}+{}".format(_x, _y))
         # show popup list
         self.POPUP.deiconify()
-        # force focus
-        self.POPUP.focus_set()
     # end def
 
 
@@ -330,8 +329,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: any keypress on popup;
         """
         print("slot_popup_keypress")
-        # event routing
-        self.TEXT.event_generate("<Key>", event=event)
     # end def
 
 

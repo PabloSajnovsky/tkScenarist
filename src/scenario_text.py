@@ -231,6 +231,19 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def call_before_keypress (self, event=None, *args, **kw):
+        """
+            event handler: calls subroutines before main keypress slot;
+            breaks the tkevent chain when returning 'break';
+        """
+        # callback enabled?
+        if callable(self.__cb_before_keypress):
+            # call subroutine
+            self.__cb_before_keypress(event, *args, **kw)
+        # end if
+    # end def
+
+
     def clear_text (self, *args, **kw):
         """
             event handler for clearing up text widget;
@@ -643,6 +656,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         r"""
             virtual method to be implemented in subclass;
         """
+        # member inits
+        self.set_before_keypress(None)
         # deferred inits
         self.after_idle(self.init_deferred, kw)
     # end def
@@ -836,6 +851,14 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def set_before_keypress (self, callback):
+        """
+            sets up @callback for keypress slot;
+        """
+        self.__cb_before_keypress = callback
+    # end def
+
+
     def slot_keypress_action (self, event=None, *args, **kw):
         """
             event handler: on 'action' element key press;
@@ -1005,14 +1028,19 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: general keyboard key press;
         """
-        # update line infos (deferred)
-        self.update_line()
-        # show insertion cursor
-        self.see(TK.INSERT)
-        # switch to specific method
-        return self.switch_to_method(
-            "slot_keypress_{}".format(self.get_line_tag()), event
-        )
+        # event chain enabled?
+        if self.call_before_keypress(event, *args, **kw) != "break":
+            # update line infos (deferred)
+            self.update_line()
+            # show insertion cursor
+            self.see(TK.INSERT)
+            # switch to specific method
+            return self.switch_to_method(
+                "slot_keypress_{}".format(self.get_line_tag()), event
+            )
+        # end if
+        # break the tkevent chain
+        return "break"
     # end def
 
 

@@ -1010,8 +1010,13 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Return> key press;
         """
-        # manage line (create/switch)
-        return self.manage_line("return", "return_switch")
+        # event chain enabled?
+        if self.call_before_keypress(event, *args, **kw) != "break":
+            # manage line (create/switch)
+            return self.manage_line("return", "return_switch")
+        # end if
+        # break the tkevent chain
+        return "break"
     # end def
 
 
@@ -1019,8 +1024,13 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Tab> key press;
         """
-        # manage line (create/switch)
-        return self.manage_line("tab", "tab_switch")
+        # event chain enabled?
+        if self.call_before_keypress(event, *args, **kw) != "break":
+            # manage line (create/switch)
+            return self.manage_line("tab", "tab_switch")
+        # end if
+        # break the tkevent chain
+        return "break"
     # end def
 
 

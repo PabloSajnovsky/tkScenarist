@@ -36,12 +36,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
 
     # class constant defs
     CONFIG = {
-        "autoseparators": False,
+        "autoseparators": False,    # do *NOT* change this /!\
         "background": "white",
         "font": "monospace 12",
         "foreground": "black",
         "highlightthickness": 1,
-        "undo": False,  # do *NOT* change this /!\
+        "undo": False,              # do *NOT* change this /!\
         "wrap": "word",
     }
 

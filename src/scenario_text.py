@@ -970,6 +970,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # end if
         # remove a word at once
         self.delete(_start, TK.INSERT)
+        # update line infos (deferred)
+        self.update_line()
         # break the tkevent chain
         return "break"
     # end def
@@ -991,6 +993,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # end if
         # remove a word at once
         self.delete(TK.INSERT, _end)
+        # update line infos (deferred)
+        self.update_line()
         # break the tkevent chain
         return "break"
     # end def

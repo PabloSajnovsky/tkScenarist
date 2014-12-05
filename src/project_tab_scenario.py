@@ -131,6 +131,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.POPUP = self.toplevel_popup_list
         self.POPUP.transient(self.TEXT)
         self.POPUP.overrideredirect(True)
+        self.POPUP.bind("<Key>", self.slot_popup_keypress)
         self.POPUP_LBOX = self.listbox_popup_list
         # reset listbox
         self.reset_scene_browser()
@@ -220,6 +221,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.POPUP.geometry("+{}+{}".format(_x, _y))
         # show popup list
         self.POPUP.deiconify()
+        # force focus
+        self.POPUP.focus_set()
     # end def
 
 
@@ -319,6 +322,16 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             # reset combobox contents
             self.COMBO.configure(values=sorted(self.COMBO.elements))
         # end if
+    # end def
+
+
+    def slot_popup_keypress (self, event=None, *args, **kw):
+        """
+            event handler: any keypress on popup;
+        """
+        print("slot_popup_keypress")
+        # event routing
+        self.TEXT.event_generate("<Key>", event=event)
     # end def
 
 

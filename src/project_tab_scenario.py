@@ -328,7 +328,13 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: any keypress on popup;
         """
-        print("slot_popup_keypress:", event.keysym)
+        # inits
+        _key = event.keysym
+        # specific keystrokes
+        if _key in ("Up", "Down"):
+            self.POPUP_LBOX.event_generate("<{}>".format(_key))
+            return "break"
+        # end if
     # end def
 
 

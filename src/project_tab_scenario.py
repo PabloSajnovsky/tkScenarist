@@ -105,6 +105,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # hide popup list
         self.POPUP.withdraw()
         self.POPUP.start_index = None
+        self.POPUP.current_index = None
     # end def
 
 
@@ -415,14 +416,15 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             # inits
             _key = event.keysym.lower()
             _lb = self.POPUP_LBOX
-            _cur_index = _lb.curselection()[0]
+            _cur_index = _lb.current_index or _lb.curselection()[0]
             print("current index:", _cur_index)
             # update index
             _cur_index += int(_key == "down") - int(_key == "up")
             # rebind index
-            _cur_index = max(0, min(_cur_index, _lb.size()))
+            _cur_index = max(0, min(_cur_index, _lb.size() - 1))
             print("new index:", _cur_index)
             # reset selection
+            _lb.current_index = _cur_index
             _lb.selection_clear(0, "end")
             _lb.selection_set(_cur_index)
             _lb.see(_cur_index)

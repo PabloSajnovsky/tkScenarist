@@ -45,6 +45,7 @@
                     id="scene_browser"
                     name="listbox_scene_browser"
                     width="30"
+                    highlightthickness="0"
                     layout="grid"
                     layout_options="row=0, column=0"
                     resizable="yes"

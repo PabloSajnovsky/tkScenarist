@@ -413,6 +413,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             _name = _lb.get(_lb.curselection()[0])
             # replace text
             self.TEXT.replace_text(_name, self.POPUP.start_index)
+            # reset focus
+            self.after_idle(self.TEXT.focus_set)
             # break tkevent chain
             return "break"
         # end if
@@ -560,14 +562,14 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.LBL_CTRL_RET.set(
             _label(_map["ctrl_return"] or _map["ctrl_switch"])
         )
+        # update stats
+        self.async.run_after(1000, self.update_stats)
+        # update hints
+        self.async.run_after(700, self.update_hints, _tag)
         # update scene browser
         self.async.run_after(300, self.update_scene_browser)
         # update character log
-        self.async.run_after(200, self.update_character_log, kw)
-        # update hints
-        self.async.run_after(700, self.update_hints, _tag)
-        # update stats
-        self.async.run_after(1000, self.update_stats)
+        self.async.run_after(100, self.update_character_log)
     # end def
 
 

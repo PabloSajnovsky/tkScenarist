@@ -886,7 +886,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             _ins = TK.INSERT
             # need to capitalize first word of sentence?
             if self.compare(_ins, "==", self.INS_LINE[0]) or \
-                        self.get("{}-2c".format(_ins), _ins) == ". ":
+                    self.get("{}-2c".format(_ins), _ins) in \
+                                                    (". ", "! ", "? "):
                 # same as SCENE
                 return self.slot_keypress_scene(event, *args, **kw)
             # end if

@@ -399,6 +399,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: mouse double click on popup;
         """
         print("slot_popup_double_clicked")
+        print("event.delta:", event.delta)
         # do insert text completion
         return self.slot_popup_insert()
     # end def

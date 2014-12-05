@@ -256,8 +256,10 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             _lb.insert(0, *choices)
             try:
                 _lb.selection_set(_lb.current_index)
+                _lb.see(_lb.current_index)
             except:
                 _lb.selection_set(0)
+                _lb.see(0)
                 _lb.current_index = 0
             # end try
             _lb.configure(

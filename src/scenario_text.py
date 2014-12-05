@@ -810,7 +810,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def replace_text (self, text, start=None, end=None):
+    def replace_text (self, text, start=None, end=None, smart_delete=False):
         """
             replaces text segment found between @start and @end by
             @text contents;
@@ -820,6 +820,17 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         end = end or TK.INSERT
         # keep tags
         tags = tuple(set(self.tag_names(start) + self.tag_names(end)))
+        # asked for smart deletion?
+        if smart_delete:
+            # inits
+            _index = self.search(
+                r"\W", end, regexp=True,
+                stopindex="{} lineend".format(end),
+            )
+            if _index:
+                end = _index
+            # end if
+        # end if
         # remove old text
         self.delete(start, end)
         # insert new text

@@ -412,7 +412,9 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             _lb = self.POPUP_LBOX
             _name = _lb.get(_lb.curselection()[0])
             # replace text
-            self.TEXT.replace_text(_name, self.POPUP.start_index)
+            self.TEXT.replace_text(
+                _name, self.POPUP.start_index, smart_delete=True
+            )
             # reset focus
             self.after_idle(self.TEXT.focus_set)
             # break tkevent chain

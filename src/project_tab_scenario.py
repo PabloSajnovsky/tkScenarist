@@ -61,6 +61,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                     self.slot_update_current_element,
                 "Scenario:Elements:Init": self.slot_elements_init,
                 "Scenario:Text:Clicked": self.slot_text_clicked,
+                "Scenario:Text:FocusedIn": self.slot_text_focused_in,
 
                 "Tab:Reset": self.slot_tab_reset,
             }
@@ -73,8 +74,13 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             "<<ListboxSelect>>", self.slot_listbox_item_selected
         )
         self.POPUP_LBOX.bind("<Key>", self.slot_popup_keypress)
-        self.POPUP_LBOX.bind("<KeyRelease>", self.slot_popup_keyrelease)
+        self.POPUP_LBOX.bind(
+            "<KeyRelease>", self.slot_popup_keyrelease
+        )
         self.POPUP_LBOX.bind("<Button>", self.slot_popup_clicked)
+        self.POPUP_LBOX.bind(
+            "<Double-Button>", self.slot_popup_double_clicked
+        )
         self.TEXT.bind("<FocusOut>", self.slot_on_focus_out, "+")
     # end def
 
@@ -325,15 +331,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
-    def slot_insert_completion (self, event=None, *args, **kw):
-        """
-            event handler: inserts popup list completion text;
-        """
-        print("slot_insert_completion")
-        return "break"
-    # end def
-
-
     def slot_listbox_item_selected (self, *args, **kw):
         """
             event handler: item has been selected in listbox;
@@ -364,12 +361,23 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: mouse click on popup;
         """
+        print("slot_popup_clicked")
         # stop pending tasks
         self.after_idle(
             self.async.stop,
             self.hide_popup_list,
             self.slot_autocomplete
         )
+    # end def
+
+
+    def slot_popup_double_clicked (self, event=None, *args, **kw):
+        """
+            event handler: mouse double click on popup;
+        """
+        print("slot_popup_double_clicked")
+        # do insert text completion
+        self.slot_popup_insert()
     # end def
 
 
@@ -466,6 +474,15 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     def slot_text_clicked (self, event=None, *args, **kw):
         """
             event handler: text widget has been clicked;
+        """
+        # hide popup list
+        self.hide_popup_list()
+    # end def
+
+
+    def slot_text_focused_in (self, event=None, *args, **kw):
+        """
+            event handler: text widget gets focused again;
         """
         # hide popup list
         self.hide_popup_list()

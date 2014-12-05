@@ -933,7 +933,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # update line infos (deferred)
         self.update_line()
         # notify app
-        self.events.raise_event("Scenario:Text:Clicked", event=event)
+        self.events.raise_event("Scenario:Text:FocusedIn", event=event)
     # end def
 
 

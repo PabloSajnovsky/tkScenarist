@@ -828,7 +828,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             _text = self.get(end, _endl)
             _found = re.search(r"[\W\-]", _text)
             if _found:
-                end = "{} +{}c".format(end, _found.lastindex)
+                print("found:", _found.groups(), _found.start())
+                end = "{} +{}c".format(end, _found.start())
             else:
                 end = _endl
             # end if
@@ -1002,7 +1003,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # got one?
         if _pos >= 0:
             # reset index
-            _end = self.index("{}+{}c".format(TK.INSERT, _pos))
+            _end = self.index("{}+{}c".format(TK.INSERT, _pos + 1))
         # end if
         # remove a word at once
         self.delete(TK.INSERT, _end)

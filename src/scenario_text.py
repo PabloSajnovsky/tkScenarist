@@ -45,6 +45,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "wrap": "word",
     }
 
+    DEAD_KEYS = (
+        "Shift_L", "Shift_R", "Control_L", "Control_R", "Alt_L",
+        "Alt_R", "Caps_Lock",
+    )
+
     DEFAULT_TAG = "scene"
 
     # NOTICE: element name == element tag
@@ -1005,8 +1010,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: general keyboard key press;
         """
-        # update line infos (deferred)
-        self.update_line()
+        # param controls
+        if event.keysym not in self.DEAD_KEYS:
+            # update line infos (deferred)
+            self.update_line()
+        # end if
         # show insertion cursor
         self.see(TK.INSERT)
         # switch to specific method
@@ -1020,8 +1028,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: general keyboard key release;
         """
-        # update line infos (deferred)
-        self.update_line()
+        # param controls
+        if event.keysym not in self.DEAD_KEYS:
+            # update line infos (deferred)
+            self.update_line()
+        # end if
     # end def
 
 

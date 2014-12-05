@@ -36,11 +36,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     """
 
     # class constant defs
-    DEAD_KEYS = (
-        "Shift_L", "Shift_R", "Control_L", "Control_R", "Alt_L",
-        "Alt_R", "Caps_Lock",
-    )
-
     DEFAULT_HINT = _(
         "ONE PAGE of script is roughly equal to ONE MINUTE of movie."
     )

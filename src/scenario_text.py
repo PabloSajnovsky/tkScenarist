@@ -823,12 +823,13 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # asked for smart deletion?
         if smart_delete:
             # inits
-            _index = self.search(
-                r"\W", end, regexp=True,
-                stopindex="{} lineend".format(end),
-            )
-            if _index:
-                end = _index
+            _endl = "{} lineend".format(end)
+            _text = self.get(end, _endl)
+            _found = re.search(r"[\W\-]", _text)
+            if _found:
+                end = "{} +{}c".format(end, _found.lastindex)
+            else:
+                end = _endl
             # end if
         # end if
         # remove old text

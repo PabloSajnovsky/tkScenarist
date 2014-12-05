@@ -132,6 +132,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.POPUP.transient(self.TEXT)
         self.POPUP.overrideredirect(True)
         self.POPUP_LBOX = self.listbox_popup_list
+        self.POPUP_LBOX.bindtags("Listbox")
         # set callback
         self.TEXT.set_before_keypress(self.slot_popup_keypress)
         # reset listbox
@@ -324,15 +325,32 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
+    def slot_popup_insert (self, event=None, *args, **kw):
+        """
+            event handler: tab/return keypress on popup;
+        """
+        print("slot_popup_insert")
+    # end def
+
+
+    def slot_popup_key_arrows (self, event=None, *args, **kw):
+        """
+            event handler: up/down keypress on popup;
+        """
+        print("slot_popup_key_arrows")
+    # end def
+
+
     def slot_popup_keypress (self, event=None, *args, **kw):
         """
             event handler: any keypress on popup;
         """
-        # inits
-        _key = event.keysym
         # specific keystrokes
-        if _key in ("Up", "Down"):
-            self.POPUP_LBOX.event_generate("<{}>".format(_key))
+        if event.keysym in ("Up", "Down"):
+            self.slot_popup_key_arrows(event, *args, **kw)
+            return "break"
+        elif event.keysym in ("Tab", "Return"):
+            self.slot_popup_insert(event, *args, **kw)
             return "break"
         # end if
     # end def

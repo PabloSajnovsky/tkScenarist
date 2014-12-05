@@ -239,7 +239,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # callback enabled?
         if callable(self.__cb_before_keypress):
             # call subroutine
-            self.__cb_before_keypress(event, *args, **kw)
+            return self.__cb_before_keypress(event, *args, **kw)
         # end if
     # end def
 

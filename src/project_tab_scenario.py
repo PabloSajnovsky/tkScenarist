@@ -73,6 +73,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             "<<ListboxSelect>>", self.slot_listbox_item_selected
         )
         self.POPUP_LBOX.bind("<Key>", self.slot_popup_keypress)
+        self.POPUP_LBOX.bind("<KeyRelease>", self.slot_popup_keyrelease)
     # end def
 
 
@@ -365,8 +366,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             _key = event.keysym
             # specific keystrokes
             if _key == "Escape":
-                # hide popup
-                self.hide_popup_list()
+                # hide popup (transferred to slot_popup_keyrelease)
+                pass
             # up/down arrow keys
             elif _key in ("Up", "Down"):
                 # manage into popup
@@ -382,6 +383,25 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             # end if
             # break tkevent chain by default
             return "break"
+        # end if
+    # end def
+
+
+    def slot_popup_keyrelease (self, event=None, *args, **kw):
+        """
+            event handler: any keyrelease on popup;
+        """
+        # ensure popup is shown up
+        if self.POPUP.state() == "normal":
+            # inits
+            _key = event.keysym
+            # specific keystrokes
+            if _key in ("Escape", "Control", "Control_R", "Control_L"):
+                # hide popup
+                self.hide_popup_list()
+                # break tkevent chain
+                return "break"
+            # end if
         # end if
     # end def
 

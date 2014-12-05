@@ -1002,7 +1002,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # got one?
         if _pos >= 0:
             # reset index
-            _end = self.index("{}+{}c".format(TK.INSERT, _pos + 1))
+            _end = self.index("{}+{}c".format(TK.INSERT, _pos))
         # end if
         # remove a word at once
         self.delete(TK.INSERT, _end)

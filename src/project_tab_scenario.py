@@ -258,6 +258,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                 _lb.selection_set(_lb.current_index)
             except:
                 _lb.selection_set(0)
+                _lb.current_index = 0
             # end try
             _lb.configure(
                 height=min(7, len(choices)),
@@ -439,6 +440,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             # rebind index
             _ci = max(0, min(_ci, _lb.size() - 1))
             # reset selection
+            _lb.current_index = _ci
             _lb.selection_clear(0, "end")
             _lb.selection_set(_ci)
             _lb.see(_ci)

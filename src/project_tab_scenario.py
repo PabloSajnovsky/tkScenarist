@@ -359,20 +359,29 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: any keypress on popup;
         """
-        print("slot_popup_keypress")
         # ensure popup is shown up
         if self.POPUP.state() == "normal":
-            print("POPUP shown up")
+            # inits
+            _key = event.keysym
             # specific keystrokes
-            if event.keysym in ("Up", "Down"):
+            if _key == "Escape":
+                # hide popup
+                self.hide_popup_list()
+            # up/down arrow keys
+            elif _key in ("Up", "Down"):
+                # manage into popup
                 self.slot_popup_key_arrows(event, *args, **kw)
-                return "break"
-            elif event.keysym in ("Tab", "Return"):
+            # tab/return keystrokes
+            elif _key in ("Tab", "Return"):
+                # manage into popup
                 self.slot_popup_insert(event, *args, **kw)
-                return "break"
+            # unsupported keystrokes
+            else:
+                # delegate event chain
+                return None
             # end if
-        else:
-            print("POPUP inactive")
+            # break tkevent chain by default
+            return "break"
         # end if
     # end def
 

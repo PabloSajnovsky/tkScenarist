@@ -74,6 +74,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         )
         self.POPUP_LBOX.bind("<Key>", self.slot_popup_keypress)
         self.POPUP_LBOX.bind("<KeyRelease>", self.slot_popup_keyrelease)
+        self.TEXT.bind("<FocusOut>", self.slot_on_text_focus_out, "+")
     # end def
 
 
@@ -90,7 +91,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: hides autocompletion popup list;
         """
-        print("hide_popup_list")
         # stop pending popup openings
         self.async.stop(self.slot_autocomplete)
         # hide popup list
@@ -147,23 +147,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.hide_popup_list()
         # event bindings
         self.bind_events(**kw)
-    # end def
-
-
-    def lock_popup_list (self, *args, **kw):
-        """
-            event handler: locks popup list openings;
-        """
-        self.async.lock(self.slot_autocomplete)
-        self.hide_popup_list()
-    # end def
-
-
-    def unlock_popup_list (self, *args, **kw):
-        """
-            event handler: unlocks popup list openings;
-        """
-        self.async.release(self.slot_autocomplete)
     # end def
 
 
@@ -234,7 +217,12 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: shows autocompletion popup list;
         """
-        print("show_popup_list")
+        # ensure no tkinter.messagebox is up there
+        try:
+            self.grab_current()
+        except:
+            return
+        # end try
         # inits
         choices = kw.get("choices")
         start_index = kw.get("start_index") or "insert"
@@ -267,7 +255,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: a word has been detected in scenario text
             widget while buffering keystrokes;
         """
-        print("slot_autocomplete")
         # inits
         _word = self.TEXT.get_word()
         _si = _word["start_index"]
@@ -296,7 +283,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: item has been selected in combobox;
         """
-        print("slot_combo_item_selected")
         # inits
         _text = self.CBO_CUR_ELT.get()
         # got something new?
@@ -314,39 +300,10 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
-    def slot_insert_completion (self, event=None, *args, **kw):
-        """
-            event handler: inserts popup list completion text;
-        """
-        print("slot_insert_completion")
-        return "break"
-    # end def
-
-
-    def slot_listbox_item_selected (self, *args, **kw):
-        """
-            event handler: item has been selected in listbox;
-        """
-        print("slot_listbox_item_selected")
-        # inits
-        _sel = self.LISTBOX.curselection()
-        # got selected?
-        if _sel:
-            # inits
-            _index = float(self.LISTBOX.current_lines[_sel[0]])
-            # show line in text widget
-            self.TEXT.see(_index)
-            self.TEXT.move_cursor("{} lineend".format(_index))
-            self.after_idle(self.TEXT.focus_set)
-        # end if
-    # end def
-
-
     def slot_elements_init (self, *args, elements=None, **kw):
         """
             event handler: elements have been init'ed;
         """
-        print("slot_elements_init")
         # param controls
         if elements:
             # inits
@@ -365,11 +322,47 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
+    def slot_insert_completion (self, event=None, *args, **kw):
+        """
+            event handler: inserts popup list completion text;
+        """
+        print("slot_insert_completion")
+        return "break"
+    # end def
+
+
+    def slot_listbox_item_selected (self, *args, **kw):
+        """
+            event handler: item has been selected in listbox;
+        """
+        # inits
+        _sel = self.LISTBOX.curselection()
+        # got selected?
+        if _sel:
+            # inits
+            _index = float(self.LISTBOX.current_lines[_sel[0]])
+            # show line in text widget
+            self.TEXT.see(_index)
+            self.TEXT.move_cursor("{} lineend".format(_index))
+            self.after_idle(self.TEXT.focus_set)
+        # end if
+    # end def
+
+
+    def slot_on_text_focus_out (self, event=None, *args, **kw):
+        """
+            event handler: text widget has lost focus;
+        """
+        self.after_idle(self.hide_popup_list)
+    # end def
+
+
     def slot_popup_insert (self, event=None, *args, **kw):
         """
             event handler: tab/return keypress on popup;
         """
         print("slot_popup_insert")
+        pass
     # end def
 
 
@@ -378,6 +371,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: up/down keypress on popup;
         """
         print("slot_popup_key_arrows")
+        pass
     # end def
 
 
@@ -385,7 +379,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: any keypress on popup;
         """
-        print("slot_popup_keypress")
         # ensure popup is shown up
         if self.POPUP.state() == "normal":
             # inits
@@ -417,7 +410,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: any keyrelease on popup;
         """
-        print("slot_popup_keyrelease")
         # ensure popup is shown up
         if self.POPUP.state() == "normal":
             # inits
@@ -437,7 +429,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler for project's modification flag;
         """
-        print("slot_project_modified")
         # reset status
         self.TEXT.edit_modified(flag)
     # end def
@@ -447,7 +438,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: reset tab to new;
         """
-        print("slot_tab_reset")
         # reset Text widget
         self.TEXT.reset()
         # reset listbox
@@ -461,7 +451,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: text widget has been clicked;
         """
-        print("slot_text_clicked")
         # hide popup list
         self.hide_popup_list()
     # end def
@@ -471,7 +460,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: updates current element info;
         """
-        print("slot_update_current_element")
         # inits
         _label = lambda n: self.TEXT.get_label(n)
         _map = self.TEXT.get_element_mappings()
@@ -486,7 +474,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # update scene browser
         self.async.run_after(300, self.update_scene_browser)
         # update character log
-        self.async.run_after(200, self.update_character_log)
+        self.async.run_after(200, self.update_character_log, kw)
         # update hints
         self.async.run_after(700, self.update_hints, _tag)
         # update stats
@@ -498,7 +486,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: updates character's log info, if any;
         """
-        print("update_character_log")
         # inits
         _tc = self.tab_characters
         _name = _tc.find_nearest_name(
@@ -535,7 +522,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             shows off hints text according to @element_tag value;
             displays default hints otherwise;
         """
-        print("update_hints")
         # inits
         _hints = (
             self.INFO_HINTS.get(element_tag)
@@ -556,7 +542,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             updates navigation listbox (scene browser);
         """
-        print("update_scene_browser")
         # inits
         _dict = self.TEXT.get_lines("scene")
         _cursor = _dict["current"]
@@ -581,7 +566,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             updates current selected value;
         """
-        print("update_selected")
         # reset current selected
         self.COMBO.current_selected = text
         # reset selection
@@ -593,7 +577,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: updates scenario stats;
         """
-        print("update_stats")
         # inits
         _lpp = self.LINES_PER_PAGE
         _lines = self.TEXT.get_nb_of_lines()

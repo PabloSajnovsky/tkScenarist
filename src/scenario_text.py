@@ -162,7 +162,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             reformats insertion cursor's line in order to match element
             tag constraints;
         """
-        print("_do_reformat_line")
         # inits
         _tag = self.update_current_tag(TK.INSERT)
         _text = self.get(*self.INS_LINE_END)
@@ -188,7 +187,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             updates line contents in order to keep it correctly
             up-to-date;
         """
-        print("_do_update_line")
         # get tag at insertion cursor
         _tag = self.update_current_tag(TK.INSERT, **kw)
         # got element tag?
@@ -753,7 +751,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: reformats insertion cursor's line in order
             to match element tag constraints;
         """
-        print("reformat_line")
         # deferred task (after idle tasks)
         self.after_idle(self._do_reformat_line, args, kw)
     # end def
@@ -763,7 +760,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             reformats current line along with element constraints;
         """
-        print("reformat_line_action")
         # reset to standard line of text
         return (text.strip("()"), "")
     # end def
@@ -773,7 +769,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             reformats current line along with element constraints;
         """
-        print("reformat_line_character")
         # same as SCENE
         return self.reformat_line_scene(text)
     # end def
@@ -783,7 +778,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             reformats current line along with element constraints;
         """
-        print("reformat_line_dialogue")
         # same as ACTION
         return self.reformat_line_action(text)
     # end def
@@ -793,7 +787,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             reformats current line along with element constraints;
         """
-        print("reformat_line_parenthetical")
         # ensure parenthetical
         return ("({})".format(text.strip("()").lower()), "+1c")
     # end def
@@ -803,7 +796,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             reformats current line along with element constraints;
         """
-        print("reformat_line_scene")
         # ensure upper case
         return (text.strip("()").upper(), "")
     # end def
@@ -813,7 +805,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             reformats current line along with element constraints;
         """
-        print("reformat_line_transition")
         # same as SCENE
         return self.reformat_line_scene(text)
     # end def
@@ -823,7 +814,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             resets text to new;
         """
-        print("reset")
         # clear text
         self.clear_text(**kw)
         # reset members
@@ -855,7 +845,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on 'action' element key press;
         """
-        print("slot_keypress_action")
         # notify app
         if event.char and not (event.state & 0x8c):
             self.events.raise_event("Project:Modified")
@@ -867,7 +856,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on 'character' element key press;
         """
-        print("slot_keypress_character")
         # same as SCENE
         return self.slot_keypress_scene(event, *args, **kw)
     # end def
@@ -877,7 +865,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on 'dialogue' element key press;
         """
-        print("slot_keypress_dialogue")
         # same as ACTION
         self.slot_keypress_action(event)
     # end def
@@ -887,7 +874,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on 'parenthetical' element key press;
         """
-        print("slot_keypress_parenthetical")
         # same as ACTION
         self.slot_keypress_action(event)
     # end def
@@ -897,7 +883,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on 'scene' element key press;
         """
-        print("slot_keypress_scene")
         # inits
         _char = event.char
         _modifiers = (event.state & 0x8c)
@@ -925,7 +910,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on 'transition' element key press;
         """
-        print("slot_keypress_transition")
         # same as SCENE
         return self.slot_keypress_scene(event, *args, **kw)
     # end def
@@ -935,7 +919,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: mouse click;
         """
-        print("slot_on_click")
         # update line infos (deferred)
         self.update_line()
         # notify app
@@ -947,9 +930,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: widget got focused;
         """
-        print("slot_on_focus_in")
         # update line infos (deferred)
         self.update_line()
+        # notify app
+        self.events.raise_event("Scenario:Text:Clicked", event=event)
     # end def
 
 
@@ -1037,7 +1021,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: general keyboard key press;
         """
-        print("slot_on_keypress")
         # param controls
         if event.keysym not in self.DEAD_KEYS:
             # update line infos (deferred)
@@ -1056,7 +1039,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: general keyboard key release;
         """
-        print("slot_on_keyrelease")
         # param controls
         if event.keysym not in self.DEAD_KEYS:
             # update line infos (deferred)
@@ -1137,7 +1119,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: updates current line tag pointer;
         """
-        print("update_current_tag")
         # inits
         _tag = kw.get("force_tag") or self.get_line_tag(index)
         # got element tag?
@@ -1155,7 +1136,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: updates line contents in order to keep it
             correctly up-to-date;
         """
-        print("update_line")
         # deferred task (after idle tasks)
         self.after_idle(self._do_update_line, args, kw)
     # end def

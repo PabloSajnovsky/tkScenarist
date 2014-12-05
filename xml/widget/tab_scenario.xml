@@ -46,6 +46,7 @@
                     name="listbox_scene_browser"
                     width="30"
                     highlightthickness="0"
+                    takefocus="false"
                     layout="grid"
                     layout_options="row=0, column=0"
                     resizable="yes"

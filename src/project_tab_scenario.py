@@ -74,7 +74,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         )
         self.POPUP_LBOX.bind("<Key>", self.slot_popup_keypress)
         self.POPUP_LBOX.bind("<KeyRelease>", self.slot_popup_keyrelease)
-        self.TEXT.bind("<FocusOut>", self.slot_on_text_focus_out, "+")
+        self.POPUP_LBOX.bind("<Button>", self.slot_popup_clicked)
+        self.TEXT.bind("<FocusOut>", self.slot_on_focus_out, "+")
     # end def
 
 
@@ -223,6 +224,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         except:
             return
         # end try
+        # stop pending tasks
+        self.async.stop(self.hide_popup_list, self.slot_autocomplete)
         # inits
         choices = kw.get("choices")
         start_index = kw.get("start_index") or "insert"
@@ -349,11 +352,24 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
-    def slot_on_text_focus_out (self, event=None, *args, **kw):
+    def slot_on_focus_out (self, event=None, *args, **kw):
         """
-            event handler: text widget has lost focus;
+            event handler: widget has lost focus;
         """
-        self.after_idle(self.hide_popup_list)
+        self.async.run_after_idle(self.hide_popup_list)
+    # end def
+
+
+    def slot_popup_clicked (self, event=None, *args, **kw):
+        """
+            event handler: mouse click on popup;
+        """
+        # stop pending tasks
+        self.after_idle(
+            self.async.stop,
+            self.hide_popup_list,
+            self.slot_autocomplete
+        )
     # end def
 
 

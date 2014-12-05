@@ -219,7 +219,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # ensure no tkinter.messagebox is up there
         try:
-            self.grab_current()
+            if self.grab_current(): return
         except:
             return
         # end try

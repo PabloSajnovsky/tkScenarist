@@ -261,8 +261,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                 _lb.current_index = 0
             # end try
             _lb.configure(
-                height=min(7, len(choices)),
-                width=min(49, max(map(len, choices))),
+                height=min(5, len(choices)),
+                width=min(40, max(map(len, choices))),
             )
         # end if
         # recalc pos

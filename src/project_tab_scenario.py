@@ -78,8 +78,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         _events = {
             "<Key>": self.slot_popup_keypress,
             "<KeyRelease>": self.slot_popup_keyrelease,
-            "<Button>": self.slot_popup_clicked,
-            "<Double-Button>": self.slot_popup_double_clicked,
+            "<Button-1>": self.slot_popup_clicked,
+            "<Double-Button-1>": self.slot_popup_double_clicked,
             "<<ListboxSelect>>": self.slot_popup_item_selected,
         }
         for _seq, _slot in _events.items():
@@ -399,7 +399,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: mouse double click on popup;
         """
         print("slot_popup_double_clicked")
-        print("event.delta:", event.delta)
+        print("event.delta:", event.delta, "num:", event.num, "type:", event.type)
         # do insert text completion
         return self.slot_popup_insert()
     # end def

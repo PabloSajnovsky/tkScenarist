@@ -73,15 +73,17 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.LISTBOX.bind(
             "<<ListboxSelect>>", self.slot_listbox_item_selected
         )
-        self.POPUP_LBOX.bind("<Key>", self.slot_popup_keypress)
-        self.POPUP_LBOX.bind(
-            "<KeyRelease>", self.slot_popup_keyrelease
-        )
-        self.POPUP_LBOX.bind("<Button>", self.slot_popup_clicked)
-        self.POPUP_LBOX.bind(
-            "<Double-Button>", self.slot_popup_double_clicked
-        )
         self.TEXT.bind("<FocusOut>", self.slot_on_focus_out, "+")
+        # multiple event inits
+        _events = {
+            "<Key>": self.slot_popup_keypress,
+            "<KeyRelease>": self.slot_popup_keyrelease,
+            "<Button>": self.slot_popup_clicked,
+            "<Double-Button>": self.slot_popup_double_clicked,
+        }
+        for _seq, _slot in _events.items():
+            self.POPUP_LBOX.bind(_seq, _slot)
+        # end for
     # end def
 
 
@@ -361,7 +363,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: mouse click on popup;
         """
-        print("slot_popup_clicked")
         # stop pending tasks
         self.after_idle(
             self.async.stop,
@@ -375,7 +376,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: mouse double click on popup;
         """
-        print("slot_popup_double_clicked")
         # do insert text completion
         self.slot_popup_insert()
     # end def

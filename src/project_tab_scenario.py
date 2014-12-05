@@ -565,7 +565,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             _label(_map["ctrl_return"] or _map["ctrl_switch"])
         )
         # update hints
-        self.async.run_after(5000, self.update_hints, _tag)
+        self.async.run_after(3000, self.update_hints, _tag)
         # update stats
         self.async.run_after(1000, self.update_stats)
         # update scene browser

@@ -23,6 +23,7 @@
 """
 
 # lib imports
+import re
 import json
 import tkinter as TK
 import tkRAD.widgets.rad_widget_base as RW

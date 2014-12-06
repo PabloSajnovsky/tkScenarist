@@ -314,8 +314,8 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         _names = self.get_character_names()
         # are contents a full name?
         if contents in _names:
-            # return contents as name
-            return contents
+            # return contents as name (+ start index)
+            return (contents, 0)
         # end if
         # browse character names
         for _name in reversed(_names):

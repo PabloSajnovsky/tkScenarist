@@ -792,9 +792,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             # update info
             _info.set(_name)
             # update text widget
-            self.text_set_contents(
-                _text, self.get_character_log(_name)
-            )
+            self.text_set_contents(_text, self.character_logs[_name])
             # new name?
             if new_name:
                 # go to edit mode

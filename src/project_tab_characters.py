@@ -490,9 +490,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         # param controls
         if name:
             # set new name in logs
-            self.character_logs[name] = _(
-                "Put here some character's history"
-            )
+            self.character_logs[name] = _("(no history log)")
             # update listbox
             self.update_listbox(new_name=name)
             # project has been modified

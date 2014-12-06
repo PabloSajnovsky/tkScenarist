@@ -982,7 +982,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on 'dialogue' element key press;
         """
         # same as ACTION
-        self.slot_keypress_action(event)
+        return self.slot_keypress_action(event)
     # end def
 
 
@@ -991,7 +991,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on 'parenthetical' element key press;
         """
         # same as ACTION
-        self.slot_keypress_action(event)
+        return self.slot_keypress_action(event)
     # end def
 
 

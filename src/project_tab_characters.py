@@ -332,7 +332,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             # end if
         # end for
         # failed
-        return ""
+        return ("", 0)
     # end def
 
 

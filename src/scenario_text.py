@@ -861,7 +861,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             reformats current line along with element constraints;
         """
         # ensure parenthetical
-        return ("({})".format(text.strip("()").lower()), "+1c")
+        return ("({})".format(text.strip("()")), "+1c")
     # end def
 
 

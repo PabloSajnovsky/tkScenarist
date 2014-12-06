@@ -914,6 +914,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.delete(start, end)
         # insert new text
         self.insert(start, text, tags)
+        # notify app
+        self.events.raise_event("Project:Modified")
     # end def
 
 

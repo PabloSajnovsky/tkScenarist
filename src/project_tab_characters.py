@@ -322,11 +322,13 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             # inits
             _name = self.format_name(_name)
             _len = len(_name)
-            _sub = contents[max(0, index - _len):(index + _len)]
+            _start = max(0, index - _len)
+            _sub = contents[_start:(index + _len)]
+            _found = re.search(r"\b{}\b".format(_name), _sub)
             # found a single name nearby index?
-            if re.search(r"\b{}\b".format(_name), _sub):
-                # return name
-                return _name
+            if _found:
+                # return name and start index
+                return (_name, _start + _found.start())
             # end if
         # end for
         # failed

@@ -581,7 +581,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # inits
         _tc = self.tab_characters
-        _name = _tc.find_nearest_name(
+        _name, _start_index = _tc.find_nearest_name(
             self.TEXT.get_line_contents(),
             self.TEXT.get_column_index()
         )
@@ -594,6 +594,13 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             self.text_set_contents(
                 self.TXT_CHAR_LOG,
                 _tc.get_character_log(_name)
+            )
+            # update name into text contents
+            _index = "{0}+{{}}c".format(self.TEXT.INS_LINE[0])
+            self.TEXT.replace_text(
+                _name,
+                _index.format(_start_index),
+                _index.format(_start_index + len(_name))
             )
             # no need to autocomplete
             self.hide_popup_list()

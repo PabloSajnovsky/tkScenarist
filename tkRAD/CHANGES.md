@@ -14,6 +14,23 @@
 ## CHANGELOG
 
 
+### $ 2014-12-06 RS $
+
+* released **tkRAD v1.6.4 - Dialog Discuss**;
+
+
+### $ 2014-11-24 RS $
+
+* in `tkRAD.widgets.rad_dialog`:
+
+    * added new `verify_pending_task()` hook method in `RADDialog`
+    class;
+
+    * this hook method is used by `RADDialog._slot_quit_app()`, but may
+    now be used elsewhere e.g. in `RADDialog.validate_dialog()` hook
+    method, for example;
+
+
 ### $ 2014-11-20 RS $
 
 * in `tkRAD.widgets.rad_dialog`:

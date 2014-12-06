@@ -600,7 +600,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             self.TEXT.replace_text(
                 _name,
                 _index.format(_start_index),
-                _index.format(_start_index + len(_name))
+                _index.format(_start_index + len(_name)),
+                keep_cursor=True,
             )
             # no need to autocomplete
             self.hide_popup_list()

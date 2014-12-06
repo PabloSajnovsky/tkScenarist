@@ -883,7 +883,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def replace_text (self, text, start=None, end=None, smart_delete=False):
+    def replace_text (self, text, start=None, end=None, smart_delete=False, keep_cursor=False):
         """
             replaces text segment found between @start and @end by
             @text contents;
@@ -891,8 +891,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # inits
         start = start or TK.INSERT
         end = end or TK.INSERT
+        # keep cursor
+        _cursor = self.index(TK.INSERT)
         # keep tags
-        tags = tuple(set(self.tag_names(start) + self.tag_names(end)))
+        _tags = tuple(set(self.tag_names(start) + self.tag_names(end)))
         # asked for smart deletion?
         if smart_delete:
             # inits
@@ -913,7 +915,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # remove old text
         self.delete(start, end)
         # insert new text
-        self.insert(start, text, tags)
+        self.insert(start, text, _tags)
+        # asked to keep cursor?
+        if keep_cursor:
+            # reset cursor location
+            self.move_cursor(_cursor)
+        # end if
         # notify app
         self.events.raise_event("Project:Modified")
     # end def

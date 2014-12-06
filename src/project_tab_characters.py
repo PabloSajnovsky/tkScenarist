@@ -345,12 +345,22 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
     def get_character_log (self, character_name):
         """
             retrieves character log history according to
-            @character_name, if exists;
-            returns error message string otherwise;
+            @character_name, if exists; returns error message string if
+            no log available for existing character name; returns empty
+            string on failure, otherwise;
         """
-        return self.character_logs.get(
-            self.format_name(character_name)
-        ) or _("(no history log)")
+        # inits
+        _name = self.format_name(character_name)
+        _log = ""
+        # got name?
+        if _name in self.character_logs:
+            _log = (
+                self.character_logs[_name].strip()
+                or _("(no history log)")
+            )
+        # end if
+        # return result
+        return _log
     # end def
 
 

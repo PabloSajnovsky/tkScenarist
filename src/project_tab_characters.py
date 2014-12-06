@@ -68,6 +68,9 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
 
                 "Project:Modified": self.slot_project_modified,
 
+                "Scenario:Character:Name:Detected":
+                    self.slot_character_name_detected,
+
                 "Tab:Reset": self.slot_tab_reset,
             }
         )
@@ -588,6 +591,17 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         # project has been just opened
         self.events.raise_event("Project:Modified", flag=False)
     # end def
+
+
+    def slot_character_name_detected (self, *args, name=None, **kw):
+        """
+            event handler: a character name has been detected;
+            creates new character name if not already exists;
+            does nothing otherwise;
+        """
+        # add a new character name, if necessary
+        self.do_add_character_name(name, show_error=False, **kw)
+    # end if
 
 
     def slot_list_add (self, *args, **kw):

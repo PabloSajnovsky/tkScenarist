@@ -759,7 +759,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # inits
         _name = self.get_line_contents()
-        print("detected char name:", _name)
         # got character name?
         if _name:
             # notify app

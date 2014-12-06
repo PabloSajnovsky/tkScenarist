@@ -346,11 +346,11 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         """
             retrieves character log history according to
             @character_name, if exists;
-            returns empty string otherwise;
+            returns error message string otherwise;
         """
         return self.character_logs.get(
             self.format_name(character_name)
-        ) or ""
+        ) or _("(no history log)")
     # end def
 
 
@@ -490,7 +490,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         # param controls
         if name:
             # set new name in logs
-            self.character_logs[name] = _("(no history log)")
+            self.character_logs[name] = ""
             # update listbox
             self.update_listbox(new_name=name)
             # project has been modified
@@ -792,7 +792,9 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             # update info
             _info.set(_name)
             # update text widget
-            self.text_set_contents(_text, self.character_logs[_name])
+            self.text_set_contents(
+                _text, self.get_character_log(_name)
+            )
             # new name?
             if new_name:
                 # go to edit mode

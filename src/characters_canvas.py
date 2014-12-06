@@ -133,7 +133,14 @@ class CharactersCanvas (RC.RADCanvas):
             adds a new character name into canvas widget;
         """
         # param inits
-        xy = kw.get("xy") or self.viewport_center_xy()
+        xy = kw.get("xy")
+        # missing coordinates?
+        if not xy:
+            # reset automagic coordinates
+            x, y = self.viewport_center_xy()
+            _offset = 20 * self.instance_counter
+            xy = (x + _offset, y + _offset)
+        # end if
         # set name and create item on canvas
         self.character_names[name] = self.create_label(
             self.TAG_RADIX_NAME, xy, text=name, **self.CONFIG_NAME

@@ -665,12 +665,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.insert("{} lineend".format(TK.INSERT), "\n")
         # move to index location
         self.move_cursor(index)
-        # force tag to new line
-        self.update_line(force_tag=new_tag)
-        #~ # remove previous tag
-        #~ self.tag_remove(self.tag_names(TK.INSERT), *self.INS_LINE)
-        #~ # set new tag instead
-        #~ self.tag_add(new_tag, *self.INS_LINE)
+        # remove previous tag
+        self.tag_remove(self.tag_names(TK.INSERT), *self.INS_LINE)
+        # set new tag instead
+        self.tag_add(new_tag, *self.INS_LINE)
     # end def
 
 
@@ -681,10 +679,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # inits
         index = index or TK.INSERT
-        _chars = self.get(
-            "{} linestart".format(index),
-            "{} linestart + 1 line".format(index)
-        ).strip("\n\t")
+        _chars = self.get_line_contents(index).strip("\n\t")
         _tag = self.get_line_tag(index)
         # special case
         if _tag == "parenthetical":

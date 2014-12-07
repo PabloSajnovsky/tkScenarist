@@ -504,7 +504,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     def get_lines (self, element_tag):
         """
             retrieves dict() of line numbers, texts where @element_tag
-            resides plus line number of current insertion cursor;
+            resides plus line number of current insertion cursor; this
+            method is implemented to be ready-to-use for a scene
+            browser listbox widget;
         """
         # inits
         _lines = []
@@ -590,24 +592,13 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def init_deferred (self, kw):
-        """
-            deferred inits;
-        """
-        # first time init
-        self.reset()
-        # event bindings
-        self.bind_events(**kw)
-    # end def
-
-
     def init_members (self, **kw):
         """
             class members only inits;
         """
         # members only inits
         self.current_tag = self.DEFAULT_TAG
-        self.reset_elements(self.ELEMENT_DEFAULTS.copy())
+        self.reset_elements(self.ELEMENT_DEFAULTS.copy())                   # FIXME: self.options?
     # end def
 
 
@@ -640,8 +631,14 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         r"""
             virtual method to be implemented in subclass;
         """
+        def deferred ():
+            # first time init
+            self.reset(**kw)
+            # event bindings
+            self.bind_events(**kw)
+        # end def
         # deferred inits
-        self.after_idle(self.init_deferred, kw)
+        self.after_idle(deferred)
     # end def
 
 

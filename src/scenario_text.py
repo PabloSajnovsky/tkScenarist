@@ -701,7 +701,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         _line = self.get_line_number(index)
         # try out
         try:
-            _sel = self.get_line_number(TK.SEL_FIRST)
+            _sel = self.get_line_number(TK.SEL_LAST)
         except:
             return False
         else:

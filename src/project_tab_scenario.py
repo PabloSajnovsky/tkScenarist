@@ -528,6 +528,8 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.reset_scene_browser()
         # reset hints
         self.reset_hints()
+        # new project
+        self.events.raise_event("Project:Modified", flag=False)
     # end def
 
 

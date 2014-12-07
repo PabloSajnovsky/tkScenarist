@@ -329,6 +329,21 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def delete (self, index1, index2=None):
+        """
+            standard method reimplementation;
+        """
+        # undo/redo stacking
+        #~ self.undo_stack.push_delete(index1, index2)
+        # super class delegate
+        super().delete(index1, index2)
+        # update line infos (deferred)
+        self.update_line()
+        # notify app
+        self.events.raise_event("Project:Modified")
+    # end def
+
+
     def file_setup (self, fname, archive):
         """
             sets up widget along with all files/contents in @fname and
@@ -355,6 +370,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.move_cursor("1.0")
         # update line data
         self.update_line()
+        # open file is *NOT* a modified project
+        self.events.raise_event("Project:Modified", flag=False)
     # end def
 
 
@@ -658,6 +675,21 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def insert (self, index, chars, *args):
+        """
+            standard method reimplementation;
+        """
+        # undo/redo stacking
+        #~ self.undo_stack.push_insert(index, chars, *args)
+        # super class delegate
+        super().insert(index, chars, *args)
+        # update line infos (deferred)
+        self.update_line()
+        # notify app
+        self.events.raise_event("Project:Modified")
+    # end def
+
+
     def insert_new_line (self, new_tag, index):
         """
             inserts a new @tag element-formatted line at @index;
@@ -670,8 +702,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.tag_remove(self.tag_names(TK.INSERT), *self.INS_LINE)
         # set new tag instead
         self.tag_add(new_tag, *self.INS_LINE)
-        # notify app
-        self.events.raise_event("Project:Modified")
     # end def
 
 
@@ -883,7 +913,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def replace_text (self, text, start=None, end=None, smart_delete=False, keep_cursor=False):
+    def replace_text (self, text, start=None, end=None,
+                                smart_delete=False, keep_cursor=False):
         """
             replaces text segment found between @start and @end by
             @text contents;
@@ -921,8 +952,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # reset cursor location
             self.move_cursor(_cursor)
         # end if
-        # notify app
-        self.events.raise_event("Project:Modified")
     # end def
 
 
@@ -972,7 +1001,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 # same as SCENE
                 return self.slot_keypress_scene(event, *args, **kw)
             # end if
-            self.events.raise_event("Project:Modified")
         # end if
     # end def
 
@@ -1023,8 +1051,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             self.insert(
                 TK.INSERT, _char.upper(), self.tag_names(TK.INSERT)
             )
-            # notify app
-            self.events.raise_event("Project:Modified")
             # break the tkevent chain
             return "break"
         # end if
@@ -1078,8 +1104,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # end if
         # remove a word at once
         self.delete(_start, TK.INSERT)
-        # update line infos (deferred)
-        self.update_line()
         # break the tkevent chain
         return "break"
     # end def
@@ -1101,8 +1125,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # end if
         # remove a word at once
         self.delete(TK.INSERT, _end)
-        # update line infos (deferred)
-        self.update_line()
         # break the tkevent chain
         return "break"
     # end def

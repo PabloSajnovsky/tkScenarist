@@ -768,6 +768,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: reformats insertion cursor's line in order
             to match element tag constraints;
+            deferred task (after idle);
         """
         def deferred ():
             # inits
@@ -781,11 +782,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # reset text
             self.delete(*self.INS_LINE_END)
             self.insert(self.INS_LINE_END[0], _text, _tag)
-            # disable adjustments?
-            if kw.get("no_adjust"):
+            # should keep cursor pos?
+            if kw.get("keep_cursor"):
                 _adjust = ""
             # end if
-            # reset cursor
+            # reset cursor pos
             self.move_cursor("{} {}".format(_cursor, _adjust))
         # end def
         # deferred task (after idle tasks)
@@ -1051,16 +1052,16 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Ctrl-BackSpace> key press;
         """
         # get contents
-        _start = self.index("{} linestart".format(TK.INSERT))
+        _start = self.index(self.INS_LINE_END[0])
         _text = self.get(_start, TK.INSERT)
-        # try to find a white space
+        # try to find a white space (backward)
         _pos = _text.rfind(" ")
         # got one?
         if _pos >= 0:
             # reset index
             _start = self.index("{}+{}c".format(_start, _pos))
         # end if
-        # remove a word at once
+        # remove word at once
         self.delete(_start, TK.INSERT)
         # break the tkevent chain
         return "break"
@@ -1072,16 +1073,16 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Ctrl-Delete> key press;
         """
         # get contents
-        _end = self.index("{} lineend".format(TK.INSERT))
+        _end = self.index(self.INS_LINE_END[-1])
         _text = self.get(TK.INSERT, _end)
-        # try to find a white space
+        # try to find a white space (forward)
         _pos = _text.find(" ")
         # got one?
         if _pos >= 0:
             # reset index
             _end = self.index("{}+{}c".format(TK.INSERT, _pos + 1))
         # end if
-        # remove a word at once
+        # remove word at once
         self.delete(TK.INSERT, _end)
         # break the tkevent chain
         return "break"
@@ -1102,7 +1103,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Del> key press;
         """
         # ensure line format (deferred)
-        self.reformat_line(no_adjust=True)
+        self.reformat_line(keep_cursor=True)
     # end def
 
 
@@ -1159,6 +1160,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         if len(self.get("1.0", "3.0")) < 2:
             # reset widget
             self.reset()
+            # hook method
+            self.update_modified()
         # end if
     # end def
 
@@ -1244,6 +1247,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: updates line contents in order to keep it
             correctly up-to-date;
+            deferred task (after idle);
         """
         def deferred ():
             # get tag at insertion cursor

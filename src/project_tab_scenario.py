@@ -67,6 +67,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             }
         )
         # tkinter event bindings
+        self.bind("<Expose>", self.slot_on_expose)
         self.COMBO.bind(
             "<<ComboboxSelected>>", self.slot_combo_item_selected
         )
@@ -369,6 +370,15 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
+    def slot_on_expose (self, event=None, *args, **kw):
+        """
+            event handler: tab widget becomes visible;
+        """
+        # go to text widget
+        self.TEXT.focus_set()
+    # end def
+
+
     def slot_on_focus_out (self, event=None, *args, **kw):
         """
             event handler: widget has lost focus;
@@ -567,7 +577,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             _label(_map["ctrl_return"] or _map["ctrl_switch"])
         )
         # update hints
-        self.async.run_after(1000, self.update_hints, _tag)
+        self.async.run_after(1000, self.update_hints)
         # update stats
         self.async.run_after(500, self.update_stats)
         # update scene browser
@@ -620,14 +630,15 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
-    def update_hints (self, element_tag):
+    def update_hints (self):
         """
-            shows off hints text according to @element_tag value;
+            shows off hints text according to current line tag value;
             displays default hints otherwise;
         """
         # inits
+        _tag = self.TEXT.get_line_tag()
         _hints = (
-            self.INFO_HINTS.get(element_tag)
+            self.INFO_HINTS.get(_tag)
             or self.INFO_HINTS.get("default")
             or [self.DEFAULT_HINT]
         )

@@ -1192,11 +1192,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: general keyboard key release;
         """
-        # param controls
-        if event.keysym not in self.DEAD_KEYS:
-            # update line infos (deferred)
-            self.update_line()
-        # end if
+        # no more to do out there
+        pass
     # end def
 
 

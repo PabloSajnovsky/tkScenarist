@@ -261,7 +261,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             standard method reimplementation;
         """
         # undo/redo stacking
-        #~ self.undo_stack.push_delete(index1, index2)
+        #~ self.undo_stack.push_delete(index1, index2)                      # FIXME
         # super class delegate
         super().delete(index1, index2)
         # update line infos (deferred)
@@ -647,12 +647,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             standard method reimplementation;
         """
         # undo/redo stacking
-        #~ self.undo_stack.push_insert(index, chars, *args)
+        #~ self.undo_stack.push_insert(index, chars, *args)                 # FIXME
         # super class delegate
         super().insert(index, chars, *args)
         # update line infos (deferred)
         self.update_line()
-        # notify app
+        # hook method
         self.update_modified()
     # end def
 
@@ -665,10 +665,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.insert("{} lineend".format(TK.INSERT), "\n")
         # move to index location
         self.move_cursor(index)
-        # remove previous tag
-        self.tag_remove(self.tag_names(TK.INSERT), *self.INS_LINE)
-        # set new tag instead
-        self.tag_add(new_tag, *self.INS_LINE)
+        # force tag to new line
+        self.update_line(force_tag=new_tag)
+        #~ # remove previous tag
+        #~ self.tag_remove(self.tag_names(TK.INSERT), *self.INS_LINE)
+        #~ # set new tag instead
+        #~ self.tag_add(new_tag, *self.INS_LINE)
     # end def
 
 

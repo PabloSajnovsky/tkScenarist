@@ -118,7 +118,7 @@ class ProjectFileManagement:
                     # simple file contents
                     if tools.is_pstr(fname):
                         # set contents instead
-                        fname = _archive.read(fname).decode("UTF-8")
+                        fname = _archive.read(fname).decode(ENCODING)
                     # end if
                     # setup notebook tab
                     self.setup_tab(tab_id, fname, _archive)
@@ -182,7 +182,7 @@ class ProjectFileManagement:
                     for _fname, _fcontents in _contents.items():
                         # put files and contents into zip archive
                         _archive.writestr(
-                            _fname, bytes(_fcontents, "UTF-8")
+                            _fname, bytes(_fcontents, ENCODING)
                         )
                     # end for
                 # end for

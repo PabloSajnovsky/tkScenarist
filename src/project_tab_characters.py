@@ -579,7 +579,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             tab setup along @fname and @archive contents;
         """
         # inits
-        _get_fc = lambda f: json.loads(archive.read(f).decode("UTF-8"))
+        _get_fc = lambda f: json.loads(archive.read(f).decode(ENCODING))
         self.character_logs = _get_fc(fname["logs"])
         _relations = _get_fc(fname["relations"])
         # update listbox

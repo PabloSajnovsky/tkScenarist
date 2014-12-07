@@ -27,11 +27,13 @@ import webbrowser
 import tkinter.messagebox as MB
 import tkRAD
 import tkRAD.core.async as ASYNC
-#~ from tkRAD.core import tools
 from . import project_file_management as PFM
 from . import app_database as DB
 from . import dlg_name_database as DND
 from . import dlg_pitch_templates as DPT
+
+# app-wide inits (super global)
+__builtins__["ENCODING"] = "UTF-8"
 
 
 class MainWindow (tkRAD.RADXMLMainWindow):

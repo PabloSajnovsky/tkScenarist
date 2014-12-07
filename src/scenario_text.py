@@ -41,7 +41,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "background": "white",
         "font": "monospace 12",
         "foreground": "black",
-        "highlightthickness": 0,
+        "highlightthickness": 1,
         "undo": True,
         "wrap": "word",
     }
@@ -169,27 +169,29 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             }
         )
         # tkinter event bindings
-        # CAUTION:
-        # self.tag_bind() triggers event only when mouse pointer
-        # is *OVER* tag's region - WTF? /!\
-        # we have to work with a tag dispatcher
+        """
+            CAUTION:
+            self.tag_bind() triggers event only when mouse pointer
+            is *OVER* tag's region - WTF? /!\
+            we have to work with a tag dispatcher
+        """
         self.bind("<Key>", self.slot_on_keypress)
-        self.bind("<KeyRelease>", self.slot_on_keyrelease)
+        #~ self.bind("<KeyRelease>", self.slot_on_keyrelease)
         self.bind("<ButtonRelease>", self.slot_on_click)
         self.bind("<FocusIn>", self.slot_on_focus_in)
-        self.bind("<Return>", self.slot_on_key_return)
         self.bind("<Tab>", self.slot_on_key_tab)
+        self.bind("<Return>", self.slot_on_key_return)
         self.bind("<Control-Return>", self.slot_on_key_ctrl_return)
         self.bind("<Control-a>", self.slot_on_select_all)
         self.bind("<Control-A>", self.slot_on_select_all)
         self.bind("<Control-z>", self.slot_edit_undo)
         self.bind("<Control-Z>", self.slot_edit_redo)
         self.bind("<Delete>", self.slot_on_key_delete)
+        self.bind("<KeyRelease-Delete>", self.slot_on_keyup_delete)
         self.bind("<Control-Delete>", self.slot_on_key_ctrl_delete)
         self.bind("<BackSpace>", self.slot_on_key_delete)
-        self.bind("<Control-BackSpace>", self.slot_on_key_ctrl_backspace)
-        self.bind("<KeyRelease-Delete>", self.slot_on_keyup_delete)
         self.bind("<KeyRelease-BackSpace>", self.slot_on_keyup_delete)
+        self.bind("<Control-BackSpace>", self.slot_on_key_ctrl_backspace)
     # end def
 
 
@@ -205,7 +207,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
 
     def create_element_line (self, element_tag, index=None):
         """
-            inserts a new element-formatted line at @index;
+            inserts a new @element_tag formatted line at @index;
             inserts at insertion point if @index omitted;
         """
         # inits
@@ -295,7 +297,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         super().delete(index1, index2)
         # update line infos (deferred)
         self.update_line()
-        # notify app
+        # hook method
         self.update_modified()
     # end def
 
@@ -349,7 +351,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             @archive;
         """
         # inits
-        _get_fc = lambda k: archive.read(fname[k]).decode("UTF-8")
+        _get_fc = lambda k: archive.read(fname[k]).decode(ENCODING)
         # reset widget
         self.reset()
         # put text
@@ -1228,13 +1230,13 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def slot_on_keyrelease (self, event=None, *args, **kw):
-        """
-            event handler: general keyboard key release;
-        """
-        # no more to do out there
-        pass
-    # end def
+    #~ def slot_on_keyrelease (self, event=None, *args, **kw):
+        #~ """
+            #~ event handler: general keyboard key release;
+        #~ """
+        #~ # no more to do out there
+        #~ pass
+    #~ # end def
 
 
     def slot_on_keyup_delete (self, event=None, *args, **kw):

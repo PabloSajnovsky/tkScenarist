@@ -565,7 +565,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: updates current element info;
         """
-        print("slot_update_current_element")
         # inits
         _label = lambda n: self.TEXT.get_label(n)
         _map = self.TEXT.get_element_mappings()

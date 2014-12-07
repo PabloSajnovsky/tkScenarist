@@ -37,12 +37,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
 
     # class constant defs
     CONFIG = {
-        "autoseparators": False,    # do *NOT* change this /!\
+        "autoseparators": True,
         "background": "white",
         "font": "monospace 12",
         "foreground": "black",
         "highlightthickness": 1,
-        "undo": False,              # do *NOT* change this /!\
+        "undo": True,
         "wrap": "word",
     }
 
@@ -341,6 +341,50 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.update_line()
         # notify app
         self.update_modified()
+    # end def
+
+
+    def edit_redo (self):
+        """
+            standard method reimplementation;
+        """
+        print("edit_redo")
+        # super class delegate
+        #~ super().edit_redo()
+        pass
+    # end def
+
+
+    def edit_reset (self):
+        """
+            standard method reimplementation;
+        """
+        print("edit_reset")
+        # super class delegate
+        #~ super().edit_reset()
+        pass
+    # end def
+
+
+    def edit_separator (self):
+        """
+            standard method reimplementation;
+        """
+        print("edit_separator", self.get("insert-1c", "insert+1c"))
+        # super class delegate
+        #~ super().edit_separator()
+        pass
+    # end def
+
+
+    def edit_undo (self):
+        """
+            standard method reimplementation;
+        """
+        print("edit_undo")
+        # super class delegate
+        #~ super().edit_undo()
+        pass
     # end def
 
 

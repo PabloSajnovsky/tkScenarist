@@ -1231,8 +1231,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.update_line(force_tag=new_tag)
         # ensure line format (deferred)
         self.reformat_line()
-        # notify app
-        self.events.raise_event("Project:Modified")
     # end def
 
 

@@ -565,6 +565,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
             event handler: updates current element info;
         """
+        print("slot_update_current_element")
         # inits
         _label = lambda n: self.TEXT.get_label(n)
         _map = self.TEXT.get_element_mappings()
@@ -593,9 +594,9 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # inits
         _tc = self.tab_characters
+        _line = self.TEXT.get_line_contents()
         _name, _start_index = _tc.find_nearest_name(
-            self.TEXT.get_line_contents(),
-            self.TEXT.get_column_index()
+            _line, self.TEXT.get_column_index()
         )
         # enable widget
         self.TXT_CHAR_LOG.configure(state="normal")
@@ -607,14 +608,17 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
                 self.TXT_CHAR_LOG,
                 _tc.get_character_log(_name)
             )
-            # update name into text contents
-            _index = "{0}+{{}}c".format(self.TEXT.INS_LINE[0])
-            self.TEXT.replace_text(
-                _name,
-                _index.format(_start_index),
-                _index.format(_start_index + len(_name)),
-                keep_cursor=True,
-            )
+            # name not in good format?
+            if _name not in _line:
+                # update name into text contents
+                _index = "{0}+{{}}c".format(self.TEXT.INS_LINE[0])
+                self.TEXT.replace_text(
+                    _name,
+                    _index.format(_start_index),
+                    _index.format(_start_index + len(_name)),
+                    keep_cursor=True,
+                )
+            # end if
             # no need to autocomplete
             self.hide_popup_list()
         # unknown

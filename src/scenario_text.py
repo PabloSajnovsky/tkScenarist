@@ -216,43 +216,30 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         )
         # got element tag?
         if element_tag in self.ELEMENT:
-            # got some preprocessing?
-            self.switch_to_method(
-                "manage_line_{}".format(self.get_line_tag())
-            )
-            # switch to specific method
-            return self.switch_to_method(
-                "create_element_line_{}".format(element_tag),
-                element_tag, index
-            )
+            # try out
+            try:
+                # got some preprocessing?
+                self.switch_to_method(
+                    "manage_line_{}".format(self.get_line_tag())
+                )
+            # fallback - default behaviour
+            except AttributeError:
+                # nothing to do out there
+                pass
+            # end try
+            # try out
+            try:
+                # switch to specific line creation
+                return self.switch_to_method(
+                    "create_element_line_{}".format(element_tag),
+                    element_tag, index
+                )
+            # fallback - default behaviour
+            except AttributeError:
+                # simply insert new line
+                return self.insert_new_line(element_tag, index)
+            # end try
         # end if
-    # end def
-
-
-    def create_element_line_action (self, tag, index):
-        """
-            creates a new line of 'action' element type;
-        """
-        # simply insert new line
-        self.insert_new_line(tag, index)
-    # end def
-
-
-    def create_element_line_character (self, tag, index):
-        """
-            creates a new line of 'character' element type;
-        """
-        # simply insert new line
-        self.insert_new_line(tag, index)
-    # end def
-
-
-    def create_element_line_dialogue (self, tag, index):
-        """
-            creates a new line of 'dialogue' element type;
-        """
-        # simply insert new line
-        self.insert_new_line(tag, index)
     # end def
 
 
@@ -266,24 +253,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.insert(index, "()", (tag,))
         # put cursor
         self.move_cursor("{}+1c".format(index))
-    # end def
-
-
-    def create_element_line_scene (self, tag, index):
-        """
-            creates a new line of 'scene' element type;
-        """
-        # simply insert new line
-        self.insert_new_line(tag, index)
-    # end def
-
-
-    def create_element_line_transition (self, tag, index):
-        """
-            creates a new line of 'transition' element type;
-        """
-        # simply insert new line
-        self.insert_new_line(tag, index)
     # end def
 
 
@@ -773,18 +742,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def manage_line_action (self):
-        """
-            does some preprocessing for the current line element tag
-            before creating a new line;
-        """
-        # nothing for this element tag
-        pass
-    # end def
-
-
     def manage_line_character (self):
         """
+            this method is used by self.create_element_line();
             does some preprocessing for the current line element tag
             before creating a new line;
         """
@@ -798,46 +758,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 name=_name,
             )
         # end if
-    # end def
-
-
-    def manage_line_dialogue (self):
-        """
-            does some preprocessing for the current line element tag
-            before creating a new line;
-        """
-        # nothing for this element tag
-        pass
-    # end def
-
-
-    def manage_line_parenthetical (self):
-        """
-            does some preprocessing for the current line element tag
-            before creating a new line;
-        """
-        # nothing for this element tag
-        pass
-    # end def
-
-
-    def manage_line_scene (self):
-        """
-            does some preprocessing for the current line element tag
-            before creating a new line;
-        """
-        # nothing for this element tag
-        pass
-    # end def
-
-
-    def manage_line_transition (self):
-        """
-            does some preprocessing for the current line element tag
-            before creating a new line;
-        """
-        # nothing for this element tag
-        pass
     # end def
 
 

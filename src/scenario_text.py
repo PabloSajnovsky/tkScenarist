@@ -340,7 +340,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # update line infos (deferred)
         self.update_line()
         # notify app
-        self.events.raise_event("Project:Modified")
+        self.update_modified()
     # end def
 
 
@@ -371,7 +371,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # update line data
         self.update_line()
         # open file is *NOT* a modified project
-        self.events.raise_event("Project:Modified", flag=False)
+        self.update_modified(flag=False)
     # end def
 
 
@@ -686,7 +686,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # update line infos (deferred)
         self.update_line()
         # notify app
-        self.events.raise_event("Project:Modified")
+        self.update_modified()
     # end def
 
 
@@ -1207,8 +1207,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # reset widget
             self.reset()
         # end if
-        # notify app
-        self.events.raise_event("Project:Modified")
     # end def
 
 
@@ -1289,6 +1287,19 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # deferred task (after idle tasks)
         self.after_idle(self._do_update_line, args, kw)
+    # end def
+
+
+    def update_modified (self, *args, flag=True, **kw):
+        """
+            event handler: updates line contents in order to keep it
+            correctly up-to-date;
+        """
+        def deferred ():
+            self.events.raise_event("Project:Modified", flag=flag)
+        # end def
+        # deferred task (after idle tasks)
+        self.after_idle(deferred)
     # end def
 
 # end class ScenarioText

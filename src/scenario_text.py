@@ -965,6 +965,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.init_members(**kw)
         # update line infos (deferred)
         self.update_line(**kw)
+        # reset to new
+        self.update_modified(flag=False)
     # end def
 
 
@@ -1293,11 +1295,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: updates line contents in order to keep it
             correctly up-to-date;
         """
-        def deferred ():
-            self.events.raise_event("Project:Modified", flag=flag)
-        # end def
-        # deferred task (after idle tasks)
-        self.after_idle(deferred)
+        # notify app
+        self.events.raise_event("Project:Modified", flag=flag)
     # end def
 
 # end class ScenarioText

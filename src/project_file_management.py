@@ -157,6 +157,8 @@ class ProjectFileManagement:
         self.mainwindow.events.raise_event("Tab:Reset")
         # other resets
         self.slot_update_path()
+        # project is reset to new
+        self.slot_modified(flag=False)
     # end def
 
 

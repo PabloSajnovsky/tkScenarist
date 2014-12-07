@@ -99,7 +99,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         self.bind_class(
             "TEntry", "<Expose>", self.disable_ttkentry_expose
         )
-        for _char in "ako":
+        for _char in "akoy":
             self.unbind_class(
                 "Text", "<Control-{}>".format(_char.lower())
             )

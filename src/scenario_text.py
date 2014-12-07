@@ -37,11 +37,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
 
     # class constant defs
     CONFIG = {
-        "autoseparators": True,
+        "autoseparators": False, # useless as we implement our own maechanism
         "background": "white",
         "font": "monospace 12",
         "foreground": "black",
-        "highlightthickness": 1,
+        "highlightthickness": 0,
         "undo": True,
         "wrap": "word",
     }
@@ -158,52 +158,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def _do_reformat_line (self, args, kw):
-        """
-            reformats insertion cursor's line in order to match element
-            tag constraints;
-        """
-        # inits
-        _tag = self.update_current_tag(TK.INSERT)
-        _text = self.get(*self.INS_LINE_END)
-        _cursor = self.index(TK.INSERT)
-        # reformat along with element tag constraints
-        _text, _adjust = self.switch_to_method(
-            "reformat_line_{}".format(_tag), _text
-        )
-        # reset text
-        self.delete(*self.INS_LINE_END)
-        self.insert(self.INS_LINE_END[0], _text, _tag)
-        # disable adjustments?
-        if kw.get("no_adjust"):
-            _adjust = ""
-        # end if
-        # reset cursor
-        self.move_cursor("{} {}".format(_cursor, _adjust))
-    # end def
-
-
-    def _do_update_line (self, args, kw):
-        """
-            updates line contents in order to keep it correctly
-            up-to-date;
-        """
-        # get tag at insertion cursor
-        _tag = self.update_current_tag(TK.INSERT, **kw)
-        # got element tag?
-        if _tag in self.ELEMENT:
-            # remove all line tags
-            self.tag_remove(self.tag_names(TK.INSERT), *self.INS_LINE)
-            # reset tag all line long
-            self.tag_add(_tag, *self.INS_LINE)
-            # notify app
-            self.events.raise_event(
-                "Scenario:Current:Element:Update", element_tag=_tag
-            )
-        # end if
-    # end def
-
-
     def bind_events (self, **kw):
         """
             event bindings;
@@ -228,6 +182,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.bind("<Control-Return>", self.slot_on_key_ctrl_return)
         self.bind("<Control-a>", self.slot_on_select_all)
         self.bind("<Control-A>", self.slot_on_select_all)
+        self.bind("<Control-z>", self.slot_edit_undo)
+        self.bind("<Control-Z>", self.slot_edit_redo)
         self.bind("<Delete>", self.slot_on_key_delete)
         self.bind("<Control-Delete>", self.slot_on_key_ctrl_delete)
         self.bind("<BackSpace>", self.slot_on_key_delete)
@@ -348,10 +304,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             standard method reimplementation;
         """
-        print("edit_redo")
-        # super class delegate
-        #~ super().edit_redo()
-        pass
+        # allowed to undo/redo?
+        if self.undo_enabled():
+            pass                                                            # FIXME
+        # end if
     # end def
 
 
@@ -359,10 +315,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             standard method reimplementation;
         """
-        print("edit_reset")
         # super class delegate
-        #~ super().edit_reset()
-        pass
+        super().edit_reset()
+        pass                                                                # FIXME
     # end def
 
 
@@ -370,10 +325,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             standard method reimplementation;
         """
-        print("edit_separator", self.get("insert-1c", "insert+1c"))
-        # super class delegate
-        #~ super().edit_separator()
-        pass
+        # allowed to undo/redo?
+        if self.undo_enabled():
+            pass                                                            # FIXME
+        # end if
     # end def
 
 
@@ -381,10 +336,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             standard method reimplementation;
         """
-        print("edit_undo")
-        # super class delegate
-        #~ super().edit_undo()
-        pass
+        # allowed to undo/redo?
+        if self.undo_enabled():
+            pass                                                            # FIXME
+        # end if
     # end def
 
 
@@ -898,8 +853,27 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: reformats insertion cursor's line in order
             to match element tag constraints;
         """
+        def deferred ():
+            # inits
+            _tag = self.update_current_tag(TK.INSERT)
+            _text = self.get(*self.INS_LINE_END)
+            _cursor = self.index(TK.INSERT)
+            # reformat along with element tag constraints
+            _text, _adjust = self.switch_to_method(
+                "reformat_line_{}".format(_tag), _text
+            )
+            # reset text
+            self.delete(*self.INS_LINE_END)
+            self.insert(self.INS_LINE_END[0], _text, _tag)
+            # disable adjustments?
+            if kw.get("no_adjust"):
+                _adjust = ""
+            # end if
+            # reset cursor
+            self.move_cursor("{} {}".format(_cursor, _adjust))
+        # end def
         # deferred task (after idle tasks)
-        self.after_idle(self._do_reformat_line, args, kw)
+        self.after_idle(deferred)
     # end def
 
 
@@ -1029,6 +1003,28 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 elements=tuple(sorted(self.ELEMENT))
             )
         # end if
+    # end def
+
+
+    def slot_edit_redo (self, event=None, *args, **kw):
+        """
+            event handler: edit > redo;
+        """
+        # redo entries
+        self.edit_redo()
+        # break the tkevent chain
+        return "break"
+    # end def
+
+
+    def slot_edit_undo (self, event=None, *args, **kw):
+        """
+            event handler: edit > undo;
+        """
+        # undo entries
+        self.edit_undo()
+        # break the tkevent chain
+        return "break"
     # end def
 
 
@@ -1305,6 +1301,15 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def undo_enabled (self):
+        """
+            returns True if widget undo feature is enabled, False
+            otherwise;
+        """
+        return bool(self.cget("undo"))
+    # end def
+
+
     def update_current_tag (self, *args, index=None, **kw):
         """
             event handler: updates current line tag pointer;
@@ -1326,8 +1331,23 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: updates line contents in order to keep it
             correctly up-to-date;
         """
+        def deferred ():
+            # get tag at insertion cursor
+            _tag = self.update_current_tag(TK.INSERT, **kw)
+            # got element tag?
+            if _tag in self.ELEMENT:
+                # remove all line tags
+                self.tag_remove(self.tag_names(TK.INSERT), *self.INS_LINE)
+                # reset tag all line long
+                self.tag_add(_tag, *self.INS_LINE)
+                # notify app
+                self.events.raise_event(
+                    "Scenario:Current:Element:Update", element_tag=_tag
+                )
+            # end if
+        # end def
         # deferred task (after idle tasks)
-        self.after_idle(self._do_update_line, args, kw)
+        self.after_idle(deferred)
     # end def
 
 
@@ -1336,6 +1356,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: updates line contents in order to keep it
             correctly up-to-date;
         """
+        # reset internal flag
+        self.edit_modified(flag)
         # notify app
         self.events.raise_event("Project:Modified", flag=flag)
     # end def

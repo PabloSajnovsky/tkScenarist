@@ -1343,11 +1343,18 @@ class TextUndoStack (list):
 
     def add_separator (self):
         """
-            adds a sequence separator to help determine undo/redo
-            elements;
+            adds a separator to help determine undo/redo element
+            sequences;
         """
-        # add separator
-        self.append(self.SEPARATOR)
+        # should better insert than append?
+        if self.current_index >= 0:
+            # insert separator
+            self.insert(self.current_index, self.SEPARATOR)
+        # no way
+        else:
+            # add separator
+            self.append(self.SEPARATOR)
+        # end if
     # end def
 
 
@@ -1402,7 +1409,7 @@ class TextUndoStack (list):
                 # retrieve elements
                 _sequence = self[_ci - _sep + 1:_ci + 1]
                 # update index
-                self.current_index -= _sep + 1
+                self.current_index -= _sep
             # end if
         # end if
         # return results

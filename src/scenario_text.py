@@ -279,7 +279,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # remove stacking
             #~ self.undo_stack.pop()
             raise
-        # next
+        # next step
         else:
             # update line infos (deferred)
             self.update_line()

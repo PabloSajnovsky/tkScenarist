@@ -260,6 +260,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             standard method reimplementation;
         """
+        print("delete chars", index1, index2)
         # private undo stack management
         self.undo_stack.push_delete(
             index1, *self.get_tagged_text(index1, index2)

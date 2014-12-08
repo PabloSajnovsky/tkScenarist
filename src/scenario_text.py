@@ -260,8 +260,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             standard method reimplementation;
         """
-        # undo/redo stacking
-        #~ self.undo_stack.push_delete(index1, index2)                      # FIXME
+        # private undo stack management
+        self.undo_stack.push_delete(
+            index1, *self.get_tagged_text(index1, index2)
+        )
         # super class delegate
         super().delete(index1, index2)
         # update line infos (deferred)
@@ -288,7 +290,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # super class delegate
         super().edit_reset()
-        pass                                                                # FIXME
+        # private undo stack management
+        self.undo_stack.reset()
     # end def
 
 
@@ -298,7 +301,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # allowed to undo/redo?
         if self.undo_enabled():
-            pass                                                            # FIXME
+            # private undo stack management
+            self.undo_stack.add_separator()
         # end if
     # end def
 
@@ -548,6 +552,15 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def get_tagged_text (self, index1, index2=None):
+        """
+            retrieves tuple sequence of chars, tags, chars, tags, ...
+            for text found between @index1 and @index2;
+        """
+        raise NotImplementedError                                           # FIXME!
+    # end def
+
+
     def get_word (self, index=None):
         """
             retrieves word located at or around @index, if any.
@@ -597,7 +610,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             class members only inits;
         """
         # members only inits
-        self.undo_stack = TextUndoStack()
         self.current_tag = self.DEFAULT_TAG
         self.reset_elements(self.ELEMENT_DEFAULTS.copy())                   # FIXME: self.options?
     # end def
@@ -632,6 +644,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         r"""
             virtual method to be implemented in subclass;
         """
+        # member inits
+        self.undo_stack = TextUndoStack()
+        # deferred task def
         def deferred ():
             # first time init
             self.reset(**kw)
@@ -647,8 +662,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             standard method reimplementation;
         """
-        # undo/redo stacking
-        #~ self.undo_stack.push_insert(index, chars, *args)                 # FIXME
+        # private undo stack management
+        self.undo_stack.push_insert(index, chars, *args)
         # super class delegate
         super().insert(index, chars, *args)
         # update line infos (deferred)
@@ -1312,15 +1327,15 @@ class TextUndoStack (list):
                 read-only property;
                 retrieves end index;
             """
-            return "{}+{}c".format(index, self.text_length())
+            return "{}+{}c".format(self.start_index, self.text_length())
         # end def
 
 
         def text_length (self):
             """
-                evaluates full text length for all element;
+                evaluates full text length over all items;
             """
-            return sum(map(len, args[::2]))
+            return sum(map(len, self.args[::2]))
         # end def
 
     # end class Element
@@ -1343,7 +1358,7 @@ class TextUndoStack (list):
         # should delete redo sequences?
         if self.current_index >= 0:
             # remove following elements
-            del self[self.current_index:]
+            del self[self.current_index + 1:]
         # end if
         # super class delegate
         super().append(element)

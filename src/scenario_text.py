@@ -748,7 +748,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
 
     def line_selected (self, index=None):
         """
-            returns True if line at @index is currently selected;
+            returns True if line at @index is currently into a
+            selection range or have some selection in it;
         """
         # inits
         _line = self.get_line_number(index)

@@ -1346,15 +1346,8 @@ class TextUndoStack (list):
             adds a separator to help determine undo/redo element
             sequences;
         """
-        # should better insert than append?
-        if self.current_index >= 0:
-            # insert separator
-            self.insert(self.current_index, self.SEPARATOR)
-        # no way
-        else:
-            # add separator
-            self.append(self.SEPARATOR)
-        # end if
+        # add separator
+        self.insert(self.current_index, self.SEPARATOR)
     # end def
 
 
@@ -1382,7 +1375,30 @@ class TextUndoStack (list):
         """
             retrieves all elements in an unique redo sequence list;
         """
-        pass
+        # inits
+        _sequence = []
+        # trap separator(s), moving forward
+        _ci = self.trap(self.SEPARATOR, +1)
+        # got elements to redo?
+        if _ci < len(self):
+            # should redo only one element at a time?
+            if self.SEPARATOR not in self[_ci + 1:]:
+                # retrieve element
+                _sequence.append(self[_ci])
+                # update index
+                self.current_index += 1
+            # should redo till first encountered separator?
+            else:
+                # get separator index
+                _sep = self[_ci + 1:].index(self.SEPARATOR)
+                # retrieve elements
+                _sequence = self[_ci:_ci + _sep + 1]
+                # update index
+                self.current_index += _sep + 1
+            # end if
+        # end if
+        # return results
+        return _sequence
     # end def
 
 
@@ -1392,10 +1408,10 @@ class TextUndoStack (list):
         """
         # inits
         _sequence = []
+        # trap separator(s), moving backward
+        _ci = self.trap(self.SEPARATOR, -1)
         # got elements to undo?
-        if self.current_index >= 0:
-            # trap separator(s) moving backward
-            _ci = self.trap(self.SEPARATOR, -1)
+        if _ci >= 0:
             # should undo only one element at a time?
             if self.SEPARATOR not in self[:_ci]:
                 # retrieve element
@@ -1456,21 +1472,22 @@ class TextUndoStack (list):
         """
         # inits
         _len = len(self)
+        _ci = self.current_index
         # param controls
-        if sx:
+        if sx and 0 <= _ci < _len:
             # loop while element is encountered
-            while self[self.current_index] is element:
+            while self[_ci] is element:
                 # update index
-                self.current_index += sx
+                _ci += sx
                 # out of bound?
-                if not (0 <= self.current_index < _len):
+                if not (0 <= _ci < _len):
                     # trap out
                     break
                 # end if
             # end while
         # end if
         # rebind index
-        self.current_index = max(-1, min(_len - 1, self.current_index))
+        self.current_index = max(-1, min(_len, _ci))
         # return updated index
         return self.current_index
     # end def

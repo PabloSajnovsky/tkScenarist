@@ -200,7 +200,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler for clearing up text widget;
         """
         # clear text
-        self.delete("1.0", "end")
+        self.delete("1.0", TK.END)
         self.edit_reset()
     # end def
 
@@ -558,7 +558,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             retrieves tuple sequence of chars, tags, chars, tags, ...
             for text found between @index1 and @index2;
         """
-        raise NotImplementedError                                           # FIXME!
+        #~ raise NotImplementedError                                           # FIXME!
+        pass
+        return ("chars",)
     # end def
 
 
@@ -1342,6 +1344,15 @@ class TextUndoStack (list):
     # end class Element
 
 
+    def __init__ (self):
+        """
+            class constructor;
+        """
+        # member inits
+        self.reset()
+    # end def
+
+
     def add_separator (self):
         """
             adds a separator to help determine undo/redo element
@@ -1440,7 +1451,7 @@ class TextUndoStack (list):
             undo inserts, redo deletes;
         """
         # add 'delete' element
-        self.append(Element("-", index, chars, *args))
+        self.append(self.Element("-", index, chars, *args))
     # end def
 
 
@@ -1450,7 +1461,7 @@ class TextUndoStack (list):
             undo deletes, redo inserts;
         """
         # add 'insert' element
-        self.append(Element("+", index, chars, *args))
+        self.append(self.Element("+", index, chars, *args))
     # end def
 
 

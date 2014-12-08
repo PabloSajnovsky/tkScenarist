@@ -597,6 +597,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             class members only inits;
         """
         # members only inits
+        self.undo_stack = TextUndoStack()
         self.current_tag = self.DEFAULT_TAG
         self.reset_elements(self.ELEMENT_DEFAULTS.copy())                   # FIXME: self.options?
     # end def
@@ -1281,3 +1282,132 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 # end class ScenarioText
+
+
+
+class TextUndoStack (list):
+    """
+        undo/redo stack structure for Text widget;
+    """
+
+    # class constant defs
+    SEPARATOR = object()
+
+    class Element:
+
+        def __init__ (self, mode, index, *args):
+            """
+                class constructor;
+            """
+            # member inits
+            self.mode = mode
+            self.start_index = index
+            self.args = args
+        # end def
+
+
+        @property
+        def end_index (self):
+            """
+                read-only property;
+                retrieves end index;
+            """
+            return "{}+{}c".format(index, self.text_length())
+        # end def
+
+
+        def text_length (self):
+            """
+                evaluates full text length for all element;
+            """
+            return sum(map(len, args[::2]))
+        # end def
+
+    # end class Element
+
+
+    def add_separator (self):
+        """
+            adds a sequence separator to help determine undo/redo
+            elements;
+        """
+        # add separator
+        self.append(self.SEPARATOR)
+    # end def
+
+
+    def append (self, element):
+        """
+            standard method reimplementation;
+        """
+        # should delete redo sequences?
+        if self.current_index >= 0:
+            # remove the followings
+            del self[self.current_index:]
+        # end if
+        # super class delegate
+        super().append(element)
+        # update index
+        self.update_index()
+    # end def
+
+
+    def get_redo_elements (self):
+        """
+            retrieves all elements in an unique redo sequence;
+        """
+        # return results
+        return _sequence
+    # end def
+
+
+    def get_undo_elements (self):
+        """
+            retrieves all elements in an unique undo sequence;
+        """
+        # return results
+        return _sequence
+    # end def
+
+
+    def push_delete (self, index, chars, *args):
+        """
+            push element on stack with mode 'delete';
+            undo inserts, redo deletes;
+        """
+        # add 'delete' element
+        self.append(Element("-", index, chars, *args))
+    # end def
+
+
+    def push_insert (self, index, chars, *args):
+        """
+            push element on stack with mode 'insert';
+            undo deletes, redo inserts;
+        """
+        # add 'insert' element
+        self.append(Element("+", index, chars, *args))
+    # end def
+
+
+    def reset (self):
+        """
+            resets all stack members;
+        """
+        # inits
+        self.clear()
+        self.update_index()
+    # end def
+
+
+    def update_index (self):
+        """
+            updates index along with stack length;
+        """
+        # inits
+        self.current_index = len(self) - 1
+        # return result
+        return self.current_index
+    # end def
+
+# end class TextUndoStack

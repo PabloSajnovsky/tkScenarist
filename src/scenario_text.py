@@ -1342,7 +1342,7 @@ class TextUndoStack (list):
         """
         # should delete redo sequences?
         if self.current_index >= 0:
-            # remove the followings
+            # remove following elements
             del self[self.current_index:]
         # end if
         # super class delegate
@@ -1356,8 +1356,7 @@ class TextUndoStack (list):
         """
             retrieves all elements in an unique redo sequence;
         """
-        # return results
-        return _sequence
+        pass
     # end def
 
 
@@ -1365,6 +1364,28 @@ class TextUndoStack (list):
         """
             retrieves all elements in an unique undo sequence;
         """
+        # inits
+        _sequence = []
+        # got elements to undo?
+        if self.current_index >= 0:
+            # trap separator at current position
+            _ci = self.trap(self.SEPARATOR, -1)
+            # should undo only one element at a time?
+            if self.SEPARATOR not in self[:_ci]:
+                # retrieve element
+                _sequence.append(self[_ci])
+                # update index
+                self.current_index -= 1
+            # should undo till last encountered separator?
+            else:
+                # get separator index
+                _sep = self[_ci::-1].index(self.SEPARATOR)
+                # retrieve elements
+                _sequence = self[_ci - _sep + 1:_ci + 1]
+                # update index
+                self.current_index -= _sep + 1
+            # end if
+        # end if
         # return results
         return _sequence
     # end def
@@ -1397,6 +1418,35 @@ class TextUndoStack (list):
         # inits
         self.clear()
         self.update_index()
+    # end def
+
+
+    def trap (self, element, sx=1):
+        """
+            traps given @element, moving @sx direction/step;
+            if @sx < 0, moves backward;
+            if @sx > 0, moves forward;
+            updates and returns new self.current_index;
+        """
+        # inits
+        _len = len(self)
+        # param controls
+        if sx:
+            # loop while element is encountered
+            while self[self.current_index] is element:
+                # update index
+                self.current_index += sx
+                # out of bound?
+                if not (0 <= self.current_index < _len):
+                    # trap out
+                    break
+                # end if
+            # end while
+        # end if
+        # rebind index
+        self.current_index = max(-1, min(_len - 1, self.current_index))
+        # return updated index
+        return self.current_index
     # end def
 
 

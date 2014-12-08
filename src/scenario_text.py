@@ -1359,6 +1359,10 @@ class TextUndoStack (list):
         if self.current_index >= 0:
             # remove following elements
             del self[self.current_index + 1:]
+        # better reset
+        else:
+            # ensure all is clear
+            self.reset()
         # end if
         # super class delegate
         super().append(element)
@@ -1369,7 +1373,7 @@ class TextUndoStack (list):
 
     def get_redo_elements (self):
         """
-            retrieves all elements in an unique redo sequence;
+            retrieves all elements in an unique redo sequence list;
         """
         pass
     # end def
@@ -1377,13 +1381,13 @@ class TextUndoStack (list):
 
     def get_undo_elements (self):
         """
-            retrieves all elements in an unique undo sequence;
+            retrieves all elements in an unique undo sequence list;
         """
         # inits
         _sequence = []
         # got elements to undo?
         if self.current_index >= 0:
-            # trap separator at current position
+            # trap separator(s) moving backward
             _ci = self.trap(self.SEPARATOR, -1)
             # should undo only one element at a time?
             if self.SEPARATOR not in self[:_ci]:

@@ -37,12 +37,15 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
 
     # class constant defs
     CONFIG = {
-        "autoseparators": False, # useless as we implement our own maechanism
+        "autoseparators": False, #  do *NOT* change this /!\
         "background": "white",
         "font": "monospace 12",
         "foreground": "black",
         "highlightthickness": 1,
-        "undo": True,
+        # CAUTION:
+        # abandoned undo/redo feature due to too slow
+        # task reimplementation under Python
+        "undo": False,  # do *NOT* change this /!\
         "wrap": "word",
     }
 
@@ -173,7 +176,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             CAUTION:
             self.tag_bind() triggers event only when mouse pointer
             is *OVER* tag's region - WTF? /!\
-            we have to work with a tag dispatcher
+            we have to work with classical hotkeys
         """
         self.bind("<Key>", self.slot_on_keypress)
         #~ self.bind("<KeyRelease>", self.slot_on_keyrelease)
@@ -260,17 +263,29 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             standard method reimplementation;
         """
-        print("delete chars", index1, index2)
         # private undo stack management
-        self.undo_stack.push_delete(
-            index1, *self.get_tagged_text(index1, index2)
-        )
-        # super class delegate
-        super().delete(index1, index2)
-        # update line infos (deferred)
-        self.update_line()
-        # hook method
-        self.update_modified()
+        # CAUTION:
+        # abandoned undo/redo feature due to too slow
+        # task reimplementation under Python
+        #~ self.undo_stack.push_delete(
+            #~ index1, *self.get_tagged_text(index1, index2)
+        #~ )
+        # try out
+        try:
+            # super class delegate
+            super().delete(index1, index2)
+        # got error
+        except:
+            # remove stacking
+            #~ self.undo_stack.pop()
+            raise
+        # next
+        else:
+            # update line infos (deferred)
+            self.update_line()
+            # hook method
+            self.update_modified()
+        # end try
     # end def
 
 
@@ -280,7 +295,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # allowed to undo/redo?
         if self.undo_enabled():
-            pass                                                            # FIXME
+            # CAUTION:
+            # abandoned undo/redo feature due to too slow
+            # task reimplementation under Python
+            pass
         # end if
     # end def
 
@@ -303,7 +321,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # allowed to undo/redo?
         if self.undo_enabled():
             # private undo stack management
-            self.undo_stack.add_separator()
+            # CAUTION:
+            # abandoned undo/redo feature due to too slow
+            # task reimplementation under Python
+            #~ self.undo_stack.add_separator()
+            pass
         # end if
     # end def
 
@@ -314,7 +336,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # allowed to undo/redo?
         if self.undo_enabled():
-            pass                                                            # FIXME
+            # CAUTION:
+            # abandoned undo/redo feature due to too slow
+            # task reimplementation under Python
+            pass
         # end if
     # end def
 
@@ -558,9 +583,15 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             retrieves tuple sequence of chars, tags, chars, tags, ...
             for text found between @index1 and @index2;
         """
-        #~ raise NotImplementedError                                           # FIXME!
-        pass
-        return ("chars",)
+        # CAUTION:
+        """
+            current Tcl/Tk implementation of Text widget's internal
+            hotkeys forces to reimplement *EVERYTHING* under Python;
+            this is too heavy and too slow task to be done in Python;
+            aborting.
+        """
+        # abandoned till better solution
+        return ("",)
     # end def
 
 
@@ -666,7 +697,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             standard method reimplementation;
         """
         # private undo stack management
-        self.undo_stack.push_insert(index, chars, *args)
+        # CAUTION:
+        # abandoned undo/redo feature due to too slow
+        # task reimplementation under Python
+        #~ self.undo_stack.push_insert(index, chars, *args)
         # super class delegate
         super().insert(index, chars, *args)
         # update line infos (deferred)

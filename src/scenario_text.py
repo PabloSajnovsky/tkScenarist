@@ -1394,7 +1394,7 @@ class TextUndoStack (list):
                 # retrieve elements
                 _sequence = self[_ci:_ci + _sep + 1]
                 # update index
-                self.current_index += _sep + 1
+                self.current_index = _ci + _sep + 1
             # end if
         # end if
         # return results
@@ -1425,7 +1425,7 @@ class TextUndoStack (list):
                 # retrieve elements
                 _sequence = self[_ci - _sep + 1:_ci + 1]
                 # update index
-                self.current_index -= _sep
+                self.current_index = _ci - _sep
             # end if
         # end if
         # return results

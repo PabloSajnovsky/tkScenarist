@@ -754,11 +754,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         _line = self.get_line_number(index)
         # try out
         try:
-            _sel = self.get_line_number(TK.SEL_LAST)
+            _first = self.get_line_number(TK.SEL_FIRST)
+            _last = self.get_line_number(TK.SEL_LAST)
         except:
             return False
         else:
-            return bool(_line == _sel)
+            return bool(_line in (_first, _last))
         # end try
     # end def
 

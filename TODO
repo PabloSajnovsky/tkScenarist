@@ -1,3 +1,7 @@
 TODO list
 =========
 
+    * the tagged text feature consumes huge amounts of memory in the
+    undo stack;
+
+    * should make in-vivo tests before abandoning definitely?

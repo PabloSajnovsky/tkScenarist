@@ -353,7 +353,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 self.move_cursor(_index)
                 self.after_idle(self.see, TK.INSERT)
             # end if
-            self.update_line()
         # end if
     # end def
 
@@ -392,7 +391,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             _index = None
             # browse elements
             for _element in _sequence:
-                print("element:", _element)
                 # element has been inserted?
                 if _element.mode == "+":
                     # remove it
@@ -417,7 +415,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 self.move_cursor(_index)
                 self.after_idle(self.see, TK.INSERT)
             # end if
-            self.update_line()
         # end if
     # end def
 
@@ -1316,7 +1313,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             self.update_line()
             # keypress is a separator-generate symbol?
             if event.char and event.char in self.SEPARATORS:
-                print("punctuation detected:", event.keysym)
                 # add undo/redo separator
                 self.edit_separator()
             # end if
@@ -1589,7 +1585,6 @@ class TextUndoStack (list):
         super().append(element)
         # update index
         self.update_index()
-        print("appended element:", element)
     # end def
 
 
@@ -1679,7 +1674,6 @@ class TextUndoStack (list):
             undo inserts, redo deletes;
         """
         # add 'delete' element
-        print("push_delete:", index, chars, args)
         if chars or args:
             self.append(self.Element("-", index, chars, *args))
         # end if

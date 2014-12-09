@@ -1200,8 +1200,14 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # ensure line format (deferred)
         self.reformat_line(keep_cursor=True)
-        # delete char (undo/redo feature support)
-        self.delete("{}-1c".format(TK.INSERT))
+        # try out selection
+        try:
+            self.delete(TK.SEL_FIRST, TK.SEL_LAST)
+        # no selection
+        except:
+            # delete char (undo/redo feature support)
+            self.delete("{}-1c".format(TK.INSERT))
+        # end try
         # break the tkevent chain
         return "break"
     # end def
@@ -1264,8 +1270,14 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # ensure line format (deferred)
         self.reformat_line(keep_cursor=True)
-        # delete char (undo/redo feature support)
-        self.delete(TK.INSERT)
+        # try out selection
+        try:
+            self.delete(TK.SEL_FIRST, TK.SEL_LAST)
+        # no selection
+        except:
+            # delete char (undo/redo feature support)
+            self.delete(TK.INSERT)
+        # end try
         # break the tkevent chain
         return "break"
     # end def

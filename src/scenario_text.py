@@ -38,15 +38,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
 
     # class constant defs
     CONFIG = {
-        "autoseparators": False, #  do *NOT* change this /!\
+        "autoseparators": False, # useless: private undo/redo maechanism
         "background": "white",
         "font": "monospace 12",
         "foreground": "black",
         "highlightthickness": 1,
-        # CAUTION:
-        # abandoned undo/redo feature due to too slow
-        # task reimplementation under Python
-        "undo": True,  # do *NOT* change this /!\
+        "undo": True,
         "wrap": "word",
     }
 
@@ -149,6 +146,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "{} linestart".format(TK.INSERT),
         "{} lineend".format(TK.INSERT),
     )
+
+    # allowed nb of cancellations
+    UNDO_LIMIT = 200
 
 
     def __init__ (self, master=None, **kw):
@@ -323,6 +323,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         if self.undo_enabled():
             # inits
             _sequence = self.undo_stack.get_redo_elements()
+            _index = None
             # browse elements
             for _element in _sequence:
                 # element has been inserted?
@@ -331,14 +332,24 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                     self._do_insert(
                         _element.start_index, *_element.args
                     )
+                    # update index
+                    _index = _element.end_index
                 # element has been deleted?
                 else:
                     # remove it
                     self._do_delete(
                         _element.start_index, _element.end_index
                     )
+                    # update index
+                    _index = _element.start_index
                 # end if
             # end for
+            # got position?
+            if _index:
+                # reset cursor pos
+                self.move_cursor(_index)
+                self.after_idle(self.see, TK.INSERT)
+            # end if
         # end if
     # end def
 
@@ -374,6 +385,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         if self.undo_enabled():
             # inits
             _sequence = self.undo_stack.get_undo_elements()
+            _index = None
             # browse elements
             for _element in _sequence:
                 # element has been inserted?
@@ -382,14 +394,24 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                     self._do_delete(
                         _element.start_index, _element.end_index
                     )
+                    # update index
+                    _index = _element.start_index
                 # element has been deleted?
                 else:
                     # insert it again
                     self._do_insert(
                         _element.start_index, *_element.args
                     )
+                    # update index
+                    _index = _element.end_index
                 # end if
             # end for
+            # got position?
+            if _index:
+                # reset cursor pos
+                self.move_cursor(_index)
+                self.after_idle(self.see, TK.INSERT)
+            # end if
         # end if
     # end def
 
@@ -633,6 +655,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             retrieves tuple sequence of chars, tags, chars, tags, ...
             for text found between @index1 and @index2;
         """
+        # not the best but will do the job for simple things
         return (self.get(index1, index2), self.tag_names(index1))
     # end def
 
@@ -721,7 +744,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             virtual method to be implemented in subclass;
         """
         # member inits
-        self.undo_stack = TextUndoStack()
+        self.undo_stack = TextUndoStack(limit=self.UNDO_LIMIT)
         # deferred task def
         def deferred ():
             # first time init
@@ -872,7 +895,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             _text, _adjust = self.switch_to_method(
                 "reformat_line_{}".format(_tag), _text
             )
-            # reset text
+            # reset text (apart from undo/redo maechanism)
             self._do_delete(*self.INS_LINE_END)
             self._do_insert(self.INS_LINE_END[0], _text, _tag)
             # should keep cursor pos?
@@ -1441,11 +1464,12 @@ class TextUndoStack (list):
     # end class Element
 
 
-    def __init__ (self):
+    def __init__ (self, limit=200):
         """
             class constructor;
         """
         # member inits
+        self.limit = limit
         self.reset()
     # end def
 
@@ -1586,7 +1610,6 @@ class TextUndoStack (list):
         # inits
         self.clear()
         self.update_index()
-        self.add_separator()
     # end def
 
 

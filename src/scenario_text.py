@@ -1475,7 +1475,6 @@ class TextUndoStack (list):
         else:
             # ensure all is clear
             self.clear()
-            self.update_index()
         # end if
         # super class delegate
         super().append(element)
@@ -1490,16 +1489,17 @@ class TextUndoStack (list):
         """
         # inits
         _sequence = []
+        self.current_index += 1
+        print("redo: BEFORE trap:", self.current_index, self[self.current_index:])
         # trap separator(s), moving forward
         _ci = self.trap(self.SEPARATOR, +1)
+        print("redo: AFTER trap:", _ci, self[_ci:])
         # got elements to redo?
         if _ci < len(self):
             # should redo only one element at a time?
             if self.SEPARATOR not in self[_ci + 1:]:
                 # retrieve element
                 _sequence.append(self[_ci])
-                # update index
-                self.current_index += 1
             # should redo till first encountered separator?
             else:
                 # get separator index
@@ -1508,6 +1508,8 @@ class TextUndoStack (list):
                 _sequence = self[_ci:_ci + _sep + 1]
                 # update index
                 self.current_index = _ci + _sep + 1
+                print("sequence:", _sequence)
+                print("ci + elements:", self.current_index, self[self.current_index:])
             # end if
         # end if
         # return results

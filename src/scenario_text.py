@@ -325,7 +325,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             _sequence = self.undo_stack.get_redo_elements()
             # browse elements
             for _element in _sequence:
-                print("edit_redo: element:", _element)
                 # element has been inserted?
                 if _element.mode == "+":
                     # insert it again
@@ -377,7 +376,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             _sequence = self.undo_stack.get_undo_elements()
             # browse elements
             for _element in _sequence:
-                print("edit_undo: element:", _element)
                 # element has been inserted?
                 if _element.mode == "+":
                     # remove it
@@ -1491,22 +1489,18 @@ class TextUndoStack (list):
         """
         # inits
         _sequence = []
+        # move to next redo op
         self.current_index += 1
-        print(
-            "redo: BEFORE trap:",
-            self.current_index,
-            self[self.current_index:self.current_index+1],
-            self[self.current_index:]
-        )
         # trap separator(s), moving forward
         _ci = self.trap(self.SEPARATOR, +1)
-        print("redo: AFTER trap:", _ci, self[_ci:_ci+1], self[_ci:])
         # got elements to redo?
         if _ci < len(self):
             # should redo all at once?
             if self.SEPARATOR not in self[_ci + 1:]:
                 # retrieve all remaining elements
                 _sequence = self[_ci:]
+                # update index
+                self.current_index = len(self) - 1
             # should redo till first encountered separator?
             else:
                 # get separator index
@@ -1515,13 +1509,6 @@ class TextUndoStack (list):
                 _sequence = self[_ci:_ci + _sep + 1]
                 # update index
                 self.current_index = _ci + _sep + 1
-                print("sequence:", _sequence)
-                print(
-                    "ci + elements:",
-                    self.current_index,
-                    self[self.current_index],
-                    self[self.current_index-1:self.current_index+2]
-                )
             # end if
         # end if
         # rebind index
@@ -1537,23 +1524,16 @@ class TextUndoStack (list):
         """
         # inits
         _sequence = []
-        print(
-            "undo: BEFORE trap:",
-            self.current_index,
-            self[self.current_index:self.current_index+1],
-            self[self.current_index-1:self.current_index+2]
-        )
         # trap separator(s), moving backward
         _ci = self.trap(self.SEPARATOR, -1)
-        print("undo: AFTER trap:", _ci, self[_ci:_ci+1], self[_ci-1:_ci+2])
         # got elements to undo?
         if _ci >= 0:
-            # should undo only one element at a time?
+            # should undo all elements at once?
             if self.SEPARATOR not in self[:_ci]:
-                # retrieve element
-                _sequence.append(self[_ci])
+                # retrieve all elements
+                _sequence = self[:_ci + 1]
                 # update index
-                self.current_index -= 1
+                self.current_index = -1
             # should undo till last encountered separator?
             else:
                 # get separator index
@@ -1562,13 +1542,6 @@ class TextUndoStack (list):
                 _sequence = self[_ci - _sep + 1:_ci + 1]
                 # update index
                 self.current_index = _ci - _sep
-                print("sequence:", _sequence)
-                print(
-                    "ci + elements:",
-                    self.current_index,
-                    self[self.current_index],
-                    self[self.current_index-1:self.current_index+2]
-                )
             # end if
         # end if
         # return results

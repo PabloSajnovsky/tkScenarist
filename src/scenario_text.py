@@ -1491,10 +1491,15 @@ class TextUndoStack (list):
         # inits
         _sequence = []
         self.current_index += 1
-        print("redo: BEFORE trap:", self.current_index, self[self.current_index:])
+        print(
+            "redo: BEFORE trap:",
+            self.current_index,
+            self[self.current_index],
+            self[self.current_index:]
+        )
         # trap separator(s), moving forward
         _ci = self.trap(self.SEPARATOR, +1)
-        print("redo: AFTER trap:", _ci, self[_ci:])
+        print("redo: AFTER trap:", _ci, self[_ci], self[_ci:])
         # got elements to redo?
         if _ci < len(self):
             # should redo only one element at a time?
@@ -1529,10 +1534,15 @@ class TextUndoStack (list):
         """
         # inits
         _sequence = []
-        print("undo: BEFORE trap:", self.current_index, self[self.current_index-1:self.current_index+2])
+        print(
+            "undo: BEFORE trap:",
+            self.current_index,
+            self[self.current_index],
+            self[self.current_index-1:self.current_index+2]
+        )
         # trap separator(s), moving backward
         _ci = self.trap(self.SEPARATOR, -1)
-        print("undo: AFTER trap:", _ci, self[_ci-1:_ci+2])
+        print("undo: AFTER trap:", _ci, self[_ci], self[_ci-1:_ci+2])
         # got elements to undo?
         if _ci >= 0:
             # should undo only one element at a time?

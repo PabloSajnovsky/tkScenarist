@@ -1551,7 +1551,7 @@ class TextUndoStack (list):
             push element on stack with mode 'delete';
             undo inserts, redo deletes;
         """
-        print("push_delete")
+        print("push_delete chars: '{}'".format(chars))
         # add 'delete' element
         self.append(self.Element("-", index, chars, *args))
     # end def
@@ -1562,7 +1562,7 @@ class TextUndoStack (list):
             push element on stack with mode 'insert';
             undo deletes, redo inserts;
         """
-        print("push_insert")
+        print("push_insert chars: '{}'".format(chars))
         # add 'insert' element
         self.append(self.Element("+", index, chars, *args))
     # end def

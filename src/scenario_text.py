@@ -147,6 +147,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "{} lineend".format(TK.INSERT),
     )
 
+    # characters generating undo/redo stack separators
+    SEPARATORS = string.whitespace + string.punctuation
+
     # allowed nb of cancellations
     UNDO_LIMIT = 2000
 
@@ -350,6 +353,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 self.move_cursor(_index)
                 self.after_idle(self.see, TK.INSERT)
             # end if
+            self.update_line()
         # end if
     # end def
 
@@ -413,6 +417,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 self.move_cursor(_index)
                 self.after_idle(self.see, TK.INSERT)
             # end if
+            self.update_line()
         # end if
     # end def
 
@@ -657,7 +662,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             for text found between @index1 and @index2;
         """
         # not the best but will do the job for simple things
-        return (self.get(index1, index2), self.get_line_tag(index1))
+        return (self.get(index1, index2), self.tag_names(index1))
     # end def
 
 
@@ -1309,8 +1314,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         if event.keysym not in self.DEAD_KEYS:
             # update line infos (deferred)
             self.update_line()
-            # keypress is a punctuation symbol?
-            if event.char in string.whitespace + string.punctuation:
+            # keypress is a separator-generate symbol?
+            if event.char and event.char in self.SEPARATORS:
+                print("punctuation detected:", event.keysym)
                 # add undo/redo separator
                 self.edit_separator()
             # end if
@@ -1583,6 +1589,7 @@ class TextUndoStack (list):
         super().append(element)
         # update index
         self.update_index()
+        print("appended element:", element)
     # end def
 
 
@@ -1673,7 +1680,9 @@ class TextUndoStack (list):
         """
         # add 'delete' element
         print("push_delete:", index, chars, args)
-        self.append(self.Element("-", index, chars, *args))
+        if chars or args:
+            self.append(self.Element("-", index, chars, *args))
+        # end if
     # end def
 
 
@@ -1683,7 +1692,9 @@ class TextUndoStack (list):
             undo deletes, redo inserts;
         """
         # add 'insert' element
-        self.append(self.Element("+", index, chars, *args))
+        if chars or args:
+            self.append(self.Element("+", index, chars, *args))
+        # end if
     # end def
 
 

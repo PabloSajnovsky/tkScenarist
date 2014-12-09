@@ -148,7 +148,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     )
 
     # allowed nb of cancellations
-    UNDO_LIMIT = 20
+    UNDO_LIMIT = 2000
 
 
     def __init__ (self, master=None, **kw):

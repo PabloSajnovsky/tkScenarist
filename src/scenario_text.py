@@ -340,11 +340,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                         _element.start_index, _element.end_index
                     )
                 # end if
-            # end for
-            # reset cursor position
-            if _element:
                 self.move_cursor(_element.end_index)
-            # end if
+            # end for
         # end if
     # end def
 
@@ -386,10 +383,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             print("sequence:", _sequence)
             # browse elements
             for _element in _sequence:
+                print("element:", _element)
                 # element has been inserted?
                 if _element.mode == "+":
-                    print("element start index:", _element.start_index)
-                    print("element end index:", _element.end_index)
                     # remove it
                     self._do_delete(
                         _element.start_index, _element.end_index
@@ -401,11 +397,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                         _element.start_index, *_element.args
                     )
                 # end if
-            # end for
-            # reset cursor position
-            if _element:
                 self.move_cursor(_element.end_index)
-            # end if
+            # end for
         # end if
     # end def
 
@@ -1419,6 +1412,16 @@ class TextUndoStack (list):
         # end def
 
 
+        def __str__ (self):
+            """
+                string format for debugging session;
+            """
+            return "{} ({}, {}) {}".format(
+                self.mode, self.start_index, self.end_index, self.args
+            )
+        # end def
+
+
         @property
         def end_index (self):
             """
@@ -1481,6 +1484,7 @@ class TextUndoStack (list):
         super().append(element)
         # update index
         self.update_index()
+        print("undo_stack.append(): len:", len(self), "current index:", self.current_index)
     # end def
 
 

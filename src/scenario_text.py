@@ -728,7 +728,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             virtual method to be implemented in subclass;
         """
         # member inits
-        self.undo_stack = TextUndoStack()
+        self.undo_stack = TextUndoStack(self)
         # deferred task def
         def deferred ():
             # first time init
@@ -1430,11 +1430,13 @@ class TextUndoStack (list):
     # end class Element
 
 
-    def __init__ (self):
+    def __init__ (self, master, limit=200):
         """
             class constructor;
         """
         # member inits
+        self.w_text = master
+        self.limit = limit
         self.reset()
     # end def
 
@@ -1536,6 +1538,8 @@ class TextUndoStack (list):
             push element on stack with mode 'delete';
             undo inserts, redo deletes;
         """
+        # reset index
+        index = self.w_text.index(index)
         # add 'delete' element
         self.append(self.Element("-", index, chars, *args))
     # end def
@@ -1546,6 +1550,8 @@ class TextUndoStack (list):
             push element on stack with mode 'insert';
             undo deletes, redo inserts;
         """
+        # reset index
+        index = self.w_text.index(index)
         # add 'insert' element
         self.append(self.Element("+", index, chars, *args))
     # end def

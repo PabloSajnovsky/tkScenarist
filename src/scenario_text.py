@@ -25,6 +25,7 @@
 # lib imports
 import re
 import json
+import string
 import tkinter as TK
 import tkRAD.widgets.rad_widget_base as RW
 from tkRAD.core import tools
@@ -359,11 +360,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # allowed to undo/redo?
         if self.undo_enabled():
             # private undo stack management
-            # CAUTION:
-            # abandoned undo/redo feature due to too slow
-            # task reimplementation under Python
-            #~ self.undo_stack.add_separator()
-            pass
+            self.undo_stack.add_separator()
         # end if
     # end def
 
@@ -1231,6 +1228,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # end if
         # show insertion cursor
         self.see(TK.INSERT)
+        # keypress is a punctuation symbol?
+        if event.char in string.punctuation:
+            # add undo/redo separator
+            self.edit_separator()
+        # end if
         # switch to specific method
         return self.switch_to_method(
             "slot_keypress_{}".format(self.get_line_tag()), event

@@ -1222,7 +1222,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             _start = self.index("{}+{}c".format(_start, _pos))
         # end if
         # remove word at once
-        self.undo_stack.add_separator()
         self.delete(_start, TK.INSERT)
         # break the tkevent chain
         return "break"
@@ -1244,7 +1243,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             _end = self.index("{}+{}c".format(TK.INSERT, _pos + 1))
         # end if
         # remove word at once
-        self.undo_stack.add_separator()
         self.delete(TK.INSERT, _end)
         # break the tkevent chain
         return "break"
@@ -1558,6 +1556,16 @@ class TextUndoStack (list):
         elif self.limit == 1:
             # better clear all (faster)
             self.clear()
+        # end if
+        # should add separator between elements of different modes?
+        if len(self) and hasattr(element, "mode"):
+            # inits
+            _last = self[-1]
+            # is Element of different mode?
+            if hasattr(_last, "mode") and _last.mode != element.mode:
+                # add separator
+                super().append(self.SEPARATOR)
+            # end if
         # end if
         # super class delegate
         super().append(element)

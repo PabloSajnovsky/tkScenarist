@@ -1234,14 +1234,14 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         if event.keysym not in self.DEAD_KEYS:
             # update line infos (deferred)
             self.update_line()
+            # keypress is a punctuation symbol?
+            if event.char in string.punctuation:
+                # add undo/redo separator
+                self.edit_separator()
+            # end if
         # end if
         # show insertion cursor
         self.see(TK.INSERT)
-        # keypress is a punctuation symbol?
-        if event.char in string.punctuation:
-            # add undo/redo separator
-            self.edit_separator()
-        # end if
         # switch to specific method
         return self.switch_to_method(
             "slot_keypress_{}".format(self.get_line_tag()), event
@@ -1445,8 +1445,12 @@ class TextUndoStack (list):
             adds a separator to help determine undo/redo element
             sequences;
         """
+        print("add_separator")
+        print("current index:", self.current_index)
+        print("current element:", self[self.current_index])
         # really need to add one?
         if self[self.current_index] is not self.SEPARATOR:
+            print("inserting separator")
             # add separator
             self.insert(self.current_index, self.SEPARATOR)
             # update index

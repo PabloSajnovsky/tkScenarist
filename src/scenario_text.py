@@ -320,8 +320,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # allowed to undo/redo?
         if self.undo_enabled():
+            print("edit_redo")
             # inits
             _sequence = self.undo_stack.get_redo_elements()
+            print("sequence:", _sequence)
             # browse elements
             for _element in _sequence:
                 # element has been inserted?
@@ -346,6 +348,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             standard method reimplementation;
         """
+        print("edit_reset")
         # super class delegate
         super().edit_reset()
         # private undo stack management
@@ -359,6 +362,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # allowed to undo/redo?
         if self.undo_enabled():
+            print("edit_separator")
             # private undo stack management
             self.undo_stack.add_separator()
         # end if
@@ -371,8 +375,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # allowed to undo/redo?
         if self.undo_enabled():
+            print("edit_undo")
             # inits
             _sequence = self.undo_stack.get_undo_elements()
+            print("sequence:", _sequence)
             # browse elements
             for _element in _sequence:
                 # element has been inserted?

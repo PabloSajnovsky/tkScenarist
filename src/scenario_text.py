@@ -873,8 +873,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 "reformat_line_{}".format(_tag), _text
             )
             # reset text
-            self.delete(*self.INS_LINE_END)
-            self.insert(self.INS_LINE_END[0], _text, _tag)
+            self._do_delete(*self.INS_LINE_END)
+            self._do_insert(self.INS_LINE_END[0], _text, _tag)
             # should keep cursor pos?
             if kw.get("keep_cursor"):
                 _adjust = ""

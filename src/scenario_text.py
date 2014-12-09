@@ -161,6 +161,19 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def _do_insert (self, index, chars, *args):
+        """
+            standard method reimplementation;
+        """
+        # super class delegate
+        super().insert(index, chars, *args)
+        # update line infos (deferred)
+        self.update_line()
+        # hook method
+        self.update_modified()
+    # end def
+
+
     def bind_events (self, **kw):
         """
             event bindings;
@@ -697,16 +710,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             standard method reimplementation;
         """
         # private undo stack management
-        # CAUTION:
-        # abandoned undo/redo feature due to too slow
-        # task reimplementation under Python
-        #~ self.undo_stack.push_insert(index, chars, *args)
-        # super class delegate
-        super().insert(index, chars, *args)
-        # update line infos (deferred)
-        self.update_line()
-        # hook method
-        self.update_modified()
+        self.undo_stack.push_insert(index, chars, *args)
+        # do insert
+        self._do_insert(index, chars, *args)
     # end def
 
 

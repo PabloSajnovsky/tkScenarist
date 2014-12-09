@@ -325,6 +325,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             _sequence = self.undo_stack.get_redo_elements()
             # browse elements
             for _element in _sequence:
+                print("edit_redo: element:", _element)
                 # element has been inserted?
                 if _element.mode == "+":
                     # insert it again

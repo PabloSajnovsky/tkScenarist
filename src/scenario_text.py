@@ -161,6 +161,19 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def _do_delete (self, index1, index2=None):
+        """
+            standard method reimplementation;
+        """
+        # super class delegate
+        super().delete(index1, index2)
+        # update line infos (deferred)
+        self.update_line()
+        # hook method
+        self.update_modified()
+    # end def
+
+
     def _do_insert (self, index, chars, *args):
         """
             standard method reimplementation;
@@ -276,29 +289,27 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             standard method reimplementation;
         """
-        # private undo stack management
-        # CAUTION:
-        # abandoned undo/redo feature due to too slow
-        # task reimplementation under Python
-        #~ self.undo_stack.push_delete(
-            #~ index1, *self.get_tagged_text(index1, index2)
-        #~ )
-        # try out
-        try:
-            # super class delegate
-            super().delete(index1, index2)
-        # got error
-        except:
-            # remove stacking
-            #~ self.undo_stack.pop()
-            raise
-        # next step
+        # allowed to undo/redo?
+        if self.undo_enabled():
+            # private undo stack management
+            self.undo_stack.push_delete(
+                index1, *self.get_tagged_text(index1, index2)
+            )
+            # try out
+            try:
+                # do delete
+                self._do_delete(index1, index2)
+            # got error
+            except:
+                # remove stacking
+                self.undo_stack.pop()
+                raise
+            # end try
+        # no undo/redo management
         else:
-            # update line infos (deferred)
-            self.update_line()
-            # hook method
-            self.update_modified()
-        # end try
+            # simply delete
+            self._do_delete(index1, index2)
+        # end if
     # end def
 
 
@@ -349,10 +360,24 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # allowed to undo/redo?
         if self.undo_enabled():
-            # CAUTION:
-            # abandoned undo/redo feature due to too slow
-            # task reimplementation under Python
-            pass
+            # inits
+            _sequence = self.undo_stack.get_undo_elements()
+            # browse elements
+            for _element in _sequence:
+                # element has been inserted?
+                if _element.mode == "+":
+                    # remove it
+                    self._do_delete(
+                        _element.start_index, _element.end_index
+                    )
+                # element has been deleted?
+                else:
+                    # insert it again
+                    self._do_insert(
+                        _element.start_index, *_element.args
+                    )
+                # end if
+            # end for
         # end if
     # end def
 
@@ -709,8 +734,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             standard method reimplementation;
         """
-        # private undo stack management
-        self.undo_stack.push_insert(index, chars, *args)
+        # allowed to undo/redo?
+        if self.undo_enabled():
+            # private undo stack management
+            self.undo_stack.push_insert(index, chars, *args)
+        # end if
         # do insert
         self._do_insert(index, chars, *args)
     # end def

@@ -321,10 +321,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # allowed to undo/redo?
         if self.undo_enabled():
-            print("edit_redo")
             # inits
             _sequence = self.undo_stack.get_redo_elements()
-            print("sequence:", _sequence)
             # browse elements
             for _element in _sequence:
                 # element has been inserted?
@@ -349,7 +347,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             standard method reimplementation;
         """
-        print("edit_reset")
         # super class delegate
         super().edit_reset()
         # private undo stack management
@@ -363,7 +360,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # allowed to undo/redo?
         if self.undo_enabled():
-            print("edit_separator")
             # private undo stack management
             self.undo_stack.add_separator()
         # end if
@@ -376,13 +372,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # allowed to undo/redo?
         if self.undo_enabled():
-            print("edit_undo")
             # inits
             _sequence = self.undo_stack.get_undo_elements()
-            print("sequence:", _sequence)
             # browse elements
             for _element in _sequence:
-                print("element:", _element)
                 # element has been inserted?
                 if _element.mode == "+":
                     # remove it
@@ -1463,9 +1456,9 @@ class TextUndoStack (list):
             sequences;
         """
         # really need to add one?
-        if self[self.current_index] is not self.SEPARATOR:
+        if not self or self[-1] is not self.SEPARATOR:
             # add separator
-            self.insert(self.current_index, self.SEPARATOR)
+            self.append(self.SEPARATOR)
         # end if
     # end def
 
@@ -1481,7 +1474,8 @@ class TextUndoStack (list):
         # better reset
         else:
             # ensure all is clear
-            self.reset()
+            self.clear()
+            self.update_index()
         # end if
         # super class delegate
         super().append(element)
@@ -1541,17 +1535,14 @@ class TextUndoStack (list):
             else:
                 # get separator index
                 _sep = self[_ci::-1].index(self.SEPARATOR)
-                print("_sep:", _sep)
-                print("self[_ci::-1]:", self[_ci::-1])
                 # retrieve elements
                 _sequence = self[_ci - _sep + 1:_ci + 1]
                 # update index
                 self.current_index = _ci - _sep
-                print("current index/element", self.current_index, self[self.current_index])
             # end if
         # end if
         # return results
-        return _sequence
+        return reversed(_sequence)
     # end def
 
 
@@ -1560,7 +1551,6 @@ class TextUndoStack (list):
             push element on stack with mode 'delete';
             undo inserts, redo deletes;
         """
-        print("push_delete chars: '{}'".format(chars))
         # add 'delete' element
         self.append(self.Element("-", index, chars, *args))
     # end def
@@ -1571,7 +1561,6 @@ class TextUndoStack (list):
             push element on stack with mode 'insert';
             undo deletes, redo inserts;
         """
-        print("push_insert chars: '{}'".format(chars))
         # add 'insert' element
         self.append(self.Element("+", index, chars, *args))
     # end def
@@ -1584,6 +1573,7 @@ class TextUndoStack (list):
         # inits
         self.clear()
         self.update_index()
+        self.add_separator()
     # end def
 
 

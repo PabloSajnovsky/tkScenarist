@@ -383,6 +383,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             for _element in _sequence:
                 # element has been inserted?
                 if _element.mode == "+":
+                    print("element start index:", _element.start_index)
+                    print("element end index:", _element.end_index)
                     # remove it
                     self._do_delete(
                         _element.start_index, _element.end_index

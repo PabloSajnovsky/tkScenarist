@@ -1445,8 +1445,13 @@ class TextUndoStack (list):
             adds a separator to help determine undo/redo element
             sequences;
         """
-        # add separator
-        self.insert(self.current_index, self.SEPARATOR)
+        # really need to add one?
+        if self[self.current_index] is not self.SEPARATOR:
+            # add separator
+            self.insert(self.current_index, self.SEPARATOR)
+            # update index
+            self.current_index += 1
+        # end if
     # end def
 
 

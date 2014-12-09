@@ -341,6 +341,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                     )
                 # end if
             # end for
+            # reset cursor position
+            if _element:
+                self.move_cursor(_element.end_index)
+            # end if
         # end if
     # end def
 
@@ -398,6 +402,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                     )
                 # end if
             # end for
+            # reset cursor position
+            if _element:
+                self.move_cursor(_element.end_index)
+            # end if
         # end if
     # end def
 
@@ -1235,7 +1243,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # update line infos (deferred)
             self.update_line()
             # keypress is a punctuation symbol?
-            if event.char in string.punctuation:
+            if event.char in string.whitespace + string.punctuation:
                 # add undo/redo separator
                 self.edit_separator()
             # end if
@@ -1445,9 +1453,6 @@ class TextUndoStack (list):
             adds a separator to help determine undo/redo element
             sequences;
         """
-        print("add_separator")
-        print("current index:", self.current_index)
-        print("current element:", self[self.current_index])
         # really need to add one?
         if self[self.current_index] is not self.SEPARATOR:
             print("inserting separator")
@@ -1546,6 +1551,7 @@ class TextUndoStack (list):
             push element on stack with mode 'delete';
             undo inserts, redo deletes;
         """
+        print("push_delete")
         # add 'delete' element
         self.append(self.Element("-", index, chars, *args))
     # end def
@@ -1556,6 +1562,7 @@ class TextUndoStack (list):
             push element on stack with mode 'insert';
             undo deletes, redo inserts;
         """
+        print("push_insert")
         # add 'insert' element
         self.append(self.Element("+", index, chars, *args))
     # end def

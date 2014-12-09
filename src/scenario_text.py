@@ -340,7 +340,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                         _element.start_index, _element.end_index
                     )
                 # end if
-                self.move_cursor(_element.end_index)
             # end for
         # end if
     # end def
@@ -397,7 +396,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                         _element.start_index, *_element.args
                     )
                 # end if
-                self.move_cursor(_element.end_index)
             # end for
         # end if
     # end def
@@ -1412,11 +1410,19 @@ class TextUndoStack (list):
         # end def
 
 
+        def __repr__ (self):
+            """
+                string format for debugging session;
+            """
+            return str(self)
+        # end def
+
+
         def __str__ (self):
             """
                 string format for debugging session;
             """
-            return "{} ({}, {}) {}".format(
+            return "<Element {} ({}, {}) {}>".format(
                 self.mode, self.start_index, self.end_index, self.args
             )
         # end def
@@ -1428,7 +1434,14 @@ class TextUndoStack (list):
                 read-only property;
                 retrieves end index;
             """
-            return "{}+{}c".format(self.start_index, self.text_length())
+            # inits
+            _len = self.text_length()
+            # should precise?
+            if _len > 1:
+                return "{}+{}c".format(self.start_index, _len)
+            else:
+                return None
+            # end if
         # end def
 
 
@@ -1458,11 +1471,8 @@ class TextUndoStack (list):
         """
         # really need to add one?
         if self[self.current_index] is not self.SEPARATOR:
-            print("inserting separator")
             # add separator
             self.insert(self.current_index, self.SEPARATOR)
-            # update index
-            self.current_index += 1
         # end if
     # end def
 
@@ -1484,7 +1494,6 @@ class TextUndoStack (list):
         super().append(element)
         # update index
         self.update_index()
-        print("undo_stack.append(): len:", len(self), "current index:", self.current_index)
     # end def
 
 
@@ -1539,10 +1548,13 @@ class TextUndoStack (list):
             else:
                 # get separator index
                 _sep = self[_ci::-1].index(self.SEPARATOR)
+                print("_sep:", _sep)
+                print("self[_ci::-1]:", self[_ci::-1])
                 # retrieve elements
                 _sequence = self[_ci - _sep + 1:_ci + 1]
                 # update index
                 self.current_index = _ci - _sep
+                print("current index/element", self.current_index, self[self.current_index])
             # end if
         # end if
         # return results

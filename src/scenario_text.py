@@ -219,7 +219,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.bind("<Delete>", self.slot_on_key_delete)
         self.bind("<KeyRelease-Delete>", self.slot_on_keyup_delete)
         self.bind("<Control-Delete>", self.slot_on_key_ctrl_delete)
-        self.bind("<BackSpace>", self.slot_on_key_delete)
+        self.bind("<BackSpace>", self.slot_on_key_backspace)
         self.bind("<KeyRelease-BackSpace>", self.slot_on_keyup_delete)
         self.bind("<Control-BackSpace>", self.slot_on_key_ctrl_backspace)
     # end def
@@ -388,6 +388,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             _index = None
             # browse elements
             for _element in _sequence:
+                print("element:", _element)
                 # element has been inserted?
                 if _element.mode == "+":
                     # remove it
@@ -776,10 +777,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             inserts a new @tag element-formatted line at @index;
         """
         # insert new line
-        self.insert(
-            "{} lineend".format(TK.INSERT),
-            "\n", self.tag_names(TK.INSERT)
-        )
+        self.undo_stack.add_separator()
+        self.insert("{} lineend".format(TK.INSERT), "\n")
         # move to index location
         self.move_cursor(index)
         # remove previous tag
@@ -855,7 +854,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # end if
             # insert char (with undo/redo features)
             self.insert(
-                TK.INSERT, _char, self.tag_names(TK.INSERT)
+                TK.INSERT, _char, self.get_line_tag()
             )
             # break the tkevent chain by now
             return "break"
@@ -1195,6 +1194,19 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def slot_on_key_backspace (self, event=None, *args, **kw):
+        """
+            event handler: on <BackSpace> key press;
+        """
+        # ensure line format (deferred)
+        self.reformat_line(keep_cursor=True)
+        # delete char (undo/redo feature support)
+        self.delete("{}-1c".format(TK.INSERT))
+        # break the tkevent chain
+        return "break"
+    # end def
+
+
     def slot_on_key_ctrl_backspace (self, event=None, *args, **kw):
         """
             event handler: on <Ctrl-BackSpace> key press;
@@ -1210,6 +1222,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             _start = self.index("{}+{}c".format(_start, _pos))
         # end if
         # remove word at once
+        self.undo_stack.add_separator()
         self.delete(_start, TK.INSERT)
         # break the tkevent chain
         return "break"
@@ -1231,6 +1244,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             _end = self.index("{}+{}c".format(TK.INSERT, _pos + 1))
         # end if
         # remove word at once
+        self.undo_stack.add_separator()
         self.delete(TK.INSERT, _end)
         # break the tkevent chain
         return "break"
@@ -1252,6 +1266,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # ensure line format (deferred)
         self.reformat_line(keep_cursor=True)
+        # delete char (undo/redo feature support)
+        self.delete(TK.INSERT)
+        # break the tkevent chain
+        return "break"
     # end def
 
 
@@ -1634,6 +1652,7 @@ class TextUndoStack (list):
             undo inserts, redo deletes;
         """
         # add 'delete' element
+        print("push_delete:", index, chars, args)
         self.append(self.Element("-", index, chars, *args))
     # end def
 

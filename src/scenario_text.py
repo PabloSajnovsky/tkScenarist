@@ -45,7 +45,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # CAUTION:
         # abandoned undo/redo feature due to too slow
         # task reimplementation under Python
-        "undo": False,  # do *NOT* change this /!\
+        "undo": True,  # do *NOT* change this /!\
         "wrap": "word",
     }
 
@@ -319,10 +319,24 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # allowed to undo/redo?
         if self.undo_enabled():
-            # CAUTION:
-            # abandoned undo/redo feature due to too slow
-            # task reimplementation under Python
-            pass
+            # inits
+            _sequence = self.undo_stack.get_redo_elements()
+            # browse elements
+            for _element in _sequence:
+                # element has been inserted?
+                if _element.mode == "+":
+                    # insert it again
+                    self._do_insert(
+                        _element.start_index, *_element.args
+                    )
+                # element has been deleted?
+                else:
+                    # remove it
+                    self._do_delete(
+                        _element.start_index, _element.end_index
+                    )
+                # end if
+            # end for
         # end if
     # end def
 
@@ -621,15 +635,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             retrieves tuple sequence of chars, tags, chars, tags, ...
             for text found between @index1 and @index2;
         """
-        # CAUTION:
-        """
-            current Tcl/Tk implementation of Text widget's internal
-            hotkeys forces to reimplement *EVERYTHING* under Python;
-            this is too heavy and too slow task to be done in Python;
-            aborting.
-        """
-        # abandoned till better solution
-        return ("",)
+        return (self.get(index1, index2), self.tag_names(index1))
     # end def
 
 

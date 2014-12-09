@@ -1422,7 +1422,7 @@ class TextUndoStack (list):
             """
                 string format for debugging session;
             """
-            return "<Element {} ({}, {}) {}>".format(
+            return "<Element '{}' ({}, {}) {}>".format(
                 self.mode, self.start_index, self.end_index, self.args
             )
         # end def
@@ -1434,14 +1434,7 @@ class TextUndoStack (list):
                 read-only property;
                 retrieves end index;
             """
-            # inits
-            _len = self.text_length()
-            # should precise?
-            if _len > 1:
-                return "{}+{}c".format(self.start_index, _len)
-            else:
-                return None
-            # end if
+            return "{}+{}c".format(self.start_index, self.text_length())
         # end def
 
 

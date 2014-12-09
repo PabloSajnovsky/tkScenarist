@@ -148,7 +148,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     )
 
     # allowed nb of cancellations
-    UNDO_LIMIT = 200
+    UNDO_LIMIT = 20
 
 
     def __init__ (self, master=None, **kw):
@@ -1503,7 +1503,7 @@ class TextUndoStack (list):
         # undo/redo limitation support
         if self.limit > 1:
             # remove oldest
-            del self[:1 - limit]
+            del self[:1 - self.limit]
         # special case
         elif self.limit == 1:
             # better clear all (faster)

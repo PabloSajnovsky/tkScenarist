@@ -776,7 +776,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             inserts a new @tag element-formatted line at @index;
         """
         # insert new line
-        self.insert("{} lineend".format(TK.INSERT), "\n")
+        self.insert(
+            "{} lineend".format(TK.INSERT),
+            "\n", self.tag_names(TK.INSERT)
+        )
         # move to index location
         self.move_cursor(index)
         # remove previous tag

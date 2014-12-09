@@ -657,7 +657,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             for text found between @index1 and @index2;
         """
         # not the best but will do the job for simple things
-        return (self.get(index1, index2), self.tag_names(index1))
+        return (self.get(index1, index2), self.get_line_tag(index1))
     # end def
 
 

@@ -807,6 +807,61 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def key_filter (self, event, use_filter=None):
+        """
+            keyboard keypress filter; parameter @use_filter admits
+            'upper', 'lower', 'capitalize', callable(event) or None;
+        """
+        # inits
+        _char = event.char
+        _modifiers = (event.state & 0x8c)
+        # letter char?
+        if _char and ord(_char) > 31 and not _modifiers:
+            try:
+                # delete previous selected
+                self.delete(TK.SEL_FIRST, TK.SEL_LAST)
+            except:
+                pass
+            # end try
+            # should use filter?
+            if use_filter:
+                # callable?
+                if callable(use_filter):
+                    # reset char
+                    _char = use_filter(event)
+                # set to uppercase?
+                elif use_filter.startswith("up"):
+                    # reset char
+                    _char = _char.upper()
+                # set to lowercase?
+                elif use_filter.startswith("low"):
+                    # reset char
+                    _char = _char.lower()
+                # should capitalize first word?
+                elif use_filter.startswith("cap"):
+                    # inits
+                    _ins = TK.INSERT
+                    # need to capitalize first word of sentence?
+                    if self.compare(_ins, "==", self.INS_LINE[0]) or \
+                            self.get("{}-2c".format(_ins), _ins) in \
+                                                    (". ", "! ", "? "):
+                        # reset char
+                        _char = _char.upper()
+                    # end if
+                # end if
+            # end if
+            # insert char (with undo/redo features)
+            self.insert(
+                TK.INSERT, _char, self.tag_names(TK.INSERT)
+            )
+            # break the tkevent chain by now
+            return "break"
+        # end if
+        # do *NOT* break the tkevent chain here
+        return None
+    # end def
+
+
     def line_selected (self, index=None):
         """
             returns True if line at @index is currently into a
@@ -1065,18 +1120,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on 'action' element key press;
         """
-        # notify app
-        if event.char and not (event.state & 0x8c):
-            # inits
-            _ins = TK.INSERT
-            # need to capitalize first word of sentence?
-            if self.compare(_ins, "==", self.INS_LINE[0]) or \
-                    self.get("{}-2c".format(_ins), _ins) in \
-                                                    (". ", "! ", "? "):
-                # same as SCENE
-                return self.slot_keypress_scene(event, *args, **kw)
-            # end if
-        # end if
+        # use key filter (with undo/redo features)
+        return self.key_filter(event, use_filter="capitalize")
     # end def
 
 
@@ -1111,24 +1156,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on 'scene' element key press;
         """
-        # inits
-        _char = event.char
-        _modifiers = (event.state & 0x8c)
-        # letter char?
-        if _char and ord(_char) > 31 and not _modifiers:
-            try:
-                # delete previous selected
-                self.delete(TK.SEL_FIRST, TK.SEL_LAST)
-            except:
-                pass
-            # end try
-            # set to uppercase
-            self.insert(
-                TK.INSERT, _char.upper(), self.tag_names(TK.INSERT)
-            )
-            # break the tkevent chain
-            return "break"
-        # end if
+        # use key filter
+        return self.key_filter(event, use_filter="upper")
     # end def
 
 

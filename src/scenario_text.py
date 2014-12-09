@@ -1500,6 +1500,15 @@ class TextUndoStack (list):
             # ensure all is clear
             self.clear()
         # end if
+        # undo/redo limitation support
+        if self.limit > 1:
+            # remove oldest
+            del self[:1 - limit]
+        # special case
+        elif self.limit == 1:
+            # better clear all (faster)
+            self.clear()
+        # end if
         # super class delegate
         super().append(element)
         # update index
@@ -1570,6 +1579,20 @@ class TextUndoStack (list):
         # end if
         # return results
         return reversed(_sequence)
+    # end def
+
+
+    def pop (self):
+        """
+            standard method reimplementation;
+            here, pop() does *NOT* admit any parameter;
+            poping a stack always implies removing its last element;
+            will raise IndexError if poping an empty stack;
+        """
+        # super class delegate
+        super().pop()
+        # update index
+        self.update_index()
     # end def
 
 

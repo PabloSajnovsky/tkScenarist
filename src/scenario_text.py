@@ -830,17 +830,18 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             inserts a new @tag element-formatted line at @index;
         """
-        # delete eventual selection
-        self.delete_selection()
-        # insert new line
-        self.edit_separator()
-        self.insert("{} lineend".format(TK.INSERT), "\n")
-        # move to index location
-        self.move_cursor(index)
-        # remove previous tag
-        self.tag_remove(self.tag_names(TK.INSERT), *self.INS_LINE)
-        # set new tag instead
-        self.tag_add(new_tag, *self.INS_LINE)
+        # no current selection to delete?
+        if not self.delete_selection():
+            # insert new line
+            self.edit_separator()
+            self.insert("{} lineend".format(TK.INSERT), "\n")
+            # move to index location
+            self.move_cursor(index)
+            # remove previous tag
+            self.tag_remove(self.tag_names(TK.INSERT), *self.INS_LINE)
+            # set new tag instead
+            self.tag_add(new_tag, *self.INS_LINE)
+        # end if
     # end def
 
 
@@ -1361,14 +1362,15 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         if event.keysym not in self.DEAD_KEYS:
             # update line infos (deferred)
             self.update_line()
+            # show insertion cursor
+            self.see(TK.INSERT)
             # keypress is a separator-generate symbol?
             if event.char and event.char in self.SEPARATORS:
+                print("slot_on_keypress: added separator")
                 # add undo/redo separator
                 self.edit_separator()
             # end if
         # end if
-        # show insertion cursor
-        self.see(TK.INSERT)
         # switch to specific method
         return self.switch_to_method(
             "slot_keypress_{}".format(self.get_line_tag()), event

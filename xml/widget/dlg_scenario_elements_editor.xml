@@ -170,6 +170,7 @@
             <!-- font face settings -->
 
             <ttkframe
+                padding="0px 0px 0px 5px"
                 layout="pack"
                 resizable="yes"
             >
@@ -177,16 +178,19 @@
                     name="combo_font_family"
                     layout="grid"
                     layout_options="row=0, column=0"
+                    resizable="width"
                 />
                 <ttkcombobox
                     name="combo_font_size"
                     values="8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48, 56, 64"
+                    width="3"
                     layout="grid"
-                    layout_options="row=0, column=1"
+                    layout_options="row=0, column=1, padx=5"
                 />
                 <ttkcombobox
                     name="combo_font_style"
                     values="'normal', 'bold', 'italic', 'bold italic'"
+                    width="14"
                     layout="grid"
                     layout_options="row=0, column=2"
                 />

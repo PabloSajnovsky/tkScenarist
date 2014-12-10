@@ -23,7 +23,7 @@
 """
 
 # lib imports
-import tkinter as TK
+from tkinter import font
 import tkRAD.widgets.rad_dialog as DLG
 
 
@@ -80,7 +80,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         self.CBO_FONT_SIZE = _w.combo_font_size
         self.CBO_FONT_STYLE = _w.combo_font_style
         # widget config
-        self.CBO_FONT_FAMILY.configure(values=sorted(TK.font.families()))
+        self.CBO_FONT_FAMILY.configure(values=['monospace', 'sans', 'serif', 'tkdefaultfont'] + sorted(font.families()))
         # event bindings
         self.bind_events(**kw)
     # end def

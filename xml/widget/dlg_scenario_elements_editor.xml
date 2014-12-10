@@ -30,10 +30,10 @@
         resizable="yes"
     >
         <!-- tab 1 -->
-        <ttktab text="Global" />
+        <ttktab text="Global settings" />
 
         <!-- tab 2 -->
-        <ttktab text="Project" />
+        <ttktab text="Project settings" />
 
     </ttknotebook>
 
@@ -67,7 +67,6 @@
             />
             <ttkcombobox
                 name="combo_current_element"
-                values="'Action', 'Character', 'Dialogue', 'Parenthetical', 'Scene', 'Transition'"
                 layout="grid"
                 layout_options="row=0, column=1, padx=5, pady=2"
                 resizable="no"
@@ -80,6 +79,7 @@
             text="Actions"
             padding="5px"
             layout="pack"
+            layout_options="pady=2"
             resizable="yes"
         >
 
@@ -110,7 +110,6 @@
             />
             <ttkcombobox
                 name="combo_tab_switch"
-                values="'--- no use ---', 'Action', 'Character', 'Dialogue', 'Parenthetical', 'Scene', 'Transition'"
                 layout="grid"
                 layout_options="row=1, column=1, padx=5, pady=2"
             />
@@ -164,26 +163,103 @@
             text="Look'n'feel"
             padding="5px"
             layout="pack"
+            layout_options="pady=2"
             resizable="yes"
         >
-            <ttklabel
-                text="Font:"
-                layout="grid"
-                layout_options="row=0, column=0, sticky='w'"
-            />
-            <ttklabel
-                textvariable="lbl_options_font"
-                width="30"
-                layout="grid"
-                layout_options="row=0, column=1, padx=5, sticky='w'"
-                resizable="width"
-            />
-            <ttkbutton
-                text="Choose font"
-                command="@Dialog:Font:Choose"
-                layout="grid"
-                layout_options="row=0, column=2"
-            />
+            <!-- font face settings -->
+            <ttkframe
+                layout="pack"
+                resizable="yes"
+            >
+                <ttklabel
+                    text="Font:"
+                    layout="grid"
+                    layout_options="row=0, column=0"
+                />
+                <ttklabel
+                    textvariable="lbl_options_font"
+                    layout="grid"
+                    layout_options="row=0, column=1, padx=5"
+                    resizable="width"
+                />
+                <ttkbutton
+                    text="Choose font"
+                    command="@Dialog:Font:Choose"
+                    layout="grid"
+                    layout_options="row=0, column=2"
+                />
+            </ttkframe>
+            <!-- background/foreground color settings -->
+            <ttkframe
+                layout="pack"
+                resizable="yes"
+            >
+                <ttklabel
+                    text="Background:"
+                    layout="grid"
+                    layout_options="row=0, column=0"
+                />
+                <ttkbutton
+                    name="btn_choose_bg"
+                    text="   "
+                    command="@Dialog:Background:Choose"
+                    layout="grid"
+                    layout_options="row=0, column=1, padx=5"
+                />
+                <ttklabel
+                    text="foreground:"
+                    layout="grid"
+                    layout_options="row=0, column=2"
+                />
+                <ttkbutton
+                    name="btn_choose_fg"
+                    text="   "
+                    command="@Dialog:Foreground:Choose"
+                    layout="grid"
+                    layout_options="row=0, column=3, padx=5"
+                />
+            </ttkframe>
+            <!-- margin/text justification settings -->
+            <ttkframe
+                layout="pack"
+                resizable="yes"
+            >
+                <ttklabel
+                    text="Align:"
+                    layout="grid"
+                    layout_options="row=0, column=0"
+                />
+                <radiobutton
+                    text="left"
+                    variable="options_text_align"
+                    value="left"
+                    indicatoron="no"
+                    selected="selected"
+                    layout="grid"
+                    layout_options="row=0, column=1"
+                />
+                <radiobutton
+                    text="center"
+                    variable="options_text_align"
+                    value="center"
+                    indicatoron="no"
+                    layout="grid"
+                    layout_options="row=0, column=2"
+                />
+                <radiobutton
+                    text="right"
+                    variable="options_text_align"
+                    value="right"
+                    indicatoron="no"
+                    layout="grid"
+                    layout_options="row=0, column=3"
+                />
+                <ttklabel
+                    text="margin left:"
+                    layout="grid"
+                    layout_options="row=0, column=4"
+                />
+            </ttkframe>
         </ttklabelframe>
 
         <!-- element's attribute preview -->
@@ -198,7 +274,7 @@
                 id="see_preview"
                 name="text_preview"
                 height="10"
-                width="40"
+                width="1"
                 state="disabled"
                 wrap="word"
                 layout="grid"

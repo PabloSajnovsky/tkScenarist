@@ -658,8 +658,43 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             retrieves tuple sequence of chars, tags, chars, tags, ...
             for text found between @index1 and @index2;
         """
-        # not the best but will do the job for simple things
-        return (self.get(index1, index2), self.tag_names(index1))
+        # inits
+        index1 = index1 or TK.INSERT
+        index2 = index2 or TK.INSERT
+        # inline text?
+        if self.get_line_number(index1) == self.get_line_number(index2):
+            # simple structure
+            return (self.get(index1, index2), self.tag_names(index1))
+        # multiple line selection
+        else:
+            # inits
+            _index = index1
+            _tags = self.tag_names(_index)
+            _args = []
+            # loop till reached
+            while self.compare(_index, "<", index2):
+                # inits
+                _tn = self.tag_names(_index)
+                # got a change?
+                if _tn != _tags:
+                    # add chars
+                    _args.append(self.get(index1, _index))
+                    # add tags
+                    _args.append(_tags)
+                    # update index
+                    index1 = _index
+                    # update tags
+                    _tags = _tn
+                # end if
+                # next char
+                _index = self.index("{}+1c".format(_index))
+            # end while
+            # last section
+            _args.append(self.get(index1, index2))
+            _args.append(self.tag_names(index1))
+            # return results
+            return tuple(_args)
+        # end if
     # end def
 
 

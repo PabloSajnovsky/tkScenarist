@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tkwidget>
+<!--
+    tkScenarist - screen writing made simpler
+
+    Copyright (c) 2014+ Raphaël Seban <motus@laposte.net>
+
+    This program is free software: you can redistribute it and/or
+    modify it under the terms of the GNU General Public License as
+    published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+    General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.
+
+    If not, see http://www.gnu.org/licenses/
+-->
+<tkwidget>
+
+    <!-- element chaining -->
+
+    <ttklabelframe
+        text="Element chaining"
+        padding="5px"
+        layout="pack"
+        resizable="yes"
+    >
+        <!-- current element selection -->
+        <ttkframe
+            layout="pack"
+        >
+            <ttklabel
+                text="Current element:"
+                layout="grid"
+                layout_options="row=0, column=0, sticky='w'"
+            />
+            <ttkcombobox
+                name="combo_current_element"
+                values="'Action', 'Character', 'Dialogue', 'Parenthetical', 'Scene', 'Transition'"
+                layout="grid"
+                layout_options="row=0, column=1, padx=5, pady=2"
+                resizable="width"
+            />
+        </ttkframe>
+        <!-- keyboard switchers / line creators -->
+        <ttkframe
+            layout="pack"
+        >
+            <!-- header labels -->
+            <ttklabel
+                text="On key:"
+                layout="grid"
+                layout_options="row=0, column=0"
+            />
+            <ttklabel
+                text="Switch line to:"
+                layout="grid"
+                layout_options="row=0, column=1"
+            />
+            <ttklabel
+                text="Create new line with:"
+                layout="grid"
+                layout_options="row=0, column=2"
+            />
+            <!-- TAB selectors -->
+            <ttklabel
+                text="&lt;Tab&gt;"
+                layout="grid"
+                layout_options="row=1, column=0"
+            />
+            <ttkcombobox
+                name="combo_tab_switch"
+                values="'--- no use ---', 'Action', 'Character', 'Dialogue', 'Parenthetical', 'Scene', 'Transition'"
+                layout="grid"
+                layout_options="row=1, column=1, padx=5, pady=2"
+                resizable="width"
+            />
+            <ttkcombobox
+                name="combo_tab_create"
+                layout="grid"
+                layout_options="row=1, column=2, padx=5, pady=2"
+                resizable="width"
+            />
+            <!-- RETURN selectors -->
+            <ttklabel
+                text="&lt;Return&gt;"
+                layout="grid"
+                layout_options="row=2, column=0"
+            />
+            <ttkcombobox
+                name="combo_return_switch"
+                layout="grid"
+                layout_options="row=2, column=1, padx=5, pady=2"
+                resizable="width"
+            />
+            <ttkcombobox
+                name="combo_return_create"
+                layout="grid"
+                layout_options="row=2, column=2, padx=5, pady=2"
+                resizable="width"
+            />
+            <!-- CTRL-RETURN selectors -->
+            <ttklabel
+                text="&lt;Ctrl-Return&gt;"
+                layout="grid"
+                layout_options="row=3, column=0"
+            />
+            <ttkcombobox
+                name="combo_ctrl_return_switch"
+                layout="grid"
+                layout_options="row=3, column=1, padx=5, pady=2"
+                resizable="width"
+            />
+            <ttkcombobox
+                name="combo_ctrl_return_create"
+                layout="grid"
+                layout_options="row=3, column=2, padx=5, pady=2"
+                resizable="width"
+            />
+        </ttkframe>
+    </ttklabelframe>
+
+    <!-- element look'n'feel -->
+
+    <ttklabelframe
+        text="Look'n'feel"
+        padding="5px"
+        layout="pack"
+        resizable="yes"
+    >
+    </ttklabelframe>
+
+</tkwidget>

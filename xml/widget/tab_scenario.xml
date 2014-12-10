@@ -80,6 +80,11 @@
                 layout="pack"
                 resizable="width"
             >
+                <ttkstyle>
+                <![CDATA[
+                    RO.TCombobox :readonly { fieldbackground: grey90; }
+                ]]>
+                </ttkstyle>
                 <ttklabel
                     text="Current element:"
                     layout="pack"
@@ -90,6 +95,7 @@
                     textvariable="combo_current_element"
                     font="sans 9 bold"
                     foreground="royal blue"
+                    style="RO.TCombobox"
                     layout="pack"
                     layout_options="side='left', padx=5"
                 />

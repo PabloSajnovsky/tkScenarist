@@ -115,6 +115,10 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         self.bind_class(
             "TEntry", "<Expose>", self.disable_ttkentry_expose
         )
+        self.bind_class(
+            "TCombobox", "<<ComboboxSelected>>",
+            self.slot_combo_selected,
+        )
         for _char in "akoy":
             self.unbind_class(
                 "Text", "<Control-{}>".format(_char.lower())
@@ -228,6 +232,15 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         except:
             pass
         # end try
+    # end def
+
+
+    def slot_combo_selected (self, event=None, *args, **kw):
+        """
+            event handler: on combobox item selected;
+        """
+        # strip that ugly autoselection
+        event.widget.selection_clear()
     # end def
 
 

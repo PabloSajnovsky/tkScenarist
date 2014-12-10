@@ -21,6 +21,9 @@
     If not, see http://www.gnu.org/licenses/
 -->
 <tkwidget>
+
+    <!-- module imports -->
+
     <module
         id="mtab_title_data"
         from="src"
@@ -63,6 +66,17 @@
         import="project_tab_resources"
         as="PTRE"
     />
+
+    <!-- apply following styles app-wide -->
+
+    <ttkstyle>
+    <![CDATA[
+        TCombobox :readonly { fieldbackground: white; }
+    ]]>
+    </ttkstyle>
+
+    <!-- main widget -->
+
     <ttknotebook
         padding="5px 10px 5px 5px"
         layout="pack"

@@ -161,7 +161,7 @@
 
         <ttklabelframe
             text="Look'n'feel"
-            padding="5px"
+            padding="5px 5px 5px 0px"
             layout="pack"
             layout_options="pady=2"
             resizable="yes"
@@ -234,9 +234,8 @@
                     layout_options="row=0, column=0"
                 />
                 <ttkframe
-                    padding="5px 2px"
                     layout="grid"
-                    layout_options="row=0, column=1"
+                    layout_options="row=0, column=1, padx=5, pady=5"
                 >
                     <radiobutton
                         text="left"
@@ -306,7 +305,7 @@
             <text
                 id="see_preview"
                 name="text_preview"
-                height="10"
+                height="5"
                 width="1"
                 state="disabled"
                 wrap="word"

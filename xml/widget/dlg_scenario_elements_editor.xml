@@ -282,7 +282,7 @@
                     />
                     <ttkentry
                         textvariable="entry_margin_left"
-                        width="3"
+                        width="5"
                         layout="grid"
                         layout_options="row=0, column=1, padx=5"
                     />
@@ -300,7 +300,7 @@
 
                 <ttkframe
                     layout="grid"
-                    layout_options="row=0, column=2, padx=5, pady=5"
+                    layout_options="row=0, column=3, pady=5"
                 >
 
                     <ttklabel
@@ -310,7 +310,7 @@
                     />
                     <ttkentry
                         textvariable="entry_margin_right"
-                        width="3"
+                        width="5"
                         layout="grid"
                         layout_options="row=0, column=1, padx=5"
                     />

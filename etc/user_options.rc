@@ -4,18 +4,18 @@ maximized = 0
 mainwindow_state = normal
 dialog_state = normal
 
-[files]
-
-[geometry]
-mainwindow_state = normal
-mainwindow = 970x485+104+153
-dialog_state = normal
-pitchtemplatesdialog = 778x506+215+243
-
 [gui]
 show_statusbar = 1
 
 [xml]
+
+[files]
+
+[geometry]
+mainwindow_state = normal
+mainwindow = 970x485+94+143
+dialog_state = normal
+pitchtemplatesdialog = 778x506+215+243
 
 [dirs]
 pfm_preferred_dir = /home/rs/tmp

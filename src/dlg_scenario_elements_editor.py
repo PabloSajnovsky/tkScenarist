@@ -80,9 +80,21 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         self.CBO_FONT_SIZE = _w.combo_font_size
         self.CBO_FONT_STYLE = _w.combo_font_style
         # widget config
-        self.CBO_FONT_FAMILY.configure(values=['monospace', 'sans', 'serif', 'tkdefaultfont'] + sorted(font.families()))
+        self.CBO_FONT_FAMILY.configure(
+            values=['monospace', 'sans', 'serif', 'tkdefaultfont'] +
+            sorted(font.families())
+        )
+        self.set_readonly(self.CBO_FONT_STYLE)
         # event bindings
         self.bind_events(**kw)
+    # end def
+
+
+    def set_readonly (self, ttkwidget):
+        """
+            sets ttk widget to state 'readonly';
+        """
+        ttkwidget.state(['readonly'])
     # end def
 
 

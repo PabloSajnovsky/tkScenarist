@@ -183,7 +183,7 @@
                 <ttkcombobox
                     name="combo_font_size"
                     values="8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 48, 56, 64, 72, 84, 96"
-                    width="3"
+                    width="5"
                     layout="grid"
                     layout_options="row=0, column=1, padx=5"
                 />

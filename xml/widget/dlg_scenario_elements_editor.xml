@@ -246,7 +246,6 @@
                         variable="options_text_align"
                         value="left"
                         indicatoron="no"
-                        selected="selected"
                         layout="grid"
                         layout_options="row=0, column=0, ipadx=5, ipady=2"
                     />

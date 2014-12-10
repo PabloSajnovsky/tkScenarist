@@ -173,20 +173,20 @@
                 layout="pack"
                 resizable="yes"
             >
-                <ttklabel
-                    text="Font:"
+                <ttkcombobox
+                    name="combo_font_family"
                     layout="grid"
                     layout_options="row=0, column=0"
                 />
-                <ttklabel
-                    textvariable="lbl_options_font"
+                <ttkcombobox
+                    name="combo_font_size"
+                    values="8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48, 56, 64"
                     layout="grid"
-                    layout_options="row=0, column=1, padx=5"
-                    resizable="width"
+                    layout_options="row=0, column=1"
                 />
-                <ttkbutton
-                    text="Choose font"
-                    command="@Dialog:Font:Choose"
+                <ttkcombobox
+                    name="combo_font_style"
+                    values="'normal', 'bold', 'italic', 'bold italic'"
                     layout="grid"
                     layout_options="row=0, column=2"
                 />

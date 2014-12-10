@@ -76,6 +76,11 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         )
         # widget inits
         _w = self.container
+        self.CBO_FONT_FAMILY = _w.combo_font_family
+        self.CBO_FONT_SIZE = _w.combo_font_size
+        self.CBO_FONT_STYLE = _w.combo_font_style
+        # widget config
+        self.CBO_FONT_FAMILY.configure(values=sorted(TK.font.families()))
         # event bindings
         self.bind_events(**kw)
     # end def

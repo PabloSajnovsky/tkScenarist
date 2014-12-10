@@ -23,6 +23,7 @@
 """
 
 # lib imports
+import tkinter as TK
 import tkRAD.widgets.rad_dialog as DLG
 
 

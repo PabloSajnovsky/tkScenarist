@@ -65,6 +65,20 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def get_element_names (self, elt_dict):
+        """
+            retrieves dictionary of (label: tag) key/value pairs;
+        """
+        # inits
+        return dict(
+            zip(
+                [elt["label"] for elt in elt_dict.values()],
+                elt_dict.keys()
+            )
+        )
+    # end def
+
+
     def init_widget (self, **kw):
         r"""
             widget main inits;
@@ -72,22 +86,34 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         # member inits
         self.default_settings = kw.get("default_settings")
         self.default_element = kw.get("default_element")
+        self.element_names = self.get_element_names(self.default_settings)
         # super class inits
         super().init_widget(
             # looks for ^/xml/widget/dlg_scenario_elements_editor.xml
             xml="dlg_scenario_elements_editor",
         )
-        # widget inits
-        _w = self.container
-        self.CBO_FONT_FAMILY = _w.combo_font_family
-        self.CBO_FONT_SIZE = _w.combo_font_size
-        self.CBO_FONT_STYLE = _w.combo_font_style
+        # widget container inits
+        self.w = self.container
+        _names = sorted(self.element_names)
+        _readonly = ['readonly']
         # widget config
-        self.CBO_FONT_FAMILY.configure(
+        self.w.combo_current_element.configure(
+            values=_names, state=_readonly
+        )
+        self.w.combo_current_element.set(self.default_element)
+        _names.insert(0, "")
+        for _key in ("tab", "return", "ctrl_return"):
+            for _t in ("switch", "create"):
+                _w = getattr(self.w, "combo_{}_{}".format(_key, _t))
+                _w.configure(values=_names, state=_readonly)
+                _w.current(1)
+            # end for
+        # end for
+        self.w.combo_font_family.configure(
             values=['monospace', 'sans', 'serif', 'tkdefaultfont'] +
             sorted(font.families())
         )
-        self.set_readonly(self.CBO_FONT_STYLE)
+        self.set_readonly(self.w.combo_font_style)
         # event bindings
         self.bind_events(**kw)
     # end def

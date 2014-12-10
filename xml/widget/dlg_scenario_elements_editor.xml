@@ -270,32 +270,62 @@
 
                 <!-- margin left -->
 
-                <ttklabel
-                    text="margin left:"
+                <ttkframe
                     layout="grid"
-                    layout_options="row=0, column=2"
-                />
-                <ttkentry
-                    textvariable="entry_margin_left"
-                    width="3"
-                    layout="grid"
-                    layout_options="row=0, column=3, padx=5"
-                />
+                    layout_options="row=0, column=2, padx=5, pady=5"
+                >
+
+                    <ttklabel
+                        text="margin left:"
+                        layout="grid"
+                        layout_options="row=0, column=0"
+                    />
+                    <ttkentry
+                        textvariable="entry_margin_left"
+                        width="3"
+                        layout="grid"
+                        layout_options="row=0, column=1, padx=5"
+                    />
+                    <ttkcombobox
+                        name="combo_lmargin_units"
+                        values="'px', 'pt', 'mm', 'cm', 'in'"
+                        width="2"
+                        layout="grid"
+                        layout_options="row=0, column=2"
+                    />
+
+                </ttkframe>
 
                 <!-- margin right -->
 
-                <ttklabel
-                    text="margin right:"
+                <ttkframe
                     layout="grid"
-                    layout_options="row=0, column=4"
-                />
-                <ttkentry
-                    textvariable="entry_margin_right"
-                    width="3"
-                    layout="grid"
-                    layout_options="row=0, column=5, padx=5"
-                />
+                    layout_options="row=0, column=2, padx=5, pady=5"
+                >
+
+                    <ttklabel
+                        text="margin right:"
+                        layout="grid"
+                        layout_options="row=0, column=0"
+                    />
+                    <ttkentry
+                        textvariable="entry_margin_right"
+                        width="3"
+                        layout="grid"
+                        layout_options="row=0, column=1, padx=5"
+                    />
+                    <ttkcombobox
+                        name="combo_rmargin_units"
+                        values="'px', 'pt', 'mm', 'cm', 'in'"
+                        width="2"
+                        layout="grid"
+                        layout_options="row=0, column=2"
+                    />
+
+                </ttkframe>
+
             </ttkframe>
+
         </ttklabelframe>
 
         <!-- element's attribute preview -->

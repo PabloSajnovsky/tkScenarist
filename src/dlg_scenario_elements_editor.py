@@ -115,6 +115,8 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             values=['monospace', 'sans', 'serif', 'tkdefaultfont'] +
             sorted(font.families())
         )
+        self.w.combo_font_family.current(0)
+        self.w.combo_font_size.current(4)
         self.w.combo_font_style.state(_readonly)
         self.w.combo_font_style.current(0)
         # MARGIN section

@@ -208,6 +208,7 @@
                     layout_options="row=0, column=0"
                 />
                 <button
+                    name="btn_choose_bg"
                     text="white"
                     command="@Dialog:Color:Choose"
                     background="white"
@@ -221,6 +222,7 @@
                     layout_options="row=0, column=2"
                 />
                 <button
+                    name="btn_choose_fg"
                     text="black"
                     command="@Dialog:Color:Choose"
                     background="black"

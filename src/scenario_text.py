@@ -318,6 +318,21 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def delete_selection (self, *args, **kw):
+        """
+            event handler: deletes eventual selected portion of text;
+            returns True on success, False otherwise;
+        """
+        # try out selection
+        try:
+            self.delete(TK.SEL_FIRST, TK.SEL_LAST)
+            return True
+        except:
+            return False
+        # end try
+    # end def
+
+
     def edit_redo (self):
         """
             standard method reimplementation;
@@ -441,6 +456,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 _tag, float(_index + 1), float(_index + 2)
             )
         # end for
+        # clear undo/redo stack
+        self.edit_reset()
         # move insertion cursor
         self.move_cursor("1.0")
         # update line data
@@ -813,6 +830,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             inserts a new @tag element-formatted line at @index;
         """
+        # delete eventual selection
+        self.delete_selection()
         # insert new line
         self.edit_separator()
         self.insert("{} lineend".format(TK.INSERT), "\n")
@@ -856,12 +875,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         _modifiers = (event.state & 0x8c)
         # letter char?
         if _char and ord(_char) > 31 and not _modifiers:
-            try:
-                # delete previous selected
-                self.delete(TK.SEL_FIRST, TK.SEL_LAST)
-            except:
-                pass
-            # end try
+            # delete eventual selection
+            self.delete_selection()
             # should use filter?
             if use_filter:
                 # callable?
@@ -1237,14 +1252,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # ensure line format (deferred)
         self.reformat_line(keep_cursor=True)
-        # try out selection
-        try:
-            self.delete(TK.SEL_FIRST, TK.SEL_LAST)
-        # no selection
-        except:
+        # no selection to delete?
+        if not self.delete_selection():
             # delete char (undo/redo feature support)
             self.delete("{}-1c".format(TK.INSERT))
-        # end try
+        # end if
         # break the tkevent chain
         return "break"
     # end def
@@ -1307,14 +1319,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # ensure line format (deferred)
         self.reformat_line(keep_cursor=True)
-        # try out selection
-        try:
-            self.delete(TK.SEL_FIRST, TK.SEL_LAST)
-        # no selection
-        except:
+        # no selection to delete?
+        if not self.delete_selection():
             # delete char (undo/redo feature support)
             self.delete(TK.INSERT)
-        # end try
+        # end if
         # break the tkevent chain
         return "break"
     # end def

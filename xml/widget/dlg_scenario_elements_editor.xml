@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tkwidget>
+<!--
+    tkScenarist - screen writing made simpler
+
+    Copyright (c) 2014+ Raphaël Seban <motus@laposte.net>
+
+    This program is free software: you can redistribute it and/or
+    modify it under the terms of the GNU General Public License as
+    published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+    General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.
+
+    If not, see http://www.gnu.org/licenses/
+-->
+<tkwidget>
+
+    <!-- element chaining -->
+
+    <ttklabelframe
+        text="Element chaining"
+        padding="5px"
+        layout="pack"
+        resizable="yes"
+    >
+    </ttklabelframe>
+
+    <!-- element look'n'feel -->
+
+    <ttklabelframe
+        text="Look'n'feel"
+        padding="5px"
+        layout="pack"
+        resizable="yes"
+    >
+    </ttklabelframe>
+
+    <!-- applying options -->
+
+    <ttklabelframe
+        text="Options"
+        padding="5px"
+        layout="pack"
+        resizable="yes"
+    >
+        <ttkradiobutton
+            text="Apply globally"
+            variable="options_apply"
+            value="global"
+            selected="true"
+            layout="pack"
+            resizable="width"
+        />
+        <ttkradiobutton
+            text="Apply to current project only"
+            variable="options_apply"
+            value="project"
+            layout="pack"
+            resizable="width"
+        />
+    </ttklabelframe>
+
+</tkwidget>

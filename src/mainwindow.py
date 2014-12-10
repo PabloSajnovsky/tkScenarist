@@ -31,6 +31,7 @@ from . import project_file_management as PFM
 from . import app_database as DB
 from . import dlg_name_database as DND
 from . import dlg_pitch_templates as DPT
+from . import dlg_scenario_elements_editor as DSEE
 
 # app-wide inits (super global)
 __builtins__["ENCODING"] = "UTF-8"
@@ -93,6 +94,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
                     self.slot_tools_name_db,
                 "Tools:Pitch:Templates":
                     self.slot_tools_pitch_templates,
+                "Tools:Scenario:Elements:Editor":
+                    self.slot_tools_scenario_elements_editor,
             }
         )
         # tkinter event bindings
@@ -377,6 +380,16 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
         # show story/pitch templates dialog (modal)
         DPT.PitchTemplatesDialog(self).show()
+    # end def
+
+
+    def slot_tools_scenario_elements_editor (self, *args, **kw):
+        """
+            event handler for menu Tools > Scenario Elements Editor
+            (SEE);
+        """
+        # show tool dialog (modal)
+        DSEE.ScenarioElementsEditorDialog(self).show()
     # end def
 
 

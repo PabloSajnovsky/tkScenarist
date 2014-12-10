@@ -115,6 +115,11 @@
             label="_Story/pitch templates"
             command="@Tools:Pitch:Templates"
         />
+        <separator/>
+        <command
+            label="_Scenario Elements Editor (SEE)"
+            command="@Tools:Scenario:Elements:Editor"
+        />
     </menu>
 
     <!-- menu HELP -->

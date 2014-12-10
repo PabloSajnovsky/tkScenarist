@@ -22,6 +22,22 @@
 -->
 <tkwidget>
 
+    <!-- mappings scope -->
+
+    <ttknotebook
+        layout="pack"
+        resizable="width"
+    >
+        <!-- tab 1 -->
+        <ttktab
+            text="Global"
+        />
+        <!-- tab 2 -->
+        <ttktab
+            text="Project"
+        />
+    </ttknotebook>
+
     <!-- element chaining -->
 
     <ttklabelframe
@@ -53,7 +69,7 @@
         >
             <!-- header labels -->
             <ttklabel
-                text="On keypress:"
+                text="On key:"
                 layout="grid"
                 layout_options="row=0, column=0"
             />

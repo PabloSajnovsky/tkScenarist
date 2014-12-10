@@ -166,7 +166,9 @@
             layout_options="pady=2"
             resizable="yes"
         >
+
             <!-- font face settings -->
+
             <ttkframe
                 layout="pack"
                 resizable="yes"
@@ -189,7 +191,9 @@
                     layout_options="row=0, column=2"
                 />
             </ttkframe>
+
             <!-- background/foreground color settings -->
+
             <ttkframe
                 layout="pack"
                 resizable="yes"
@@ -201,7 +205,6 @@
                 />
                 <ttkbutton
                     name="btn_choose_bg"
-                    text="   "
                     command="@Dialog:Background:Choose"
                     layout="grid"
                     layout_options="row=0, column=1, padx=5"
@@ -213,13 +216,14 @@
                 />
                 <ttkbutton
                     name="btn_choose_fg"
-                    text="   "
                     command="@Dialog:Foreground:Choose"
                     layout="grid"
                     layout_options="row=0, column=3, padx=5"
                 />
             </ttkframe>
+
             <!-- margin/text justification settings -->
+
             <ttkframe
                 layout="pack"
                 resizable="yes"
@@ -229,35 +233,64 @@
                     layout="grid"
                     layout_options="row=0, column=0"
                 />
-                <radiobutton
-                    text="left"
-                    variable="options_text_align"
-                    value="left"
-                    indicatoron="no"
-                    selected="selected"
+                <ttkframe
+                    padding="5px 2px"
                     layout="grid"
                     layout_options="row=0, column=1"
-                />
-                <radiobutton
-                    text="center"
-                    variable="options_text_align"
-                    value="center"
-                    indicatoron="no"
-                    layout="grid"
-                    layout_options="row=0, column=2"
-                />
-                <radiobutton
-                    text="right"
-                    variable="options_text_align"
-                    value="right"
-                    indicatoron="no"
-                    layout="grid"
-                    layout_options="row=0, column=3"
-                />
+                >
+                    <radiobutton
+                        text="left"
+                        variable="options_text_align"
+                        value="left"
+                        indicatoron="no"
+                        selected="selected"
+                        layout="grid"
+                        layout_options="row=0, column=0, ipadx=5, ipady=2"
+                    />
+                    <radiobutton
+                        text="center"
+                        variable="options_text_align"
+                        value="center"
+                        indicatoron="no"
+                        layout="grid"
+                        layout_options="row=0, column=1, ipadx=5, ipady=2"
+                    />
+                    <radiobutton
+                        text="right"
+                        variable="options_text_align"
+                        value="right"
+                        indicatoron="no"
+                        layout="grid"
+                        layout_options="row=0, column=2, ipadx=5, ipady=2"
+                    />
+                </ttkframe>
+
+                <!-- margin left -->
+
                 <ttklabel
                     text="margin left:"
                     layout="grid"
+                    layout_options="row=0, column=2"
+                />
+                <ttkentry
+                    textvariable="entry_margin_left"
+                    width="3"
+                    layout="grid"
+                    layout_options="row=0, column=3, padx=5"
+                />
+
+                <!-- margin right -->
+
+                <ttklabel
+                    text="margin right:"
+                    layout="grid"
                     layout_options="row=0, column=4"
+                />
+                <ttkentry
+                    textvariable="entry_margin_right"
+                    width="3"
+                    layout="grid"
+                    layout_options="row=0, column=5, padx=5"
                 />
             </ttkframe>
         </ttklabelframe>

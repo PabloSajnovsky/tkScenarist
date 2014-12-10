@@ -1266,18 +1266,21 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Ctrl-BackSpace> key press;
         """
-        # get contents
-        _start = self.index(self.INS_LINE_END[0])
-        _text = self.get(_start, TK.INSERT)
-        # try to find a white space (backward)
-        _pos = _text.rfind(" ")
-        # got one?
-        if _pos >= 0:
-            # reset index
-            _start = self.index("{}+{}c".format(_start, _pos))
+        # no current selection to delete?
+        if not self.delete_selection():
+            # get contents
+            _start = self.index(self.INS_LINE_END[0])
+            _text = self.get(_start, TK.INSERT)
+            # try to find a white space (backward)
+            _pos = _text.rfind(" ")
+            # got one?
+            if _pos >= 0:
+                # reset index
+                _start = self.index("{}+{}c".format(_start, _pos))
+            # end if
+            # remove word at once
+            self.delete(_start, TK.INSERT)
         # end if
-        # remove word at once
-        self.delete(_start, TK.INSERT)
         # break the tkevent chain
         return "break"
     # end def
@@ -1287,18 +1290,21 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: on <Ctrl-Delete> key press;
         """
-        # get contents
-        _end = self.index(self.INS_LINE_END[-1])
-        _text = self.get(TK.INSERT, _end)
-        # try to find a white space (forward)
-        _pos = _text.find(" ")
-        # got one?
-        if _pos >= 0:
-            # reset index
-            _end = self.index("{}+{}c".format(TK.INSERT, _pos + 1))
+        # no current selection to delete?
+        if not self.delete_selection():
+            # get contents
+            _end = self.index(self.INS_LINE_END[-1])
+            _text = self.get(TK.INSERT, _end)
+            # try to find a white space (forward)
+            _pos = _text.find(" ")
+            # got one?
+            if _pos >= 0:
+                # reset index
+                _end = self.index("{}+{}c".format(TK.INSERT, _pos + 1))
+            # end if
+            # remove word at once
+            self.delete(TK.INSERT, _end)
         # end if
-        # remove word at once
-        self.delete(TK.INSERT, _end)
         # break the tkevent chain
         return "break"
     # end def

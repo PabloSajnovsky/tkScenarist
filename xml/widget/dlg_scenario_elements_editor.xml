@@ -167,54 +167,58 @@
             resizable="yes"
         >
 
-            <!-- element's attribute options -->
-
-            <ttklabelframe
-                text="Options"
-                padding="5px"
-                layout="grid"
-                layout_options="row=0, column=0"
+            <ttkpanedwindow
+                layout="pack"
                 resizable="yes"
             >
-                <ttklabel
-                    text="Font:"
-                    layout="grid"
-                    layout_options="row=0, column=0, sticky='w'"
-                />
-                <ttklabel
-                    textvariable="lbl_options_font"
-                    width="30"
-                    layout="grid"
-                    layout_options="row=0, column=1, padx=5, sticky='w'"
-                    resizable="width"
-                />
-                <ttkbutton
-                    text="Choose font"
-                    command="@Dialog:Font:Choose"
-                    layout="grid"
-                    layout_options="row=0, column=2"
-                />
-            </ttklabelframe>
 
-            <!-- element's attribute preview -->
+                <!-- element's attribute options -->
 
-            <ttklabelframe
-                text="Preview"
-                padding="5px"
-                layout="grid"
-                layout_options="row=0, column=1"
-                resizable="yes"
-            >
-                <text
-                    name="text_preview"
-                    height="10"
-                    width="40"
-                    state="disabled"
-                    wrap="word"
-                    layout="pack"
-                    resizable="yes"
-                />
-            </ttklabelframe>
+                <ttklabelframe
+                    text="Options"
+                    padding="5px"
+                    weight="1"
+                >
+                    <ttklabel
+                        text="Font:"
+                        layout="grid"
+                        layout_options="row=0, column=0, sticky='w'"
+                    />
+                    <ttklabel
+                        textvariable="lbl_options_font"
+                        width="30"
+                        layout="grid"
+                        layout_options="row=0, column=1, padx=5, sticky='w'"
+                        resizable="width"
+                    />
+                    <ttkbutton
+                        text="Choose font"
+                        command="@Dialog:Font:Choose"
+                        layout="grid"
+                        layout_options="row=0, column=2"
+                    />
+                </ttklabelframe>
+
+                <!-- element's attribute preview -->
+
+                <ttklabelframe
+                    text="Preview"
+                    padding="5px"
+                    weight="5"
+                >
+                    <text
+                        name="text_preview"
+                        height="10"
+                        width="40"
+                        state="disabled"
+                        wrap="word"
+                        layout="pack"
+                        resizable="yes"
+                    />
+                </ttklabelframe>
+
+            </ttkpanedwindow>
+
         </ttklabelframe>
 
     </ttkframe>

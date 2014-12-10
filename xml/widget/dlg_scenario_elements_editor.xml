@@ -30,6 +30,104 @@
         layout="pack"
         resizable="yes"
     >
+        <!-- current element selection -->
+        <ttkframe
+            layout="pack"
+        >
+            <ttklabel
+                text="Current element:"
+                layout="grid"
+                layout_options="row=0, column=0, sticky='w'"
+            />
+            <ttkcombobox
+                name="combo_current_element"
+                values="'Action', 'Character', 'Dialogue', 'Parenthetical', 'Scene', 'Transition'"
+                layout="grid"
+                layout_options="row=0, column=1, padx=5"
+                resizable="width"
+            />
+        </ttkframe>
+        <!-- keyboard switchers / line creators -->
+        <ttkframe
+            layout="pack"
+        >
+            <!-- header labels -->
+            <ttklabel
+                text="On keypress:"
+                layout="grid"
+                layout_options="row=0, column=0"
+            />
+            <ttklabel
+                text="Switch line to:"
+                layout="grid"
+                layout_options="row=0, column=1"
+            />
+            <ttklabel
+                text="Create new line with:"
+                layout="grid"
+                layout_options="row=0, column=2"
+            />
+            <!-- TAB selectors -->
+            <ttklabel
+                text="&lt;Tab&gt;"
+                layout="grid"
+                layout_options="row=1, column=0"
+            />
+            <ttkcombobox
+                name="combo_tab_switch"
+                values="'Action', 'Character', 'Dialogue', 'Parenthetical', 'Scene', 'Transition'"
+                layout="grid"
+                layout_options="row=1, column=1, padx=5"
+                resizable="width"
+            />
+            <ttkcombobox
+                name="combo_tab_create"
+                values="'Action', 'Character', 'Dialogue', 'Parenthetical', 'Scene', 'Transition'"
+                layout="grid"
+                layout_options="row=1, column=2, padx=5"
+                resizable="width"
+            />
+            <!-- RETURN selectors -->
+            <ttklabel
+                text="&lt;Return&gt;"
+                layout="grid"
+                layout_options="row=2, column=0"
+            />
+            <ttkcombobox
+                name="combo_return_switch"
+                values="'Action', 'Character', 'Dialogue', 'Parenthetical', 'Scene', 'Transition'"
+                layout="grid"
+                layout_options="row=2, column=1, padx=5"
+                resizable="width"
+            />
+            <ttkcombobox
+                name="combo_return_create"
+                values="'Action', 'Character', 'Dialogue', 'Parenthetical', 'Scene', 'Transition'"
+                layout="grid"
+                layout_options="row=2, column=2, padx=5"
+                resizable="width"
+            />
+            <!-- CTRL-RETURN selectors -->
+            <ttklabel
+                text="&lt;Ctrl-Return&gt;"
+                layout="grid"
+                layout_options="row=3, column=0"
+            />
+            <ttkcombobox
+                name="combo_ctrl_return_switch"
+                values="'Action', 'Character', 'Dialogue', 'Parenthetical', 'Scene', 'Transition'"
+                layout="grid"
+                layout_options="row=3, column=1, padx=5"
+                resizable="width"
+            />
+            <ttkcombobox
+                name="combo_ctrl_return_create"
+                values="'Action', 'Character', 'Dialogue', 'Parenthetical', 'Scene', 'Transition'"
+                layout="grid"
+                layout_options="row=3, column=2, padx=5"
+                resizable="width"
+            />
+        </ttkframe>
     </ttklabelframe>
 
     <!-- element look'n'feel -->

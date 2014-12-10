@@ -45,6 +45,12 @@
         relief="raised"
     />
 
+    <ttkstyle>
+    <![CDATA[
+        ROC.TCombobox :readonly { fieldbackground: white; }
+    ]]>
+    </ttkstyle>
+
     <ttkframe
         padding="5px"
         style="raised.TFrame"
@@ -67,6 +73,7 @@
             />
             <ttkcombobox
                 name="combo_current_element"
+                style="ROC.TCombobox"
                 layout="grid"
                 layout_options="row=0, column=1, padx=5, pady=2"
                 resizable="no"
@@ -110,11 +117,13 @@
             />
             <ttkcombobox
                 name="combo_tab_switch"
+                style="ROC.TCombobox"
                 layout="grid"
                 layout_options="row=1, column=1, padx=5, pady=2"
             />
             <ttkcombobox
                 name="combo_tab_create"
+                style="ROC.TCombobox"
                 layout="grid"
                 layout_options="row=1, column=2, padx=5, pady=2"
             />
@@ -128,11 +137,13 @@
             />
             <ttkcombobox
                 name="combo_return_switch"
+                style="ROC.TCombobox"
                 layout="grid"
                 layout_options="row=2, column=1, padx=5, pady=2"
             />
             <ttkcombobox
                 name="combo_return_create"
+                style="ROC.TCombobox"
                 layout="grid"
                 layout_options="row=2, column=2, padx=5, pady=2"
             />
@@ -146,11 +157,13 @@
             />
             <ttkcombobox
                 name="combo_ctrl_return_switch"
+                style="ROC.TCombobox"
                 layout="grid"
                 layout_options="row=3, column=1, padx=5, pady=2"
             />
             <ttkcombobox
                 name="combo_ctrl_return_create"
+                style="ROC.TCombobox"
                 layout="grid"
                 layout_options="row=3, column=2, padx=5, pady=2"
             />
@@ -176,6 +189,7 @@
             >
                 <ttkcombobox
                     name="combo_font_family"
+                    style="ROC.TCombobox"
                     layout="grid"
                     layout_options="row=0, column=0"
                     resizable="width"
@@ -184,6 +198,7 @@
                     name="combo_font_size"
                     values="8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 48, 56, 64, 72, 84, 96"
                     width="5"
+                    style="ROC.TCombobox"
                     layout="grid"
                     layout_options="row=0, column=1, padx=5"
                 />
@@ -191,6 +206,7 @@
                     name="combo_font_style"
                     values="'normal', 'bold', 'italic', 'bold italic'"
                     width="14"
+                    style="ROC.TCombobox"
                     layout="grid"
                     layout_options="row=0, column=2"
                 />
@@ -289,6 +305,7 @@
                         name="combo_lmargin_units"
                         values="'px', 'pt', 'mm', 'cm', 'in'"
                         width="2"
+                        style="ROC.TCombobox"
                         layout="grid"
                         layout_options="row=0, column=2"
                     />
@@ -317,6 +334,7 @@
                         name="combo_rmargin_units"
                         values="'px', 'pt', 'mm', 'cm', 'in'"
                         width="2"
+                        style="ROC.TCombobox"
                         layout="grid"
                         layout_options="row=0, column=2"
                     />

@@ -83,47 +83,40 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         r"""
             widget main inits;
         """
-        # member inits
-        self.default_settings = kw.get("default_settings")
-        self.default_element = kw.get("default_element")
-        self.element_names = self.get_element_names(self.default_settings)
         # super class inits
         super().init_widget(
             # looks for ^/xml/widget/dlg_scenario_elements_editor.xml
             xml="dlg_scenario_elements_editor",
         )
-        # widget container inits
+        # inits
         self.w = self.container
+        self.default_settings = kw.get("default_settings")
+        self.default_element = kw.get("default_element")
+        self.element_names = self.get_element_names(self.default_settings)
         _names = sorted(self.element_names)
         _readonly = ['readonly']
-        # widget config
+        # ELEMENT CHAINING section
         self.w.combo_current_element.configure(
             values=_names, state=_readonly
         )
-        self.w.combo_current_element.set(self.default_element)
+        self.w.combo_current_element.current(0)
+        # update element names for choice selection
         _names.insert(0, "")
         for _key in ("tab", "return", "ctrl_return"):
             for _t in ("switch", "create"):
                 _w = getattr(self.w, "combo_{}_{}".format(_key, _t))
                 _w.configure(values=_names, state=_readonly)
-                _w.current(1)
+                _w.current(0)
             # end for
         # end for
+        # FONT section
         self.w.combo_font_family.configure(
             values=['monospace', 'sans', 'serif', 'tkdefaultfont'] +
             sorted(font.families())
         )
-        self.set_readonly(self.w.combo_font_style)
+        self.w.combo_font_style.state(_readonly)
         # event bindings
         self.bind_events(**kw)
-    # end def
-
-
-    def set_readonly (self, ttkwidget):
-        """
-            sets ttk widget to state 'readonly';
-        """
-        ttkwidget.state(['readonly'])
     # end def
 
 

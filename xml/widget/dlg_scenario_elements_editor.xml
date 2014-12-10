@@ -160,67 +160,59 @@
 
         <!-- element's look'n'feel -->
 
-        <ttkpanedwindow
-            orient="vertical"
+        <ttklabelframe
+            text="Look'n'feel"
+            padding="5px"
             layout="pack"
             resizable="yes"
         >
+            <ttklabel
+                text="Font:"
+                layout="grid"
+                layout_options="row=0, column=0, sticky='w'"
+            />
+            <ttklabel
+                textvariable="lbl_options_font"
+                width="30"
+                layout="grid"
+                layout_options="row=0, column=1, padx=5, sticky='w'"
+                resizable="width"
+            />
+            <ttkbutton
+                text="Choose font"
+                command="@Dialog:Font:Choose"
+                layout="grid"
+                layout_options="row=0, column=2"
+            />
+        </ttklabelframe>
 
-            <!-- element's attribute options -->
+        <!-- element's attribute preview -->
 
-            <ttklabelframe
-                text="Look'n'feel"
-                padding="5px"
-                weight="1"
-            >
-                <ttklabel
-                    text="Font:"
-                    layout="grid"
-                    layout_options="row=0, column=0, sticky='w'"
-                />
-                <ttklabel
-                    textvariable="lbl_options_font"
-                    width="30"
-                    layout="grid"
-                    layout_options="row=0, column=1, padx=5, sticky='w'"
-                    resizable="width"
-                />
-                <ttkbutton
-                    text="Choose font"
-                    command="@Dialog:Font:Choose"
-                    layout="grid"
-                    layout_options="row=0, column=2"
-                />
-            </ttklabelframe>
-
-            <!-- element's attribute preview -->
-
-            <ttklabelframe
-                text="Preview"
-                padding="5px"
-                weight="5"
-            >
-                <text
-                    id="see_preview"
-                    name="text_preview"
-                    height="10"
-                    width="40"
-                    state="disabled"
-                    wrap="word"
-                    layout="grid"
-                    layout_options="row=0, column=0"
-                    resizable="yes"
-                />
-                <ttkscrollbar
-                    connect="see_preview"
-                    orient="vertical"
-                    layout="grid"
-                    layout_options="row=0, column=1"
-                    resizable="height"
-                />
-            </ttklabelframe>
-
-        </ttkpanedwindow>
+        <ttklabelframe
+            text="Preview"
+            padding="5px"
+            layout="pack"
+            resizable="yes"
+        >
+            <text
+                id="see_preview"
+                name="text_preview"
+                height="10"
+                width="40"
+                state="disabled"
+                wrap="word"
+                layout="grid"
+                layout_options="row=0, column=0"
+                resizable="yes"
+            />
+            <ttkscrollbar
+                connect="see_preview"
+                orient="vertical"
+                layout="grid"
+                layout_options="row=0, column=1"
+                resizable="height"
+            />
+        </ttklabelframe>
 
     </ttkframe>
 

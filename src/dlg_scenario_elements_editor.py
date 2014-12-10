@@ -24,6 +24,7 @@
 
 # lib imports
 from tkinter import font
+from tkinter import colorchooser
 import tkRAD.widgets.rad_dialog as DLG
 
 
@@ -41,11 +42,11 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             event bindings;
         """
         # app-wide event bindings
-        #~ self.events.connect_dict(
-            #~ {
-                #~ "Dialog:": self.slot_
-            #~ }
-        #~ )
+        self.events.connect_dict(
+            {
+                "Dialog:Color:Choose": self.slot_choose_color,
+            }
+        )
         # tkinter widget event bindings
         self.bind("<Escape>", self._slot_button_cancel)
     # end def
@@ -115,8 +116,35 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             sorted(font.families())
         )
         self.w.combo_font_style.state(_readonly)
+        self.w.combo_font_style.current(0)
+        # MARGIN section
+        self.w.combo_lmargin_units.state(_readonly)
+        self.w.combo_lmargin_units.current(0)
+        self.w.combo_rmargin_units.state(_readonly)
+        self.w.combo_rmargin_units.current(0)
         # event bindings
         self.bind_events(**kw)
+    # end def
+
+
+    def slot_choose_color (self, *args, widget=None, **kw):
+        """
+            event handler: opens tkinter.colorchooser dialog and asks
+            user to choose a color;
+        """
+        # param controls
+        if widget:
+            # inits
+            _bg = widget.cget("background")
+            # ask color
+            _color = colorchooser.askcolor(
+                color=_bg,
+                title=_("Please, choose a color"),
+                parent=self,
+            )[-1] or _bg
+            # reset widget's background color
+            widget.configure(background=_color, text=_color)
+        # end if
     # end def
 
 

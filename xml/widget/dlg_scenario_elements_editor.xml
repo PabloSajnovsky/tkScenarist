@@ -207,9 +207,10 @@
                     layout="grid"
                     layout_options="row=0, column=0"
                 />
-                <ttkbutton
-                    name="btn_choose_bg"
-                    command="@Dialog:Background:Choose"
+                <button
+                    text="white"
+                    background="white"
+                    command="@Dialog:Color:Choose"
                     layout="grid"
                     layout_options="row=0, column=1, padx=5"
                 />
@@ -218,9 +219,10 @@
                     layout="grid"
                     layout_options="row=0, column=2"
                 />
-                <ttkbutton
-                    name="btn_choose_fg"
-                    command="@Dialog:Foreground:Choose"
+                <button
+                    text="black"
+                    background="black"
+                    command="@Dialog:Color:Choose"
                     layout="grid"
                     layout_options="row=0, column=3, padx=5"
                 />
@@ -288,7 +290,7 @@
                     <ttkcombobox
                         name="combo_lmargin_units"
                         values="'px', 'pt', 'mm', 'cm', 'in'"
-                        width="2"
+                        width="3"
                         layout="grid"
                         layout_options="row=0, column=2"
                     />
@@ -316,7 +318,7 @@
                     <ttkcombobox
                         name="combo_rmargin_units"
                         values="'px', 'pt', 'mm', 'cm', 'in'"
-                        width="2"
+                        width="3"
                         layout="grid"
                         layout_options="row=0, column=2"
                     />

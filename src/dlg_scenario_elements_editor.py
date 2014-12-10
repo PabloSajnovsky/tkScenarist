@@ -143,7 +143,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
                 parent=self,
             )[-1] or _bg
             # reset widget's background color
-            widget.configure(background=_color, text=_color)
+            widget.configure(background=_color, text=_color.upper())
         # end if
     # end def
 

@@ -47,6 +47,17 @@ class MainWindow (tkRAD.RADXMLMainWindow):
     ONLINE_DOC_URL = "https://github.com/tarball69/tkScenarist/wiki"
 
 
+    def _parse_attr_fieldbackground (self, attribute, **kw):
+        r"""
+            color attribute;
+            no return value (void);
+            implemented to shut down warnings;
+        """
+        # parsed attribute inits
+        self.mainframe._tkRAD_color_support(attribute, **kw)
+    # end def
+
+
     def bind_events (self, **kw):
         """
             app-wide event bindings;
@@ -171,6 +182,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         # member inits
         self.async = ASYNC.get_async_manager()
         self.project_fm = PFM.ProjectFileManagement(self)
+        # shut down warnings
+        self.mainframe._parse_attr_fieldbackground = self._parse_attr_fieldbackground
         # looks for ^/xml/menu/topmenu.xml
         self.topmenu.xml_build()
         # toggle statusbar through menu

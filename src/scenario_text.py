@@ -1366,7 +1366,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             self.see(TK.INSERT)
             # keypress is a separator-generate symbol?
             if event.char and event.char in self.SEPARATORS:
-                print("slot_on_keypress: added separator")
                 # add undo/redo separator
                 self.edit_separator()
             # end if

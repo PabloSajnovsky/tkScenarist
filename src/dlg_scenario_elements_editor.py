@@ -69,6 +69,9 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         r"""
             widget main inits;
         """
+        # member inits
+        self.default_settings = kw.get("default_settings")
+        self.default_element = kw.get("default_element")
         # super class inits
         super().init_widget(
             # looks for ^/xml/widget/dlg_scenario_elements_editor.xml

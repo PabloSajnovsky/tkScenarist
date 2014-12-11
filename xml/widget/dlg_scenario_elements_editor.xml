@@ -283,13 +283,13 @@
                     <ttklabel
                         text="margin left:"
                         layout="grid"
-                        layout_options="row=0, column=0"
+                        layout_options="row=0, column=0, padx=5"
                     />
                     <ttkentry
                         textvariable="entry_margin_left"
                         width="5"
                         layout="grid"
-                        layout_options="row=0, column=1, padx=5"
+                        layout_options="row=0, column=1"
                     />
                     <ttkcombobox
                         name="combo_lmargin_units"
@@ -311,13 +311,13 @@
                     <ttklabel
                         text="margin right:"
                         layout="grid"
-                        layout_options="row=0, column=0"
+                        layout_options="row=0, column=0, padx=5"
                     />
                     <ttkentry
                         textvariable="entry_margin_right"
                         width="5"
                         layout="grid"
-                        layout_options="row=0, column=1, padx=5"
+                        layout_options="row=0, column=1"
                     />
                     <ttkcombobox
                         name="combo_rmargin_units"
@@ -344,10 +344,6 @@
             <text
                 id="see_preview"
                 name="text_preview"
-                height="5"
-                width="1"
-                state="disabled"
-                wrap="word"
                 layout="grid"
                 layout_options="row=0, column=0"
                 resizable="yes"

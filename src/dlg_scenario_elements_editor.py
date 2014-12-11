@@ -36,8 +36,6 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # class constant defs
     BUTTONS = ("OK", "Cancel")
 
-    TAB_NAMES = ("global", "project")
-
 
     def bind_events (self, **kw):
         """
@@ -103,14 +101,16 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             xml="dlg_scenario_elements_editor",
         )
         # inits
-        _tab = self.TAB_NAMES
         self.w_text = kw.get("w_text")
-        self.settings = {
-            _tab[0]: self.w_text.get_options_element().copy(),
-            _tab[1]: self.w_text.ELEMENT.copy(),
-        }
+        self.settings = (
+            # global settings
+            self.w_text.get_options_element().copy(),
+            # project settings
+            self.w_text.ELEMENT.copy(),
+        )
+        self.current_settings = self.settings[0]
         self.element_names = self.get_element_names(
-            self.settings[_tab[0]]
+            self.current_settings
         )
         _names = sorted(self.element_names)
         _readonly = ["readonly"]
@@ -124,6 +124,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         self.w.combo_current_element.current(0)
         # update element names for choice selection
         _names.insert(0, "")
+        # set choice names to all switch/create combos
         for _key in ("tab", "return", "ctrl_return"):
             for _t in ("switch", "create"):
                 _w = getattr(self.w, "combo_{}_{}".format(_key, _t))
@@ -200,19 +201,10 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
             event handler: a notebook tab has been selected;
         """
-        print("slot_tab_changed")
-        # FIXME
-        # what about data loss between tabs ?
-        # should manage two mappings?
         # which tab is it?
         _index = self.get_current_tab_index()
-        # GLOBAL settings
-        if not _index:
-            print("global settings")
-        # PROJECT settings
-        else:
-            print("project settings")
-        # end def
+        # change settings pointer
+        self.current_settings = self.settings[self.TAB_NAMES[_index]]
         # update all data
         self.update_data()
     # end def

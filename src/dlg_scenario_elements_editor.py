@@ -259,7 +259,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             for _t in ("switch", "create"):
                 _name = "{}_{}".format(_key, _t)
                 _w = getattr(self.w, "combo_{}".format(_name))
-                _w.current(
+                _w.set(
                     self.get_label(
                         _tags.get("on_{}".format(_name))
                     )

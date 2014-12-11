@@ -199,6 +199,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.events.connect_dict(
             {
                 "Scenario:Switch:Line": self.switch_line,
+                "Scenario:Settings:Update": self.slot_update_settings,
             }
         )
         # tkinter event bindings
@@ -677,7 +678,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         return json.loads(
             self.options.get(
-                "gui", "scenario_text_settings", fallback=""
+                "gui", "scenario_text_settings", fallback="[]"
             )
         ) or self.ELEMENT_DEFAULTS
     # end def
@@ -778,7 +779,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # members only inits
         self.current_tag = self.DEFAULT_TAG
-        self.reset_elements(self.get_options_element().copy())
+        self.reset_elements(self.get_options_element())
     # end def
 
 
@@ -1150,7 +1151,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         if tools.is_pdict(new_dict):
             # reset dict
-            self.ELEMENT = new_dict
+            self.ELEMENT = new_dict.copy()
             # reset configs
             self.init_styles()
             # notify app
@@ -1437,6 +1438,15 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # not all widget's contents
         # break the tkevent chain
         return "break"
+    # end def
+
+
+    def slot_update_settings (self, *args, settings=None, **kw):
+        """
+            event handler: settings have been changed;
+        """
+        # reset configuration (safe)
+        self.reset_elements(settings)
     # end def
 
 

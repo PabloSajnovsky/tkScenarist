@@ -678,9 +678,17 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         return json.loads(
             self.options.get(
-                self.classname().lower(), "text_settings", fallback="[]"
+                self.get_rc_section(), "text_settings", fallback="[]"
             )
         ) or self.ELEMENT_DEFAULTS
+    # end def
+
+
+    def get_rc_section (self):
+        """
+            retrieves RC file section name for this class;
+        """
+        return self.classname().lower()
     # end def
 
 
@@ -1163,19 +1171,16 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def set_options_element (self, e_dict=None):
+    def set_options_element (self, e_dict):
         """
             resets RC file element settings with @e_dict contents;
-            uses self.ELEMENT if @e_dict omitted or of incorrect type;
         """
         # param controls
-        if not tools.is_pdict(e_dict):
-            # reset default
-            e_dict = self.ELEMENT
+        if tools.is_pdict(e_dict):
+            # reset options settings
+            _rc = self.get_rc_section()
+            self.options[_rc]["text_settings"] = json.dumps(e_dict)
         # end if
-        # reset options settings
-        _section = self.classname().lower()
-        self.options[_section]["text_settings"] = json.dumps(e_dict)
     # end def
 
 
@@ -1442,12 +1447,14 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def slot_update_settings (self, *args, settings=None, **kw):
+    def slot_update_settings (self, *args, **kw):
         """
             event handler: settings have been changed;
         """
-        # reset configuration (safe)
-        self.reset_elements(settings)
+        # reset project settings (safe)
+        self.reset_elements(kw.get("project_settings"))
+        # reset global settings
+        self.set_options_element(kw.get("global_settings"))
     # end def
 
 

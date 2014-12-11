@@ -36,6 +36,8 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # class constant defs
     BUTTONS = ("OK", "Cancel")
 
+    TAB_NAMES = ("global", "project")
+
 
     def bind_events (self, **kw):
         """
@@ -101,14 +103,17 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             xml="dlg_scenario_elements_editor",
         )
         # inits
+        _tab = self.TAB_NAMES
         self.w_text = kw.get("w_text")
-        self.settings = (
-            self.w_text.get_options_element().copy(),
-            self.w_text.ELEMENT.copy(),
+        self.settings = {
+            _tab[0]: self.w_text.get_options_element().copy(),
+            _tab[1]: self.w_text.ELEMENT.copy(),
+        }
+        self.element_names = self.get_element_names(
+            self.settings[_tab[0]]
         )
-        self.element_names = self.get_element_names(self.settings[0])
         _names = sorted(self.element_names)
-        _readonly = ['readonly']
+        _readonly = ["readonly"]
         self.w = self.container
         # NOTEBOOK section
         self.NOTEBOOK = self.w.notebook_see_prefs
@@ -132,7 +137,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             sorted(font.families())
         )
         self.w.combo_font_family.current(0)
-        self.w.combo_font_size.current(4)
+        self.w.combo_font_size.current(0)
         self.w.combo_font_style.state(_readonly)
         self.w.combo_font_style.current(0)
         # MARGIN section

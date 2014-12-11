@@ -49,6 +49,9 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         )
         # tkinter widget event bindings
         self.bind("<Escape>", self._slot_button_cancel)
+        self.NOTEBOOK.bind(
+            "<<NotebookTabChanged>>", self.slot_tab_changed
+        )
     # end def
 
 
@@ -90,12 +93,14 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             xml="dlg_scenario_elements_editor",
         )
         # inits
-        self.w = self.container
         self.default_settings = kw.get("default_settings")
         self.default_element = kw.get("default_element")
         self.element_names = self.get_element_names(self.default_settings)
         _names = sorted(self.element_names)
         _readonly = ['readonly']
+        self.w = self.container
+        # NOTEBOOK section
+        self.NOTEBOOK = self.w.notebook_see_prefs
         # ELEMENT CHAINING section
         self.w.combo_current_element.configure(
             values=_names, state=_readonly
@@ -149,6 +154,8 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         )
         # event bindings
         self.bind_events(**kw)
+        # reset to 'global' tab
+        self.NOTEBOOK.select(0)
     # end def
 
 
@@ -170,6 +177,22 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             # reset widget's background color
             widget.configure(background=_color, text=_color.upper())
         # end if
+    # end def
+
+
+    def slot_tab_changed (self, event=None, *args, **kw):
+        """
+            event handler: a notebook tab has been selected;
+        """
+        print("slot_tab_changed")
+    # end def
+
+
+    def update_data (self, *args, **kw):
+        """
+            updates all data in form;
+        """
+        print("update_data")
     # end def
 
 

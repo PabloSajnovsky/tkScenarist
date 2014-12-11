@@ -119,7 +119,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         )
         self.current_settings = self.settings[0]
         self.element_names = self.get_element_names(
-            self.current_settings
+            self.current_settings["element"]
         )
         _names = sorted(self.element_names)
         _readonly = ["readonly"]

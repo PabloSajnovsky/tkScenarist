@@ -162,7 +162,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         )
         # event bindings
         self.bind_events(**kw)
-        # reset to 'global' tab
+        # reset to 'global settings' tab
         self.NOTEBOOK.select(0)
     # end def
 
@@ -235,6 +235,8 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             returns True on success, False otherwise;
         """
         # put here your own code in subclass
+        # get current tab numeric index
+        _tab = self.get_current_tab_index()
         # failed
         return False
     # end def

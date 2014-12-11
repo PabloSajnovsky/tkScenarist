@@ -69,6 +69,14 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def get_current_tab_index (self):
+        """
+            retrieves notebook's current selected tab numeric index;
+        """
+        return self.NOTEBOOK.index("current")
+    # end def
+
+
     def get_element_names (self, elt_dict):
         """
             retrieves dictionary of (label: tag) key/value pairs;
@@ -101,7 +109,6 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         self.w = self.container
         # NOTEBOOK section
         self.NOTEBOOK = self.w.notebook_see_prefs
-        self.NOTEBOOK.enable_traversal()
         # ELEMENT CHAINING section
         self.w.combo_current_element.configure(
             values=_names, state=_readonly
@@ -187,8 +194,16 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
         print("slot_tab_changed")
         # which tab is it?
-        _index = event.widget.index("current")
-        print("current tab:", _index)
+        _index = self.get_current_tab_index()
+        # GLOBAL settings
+        if not _index:
+            print("global settings")
+        # PROJECT settings
+        else:
+            print("project settings")
+        # end def
+        # update all data
+        self.update_data()
     # end def
 
 

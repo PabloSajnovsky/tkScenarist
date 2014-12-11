@@ -210,8 +210,13 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
             event handler: new element selected in combobox;
         """
+        # inits
+        _combo = self.w.combo_current_element
+        _index = _combo.current()
+        # update pointer
+        self.current_settings["current_selected"] = _index
         # update linked combos along with new item
-        print("current element:", self.w.combo_current_element.current())
+        print("current element:", _combo.get(), self.element_names[_combo.get()])
     # end def
 
 

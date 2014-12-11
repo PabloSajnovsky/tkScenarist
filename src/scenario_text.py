@@ -62,11 +62,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 "spacing1": "5",
                 "spacing3": "5",
             },
-            "on_return_create": "action",
             "on_tab_create": "character",
-            "tab_switch": "character",
-            "ctrl_return": "transition",
-            "ctrl_switch": "scene",
+            "on_tab_switch": "character",
+            "on_return_create": "action",
+            "on_return_switch": "",
+            "on_ctrl_return_create": "transition",
+            "on_ctrl_return_switch": "scene",
         },
         "character": {
             "label": _("Character"),
@@ -78,10 +79,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 "rmargin": "1c",
                 "spacing1": "5",
             },
-            "on_return_create": "dialogue",
             "on_tab_create": "parenthetical",
-            "tab_switch": "action",
-            "ctrl_return": "action",
+            "on_tab_switch": "action",
+            "on_return_create": "dialogue",
+            "on_return_switch": "",
+            "on_ctrl_return_create": "action",
+            "on_ctrl_return_switch": "",
         },
         "dialogue": {
             "label": _("Dialogue"),
@@ -93,10 +96,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 "spacing1": "5",
                 "spacing3": "10",
             },
-            "on_return_create": "character",
             "on_tab_create": "action",
-            "tab_switch": "parenthetical",
-            "ctrl_return": "scene",
+            "on_tab_switch": "parenthetical",
+            "on_return_create": "character",
+            "on_ctrl_return_create": "scene",
+            "on_return_switch": "",
+            "on_ctrl_return_switch": "",
         },
         "parenthetical": {
             "label": _("Parenthetical"),
@@ -109,8 +114,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             },
             "on_return_create": "dialogue",
             "on_tab_create": "dialogue",
-            "tab_switch": "dialogue",
-            "ctrl_return": "action",
+            "on_tab_switch": "dialogue",
+            "on_ctrl_return_create": "action",
+            "on_return_switch": "",
+            "on_ctrl_return_switch": "",
         },
         "scene": {
             "label": _("Scene"),
@@ -121,8 +128,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             },
             "on_return_create": "action",
             "on_tab_create": "character",
-            "tab_switch": "action",
-            "ctrl_return": "transition",
+            "on_tab_switch": "action",
+            "on_ctrl_return_create": "transition",
+            "on_return_switch": "",
+            "on_ctrl_return_switch": "",
         },
         "transition": {
             "label": _("Transition"),
@@ -132,8 +141,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             },
             "on_return_create": "scene",
             "on_tab_create": "transition",
-            "tab_switch": "scene",
-            "ctrl_return": "action",
+            "on_tab_switch": "scene",
+            "on_ctrl_return_create": "action",
+            "on_return_switch": "",
+            "on_ctrl_return_switch": "",
         },
     }
 
@@ -505,10 +516,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 _map = {
                     "tag": _tag,
                     "tab": _element.get("on_tab_create") or "",
-                    "tab_switch": "",
+                    "on_tab_switch": "",
                     "return": _element.get("on_return_create") or "",
-                    "ctrl_return": _element.get("ctrl_return") or "",
-                    "ctrl_switch": "",
+                    "on_ctrl_return_create": _element.get("on_ctrl_return_create") or "",
+                    "on_ctrl_return_switch": "",
                 }
             # virgin line
             else:
@@ -516,10 +527,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 _map = {
                     "tag": _tag,
                     "tab": "",
-                    "tab_switch": _element.get("tab_switch") or "",
+                    "on_tab_switch": _element.get("on_tab_switch") or "",
                     "return": "",
-                    "ctrl_return": "",
-                    "ctrl_switch": _element.get("ctrl_switch") or "",
+                    "on_ctrl_return_create": "",
+                    "on_ctrl_return_switch": _element.get("on_ctrl_return_switch") or "",
                 }
             # end if
             # return mappings
@@ -1351,7 +1362,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Ctrl-Return> key press;
         """
         # manage line (create/switch)
-        return self.manage_line("ctrl_return", "ctrl_switch")
+        return self.manage_line("on_ctrl_return_create", "on_ctrl_return_switch")
     # end def
 
 
@@ -1385,7 +1396,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: on <Tab> key press;
         """
         # manage line (create/switch)
-        return self.manage_line("tab", "tab_switch")
+        return self.manage_line("tab", "on_tab_switch")
     # end def
 
 

@@ -670,6 +670,19 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def get_options_element (self):
+        """
+            retrieves RC file element settings or ELEMENT_DEFAULTS if
+            not found;
+        """
+        return json.loads(
+            self.options.get(
+                "gui", "scenario_text_settings", fallback=""
+            )
+        ) or self.ELEMENT_DEFAULTS
+    # end def
+
+
     def get_tagged_text (self, index1, index2=None):
         """
             retrieves tuple sequence of chars, tags, chars, tags, ...
@@ -765,7 +778,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # members only inits
         self.current_tag = self.DEFAULT_TAG
-        self.reset_elements(self.ELEMENT_DEFAULTS.copy())                   # FIXME: self.options?
+        self.reset_elements(self.get_options_element().copy())
     # end def
 
 
@@ -1146,6 +1159,21 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 elements=tuple(sorted(self.ELEMENT))
             )
         # end if
+    # end def
+
+
+    def set_options_element (self, e_dict=None):
+        """
+            resets RC file element settings with @e_dict contents;
+            uses self.ELEMENT if @e_dict omitted or of incorrect type;
+        """
+        # param controls
+        if not tools.is_pdict(e_dict):
+            # reset default
+            e_dict = self.ELEMENT
+        # end if
+        # reset options settings
+        self.options["gui"]["scenario_text_settings"] = json.dumps(e_dict)
     # end def
 
 

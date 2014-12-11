@@ -402,11 +402,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             (SEE);
         """
         # show tool dialog (modal)
-        _text = self.mainframe.tab_scenario.TEXT
         DSEE.ScenarioElementsEditorDialog(
-            self,
-            default_settings=_text.ELEMENT_DEFAULTS,
-            default_element=_text.get_label(_text.DEFAULT_TAG),
+            self, w_text=self.mainframe.tab_scenario.TEXT
         ).show()
     # end def
 

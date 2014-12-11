@@ -101,9 +101,12 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             xml="dlg_scenario_elements_editor",
         )
         # inits
-        self.default_settings = kw.get("default_settings")
-        self.default_element = kw.get("default_element")
-        self.element_names = self.get_element_names(self.default_settings)
+        self.w_text = kw.get("w_text")
+        self.settings = (
+            self.w_text.get_options_element().copy(),
+            self.w_text.ELEMENT.copy(),
+        )
+        self.element_names = self.get_element_names(self.settings[0])
         _names = sorted(self.element_names)
         _readonly = ['readonly']
         self.w = self.container

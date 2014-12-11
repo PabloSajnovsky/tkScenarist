@@ -52,6 +52,9 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         self.NOTEBOOK.bind(
             "<<NotebookTabChanged>>", self.slot_tab_changed
         )
+        self.w.combo_current_element.bind(
+            "<<ComboboxSelected>>", self.slot_current_element_changed
+        )
     # end def
 
 
@@ -104,9 +107,15 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         self.w_text = kw.get("w_text")
         self.settings = (
             # global settings
-            self.w_text.get_options_element().copy(),
+            {
+                "element": self.w_text.get_options_element().copy(),
+                "current_selected": 0,
+            },
             # project settings
-            self.w_text.ELEMENT.copy(),
+            {
+                "element": self.w_text.ELEMENT.copy(),
+                "current_selected": 0,
+            },
         )
         self.current_settings = self.settings[0]
         self.element_names = self.get_element_names(
@@ -197,14 +206,23 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def slot_current_element_changed (self, event=None, *args, **kw):
+        """
+            event handler: new element selected in combobox;
+        """
+        # update linked combos along with new item
+        print("current element:", self.w.combo_current_element.current())
+    # end def
+
+
     def slot_tab_changed (self, event=None, *args, **kw):
         """
             event handler: a notebook tab has been selected;
         """
         # which tab is it?
         _index = self.get_current_tab_index()
-        # change settings pointer
-        self.current_settings = self.settings[self.TAB_NAMES[_index]]
+        # change current settings
+        self.current_settings = self.settings[_index]
         # update all data
         self.update_data()
     # end def
@@ -215,6 +233,9 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             updates all data in form;
         """
         print("update_data")
+        # inits
+        _element = self.current_settings["element"]
+        _current = self.current_settings["current_selected"]
     # end def
 
 

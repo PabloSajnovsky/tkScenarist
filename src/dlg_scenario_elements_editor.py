@@ -94,6 +94,16 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def get_label (self, element_tag):
+        """
+            retrieves label for given @element_tag;
+        """
+        # inits
+        _e = self.current_settings["element"].get(element_tag) or dict()
+        return _e.get("label") or ""
+    # end def
+
+
     def init_widget (self, **kw):
         r"""
             widget main inits;
@@ -210,13 +220,13 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
             event handler: new element selected in combobox;
         """
-        # inits
-        _combo = self.w.combo_current_element
-        _index = _combo.current()
+        print("slot_current_element_changed")
         # update pointer
-        self.current_settings["current_selected"] = _index
+        self.current_settings["current_selected"] = (
+            self.w.combo_current_element.current()
+        )
         # update linked combos along with new item
-        print("current element:", _combo.get(), self.element_names[_combo.get()])
+        self.slot_update_chaining_combos()
     # end def
 
 
@@ -224,23 +234,49 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
             event handler: a notebook tab has been selected;
         """
+        print("slot_tab_changed")
         # which tab is it?
         _index = self.get_current_tab_index()
         # change current settings
         self.current_settings = self.settings[_index]
         # update all data
-        self.update_data()
+        self.slot_update_data()
     # end def
 
 
-    def update_data (self, *args, **kw):
+    def slot_update_chaining_combos (self, *args, **kw):
         """
-            updates all data in form;
+            event handler: updates chaining combo along current
+            selected element;
+        """
+        # inits
+        _combo = self.w.combo_current_element
+        _tag = self.element_names[_combo.get()]
+        _tags = self.current_settings["element"][_tag]
+        # reset combos
+        for _key in ("tab", "return", "ctrl_return"):
+            for _t in ("switch", "create"):
+                _name = "{}_{}".format(_key, _t)
+                _w = getattr(self.w, "combo_{}".format(_name))
+                _w.current(
+                    self.get_label(
+                        _tags.get("on_{}".format(_name))
+                    )
+                )
+            # end for
+        # end for
+    # end def
+
+
+    def slot_update_data (self, *args, **kw):
+        """
+            event handler: updates all data in form;
         """
         print("update_data")
-        # inits
-        _element = self.current_settings["element"]
-        _current = self.current_settings["current_selected"]
+        # update chaining combos + look'n'feel
+        self.w.combo_current_element.current(
+            self.current_settings["current_selected"]
+        )
     # end def
 
 

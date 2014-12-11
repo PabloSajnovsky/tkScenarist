@@ -91,14 +91,14 @@
                 layout_options="row=0, column=0"
             />
             <ttklabel
-                text="Switch line to:"
-                layout="grid"
-                layout_options="row=0, column=1"
-            />
-            <ttklabel
                 text="Create new line of:"
                 layout="grid"
                 layout_options="row=0, column=2"
+            />
+            <ttklabel
+                text="Switch line to:"
+                layout="grid"
+                layout_options="row=0, column=1"
             />
 
             <!-- TAB selectors -->
@@ -109,14 +109,14 @@
                 layout_options="row=1, column=0"
             />
             <ttkcombobox
-                name="combo_tab_switch"
-                layout="grid"
-                layout_options="row=1, column=1, padx=5, pady=2"
-            />
-            <ttkcombobox
                 name="combo_tab_create"
                 layout="grid"
                 layout_options="row=1, column=2, padx=5, pady=2"
+            />
+            <ttkcombobox
+                name="combo_tab_switch"
+                layout="grid"
+                layout_options="row=1, column=1, padx=5, pady=2"
             />
 
             <!-- RETURN selectors -->
@@ -127,14 +127,14 @@
                 layout_options="row=2, column=0"
             />
             <ttkcombobox
-                name="combo_return_switch"
-                layout="grid"
-                layout_options="row=2, column=1, padx=5, pady=2"
-            />
-            <ttkcombobox
                 name="combo_return_create"
                 layout="grid"
                 layout_options="row=2, column=2, padx=5, pady=2"
+            />
+            <ttkcombobox
+                name="combo_return_switch"
+                layout="grid"
+                layout_options="row=2, column=1, padx=5, pady=2"
             />
 
             <!-- CTRL-RETURN selectors -->
@@ -145,14 +145,14 @@
                 layout_options="row=3, column=0"
             />
             <ttkcombobox
-                name="combo_ctrl_return_switch"
-                layout="grid"
-                layout_options="row=3, column=1, padx=5, pady=2"
-            />
-            <ttkcombobox
                 name="combo_ctrl_return_create"
                 layout="grid"
                 layout_options="row=3, column=2, padx=5, pady=2"
+            />
+            <ttkcombobox
+                name="combo_ctrl_return_switch"
+                layout="grid"
+                layout_options="row=3, column=1, padx=5, pady=2"
             />
 
         </ttklabelframe>

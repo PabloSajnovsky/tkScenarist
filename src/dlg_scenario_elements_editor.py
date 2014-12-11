@@ -193,6 +193,9 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             event handler: a notebook tab has been selected;
         """
         print("slot_tab_changed")
+        # FIXME
+        # what about data loss between tabs ?
+        # should manage two mappings?
         # which tab is it?
         _index = self.get_current_tab_index()
         # GLOBAL settings
@@ -237,6 +240,10 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         # put here your own code in subclass
         # get current tab numeric index
         _tab = self.get_current_tab_index()
+        # TODO
+        """
+            if tab is 'global': ask if should apply to current project?
+        """
         # failed
         return False
     # end def

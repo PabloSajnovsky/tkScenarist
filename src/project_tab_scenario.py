@@ -567,13 +567,12 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # inits
         _map = self.TEXT.get_element_mappings()
-        _tag = _map["tag"]
         _label = lambda n: self.TEXT.get_label(
             _map["on_{}_create".format(n)] or
             _map["on_{}_switch".format(n)]
         )
         # reset widgets
-        self.set_combo_text(self.TEXT.get_label(_tag))
+        self.set_combo_text(self.TEXT.get_label(_map["tag"]))
         self.LBL_TAB.set(_label("tab"))
         self.LBL_RET.set(_label("return"))
         self.LBL_CTRL_RET.set(_label("ctrl_return"))

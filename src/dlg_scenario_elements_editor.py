@@ -101,6 +101,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         self.w = self.container
         # NOTEBOOK section
         self.NOTEBOOK = self.w.notebook_see_prefs
+        self.NOTEBOOK.enable_traversal()
         # ELEMENT CHAINING section
         self.w.combo_current_element.configure(
             values=_names, state=_readonly
@@ -185,6 +186,9 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             event handler: a notebook tab has been selected;
         """
         print("slot_tab_changed")
+        # which tab is it?
+        _index = event.widget.index("current")
+        print("current tab:", _index)
     # end def
 
 

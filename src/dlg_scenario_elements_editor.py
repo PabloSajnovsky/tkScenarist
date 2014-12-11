@@ -249,6 +249,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             event handler: updates chaining combo along current
             selected element;
         """
+        print("slot_update_chaining_combos")
         # inits
         _combo = self.w.combo_current_element
         _tag = self.element_names[_combo.get()]

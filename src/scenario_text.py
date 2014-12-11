@@ -678,7 +678,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         return json.loads(
             self.options.get(
-                "gui", "scenario_text_settings", fallback="[]"
+                self.classname().lower(), "text_settings", fallback="[]"
             )
         ) or self.ELEMENT_DEFAULTS
     # end def
@@ -1150,7 +1150,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             resets self.ELEMENT dictionary with @new_dict;
         """
         if tools.is_pdict(new_dict):
-            # reset dict
+            # reset dict (weakref)
             self.ELEMENT = new_dict.copy()
             # reset configs
             self.init_styles()
@@ -1174,7 +1174,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             e_dict = self.ELEMENT
         # end if
         # reset options settings
-        self.options["gui"]["scenario_text_settings"] = json.dumps(e_dict)
+        _section = self.classname().lower()
+        self.options[_section]["text_settings"] = json.dumps(e_dict)
     # end def
 
 

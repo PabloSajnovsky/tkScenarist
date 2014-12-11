@@ -566,16 +566,17 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             event handler: updates current element info;
         """
         # inits
-        _label = lambda n: self.TEXT.get_label(n)
         _map = self.TEXT.get_element_mappings()
         _tag = _map["tag"]
-        # reset widgets
-        self.set_combo_text(_label(_tag))
-        self.LBL_TAB.set(_label(_map["tab"] or _map["tab_switch"]))
-        self.LBL_RET.set(_label(_map["return"]))
-        self.LBL_CTRL_RET.set(
-            _label(_map["ctrl_return"] or _map["ctrl_switch"])
+        _label = lambda n: self.TEXT.get_label(
+            _map["on_{}_create".format(n)] or
+            _map["on_{}_switch".format(n)]
         )
+        # reset widgets
+        self.set_combo_text(self.TEXT.get_label(_tag))
+        self.LBL_TAB.set(_label("tab"))
+        self.LBL_RET.set(_label("return"))
+        self.LBL_CTRL_RET.set(_label("ctrl_return"))
         # update hints
         self.async.run_after(1000, self.update_hints)
         # update stats

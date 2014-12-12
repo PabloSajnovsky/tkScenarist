@@ -56,6 +56,9 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         self.w.combo_current_element.bind(
             "<<ComboboxSelected>>", self.slot_current_element_changed
         )
+        self.w.text_preview.bind(
+            "<ButtonRelease>", self.slot_preview_clicked
+        )
     # end def
 
 
@@ -353,6 +356,14 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         )
         # update linked combos + look'n'feel
         self.slot_update_linked_items()
+    # end def
+
+
+    def slot_preview_clicked (self, event=None, *args, **kw):
+        """
+            event handler: mouse click on preview text widget;
+        """
+        print("clicked on tag:", self.w.text_preview.tag_names("current"))
     # end def
 
 

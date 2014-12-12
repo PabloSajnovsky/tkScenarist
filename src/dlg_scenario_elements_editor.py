@@ -215,7 +215,9 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         # set choice names to all switch/create combos
         self.CHAINING_NAMES = self.get_chaining_names()
         self.CHAINING_COMBOS = self.get_chaining_combos()
-        self.CHAININGS = zip(self.CHAINING_COMBOS, self.CHAINING_NAMES)
+        self.CHAININGS = tuple(
+            zip(self.CHAINING_COMBOS, self.CHAINING_NAMES)
+        )
         for _w in self.CHAINING_COMBOS:
             _w.configure(values=_names, state=_readonly)
             _w.current(0)

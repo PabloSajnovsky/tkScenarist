@@ -96,17 +96,17 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
 
     def get_font_attrs (self, str_font):
         """
-            retrieves font attributes from a formatted font string;
-            returns tuple(family, size, style);
+            retrieves font attributes from a formatted @str_font font
+            string; returns tuple (family, size, style);
         """
         # inits
-        _font = font.Font(font=str_font or "monospace 12 normal")
-        _font = font.Font(font="monospace 12 bold")
+        _font = font.Font(font=str_font or "monospace 12")
         _family = _font.cget("family")
         _size = _font.cget("size")
-        _weight = _font.cget("weight")
+        _weight = _font.cget("weight").replace("normal", "")
         _slant = _font.cget("slant").replace("roman", "")
-        _style = "{} {}".format(_weight, _slant)
+        _style = "{} {}".format(_weight, _slant).strip()
+        _style = _style or "normal"
         # return results
         return (_family, _size, _style)
     # end def
@@ -213,6 +213,18 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def set_color_label (self, *widgets):
+        """
+            resets text option along with widget's background color;
+        """
+        # browse widgets
+        for _w in widgets:
+            # reset text label
+            _w.configure(text=_w.cget("background").upper())
+        # end for
+    # end def
+
+
     def slot_choose_color (self, *args, widget=None, **kw):
         """
             event handler: opens tkinter.colorchooser dialog and asks
@@ -229,7 +241,9 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
                 parent=self,
             )[-1] or _bg
             # reset widget's background color
-            widget.configure(background=_color, text=_color.upper())
+            widget.configure(background=_color)
+            # reset widget's text label
+            self.set_color_label(widget)
         # end if
     # end def
 
@@ -291,6 +305,16 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         self.w.combo_font_family.set(_face)
         self.w.combo_font_size.set(_size)
         self.w.combo_font_style.set(_style)
+        # background/foreground colors
+        _bg = _config.get("background") or "white"
+        _fg = _config.get("foreground") or "black"
+        self.w.btn_choose_bg.configure(background=_bg)
+        self.w.btn_choose_fg.configure(background=_fg)
+        self.set_color_label(self.w.btn_choose_bg, self.w.btn_choose_fg)
+        # text alignment
+        self.w.get_stringvar("options_text_align").set(
+            _config.get("justify") or "left"
+        )
     # end def
 
 

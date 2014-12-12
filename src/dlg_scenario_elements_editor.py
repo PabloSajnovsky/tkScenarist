@@ -461,9 +461,12 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         print("slot_tab_changed")
         # which tab is it?
         _index = self.get_current_tab_index()
+        print("tab index:", _index)
+        print("settings[0]:", id(self.settings[0]))
+        print("settings[1]:", id(self.settings[1]))
         # change current settings
         self.current_settings = self.settings[_index]
-        print("new settings:", self.current_settings)
+        print("new settings:", id(self.current_settings))
         # update current selected element
         self.slot_update_current_selected()
     # end def

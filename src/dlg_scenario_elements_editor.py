@@ -312,6 +312,20 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def slot_update_data (self, *args, **kw):
+        """
+            event handler: updates all data in form;
+        """
+        print("update_data")
+        # update current element
+        self.w.combo_current_element.current(
+            self.current_settings["current_selected"]
+        )
+        # update chaining combos + look'n'feel
+        self.slot_update_linked_items()
+    # end def
+
+
     def slot_update_linked_items (self, *args, **kw):
         """
             event handler: updates all linked items along current
@@ -365,6 +379,19 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         self.reset_margin(
             "entry_margin_right", self.w.combo_rmargin_units, _rmargin
         )
+        # update preview
+        self.slot_update_preview()
+    # end def
+
+
+    def slot_update_preview (self, *args, **kw):
+        """
+            updates preview text widget contents;
+        """
+        # inits
+        _text = self.w.text_preview
+        # enable text preview
+        self.enable_widget(_text, True)
         # reset preview text tags configuration
         for _tag, _element in self.current_settings["element"].items():
             # get configuration
@@ -372,14 +399,10 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             # got configuration?
             if _config:
                 # reset preview tag configuration
-                self.w.text_preview.tag_delete(_tag)
-                self.w.text_preview.tag_configure(_tag, **_config)
+                _text.tag_delete(_tag)
+                _text.tag_configure(_tag, **_config)
             # end if
         # end for
-        # reset text preview contents
-        _text = self.w.text_preview
-        # enable text preview
-        self.enable_widget(_text, True)
         # reset contents
         _text.delete("1.0", "end")
         _action = self.reformat_line(
@@ -410,20 +433,6 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         )
         # disable text preview
         self.enable_widget(_text, False)
-    # end def
-
-
-    def slot_update_data (self, *args, **kw):
-        """
-            event handler: updates all data in form;
-        """
-        print("update_data")
-        # update current element
-        self.w.combo_current_element.current(
-            self.current_settings["current_selected"]
-        )
-        # update chaining combos + look'n'feel
-        self.slot_update_linked_items()
     # end def
 
 

@@ -223,21 +223,11 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         )
         # inits
         self.w_text = kw.get("w_text")
+        # set default values for all settings
         self.init_defaults()
-        self.settings = (
-            # global settings
-            {
-                "element":
-                    copy.deepcopy(self.w_text.get_options_element()),
-                "current_selected": 0,
-            },
-            # project settings
-            {
-                "element": copy.deepcopy(self.w_text.ELEMENT),
-                "current_selected": 0,
-            },
-        )
+        # current settings
         self.current_settings = self.settings[0]
+        # other inits
         self.element_names = self.get_element_names(
             self.current_settings["element"]
         )

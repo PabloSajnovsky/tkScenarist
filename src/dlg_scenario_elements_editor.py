@@ -36,7 +36,18 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     """
 
     # class constant defs
-    BUTTONS = ("OK", "Cancel", "Reset to defaults")
+    BUTTONS = ("OK", "Reset to defaults", "Cancel")
+
+
+    def _slot_button_resettodefaults (self, event=None, *args, **kw):
+        """
+            event handler: dialog button 'Reset to defaults';
+        """
+        # reset to defaults
+        self.init_defaults()
+        # update form data
+        self.slot_tab_changed()
+    # end def
 
 
     def bind_events (self, **kw):
@@ -47,6 +58,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         self.events.connect_dict(
             {
                 "Dialog:Color:Choose": self.slot_choose_color,
+                "Dialog:Text:Align": self.slot_store_looknfeel,
             }
         )
         # tkinter widget event bindings
@@ -258,6 +270,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             values=['monospace', 'sans', 'serif', 'tkdefaultfont'] +
             sorted(font.families())
         )
+        self.w.combo_font_family.state(_readonly)
         self.w.combo_font_family.current(0)
         self.w.combo_font_size.current(0)
         self.w.combo_font_style.state(_readonly)
@@ -373,7 +386,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             _("'TRANSITION' line."), "transition"
         )
         _text.insert(
-            "end",
+            "1.0",
             *(
                 _scene + _action + _character + _parenthetical +
                 _dialogue + _character + _dialogue + _action +
@@ -404,6 +417,8 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             widget.configure(background=_color)
             # reset widget's text label
             self.set_color_label(widget)
+            # store new data in look'n'feel settings
+            self.slot_store_looknfeel()
         # end if
     # end def
 

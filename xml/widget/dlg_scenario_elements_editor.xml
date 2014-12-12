@@ -249,6 +249,7 @@
                 >
                     <radiobutton
                         text="left"
+                        command="@Dialog:Text:Align"
                         variable="options_text_align"
                         value="left"
                         indicatoron="no"
@@ -257,6 +258,7 @@
                     />
                     <radiobutton
                         text="center"
+                        command="@Dialog:Text:Align"
                         variable="options_text_align"
                         value="center"
                         indicatoron="no"
@@ -265,6 +267,7 @@
                     />
                     <radiobutton
                         text="right"
+                        command="@Dialog:Text:Align"
                         variable="options_text_align"
                         value="right"
                         indicatoron="no"

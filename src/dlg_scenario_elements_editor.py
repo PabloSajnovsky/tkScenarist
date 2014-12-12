@@ -433,8 +433,10 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
             event handler: stores create/switch combo data in settings;
         """
+        print("slot_store_chainings")
         # inits
         _element = self.get_current_element()
+        print("current settings:", id(self.current_settings))
         # browse items
         for _widget, _name in self.CHAININGS:
             # reset settings
@@ -450,6 +452,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
             event handler: stores look'n'feel data in settings;
         """
+        print("slot_store_looknfeel")
         pass # FIXME
     # end def
 
@@ -462,11 +465,11 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         # which tab is it?
         _index = self.get_current_tab_index()
         print("tab index:", _index)
-        print("settings[0]:", id(self.settings[0]))
-        print("settings[1]:", id(self.settings[1]))
+        print("settings[0]:", id(self.settings[0]), "element:", id(self.settings[0]["element"]))
+        print("settings[1]:", id(self.settings[1]), "element:", id(self.settings[1]["element"]))
         # change current settings
         self.current_settings = self.settings[_index]
-        print("new settings:", id(self.current_settings))
+        print("new settings:", id(self.current_settings), "element:", id(self.current_settings["element"]))
         # update current selected element
         self.slot_update_current_selected()
     # end def

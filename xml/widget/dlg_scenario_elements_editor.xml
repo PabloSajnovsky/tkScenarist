@@ -189,7 +189,7 @@
                 />
                 <ttkcombobox
                     name="combo_font_style"
-                    values="'normal', 'roman', 'bold', 'italic', 'bold italic'"
+                    values="'normal', 'bold', 'italic', 'bold italic'"
                     width="14"
                     layout="grid"
                     layout_options="row=0, column=2"

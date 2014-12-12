@@ -1,7 +1,7 @@
 [DEFAULT]
-mainwindow = 640x480+20+20
 mainwindow_state = normal
 maximized = 0
+mainwindow = 640x480+20+20
 dialog_state = normal
 
 [files]

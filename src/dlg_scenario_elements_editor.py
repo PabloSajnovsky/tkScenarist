@@ -101,9 +101,12 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
         # inits
         _font = font.Font(font=str_font or "monospace 12 normal")
+        _font = font.Font(font="monospace 12 bold")
         _family = _font.cget("family")
         _size = _font.cget("size")
-        _style = _font.cget("slant")
+        _weight = _font.cget("weight")
+        _slant = _font.cget("slant").replace("roman", "")
+        _style = "{} {}".format(_weight, _slant)
         # return results
         return (_family, _size, _style)
     # end def

@@ -190,7 +190,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             font=self.w_text.cget("font"),
             background=self.w_text.cget("background"),
             foreground=self.w_text.cget("foreground"),
-            width=1, height=5, wrap="word",
+            width=1, height=10, wrap="word",
         )
         # event bindings
         self.bind_events(**kw)

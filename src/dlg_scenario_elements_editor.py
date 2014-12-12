@@ -24,6 +24,7 @@
 
 # lib imports
 import re
+import copy
 from tkinter import font
 from tkinter import colorchooser
 import tkRAD.widgets.rad_dialog as DLG
@@ -204,12 +205,13 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         self.settings = (
             # global settings
             {
-                "element": self.w_text.get_options_element().copy(),
+                "element":
+                    copy.deepcopy(self.w_text.get_options_element()),
                 "current_selected": 0,
             },
             # project settings
             {
-                "element": self.w_text.ELEMENT.copy(),
+                "element": copy.deepcopy(self.w_text.ELEMENT),
                 "current_selected": 0,
             },
         )

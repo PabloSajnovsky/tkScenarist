@@ -199,6 +199,20 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def reformat_line (self, contents, tag):
+        """
+            reformats text line @contents along with @tag constraints;
+            returns tuple (contents, tag);
+        """
+        # inits
+        _text, _adjust = self.w_text.switch_to_method(
+            "reformat_line_{}".format(tag), contents
+        )
+        # return results
+        return (_text, tag)
+    # end def
+
+
     def reset_margin (self, cvar_entry, combo, value):
         """
             resets entry value + units combo value along with given
@@ -368,21 +382,18 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         self.enable_widget(_text, True)
         # reset contents
         _text.delete("1.0", "end")
+        _action = self.reformat_line(_("This is an 'ACTION' line.\n"), "action")
+        _character = self.reformat_line(_("'CHARACTER' name\n"), "character")
+        _dialogue = self.reformat_line(_("This is a 'DIALOGUE' line.\n"), "dialogue")
+        _parenthetical = self.reformat_line(_("this is a 'PARENTHETICAL' line.\n"), "parenthetical")
+        _scene = self.reformat_line(_("ext - day - this is a 'SCENE' line\n"), "scene")
+        _transition = self.reformat_line(_("Transition e.g. cut, fade in, fade out\n"), "transition")
         _text.insert(
             "end",
             *(
-                _("ext - day - this is a 'SCENE' line\n"), "scene",
-                _("This is an 'ACTION' line.\n"), "action",
-                _("'CHARACTER' name\n"), "character",
-                _("this is a 'PARENTHETICAL' line.\n"), "parenthetical",
-                _("This is a 'DIALOGUE' line.\n"), "dialogue",
-                _("'CHARACTER' name\n"), "character",
-                _("This is a 'DIALOGUE' line.\n"), "dialogue",
-                _("This is an 'ACTION' line.\n"), "action",
-                _("Transition e.g. cut, fade in, fade out\n"), "transition",
-                _("ext - day - this is a 'SCENE' line\n"), "scene",
-                _("Transition e.g. cut, fade in, fade out\n"), "transition",
-                _("This is an 'ACTION' line.\n"), "action",
+                _scene + _action + _character + _parenthetical +
+                _dialogue + _character + _dialogue + _action +
+                _transition + _scene + _transition + _action
             )
         )
         # disable text preview

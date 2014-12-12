@@ -185,6 +185,8 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         self.w.combo_rmargin_units.state(_readonly)
         self.w.combo_rmargin_units.current(0)
         # PREVIEW section
+        self.w.text_preview.configure(**self.w_text.cget())
+        # attrs override
         self.w.text_preview.configure(width=1, height=5, wrap="word")
         # event bindings
         self.bind_events(**kw)

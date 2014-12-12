@@ -36,7 +36,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     """
 
     # class constant defs
-    BUTTONS = ("OK", "Cancel")
+    BUTTONS = ("OK", "Cancel", "Reset to defaults")
 
 
     def bind_events (self, **kw):
@@ -191,6 +191,27 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def init_defaults (self, **kw):
+        """
+            sets all settings to default values;
+        """
+        # set to defaults
+        self.settings = (
+            # global settings
+            {
+                "element":
+                    copy.deepcopy(self.w_text.get_options_element()),
+                "current_selected": 0,
+            },
+            # project settings
+            {
+                "element": copy.deepcopy(self.w_text.ELEMENT),
+                "current_selected": 0,
+            },
+        )
+    # end def
+
+
     def init_widget (self, **kw):
         r"""
             widget main inits;
@@ -202,6 +223,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         )
         # inits
         self.w_text = kw.get("w_text")
+        self.init_defaults()
         self.settings = (
             # global settings
             {
@@ -438,7 +460,6 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         print("slot_store_chainings")
         # inits
         _element = self.get_current_element()
-        print("current settings:", id(self.current_settings), "element:", id(self.current_settings["element"]))
         # browse items
         for _widget, _name in self.CHAININGS:
             # reset settings
@@ -446,7 +467,6 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
                 self.element_names.get(_widget.get()) or ""
             )
         # end for
-        print("element:", id(_element), _element)
     # end def
 
 
@@ -466,12 +486,8 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         print("slot_tab_changed")
         # which tab is it?
         _index = self.get_current_tab_index()
-        print("tab index:", _index)
-        print("settings[0]:", id(self.settings[0]), "element:", id(self.settings[0]["element"]))
-        print("settings[1]:", id(self.settings[1]), "element:", id(self.settings[1]["element"]))
         # change current settings
         self.current_settings = self.settings[_index]
-        print("new settings:", id(self.current_settings), "element:", id(self.current_settings["element"]))
         # update current selected element
         self.slot_update_current_selected()
     # end def
@@ -499,7 +515,6 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         print("slot_update_linked_items")
         # inits
         _element = self.get_current_element()
-        print("current element:", id(_element), _element)
         # reset combos
         for _widget, _name in self.CHAININGS:
             _widget.set(

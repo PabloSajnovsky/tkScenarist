@@ -365,7 +365,6 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
         # inits
         _tags = self.w.text_preview.tag_names("current")
-        print("tag names:", _tags)
         # got tag?
         if _tags:
             # inits
@@ -482,6 +481,8 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
                 _text.tag_configure(_tag, **_config)
             # end if
         # end for
+        # always raise SEL upon any other
+        _text.tag_raise("sel")
         # update text contents
         self.set_preview_contents()
         # show concerned line

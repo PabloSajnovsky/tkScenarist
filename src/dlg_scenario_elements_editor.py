@@ -444,7 +444,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
                 self.element_names.get(_widget.get()) or ""
             )
         # end for
-        print("element:", _element)
+        print("element:", id(_element), _element)
     # end def
 
 
@@ -497,7 +497,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         print("slot_update_linked_items")
         # inits
         _element = self.get_current_element()
-        print("current element:", _element)
+        print("current element:", id(_element), _element)
         # reset combos
         for _widget, _name in self.CHAININGS:
             _widget.set(

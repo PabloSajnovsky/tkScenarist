@@ -367,7 +367,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             "entry_margin_right", self.w.combo_rmargin_units, _rmargin
         )
         # reset preview text tags configuration
-        for _tag, _element in self.current_settings["element"]:
+        for _tag, _element in self.current_settings["element"].items():
             # get configuration
             _config = _element.get("config")
             # got configuration?

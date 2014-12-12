@@ -76,15 +76,11 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             _w.bind("<<ComboboxSelected>>", self.slot_store_chainings)
         # end for
         # LOOK'N'FEEL section
-        self.w.combo_font_family.bind(
-            "<<ComboboxSelected>>", self.slot_store_looknfeel
-        )
-        self.w.combo_font_size.bind(
-            "<<ComboboxSelected>>", self.slot_store_looknfeel
-        )
-        self.w.combo_font_style.bind(
-            "<<ComboboxSelected>>", self.slot_store_looknfeel
-        )
+        for _w in self.FONT_COMBOS:
+            _w.bind(
+                "<<ComboboxSelected>>", self.slot_store_looknfeel
+            )
+        # end for
         # PREVIEW section
         self.w.text_preview.bind(
             "<ButtonRelease-1>", self.slot_preview_clicked
@@ -270,11 +266,15 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             values=['monospace', 'sans', 'serif', 'tkdefaultfont'] +
             sorted(font.families())
         )
-        self.w.combo_font_family.state(_readonly)
-        self.w.combo_font_family.current(0)
-        self.w.combo_font_size.current(0)
-        self.w.combo_font_style.state(_readonly)
-        self.w.combo_font_style.current(0)
+        self.FONT_COMBOS = (
+            self.w.combo_font_family,
+            self.w.combo_font_size,
+            self.w.combo_font_style
+        )
+        for _w in self.FONT_COMBOS:
+            _w.state(_readonly)
+            _w.current(0)
+        # end if
         # MARGIN section
         self.w.combo_lmargin_units.state(_readonly)
         self.w.combo_lmargin_units.current(0)

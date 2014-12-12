@@ -23,6 +23,7 @@
 """
 
 # lib imports
+import re
 from tkinter import font
 from tkinter import colorchooser
 import tkRAD.widgets.rad_dialog as DLG
@@ -213,6 +214,35 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def reset_margin (self, cvar_entry, combo, value):
+        """
+            resets entry value + units combo value along with given
+            @value parameter value;
+        """
+        # inits
+        value = str(value or 0).strip()
+        _units = "px"
+        # search for units in value
+        _match = re.search(r"(\d+)\s*(\w*)", value)
+        # got matchup?
+        if _match:
+            # inits
+            value = _match.group(1)
+            _unit = _match.group(2)
+            # got units?
+            if _unit:
+                # tkinter standard dimension parsing
+                _units = {
+                    "c": "cm", "i": "in", "m": "mm", "p": "pt",
+                }.get(_unit[0]) or "px"
+            # end if
+        # end if
+        # reset widgets
+        self.w.get_stringvar(cvar_entry).set(value)
+        combo.set(_units)
+    # end def
+
+
     def set_color_label (self, *widgets):
         """
             resets text option along with widget's background color;
@@ -329,12 +359,12 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             _config.get("lmargin1") or _config.get("lmargin2") or 0
         )
         self.reset_margin(
-            "entry_margin_left", "combo_lmargin_units", _lmargin
+            "entry_margin_left", self.w.combo_lmargin_units, _lmargin
         )
         # right margin
         _rmargin = _config.get("rmargin") or 0
         self.reset_margin(
-            "entry_margin_right", "combo_rmargin_units", _rmargin
+            "entry_margin_right", self.w.combo_rmargin_units, _rmargin
         )
         # reset preview text tags configuration
         for _tag, _element in self.current_settings["element"]:

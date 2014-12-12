@@ -439,10 +439,18 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         for _widget, _name in self.CHAININGS:
             # reset settings
             _element["on_{}".format(_name)] = (
-                self.element_names[_widget.get()]
+                self.element_names.get(_widget.get()) or ""
             )
         # end for
         print("element:", _element)
+    # end def
+
+
+    def slot_store_looknfeel (self, event=None, *args, **kw):
+        """
+            event handler: stores look'n'feel data in settings;
+        """
+        pass # FIXME
     # end def
 
 
@@ -455,6 +463,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         _index = self.get_current_tab_index()
         # change current settings
         self.current_settings = self.settings[_index]
+        print("new settings:", self.current_settings)
         # update current selected element
         self.slot_update_current_selected()
     # end def
@@ -482,6 +491,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         print("slot_update_linked_items")
         # inits
         _element = self.get_current_element()
+        print("current element:", _element)
         # reset combos
         for _widget, _name in self.CHAININGS:
             _widget.set(

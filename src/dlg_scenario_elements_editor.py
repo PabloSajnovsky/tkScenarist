@@ -225,8 +225,8 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         self.current_settings["current_selected"] = (
             self.w.combo_current_element.current()
         )
-        # update linked combos along with new item
-        self.slot_update_chaining_combos()
+        # update linked combos + look'n'feel
+        self.slot_update_linked_items()
     # end def
 
 
@@ -244,16 +244,16 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def slot_update_chaining_combos (self, *args, **kw):
+    def slot_update_linked_items (self, *args, **kw):
         """
-            event handler: updates chaining combo along current
+            event handler: updates all linked items along current
             selected element;
         """
-        print("slot_update_chaining_combos")
+        print("slot_update_linked_items")
         # inits
         _combo = self.w.combo_current_element
         _tag = self.element_names[_combo.get()]
-        _tags = self.current_settings["element"][_tag]
+        _element = self.current_settings["element"][_tag]
         # reset combos
         for _key in ("tab", "return", "ctrl_return"):
             for _t in ("switch", "create"):
@@ -261,11 +261,13 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
                 _w = getattr(self.w, "combo_{}".format(_name))
                 _w.set(
                     self.get_label(
-                        _tags.get("on_{}".format(_name))
+                        _element.get("on_{}".format(_name))
                     )
                 )
             # end for
         # end for
+        # reset look'n'feel
+        _config = _element["config"]
     # end def
 
 
@@ -274,10 +276,12 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             event handler: updates all data in form;
         """
         print("update_data")
-        # update chaining combos + look'n'feel
+        # update current element
         self.w.combo_current_element.current(
             self.current_settings["current_selected"]
         )
+        # update chaining combos + look'n'feel
+        self.slot_update_linked_items()
     # end def
 
 

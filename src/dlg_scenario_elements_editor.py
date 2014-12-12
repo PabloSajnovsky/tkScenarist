@@ -298,13 +298,13 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             _("This is a 'DIALOGUE' line."), "dialogue"
         )
         _parenthetical = self.reformat_line(
-            _("this is a 'PARENTHETICAL' line."), "parenthetical"
+            _("this is a 'PARENTHETICAL' line"), "parenthetical"
         )
         _scene = self.reformat_line(
             _("ext - day - this is a 'SCENE' line"), "scene"
         )
         _transition = self.reformat_line(
-            _("Transition e.g. cut, fade in, fade out"), "transition"
+            _("'TRANSITION' line."), "transition"
         )
         _text.insert(
             "end",

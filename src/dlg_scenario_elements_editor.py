@@ -219,8 +219,12 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
         # browse widgets
         for _w in widgets:
+            # init standard color
+            _color = "#{:04x}{:04x}{:04x}".format(
+                *_w.winfo_rgb(_w.cget("background"))
+            )
             # reset text label
-            _w.configure(text=_w.cget("background").upper())
+            _w.configure(text=_color.upper())
         # end for
     # end def
 

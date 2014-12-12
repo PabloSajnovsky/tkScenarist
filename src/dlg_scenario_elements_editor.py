@@ -76,7 +76,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             _w.bind("<<ComboboxSelected>>", self.slot_store_chainings)
         # end for
         # LOOK'N'FEEL section
-        for _w in self.FONT_COMBOS:
+        for _w in self.FONT_COMBOS + self.MARGIN_COMBOS:
             _w.bind(
                 "<<ComboboxSelected>>", self.slot_store_looknfeel
             )
@@ -271,15 +271,15 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             self.w.combo_font_size,
             self.w.combo_font_style
         )
-        for _w in self.FONT_COMBOS:
+        # MARGIN section
+        self.MARGIN_COMBOS = (
+            self.w.combo_lmargin_units, self.w.combo_rmargin_units
+        )
+        # init all combos at once
+        for _w in self.FONT_COMBOS + self.MARGIN_COMBOS:
             _w.state(_readonly)
             _w.current(0)
         # end if
-        # MARGIN section
-        self.w.combo_lmargin_units.state(_readonly)
-        self.w.combo_lmargin_units.current(0)
-        self.w.combo_rmargin_units.state(_readonly)
-        self.w.combo_rmargin_units.current(0)
         # PREVIEW section
         self.w.text_preview.configure(
             # use only the following attrs from w_text

@@ -73,6 +73,23 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def get_current_element (self):
+        """
+            retrieves dict() of current selected element settings;
+        """
+        return self.current_settings["element"]\
+                                    [self.get_current_element_tag()]
+    # end def
+
+
+    def get_current_element_tag (self):
+        """
+            retrieves tag name of current selected element;
+        """
+        return self.element_names[self.w.combo_current_element.get()]
+    # end def
+
+
     def get_current_tab_index (self):
         """
             retrieves notebook's current selected tab numeric index;
@@ -333,9 +350,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
         print("slot_update_linked_items")
         # inits
-        _combo = self.w.combo_current_element
-        _tag = self.element_names[_combo.get()]
-        _element = self.current_settings["element"][_tag]
+        _element = self.get_current_element()
         # reset combos
         for _key in ("tab", "return", "ctrl_return"):
             for _t in ("switch", "create"):
@@ -379,7 +394,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         self.reset_margin(
             "entry_margin_right", self.w.combo_rmargin_units, _rmargin
         )
-        # update preview
+        # update preview contents
         self.slot_update_preview()
     # end def
 
@@ -431,6 +446,8 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
                 _transition + _scene + _transition + _action
             )
         )
+        # show concerned line
+        _text.see(_text.tag_ranges(self.get_current_element_tag())[0])
         # disable text preview
         self.enable_widget(_text, False)
     # end def

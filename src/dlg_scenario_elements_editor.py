@@ -213,7 +213,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         # event bindings
         self.bind_events(**kw)
         # reset to 'global settings' tab
-        self.NOTEBOOK.select(0)
+        self.after_idle(self.NOTEBOOK.select, 0)
     # end def
 
 
@@ -459,6 +459,8 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             # end if
         # end for
         # show concerned line
+        _tag = self.get_current_element_tag()
+        print("current tag:", _tag, _text.tag_ranges(_tag))
         _text.see(_text.tag_ranges(self.get_current_element_tag())[0])
     # end def
 

@@ -363,7 +363,15 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
             event handler: mouse click on preview text widget;
         """
-        print("clicked on tag:", self.w.text_preview.tag_names("current"))
+        # inits
+        _tag = self.w.text_preview.tag_names("current")
+        # got tag?
+        if _tag:
+            # update current selected element
+            self.w.combo_current_element.set(self.get_label(_tag[0]))
+            # update linked combos + look'n'feel
+            self.slot_update_linked_items()
+        # end if
     # end def
 
 

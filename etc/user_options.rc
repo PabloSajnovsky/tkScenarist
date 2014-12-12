@@ -1,10 +1,11 @@
 [DEFAULT]
-mainwindow = 640x480+20+20
 maximized = 0
 mainwindow_state = normal
+mainwindow = 640x480+20+20
 dialog_state = normal
 
-[files]
+[gui]
+show_statusbar = 1
 
 [xml]
 
@@ -19,8 +20,7 @@ mainwindow = 970x485+101+132
 dialog_state = normal
 pitchtemplatesdialog = 778x506+215+243
 
-[gui]
-show_statusbar = 1
+[files]
 
 [mainwindow]
 

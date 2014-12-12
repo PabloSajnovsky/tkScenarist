@@ -220,11 +220,14 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         # browse widgets
         for _w in widgets:
             # init standard color
-            _color = "#{:04x}{:04x}{:04x}".format(
-                *_w.winfo_rgb(_w.cget("background"))
+            _color = "#{:02X}{:02X}{:02X}".format(
+                *map(
+                    lambda x: x//256,
+                    _w.winfo_rgb(_w.cget("background"))
+                )
             )
             # reset text label
-            _w.configure(text=_color.upper())
+            _w.configure(text=_color)
         # end for
     # end def
 
@@ -314,11 +317,36 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         _fg = _config.get("foreground") or "black"
         self.w.btn_choose_bg.configure(background=_bg)
         self.w.btn_choose_fg.configure(background=_fg)
-        self.set_color_label(self.w.btn_choose_bg, self.w.btn_choose_fg)
+        self.set_color_label(
+            self.w.btn_choose_bg, self.w.btn_choose_fg
+        )
         # text alignment
         self.w.get_stringvar("options_text_align").set(
             _config.get("justify") or "left"
         )
+        # left margin
+        _lmargin = (
+            _config.get("lmargin1") or _config.get("lmargin2") or 0
+        )
+        self.reset_margin(
+            "entry_margin_left", "combo_lmargin_units", _lmargin
+        )
+        # right margin
+        _rmargin = _config.get("rmargin") or 0
+        self.reset_margin(
+            "entry_margin_right", "combo_rmargin_units", _rmargin
+        )
+        # reset preview text tags configuration
+        for _tag, _element in self.current_settings["element"]:
+            # get configuration
+            _config = _element.get("config")
+            # got configuration?
+            if _config:
+                # reset preview tag configuration
+                self.w.text_preview.tag_delete(_tag)
+                self.w.text_preview.tag_configure(_tag, **_config)
+            # end if
+        # end for
     # end def
 
 

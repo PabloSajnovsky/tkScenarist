@@ -100,7 +100,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             returns tuple(family, size, style);
         """
         # inits
-        _font = font.nametofont(str_font or "monospace 12 normal")
+        _font = font.Font(font=str_font or "monospace 12 normal")
         _family = _font.cget("family")
         _size = _font.cget("size")
         _style = _font.cget("slant")

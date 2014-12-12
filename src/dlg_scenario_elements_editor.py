@@ -436,7 +436,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         print("slot_store_chainings")
         # inits
         _element = self.get_current_element()
-        print("current settings:", id(self.current_settings))
+        print("current settings:", id(self.current_settings), "element:", id(self.current_settings["element"]))
         # browse items
         for _widget, _name in self.CHAININGS:
             # reset settings

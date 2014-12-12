@@ -365,7 +365,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
         # inits
         _tags = self.w.text_preview.tag_names("current")
-        # got tag?
+        # got tags?
         if _tags:
             # inits
             _label = self.get_label(_tags[0])

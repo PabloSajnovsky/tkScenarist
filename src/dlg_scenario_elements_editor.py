@@ -185,28 +185,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         self.w.combo_rmargin_units.state(_readonly)
         self.w.combo_rmargin_units.current(0)
         # PREVIEW section
-        _text = self.w.text_preview
-        _text.delete("1.0", "end")
-        _text.insert(
-            "end",
-            *(
-                _("ext - day - this is a 'SCENE' line\n"), "scene",
-                _("This is an 'ACTION' line.\n"), "action",
-                _("'CHARACTER' name\n"), "character",
-                _("this is a 'PARENTHETICAL' line.\n"), "parenthetical",
-                _("This is a 'DIALOGUE' line.\n"), "dialogue",
-                _("'CHARACTER' name\n"), "character",
-                _("This is a 'DIALOGUE' line.\n"), "dialogue",
-                _("This is an 'ACTION' line.\n"), "action",
-                _("Transition e.g. cut, fade in, fade out\n"), "transition",
-                _("ext - day - this is a 'SCENE' line\n"), "scene",
-                _("Transition e.g. cut, fade in, fade out\n"), "transition",
-                _("This is an 'ACTION' line.\n"), "action",
-            )
-        )
-        _text.configure(
-            width=1, height=5, wrap="word", state="disabled"
-        )
+        self.w.text_preview.configure(width=1, height=5, wrap="word")
         # event bindings
         self.bind_events(**kw)
         # reset to 'global settings' tab
@@ -377,6 +356,31 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
                 self.w.text_preview.tag_configure(_tag, **_config)
             # end if
         # end for
+        # reset text preview contents
+        _text = self.w.text_preview
+        # enable text preview
+        self.enable_widget(_text, True)
+        # reset contents
+        _text.delete("1.0", "end")
+        _text.insert(
+            "end",
+            *(
+                _("ext - day - this is a 'SCENE' line\n"), "scene",
+                _("This is an 'ACTION' line.\n"), "action",
+                _("'CHARACTER' name\n"), "character",
+                _("this is a 'PARENTHETICAL' line.\n"), "parenthetical",
+                _("This is a 'DIALOGUE' line.\n"), "dialogue",
+                _("'CHARACTER' name\n"), "character",
+                _("This is a 'DIALOGUE' line.\n"), "dialogue",
+                _("This is an 'ACTION' line.\n"), "action",
+                _("Transition e.g. cut, fade in, fade out\n"), "transition",
+                _("ext - day - this is a 'SCENE' line\n"), "scene",
+                _("Transition e.g. cut, fade in, fade out\n"), "transition",
+                _("This is an 'ACTION' line.\n"), "action",
+            )
+        )
+        # disable text preview
+        self.enable_widget(_text, False)
     # end def
 
 

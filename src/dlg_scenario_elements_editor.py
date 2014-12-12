@@ -76,6 +76,36 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def get_chaining_combos (self):
+        """
+            retrieves list of create/switch element chaining combos;
+        """
+        # inits
+        _list = []
+        for _name in self.get_chaining_names():
+            _list.append(
+                getattr(self.w, "combo_{}".format(_name))
+            )
+        # end for
+        return _list
+    # end def
+
+
+    def get_chaining_names (self):
+        """
+            retrieves list of create/switch element chaining names;
+        """
+        # inits
+        _list = []
+        for _key in ("tab", "return", "ctrl_return"):
+            for _t in ("switch", "create"):
+                _list.append("{}_{}".format(_key, _t))
+            # end for
+        # end for
+        return _list
+    # end def
+
+
     def get_current_element (self):
         """
             retrieves dict() of current selected element settings;
@@ -183,12 +213,12 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         # update element names for choice selection
         _names.insert(0, "")
         # set choice names to all switch/create combos
-        for _key in ("tab", "return", "ctrl_return"):
-            for _t in ("switch", "create"):
-                _w = getattr(self.w, "combo_{}_{}".format(_key, _t))
-                _w.configure(values=_names, state=_readonly)
-                _w.current(0)
-            # end for
+        self.CHAINING_NAMES = self.get_chaining_names()
+        self.CHAINING_COMBOS = self.get_chaining_combos()
+        self.CHAININGS = zip(self.CHAINING_COMBOS, self.CHAINING_NAMES)
+        for _w in self.CHAINING_COMBOS:
+            _w.configure(values=_names, state=_readonly)
+            _w.current(0)
         # end for
         # FONT section
         self.w.combo_font_family.configure(
@@ -374,7 +404,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
                 # update current selected element
                 self.w.combo_current_element.set(_label)
                 # update linked combos + look'n'feel
-                self.slot_update_linked_items()
+                self.slot_current_element_changed()
             # end if
         # end if
     # end def
@@ -417,16 +447,10 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         # inits
         _element = self.get_current_element()
         # reset combos
-        for _key in ("tab", "return", "ctrl_return"):
-            for _t in ("switch", "create"):
-                _name = "{}_{}".format(_key, _t)
-                _w = getattr(self.w, "combo_{}".format(_name))
-                _w.set(
-                    self.get_label(
-                        _element.get("on_{}".format(_name))
-                    )
-                )
-            # end for
+        for _widget, _name in self.CHAININGS:
+            _widget.set(
+                self.get_label(_element.get("on_{}".format(_name)))
+            )
         # end for
         # reset look'n'feel
         _config = _element.get("config") or dict()
@@ -481,7 +505,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
                 _text.tag_configure(_tag, **_config)
             # end if
         # end for
-        # always raise SEL upon any other
+        # always raise selection tag upon any other
         _text.tag_raise("sel")
         # update text contents
         self.set_preview_contents()

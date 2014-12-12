@@ -50,12 +50,29 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         )
         # tkinter widget event bindings
         self.bind("<Escape>", self._slot_button_cancel)
+        # NOTEBOOK section
         self.NOTEBOOK.bind(
             "<<NotebookTabChanged>>", self.slot_tab_changed
         )
+        # CURRENT SELECTED section
         self.w.combo_current_element.bind(
             "<<ComboboxSelected>>", self.slot_current_element_changed
         )
+        # CHAININGS section
+        for _w in self.CHAINING_COMBOS:
+            _w.bind("<<ComboboxSelected>>", self.slot_store_chainings)
+        # end for
+        # LOOK'N'FEEL section
+        self.w.combo_font_family.bind(
+            "<<ComboboxSelected>>", self.slot_store_looknfeel
+        )
+        self.w.combo_font_size.bind(
+            "<<ComboboxSelected>>", self.slot_store_looknfeel
+        )
+        self.w.combo_font_style.bind(
+            "<<ComboboxSelected>>", self.slot_store_looknfeel
+        )
+        # PREVIEW section
         self.w.text_preview.bind(
             "<ButtonRelease-1>", self.slot_preview_clicked
         )
@@ -412,6 +429,23 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def slot_store_chainings (self, event=None, *args, **kw):
+        """
+            event handler: stores create/switch combo data in settings;
+        """
+        # inits
+        _element = self.get_current_element()
+        # browse items
+        for _widget, _name in self.CHAININGS:
+            # reset settings
+            _element["on_{}".format(_name)] = (
+                self.element_names[_widget.get()]
+            )
+        # end for
+        print("element:", _element)
+    # end def
+
+
     def slot_tab_changed (self, event=None, *args, **kw):
         """
             event handler: a notebook tab has been selected;
@@ -421,16 +455,16 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         _index = self.get_current_tab_index()
         # change current settings
         self.current_settings = self.settings[_index]
-        # update all data
-        self.slot_update_data()
+        # update current selected element
+        self.slot_update_current_selected()
     # end def
 
 
-    def slot_update_data (self, *args, **kw):
+    def slot_update_current_selected (self, *args, **kw):
         """
             event handler: updates all data in form;
         """
-        print("update_data")
+        print("slot_update_current_selected")
         # update current element
         self.w.combo_current_element.current(
             self.current_settings["current_selected"]
@@ -536,12 +570,6 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             returns True on success, False otherwise;
         """
         # put here your own code in subclass
-        # get current tab numeric index
-        _tab = self.get_current_tab_index()
-        # TODO
-        """
-            if tab is 'global': ask if should apply to current project?
-        """
         # failed
         return False
     # end def

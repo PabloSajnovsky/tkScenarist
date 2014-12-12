@@ -209,6 +209,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             foreground=self.w_text.cget("foreground"),
             width=1, height=10, wrap="word",
         )
+        self.set_preview_contents()
         # event bindings
         self.bind_events(**kw)
         # reset to 'global settings' tab
@@ -275,6 +276,47 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             # reset text label
             _w.configure(text=_color)
         # end for
+    # end def
+
+
+    def set_preview_contents (self, *args, **kw):
+        """
+            sets preview text widget contents;
+        """
+        # inits
+        _text = self.w.text_preview
+        # enable text preview
+        self.enable_widget(_text, True)
+        # reset contents
+        _text.delete("1.0", "end")
+        _action = self.reformat_line(
+            _("This is an 'ACTION' line."), "action"
+        )
+        _character = self.reformat_line(
+            _("'CHARACTER' name"), "character"
+        )
+        _dialogue = self.reformat_line(
+            _("This is a 'DIALOGUE' line."), "dialogue"
+        )
+        _parenthetical = self.reformat_line(
+            _("this is a 'PARENTHETICAL' line."), "parenthetical"
+        )
+        _scene = self.reformat_line(
+            _("ext - day - this is a 'SCENE' line"), "scene"
+        )
+        _transition = self.reformat_line(
+            _("Transition e.g. cut, fade in, fade out"), "transition"
+        )
+        _text.insert(
+            "end",
+            *(
+                _scene + _action + _character + _parenthetical +
+                _dialogue + _character + _dialogue + _action +
+                _transition + _scene + _transition + _action
+            )
+        )
+        # disable text preview
+        self.enable_widget(_text, False)
     # end def
 
 
@@ -401,12 +443,10 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
 
     def slot_update_preview (self, *args, **kw):
         """
-            updates preview text widget contents;
+            updates preview text widget's look'n'feel;
         """
         # inits
         _text = self.w.text_preview
-        # enable text preview
-        self.enable_widget(_text, True)
         # reset preview text tags configuration
         for _tag, _element in self.current_settings["element"].items():
             # get configuration
@@ -418,38 +458,8 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
                 _text.tag_configure(_tag, **_config)
             # end if
         # end for
-        # reset contents
-        _text.delete("1.0", "end")
-        _action = self.reformat_line(
-            _("This is an 'ACTION' line."), "action"
-        )
-        _character = self.reformat_line(
-            _("'CHARACTER' name"), "character"
-        )
-        _dialogue = self.reformat_line(
-            _("This is a 'DIALOGUE' line."), "dialogue"
-        )
-        _parenthetical = self.reformat_line(
-            _("this is a 'PARENTHETICAL' line."), "parenthetical"
-        )
-        _scene = self.reformat_line(
-            _("ext - day - this is a 'SCENE' line"), "scene"
-        )
-        _transition = self.reformat_line(
-            _("Transition e.g. cut, fade in, fade out"), "transition"
-        )
-        _text.insert(
-            "end",
-            *(
-                _scene + _action + _character + _parenthetical +
-                _dialogue + _character + _dialogue + _action +
-                _transition + _scene + _transition + _action
-            )
-        )
         # show concerned line
         _text.see(_text.tag_ranges(self.get_current_element_tag())[0])
-        # disable text preview
-        self.enable_widget(_text, False)
     # end def
 
 

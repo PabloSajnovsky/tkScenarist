@@ -94,6 +94,21 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def get_font_attrs (self, str_font):
+        """
+            retrieves font attributes from a formatted font string;
+            returns tuple(family, size, style);
+        """
+        # inits
+        _font = font.nametofont(str_font or "monospace 12 normal")
+        _family = _font.cget("family")
+        _size = _font.cget("size")
+        _style = _font.cget("slant")
+        # return results
+        return (_family, _size, _style)
+    # end def
+
+
     def get_label (self, element_tag):
         """
             retrieves label for given @element_tag;
@@ -267,7 +282,12 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             # end for
         # end for
         # reset look'n'feel
-        _config = _element["config"]
+        _config = _element.get("config") or dict()
+        _face, _size, _style = self.get_font_attrs(_config.get("font"))
+        # font attributes
+        self.w.combo_font_family.set(_face)
+        self.w.combo_font_size.set(_size)
+        self.w.combo_font_style.set(_style)
     # end def
 
 

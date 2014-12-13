@@ -95,6 +95,9 @@
                         layout="pack"
                         resizable="width"
                     />
+
+                    <!-- listbox zone -->
+
                     <ttkframe
                         layout="pack"
                         resizable="yes"
@@ -123,6 +126,41 @@
                             layout="grid"
                             layout_options="row=1, column=0"
                             resizable="width"
+                        />
+                    </ttkframe>
+
+                    <!-- toolbar zone -->
+
+                    <ttkframe
+                        layout="pack"
+                        resizable="width"
+                    >
+                        <ttkbutton
+                            name="btn_add_shot"
+                            text="+"
+                            command="@Storyboard:Shot:Add"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                        />
+                        <ttkbutton
+                            name="btn_del_shot"
+                            text="-"
+                            command="@Storyboard:Shot:Delete"
+                            layout="grid"
+                            layout_options="row=0, column=1"
+                        />
+                        <!-- spacer -->
+                        <ttkframe
+                            layout="grid"
+                            layout_options="row=0, column=2"
+                            resizable="width"
+                        />
+                        <ttkbutton
+                            name="btn_rename_shot"
+                            text="Rename"
+                            command="@Storyboard:Shot:Rename"
+                            layout="grid"
+                            layout_options="row=0, column=3"
                         />
                     </ttkframe>
                 </ttkframe>
@@ -180,7 +218,7 @@
             <!-- shot editor -->
 
                 <ttkframe
-                    weight="2"
+                    weight="3"
                 >
                     <ttklabel
                         text="Shot editor:"

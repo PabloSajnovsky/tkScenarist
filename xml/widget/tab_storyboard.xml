@@ -35,7 +35,7 @@
         <ttklabelframe
             text="Navigation"
             padding="5px"
-            weight="5"
+            weight="2"
         >
             <ttkpanedwindow
                 orient="vertical"
@@ -46,7 +46,7 @@
                 <!-- scene browser -->
 
                 <ttkframe
-                    weight="5"
+                    weight="1"
                 >
                     <ttklabel
                         text="Scene browser:"
@@ -86,7 +86,7 @@
                 <!-- shot browser / manager -->
 
                 <ttkframe
-                    weight="1"
+                    weight="3"
                 >
                     <ttklabel
                         text="Shot browser:"
@@ -130,7 +130,7 @@
         <ttklabelframe
             text="Edition"
             padding="5px"
-            weight="1"
+            weight="3"
         >
             <ttkpanedwindow
                 orient="vertical"
@@ -141,7 +141,7 @@
                 <!-- scene preview -->
 
                 <ttkframe
-                    weight="5"
+                    weight="1"
                 >
                     <ttklabel
                         text="Scene preview:"
@@ -176,7 +176,7 @@
             <!-- shot editor -->
 
                 <ttkframe
-                    weight="1"
+                    weight="2"
                 >
                     <ttklabel
                         text="Shot editor:"
@@ -191,7 +191,7 @@
                             id="stb_shot_editor"
                             name="text_shot_editor"
                             height="20"
-                            width="40"
+                            width="60"
                             wrap="word"
                             layout="grid"
                             layout_options="row=0, column=0"
@@ -214,7 +214,7 @@
         <ttklabelframe
             text="Information"
             padding="5px"
-            weight="5"
+            weight="1"
         >
             <!-- info -->
 
@@ -227,10 +227,11 @@
                 <!-- zone 1 -->
 
                 <ttkframe
-                    weight="5"
+                    weight="1"
                 >
                     <ttklabel
                         text="Zone 1 (WIP)"
+                        width="12"
                         layout="pack"
                         resizable="width"
                     />
@@ -239,10 +240,11 @@
                 <!-- zone 2 -->
 
                 <ttkframe
-                    weight="5"
+                    weight="1"
                 >
                     <ttklabel
                         text="Zone 2 (WIP)"
+                        width="12"
                         layout="pack"
                         resizable="width"
                     />
@@ -251,10 +253,11 @@
                 <!-- zone 3 -->
 
                 <ttkframe
-                    weight="5"
+                    weight="1"
                 >
                     <ttklabel
                         text="Zone 3 (WIP)"
+                        width="12"
                         layout="pack"
                         resizable="width"
                     />

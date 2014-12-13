@@ -1479,16 +1479,16 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             event handler: global/project settings have been changed;
         """
+        print("slot_update_settings")
         # param controls
-        if tools.is_plist(settings):
+        if tools.is_pdict(settings):
             # CAUTION:
             # *NO* need to copy.deepcopy(settings) here /!\
             # this has been verified OK for python refs
-            _global, _project = settings
             # reset project settings (safe)
-            self.reset_elements(_project)
-            # reset global settings
-            self.set_options_element(_global)
+            self.reset_elements(settings["project"])
+            # reset global settings (safe)
+            self.set_options_element(settings["global"])
         # end if
     # end def
 

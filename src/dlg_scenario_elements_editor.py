@@ -603,14 +603,16 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             this *MUST* be overridden in subclass;
             returns True on success, False otherwise;
         """
-        # deferred task inits
-        def deferred ():
-            self.events.raise_event(
-                "Scenario:Settings:Update", settings = self.settings
-            )
-        # end def
-        # deferred
-        self.after_idle(deferred)
+        # inits
+        _global, _project = self.settings
+        # notify app
+        self.events.raise_event(
+            "Scenario:Settings:Update",
+            settings={
+                "global": _global["element"],
+                "project": _project["element"]),
+            }
+        )
         # validate
         return True
     # end def

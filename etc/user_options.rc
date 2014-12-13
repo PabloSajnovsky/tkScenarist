@@ -1,26 +1,26 @@
 [DEFAULT]
 mainwindow_state = normal
-maximized = 0
 mainwindow = 640x480+20+20
+maximized = 0
 dialog_state = normal
+
+[files]
+
+[gui]
+show_statusbar = 1
 
 [xml]
 
-[files]
+[geometry]
+mainwindow_state = normal
+mainwindow = 970x485+106+142
+dialog_state = normal
+pitchtemplatesdialog = 778x506+215+243
 
 [dirs]
 pfm_preferred_dir = /home/rs/tmp
 pitch_template_dir = /home/rs/apps/tkScenarist/data/templates/pitch
 namedb_import_dir = /home/rs/apps/tkScenarist/data/csv
-
-[gui]
-show_statusbar = 1
-
-[geometry]
-mainwindow_state = normal
-mainwindow = 970x485+113+125
-dialog_state = normal
-pitchtemplatesdialog = 778x506+215+243
 
 [mainwindow]
 
@@ -41,7 +41,7 @@ pitchtemplatesdialog = 778x506+215+243
 [namedbimportdialog]
 
 [scenariotext]
-text_settings = {"transition": {"label": "Transition", "on_return_create": "scene", "on_tab_switch": "scene", "on_return_switch": "", "on_tab_create": "transition", "config": {"rmargin": "10", "justify": "right"}, "on_ctrl_return_switch": "", "on_ctrl_return_create": "action"}, "scene": {"label": "Scene", "on_return_create": "action", "on_tab_switch": "action", "on_return_switch": "", "on_tab_create": "character", "config": {"background": "grey90", "spacing3": "5", "spacing1": "5"}, "on_ctrl_return_switch": "", "on_ctrl_return_create": "transition"}, "dialogue": {"label": "Dialogue", "on_return_create": "character", "on_tab_switch": "parenthetical", "on_return_switch": "", "on_tab_create": "action", "config": {"spacing3": "10", "lmargin1": "3c", "lmargin2": "3c", "foreground": "grey30", "rmargin": "1c", "spacing1": "5"}, "on_ctrl_return_switch": "", "on_ctrl_return_create": "scene"}, "character": {"label": "Character", "on_return_create": "dialogue", "on_tab_switch": "action", "on_return_switch": "", "on_tab_create": "parenthetical", "config": {"font": "monospace 12 bold", "lmargin1": "5c", "lmargin2": "5c", "foreground": "grey40", "rmargin": "1c", "spacing1": "5"}, "on_ctrl_return_switch": "", "on_ctrl_return_create": "action"}, "parenthetical": {"label": "Parenthetical", "on_return_create": "dialogue", "on_tab_switch": "dialogue", "on_return_switch": "", "on_tab_create": "dialogue", "config": {"font": "monospace 12 italic", "lmargin1": "4c", "lmargin2": "4c", "foreground": "grey50", "rmargin": "1c"}, "on_ctrl_return_switch": "", "on_ctrl_return_create": "action"}, "action": {"label": "Action", "on_return_create": "action", "on_tab_switch": "character", "on_return_switch": "", "on_tab_create": "character", "config": {"spacing1": "5", "spacing3": "5"}, "on_ctrl_return_switch": "scene", "on_ctrl_return_create": "transition"}}
+text_settings = {"dialogue": {"label": "Dialogue", "config": {"rmargin": "1c", "spacing3": "10", "spacing1": "5", "lmargin2": "3c", "foreground": "grey30", "lmargin1": "3c"}, "on_ctrl_return_switch": "", "on_tab_switch": "parenthetical", "on_ctrl_return_create": "scene", "on_tab_create": "action", "on_return_create": "character", "on_return_switch": ""}, "character": {"label": "Character", "config": {"rmargin": "1c", "spacing1": "5", "font": "monospace 12 bold", "lmargin2": "5c", "foreground": "grey40", "lmargin1": "5c"}, "on_ctrl_return_switch": "", "on_tab_switch": "action", "on_ctrl_return_create": "action", "on_tab_create": "parenthetical", "on_return_create": "dialogue", "on_return_switch": ""}, "action": {"label": "Action", "config": {"spacing1": "5", "spacing3": "5"}, "on_ctrl_return_switch": "scene", "on_tab_switch": "character", "on_ctrl_return_create": "transition", "on_tab_create": "character", "on_return_create": "action", "on_return_switch": ""}, "scene": {"label": "Scene", "config": {"spacing1": "5", "spacing3": "5", "background": "grey90"}, "on_ctrl_return_switch": "", "on_tab_switch": "action", "on_ctrl_return_create": "transition", "on_tab_create": "character", "on_return_create": "action", "on_return_switch": ""}, "transition": {"label": "Transition", "config": {"rmargin": "10", "justify": "right"}, "on_ctrl_return_switch": "", "on_tab_switch": "scene", "on_ctrl_return_create": "action", "on_tab_create": "transition", "on_return_create": "scene", "on_return_switch": ""}, "parenthetical": {"label": "Parenthetical", "config": {"rmargin": "1c", "font": "monospace 12 italic", "lmargin2": "4c", "foreground": "grey50", "lmargin1": "4c"}, "on_ctrl_return_switch": "", "on_tab_switch": "dialogue", "on_ctrl_return_create": "action", "on_tab_create": "dialogue", "on_return_create": "dialogue", "on_return_switch": ""}}
 
 [scenarioelementseditordialog]
 

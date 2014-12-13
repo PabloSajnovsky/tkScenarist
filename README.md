@@ -95,6 +95,9 @@ can search amongst thousands of names coming from all origins;
 hints, character's log reminder, estimated page count and movie
 duration;
 
+* By now, a new menu `Tools > Scenario Elements Editor (SEE)` utility
+dialog is available for finer script edition tuning;
+
 * Sixth tab is the `Storyboard` panel, still in development (WIP);
 
 * Seventh tab is the `Resources` panel, still in development (WIP);
@@ -113,6 +116,7 @@ still in development state.
 ![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-006.png)
 ![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-007.png)
 ![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-008.png)
+![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-009.png)
 
 
 ## Development status

@@ -194,6 +194,19 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def get_formatted_margin (self, cvar_entry, combo):
+        """
+            retrieves a tkinter-formatted margin dimension string;
+        """
+        # inits
+        _value = int(self.w.get_stringvar(cvar_entry).get() or 0)
+        # tkinter dimension units compliance
+        _units = combo.get()[0] if combo.current() else ""
+        # return formatted string
+        return "{}{}".format(_value, _units).strip().lower()
+    # end def
+
+
     def get_label (self, element_tag):
         """
             retrieves label for given @element_tag;
@@ -488,7 +501,34 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         # inits
         _element = self.get_current_element()
         _config = _element.setdefault("config", dict())
-        pass # FIXME
+        # COLOR config
+        _config["background"] = self.w.btn_choose_bg.cget("background")
+        _config["foreground"] = self.w.btn_choose_fg.cget("background")
+        # FONT config
+        _config["font"] = (
+            "{{{family}}} {size} {style}"
+            .format(
+                family=self.w.combo_font_family.get(),
+                size=self.w.combo_font_size.get(),
+                style=self.w.combo_font_style.get(),
+            ).strip().lower()
+        )
+        # ALIGN config
+        _config["justify"] = (
+            self.w.get_stringvar("options_text_align").get()
+        )
+        # MARGIN config
+        _config["lmargin1"] = _config["lmargin2"] = (
+            self.get_formatted_margin(
+                "entry_margin_left", self.w.combo_lmargin_units
+            )
+        )
+        _config["rmargin"] = (
+            self.get_formatted_margin(
+                "entry_margin_right", self.w.combo_rmargin_units
+            )
+        )
+        print("\nnew config:\n", _config)
     # end def
 
 

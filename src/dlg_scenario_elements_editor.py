@@ -610,7 +610,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             "Scenario:Settings:Update",
             settings={
                 "global": _global["element"],
-                "project": _project["element"]),
+                "project": _project["element"],
             }
         )
         # validate

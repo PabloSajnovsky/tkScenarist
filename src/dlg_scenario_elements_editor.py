@@ -288,14 +288,12 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             self.w.combo_font_style
         )
         # MARGIN section
-        self.register(self.key_filter_digits)
+        _filter = self.register(self.key_filter_digits)
         self.w.entry_lmargin.configure(
-            validate="key",
-            validatecommand=(self.key_filter_digits, "%S")
+            validate="key", validatecommand=(_filter, "%S")
         )
         self.w.entry_rmargin.configure(
-            validate="key",
-            validatecommand=(self.key_filter_digits, "%S")
+            validate="key", validatecommand=(_filter, "%S")
         )
         self.MARGIN_COMBOS = (
             self.w.combo_lmargin_units, self.w.combo_rmargin_units
@@ -328,6 +326,8 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
             returns True if @input_char is a digit, False otherwise;
         """
+        # defer task
+        self.async.run_after_idle(self.slot_store_looknfeel)
         return bool(input_char in "0123456789")
     # end def
 
@@ -346,11 +346,16 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def reset_margin (self, cvar_entry, combo, value):
+    def reset_margin (self, cvar_entry, combo, value=None):
         """
             resets entry value + units combo value along with given
             @value parameter value;
         """
+        # param controls
+        if value is None:
+            # reset value
+            value = self.get_formatted_margin(cvar_entry, combo)
+        # end if
         # inits
         value = str(value or 0).strip()
         _units = "px"
@@ -537,10 +542,16 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             self.w.get_stringvar("options_text_align").get()
         )
         # MARGIN config
+        self.reset_margin(
+            "entry_margin_left", self.w.combo_lmargin_units
+        )
         _config["lmargin1"] = _config["lmargin2"] = (
             self.get_formatted_margin(
                 "entry_margin_left", self.w.combo_lmargin_units
             )
+        )
+        self.reset_margin(
+            "entry_margin_right", self.w.combo_rmargin_units
         )
         _config["rmargin"] = (
             self.get_formatted_margin(

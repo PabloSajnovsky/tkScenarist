@@ -271,7 +271,33 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             this method is done for user file version compatibility
             updates;
         """
-        return e_dict                                                       # FIXME
+        # specific task
+        def update_strict(s_dict, u_dict):
+            # both must be plain dicts
+            if tools.is_pdict(s_dict) and tools.is_pdict(u_dict):
+                # search common keys
+                _keys = set(s_dict).intersection(set(u_dict))
+                # browse common keys
+                for _k in _keys:
+                    # item is dict?
+                    if isinstance(s_dict[_k], dict):
+                        # recurse update
+                        update_strict(s_dict[_k], u_dict[_k])
+                    else:
+                        # update simple item
+                        s_dict[_k] = u_dict[_k]
+                    # end if
+                # end for
+            # end if
+        # end def
+        # inits
+        _elements = copy.deepcopy(self.ELEMENT_DEFAULTS)
+        # update only already existing keys
+        update_strict(_elements, e_dict)
+        print("\noriginal dict:\n", e_dict)
+        print("\nupdated dict:\n", _elements)
+        # return results
+        return _elements
     # end def
 
 

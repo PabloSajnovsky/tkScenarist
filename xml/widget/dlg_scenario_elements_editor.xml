@@ -291,7 +291,8 @@
                     <ttkentry
                         name="entry_lmargin"
                         textvariable="entry_margin_left"
-                        width="5"
+                        justify="right"
+                        width="3"
                         layout="grid"
                         layout_options="row=0, column=1"
                     />
@@ -320,7 +321,8 @@
                     <ttkentry
                         name="entry_rmargin"
                         textvariable="entry_margin_right"
-                        width="5"
+                        justify="right"
+                        width="3"
                         layout="grid"
                         layout_options="row=0, column=1"
                     />

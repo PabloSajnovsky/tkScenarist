@@ -327,7 +327,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             returns True if @input_char is a digit, False otherwise;
         """
         # defer task
-        self.async.run_after_idle(self.slot_store_looknfeel)
+        self.async.run_after(200, self.slot_store_looknfeel)
         return bool(input_char in "0123456789")
     # end def
 
@@ -469,7 +469,6 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
             event handler: new element selected in combobox;
         """
-        print("slot_current_element_changed")
         # update pointer
         self.current_settings["current_selected"] = (
             self.w.combo_current_element.current()
@@ -504,7 +503,6 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
             event handler: stores create/switch combo data in settings;
         """
-        print("slot_store_chainings")
         # inits
         _element = self.get_current_element()
         # browse items
@@ -521,7 +519,6 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
             event handler: stores look'n'feel data in settings;
         """
-        print("slot_store_looknfeel")
         # inits
         _element = self.get_current_element()
         _config = _element.setdefault("config", dict())
@@ -567,7 +564,6 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
             event handler: a notebook tab has been selected;
         """
-        print("slot_tab_changed")
         # which tab is it?
         _index = self.get_current_tab_index()
         # change current settings
@@ -581,7 +577,6 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
             event handler: updates all data in form;
         """
-        print("slot_update_current_selected")
         # update current element
         self.w.combo_current_element.current(
             self.current_settings["current_selected"]
@@ -596,7 +591,6 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             event handler: updates all linked items along current
             selected element;
         """
-        print("slot_update_linked_items")
         # inits
         _element = self.get_current_element()
         # reset combos

@@ -264,6 +264,17 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def compat_filter (self, e_dict):
+        """
+            compatibility filter: verifies that @e_dict matches
+            self.ELEMENT_DEFAULTS inner items;
+            this method is done for user file version compatibility
+            updates;
+        """
+        return e_dict                                                       # FIXME
+    # end def
+
+
     def create_element_line (self, element_tag, index=None):
         """
             inserts a new @element_tag formatted line at @index;
@@ -472,9 +483,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # put text
         self.insert("1.0", _get_fc("text").rstrip())
         # put elements
-        _elements = self.get_options_element().copy()
-        _elements.update(json.loads(_get_fc("elements")))
-        self.reset_elements(_elements)
+        self.reset_elements(
+            # compatibility filter
+            self.compat_filter(
+                json.loads(_get_fc("elements"))
+            )
+        )
         # put tags
         _tags = json.loads(_get_fc("tags"))
         # browse items

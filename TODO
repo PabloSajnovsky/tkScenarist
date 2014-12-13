@@ -1,2 +1,5 @@
 TODO list
 =========
+
+    * in `ScenarioText`: must finish to implement
+    `self.compat_filter()` for file compatibility updates;

@@ -151,6 +151,7 @@
                             name="btn_add_shot"
                             text="+"
                             command="@Storyboard:Shot:Add"
+                            width="2"
                             layout="grid"
                             layout_options="row=0, column=0"
                         />
@@ -158,6 +159,7 @@
                             name="btn_del_shot"
                             text="-"
                             command="@Storyboard:Shot:Delete"
+                            width="2"
                             layout="grid"
                             layout_options="row=0, column=1"
                         />

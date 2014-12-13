@@ -121,84 +121,144 @@
                             resizable="width"
                         />
                     </ttkframe>
+                </ttkframe>
             </ttkpanedwindow>
-
         </ttklabelframe>
 
         <!-- edition zone -->
 
-        <ttkpanedwindow
-            orient="vertical"
-            weight="5"
+        <ttklabelframe
+            text="Edition"
+            padding="5px"
+            weight="1"
         >
-            <!-- scene preview -->
-
-            <ttklabelframe
-                text="Scene preview"
-                weight="5"
+            <ttkpanedwindow
+                orient="vertical"
+                layout="pack"
+                resizable="yes"
             >
-                <text
-                    id="stb_scene_preview"
-                    name="text_scene_preview"
-                    height="10"
-                    width="10"
-                    state="disabled"
-                    wrap="word"
-                    layout="grid"
-                    layout_options="row=0, column=0"
-                    resizable="yes"
-                />
-                <ttkscrollbar
-                    connect="stb_scene_preview"
-                    orient="vertical"
-                    layout="grid"
-                    layout_options="row=0, column=1"
-                    resizable="height"
-                />
-            </ttklabelframe>
+
+                <!-- scene preview -->
+
+                <ttkframe
+                    weight="5"
+                >
+                    <ttklabel
+                        text="Scene preview:"
+                        layout="pack"
+                        resizable="width"
+                    />
+                    <ttkframe
+                        layout="pack"
+                        resizable="yes"
+                    >
+                        <text
+                            id="stb_scene_preview"
+                            name="text_scene_preview"
+                            height="10"
+                            width="10"
+                            state="disabled"
+                            wrap="word"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                            resizable="yes"
+                        />
+                        <ttkscrollbar
+                            connect="stb_scene_preview"
+                            orient="vertical"
+                            layout="grid"
+                            layout_options="row=0, column=1"
+                            resizable="height"
+                        />
+                    </ttkframe>
+                </ttkframe>
 
             <!-- shot editor -->
 
-            <ttklabelframe
-                text="Shot editor"
-                weight="5"
-            >
-                <text
-                    id="stb_shot_editor"
-                    name="text_shot_editor"
-                    height="20"
-                    width="40"
-                    wrap="word"
-                    layout="grid"
-                    layout_options="row=0, column=0"
-                    resizable="yes"
-                />
-                <ttkscrollbar
-                    connect="stb_shot_editor"
-                    orient="vertical"
-                    layout="grid"
-                    layout_options="row=0, column=1"
-                    resizable="height"
-                />
-            </ttklabelframe>
-
-        </ttkpanedwindow>
+                <ttkframe
+                    weight="1"
+                >
+                    <ttklabel
+                        text="Shot editor:"
+                        layout="pack"
+                        resizable="width"
+                    />
+                    <ttkframe
+                        layout="pack"
+                        resizable="yes"
+                    >
+                        <text
+                            id="stb_shot_editor"
+                            name="text_shot_editor"
+                            height="20"
+                            width="40"
+                            wrap="word"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                            resizable="yes"
+                        />
+                        <ttkscrollbar
+                            connect="stb_shot_editor"
+                            orient="vertical"
+                            layout="grid"
+                            layout_options="row=0, column=1"
+                            resizable="height"
+                        />
+                    </ttkframe>
+            </ttkpanedwindow>
+        </ttklabelframe>
 
         <!-- information zone -->
 
         <ttklabelframe
             text="Information"
+            padding="5px"
             weight="5"
         >
             <!-- info -->
 
             <ttkpanedwindow
                 orient="vertical"
-                weight="5"
+                layout="pack"
+                resizable="yes"
             >
 
-            </ttkpanedwindow>
+                <!-- zone 1 -->
 
+                <ttkframe
+                    weight="5"
+                >
+                    <ttklabel
+                        text="Zone 1 (WIP)"
+                        layout="pack"
+                        resizable="width"
+                    />
+                </ttkframe>
+
+                <!-- zone 2 -->
+
+                <ttkframe
+                    weight="5"
+                >
+                    <ttklabel
+                        text="Zone 2 (WIP)"
+                        layout="pack"
+                        resizable="width"
+                    />
+                </ttkframe>
+
+                <!-- zone 3 -->
+
+                <ttkframe
+                    weight="5"
+                >
+                    <ttklabel
+                        text="Zone 3 (WIP)"
+                        layout="pack"
+                        resizable="width"
+                    />
+                </ttkframe>
+            </ttkpanedwindow>
         </ttklabelframe>
 
     </ttkpanedwindow>

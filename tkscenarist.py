@@ -31,7 +31,7 @@ class tkScenarist (tkRAD.RADApplication):
     # class constant defs
     APP = {
         "name": _("tkScenarist"),
-        "version": _("0.6a"),
+        "version": _("0.7a"),
         "description": _("Movie scriptwriting utility program."),
         "title": _("tkScenarist - screen writing made simpler"),
         "author": _("Raphaël SEBAN <motus@laposte.net>"),

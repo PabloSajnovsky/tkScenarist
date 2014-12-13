@@ -529,6 +529,8 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             )
         )
         print("\nnew config:\n", _config)
+        # update preview text widget
+        self.slot_update_preview()
     # end def
 
 

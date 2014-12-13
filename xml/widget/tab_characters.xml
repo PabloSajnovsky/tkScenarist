@@ -125,7 +125,7 @@
                 padding="2px"
                 layout="pack"
                 resizable="yes"
-                weight="1"
+                weight="2"
             >
                 <!-- character's log info/text -->
                 <ttkframe
@@ -179,7 +179,7 @@
             padding="2px"
             layout="pack"
             resizable="yes"
-            weight="1"
+            weight="3"
         >
             <!-- help text label -->
             <ttklabel

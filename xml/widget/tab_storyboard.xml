@@ -249,6 +249,7 @@
                             height="20"
                             width="40"
                             wrap="word"
+                            state="disabled"
                             layout="grid"
                             layout_options="row=0, column=0"
                             resizable="yes"

@@ -73,7 +73,7 @@
         <ttklabelframe
             text="Scenario"
             padding="2px"
-            weight="1"
+            weight="4"
         >
             <!-- toolbar info - current element -->
             <ttkframe

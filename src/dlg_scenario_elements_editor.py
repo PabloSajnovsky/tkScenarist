@@ -204,6 +204,14 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def get_rc_section (self):
+        """
+            retrieves RC file section name for this class;
+        """
+        return self.classname().lower()
+    # end def
+
+
     def init_widget (self, **kw):
         r"""
             widget main inits;
@@ -283,8 +291,12 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         )
         # event bindings
         self.bind_events(**kw)
-        # reset to 'global settings' tab
-        self.NOTEBOOK.select(0)
+        # reset tab along with user option
+        self.NOTEBOOK.select(
+            self.options.get(
+                self.get_rc_section(), "startup_tab_index", fallback=1
+            )
+        )
     # end def
 
 

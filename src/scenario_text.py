@@ -698,10 +698,13 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             retrieves RC file element settings or ELEMENT_DEFAULTS if
             not found;
         """
-        return json.loads(
+        _settings = \
             self.options.get(
                 self.get_rc_section(), "text_settings", fallback="[]"
             )
+        print("options element settings:", _settings)
+        return json.loads(
+            _settings
         ) or self.ELEMENT_DEFAULTS
     # end def
 
@@ -809,9 +812,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # members only inits
         self.current_tag = self.DEFAULT_TAG
-        e_dict = self.get_options_element()
-        print("options element:", e_dict)
-        self.reset_elements(e_dict)
+        self.reset_elements(self.get_options_element())
     # end def
 
 
@@ -1204,6 +1205,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # reset options settings
             _rc = self.get_rc_section()
             self.options[_rc]["text_settings"] = json.dumps(e_dict)
+            print("set_options_element:", self.options[_rc]["text_settings"])
         # end if
     # end def
 

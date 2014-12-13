@@ -25,6 +25,7 @@
 # lib imports
 import re
 import json
+import copy
 import string
 import tkinter as TK
 import tkRAD.widgets.rad_widget_base as RW
@@ -1179,8 +1180,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             resets self.ELEMENT dictionary with @new_dict;
         """
         if tools.is_pdict(new_dict):
-            # reset dict (weakref)
-            self.ELEMENT = new_dict.copy()
+            # reset dict (unreferenced)
+            self.ELEMENT = copy.deepcopy(new_dict)
             # reset configs
             self.init_styles()
             # notify app
@@ -1470,14 +1471,21 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def slot_update_settings (self, *args, **kw):
+    def slot_update_settings (self, *args, settings=None, **kw):
         """
-            event handler: settings have been changed;
+            event handler: global/project settings have been changed;
         """
-        # reset project settings (safe)
-        self.reset_elements(kw.get("project_settings"))
-        # reset global settings
-        self.set_options_element(kw.get("global_settings"))
+        # param controls
+        if tools.is_plist(settings):
+            # CAUTION:
+            # *NO* need to copy.deepcopy(settings) here /!\
+            # this has been verified OK for python refs
+            _global, _project = settings
+            # reset project settings (safe)
+            self.reset_elements(_project)
+            # reset global settings
+            self.set_options_element(_global)
+        # end if
     # end def
 
 

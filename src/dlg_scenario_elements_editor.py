@@ -43,8 +43,13 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
             event handler: dialog button 'Reset to defaults';
         """
-        # reset to defaults
-        self.init_defaults()
+        # which tab is it?
+        _index = self.get_current_tab_index()
+        # reset to defaults for selected tab
+        self.settings[_index] = {
+            "element": copy.deepcopy(self.w_text.ELEMENT_DEFAULTS),
+            "current_selected": 0,
+        }
         # update form data
         self.slot_tab_changed()
     # end def
@@ -199,27 +204,6 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def init_defaults (self, **kw):
-        """
-            sets all settings to default values;
-        """
-        # set to defaults
-        self.settings = (
-            # global settings
-            {
-                "element":
-                    copy.deepcopy(self.w_text.get_options_element()),
-                "current_selected": 0,
-            },
-            # project settings
-            {
-                "element": copy.deepcopy(self.w_text.ELEMENT),
-                "current_selected": 0,
-            },
-        )
-    # end def
-
-
     def init_widget (self, **kw):
         r"""
             widget main inits;
@@ -231,11 +215,20 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         )
         # inits
         self.w_text = kw.get("w_text")
-        # set default values for all settings
-        self.init_defaults()
-        # current settings
+        self.settings = [
+            # global settings
+            {
+                "element":
+                    copy.deepcopy(self.w_text.get_options_element()),
+                "current_selected": 0,
+            },
+            # project settings
+            {
+                "element": copy.deepcopy(self.w_text.ELEMENT),
+                "current_selected": 0,
+            },
+        ]
         self.current_settings = self.settings[0]
-        # other inits
         self.element_names = self.get_element_names(
             self.current_settings["element"]
         )
@@ -480,6 +473,9 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             event handler: stores look'n'feel data in settings;
         """
         print("slot_store_looknfeel")
+        # inits
+        _element = self.get_current_element()
+        _config = _element.setdefault("config", dict())
         pass # FIXME
     # end def
 
@@ -527,7 +523,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             )
         # end for
         # reset look'n'feel
-        _config = _element.get("config") or dict()
+        _config = _element.setdefault("config", dict())
         _face, _size, _style = self.get_font_attrs(_config.get("font"))
         # font attributes
         self.w.combo_font_family.set(_face)
@@ -607,9 +603,16 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             this *MUST* be overridden in subclass;
             returns True on success, False otherwise;
         """
-        # put here your own code in subclass
-        # failed
-        return False
+        # deferred task inits
+        def deferred ():
+            self.events.raise_event(
+                "Scenario:Settings:Update", settings = self.settings
+            )
+        # end def
+        # deferred
+        self.after_idle(deferred)
+        # validate
+        return True
     # end def
 
 

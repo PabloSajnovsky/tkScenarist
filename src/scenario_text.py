@@ -48,6 +48,19 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "wrap": "word",
     }
 
+    CONFIG_DEFAULTS = {
+        "background": "white",
+        "foreground": "black",
+        "font": "monospace 12 normal",
+        "justify": "left",
+        "lmargin1": "0",
+        "lmargin2": "0",
+        "rmargin": "0",
+        "spacing1": "0",
+        "spacing2": "0",
+        "spacing3": "0",
+    }
+
     DEAD_KEYS = (
         "Shift_L", "Shift_R", "Control_L", "Control_R", "Alt_L",
         "Alt_R", "Caps_Lock",
@@ -823,10 +836,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             _config = _element.get("config")
             # got tag configuration?
             if _config:
-                # delete tag first
-                self.tag_delete(_tag)
+                # inits
+                _cfg = self.CONFIG_DEFAULTS.copy()
+                _cfg.update(_config)
                 # reset config
-                self.tag_configure(_tag, **_config)
+                self.tag_configure(_tag, **_cfg)
             # end if
         # end for
         # configure selection tag
@@ -1484,6 +1498,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             self.reset_elements(settings["project"])
             # reset global settings (safe)
             self.set_options_element(settings["global"])
+            # notify app
+            self.events.raise_event("Project:Modified")
         # end if
     # end def
 

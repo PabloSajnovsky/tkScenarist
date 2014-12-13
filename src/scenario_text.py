@@ -267,7 +267,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     def compat_filter (self, e_dict):
         """
             compatibility filter: verifies that @e_dict matches
-            self.ELEMENT_DEFAULTS inner items;
+            self.ELEMENT_DEFAULTS current inner items;
             this method is done for user file version compatibility
             updates;
         """
@@ -291,11 +291,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             # end if
         # end def
         # inits
-        _elements = copy.deepcopy(self.ELEMENT_DEFAULTS)
+        _elements = copy.deepcopy(self.get_options_element())
         # update only already existing keys
         update_strict(_elements, e_dict)
-        print("\noriginal dict:\n", e_dict)
-        print("\nupdated dict:\n", _elements)
         # return results
         return _elements
     # end def

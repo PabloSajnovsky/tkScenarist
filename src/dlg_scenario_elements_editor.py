@@ -528,7 +528,6 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
                 "entry_margin_right", self.w.combo_rmargin_units
             )
         )
-        print("\nnew config:\n", _config)
         # update preview text widget
         self.slot_update_preview()
     # end def

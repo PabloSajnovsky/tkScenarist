@@ -809,7 +809,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # members only inits
         self.current_tag = self.DEFAULT_TAG
-        self.reset_elements(self.get_options_element())
+        e_dict = self.get_options_element()
+        print("options element:", e_dict)
+        self.reset_elements(e_dict)
     # end def
 
 

@@ -41,7 +41,7 @@
                 text="Templates"
                 layout="pack"
                 resizable="yes"
-                weight="4"
+                weight="1"
             >
 
                 <!-- info frame -->
@@ -97,7 +97,7 @@
                 text="Preview"
                 layout="pack"
                 resizable="yes"
-                weight="1"
+                weight="3"
             >
 
                 <!-- info frame -->
@@ -149,15 +149,6 @@
                         layout_options="row=0, column=1"
                         resizable="height"
                     />
-<!--
-                    <ttkscrollbar
-                        connect="template_preview"
-                        orient="horizontal"
-                        layout="grid"
-                        layout_options="row=1, column=0"
-                        resizable="width"
-                    />
--->
                 </ttkframe>
             </ttklabelframe>
         </ttkpanedwindow>

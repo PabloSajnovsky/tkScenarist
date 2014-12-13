@@ -21,9 +21,82 @@
     If not, see http://www.gnu.org/licenses/
 -->
 <tkwidget>
-    <label
-        text="Coming soon..."
+    <!-- main paned window -->
+
+    <ttkpanedwindow
+        orient="horizontal"
         layout="pack"
         resizable="yes"
-    />
+    >
+        <!-- navigation zone -->
+
+        <ttkpanedwindow
+            orient="vertical"
+            weight="5"
+        >
+            <!-- scene browser -->
+
+            <ttklabelframe
+                text="Scene browser"
+                weight="5"
+            >
+                <listbox
+                    id="stb_scene_browser"
+                    name="listbox_scene_browser"
+                    height="10"
+                    width="10"
+                    layout="grid"
+                    layout_options="row=0, column=0"
+                    resizable="yes"
+                />
+                <ttkscrollbar
+                    connect="stb_scene_browser"
+                    orient="vertical"
+                    layout="grid"
+                    layout_options="row=0, column=1"
+                    resizable="height"
+                />
+                <ttkscrollbar
+                    connect="stb_scene_browser"
+                    orient="horizontal"
+                    layout="grid"
+                    layout_options="row=1, column=0"
+                    resizable="width"
+                />
+            </ttklabelframe>
+
+            <!-- shot browser / manager -->
+
+            <ttklabelframe
+                text="Shot browser"
+                weight="5"
+            >
+                <listbox
+                    id="stb_shot_browser"
+                    name="listbox_shot_browser"
+                    height="10"
+                    width="10"
+                    layout="grid"
+                    layout_options="row=0, column=0"
+                    resizable="yes"
+                />
+                <ttkscrollbar
+                    connect="stb_shot_browser"
+                    orient="vertical"
+                    layout="grid"
+                    layout_options="row=0, column=1"
+                    resizable="height"
+                />
+                <ttkscrollbar
+                    connect="stb_shot_browser"
+                    orient="horizontal"
+                    layout="grid"
+                    layout_options="row=1, column=0"
+                    resizable="width"
+                />
+            </ttklabelframe>
+
+        </ttkpanedwindow>
+
+    </ttkpanedwindow>
 </tkwidget>

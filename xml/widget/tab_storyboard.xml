@@ -60,7 +60,7 @@
                         <listbox
                             id="stb_scene_browser"
                             name="listbox_scene_browser"
-                            height="10"
+                            height="5"
                             width="10"
                             highlightthickness="0"
                             takefocus="false"
@@ -92,20 +92,22 @@
                 >
                     <ttklabel
                         text="Shot browser:"
-                        layout="pack"
+                        layout="grid"
+                        layout_options="row=0, column=0"
                         resizable="width"
                     />
 
                     <!-- listbox zone -->
 
                     <ttkframe
-                        layout="pack"
+                        layout="grid"
+                        layout_options="row=1, column=0"
                         resizable="yes"
                     >
                         <listbox
                             id="stb_shot_browser"
                             name="listbox_shot_browser"
-                            height="20"
+                            height="10"
                             width="10"
                             highlightthickness="0"
                             takefocus="false"
@@ -129,10 +131,20 @@
                         />
                     </ttkframe>
 
+                    <!-- spacer -->
+
+                    <ttkframe
+                        height="5"
+                        layout="grid"
+                        layout_options="row=2, column=0"
+                        resizable="width"
+                    />
+
                     <!-- toolbar zone -->
 
                     <ttkframe
-                        layout="pack"
+                        layout="grid"
+                        layout_options="row=3, column=0"
                         resizable="width"
                     >
                         <ttkbutton

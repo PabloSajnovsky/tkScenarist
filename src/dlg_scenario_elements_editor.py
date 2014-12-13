@@ -28,6 +28,7 @@ import copy
 from tkinter import font
 from tkinter import colorchooser
 import tkRAD.widgets.rad_dialog as DLG
+import tkRAD.core.async as ASYNC
 
 
 class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
@@ -235,6 +236,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             xml="dlg_scenario_elements_editor",
         )
         # inits
+        self.async = ASYNC.get_async_manager()
         self.w_text = kw.get("w_text")
         self.settings = [
             # global settings
@@ -286,6 +288,15 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             self.w.combo_font_style
         )
         # MARGIN section
+        self.register(self.key_filter_digits)
+        self.w.entry_lmargin.configure(
+            validate="key",
+            validatecommand=(self.key_filter_digits, "%S")
+        )
+        self.w.entry_rmargin.configure(
+            validate="key",
+            validatecommand=(self.key_filter_digits, "%S")
+        )
         self.MARGIN_COMBOS = (
             self.w.combo_lmargin_units, self.w.combo_rmargin_units
         )
@@ -310,6 +321,14 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
                 self.get_rc_section(), "startup_tab_index", fallback=1
             )
         )
+    # end def
+
+
+    def key_filter_digits (self, input_char):
+        """
+            returns True if @input_char is a digit, False otherwise;
+        """
+        return bool(input_char in "0123456789")
     # end def
 
 

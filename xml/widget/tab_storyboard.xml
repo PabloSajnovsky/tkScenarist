@@ -21,6 +21,7 @@
     If not, see http://www.gnu.org/licenses/
 -->
 <tkwidget>
+
     <!-- main paned window -->
 
     <ttkpanedwindow
@@ -28,75 +29,177 @@
         layout="pack"
         resizable="yes"
     >
+
         <!-- navigation zone -->
+
+        <ttklabelframe
+            text="Navigation"
+            padding="5px"
+            weight="5"
+        >
+            <ttkpanedwindow
+                orient="vertical"
+                layout="pack"
+                resizable="yes"
+            >
+
+                <!-- scene browser -->
+
+                <ttkframe
+                    weight="5"
+                >
+                    <ttklabel
+                        text="Scene browser:"
+                        layout="pack"
+                        resizable="width"
+                    />
+                    <ttkframe
+                        layout="pack"
+                        resizable="yes"
+                    >
+                        <listbox
+                            id="stb_scene_browser"
+                            name="listbox_scene_browser"
+                            height="10"
+                            width="10"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                            resizable="yes"
+                        />
+                        <ttkscrollbar
+                            connect="stb_scene_browser"
+                            orient="vertical"
+                            layout="grid"
+                            layout_options="row=0, column=1"
+                            resizable="height"
+                        />
+                        <ttkscrollbar
+                            connect="stb_scene_browser"
+                            orient="horizontal"
+                            layout="grid"
+                            layout_options="row=1, column=0"
+                            resizable="width"
+                        />
+                    </ttkframe>
+                </ttkframe>
+
+                <!-- shot browser / manager -->
+
+                <ttkframe
+                    weight="1"
+                >
+                    <ttklabel
+                        text="Shot browser:"
+                        layout="pack"
+                        resizable="width"
+                    />
+                    <ttkframe
+                        layout="pack"
+                        resizable="yes"
+                    >
+                        <listbox
+                            id="stb_shot_browser"
+                            name="listbox_shot_browser"
+                            height="10"
+                            width="10"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                            resizable="yes"
+                        />
+                        <ttkscrollbar
+                            connect="stb_shot_browser"
+                            orient="vertical"
+                            layout="grid"
+                            layout_options="row=0, column=1"
+                            resizable="height"
+                        />
+                        <ttkscrollbar
+                            connect="stb_shot_browser"
+                            orient="horizontal"
+                            layout="grid"
+                            layout_options="row=1, column=0"
+                            resizable="width"
+                        />
+                    </ttkframe>
+            </ttkpanedwindow>
+
+        </ttklabelframe>
+
+        <!-- edition zone -->
 
         <ttkpanedwindow
             orient="vertical"
             weight="5"
         >
-            <!-- scene browser -->
+            <!-- scene preview -->
 
             <ttklabelframe
-                text="Scene browser"
+                text="Scene preview"
                 weight="5"
             >
-                <listbox
-                    id="stb_scene_browser"
-                    name="listbox_scene_browser"
+                <text
+                    id="stb_scene_preview"
+                    name="text_scene_preview"
                     height="10"
                     width="10"
+                    state="disabled"
+                    wrap="word"
                     layout="grid"
                     layout_options="row=0, column=0"
                     resizable="yes"
                 />
                 <ttkscrollbar
-                    connect="stb_scene_browser"
+                    connect="stb_scene_preview"
                     orient="vertical"
                     layout="grid"
                     layout_options="row=0, column=1"
                     resizable="height"
-                />
-                <ttkscrollbar
-                    connect="stb_scene_browser"
-                    orient="horizontal"
-                    layout="grid"
-                    layout_options="row=1, column=0"
-                    resizable="width"
                 />
             </ttklabelframe>
 
-            <!-- shot browser / manager -->
+            <!-- shot editor -->
 
             <ttklabelframe
-                text="Shot browser"
+                text="Shot editor"
                 weight="5"
             >
-                <listbox
-                    id="stb_shot_browser"
-                    name="listbox_shot_browser"
-                    height="10"
-                    width="10"
+                <text
+                    id="stb_shot_editor"
+                    name="text_shot_editor"
+                    height="20"
+                    width="40"
+                    wrap="word"
                     layout="grid"
                     layout_options="row=0, column=0"
                     resizable="yes"
                 />
                 <ttkscrollbar
-                    connect="stb_shot_browser"
+                    connect="stb_shot_editor"
                     orient="vertical"
                     layout="grid"
                     layout_options="row=0, column=1"
                     resizable="height"
-                />
-                <ttkscrollbar
-                    connect="stb_shot_browser"
-                    orient="horizontal"
-                    layout="grid"
-                    layout_options="row=1, column=0"
-                    resizable="width"
                 />
             </ttklabelframe>
 
         </ttkpanedwindow>
+
+        <!-- information zone -->
+
+        <ttklabelframe
+            text="Information"
+            weight="5"
+        >
+            <!-- info -->
+
+            <ttkpanedwindow
+                orient="vertical"
+                weight="5"
+            >
+
+            </ttkpanedwindow>
+
+        </ttklabelframe>
 
     </ttkpanedwindow>
 </tkwidget>

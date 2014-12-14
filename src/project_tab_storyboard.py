@@ -179,12 +179,36 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def slot_shot_add (self, *args, **kw):
+        """
+            event handler: adding new shot to listbox;
+        """
+        pass                                                                # FIXME
+    # end def
+
+
+    def slot_shot_delete (self, *args, **kw):
+        """
+            event handler: deleting selected shot from listbox;
+        """
+        pass                                                                # FIXME
+    # end def
+
+
     def slot_shot_item_selected (self, event=None, *args, **kw):
         """
             event handler: listbox item has been selected;
         """
         # update entry + buttons state
         self.slot_update_inputs()
+    # end def
+
+
+    def slot_shot_rename (self, *args, **kw):
+        """
+            event handler: renaming current shot into listbox;
+        """
+        pass                                                                # FIXME
     # end def
 
 

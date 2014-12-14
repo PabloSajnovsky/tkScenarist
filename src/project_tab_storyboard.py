@@ -175,7 +175,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
 
     def get_formatted_shot_text (self, title):
         """
-            returns formatted string for shot listbox;
+            returns formatted string for shot listbox insertion;
             returns None on failure e.g. no selection at this time;
         """
         # inits
@@ -208,6 +208,17 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # end if
         # failed
         return None
+    # end def
+
+
+    def get_shot_listbox_contents (self, scene):
+        """
+            retrieves shot listbox contents alongs with given @scene;
+            returns empty tuple on failure;
+        """
+        # failed
+        return ("toto", "tutu", "titi")                                     # FIXME
+        #~ return tuple()
     # end def
 
 
@@ -291,6 +302,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.save_now()
         # update shot listbox contents along with new scene
         self.slot_update_shot_listbox()
+        # update scene text preview
+        self.slot_update_scene_preview()
         # update widgets state
         self.slot_update_inputs()
     # end def
@@ -332,6 +345,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             self.LBL_SHOT.set(_nb)
             self.ENT_SHOT.delete(0, "end")
             self.ENT_SHOT.insert(0, _title)
+            self.text_set_contents(self.TEXT_SHOT, "dummy text")            # FIXME
         # end if
     # end def
 
@@ -396,17 +410,33 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def slot_update_scene_preview (self, *args, **kw):
+        """
+            event handler: updates scene preview text contents along
+            with current scene selection;
+        """
+        print("slot_update_scene_preview")
+        # inits
+        _scene = self.get_current_selected(self.LBOX_SCENE)
+        # got selected?
+        if _scene:
+            pass                                                                # FIXME
+        # end if
+    # end def
+
+
     def slot_update_shot_listbox (self, *args, **kw):
         """
             event handler: updates shot listbox contents along with
             current scene selection;
         """
+        print("slot_update_shot_listbox")
         # inits
         _scene = self.get_current_selected(self.LBOX_SCENE)
         # got selected?
         if _scene:
             # get shot listbox contents
-            _contents = ("toto", "tutu", "titi")                            # FIXME
+            _contents = self.get_shot_listbox_contents(_scene)
             # update listbox contents
             self.LBOX_SHOT.delete(0, "end")
             self.LBOX_SHOT.insert(0, *_contents)

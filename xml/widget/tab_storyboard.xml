@@ -211,7 +211,7 @@
                         <text
                             id="stb_scene_preview"
                             name="text_scene_preview"
-                            height="10"
+                            height="7"
                             width="10"
                             state="disabled"
                             wrap="word"

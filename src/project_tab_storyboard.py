@@ -23,13 +23,28 @@
 """
 
 # lib imports
+import tkinter.messagebox as MB
+import tkinter.simpledialog as SD
 import tkRAD
+import tkRAD.core.async as ASYNC
 
 
 class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     """
         application's project tab class;
     """
+
+    def auto_save (self, *args, **kw):
+        """
+            event handler;
+            automatically saves data, if any;
+        """
+        # got selected scene and shot?
+        if self.current_scene and self.current_shot:
+            pass                                                                # FIXME
+        # end if
+    # end def
+
 
     def bind_events (self, **kw):
         """
@@ -53,6 +68,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.LBOX_SHOT.bind(
             "<<ListboxSelect>>", self.slot_shot_item_selected
         )
+        self.TEXT_SHOT.bind("<KeyRelease>", self.slot_on_text_keypress)
     # end def
 
 
@@ -76,11 +92,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             clears contents for listbox widget(s);
         """
-        # browse widgets
-        for _w in widgets:
-            # clear widget
-            _w.delete(0, "end")
-        # end for
+        # same as ENTRY
+        self.clear_entry(*widgets)
     # end def
 
 
@@ -110,6 +123,22 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def get_current_selected (self, listbox):
+        """
+            returns dict (index, text) of current selection or None,
+            otherwise;
+        """
+        # inits
+        _sel = listbox.curselection()
+        # got selected?
+        if _sel:
+            return dict(index=_sel[0], text=listbox.get(_sel[0]))
+        else:
+            return None
+        # end if
+    # end def
+
+
     def get_file_contents (self, fname):
         """
             returns file contents;
@@ -132,6 +161,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.text_clear_contents = self.mainwindow.text_clear_contents
         self.text_get_contents = self.mainwindow.text_get_contents
         self.text_set_contents = self.mainwindow.text_set_contents
+        self.async = ASYNC.get_async_manager()
         # looks for ^/xml/widget/tab_storyboard.xml
         self.xml_build("tab_storyboard")
         # widget inits
@@ -151,6 +181,17 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def save_now (self):
+        """
+            ensures current template is saved before clearing;
+        """
+        # stop scheduled tasks
+        self.async.stop(self.auto_save)
+        # force task right now
+        self.auto_save()
+    # end def
+
+
     def setup_tab (self, fname, archive):
         """
             tab setup along @fname and @archive contents;
@@ -158,6 +199,15 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # set text widget contents
         #~ self.text_set_contents(self.text_storyboard, fname)
         pass
+    # end def
+
+
+    def slot_on_text_keypress (self, event=None, *args, **kw):
+        """
+            event handler: keyboard keypress for text widget;
+        """
+        # schedule auto-save for later
+        self.async.run_after(5000, self.auto_save)
     # end def
 
 
@@ -174,6 +224,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: listbox item has been selected;
         """
+        # save previous right now!
+        self.save_now()
         # update entry + buttons state
         self.slot_update_inputs()
     # end def
@@ -199,6 +251,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: listbox item has been selected;
         """
+        # save previous right now!
+        self.save_now()
         # update entry + buttons state
         self.slot_update_inputs()
     # end def
@@ -229,14 +283,16 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: updates buttons state;
         """
+        print("slot_update_inputs")
         # inits
-        _shot_selected = bool(self.LBOX_SHOT.curselection())
+        self.current_scene = self.get_current_selected(self.LBOX_SCENE)
+        self.current_shot = self.get_current_selected(self.LBOX_SHOT)
         # buttons reset
-        self.enable_widget(self.BTN_ADD, self.LBOX_SCENE.curselection())
+        self.enable_widget(self.BTN_ADD, self.current_scene)
         self.enable_widget(self.BTN_DEL, self.LBOX_SHOT.size())
-        self.enable_widget(self.BTN_RENAME, _shot_selected)
+        self.enable_widget(self.BTN_RENAME, self.current_shot)
         # entry reset
-        if _shot_selected:
+        if self.current_shot:
             # enable
             self.enable_widget(self.ENT_SHOT, True)
         else:
@@ -245,6 +301,25 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             # clear shot number
             self.LBL_SHOT.set("")
         # end def
+    # end def
+
+
+    def update_current_selected (self, listbox, text):
+        """
+            updates text contents of @listbox current selected item
+            with @text contents;
+        """
+        # inits
+        _sel = self.get_current_selected(listbox)
+        # got selected?
+        if _sel and text:
+            # inits
+            _index = _sel["index"]
+            # delete old text
+            listbox.delete(_index)
+            # insert new text
+            listbox.insert(_index, text)
+        # end if
     # end def
 
 

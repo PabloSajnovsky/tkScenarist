@@ -211,7 +211,7 @@
                         <text
                             id="stb_scene_preview"
                             name="text_scene_preview"
-                            height="7"
+                            height="5"
                             width="10"
                             state="disabled"
                             wrap="word"
@@ -239,6 +239,23 @@
                         layout="pack"
                         resizable="width"
                     />
+                    <ttkframe
+                        layout="pack"
+                        resizable="yes"
+                    >
+                        <ttklabel
+                            textvariable="lbl_shot_number"
+                            font="sans 12 bold"
+                            foreground="royal blue"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                        />
+                        <ttkentry
+                            textvariable="entry_shot_title"
+                            layout="grid"
+                            layout_options="row=0, column=1"
+                        />
+                    </ttkframe>
                     <ttkframe
                         layout="pack"
                         resizable="yes"

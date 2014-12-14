@@ -228,6 +228,9 @@
                         layout="pack"
                         resizable="width"
                     />
+
+                    <!-- shot number + title -->
+
                     <ttkframe
                         padding="0 0 0 3px"
                         layout="pack"
@@ -258,6 +261,9 @@
                             layout_options="row=0, column=2"
                         />
                     </ttkframe>
+
+                    <!-- shot text editor -->
+
                     <ttkframe
                         layout="pack"
                         resizable="yes"

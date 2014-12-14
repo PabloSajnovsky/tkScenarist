@@ -45,6 +45,60 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def clear_entry (self, *widgets):
+        """
+            clears contents for entry widget(s);
+        """
+        # browse widgets
+        for _w in widgets:
+            # enable widget
+            self.enable_widget(_w, True)
+            # clear widget
+            _w.delete(0, "end")
+            # disable widget
+            self.enable_widget(_w, False)
+        # end for
+    # end def
+
+
+    def clear_listbox (self, *widgets):
+        """
+            clears contents for listbox widget(s);
+        """
+        # browse widgets
+        for _w in widgets:
+            # clear widget
+            _w.delete(0, "end")
+        # end for
+    # end def
+
+
+    def clear_text (self, *widgets):
+        """
+            clears contents for text widget(s);
+        """
+        # browse widgets
+        for _w in widgets:
+            # clear widget
+            self.text_clear_contents(_w)
+        # end for
+    # end def
+
+
+    def enable_widget (self, widget, state):
+        """
+            enables/disables a tkinter widget along with @state value;
+            if @state is None, widget keeps unchanged;
+        """
+        # param controls
+        if state is not None:
+            widget.configure(
+                state={True: "normal"}.get(bool(state), "disabled")
+            )
+        # end if
+    # end def
+
+
     def get_file_contents (self, fname):
         """
             returns file contents;
@@ -70,8 +124,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # looks for ^/xml/widget/tab_storyboard.xml
         self.xml_build("tab_storyboard")
         # widget inits
-        self.LBOX_SCENE = self.stb_scene_browser
-        self.LBOX_SHOT = self.stb_shot_browser
+        self.LBOX_SCENE = self.listbox_scene_browser
+        self.LBOX_SHOT = self.listbox_shot_browser
         self.BTN_ADD = self.btn_add_shot
         self.BTN_DEL = self.btn_del_shot
         self.BTN_RENAME = self.btn_rename_shot
@@ -108,9 +162,34 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: reset tab to new;
         """
-        # reset Text widget
-        #~ self.text_clear_contents(self.text_storyboard)
-        pass
+        print("slot_tab_reset")
+        # reset listboxes
+        self.clear_listbox(self.LBOX_SCENE, self.LBOX_SHOT)
+        # reset Text widgets
+        self.clear_text(self.TEXT_SCENE, self.TEXT_SHOT)
+        # reset entry + labels
+        self.clear_entry(self.ENT_SHOT)
+        self.LBL_SHOT.set("")
+        # update buttons state
+        self.update_buttons()
+    # end def
+
+
+    def update_buttons (self, *args, **kw):
+        """
+            event handler: updates buttons state;
+        """
+        # inits
+        self.enable_widget(self.BTN_DEL, self.LBOX_SHOT.size())
+        self.enable_widget(self.BTN_RENAME, self.ENT_SHOT.get())
+    # end def
+
+
+    def widget_enabled (self, widget):
+        """
+            returns True if tkinter.Widget is enabled, False otherwise;
+        """
+        return bool(widget.cget("state").lower() == "normal")
     # end def
 
 # end class ProjectTabStoryboard

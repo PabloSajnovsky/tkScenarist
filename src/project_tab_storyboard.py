@@ -265,13 +265,13 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.save_now()
         # update entry + buttons state
         self.slot_update_inputs()
-        # inits
-        _sel = self.get_current_selected()
-        print("selected:", _sel)
+        print("selected:", self.current_shot)
         # got selected?
-        if _sel:
+        if self.current_shot:
             # inits
-            _nb, _title = self.get_shot_chunks(_sel["text"])
+            _nb, _title = self.get_shot_chunks(
+                self.current_shot["text"]
+            )
             # reset widgets
             self.LBL_SHOT.set(_nb)
             self.ENT_SHOT.delete(0, "end")

@@ -133,6 +133,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.TEXT_SHOT = self.text_shot_editor
         self.ENT_SHOT = self.entry_shot_title
         self.LBL_SHOT = self.get_stringvar("lbl_shot_number")
+        # update buttons state
+        self.slot_update_buttons()
         # event bindings
         self.bind_events(**kw)
     # end def
@@ -171,17 +173,18 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.clear_entry(self.ENT_SHOT)
         self.LBL_SHOT.set("")
         # update buttons state
-        self.update_buttons()
+        self.slot_update_buttons()
     # end def
 
 
-    def update_buttons (self, *args, **kw):
+    def slot_update_buttons (self, *args, **kw):
         """
             event handler: updates buttons state;
         """
         # inits
+        self.enable_widget(self.BTN_ADD, self.LBOX_SCENE.curselection())
         self.enable_widget(self.BTN_DEL, self.LBOX_SHOT.size())
-        self.enable_widget(self.BTN_RENAME, self.ENT_SHOT.get())
+        self.enable_widget(self.BTN_RENAME, self.LBOX_SHOT.curselection())
     # end def
 
 

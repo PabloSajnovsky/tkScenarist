@@ -152,9 +152,26 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # got selected?
         if _scene and _shot:
             # return shot number
-            return "#{}-{}".format(
+            return self.get_shot_number(
                 _scene["index"] + 1, _shot["index"] + 1
             )
+        # end if
+        # failed
+        return None
+    # end def
+
+
+    def get_current_shot_text (self, title):
+        """
+            returns formatted string for shot listbox insertion;
+            returns None on failure e.g. no selection at this time;
+        """
+        # inits
+        _nb = self.get_current_shot_number()
+        # got number?
+        if _nb:
+            # return formatted string
+            return self.get_formatted_shot_text(_nb, title)
         # end if
         # failed
         return None
@@ -173,20 +190,12 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
-    def get_formatted_shot_text (self, title):
+    def get_formatted_shot_text (self, shot_number, title):
         """
             returns formatted string for shot listbox insertion;
-            returns None on failure e.g. no selection at this time;
         """
-        # inits
-        _nb = self.get_current_shot_number()
-        # got number?
-        if _nb:
-            # return formatted string
-            return "{} {}".format(_nb, title)
-        # end if
-        # failed
-        return None
+        # return formatted string
+        return "{} {}".format(shot_number, title)
     # end def
 
 
@@ -219,6 +228,15 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # failed
         return ("toto", "tutu", "titi")                                     # FIXME
         #~ return tuple()
+    # end def
+
+
+    def get_shot_number (self, scene, index):
+        """
+            returns shot number as formatted string;
+        """
+        # return shot number
+        return "#{}-{}".format(scene, index)
     # end def
 
 
@@ -356,7 +374,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         print("slot_shot_rename")
         # ensure correct inits
-        _text = self.get_formatted_shot_text(self.ENT_SHOT.get())
+        _text = self.get_current_shot_text(self.ENT_SHOT.get())
         # really got formatted text?
         if _text:
             # update selected shot title

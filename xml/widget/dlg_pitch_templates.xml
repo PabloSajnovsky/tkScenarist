@@ -77,6 +77,8 @@
                         id="templates_list"
                         name="listbox_templates_list"
                         height="5"
+                        highlightthickness="0"
+                        takefocus="false"
                         layout="grid"
                         layout_options="row=0, column=0"
                         resizable="yes"

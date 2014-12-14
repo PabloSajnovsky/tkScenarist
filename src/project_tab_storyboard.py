@@ -39,8 +39,19 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             {
                 "Project:Modified": self.slot_project_modified,
 
+                "Storyboard:Shot:Add": self.slot_shot_add,
+                "Storyboard:Shot:Delete": self.slot_shot_delete,
+                "Storyboard:Shot:Rename": self.slot_shot_rename,
+
                 "Tab:Reset": self.slot_tab_reset,
             }
+        )
+        # tkinter event bindings
+        self.LBOX_SCENE.bind(
+            "<<ListboxSelect>>", self.slot_scene_item_selected
+        )
+        self.LBOX_SHOT.bind(
+            "<<ListboxSelect>>", self.slot_shot_item_selected
         )
     # end def
 
@@ -133,8 +144,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.TEXT_SHOT = self.text_shot_editor
         self.ENT_SHOT = self.entry_shot_title
         self.LBL_SHOT = self.get_stringvar("lbl_shot_number")
-        # update buttons state
-        self.slot_update_buttons()
+        # update entry + buttons state
+        self.slot_update_inputs()
         # event bindings
         self.bind_events(**kw)
     # end def
@@ -155,8 +166,25 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             event handler for project's modification flag;
         """
         # reset status
-        #~ self.text_storyboard.edit_modified(flag)
         pass
+    # end def
+
+
+    def slot_scene_item_selected (self, event=None, *args, **kw):
+        """
+            event handler: listbox item has been selected;
+        """
+        # update entry + buttons state
+        self.slot_update_inputs()
+    # end def
+
+
+    def slot_shot_item_selected (self, event=None, *args, **kw):
+        """
+            event handler: listbox item has been selected;
+        """
+        # update entry + buttons state
+        self.slot_update_inputs()
     # end def
 
 
@@ -164,27 +192,35 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: reset tab to new;
         """
-        print("slot_tab_reset")
         # reset listboxes
         self.clear_listbox(self.LBOX_SCENE, self.LBOX_SHOT)
         # reset Text widgets
         self.clear_text(self.TEXT_SCENE, self.TEXT_SHOT)
-        # reset entry + labels
-        self.clear_entry(self.ENT_SHOT)
-        self.LBL_SHOT.set("")
-        # update buttons state
-        self.slot_update_buttons()
+        # update entry + buttons state
+        self.slot_update_inputs()
     # end def
 
 
-    def slot_update_buttons (self, *args, **kw):
+    def slot_update_inputs (self, *args, **kw):
         """
             event handler: updates buttons state;
         """
         # inits
+        _shot_selected = bool(self.LBOX_SHOT.curselection())
+        # buttons reset
         self.enable_widget(self.BTN_ADD, self.LBOX_SCENE.curselection())
         self.enable_widget(self.BTN_DEL, self.LBOX_SHOT.size())
-        self.enable_widget(self.BTN_RENAME, self.LBOX_SHOT.curselection())
+        self.enable_widget(self.BTN_RENAME, _shot_selected)
+        # entry reset
+        if _shot_selected:
+            # enable
+            self.enable_widget(self.ENT_SHOT, True)
+        else:
+            # clear and disable
+            self.clear_entry(self.ENT_SHOT)
+            # clear shot number
+            self.LBL_SHOT.set("")
+        # end def
     # end def
 
 

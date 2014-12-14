@@ -23,6 +23,7 @@
 """
 
 # lib imports
+import re
 import tkinter.messagebox as MB
 import tkinter.simpledialog as SD
 import tkRAD
@@ -124,14 +125,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
-    def get_formatted_shot_text (self, title):
-        """
-            returns formatted string for shot listbox;
-        """
-        return "{} {}".format(self.get_current_shot_number(), title)
-    # end def
-
-
     def get_current_selected (self, listbox):
         """
             returns dict (index, text) of current selection or None,
@@ -148,6 +141,26 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def get_current_shot_number (self):
+        """
+            returns current selected shot number as formatted string;
+            returns None otherwise (no selection);
+        """
+        # inits
+        _scene = self.get_current_selected(self.LBOX_SCENE)
+        _shot = self.get_current_selected(self.LBOX_SHOT)
+        # got selected?
+        if _scene and _shot:
+            # return shot number
+            return "#{}-{}".format(
+                _scene["index"] + 1, _shot["index"] + 1
+            )
+        # end if
+        # failed
+        return None
+    # end def
+
+
     def get_file_contents (self, fname):
         """
             returns file contents;
@@ -157,6 +170,44 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         #~ fcontents = self.text_get_contents(self.text_storyboard)
         # always return a dict
         return {fname: fcontents}
+    # end def
+
+
+    def get_formatted_shot_text (self, title):
+        """
+            returns formatted string for shot listbox;
+            returns None on failure e.g. no selection at this time;
+        """
+        # inits
+        _nb = self.get_current_shot_number()
+        # got number?
+        if _nb:
+            # return formatted string
+            return "{} {}".format(_nb, title)
+        # end if
+        # failed
+        return None
+    # end def
+
+
+    def get_shot_chunks (self, text):
+        """
+            tries to retrieve shot number + title from given @text;
+            returns tuple of strings (number, title) when found, and
+            None otherwise;
+        """
+        # param controls
+        if text:
+            # inits
+            _found = re.match(r"(#\d+-\d+) (.*)", text)
+            # found?
+            if _found:
+                # return results
+                return _found.groups()
+            # end if
+        # end if
+        # failed
+        return None
     # end def
 
 
@@ -171,6 +222,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.text_get_contents = self.mainwindow.text_get_contents
         self.text_set_contents = self.mainwindow.text_set_contents
         self.async = ASYNC.get_async_manager()
+        self.current_scene = None
+        self.current_shot = None
         # looks for ^/xml/widget/tab_storyboard.xml
         self.xml_build("tab_storyboard")
         # widget inits
@@ -183,7 +236,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.TEXT_SHOT = self.text_shot_editor
         self.ENT_SHOT = self.entry_shot_title
         self.LBL_SHOT = self.get_stringvar("lbl_shot_number")
-        # update entry + buttons state
+        # update widgets state
         self.slot_update_inputs()
         # event bindings
         self.bind_events(**kw)
@@ -233,9 +286,12 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: listbox item has been selected;
         """
-        # save previous right now!
+        print("slot_scene_item_selected")
+        # save previous shot right now!
         self.save_now()
-        # update entry + buttons state
+        # update shot listbox contents along with new scene
+        self.slot_update_shot_listbox()
+        # update widgets state
         self.slot_update_inputs()
     # end def
 
@@ -244,6 +300,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: adding new shot to listbox;
         """
+        print("slot_shot_add")
         pass                                                                # FIXME
     # end def
 
@@ -252,6 +309,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: deleting selected shot from listbox;
         """
+        print("slot_shot_delete")
         pass                                                                # FIXME
     # end def
 
@@ -261,9 +319,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             event handler: listbox item has been selected;
         """
         print("slot_shot_item_selected")
-        # save previous right now!
-        self.save_now()
-        # update entry + buttons state
+        # update widgets state
         self.slot_update_inputs()
         print("selected:", self.current_shot)
         # got selected?
@@ -284,11 +340,14 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: renaming current shot into listbox;
         """
-        # update selected shot title
-        self.update_current_selected(
-            self.LBOX_SHOT,
-            self.get_formatted_shot_text(self.ENT_SHOT.get())
-        )
+        print("slot_shot_rename")
+        # ensure correct inits
+        _text = self.get_formatted_shot_text(self.ENT_SHOT.get())
+        # really got formatted text?
+        if _text:
+            # update selected shot title
+            self.update_current_selected(self.LBOX_SHOT, _text)
+        # end if
     # end def
 
 
@@ -308,6 +367,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             event handler: updates all inputs state;
         """
         print("slot_update_inputs")
+        # save previous shot right now!
+        self.save_now()
         # inits
         self.current_scene = self.get_current_selected(self.LBOX_SCENE)
         self.current_shot = self.get_current_selected(self.LBOX_SHOT)
@@ -332,6 +393,27 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             self.clear_entry(self.ENT_SHOT)
             self.clear_text(self.TEXT_SHOT)
         # end def
+    # end def
+
+
+    def slot_update_shot_listbox (self, *args, **kw):
+        """
+            event handler: updates shot listbox contents along with
+            current scene selection;
+        """
+        # inits
+        _scene = self.get_current_selected(self.LBOX_SCENE)
+        # got selected?
+        if _scene:
+            # get shot listbox contents
+            _contents = ("toto", "tutu", "titi")                            # FIXME
+            # update listbox contents
+            self.LBOX_SHOT.delete(0, "end")
+            self.LBOX_SHOT.insert(0, *_contents)
+            if _contents:
+                self.LBOX_SHOT.index(0)
+            # end if
+        # end if
     # end def
 
 

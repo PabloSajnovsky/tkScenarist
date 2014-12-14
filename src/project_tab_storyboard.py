@@ -69,6 +69,16 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.text_set_contents = self.mainwindow.text_set_contents
         # looks for ^/xml/widget/tab_storyboard.xml
         self.xml_build("tab_storyboard")
+        # widget inits
+        self.LBOX_SCENE = self.stb_scene_browser
+        self.LBOX_SHOT = self.stb_shot_browser
+        self.BTN_ADD = self.btn_add_shot
+        self.BTN_DEL = self.btn_del_shot
+        self.BTN_RENAME = self.btn_rename_shot
+        self.TEXT_SCENE = self.text_scene_preview
+        self.TEXT_SHOT = self.text_shot_editor
+        self.ENT_SHOT = self.entry_shot_title
+        self.LBL_SHOT = self.get_stringvar("lbl_shot_number")
         # event bindings
         self.bind_events(**kw)
     # end def

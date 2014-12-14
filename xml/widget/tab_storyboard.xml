@@ -152,6 +152,7 @@
                             text="+"
                             command="@Storyboard:Shot:Add"
                             width="2"
+                            takefocus="false"
                             layout="grid"
                             layout_options="row=0, column=0"
                         />
@@ -160,6 +161,7 @@
                             text="-"
                             command="@Storyboard:Shot:Delete"
                             width="2"
+                            takefocus="false"
                             layout="grid"
                             layout_options="row=0, column=1"
                         />
@@ -216,7 +218,7 @@
                     </ttkframe>
                 </ttkframe>
 
-            <!-- shot editor -->
+                <!-- shot editor -->
 
                 <ttkframe
                     weight="3"
@@ -240,7 +242,7 @@
                             resizable="width"
                         />
                         <ttkentry
-                            textvariable="entry_shot_title"
+                            name="entry_shot_title"
                             width="25"
                             state="disabled"
                             layout="grid"
@@ -251,6 +253,7 @@
                             name="btn_rename_shot"
                             text="Rename"
                             command="@Storyboard:Shot:Rename"
+                            takefocus="false"
                             layout="grid"
                             layout_options="row=0, column=2"
                         />

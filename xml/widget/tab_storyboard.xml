@@ -163,19 +163,6 @@
                             layout="grid"
                             layout_options="row=0, column=1"
                         />
-                        <!-- spacer -->
-                        <ttkframe
-                            layout="grid"
-                            layout_options="row=0, column=2"
-                            resizable="width"
-                        />
-                        <ttkbutton
-                            name="btn_rename_shot"
-                            text="Rename"
-                            command="@Storyboard:Shot:Rename"
-                            layout="grid"
-                            layout_options="row=0, column=3"
-                        />
                     </ttkframe>
                 </ttkframe>
             </ttkpanedwindow>
@@ -240,6 +227,7 @@
                         resizable="width"
                     />
                     <ttkframe
+                        padding="0 0 0 3px"
                         layout="pack"
                         resizable="yes"
                     >
@@ -249,11 +237,22 @@
                             foreground="royal blue"
                             layout="grid"
                             layout_options="row=0, column=0"
+                            resizable="width"
                         />
                         <ttkentry
                             textvariable="entry_shot_title"
+                            width="25"
+                            state="disabled"
                             layout="grid"
-                            layout_options="row=0, column=1"
+                            layout_options="row=0, column=1, padx=5"
+                            resizable="width"
+                        />
+                        <ttkbutton
+                            name="btn_rename_shot"
+                            text="Rename"
+                            command="@Storyboard:Shot:Rename"
+                            layout="grid"
+                            layout_options="row=0, column=2"
                         />
                     </ttkframe>
                     <ttkframe

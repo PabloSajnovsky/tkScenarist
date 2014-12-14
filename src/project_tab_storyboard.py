@@ -103,8 +103,12 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         # browse widgets
         for _w in widgets:
+            # enable widget
+            self.enable_widget(_w, True)
             # clear widget
             self.text_clear_contents(_w)
+            # disable widget
+            self.enable_widget(_w, False)
         # end for
     # end def
 
@@ -112,14 +116,19 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     def enable_widget (self, widget, state):
         """
             enables/disables a tkinter widget along with @state value;
-            if @state is None, widget keeps unchanged;
         """
-        # param controls
-        if state is not None:
-            widget.configure(
-                state={True: "normal"}.get(bool(state), "disabled")
-            )
-        # end if
+        # reset state
+        widget.configure(
+            state={True: "normal"}.get(bool(state), "disabled")
+        )
+    # end def
+
+
+    def get_formatted_shot_text (self, title):
+        """
+            returns formatted string for shot listbox;
+        """
+        return "{} {}".format(self.get_current_shot_number(), title)
     # end def
 
 
@@ -251,10 +260,23 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: listbox item has been selected;
         """
+        print("slot_shot_item_selected")
         # save previous right now!
         self.save_now()
         # update entry + buttons state
         self.slot_update_inputs()
+        # inits
+        _sel = self.get_current_selected()
+        print("selected:", _sel)
+        # got selected?
+        if _sel:
+            # inits
+            _nb, _title = self.get_shot_chunks(_sel["text"])
+            # reset widgets
+            self.LBL_SHOT.set(_nb)
+            self.ENT_SHOT.delete(0, "end")
+            self.ENT_SHOT.insert(0, _title)
+        # end if
     # end def
 
 
@@ -262,7 +284,11 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: renaming current shot into listbox;
         """
-        pass                                                                # FIXME
+        # update selected shot title
+        self.update_current_selected(
+            self.LBOX_SHOT,
+            self.get_formatted_shot_text(self.ENT_SHOT.get())
+        )
     # end def
 
 
@@ -272,16 +298,14 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         # reset listboxes
         self.clear_listbox(self.LBOX_SCENE, self.LBOX_SHOT)
-        # reset Text widgets
-        self.clear_text(self.TEXT_SCENE, self.TEXT_SHOT)
-        # update entry + buttons state
+        # update widgets state
         self.slot_update_inputs()
     # end def
 
 
     def slot_update_inputs (self, *args, **kw):
         """
-            event handler: updates buttons state;
+            event handler: updates all inputs state;
         """
         print("slot_update_inputs")
         # inits
@@ -289,17 +313,24 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.current_shot = self.get_current_selected(self.LBOX_SHOT)
         # buttons reset
         self.enable_widget(self.BTN_ADD, self.current_scene)
-        self.enable_widget(self.BTN_DEL, self.LBOX_SHOT.size())
+        self.enable_widget(self.BTN_DEL, self.current_shot)
         self.enable_widget(self.BTN_RENAME, self.current_shot)
-        # entry reset
-        if self.current_shot:
-            # enable
-            self.enable_widget(self.ENT_SHOT, True)
-        else:
+        # scene reset
+        if not self.current_scene:
             # clear and disable
-            self.clear_entry(self.ENT_SHOT)
+            self.clear_text(self.TEXT_SCENE)
+        # end if
+        # shot reset
+        if self.current_shot:
+            # enable widgets
+            self.enable_widget(self.ENT_SHOT, True)
+            self.enable_widget(self.TEXT_SHOT, True)
+        else:
             # clear shot number
             self.LBL_SHOT.set("")
+            # clear and disable
+            self.clear_entry(self.ENT_SHOT)
+            self.clear_text(self.TEXT_SHOT)
         # end def
     # end def
 

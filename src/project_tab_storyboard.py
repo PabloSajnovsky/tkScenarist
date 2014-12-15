@@ -28,6 +28,7 @@ import tkinter.messagebox as MB
 import tkinter.simpledialog as SD
 import tkRAD
 import tkRAD.core.async as ASYNC
+from tkRAD.core import tools
 
 
 class ProjectTabStoryboard (tkRAD.RADXMLFrame):
@@ -499,9 +500,9 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             _index = _scene["index"]
             _start = float(_lb.text_lines[_index])
             _end = (
-                tools.ensure_float(_lb.text_lines[_index+1:_index+2])
-                or "end"
+                _lb.text_lines[_index+1:_index+2]
             )
+            print("end index:", _end)
             _contents = (
                 _scenario.get_tagged_text(_start, _end)
             )

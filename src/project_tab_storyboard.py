@@ -557,7 +557,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             # get shot listbox contents
             _contents = self.get_shot_listbox_contents(_index)
             # update listbox contents
-            self.LBOX_SHOT.delete(0, "end")
+            self.clear_listbox(self.LBOX_SHOT)
             self.LBOX_SHOT.insert(0, *_contents)
         # end if
     # end def

@@ -284,13 +284,21 @@
                         <text
                             id="stb_shot_editor"
                             name="text_shot_editor"
+                            autoseparators="true"
+                            font="monospace 12"
                             height="20"
+                            state="disabled"
+                            undo="true"
                             width="40"
                             wrap="word"
-                            state="disabled"
                             layout="grid"
                             layout_options="row=0, column=0"
                             resizable="yes"
+                        />
+                        <tkevent
+                            widget="stb_shot_editor"
+                            seq="Key"
+                            slot="@Text:Key:Pressed"
                         />
                         <ttkscrollbar
                             connect="stb_shot_editor"

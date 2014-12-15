@@ -66,6 +66,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             }
         )
         # tkinter event bindings
+        self.bind("<Expose>", self.slot_on_tab_exposed)
         self.LBOX_SCENE.bind(
             "<<ListboxSelect>>", self.slot_scene_item_selected
         )
@@ -262,6 +263,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.LBOX_SCENE = self.listbox_scene_browser
         self.LBOX_SCENE.text_lines = []
         self.LBOX_SCENE.current_line = None
+        self.LBOX_SCENE.last_selected = -1
         self.LBOX_SHOT = self.listbox_shot_browser
         self.BTN_ADD = self.btn_add_shot
         self.BTN_DEL = self.btn_del_shot
@@ -298,6 +300,16 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def slot_on_tab_exposed (self, event=None, *args, **kw):
+        """
+            event handler: tab is now visible;
+        """
+        print("slot_on_tab_exposed")
+        # reset last selected scene
+        self.slot_reset_selected_scene()
+    # end def
+
+
     def slot_on_text_keypress (self, event=None, *args, **kw):
         """
             event handler: keyboard keypress for text widget;
@@ -314,6 +326,21 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         #~ # reset status
         #~ pass
     #~ # end def
+
+
+    def slot_reset_selected_scene (self, *args, **kw):
+        """
+            event handler: resets last selected scene, if any;
+        """
+        print("slot_reset_selected_scene")
+        # inits
+        _index = self.LBOX_SCENE.last_selected
+        # got selected?
+        if _index >= 0:
+            self.LBOX_SCENE.see(_index)
+            self.LBOX_SCENE.selection_set(_index)
+        # end if
+    # end def
 
 
     def slot_scene_item_selected (self, event=None, *args, **kw):
@@ -442,19 +469,13 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         _lb = self.LBOX_SCENE
         _lb.text_lines = kw.get("lines") or list()
         _lb.current_line = kw.get("current_line")
+        _lb.last_selected = _index = kw.get("current_selected") or -1
         _contents = kw.get("contents") or tuple()
-        _index = kw.get("current_selected") or -1
         # reset listbox
         self.clear_listbox(_lb)
         self.enable_widget(_lb, True)
         _lb.insert(0, *_contents)
         _lb.selection_clear(0, "end")
-        # got selected?
-        if _index >= 0:
-            # reset selection
-            _lb.see(_index)
-            _lb.selection_set(_index)
-        # end if
         # update widgets state
         self.slot_update_inputs()
     # end def

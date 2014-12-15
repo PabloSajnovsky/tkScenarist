@@ -504,14 +504,18 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             # reset styles
             for _tag in _scenario.tag_names():
                 _preview.tag_delete(_tag)
-                _preview.tag_configure(
-                    _tag, **_scenario.tag_configure(_tag)
-                )
+                try:
+                    _preview.tag_configure(
+                        _tag, **_scenario.tag_configure(_tag)
+                    )
+                except:
+                    pass
+                # end try
             # end for
             # set text preview
             self.clear_text(_preview)
             self.enable_widget(_preview, True)
-            _text.insert("1.0", *_contents)
+            _preview.insert("1.0", *_contents)
             self.enable_widget(_preview, False)
         # end if
     # end def

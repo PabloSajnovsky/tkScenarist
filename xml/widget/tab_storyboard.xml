@@ -200,7 +200,7 @@
                         <text
                             id="stb_scene_preview"
                             name="text_scene_preview"
-                            height="5"
+                            height="10"
                             width="10"
                             state="disabled"
                             wrap="word"

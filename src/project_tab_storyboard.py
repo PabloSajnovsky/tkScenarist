@@ -213,7 +213,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # param controls
         if text:
             # inits
-            _found = re.match(r"(#\d+-\d+) (.*)", text)
+            _found = re.match(r"(#\d+\.\d+) (.*)", text)
             # found?
             if _found:
                 # return results
@@ -231,7 +231,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             returns empty tuple on failure;
         """
         # failed
-        return ("toto", "tutu", "titi")                                     # FIXME
+        return ("#1.01 toto", "#1.02 tutu", "#2.01 titi")                # FIXME
         #~ return tuple()
     # end def
 
@@ -241,7 +241,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             returns shot number as formatted string;
         """
         # return shot number
-        return "#{}-{}".format(scene, index)
+        return "#{}.{:02d}".format(scene, index)
     # end def
 
 
@@ -472,7 +472,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # get contents
         _lb = self.LBOX_SCENE
         _lb.text_lines = kw.get("lines") or list()
-        _lb.last_selected = kw.get("current_selected") or -1
+        _lb.last_selected = kw.get("current_selected") or _lb.last_selected
         _contents = kw.get("contents") or tuple()
         # reset listbox
         self.clear_listbox(_lb)
@@ -530,6 +530,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             # get shot listbox contents
             _contents = self.get_shot_listbox_contents(_scene)
             # update listbox contents
+            self.enable_widget(self.LBOX_SHOT, True)
             self.LBOX_SHOT.delete(0, "end")
             self.LBOX_SHOT.insert(0, *_contents)
         # end if

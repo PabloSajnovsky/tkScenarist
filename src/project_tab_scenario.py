@@ -98,14 +98,6 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
-    def get_scene_browser_contents (self):
-        """
-            retrieves listbox contents from scene browser widget;
-        """
-        return self.LISTBOX.get(0, "end")
-    # end def
-
-
     def hide_popup_list (self, *args, **kw):
         """
             event handler: hides autocompletion popup list;
@@ -671,27 +663,36 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         _dict = self.TEXT.get_lines("scene")
         _cursor = _dict["current"]
         _lines = self.LISTBOX.current_lines = _dict["lines"]
+        _index = -1
         # reset listbox
         self.LISTBOX.delete(0, "end")
         self.LISTBOX.insert(0, *_dict["texts"])
         self.LISTBOX.selection_clear(0, "end")
         # insertion cursor is on a scene line?
         if _cursor in _lines:
-            # init
+            # app components may use this
+            _index = _lines.index(_cursor)
+            # should not select item while editing text
             all_is_clear = not (
                 self.TEXT.line_selected(float(_cursor))
                 or self.popup_is_active()
             )
             # all is clear?
             if all_is_clear:
-                # inits
-                _index = _lines.index(_cursor)
                 # select item
                 self.LISTBOX.selection_set(_index)
                 # show item
                 self.LISTBOX.see(_index)
             # end if
         # end if
+        # notify app
+        self.events.raise_event(
+            "Scenario:Scene:Browser:Changed",
+            contents=_dict["texts"],
+            lines=_dict["lines"],
+            current_line=_cursor,
+            current_selected=_index,
+        )
     # end def
 
 

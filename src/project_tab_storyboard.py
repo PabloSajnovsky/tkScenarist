@@ -55,6 +55,9 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             {
                 "Project:Modified": self.slot_project_modified,
 
+                "Scenario:Scene:Browser:Changed":
+                    self.slot_update_scene_listbox,
+
                 "Storyboard:Shot:Add": self.slot_shot_add,
                 "Storyboard:Shot:Delete": self.slot_shot_delete,
                 "Storyboard:Shot:Rename": self.slot_shot_rename,
@@ -63,7 +66,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             }
         )
         # tkinter event bindings
-        self.bind("<Expose>", self.slot_on_tab_exposed)
         self.LBOX_SCENE.bind(
             "<<ListboxSelect>>", self.slot_scene_item_selected
         )
@@ -294,16 +296,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
-    def slot_on_tab_exposed (self, event=None, *args, **kw):
-        """
-            event handler: tab is now visible to user;
-        """
-        print("slot_on_tab_exposed")
-        # update scene listbox (deferred)
-        self.after_idle(self.slot_update_scene_listbox)
-    # end def
-
-
     def slot_on_text_keypress (self, event=None, *args, **kw):
         """
             event handler: keyboard keypress for text widget;
@@ -459,10 +451,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             event handler: updates scene listbox contents;
         """
         print("slot_update_scene_listbox")
-        # get contents from tab_scenario
-        _contents = (
-            self.mainframe.tab_scenario.get_scene_browser_contents()
-        )
+        # get contents
+        _contents = kw.get("contents") or tuple()
         # reset listbox
         _lb = self.LBOX_SCENE
         self.clear_listbox(_lb)

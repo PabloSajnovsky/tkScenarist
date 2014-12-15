@@ -262,7 +262,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # widget inits
         self.LBOX_SCENE = self.listbox_scene_browser
         self.LBOX_SCENE.text_lines = []
-        self.LBOX_SCENE.current_line = None
         self.LBOX_SCENE.last_selected = -1
         self.LBOX_SHOT = self.listbox_shot_browser
         self.BTN_ADD = self.btn_add_shot
@@ -441,7 +440,10 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.enable_widget(self.BTN_DEL, self.current_shot)
         self.enable_widget(self.BTN_RENAME, self.current_shot)
         # scene reset
-        if not self.current_scene:
+        if self.current_scene:
+            # update data
+            self.LBOX_SCENE.last_selected = self.current_scene["index"]
+        else:
             # clear and disable
             self.clear_text(self.TEXT_SCENE)
         # end if
@@ -468,8 +470,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # get contents
         _lb = self.LBOX_SCENE
         _lb.text_lines = kw.get("lines") or list()
-        _lb.current_line = kw.get("current_line")
-        _lb.last_selected = _index = kw.get("current_selected") or -1
+        _lb.last_selected = kw.get("current_selected") or -1
         _contents = kw.get("contents") or tuple()
         # reset listbox
         self.clear_listbox(_lb)
@@ -488,10 +489,24 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         print("slot_update_scene_preview")
         # inits
-        _scene = self.get_current_selected(self.LBOX_SCENE)
+        _lb = self.LBOX_SCENE
+        _scene = self.get_current_selected(_lb)
         # got selected?
         if _scene:
-            pass                                                                # FIXME
+            # inits
+            _index = _scene["index"]
+            _start, _end = _lb.text_lines[_index:_index + 1]
+            _contents = (
+                self.mainframe.tab_scenario.TEXT.get_tagged_text(
+                    float(_start), float(_end)
+                )
+            )
+            _text = self.TEXT_SCENE
+            # set text preview
+            self.clear_text(_text)
+            self.enable_widget(_text, True)
+            _text.insert("1.0", *_contents)
+            self.enable_widget(_text, False)
         # end if
     # end def
 

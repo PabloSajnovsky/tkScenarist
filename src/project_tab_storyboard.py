@@ -394,6 +394,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             event handler: listbox item has been selected;
         """
         print("slot_shot_item_selected")
+        # save previous shot right now!
+        self.save_now()
         # try out
         try:
             # inits

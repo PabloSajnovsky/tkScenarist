@@ -339,6 +339,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         if _index >= 0:
             self.LBOX_SCENE.see(_index)
             self.LBOX_SCENE.selection_set(_index)
+            self.slot_scene_item_selected()
         # end if
     # end def
 
@@ -531,9 +532,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             # update listbox contents
             self.LBOX_SHOT.delete(0, "end")
             self.LBOX_SHOT.insert(0, *_contents)
-            if _contents:
-                self.LBOX_SHOT.index(0)
-            # end if
         # end if
     # end def
 

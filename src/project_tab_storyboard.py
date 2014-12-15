@@ -280,6 +280,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.TEXT_SCENE = self.text_scene_preview
         self.TEXT_SHOT = self.text_shot_editor
         self.ENT_SHOT = self.entry_shot_title
+        self.LBL_SCENE = self.get_stringvar("lbl_scene_number")
         self.LBL_SHOT = self.get_stringvar("lbl_shot_number")
         # reset listboxes
         self.clear_listbox(self.LBOX_SCENE, self.LBOX_SHOT)
@@ -468,6 +469,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.enable_widget(self.BTN_RENAME, _cur_shot)
         # scene reset
         if not _cur_scene:
+            # clear scene number
+            self.LBL_SCENE.set("")
             # clear and disable
             self.clear_text(self.TEXT_SCENE)
         # end if
@@ -518,6 +521,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         _index = self.get_current_selected(_lb)
         # got selected?
         if _index >= 0:
+            # update scene number
+            self.LBL_SCENE.set("#{}".format(_index + 1))
             # inits
             _preview = self.TEXT_SCENE
             _scenario = self.mainframe.tab_scenario.TEXT

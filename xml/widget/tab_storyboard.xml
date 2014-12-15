@@ -188,11 +188,24 @@
                 <ttkframe
                     weight="1"
                 >
-                    <ttklabel
-                        text="Scene preview:"
+                    <ttkframe
                         layout="pack"
-                        resizable="width"
-                    />
+                        resizable="yes"
+                    >
+                        <ttklabel
+                            text="Scene preview:"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                        />
+                        <ttklabel
+                            textvariable="lbl_scene_number"
+                            font="sans 10 bold"
+                            foreground="royal blue"
+                            layout="grid"
+                            layout_options="row=0, column=1, padx=5"
+                            resizable="width"
+                        />
+                    </ttkframe>
                     <ttkframe
                         layout="pack"
                         resizable="yes"

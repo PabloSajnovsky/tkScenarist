@@ -497,9 +497,13 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             _preview = self.TEXT_SCENE
             _scenario = self.mainframe.tab_scenario.TEXT
             _index = _scene["index"]
-            _start, _end = _lb.text_lines[_index:_index + 2]
+            _start = float(_lb.text_lines[_index])
+            _end = (
+                tools.ensure_float(_lb.text_lines[_index+1:_index+2])
+                or "end"
+            )
             _contents = (
-                _scenario.get_tagged_text(float(_start), float(_end))
+                _scenario.get_tagged_text(_start, _end)
             )
             # set text preview
             self.clear_text(_preview)

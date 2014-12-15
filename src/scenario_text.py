@@ -272,30 +272,29 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             updates;
         """
         # specific task
-        def update_strict(s_dict, u_dict):
-            # both must be plain dicts
-            if tools.is_pdict(s_dict) and tools.is_pdict(u_dict):
-                # search common keys
-                _keys = set(s_dict).intersection(set(u_dict))
-                # browse common keys
-                for _k in _keys:
-                    # item is dict?
-                    if isinstance(s_dict[_k], dict):
-                        # recurse update
-                        update_strict(s_dict[_k], u_dict[_k])
-                    else:
-                        # update simple item
-                        s_dict[_k] = u_dict[_k]
-                    # end if
-                # end for
-            # end if
-        # end def
         # inits
         _elements = copy.deepcopy(self.get_options_element())
         # update only already existing keys
-        update_strict(_elements, e_dict)
+        self.dict_update_strict(_elements, e_dict)
         # return results
         return _elements
+    # end def
+
+
+    def copy_styles_into (self, text_widget):
+        """
+            copies inner tag configurations into @text_widget;
+        """
+        # browse all tags
+        for _tag in self.tag_names():
+            # inits
+            _config = self.CONFIG_DEFAULTS.copy()
+            _cfg = self.tag_configure(_tag)
+            print("tag:", _tag, "configure:", _cfg)
+            self.dict_update_strict(_config, )
+            # reset target widget
+            text_widget.tag_configure(_tag, **_config)
+        # end for
     # end def
 
 
@@ -391,6 +390,31 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         except:
             return False
         # end try
+    # end def
+
+
+    def dict_update_strict (self, s_dict, u_dict):
+        """
+            updates @s_dict with @u_dict values, but strictly for
+            @s_dict existing keys;
+            @u_dict does *NOT* create new keys in @s_dict;
+        """
+        # both must be plain dicts
+        if tools.is_pdict(s_dict) and tools.is_pdict(u_dict):
+            # search common keys
+            _keys = set(s_dict).intersection(set(u_dict))
+            # browse common keys
+            for _k in _keys:
+                # item is dict?
+                if isinstance(s_dict[_k], dict):
+                    # recurse update
+                    self.dict_update_strict(s_dict[_k], u_dict[_k])
+                else:
+                    # update simple item
+                    s_dict[_k] = u_dict[_k]
+                # end if
+            # end for
+        # end if
     # end def
 
 

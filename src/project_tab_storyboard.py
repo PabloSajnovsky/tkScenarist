@@ -260,6 +260,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.xml_build("tab_storyboard")
         # widget inits
         self.LBOX_SCENE = self.listbox_scene_browser
+        self.LBOX_SCENE.text_lines = []
+        self.LBOX_SCENE.current_line = None
         self.LBOX_SHOT = self.listbox_shot_browser
         self.BTN_ADD = self.btn_add_shot
         self.BTN_DEL = self.btn_del_shot
@@ -431,6 +433,33 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def slot_update_scene_listbox (self, *args, **kw):
+        """
+            event handler: updates scene listbox contents;
+        """
+        print("slot_update_scene_listbox")
+        # get contents
+        _lb = self.LBOX_SCENE
+        _lb.text_lines = kw.get("lines") or list()
+        _lb.current_line = kw.get("current_line")
+        _contents = kw.get("contents") or tuple()
+        _index = kw.get("current_selected") or -1
+        # reset listbox
+        self.clear_listbox(_lb)
+        self.enable_widget(_lb, True)
+        _lb.insert(0, *_contents)
+        _lb.selection_clear(0, "end")
+        # got selected?
+        if _index >= 0:
+            # reset selection
+            _lb.see(_index)
+            _lb.selection_set(_index)
+        # end if
+        # update widgets state
+        self.slot_update_inputs()
+    # end def
+
+
     def slot_update_scene_preview (self, *args, **kw):
         """
             event handler: updates scene preview text contents along
@@ -443,23 +472,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         if _scene:
             pass                                                                # FIXME
         # end if
-    # end def
-
-
-    def slot_update_scene_listbox (self, *args, **kw):
-        """
-            event handler: updates scene listbox contents;
-        """
-        print("slot_update_scene_listbox")
-        # get contents
-        _contents = kw.get("contents") or tuple()
-        # reset listbox
-        _lb = self.LBOX_SCENE
-        self.clear_listbox(_lb)
-        self.enable_widget(_lb, True)
-        _lb.insert(0, *_contents)
-        # update widgets state
-        self.slot_update_inputs()
     # end def
 
 

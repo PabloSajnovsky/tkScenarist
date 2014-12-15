@@ -63,6 +63,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             }
         )
         # tkinter event bindings
+        self.bind("<Expose>", self.slot_on_tab_exposed)
         self.LBOX_SCENE.bind(
             "<<ListboxSelect>>", self.slot_scene_item_selected
         )
@@ -293,6 +294,16 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def slot_on_tab_exposed (self, event=None, *args, **kw):
+        """
+            event handler: tab is now visible to user;
+        """
+        print("slot_on_tab_exposed")
+        # update scene listbox (deferred)
+        self.after_idle(self.slot_update_scene_listbox)
+    # end def
+
+
     def slot_on_text_keypress (self, event=None, *args, **kw):
         """
             event handler: keyboard keypress for text widget;
@@ -440,6 +451,25 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         if _scene:
             pass                                                                # FIXME
         # end if
+    # end def
+
+
+    def slot_update_scene_listbox (self, *args, **kw):
+        """
+            event handler: updates scene listbox contents;
+        """
+        print("slot_update_scene_listbox")
+        # get contents from tab_scenario
+        _contents = (
+            self.mainframe.tab_scenario.get_scene_browser_contents()
+        )
+        # reset listbox
+        _lb = self.LBOX_SCENE
+        self.clear_listbox(_lb)
+        self.enable_widget(_lb, True)
+        _lb.insert(0, *_contents)
+        # update widgets state
+        self.slot_update_inputs()
     # end def
 
 

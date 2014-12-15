@@ -98,6 +98,14 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
     # end def
 
 
+    def get_scene_browser_contents (self):
+        """
+            retrieves listbox contents from scene browser widget;
+        """
+        return self.LISTBOX.get(0, "end")
+    # end def
+
+
     def hide_popup_list (self, *args, **kw):
         """
             event handler: hides autocompletion popup list;

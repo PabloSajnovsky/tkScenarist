@@ -44,7 +44,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # inits
         _scene, _shot = self.LBOX_SCENE, self.LBOX_SHOT
         # got selected scene and shot?
-        if _scene.last_selected and _shot.last_selected:
+        if _scene.last_selected >= 0 and _shot.last_selected >= 0:
             pass                                                                # FIXME
         # end if
     # end def
@@ -105,7 +105,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             # clear widget
             _w.delete(0, "end")
             # reset last selected
-            _w.last_selected = None
+            _w.last_selected = -1
         # end for
     # end def
 
@@ -137,31 +137,22 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
-    def get_current_selected (self, listbox, force_index=None):
+    def get_current_selected (self, listbox, force_index=-1):
         """
             returns dict (index, text) of current selection or None,
             otherwise;
         """
         # param controls
-        if force_index is not None:
-            # try out
-            try:
-                # force pointer value
-                listbox.last_selected = dict(
-                    index=force_index, text=listbox.get(force_index)
-                )
-            except:
-                pass
-            # end try
+        if 0 <= force_index < listbox.size():
+            # force pointer value
+            listbox.last_selected = force_index
         else:
             # inits
             _sel = listbox.curselection()
             # got selected?
             if _sel:
                 # update pointer value
-                listbox.last_selected = dict(
-                    index=_sel[0], text=listbox.get(_sel[0])
-                )
+                listbox.last_selected = _sel[0]
             # end if
         # end if
         # return result
@@ -175,14 +166,12 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             returns None otherwise (no selection);
         """
         # inits
-        _scene = self.get_current_selected(self.LBOX_SCENE)
-        _shot = self.get_current_selected(self.LBOX_SHOT)
+        _scene = self.get_current_selected(self.LBOX_SCENE) + 1
+        _shot = self.get_current_selected(self.LBOX_SHOT) + 1
         # got selected?
         if _scene and _shot:
             # return shot number
-            return self.get_shot_number(
-                _scene["index"] + 1, _shot["index"] + 1
-            )
+            return self.get_shot_number(_scene, _shot)
         # end if
         # failed
         return None
@@ -248,7 +237,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
-    def get_shot_listbox_contents (self, scene):
+    def get_shot_listbox_contents (self, scene_index):
         """
             retrieves shot listbox contents alongs with given @scene;
             returns empty tuple on failure;
@@ -259,12 +248,12 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
-    def get_shot_number (self, scene, index):
+    def get_shot_number (self, scene, shot):
         """
             returns shot number as formatted string;
         """
         # return shot number
-        return "#{}.{:02d}".format(scene, index)
+        return "#{}.{:02d}".format(scene, shot)
     # end def
 
 
@@ -284,9 +273,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # widget inits
         self.LBOX_SCENE = self.listbox_scene_browser
         self.LBOX_SCENE.text_lines = []
-        self.LBOX_SCENE.last_selected = None
         self.LBOX_SHOT = self.listbox_shot_browser
-        self.LBOX_SHOT.last_selected = None
         self.BTN_ADD = self.btn_add_shot
         self.BTN_DEL = self.btn_del_shot
         self.BTN_RENAME = self.btn_rename_shot
@@ -294,6 +281,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.TEXT_SHOT = self.text_shot_editor
         self.ENT_SHOT = self.entry_shot_title
         self.LBL_SHOT = self.get_stringvar("lbl_shot_number")
+        # reset listboxes
+        self.clear_listbox(self.LBOX_SCENE, self.LBOX_SHOT)
         # update widgets state
         self.slot_update_inputs()
         # event bindings
@@ -356,11 +345,11 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         print("slot_reset_selected_scene")
         # inits
-        _scene = self.get_current_selected(self.LBOX_SCENE)
+        _index = self.get_current_selected(self.LBOX_SCENE)
         # got selected?
-        if _scene:
-            self.LBOX_SCENE.see(_scene["index"])
-            self.LBOX_SCENE.selection_set(_scene["index"])
+        if _index >= 0:
+            self.LBOX_SCENE.see(_index)
+            self.LBOX_SCENE.selection_set(_index)
             self.slot_scene_item_selected()
         # end if
     # end def
@@ -408,8 +397,11 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # try out
         try:
             # inits
-            _shot = self.get_current_selected(self.LBOX_SHOT)
-            _nb, _title = self.get_shot_chunks(_shot["text"])
+            _nb, _title = self.get_shot_chunks(
+                self.LBOX_SHOT.get(
+                    self.get_current_selected(self.LBOX_SHOT)
+                )
+            )
             # reset widgets
             self.LBL_SHOT.set(_nb)
             self.enable_widget(self.ENT_SHOT, True)
@@ -417,7 +409,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             self.ENT_SHOT.insert(0, _title)
             self.enable_widget(self.TEXT_SHOT, True)
             self.text_set_contents(self.TEXT_SHOT, "dummy text")            # FIXME
-            self.TEXT_SHOT.focus_set()
+            self.after_idle(self.TEXT_SHOT.focus_set)
         except:
             pass
         # end try
@@ -437,6 +429,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         if _text:
             # update selected shot title
             self.update_current_selected(self.LBOX_SHOT, _text)
+            # update data
+            self.slot_shot_item_selected()
         # end if
     # end def
 
@@ -460,8 +454,12 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # save previous shot right now!
         self.save_now()
         # inits
-        _cur_scene = self.get_current_selected(self.LBOX_SCENE)
-        _cur_shot = self.get_current_selected(self.LBOX_SHOT)
+        _cur_scene = bool(
+            self.get_current_selected(self.LBOX_SCENE) + 1
+        )
+        _cur_shot = bool(
+            self.get_current_selected(self.LBOX_SHOT) + 1
+        )
         # buttons reset
         self.enable_widget(self.BTN_ADD, _cur_scene)
         self.enable_widget(self.BTN_DEL, _cur_shot)
@@ -515,13 +513,12 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         print("slot_update_scene_preview")
         # inits
         _lb = self.LBOX_SCENE
-        _scene = self.get_current_selected(_lb)
+        _index = self.get_current_selected(_lb)
         # got selected?
-        if _scene:
+        if _index >= 0:
             # inits
             _preview = self.TEXT_SCENE
             _scenario = self.mainframe.tab_scenario.TEXT
-            _index = _scene["index"]
             _start = float(_lb.text_lines[_index])
             try:
                 _end = "{}.0-1c".format(_lb.text_lines[_index+1])
@@ -547,11 +544,11 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         print("slot_update_shot_listbox")
         # inits
-        _scene = self.get_current_selected(self.LBOX_SCENE)
+        _index = self.get_current_selected(self.LBOX_SCENE)
         # got selected?
-        if _scene:
+        if _index >= 0:
             # get shot listbox contents
-            _contents = self.get_shot_listbox_contents(_scene)
+            _contents = self.get_shot_listbox_contents(_index)
             # update listbox contents
             self.LBOX_SHOT.delete(0, "end")
             self.LBOX_SHOT.insert(0, *_contents)
@@ -565,11 +562,9 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             with @text contents;
         """
         # inits
-        _sel = self.get_current_selected(listbox)
+        _index = self.get_current_selected(listbox)
         # got selected?
-        if _sel and text:
-            # inits
-            _index = _sel["index"]
+        if text and _index >= 0:
             # delete old text
             listbox.delete(_index)
             # insert new text

@@ -242,7 +242,7 @@
                             foreground="royal blue"
                             layout="grid"
                             layout_options="row=0, column=0"
-                            resizable="width"
+                            resizable="no"
                         />
                         <ttkentry
                             name="entry_shot_title"

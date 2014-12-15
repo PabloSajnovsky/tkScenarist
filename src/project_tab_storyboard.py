@@ -363,17 +363,12 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         print("slot_scene_item_selected")
         # save previous shot right now!
         self.save_now()
-        # inits
-        _last = self.LBOX_SCENE.last_selected
-        # not the same?
-        if _last != self.get_current_selected(self.LBOX_SCENE):
-            # update shot listbox contents along with new scene
-            self.slot_update_shot_listbox()
-            # update scene text preview
-            self.slot_update_scene_preview()
-            # update widgets state
-            self.slot_update_inputs()
-        # end if
+        # update shot listbox contents along with new scene
+        self.slot_update_shot_listbox()
+        # update scene text preview
+        self.slot_update_scene_preview()
+        # update widgets state
+        self.slot_update_inputs()
     # end def
 
 
@@ -402,32 +397,27 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         print("slot_shot_item_selected")
         # save previous shot right now!
         self.save_now()
-        # inits
-        _last = self.LBOX_SHOT.last_selected
-        # not the same?
-        if _last != self.get_current_selected(self.LBOX_SHOT):
-            # try out
-            try:
-                # inits
-                _nb, _title = self.get_shot_chunks(
-                    self.LBOX_SHOT.get(
-                        self.get_current_selected(self.LBOX_SHOT)
-                    )
+        # try out
+        try:
+            # inits
+            _nb, _title = self.get_shot_chunks(
+                self.LBOX_SHOT.get(
+                    self.get_current_selected(self.LBOX_SHOT)
                 )
-                # reset widgets
-                self.LBL_SHOT.set(_nb)
-                self.enable_widget(self.ENT_SHOT, True)
-                self.ENT_SHOT.delete(0, "end")
-                self.ENT_SHOT.insert(0, _title)
-                self.enable_widget(self.TEXT_SHOT, True)
-                self.text_set_contents(self.TEXT_SHOT, "dummy text")            # FIXME
-                self.after_idle(self.TEXT_SHOT.focus_set)
-            except:
-                pass
-            # end try
-            # update widgets state
-            self.slot_update_inputs()
-        # end if
+            )
+            # reset widgets
+            self.LBL_SHOT.set(_nb)
+            self.enable_widget(self.ENT_SHOT, True)
+            self.ENT_SHOT.delete(0, "end")
+            self.ENT_SHOT.insert(0, _title)
+            self.enable_widget(self.TEXT_SHOT, True)
+            self.text_set_contents(self.TEXT_SHOT, "dummy text")            # FIXME
+            self.after_idle(self.TEXT_SHOT.focus_set)
+        except:
+            pass
+        # end try
+        # update widgets state
+        self.slot_update_inputs()
     # end def
 
 

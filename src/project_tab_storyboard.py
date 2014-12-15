@@ -494,19 +494,25 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # got selected?
         if _scene:
             # inits
+            _preview = self.TEXT_SCENE
+            _scenario = self.mainframe.tab_scenario.TEXT
             _index = _scene["index"]
-            _start, _end = _lb.text_lines[_index:_index + 1]
+            _start, _end = _lb.text_lines[_index:_index + 2]
             _contents = (
-                self.mainframe.tab_scenario.TEXT.get_tagged_text(
-                    float(_start), float(_end)
-                )
+                _scenario.get_tagged_text(float(_start), float(_end))
             )
-            _text = self.TEXT_SCENE
+            # reset styles
+            for _tag in _scenario.tag_names():
+                _preview.tag_delete(_tag)
+                _preview.tag_configure(
+                    _tag, **_scenario.tag_configure(_tag)
+                )
+            # end for
             # set text preview
-            self.clear_text(_text)
-            self.enable_widget(_text, True)
+            self.clear_text(_preview)
+            self.enable_widget(_preview, True)
             _text.insert("1.0", *_contents)
-            self.enable_widget(_text, False)
+            self.enable_widget(_preview, False)
         # end if
     # end def
 

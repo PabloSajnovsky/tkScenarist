@@ -417,6 +417,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             self.ENT_SHOT.insert(0, _title)
             self.enable_widget(self.TEXT_SHOT, True)
             self.text_set_contents(self.TEXT_SHOT, "dummy text")            # FIXME
+            self.TEXT_SHOT.focus_set()
         except:
             pass
         # end try

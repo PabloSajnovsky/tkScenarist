@@ -53,7 +53,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         self.events.connect_dict(
             {
-                "Project:Modified": self.slot_project_modified,
+                #~ "Project:Modified": self.slot_project_modified,
 
                 "Scenario:Scene:Browser:Changed":
                     self.slot_update_scene_listbox,
@@ -305,13 +305,13 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
-    def slot_project_modified (self, *args, flag=True, **kw):
-        """
-            event handler for project's modification flag;
-        """
-        # reset status
-        pass
-    # end def
+    #~ def slot_project_modified (self, *args, flag=True, **kw):
+        #~ """
+            #~ event handler for project's modification flag;
+        #~ """
+        #~ # reset status
+        #~ pass
+    #~ # end def
 
 
     def slot_scene_item_selected (self, event=None, *args, **kw):

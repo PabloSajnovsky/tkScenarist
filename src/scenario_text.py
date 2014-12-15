@@ -288,10 +288,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # browse all tags
         for _tag in self.tag_names():
             # inits
-            _config = self.CONFIG_DEFAULTS.copy()
-            _cfg = self.tag_configure(_tag)
-            print("tag:", _tag, "configure:", _cfg)
-            self.dict_update_strict(_config, )
+            _config = dict()
+            # browse specific options
+            for _option in self.CONFIG_DEFAULTS:
+                # reset
+                _config[_option] = self.tag_cget(_tag, _option)
+            # end for
             # reset target widget
             text_widget.tag_configure(_tag, **_config)
         # end for

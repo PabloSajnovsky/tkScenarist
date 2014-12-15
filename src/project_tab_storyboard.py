@@ -408,9 +408,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # try out
         try:
             # inits
-            _nb, _title = self.get_shot_chunks(
-                self.LBOX_SHOT.last_selected["text"]
-            )
+            _shot = self.get_current_selected(self.LBOX_SHOT)
+            _nb, _title = self.get_shot_chunks(_shot["text"])
             # reset widgets
             self.LBL_SHOT.set(_nb)
             self.ENT_SHOT.delete(0, "end")

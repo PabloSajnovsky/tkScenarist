@@ -512,7 +512,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         print("slot_shot_purge")
         # user confirmed purge?
         if self.user_confirm_purge():
-            # inits
+            # FIXME: SQL query in DB
+            # FIXME: remove returned indices from listbox
             pass                                                                # FIXME
         # end if
         # update widgets state
@@ -701,7 +702,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         return MB.askyesno(
             title=_("Attention"),
             message=_(
-                "Do you really want to remove all "
+                "Do you really want to remove *ALL* "
                 "empty shots from list?"
             ),
             parent=self,

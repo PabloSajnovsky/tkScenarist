@@ -62,6 +62,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
 
                 "Storyboard:Shot:Add": self.slot_shot_add,
                 "Storyboard:Shot:Delete": self.slot_shot_delete,
+                "Storyboard:Shot:Purge": self.slot_shot_purge,
                 "Storyboard:Shot:Rename": self.slot_shot_rename,
 
                 "Tab:Reset": self.slot_tab_reset,
@@ -504,6 +505,21 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def slot_shot_purge (self, *args, **kw):
+        """
+            event handler: purges shot listbox;
+        """
+        print("slot_shot_purge")
+        # user confirmed purge?
+        if self.user_confirm_purge():
+            # inits
+            pass                                                                # FIXME
+        # end if
+        # update widgets state
+        self.slot_update_inputs()
+    # end def
+
+
     def slot_shot_rename (self, *args, **kw):
         """
             event handler: renaming current shot into listbox;
@@ -673,6 +689,21 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         return MB.askyesno(
             title=_("Attention"),
             message=_("Do you really want to delete selected shot?"),
+            parent=self,
+        )
+    # end def
+
+
+    def user_confirm_purge (self):
+        """
+            asks user for purge confirmation;
+        """
+        return MB.askyesno(
+            title=_("Attention"),
+            message=_(
+                "Do you really want to remove all "
+                "empty shots from list?"
+            ),
             parent=self,
         )
     # end def

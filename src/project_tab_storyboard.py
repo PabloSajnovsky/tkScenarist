@@ -242,9 +242,9 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             retrieves shot listbox contents alongs with given @scene;
             returns empty tuple on failure;
         """
+        pass                                                                # FIXME
         # failed
-        return ("#1.01 toto", "#1.02 tutu", "#2.01 titi")                # FIXME
-        #~ return tuple()
+        return tuple()
     # end def
 
 
@@ -430,7 +430,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             self.ENT_SHOT.delete(0, "end")
             self.ENT_SHOT.insert(0, _title)
             self.enable_widget(self.TEXT_SHOT, True)
-            self.text_set_contents(self.TEXT_SHOT, "dummy text")            # FIXME
+            self.text_set_contents(self.TEXT_SHOT, "")                      # FIXME
             # set focus on relevant widget
             if not _title:
                 self.after_idle(self.ENT_SHOT.focus_set)

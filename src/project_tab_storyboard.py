@@ -501,7 +501,9 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         print("slot_shot_rename")
         # ensure correct inits
-        _text = self.get_current_shot_text(self.ENT_SHOT.get())
+        _text = self.get_formatted_shot_text(
+            self.LBL_SHOT.get(), self.ENT_SHOT.get()
+        )
         # really got formatted text?
         if _text:
             # update selected shot title

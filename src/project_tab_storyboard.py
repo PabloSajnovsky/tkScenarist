@@ -40,10 +40,18 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             event handler;
             automatically saves data, if any;
         """
+        print("auto_save")
         # inits
         _scene, _shot = self.LBOX_SCENE, self.LBOX_SHOT
         # got selected scene and shot?
         if _scene.last_selected >= 0 and _shot.last_selected >= 0:
+            # inits
+            _scenario = self.mainframe.tab_scenario.TEXT
+            _scene_title = _scenario.get_line_contents(
+                float(_scene.text_lines[_scene.last_selected])
+            )
+            print("scene title:", _scene_title)
+
             pass                                                                # FIXME
         # end if
     # end def

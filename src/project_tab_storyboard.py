@@ -314,7 +314,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.BTN_ADD = self.btn_add_shot
         self.BTN_DEL = self.btn_del_shot
         self.BTN_PURGE = self.btn_purge_shot
-        self.BTN_RENAME = self.btn_rename_shot
         self.TEXT_SCENE = self.text_scene_preview
         self.TEXT_SHOT = self.text_shot_editor
         self.ENT_SHOT = self.entry_shot_title
@@ -585,7 +584,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.enable_widget(self.BTN_ADD, _cur_scene)
         self.enable_widget(self.BTN_DEL, _cur_shot)
         self.enable_widget(self.BTN_PURGE, bool(self.LBOX_SHOT.size()))
-        self.enable_widget(self.BTN_RENAME, _cur_shot)
         # scene reset
         if not _cur_scene:
             # clear scene number

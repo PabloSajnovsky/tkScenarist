@@ -165,6 +165,19 @@
                             layout="grid"
                             layout_options="row=0, column=1"
                         />
+                        <!-- spacer -->
+                        <ttkframe
+                            layout="grid"
+                            layout_options="row=0, column=2"
+                            resizable="width"
+                        />
+                        <ttkbutton
+                            name="btn_purge_shot"
+                            text="Purge"
+                            command="@Storyboard:Shot:Purge"
+                            layout="grid"
+                            layout_options="row=0, column=3"
+                        />
                     </ttkframe>
                 </ttkframe>
             </ttkpanedwindow>

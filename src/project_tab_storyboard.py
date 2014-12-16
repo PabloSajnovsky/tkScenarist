@@ -210,7 +210,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
-    def get_formatted_shot_text (self, shot_number, title):
+    def get_formatted_shot_text (self, shot_number, title=""):
         """
             returns formatted string for shot listbox insertion;
         """
@@ -310,6 +310,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             # show newly selected item
             listbox.see(index)
             listbox.selection_set(index)
+            listbox.event_generate("<<ListboxSelect>>")
         # end if
         # notify app
         self.events.raise_event("Project:Modified")
@@ -410,11 +411,18 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         if _scene:
             # inits
             _lb = self.LBOX_SHOT
-            _shot = _lb.size() + 1
+            # try out
+            try:
+                # get shot number of last item
+                _num, _title = self.get_shot_chunks(_lb.get("end"))
+                _shot = int(_num.split(".")[-1]) + 1
+            except:
+                _shot = _lb.size() + 1
+            # end try
             _lb.insert(
                 "end",
                 self.get_formatted_shot_text(
-                    self.get_shot_number(_scene, _shot), ""
+                    self.get_shot_number(_scene, _shot)
                 )
             )
             # show selected

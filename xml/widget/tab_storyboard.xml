@@ -175,6 +175,7 @@
                             name="btn_purge_shot"
                             text="Purge"
                             command="@Storyboard:Shot:Purge"
+                            takefocus="false"
                             layout="grid"
                             layout_options="row=0, column=3"
                         />

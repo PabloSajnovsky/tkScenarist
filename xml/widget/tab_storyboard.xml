@@ -272,6 +272,7 @@
                         />
                         <ttkentry
                             name="entry_shot_title"
+                            font="monospace 10"
                             width="25"
                             state="disabled"
                             layout="grid"

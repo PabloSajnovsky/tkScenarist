@@ -43,13 +43,19 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         print("auto_save")
         # inits
         _lb = self.LBOX_SHOT
+        _index = _lb.last_selected
         # got selected?
-        if _lb.last_selected >= 0:
+        if _index >= 0:
             # inits
             _shot = self.LBL_SHOT.get()
             _title = self.ENT_SHOT.get()
             _text = self.text_get_contents(self.TEXT_SHOT)
             _scene_nr, _shot_nr = _shot.strip("#").split(".")
+            # update listbox item
+            _lb.delete(_index)
+            _lb.insert(
+                _index, self.get_formatted_shot_text(_shot, _title)
+            )
             print(
                 "scene number:", _scene_nr,
                 "shot number:", _shot_nr,
@@ -82,7 +88,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
                 "Storyboard:Shot:Add": self.slot_shot_add,
                 "Storyboard:Shot:Delete": self.slot_shot_delete,
                 "Storyboard:Shot:Purge": self.slot_shot_purge,
-                "Storyboard:Shot:Rename": self.slot_shot_rename,
 
                 "Tab:Reset": self.slot_tab_reset,
             }
@@ -280,6 +285,15 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def init_deferred (self):
+        """
+            deferred widget inits;
+        """
+        # member inits
+        self.database = self.mainwindow.database
+    # end def
+
+
     def init_widget (self, **kw):
         """
             hook method to be reimplemented by subclass;
@@ -312,6 +326,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.slot_update_inputs()
         # event bindings
         self.bind_events(**kw)
+        # deferred inits
+        self.after(200, self.init_deferred)
     # end def
 
 
@@ -540,25 +556,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
-    def slot_shot_rename (self, *args, **kw):
-        """
-            event handler: renaming current shot into listbox;
-        """
-        print("slot_shot_rename")
-        # ensure correct inits
-        _text = self.get_formatted_shot_text(
-            self.LBL_SHOT.get(), self.ENT_SHOT.get()
-        )
-        # really got formatted text?
-        if _text:
-            # update selected shot title
-            self.update_current_selected(self.LBOX_SHOT, _text)
-            # update data
-            self.slot_shot_item_selected()
-        # end if
-    # end def
-
-
     def slot_tab_reset (self, *args, **kw):
         """
             event handler: reset tab to new;
@@ -681,23 +678,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             # update listbox contents
             self.clear_listbox(self.LBOX_SHOT)
             self.LBOX_SHOT.insert(0, *_contents)
-        # end if
-    # end def
-
-
-    def update_current_selected (self, listbox, text):
-        """
-            updates text contents of @listbox current selected item
-            with @text contents;
-        """
-        # inits
-        _index = self.get_current_selected(listbox)
-        # got selected?
-        if text and _index >= 0:
-            # delete old text
-            listbox.delete(_index)
-            # insert new text
-            listbox.insert(_index, text)
         # end if
     # end def
 

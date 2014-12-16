@@ -278,14 +278,6 @@
                             layout_options="row=0, column=1, padx=5"
                             resizable="width"
                         />
-                        <ttkbutton
-                            name="btn_rename_shot"
-                            text="Rename"
-                            command="@Storyboard:Shot:Rename"
-                            takefocus="false"
-                            layout="grid"
-                            layout_options="row=0, column=2"
-                        />
                     </ttkframe>
 
                     <!-- shot text editor -->

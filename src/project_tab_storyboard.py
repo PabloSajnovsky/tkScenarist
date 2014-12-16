@@ -416,13 +416,17 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
                 _lb.delete(_index)
                 _lb.selection_clear(0, "end")
                 # reselect current index
+                _index = max(-1, min(_lb.size() - 1, _index))
                 try:
+                    _lb.see(_index)
                     _lb.selection_set(_index)
                 except:
-                    _lb.selection_set("end")
+                    pass
                 # end try
             # end if
         # end if
+        # update widgets state
+        self.slot_update_inputs()
     # end def
 
 

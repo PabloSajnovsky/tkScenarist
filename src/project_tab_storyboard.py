@@ -395,7 +395,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             _lb.selection_set("end")
             _lb.see("end")
             # update data
-            #~ self.slot_shot_item_selected()
+            self.slot_shot_item_selected()
         # end if
     # end def
 
@@ -431,7 +431,12 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             self.ENT_SHOT.insert(0, _title)
             self.enable_widget(self.TEXT_SHOT, True)
             self.text_set_contents(self.TEXT_SHOT, "dummy text")            # FIXME
-            self.after_idle(self.TEXT_SHOT.focus_set)
+            # set focus on relevant widget
+            if not _title:
+                self.after_idle(self.ENT_SHOT.focus_set)
+            else:
+                self.after_idle(self.TEXT_SHOT.focus_set)
+            # end if
         except:
             pass
         # end try

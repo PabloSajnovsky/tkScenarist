@@ -377,7 +377,26 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             event handler: adding new shot to listbox;
         """
         print("slot_shot_add")
-        pass                                                                # FIXME
+        # inits
+        _scene = self.get_current_selected(self.LBOX_SCENE) + 1
+        # got selected scene?
+        if _scene:
+            # inits
+            _lb = self.LBOX_SHOT
+            _shot = _lb.size() + 1
+            _lb.insert(
+                "end",
+                self.get_formatted_shot_text(
+                    self.get_shot_number(_scene, _shot), ""
+                )
+            )
+            # show selected
+            _lb.selection_clear(0, "end")
+            _lb.selection_set("end")
+            _lb.see("end")
+            # update data
+            #~ self.slot_shot_item_selected()
+        # end if
     # end def
 
 

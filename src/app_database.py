@@ -250,6 +250,16 @@ class AppDatabase (DB.Database):
                 name_description    TEXT NOT NULL DEFAULT "",
                 UNIQUE (name_name, name_origin)
             );
+
+            CREATE TEMPORARY TABLE IF NOT EXISTS 'storyboard_shots'
+            (
+                shot_key            INTEGER PRIMARY KEY,
+                shot_scene          INTEGER NOT NULL DEFAULT 0,
+                shot_shot           INTEGER NOT NULL DEFAULT 0,
+                shot_title          TEXT NOT NULL DEFAULT "",
+                shot_text           TEXT NOT NULL DEFAULT "",
+                UNIQUE (shot_scene, shot_shot)
+            );
         """)
     # end def
 
@@ -302,6 +312,19 @@ class AppDatabase (DB.Database):
             value = str(value).replace(r"\'", "'").replace("'", "''")
         # end if
         return value
+    # end def
+
+
+    def stb_update_shot (self, **row):
+        """
+            inserts or replaces storyboard shot record;
+        """
+        # insert or replace
+        self.sql_query(
+            "INSERT OR REPLACE INTO 'storyboard_shots' "
+            "VALUES (NULL, :scene, :shot, :title, :text)",
+            **row
+        )
     # end def
 
 # end class AppDatabase

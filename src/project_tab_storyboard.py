@@ -57,12 +57,13 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
                 "text:", _text
             )
             # update record in database
-            self.database.stb_update_shot(
-                scene=_scene_nr,
-                shot=_shor_nr,
+            self.mainwindow.database.stb_update_shot(
+                scene=int(_scene_nr),
+                shot=int(_shot_nr),
                 title=_title,
-                text=_text
+                text=_text,
             )
+            self.mainwindow.database.dump_tables("storyboard_shots")
         # end if
     # end def
 
@@ -286,7 +287,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # member inits
         self.mainwindow = self.winfo_toplevel()
         self.mainframe = self.mainwindow.mainframe
-        self.database = self.mainwindow.database
         self.text_clear_contents = self.mainwindow.text_clear_contents
         self.text_get_contents = self.mainwindow.text_get_contents
         self.text_set_contents = self.mainwindow.text_set_contents

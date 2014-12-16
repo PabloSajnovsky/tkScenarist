@@ -153,6 +153,10 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             if _sel:
                 # update pointer value
                 listbox.last_selected = _sel[0]
+            # empty listbox?
+            elif not listbox.size():
+                # force clear-ups
+                self.clear_listbox(listbox)
             # end if
         # end if
         # return result
@@ -421,7 +425,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
                     _lb.see(_index)
                     _lb.selection_set(_index)
                 except:
-                    pass
+                    print("index:", _index)
                 # end try
             # end if
         # end if

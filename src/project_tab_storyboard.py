@@ -42,17 +42,27 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         print("auto_save")
         # inits
-        _scene, _shot = self.LBOX_SCENE, self.LBOX_SHOT
-        # got selected scene and shot?
-        if _scene.last_selected >= 0 and _shot.last_selected >= 0:
+        _lb = self.LBOX_SHOT
+        # got selected?
+        if _lb.last_selected >= 0:
             # inits
-            _scenario = self.mainframe.tab_scenario.TEXT
-            _scene_title = _scenario.get_line_contents(
-                float(_scene.text_lines[_scene.last_selected])
+            _shot = self.LBL_SHOT.get()
+            _title = self.ENT_SHOT.get()
+            _text = self.text_get_contents(self.TEXT_SHOT)
+            _scene_nr, _shot_nr = _shot.strip("#").split(".")
+            print(
+                "scene number:", _scene_nr,
+                "shot number:", _shot_nr,
+                "title:", _title,
+                "text:", _text
             )
-            print("scene title:", _scene_title)
-
-            pass                                                                # FIXME
+            # update record in database
+            self.database.stb_update_shot(
+                scene=_scene_nr,
+                shot=_shor_nr,
+                title=_title,
+                text=_text
+            )
         # end if
     # end def
 
@@ -276,6 +286,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # member inits
         self.mainwindow = self.winfo_toplevel()
         self.mainframe = self.mainwindow.mainframe
+        self.database = self.mainwindow.database
         self.text_clear_contents = self.mainwindow.text_clear_contents
         self.text_get_contents = self.mainwindow.text_get_contents
         self.text_set_contents = self.mainwindow.text_set_contents

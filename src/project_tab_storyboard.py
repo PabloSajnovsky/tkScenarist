@@ -405,7 +405,24 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             event handler: deleting selected shot from listbox;
         """
         print("slot_shot_delete")
-        pass                                                                # FIXME
+        # inits
+        _lb = self.LBOX_SHOT
+        _index = self.get_current_selected(_lb)
+        # got selected?
+        if _index >= 0:
+            # no text out there?
+            if not self.text_get_contents(self.TEXT_SHOT).strip():
+                # simply remove from listbox
+                _lb.delete(_index)
+                _lb.selection_clear(0, "end")
+                # reselect current index
+                try:
+                    _lb.selection_set(_index)
+                except:
+                    _lb.selection_set("end")
+                # end try
+            # end if
+        # end if
     # end def
 
 

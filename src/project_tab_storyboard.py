@@ -25,7 +25,6 @@
 # lib imports
 import re
 import tkinter.messagebox as MB
-import tkinter.simpledialog as SD
 import tkRAD
 import tkRAD.core.async as ASYNC
 from tkRAD.core import tools
@@ -295,6 +294,30 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def listbox_delete (self, listbox, index):
+        """
+            removes @listbox item located at given @index;
+            reselects new item at @index or 'end';
+            returns new rebound index;
+        """
+        # remove item
+        listbox.delete(index)
+        listbox.selection_clear(0, "end")
+        # reselect current index
+        index = max(-1, min(listbox.size() - 1, index))
+        # selectable index?
+        if index >= 0:
+            # show newly selected item
+            listbox.see(index)
+            listbox.selection_set(index)
+        # end if
+        # notify app
+        self.events.raise_event("Project:Modified")
+        # return new index
+        return index
+    # end def
+
+
     def save_now (self):
         """
             ensures current template is saved before clearing;
@@ -400,6 +423,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             _lb.see("end")
             # update data
             self.slot_shot_item_selected()
+            # notify app
+            self.events.raise_event("Project:Modified")
         # end if
     # end def
 
@@ -417,16 +442,16 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             # no text out there?
             if not self.text_get_contents(self.TEXT_SHOT).strip():
                 # simply remove from listbox
-                _lb.delete(_index)
-                _lb.selection_clear(0, "end")
-                # reselect current index
-                _index = max(-1, min(_lb.size() - 1, _index))
-                try:
-                    _lb.see(_index)
-                    _lb.selection_set(_index)
-                except:
-                    print("index:", _index)
-                # end try
+                self.listbox_delete(_lb, _index)
+            # got user text
+            else:
+                # user confirmed?
+                if self.user_confirm_deletion():
+                    # remove from listbox
+                    self.listbox_delete(_lb, _index)
+                    # remove from database
+                    pass                                                    # FIXME
+                # end if
             # end if
         # end if
         # update widgets state
@@ -626,6 +651,18 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             # insert new text
             listbox.insert(_index, text)
         # end if
+    # end def
+
+
+    def user_confirm_deletion (self):
+        """
+            asks user for deletion confirmation;
+        """
+        return MB.askyesno(
+            title=_("Attention"),
+            message=_("Do you really want to delete selected shot?"),
+            parent=self,
+        )
     # end def
 
 

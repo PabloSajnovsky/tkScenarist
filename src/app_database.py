@@ -315,6 +315,22 @@ class AppDatabase (DB.Database):
     # end def
 
 
+    def stb_get_shot (self, scene, shot):
+        """
+            retrieves storyboard shot record;
+        """
+        # SQL query
+        self.sql_query(
+            "SELECT shot_title AS title, shot_text AS text "
+            "FROM 'storyboard_shots' "
+            "WHERE shot_scene = ? and shot_shot = ? LIMIT 1",
+            int(scene), int(shot)
+        )
+        # get one row or None
+        return self.fetch(default={"title": "", "text": ""})
+    # end def
+
+
     def stb_update_shot (self, **row):
         """
             inserts or replaces storyboard shot record;

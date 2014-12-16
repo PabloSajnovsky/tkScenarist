@@ -518,13 +518,16 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
                     self.get_current_selected(self.LBOX_SHOT)
                 )
             )
+            _scene, _shot = _nb.strip("#").split(".")
+            # get DB record
+            _row = self.database.stb_get_shot(_scene, _shot)
             # reset widgets
             self.LBL_SHOT.set(_nb)
             self.enable_widget(self.ENT_SHOT, True)
             self.ENT_SHOT.delete(0, "end")
-            self.ENT_SHOT.insert(0, _title)
+            self.ENT_SHOT.insert(0, _row["title"])
             self.enable_widget(self.TEXT_SHOT, True)
-            self.text_set_contents(self.TEXT_SHOT, "")                      # FIXME
+            self.text_set_contents(self.TEXT_SHOT, _row["text"])
             # set focus on relevant widget
             if not _title:
                 self.after_idle(self.ENT_SHOT.focus_set)

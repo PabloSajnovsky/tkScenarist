@@ -63,7 +63,7 @@
                 </ttkframe>
                 <!-- listbox edition toolbar -->
                 <ttkframe
-                    padding="0 3px 0 0"
+                    padding="0 3 0 0"
                     layout="grid"
                     layout_options="row=1, column=0"
                     resizable="width"

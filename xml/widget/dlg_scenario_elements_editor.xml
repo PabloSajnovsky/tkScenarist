@@ -40,7 +40,7 @@
     <!-- SEE preferences frame -->
 
     <ttkframe
-        padding="5px"
+        padding="5"
         style="raised.TFrame"
         layout="pack"
         resizable="yes"
@@ -153,7 +153,7 @@
 
         <ttklabelframe
             text="Look'n'feel"
-            padding="3px 3px 3px 0px"
+            padding="3 3 3 0"
             layout="pack"
             layout_options="pady=2"
             resizable="yes"
@@ -162,7 +162,7 @@
             <!-- font face settings -->
 
             <ttkframe
-                padding="0px 0px 0px 5px"
+                padding="0 0 0 5"
                 layout="pack"
                 resizable="yes"
             >

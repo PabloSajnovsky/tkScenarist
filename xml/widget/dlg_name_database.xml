@@ -32,7 +32,6 @@
 
         <ttklabelframe
             text="View"
-            padding="5px"
             layout="grid"
             layout_options="row=0, column=0, rowspan=2"
             resizable="yes"
@@ -82,7 +81,6 @@
 
         <ttklabelframe
             text="Search"
-            padding="5px"
             layout="grid"
             layout_options="row=0, column=2"
             resizable="yes"
@@ -208,7 +206,6 @@
 
         <ttklabelframe
             text="Tools"
-            padding="5px"
             layout="grid"
             layout_options="row=1, column=2"
             resizable="yes"

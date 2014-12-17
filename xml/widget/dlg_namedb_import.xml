@@ -32,7 +32,6 @@
 
         <ttklabelframe
             text="File to import"
-            padding="5px"
             layout="pack"
             resizable="yes"
         >
@@ -65,7 +64,6 @@
 
         <ttklabelframe
             text="Preview"
-            padding="5px"
             layout="pack"
             resizable="yes"
         >
@@ -102,7 +100,6 @@
 
         <ttklabelframe
             text="Fields"
-            padding="5px"
             layout="pack"
             resizable="yes"
         >
@@ -170,7 +167,6 @@
 
         <ttklabelframe
             text="Import"
-            padding="5px"
             layout="pack"
             resizable="yes"
         >

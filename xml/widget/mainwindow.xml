@@ -81,7 +81,7 @@
         info.TLabel { foreground: royal blue; }
         info_big.TLabel { font: sans 12 bold; foreground: royal blue; }
         info_mini.TLabel { font: sans 9 bold; foreground: royal blue; }
-        TLabelframe { padding: 3px; }
+        TLabelframe { padding: 5; }
         TRadiobutton :selected { indicatorcolor: royal blue; }
     ]]>
     </ttkstyle>
@@ -89,12 +89,12 @@
     <!-- main widget -->
 
     <ttknotebook
-        padding="5px 10px 5px 5px"
+        padding="5"
         layout="pack"
         resizable="yes"
     >
         <!-- Tab 1 -->
-        <ttktab text="Title/Data" padding="5px">
+        <ttktab text="Title/Data" padding="3">
             <widget
                 class="ProjectTabTitleData"
                 name="tab_title_data"
@@ -105,7 +105,7 @@
         </ttktab>
 
         <!-- Tab 2 -->
-        <ttktab text="Draft/Notes" padding="5px">
+        <ttktab text="Draft/Notes" padding="3">
             <widget
                 class="ProjectTabDraftNotes"
                 name="tab_draft_notes"
@@ -116,7 +116,7 @@
         </ttktab>
 
         <!-- Tab 3 -->
-        <ttktab text="Pitch/Concept" padding="5px">
+        <ttktab text="Pitch/Concept" padding="3">
             <widget
                 class="ProjectTabPitchConcept"
                 name="tab_pitch_concept"
@@ -127,7 +127,7 @@
         </ttktab>
 
         <!-- Tab 4 -->
-        <ttktab text="Characters" padding="5px">
+        <ttktab text="Characters" padding="3">
             <widget
                 class="ProjectTabCharacters"
                 name="tab_characters"
@@ -138,7 +138,7 @@
         </ttktab>
 
         <!-- Tab 5 -->
-        <ttktab text="Scenario" padding="5px">
+        <ttktab text="Scenario" padding="3">
             <widget
                 class="ProjectTabScenario"
                 name="tab_scenario"
@@ -149,7 +149,7 @@
         </ttktab>
 
         <!-- Tab 6 -->
-        <ttktab text="Storyboard" padding="5px">
+        <ttktab text="Storyboard" padding="3">
             <widget
                 class="ProjectTabStoryboard"
                 name="tab_storyboard"
@@ -160,7 +160,7 @@
         </ttktab>
 
         <!-- Tab 7 -->
-        <ttktab text="Resources" padding="5px">
+        <ttktab text="Resources" padding="3">
             <widget
                 class="ProjectTabResources"
                 name="tab_resources"

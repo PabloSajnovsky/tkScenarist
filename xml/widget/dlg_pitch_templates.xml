@@ -39,15 +39,12 @@
 
             <ttklabelframe
                 text="Templates"
-                layout="pack"
-                resizable="yes"
                 weight="1"
             >
 
                 <!-- info frame -->
 
                 <ttkframe
-                    padding="5px 2px"
                     layout="pack"
                     resizable="width"
                 >
@@ -69,7 +66,6 @@
                 <!-- listbox frame -->
 
                 <ttkframe
-                    padding="5px"
                     layout="pack"
                     resizable="yes"
                 >
@@ -97,15 +93,12 @@
 
             <ttklabelframe
                 text="Preview"
-                layout="pack"
-                resizable="yes"
                 weight="3"
             >
 
                 <!-- info frame -->
 
                 <ttkframe
-                    padding="5px 2px"
                     layout="pack"
                     resizable="width"
                 >
@@ -128,7 +121,6 @@
                 <!-- text frame -->
 
                 <ttkframe
-                    padding="5px"
                     layout="pack"
                     resizable="yes"
                 >
@@ -169,7 +161,6 @@
 
         <ttklabelframe
             text="Edition"
-            padding="5px 2px"
             layout="grid"
             layout_options="row=0, column=2"
             resizable="yes"
@@ -231,7 +222,6 @@
 
     <ttklabelframe
         text="Options"
-        padding="5px"
         layout="pack"
         resizable="yes"
     >

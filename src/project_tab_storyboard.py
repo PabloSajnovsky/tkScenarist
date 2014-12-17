@@ -221,14 +221,25 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
-    def get_shot_listbox_contents (self, scene_index):
+    def get_shot_listbox_contents (self, scene):
         """
             retrieves shot listbox contents alongs with given @scene;
             returns empty tuple on failure;
         """
-        pass                                                                # FIXME
-        # failed
-        return tuple()
+        # inits
+        _contents = []
+        # browse rows
+        for _row in self.database.stb_get_shot_list(scene):
+            # new shot item
+            _contents.append(
+                self.get_formatted_shot_text(
+                    self.get_shot_number(scene, _row["shot"]),
+                    _row["title"]
+                )
+            )
+        # end for
+        # return shot list
+        return tuple(_contents)
     # end def
 
 
@@ -376,8 +387,14 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         print("slot_scene_item_selected")
         # save previous shot right now!
         self.save_now()
-        # update shot listbox contents along with new scene
-        self.slot_update_shot_listbox()
+        # inits
+        _last = self.LBOX_SCENE.last_selected
+        _index = self.get_current_selected(self.LBOX_SCENE)
+        # got changes?
+        if _last != _index:
+            # update shot listbox contents along with new scene
+            self.slot_update_shot_listbox()
+        # end if
         # update scene text preview
         self.slot_update_scene_preview()
         # update widgets state
@@ -618,12 +635,12 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             current scene selection;
         """
         print("slot_update_shot_listbox")
-        # inits
-        _index = self.get_current_selected(self.LBOX_SCENE)
+        # get scene number
+        _scene = self.get_current_selected(self.LBOX_SCENE) + 1
         # got selected?
-        if _index >= 0:
+        if _scene:
             # get shot listbox contents
-            _contents = self.get_shot_listbox_contents(_index)
+            _contents = self.get_shot_listbox_contents(_scene)
             # update listbox contents
             self.clear_listbox(self.LBOX_SHOT)
             self.LBOX_SHOT.insert(0, *_contents)

@@ -338,8 +338,24 @@ class AppDatabase (DB.Database):
             "WHERE shot_scene = ? and shot_shot = ? LIMIT 1",
             int(scene), int(shot)
         )
-        # get one row or None
+        # get one row or default
         return self.fetch(default={"text": ""})
+    # end def
+
+
+    def stb_get_shot_list (self, scene):
+        """
+            retrieves storyboard shot list for given @scene;
+        """
+        # SQL query
+        self.sql_query(
+            "SELECT shot_shot AS shot, shot_title AS title "
+            "FROM 'storyboard_shots' "
+            "WHERE shot_scene = ? ORDER BY shot_shot",
+            int(scene)
+        )
+        # get all rows or None
+        return self.fetch(self.ALL, default=[])
     # end def
 
 

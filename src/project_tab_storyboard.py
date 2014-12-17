@@ -71,8 +71,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         self.events.connect_dict(
             {
-                #~ "Project:Modified": self.slot_project_modified,
-
                 "Scenario:Scene:Browser:Changed":
                     self.slot_update_scene_listbox,
 
@@ -119,6 +117,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         for _w in widgets:
             # clear widget
             _w.delete(0, "end")
+            # clear selection
+            _w.selection_clear(0, "end")
             # reset last selected
             _w.last_selected = -1
         # end for
@@ -176,41 +176,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # end if
         # return result
         return listbox.last_selected
-    # end def
-
-
-    def get_current_shot_number (self):
-        """
-            returns current selected shot number as formatted string;
-            returns None otherwise (no selection);
-        """
-        # inits
-        _scene = self.get_current_selected(self.LBOX_SCENE) + 1
-        _shot = self.get_current_selected(self.LBOX_SHOT) + 1
-        # got selected?
-        if _scene and _shot:
-            # return shot number
-            return self.get_shot_number(_scene, _shot)
-        # end if
-        # failed
-        return None
-    # end def
-
-
-    def get_current_shot_text (self, title):
-        """
-            returns formatted string for shot listbox insertion;
-            returns None on failure e.g. no selection at this time;
-        """
-        # inits
-        _nb = self.get_current_shot_number()
-        # got number?
-        if _nb:
-            # return formatted string
-            return self.get_formatted_shot_text(_nb, title)
-        # end if
-        # failed
-        return None
     # end def
 
 
@@ -317,7 +282,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # event bindings
         self.bind_events(**kw)
         # deferred inits
-        self.after(200, self.init_deferred)
+        self.after(300, self.init_deferred)
     # end def
 
 
@@ -327,6 +292,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             reselects new item at @index or 'end';
             returns new rebound index;
         """
+        # deselect future removed item
+        listbox.last_selected = -1
         # remove item
         listbox.delete(index)
         listbox.selection_clear(0, "end")
@@ -384,15 +351,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # schedule auto-save for later
         self.async.run_after(3000, self.auto_save)
     # end def
-
-
-    #~ def slot_project_modified (self, *args, flag=True, **kw):
-        #~ """
-            #~ event handler for project's modification flag;
-        #~ """
-        #~ # reset status
-        #~ pass
-    #~ # end def
 
 
     def slot_reset_selected_scene (self, *args, **kw):
@@ -474,19 +432,21 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         _index = self.get_current_selected(_lb)
         # got selected?
         if _index >= 0:
-            # no text out there?
-            if not self.text_get_contents(self.TEXT_SHOT).strip():
-                # simply remove from listbox
-                self.listbox_delete(_lb, _index)
-            # got user text
-            else:
+            # condition
+            _ok = (
+                # empty shot text?
+                not self.text_get_contents(self.TEXT_SHOT).strip()
                 # user confirmed?
-                if self.user_confirm_deletion():
-                    # remove from listbox
-                    self.listbox_delete(_lb, _index)
-                    # remove from database
-                    pass                                                    # FIXME
-                # end if
+                or self.user_confirm_deletion()
+            )
+            # can delete?
+            if _ok:
+                # remove from listbox
+                self.listbox_delete(_lb, _index)
+                # get scene number
+                _scene = self.get_current_selected(self.LBOX_SCENE) + 1
+                # remove from database
+                self.database.stb_del_shot(_scene, _index + 1)
             # end if
         # end if
         # update widgets state
@@ -565,8 +525,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             event handler: updates all inputs state;
         """
         print("slot_update_inputs")
-        # save previous shot right now!
-        #~ self.save_now()
         # inits
         _cur_scene = bool(
             self.get_current_selected(self.LBOX_SCENE) + 1
@@ -612,7 +570,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # reset listbox
         self.clear_listbox(_lb)
         _lb.insert(0, *_contents)
-        _lb.selection_clear(0, "end")
         self.get_current_selected(
             _lb, force_index=kw.get("current_selected")
         )

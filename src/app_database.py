@@ -315,6 +315,19 @@ class AppDatabase (DB.Database):
     # end def
 
 
+    def stb_del_shot (self, scene, shot):
+        """
+            removes storyboard shot record;
+        """
+        # SQL query
+        self.sql_query(
+            "DELETE FROM 'storyboard_shots' "
+            "WHERE shot_scene = ? and shot_shot = ?",
+            int(scene), int(shot)
+        )
+    # end def
+
+
     def stb_get_shot (self, scene, shot):
         """
             retrieves storyboard shot record;

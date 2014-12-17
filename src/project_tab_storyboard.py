@@ -52,10 +52,16 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             _text = self.text_get_contents(self.TEXT_SHOT)
             _scene_nr, _shot_nr = _shot.strip("#").split(".")
             # update listbox item
+            _sel = _lb.curselection()
             _lb.delete(_index)
             _lb.insert(
                 _index, self.get_formatted_shot_text(_shot, _title)
             )
+            # reset current selected
+            if _sel:
+                _lb.see(_sel[0])
+                _lb.selection_set(_sel[0])
+            # end if
             # update record in database
             self.database.stb_update_shot(
                 scene=int(_scene_nr),

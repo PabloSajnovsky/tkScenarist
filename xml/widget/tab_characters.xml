@@ -34,8 +34,6 @@
             <!-- characters list -->
             <ttklabelframe
                 text="Characters"
-                layout="pack"
-                resizable="yes"
                 weight="1"
             >
                 <ttkframe

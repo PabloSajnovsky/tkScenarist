@@ -45,6 +45,7 @@
                 <!-- info frame -->
 
                 <ttkframe
+                    padding="0 0 0 3px"
                     layout="pack"
                     resizable="width"
                 >
@@ -99,6 +100,7 @@
                 <!-- info frame -->
 
                 <ttkframe
+                    padding="0 0 0 3px"
                     layout="pack"
                     resizable="width"
                 >

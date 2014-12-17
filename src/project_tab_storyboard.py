@@ -61,6 +61,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
                 title=_title,
                 text=_text,
             )
+            self.database.dump_tables("storyboard_shots")
         # end if
     # end def
 
@@ -373,6 +374,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         _index = self.get_current_selected(self.LBOX_SCENE)
         # got selected?
         if _index >= 0:
+            self.LBOX_SCENE.last_selected = -1
             self.LBOX_SCENE.see(_index)
             self.LBOX_SCENE.selection_set(_index)
             self.slot_scene_item_selected()
@@ -464,6 +466,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
                 _scene = self.get_current_selected(self.LBOX_SCENE) + 1
                 # remove from database
                 self.database.stb_del_shot(_scene, _index + 1)
+                self.database.dump_tables("storyboard_shots")
             # end if
         # end if
         # update widgets state
@@ -590,6 +593,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.get_current_selected(
             _lb, force_index=kw.get("current_selected")
         )
+        # update selection
+        self.slot_scene_item_selected()
         # update widgets state
         self.slot_update_inputs()
     # end def

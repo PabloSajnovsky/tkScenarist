@@ -34,7 +34,6 @@
 
         <ttklabelframe
             text="Navigation"
-            padding="5px"
             weight="1"
         >
             <ttkpanedwindow
@@ -188,7 +187,6 @@
 
         <ttklabelframe
             text="Storyboard"
-            padding="5px"
             weight="2"
         >
             <ttkpanedwindow
@@ -322,7 +320,6 @@
 
         <ttklabelframe
             text="Information"
-            padding="5px"
             weight="1"
         >
             <!-- info -->

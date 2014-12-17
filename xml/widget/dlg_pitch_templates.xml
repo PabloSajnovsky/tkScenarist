@@ -57,7 +57,8 @@
                     />
                     <ttklabel
                         textvariable="current_dir"
-                        foreground="royal blue"
+                        font="tkdefaultfont 9"
+                        style="info.TLabel"
                         layout="grid"
                         layout_options="row=0, column=1, padx=5"
                         resizable="width"
@@ -112,8 +113,7 @@
                     />
                     <ttklabel
                         textvariable="template_name"
-                        font="sans 12 bold"
-                        foreground="royal blue"
+                        style="info.TLabel"
                         layout="grid"
                         layout_options="row=0, column=1, padx=5"
                         resizable="width"
@@ -172,7 +172,6 @@
                 text="Add new"
                 command="@Dialog:Template:New"
                 layout="pack"
-                layout_options="pady=5"
                 resizable="width"
             />
             <ttkbutton
@@ -184,22 +183,10 @@
                 layout_options="pady=5"
                 resizable="width"
             />
-            <!-- spacer -->
-            <ttkframe
-                height="5"
-                width="0"
-                layout="pack"
-                resizable="no"
-            />
             <ttkseparator
                 layout="pack"
+                layout_options="pady=5"
                 resizable="width"
-            />
-            <ttkframe
-                height="5"
-                width="0"
-                layout="pack"
-                resizable="no"
             />
             <ttkbutton
                 name="btn_browse"
@@ -214,7 +201,6 @@
                 text="Reset to default dir"
                 command="@Dialog:Template:ResetDir"
                 layout="pack"
-                layout_options="pady=5"
                 resizable="width"
             />
         </ttklabelframe>

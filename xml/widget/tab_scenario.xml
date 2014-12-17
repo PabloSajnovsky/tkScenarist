@@ -78,11 +78,6 @@
                 layout="pack"
                 resizable="width"
             >
-                <ttkstyle>
-                <![CDATA[
-                    RO.TCombobox :readonly { fieldbackground: grey90; }
-                ]]>
-                </ttkstyle>
                 <ttklabel
                     text="Current element:"
                     layout="pack"
@@ -91,8 +86,6 @@
                 <ttkcombobox
                     name="combo_elements"
                     textvariable="combo_current_element"
-                    font="sans 9 bold"
-                    foreground="royal blue"
                     style="RO.TCombobox"
                     layout="pack"
                     layout_options="side='left', padx=5"
@@ -220,8 +213,7 @@
                     <ttklabel
                         textvariable="lbl_character_name"
                         anchor="center"
-                        font="sans 12 bold"
-                        foreground="royal blue"
+                        style="info.TLabel"
                         wraplength="200"
                         layout="pack"
                         layout_options="pady=2"
@@ -287,7 +279,7 @@
                         <ttklabel
                             textvariable="lbl_movie_duration"
                             font="sans 9 bold"
-                            foreground="royal blue"
+                            style="info.TLabel"
                             width="10"
                             layout="grid"
                             layout_options="row=1, column=1, padx=5"

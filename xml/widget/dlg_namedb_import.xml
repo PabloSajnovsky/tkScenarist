@@ -45,7 +45,7 @@
             />
             <ttklabel
                 textvariable="lbl_file_path"
-                foreground="royal blue"
+                style="info.TLabel"
                 width="40"
                 layout="grid"
                 layout_options="row=0, column=1, padx=5"

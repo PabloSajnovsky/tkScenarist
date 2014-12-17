@@ -135,8 +135,7 @@
         />
         <ttklabel
             textvariable="project_filename"
-            foreground="royal blue"
-            font="sans 12 bold"
+            style="info.TLabel"
             layout="grid"
             layout_options="row=0, column=1, padx=5, pady=2"
             resizable="width"

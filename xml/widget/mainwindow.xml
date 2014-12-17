@@ -71,8 +71,19 @@
 
     <ttkstyle>
     <![CDATA[
+        TCheckbutton :selected { indicatorcolor: royal blue; }
         TCombobox :readonly { fieldbackground: white; }
+        RO.TCombobox :readonly {
+            fieldbackground: grey90;
+            font: sans 9 bold;
+            foreground: royal blue;
+        }
+        raised.TFrame { borderwidth: 1; relief: raised; }
+        info.TLabel { foreground: royal blue; }
+        info_big.TLabel { font: sans 12 bold; foreground: royal blue; }
+        info_mini.TLabel { font: sans 9 bold; foreground: royal blue; }
         TLabelframe { padding: 3px; }
+        TRadiobutton :selected { indicatorcolor: royal blue; }
     ]]>
     </ttkstyle>
 

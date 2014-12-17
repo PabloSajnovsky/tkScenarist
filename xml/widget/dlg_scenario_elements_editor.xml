@@ -39,12 +39,6 @@
 
     <!-- SEE preferences frame -->
 
-    <ttkstyle
-        apply="raised.TFrame"
-        borderwidth="1"
-        relief="raised"
-    />
-
     <ttkframe
         padding="5px"
         style="raised.TFrame"

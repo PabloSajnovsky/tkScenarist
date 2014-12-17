@@ -132,8 +132,7 @@
                     <ttklabel
                         textvariable="log_character_name"
                         anchor="center"
-                        font="sans 12 bold"
-                        foreground="royal blue"
+                        style="info.TLabel"
                         layout="grid"
                         layout_options="row=0, column=0, pady=2"
                         resizable="width"

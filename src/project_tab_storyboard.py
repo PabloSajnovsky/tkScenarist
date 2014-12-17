@@ -56,20 +56,13 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             _lb.insert(
                 _index, self.get_formatted_shot_text(_shot, _title)
             )
-            print(
-                "scene number:", _scene_nr,
-                "shot number:", _shot_nr,
-                "title:", _title,
-                "text:", _text
-            )
             # update record in database
-            self.mainwindow.database.stb_update_shot(
+            self.database.stb_update_shot(
                 scene=int(_scene_nr),
                 shot=int(_shot_nr),
                 title=_title,
                 text=_text,
             )
-            self.mainwindow.database.dump_tables("storyboard_shots")
         # end if
     # end def
 
@@ -575,7 +568,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         print("slot_update_inputs")
         # save previous shot right now!
-        self.save_now()
+        #~ self.save_now()
         # inits
         _cur_scene = bool(
             self.get_current_selected(self.LBOX_SCENE) + 1

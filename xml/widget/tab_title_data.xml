@@ -23,7 +23,6 @@
 <tkwidget>
     <ttklabelframe
         text="Identification"
-        padding="2px"
         layout="pack"
         resizable="yes"
     >
@@ -125,7 +124,6 @@
 
     <ttklabelframe
         text="Information"
-        padding="2px"
         layout="pack"
         resizable="yes"
     >

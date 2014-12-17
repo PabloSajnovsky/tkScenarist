@@ -72,6 +72,7 @@
     <ttkstyle>
     <![CDATA[
         TCombobox :readonly { fieldbackground: white; }
+        TLabelFrame { padding: 3px; }
     ]]>
     </ttkstyle>
 

@@ -23,7 +23,6 @@
 <tkwidget>
     <ttklabelframe
         text="Description"
-        padding="5px"
         layout="pack"
         resizable="yes"
     >

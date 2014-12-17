@@ -34,7 +34,6 @@
             <!-- characters list -->
             <ttklabelframe
                 text="Characters"
-                padding="2px"
                 layout="pack"
                 resizable="yes"
                 weight="1"
@@ -124,7 +123,6 @@
 
             <ttklabelframe
                 text="Character's log"
-                padding="2px"
                 layout="pack"
                 resizable="yes"
                 weight="2"
@@ -178,7 +176,6 @@
 
         <ttklabelframe
             text="Relations"
-            padding="2px"
             layout="pack"
             resizable="yes"
             weight="3"

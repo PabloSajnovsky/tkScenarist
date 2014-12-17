@@ -23,7 +23,6 @@
 <tkwidget>
     <ttklabelframe
         text="Extra notes"
-        padding="5px"
         layout="pack"
         resizable="yes"
     >

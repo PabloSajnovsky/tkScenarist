@@ -29,7 +29,6 @@
         <!-- navigation frame -->
         <ttklabelframe
             text="Navigation"
-            padding="2px"
             weight="1"
         >
             <ttklabel
@@ -72,7 +71,6 @@
 
         <ttklabelframe
             text="Scenario"
-            padding="2px"
             weight="4"
         >
             <!-- toolbar info - current element -->
@@ -180,7 +178,6 @@
 
         <ttklabelframe
             text="Information"
-            padding="2px"
             weight="1"
         >
             <ttkpanedwindow

@@ -525,7 +525,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             self.LBL_SHOT.set(_nb)
             self.enable_widget(self.ENT_SHOT, True)
             self.ENT_SHOT.delete(0, "end")
-            self.ENT_SHOT.insert(0, _row["title"])
+            self.ENT_SHOT.insert(0, _title)
             self.enable_widget(self.TEXT_SHOT, True)
             self.text_set_contents(self.TEXT_SHOT, _row["text"])
             # set focus on relevant widget

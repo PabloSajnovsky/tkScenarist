@@ -321,13 +321,12 @@ class AppDatabase (DB.Database):
         """
         # SQL query
         self.sql_query(
-            "SELECT shot_title AS title, shot_text AS text "
-            "FROM 'storyboard_shots' "
+            "SELECT shot_text AS text FROM 'storyboard_shots' "
             "WHERE shot_scene = ? and shot_shot = ? LIMIT 1",
             int(scene), int(shot)
         )
         # get one row or None
-        return self.fetch(default={"title": "", "text": ""})
+        return self.fetch(default={"text": ""})
     # end def
 
 

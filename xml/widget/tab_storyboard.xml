@@ -211,8 +211,7 @@
                         />
                         <ttklabel
                             textvariable="lbl_scene_number"
-                            font="sans 10 bold"
-                            style="info.TLabel"
+                            style="info_mini.TLabel"
                             layout="grid"
                             layout_options="row=0, column=1, padx=5"
                             resizable="width"
@@ -263,7 +262,7 @@
                     >
                         <ttklabel
                             textvariable="lbl_shot_number"
-                            style="info.TLabel"
+                            style="info_big.TLabel"
                             layout="grid"
                             layout_options="row=0, column=0"
                         />

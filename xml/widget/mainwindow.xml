@@ -75,7 +75,6 @@
         TCombobox :readonly { fieldbackground: white; }
         RO.TCombobox :readonly {
             fieldbackground: grey90;
-            font: sans 9 bold;
             foreground: royal blue;
         }
         raised.TFrame { borderwidth: 1; relief: raised; }

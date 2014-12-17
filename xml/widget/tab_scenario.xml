@@ -86,6 +86,7 @@
                 <ttkcombobox
                     name="combo_elements"
                     textvariable="combo_current_element"
+                    font="sans 9 bold"
                     style="RO.TCombobox"
                     layout="pack"
                     layout_options="side='left', padx=5"
@@ -213,7 +214,7 @@
                     <ttklabel
                         textvariable="lbl_character_name"
                         anchor="center"
-                        style="info.TLabel"
+                        style="info_big.TLabel"
                         wraplength="200"
                         layout="pack"
                         layout_options="pady=2"
@@ -278,8 +279,7 @@
                         />
                         <ttklabel
                             textvariable="lbl_movie_duration"
-                            font="sans 9 bold"
-                            style="info.TLabel"
+                            style="info_mini.TLabel"
                             width="10"
                             layout="grid"
                             layout_options="row=1, column=1, padx=5"

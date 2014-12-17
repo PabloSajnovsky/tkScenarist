@@ -56,7 +56,6 @@
 
         <ttklabelframe
             text="Element"
-            padding="5px"
             layout="pack"
             resizable="yes"
         >
@@ -77,7 +76,6 @@
 
         <ttklabelframe
             text="Actions"
-            padding="5px"
             layout="pack"
             layout_options="pady=2"
             resizable="yes"
@@ -161,7 +159,7 @@
 
         <ttklabelframe
             text="Look'n'feel"
-            padding="5px 5px 5px 0px"
+            padding="3px 3px 3px 0px"
             layout="pack"
             layout_options="pady=2"
             resizable="yes"
@@ -344,7 +342,6 @@
 
         <ttklabelframe
             text="Preview"
-            padding="5px"
             layout="pack"
             resizable="yes"
         >

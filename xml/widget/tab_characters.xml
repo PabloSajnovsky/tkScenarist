@@ -121,8 +121,6 @@
 
             <ttklabelframe
                 text="Character's log"
-                layout="pack"
-                resizable="yes"
                 weight="2"
             >
                 <!-- character's log info/text -->
@@ -174,8 +172,6 @@
 
         <ttklabelframe
             text="Relations"
-            layout="pack"
-            resizable="yes"
             weight="3"
         >
             <!-- help text label -->

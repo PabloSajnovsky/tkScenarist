@@ -319,6 +319,7 @@ class AppDatabase (DB.Database):
         """
             removes storyboard shot record;
         """
+        print("DB: deleting shot #{}.{}".format(scene, shot))
         # SQL query
         self.sql_query(
             "DELETE FROM 'storyboard_shots' "
@@ -363,6 +364,7 @@ class AppDatabase (DB.Database):
         """
             inserts or replaces storyboard shot record;
         """
+        print("DB: updating shot #{scene}.{shot}".format(**row))
         # insert or replace
         self.sql_query(
             "INSERT OR REPLACE INTO 'storyboard_shots' "

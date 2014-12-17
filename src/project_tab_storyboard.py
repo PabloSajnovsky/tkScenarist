@@ -201,6 +201,20 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def get_scene_shot (self, index):
+        """
+            retrieves (scene, shot) numbers from shot listbox item
+            located at @index;
+        """
+        print("get_scene_shot")
+        # inits
+        _shot, _title = self.get_shot_chunks(self.LBOX_SHOT.get(index))
+        _scene, _shot = _shot.strip("#").split(".")
+        print("(scene, shot):", (_scene, _shot))
+        return (_scene, _shot)
+    # end def
+
+
     def get_shot_chunks (self, text):
         """
             tries to retrieve shot number + title from given @text;
@@ -460,13 +474,13 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             )
             # can delete?
             if _ok:
+                # get scene + shot numbers
+                _scene, _shot = self.get_scene_shot(_index)
+                # remove from database
+                self.database.stb_del_shot(_scene, _shot)
+                self.database.dump_tables("storyboard_shots")
                 # remove from listbox
                 self.listbox_delete(_lb, _index)
-                # get scene number
-                _scene = self.get_current_selected(self.LBOX_SCENE) + 1
-                # remove from database
-                self.database.stb_del_shot(_scene, _index + 1)
-                self.database.dump_tables("storyboard_shots")
             # end if
         # end if
         # update widgets state

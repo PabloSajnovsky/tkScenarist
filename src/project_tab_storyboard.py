@@ -416,6 +416,10 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.slot_update_scene_preview()
         # update widgets state
         self.slot_update_inputs()
+        # reset selection
+        self.LBOX_SCENE.selection_set(
+            self.get_current_selected(self.LBOX_SCENE)
+        )
     # end def
 
 

@@ -363,6 +363,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         _lb = self.LBOX_SCENE
         print("last_selected:", _lb.last_selected)
         print("curselection:", _lb.curselection())
+        self.after_idle(print, "toto")
     # end def
 
 
@@ -627,7 +628,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # update selection
         self.slot_scene_item_selected()
         # update widgets state
-        self.slot_update_inputs()
+        #~ self.slot_update_inputs()
     # end def
 
 

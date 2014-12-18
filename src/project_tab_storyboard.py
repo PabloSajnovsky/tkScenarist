@@ -350,7 +350,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         print("setup_tab")
         # inits
         _rows = json.loads(fname)
-        print("rows:", _rows)
+        # update DB table
+        self.database.stb_import_shots(_rows)
     # end def
 
 

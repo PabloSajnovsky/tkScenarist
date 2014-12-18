@@ -627,8 +627,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         )
         # update selection
         self.slot_scene_item_selected()
-        # update widgets state
-        #~ self.slot_update_inputs()
     # end def
 
 

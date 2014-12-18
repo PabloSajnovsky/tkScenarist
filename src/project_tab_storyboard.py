@@ -524,9 +524,12 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         print("slot_shot_purge")
         # user confirmed purge?
         if self.user_confirm_purge():
-            # FIXME: SQL query in DB
-            # FIXME: remove returned indices from listbox
-            pass                                                                # FIXME
+            # purge shots in DB
+            self.database.stb_purge_shots(
+                self.get_current_selected(self.LBOX_SCENE) + 1
+            )
+            # update shot listbox
+            self.slot_update_shot_listbox()
         # end if
         # update widgets state
         self.slot_update_inputs()

@@ -360,6 +360,19 @@ class AppDatabase (DB.Database):
     # end def
 
 
+    def stb_purge_shots (self, scene):
+        """
+            removes storyboard empty shot records;
+        """
+        # SQL query
+        self.sql_query(
+            "DELETE FROM 'storyboard_shots' "
+            "WHERE shot_scene = ? and shot_text = ''",
+            int(scene)
+        )
+    # end def
+
+
     def stb_update_shot (self, **row):
         """
             inserts or replaces storyboard shot record;

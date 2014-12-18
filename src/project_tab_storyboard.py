@@ -159,6 +159,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             returns dict (index, text) of current selection or None,
             otherwise;
         """
+        print("get_current_selected")
         # param controls
         if 0 <= force_index < listbox.size():
             # force pointer value
@@ -175,6 +176,10 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
                 # force clear-ups
                 self.clear_listbox(listbox)
             # end if
+        # end if
+        if listbox is self.LBOX_SCENE:
+            print("last_selected:", listbox.last_selected)
+            print("curselection:", listbox.curselection())
         # end if
         # return result
         return listbox.last_selected

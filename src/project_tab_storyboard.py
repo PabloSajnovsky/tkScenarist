@@ -347,9 +347,10 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             tab setup along @fname and @archive contents;
         """
-        # set text widget contents
-        #~ self.text_set_contents(self.text_storyboard, fname)
-        pass
+        print("setup_tab")
+        # inits
+        _rows = json.loads(archive.read(fname).decode(DECODING))
+        print("rows:", _rows)
     # end def
 
 

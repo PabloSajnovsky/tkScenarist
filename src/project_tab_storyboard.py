@@ -359,11 +359,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         _rows = json.loads(fname or "[]")
         # update DB table
         self.database.stb_import_shots(_rows)
-        print("lbox scene:")
-        _lb = self.LBOX_SCENE
-        print("last_selected:", _lb.last_selected)
-        print("curselection:", _lb.curselection())
-        self.after_idle(print, "toto")
     # end def
 
 
@@ -418,6 +413,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # inits
         _last = self.LBOX_SCENE.last_selected
         _index = self.get_current_selected(self.LBOX_SCENE)
+        print("last:", _last, "current:", _index)
         # got changes?
         if _last != _index:
             # update shot listbox contents along with new scene
@@ -622,6 +618,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # reset listbox
         self.clear_listbox(_lb)
         _lb.insert(0, *_contents)
+        print("forcing current selected")
         self.get_current_selected(
             _lb, force_index=kw.get("current_selected")
         )

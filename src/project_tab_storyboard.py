@@ -174,6 +174,10 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             elif not listbox.size():
                 # force clear-ups
                 self.clear_listbox(listbox)
+            # simply not selected
+            else:
+                # update pointer value
+                listbox.last_selected = -1
             # end if
         # end if
         # return result
@@ -352,6 +356,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         _rows = json.loads(fname)
         # update DB table
         self.database.stb_import_shots(_rows)
+        # reset selected scene
+        self.after_idle(self.slot_reset_selected_scene)
     # end def
 
 
@@ -548,6 +554,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: reset tab to new;
         """
+        print("slot_tab_reset")
         # clear shots in DB
         self.database.stb_clear_shots()
         # reset listboxes

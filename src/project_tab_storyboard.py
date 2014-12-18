@@ -267,15 +267,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
-    def init_deferred (self):
-        """
-            deferred widget inits;
-        """
-        # member inits
-        self.database = self.mainwindow.database
-    # end def
-
-
     def init_widget (self, **kw):
         """
             hook method to be reimplemented by subclass;
@@ -283,6 +274,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # member inits
         self.mainwindow = self.winfo_toplevel()
         self.mainframe = self.mainwindow.mainframe
+        self.database = self.mainwindow.database
         self.text_clear_contents = self.mainwindow.text_clear_contents
         self.text_get_contents = self.mainwindow.text_get_contents
         self.text_set_contents = self.mainwindow.text_set_contents
@@ -307,8 +299,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.slot_update_inputs()
         # event bindings
         self.bind_events(**kw)
-        # deferred inits
-        self.after(300, self.init_deferred)
     # end def
 
 

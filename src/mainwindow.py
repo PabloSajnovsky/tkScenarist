@@ -165,6 +165,10 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         # member inits
         # this may take a while
         self.database = DB.get_database()
+        # looks for ^/xml/widget/mainwindow.xml
+        self.xml_build()
+        # event bindings
+        self.bind_events()
     # end def
 
 
@@ -179,12 +183,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         self.topmenu.xml_build()
         # toggle statusbar through menu
         self.connect_statusbar("show_statusbar")
-        # looks for ^/xml/widget/mainwindow.xml
-        self.xml_build()
-        # event bindings
-        self.bind_events(**kw)
         # deferred inits
-        self.after(10, self.init_deferred)
+        self.after_idle(self.init_deferred)
     # end def
 
 

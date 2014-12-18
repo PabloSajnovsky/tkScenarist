@@ -315,11 +315,19 @@ class AppDatabase (DB.Database):
     # end def
 
 
+    def stb_clear_shots (self):
+        """
+            truncates table of storyboard shots;
+        """
+        # simply truncate table
+        self.sql_query("DELETE FROM 'storyboard_shots'")
+    # end def
+
+
     def stb_del_shot (self, scene, shot):
         """
             removes storyboard shot record;
         """
-        print("DB: deleting shot #{}.{}".format(scene, shot))
         # SQL query
         self.sql_query(
             "DELETE FROM 'storyboard_shots' "
@@ -379,7 +387,7 @@ class AppDatabase (DB.Database):
             imports shot rows from @sequence into DB table;
         """
         # truncate table
-        self.sql_query("DELETE FROM 'storyboard_shots'")
+        self.stb_clear_shots()
         # import many rows
         self.cursor.executemany(
             "INSERT OR IGNORE INTO 'storyboard_shots' "

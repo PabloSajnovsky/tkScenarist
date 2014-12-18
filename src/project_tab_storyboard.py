@@ -548,6 +548,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: reset tab to new;
         """
+        # clear shots in DB
+        self.database.stb_clear_shots()
         # reset listboxes
         self.clear_listbox(self.LBOX_SCENE, self.LBOX_SHOT)
         # update widgets state

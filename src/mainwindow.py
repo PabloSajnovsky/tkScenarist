@@ -162,7 +162,6 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             deferred widget inits;
         """
-        # member inits
         # this may take a while
         self.database = DB.get_database()
         # looks for ^/xml/widget/mainwindow.xml

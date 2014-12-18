@@ -352,11 +352,10 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         _rows = json.loads(fname or "[]")
         # update DB table
         self.database.stb_import_shots(_rows)
-        # update scene
-        if self.LBOX_SCENE.size():
-            # simulate user selection
-            self.slot_reset_selected_scene(force_index=0)
-        # end if
+        print("lbox scene:")
+        _lb = self.LBOX_SCENE
+        print("last_selected:", _lb.last_selected)
+        print("curselection:", _lb.curselection())
     # end def
 
 

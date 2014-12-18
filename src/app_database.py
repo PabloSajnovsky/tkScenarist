@@ -329,6 +329,20 @@ class AppDatabase (DB.Database):
     # end def
 
 
+    def stb_get_all_shots (self):
+        """
+            retrieves all storyboard shots;
+        """
+        # SQL query
+        self.sql_query(
+            "SELECT * FROM 'storyboard_shots' "
+            "ORDER BY shot_scene, shot_shot"
+        )
+        # get all rows or default
+        return self.fetch(self.ALL, default=[])
+    # end def
+
+
     def stb_get_shot (self, scene, shot):
         """
             retrieves storyboard shot record;
@@ -355,7 +369,7 @@ class AppDatabase (DB.Database):
             "WHERE shot_scene = ? ORDER BY shot_shot",
             int(scene)
         )
-        # get all rows or None
+        # get all rows or default
         return self.fetch(self.ALL, default=[])
     # end def
 

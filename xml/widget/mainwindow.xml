@@ -94,80 +94,129 @@
         resizable="yes"
     >
         <!-- Tab 1 -->
-        <ttktab text="Title/Data" padding="3">
-            <widget
-                class="ProjectTabTitleData"
-                name="tab_title_data"
-                module="mtab_title_data"
+        <ttktab text="Title/Data">
+            <!-- MS-Windows workaround -->
+            <ttkframe
+                padding="5"
                 layout="pack"
                 resizable="yes"
-            />
+            >
+                <widget
+                    class="ProjectTabTitleData"
+                    name="tab_title_data"
+                    module="mtab_title_data"
+                    layout="pack"
+                    resizable="yes"
+                />
+            </ttkframe>
         </ttktab>
 
         <!-- Tab 2 -->
-        <ttktab text="Draft/Notes" padding="3">
-            <widget
-                class="ProjectTabDraftNotes"
-                name="tab_draft_notes"
-                module="mtab_draft_notes"
+        <ttktab text="Draft/Notes">
+            <!-- MS-Windows workaround -->
+            <ttkframe
+                padding="5"
                 layout="pack"
                 resizable="yes"
-            />
+            >
+                <widget
+                    class="ProjectTabDraftNotes"
+                    name="tab_draft_notes"
+                    module="mtab_draft_notes"
+                    layout="pack"
+                    resizable="yes"
+                />
+            </ttkframe>
         </ttktab>
 
         <!-- Tab 3 -->
-        <ttktab text="Pitch/Concept" padding="3">
-            <widget
-                class="ProjectTabPitchConcept"
-                name="tab_pitch_concept"
-                module="mtab_pitch_concept"
+        <ttktab text="Pitch/Concept">
+            <!-- MS-Windows workaround -->
+            <ttkframe
+                padding="5"
                 layout="pack"
                 resizable="yes"
-            />
+            >
+                <widget
+                    class="ProjectTabPitchConcept"
+                    name="tab_pitch_concept"
+                    module="mtab_pitch_concept"
+                    layout="pack"
+                    resizable="yes"
+                />
+            </ttkframe>
         </ttktab>
 
         <!-- Tab 4 -->
-        <ttktab text="Characters" padding="3">
-            <widget
-                class="ProjectTabCharacters"
-                name="tab_characters"
-                module="mtab_characters"
+        <ttktab text="Characters">
+            <!-- MS-Windows workaround -->
+            <ttkframe
+                padding="5"
                 layout="pack"
                 resizable="yes"
-            />
+            >
+                <widget
+                    class="ProjectTabCharacters"
+                    name="tab_characters"
+                    module="mtab_characters"
+                    layout="pack"
+                    resizable="yes"
+                />
+            </ttkframe>
         </ttktab>
 
         <!-- Tab 5 -->
-        <ttktab text="Scenario" padding="3">
-            <widget
-                class="ProjectTabScenario"
-                name="tab_scenario"
-                module="mtab_scenario"
+        <ttktab text="Scenario">
+            <!-- MS-Windows workaround -->
+            <ttkframe
+                padding="5"
                 layout="pack"
                 resizable="yes"
-            />
+            >
+                <widget
+                    class="ProjectTabScenario"
+                    name="tab_scenario"
+                    module="mtab_scenario"
+                    layout="pack"
+                    resizable="yes"
+                />
+            </ttkframe>
         </ttktab>
 
         <!-- Tab 6 -->
-        <ttktab text="Storyboard" padding="3">
-            <widget
-                class="ProjectTabStoryboard"
-                name="tab_storyboard"
-                module="mtab_storyboard"
+        <ttktab text="Storyboard">
+            <!-- MS-Windows workaround -->
+            <ttkframe
+                padding="5"
                 layout="pack"
                 resizable="yes"
-            />
+            >
+                <widget
+                    class="ProjectTabStoryboard"
+                    name="tab_storyboard"
+                    module="mtab_storyboard"
+                    layout="pack"
+                    resizable="yes"
+                />
+            </ttkframe>
         </ttktab>
 
         <!-- Tab 7 -->
-        <ttktab text="Resources" padding="3">
-            <widget
-                class="ProjectTabResources"
-                name="tab_resources"
-                module="mtab_resources"
+        <ttktab text="Resources">
+            <!-- MS-Windows workaround -->
+            <ttkframe
+                padding="5"
                 layout="pack"
                 resizable="yes"
-            />
+            >
+                <widget
+                    class="ProjectTabResources"
+                    name="tab_resources"
+                    module="mtab_resources"
+                    layout="pack"
+                    resizable="yes"
+                />
+            </ttkframe>
         </ttktab>
 
     </ttknotebook>

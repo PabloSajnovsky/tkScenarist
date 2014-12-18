@@ -374,6 +374,24 @@ class AppDatabase (DB.Database):
     # end def
 
 
+    def stb_import_shots (self, sequence):
+        """
+            imports shot rows from @sequence into DB table;
+        """
+        # truncate table
+        self.sql_query("DELETE FROM 'storyboard_shots'")
+        # import many rows
+        self.cursor.executemany(
+            "INSERT OR IGNORE INTO 'storyboard_shots' "
+            "VALUES (NULL, :shot_scene, :shot_shot, "
+            ":shot_title, :shot_text)",
+            sequence
+        )
+        # commit new transaction
+        self.commit()
+    # end def
+
+
     def stb_purge_shots (self, scene):
         """
             removes storyboard empty shot records;

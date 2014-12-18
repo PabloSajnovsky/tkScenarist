@@ -349,7 +349,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         print("setup_tab")
         # inits
-        _rows = json.loads(archive.read(fname).decode(DECODING))
+        _rows = json.loads(fname)
         print("rows:", _rows)
     # end def
 

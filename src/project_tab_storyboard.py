@@ -416,10 +416,20 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.slot_update_scene_preview()
         # update widgets state
         self.slot_update_inputs()
-        # reset selection
-        self.LBOX_SCENE.selection_set(
-            self.get_current_selected(self.LBOX_SCENE)
-        )
+        # CAUTION:
+        """
+            for a very strange reason, tkinter listboxes cannot show
+            one selection per object;
+            selection focus is grabbed from one to another;
+            must manage this with mappings;
+        """
+        # currently mapped (visible)?
+        if self.winfo_ismapped():
+            # reset selection
+            self.LBOX_SCENE.selection_set(
+                self.get_current_selected(self.LBOX_SCENE)
+            )
+        # end if
     # end def
 
 

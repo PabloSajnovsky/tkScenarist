@@ -410,15 +410,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         print("slot_scene_item_selected")
         # save previous shot right now!
         self.save_now()
-        # inits
-        _last = self.LBOX_SCENE.last_selected
-        _index = self.get_current_selected(self.LBOX_SCENE)
-        print("last:", _last, "current:", _index)
-        # got changes?
-        if _last != _index:
-            # update shot listbox contents along with new scene
-            self.slot_update_shot_listbox()
-        # end if
+        # update shot listbox contents along with new scene
+        self.slot_update_shot_listbox()
         # update scene text preview
         self.slot_update_scene_preview()
         # update widgets state

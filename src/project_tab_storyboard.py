@@ -50,7 +50,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             _shot = self.LBL_SHOT.get()
             _title = self.ENT_SHOT.get()
             _item = self.get_formatted_shot_text(_shot, _title)
-            _text = self.text_get_contents(self.TEXT_SHOT)
+            _text = self.text_get_contents(self.TEXT_SHOT).strip()
             _scene_nr, _shot_nr = _shot.strip("#").split(".")
             # update listbox item
             self.update_listbox_item(_lb, _index, _item)

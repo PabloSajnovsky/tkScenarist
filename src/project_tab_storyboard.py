@@ -178,8 +178,10 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             # end if
         # end if
         if listbox is self.LBOX_SCENE:
+            print("=== LBOX_SCENE ===")
             print("last_selected:", listbox.last_selected)
             print("curselection:", listbox.curselection())
+            print("==================")
         # end if
         # return result
         return listbox.last_selected

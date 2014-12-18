@@ -69,7 +69,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         # reset progressbar
         self.reset_progressbar()
         # open CSV file
-        _csvfile = open(fpath, newline='')
+        _csvfile = open(fpath, "r", encoding=ENCODING, newline='')
         # get CSV reader
         _csvreader = csv.reader(_csvfile)
         # first row is header - trap it
@@ -141,7 +141,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             fills column assignment order along with CSV file contents;
         """
         # try to get nbr of columns
-        with open(fpath, newline='') as csvfile:
+        with open(fpath, "r", encoding=ENCODING, newline='') as csvfile:
             # get first row
             _row = next(csv.reader(csvfile), [])
             # get nb of fields
@@ -179,7 +179,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         self.enable_widget(self.PREVIEW, True)
         self.PREVIEW.delete("1.0", "end")
         # fill with some rows
-        with open(fpath) as txtfile:
+        with open(fpath, "r", encoding=ENCODING) as txtfile:
             for _row in txtfile:
                 self.PREVIEW.insert("end", _row)
                 _line += 1
@@ -375,7 +375,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
             format, False otherwise;
         """
         # try to sniff dialect in file
-        with open(fpath, newline='') as csvfile:
+        with open(fpath, "r", encoding=ENCODING, newline='') as csvfile:
             try:
                 csv.Sniffer().sniff(csvfile.read(1024))
                 return True

@@ -57,7 +57,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         # got something to save?
         if OP.isfile(self.current_fpath):
             # save file
-            with open(self.current_fpath, "w") as _file:
+            with open(self.current_fpath, "w", encoding=ENCODING) as _file:
                 # write text contents
                 _file.write(self.get_preview_text().rstrip())
             # end with
@@ -438,7 +438,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
             # enable preview text
             self.enable_widget(_text, True)
             # get file contents
-            with open(fpath, "r") as _file:
+            with open(fpath, "r", encoding=ENCODING) as _file:
                 # get text
                 _data = _file.read().rstrip()
                 if _data: _data += "\n"

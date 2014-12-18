@@ -174,10 +174,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             elif not listbox.size():
                 # force clear-ups
                 self.clear_listbox(listbox)
-            # simply not selected
-            else:
-                # update pointer value
-                listbox.last_selected = -1
             # end if
         # end if
         # return result
@@ -353,11 +349,14 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         print("setup_tab")
         # inits
-        _rows = json.loads(fname)
+        _rows = json.loads(fname or "[]")
         # update DB table
         self.database.stb_import_shots(_rows)
-        # reset selected scene
-        self.after_idle(self.slot_reset_selected_scene)
+        # update scene
+        if self.LBOX_SCENE.size():
+            # simulate user selection
+            self.slot_reset_selected_scene(force_index=0)
+        # end if
     # end def
 
 
@@ -383,13 +382,15 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
-    def slot_reset_selected_scene (self, *args, **kw):
+    def slot_reset_selected_scene (self, *args, force_index=None, **kw):
         """
             event handler: resets last selected scene, if any;
         """
         print("slot_reset_selected_scene")
         # inits
-        _index = self.get_current_selected(self.LBOX_SCENE)
+        _index = (
+            force_index or self.get_current_selected(self.LBOX_SCENE)
+        )
         # got selected?
         if _index >= 0:
             self.LBOX_SCENE.last_selected = -1

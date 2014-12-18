@@ -24,6 +24,7 @@
 
 # lib imports
 import re
+import json
 import tkinter.messagebox as MB
 import tkRAD
 import tkRAD.core.async as ASYNC
@@ -184,9 +185,11 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             returns file contents;
         """
+        # save last shot right now!
+        self.save_now()
         # inits
-        fcontents = ""                                                      # FIXME
-        #~ fcontents = self.text_get_contents(self.text_storyboard)
+        _rows = [dict(i) for i in self.database.stb_get_all_shots()]
+        fcontents = json.dumps(_rows)
         # always return a dict
         return {fname: fcontents}
     # end def
@@ -364,8 +367,11 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: keyboard keypress for text widget;
         """
-        # schedule auto-save for later
-        self.async.run_after(3000, self.auto_save)
+        # no modifiers?
+        if not (event.state & 0x8c):
+            # schedule auto-save for later
+            self.async.run_after(3000, self.auto_save)
+        # end if
     # end def
 
 

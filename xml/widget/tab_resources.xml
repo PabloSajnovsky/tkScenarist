@@ -327,10 +327,12 @@
                         text="Data"
                         weight="3"
                     >
+
                         <!-- begin / end date entries -->
+
                         <ttkframe
                             layout="pack"
-                            resizable="yes"
+                            resizable="width"
                         >
                             <ttklabel
                                 text="Date begin:"
@@ -357,21 +359,28 @@
                                 resizable="width"
                             />
                         </ttkframe>
+
                         <!-- mission entry -->
+
                         <ttkframe
                             layout="pack"
-                            resizable="yes"
+                            resizable="width"
                         >
                             <ttklabel
                                 text="Mission:"
                                 layout="grid"
                                 layout_options="row=0, column=0"
                             />
-                            <!-- FIXME: should replace by specific widget -->
+                            <!-- spacer -->
+                            <ttkframe
+                                width="5"
+                                layout="grid"
+                                layout_options="row=0, column=1"
+                            />
                             <ttkentry
                                 width="1"
                                 layout="grid"
-                                layout_options="row=0, column=1, padx=5"
+                                layout_options="row=0, column=2"
                                 resizable="width"
                             />
                         </ttkframe>

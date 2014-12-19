@@ -55,6 +55,8 @@
                     />
                     <ttkcombobox
                         name="combo_res_type"
+                        width="1"
+                        state="disabled"
                         layout="grid"
                         layout_options="row=1, column=0"
                         resizable="width"
@@ -120,6 +122,8 @@
                     />
                     <ttkcombobox
                         name="combo_res_section"
+                        width="1"
+                        state="disabled"
                         layout="grid"
                         layout_options="row=1, column=0"
                         resizable="width"
@@ -192,8 +196,8 @@
                         <listbox
                             id="res_items_list"
                             name="listbox_res_item"
-                            height="10"
-                            width="10"
+                            height="8"
+                            width="1"
                             highlightthickness="0"
                             takefocus="false"
                             layout="grid"
@@ -215,18 +219,14 @@
                             resizable="width"
                         />
                     </ttkframe>
-
                     <!-- spacer -->
-
                     <ttkframe
                         height="5"
                         layout="grid"
                         layout_options="row=2, column=0"
                         resizable="width"
                     />
-
                     <!-- toolbar zone -->
-
                     <ttkframe
                         layout="grid"
                         layout_options="row=3, column=0"
@@ -273,7 +273,7 @@
 
         <ttklabelframe
             text="Planning"
-            weight="3"
+            weight="4"
         >
             <ttkpanedwindow
                 orient="vertical"
@@ -318,7 +318,7 @@
 
                 <ttkpanedwindow
                     orient="horizontal"
-                    weight="1"
+                    weight="3"
                 >
 
                     <!-- item / data editor -->
@@ -349,10 +349,10 @@
                                 id="res_notes"
                                 name="text_notes"
                                 autoseparators="true"
-                                height="10"
+                                height="20"
                                 state="disabled"
                                 undo="true"
-                                width="10"
+                                width="20"
                                 wrap="word"
                                 layout="grid"
                                 layout_options="row=0, column=0"

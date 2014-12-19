@@ -98,7 +98,9 @@ duration;
 * By now, a new menu `Tools > Scenario Elements Editor (SEE)` utility
 dialog is available for finer script edition tuning;
 
-* Sixth tab is the `Storyboard` panel, still in development (WIP);
+* Sixth tab is the `Storyboard` panel, with scene browser, selected
+scene preview, shot list manager, shot editor and character's log
+reminder;
 
 * Seventh tab is the `Resources` panel, still in development (WIP);
 
@@ -117,6 +119,7 @@ still in development state.
 ![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-007.png)
 ![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-008.png)
 ![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-009.png)
+![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-010.png)
 
 
 ## Development status
@@ -127,10 +130,11 @@ Software has been:
 
 * Linux:
     * TESTED OK for all distros;
-* macOS:
+* MacOS:
     * NOT YET TESTED;
 * MS-Windows:
-    * NOT YET TESTED;
+    * *PARTIALLY* TESTED on MS-Windows(tm) 8 and seems to work quite
+    fine for the moment;
 
 Any feedback is still the welcome.
 
@@ -152,8 +156,9 @@ on your machine.
 
 **No dependencies**, no third-part lib to install on more.
 
-If you have Python3 programming language correctly installed, Tkinter library should also
-be installed **by default** as a Python standard lib.
+If you have Python3 programming language correctly installed, Tkinter
+library should also be installed **by default** as a Python standard
+lib.
 
 Any **ImportError** will mean either you are trying to launch the
 software with Python2 or you don't have **Tkinter** library correctly

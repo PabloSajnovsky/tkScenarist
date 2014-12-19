@@ -21,9 +21,418 @@
     If not, see http://www.gnu.org/licenses/
 -->
 <tkwidget>
-    <label
-        text="Coming soon..."
+
+    <!-- main paned window -->
+
+    <ttkpanedwindow
+        orient="horizontal"
         layout="pack"
         resizable="yes"
-    />
+    >
+
+        <!-- navigation zone -->
+
+        <ttklabelframe
+            text="Navigation"
+            weight="1"
+        >
+            <ttkpanedwindow
+                orient="vertical"
+                layout="pack"
+                resizable="yes"
+            >
+
+                <!-- scene browser -->
+
+                <ttkframe
+                    weight="1"
+                >
+                    <ttklabel
+                        text="Scene browser:"
+                        layout="pack"
+                        resizable="width"
+                    />
+                    <ttkframe
+                        layout="pack"
+                        resizable="yes"
+                    >
+                        <listbox
+                            id="stb_scene_browser"
+                            name="listbox_scene_browser"
+                            height="5"
+                            width="10"
+                            highlightthickness="0"
+                            takefocus="false"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                            resizable="yes"
+                        />
+                        <ttkscrollbar
+                            connect="stb_scene_browser"
+                            orient="vertical"
+                            layout="grid"
+                            layout_options="row=0, column=1"
+                            resizable="height"
+                        />
+                        <ttkscrollbar
+                            connect="stb_scene_browser"
+                            orient="horizontal"
+                            layout="grid"
+                            layout_options="row=1, column=0"
+                            resizable="width"
+                        />
+                    </ttkframe>
+                </ttkframe>
+
+                <!-- shot browser / manager -->
+
+                <ttkframe
+                    weight="3"
+                >
+                    <ttklabel
+                        text="Shot browser:"
+                        layout="grid"
+                        layout_options="row=0, column=0"
+                        resizable="width"
+                    />
+
+                    <!-- listbox zone -->
+
+                    <ttkframe
+                        layout="grid"
+                        layout_options="row=1, column=0"
+                        resizable="yes"
+                    >
+                        <listbox
+                            id="stb_shot_browser"
+                            name="listbox_shot_browser"
+                            height="10"
+                            width="10"
+                            highlightthickness="0"
+                            takefocus="false"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                            resizable="yes"
+                        />
+                        <ttkscrollbar
+                            connect="stb_shot_browser"
+                            orient="vertical"
+                            layout="grid"
+                            layout_options="row=0, column=1"
+                            resizable="height"
+                        />
+                        <ttkscrollbar
+                            connect="stb_shot_browser"
+                            orient="horizontal"
+                            layout="grid"
+                            layout_options="row=1, column=0"
+                            resizable="width"
+                        />
+                    </ttkframe>
+
+                    <!-- spacer -->
+
+                    <ttkframe
+                        height="5"
+                        layout="grid"
+                        layout_options="row=2, column=0"
+                        resizable="width"
+                    />
+
+                    <!-- toolbar zone -->
+
+                    <ttkframe
+                        layout="grid"
+                        layout_options="row=3, column=0"
+                        resizable="width"
+                    >
+                        <ttkbutton
+                            name="btn_add_shot"
+                            text="+"
+                            command="@Storyboard:Shot:Add"
+                            width="2"
+                            takefocus="false"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                        />
+                        <ttkbutton
+                            name="btn_del_shot"
+                            text="-"
+                            command="@Storyboard:Shot:Delete"
+                            width="2"
+                            takefocus="false"
+                            layout="grid"
+                            layout_options="row=0, column=1"
+                        />
+                        <!-- spacer -->
+                        <ttkframe
+                            layout="grid"
+                            layout_options="row=0, column=2"
+                            resizable="width"
+                        />
+                        <ttkbutton
+                            name="btn_purge_shot"
+                            text="Purge"
+                            command="@Storyboard:Shot:Purge"
+                            takefocus="false"
+                            layout="grid"
+                            layout_options="row=0, column=3"
+                        />
+                    </ttkframe>
+                </ttkframe>
+            </ttkpanedwindow>
+        </ttklabelframe>
+
+        <!-- edition zone -->
+
+        <ttklabelframe
+            text="Storyboard"
+            weight="2"
+        >
+            <ttkpanedwindow
+                orient="vertical"
+                layout="pack"
+                resizable="yes"
+            >
+
+                <!-- scene preview -->
+
+                <ttkframe
+                    weight="1"
+                >
+                    <ttkframe
+                        layout="pack"
+                        resizable="yes"
+                    >
+                        <ttklabel
+                            text="Scene preview:"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                        />
+                        <ttklabel
+                            textvariable="lbl_scene_number"
+                            style="info_mini.TLabel"
+                            layout="grid"
+                            layout_options="row=0, column=1, padx=5"
+                            resizable="width"
+                        />
+                    </ttkframe>
+                    <ttkframe
+                        layout="pack"
+                        resizable="yes"
+                    >
+                        <text
+                            id="stb_scene_preview"
+                            name="text_scene_preview"
+                            height="10"
+                            width="10"
+                            state="disabled"
+                            wrap="word"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                            resizable="yes"
+                        />
+                        <ttkscrollbar
+                            connect="stb_scene_preview"
+                            orient="vertical"
+                            layout="grid"
+                            layout_options="row=0, column=1"
+                            resizable="height"
+                        />
+                    </ttkframe>
+                </ttkframe>
+
+                <!-- shot editor -->
+
+                <ttkframe
+                    weight="3"
+                >
+                    <ttklabel
+                        text="Shot editor:"
+                        layout="pack"
+                        resizable="width"
+                    />
+
+                    <!-- shot number + title -->
+
+                    <ttkframe
+                        padding="0 0 0 3"
+                        layout="pack"
+                        resizable="yes"
+                    >
+                        <ttklabel
+                            textvariable="lbl_shot_number"
+                            style="info_big.TLabel"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                        />
+                        <ttkentry
+                            name="entry_shot_title"
+                            font="monospace 10"
+                            width="25"
+                            state="disabled"
+                            layout="grid"
+                            layout_options="row=0, column=1, padx=5"
+                            resizable="width"
+                        />
+                    </ttkframe>
+
+                    <!-- shot text editor -->
+
+                    <ttkframe
+                        layout="pack"
+                        resizable="yes"
+                    >
+                        <text
+                            id="stb_shot_editor"
+                            name="text_shot_editor"
+                            autoseparators="true"
+                            font="monospace 12"
+                            height="20"
+                            state="disabled"
+                            undo="true"
+                            width="40"
+                            wrap="word"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                            resizable="yes"
+                        />
+                        <tkevent
+                            widget="stb_shot_editor"
+                            seq="Key"
+                            slot="@Text:Key:Pressed"
+                        />
+                        <ttkscrollbar
+                            connect="stb_shot_editor"
+                            orient="vertical"
+                            layout="grid"
+                            layout_options="row=0, column=1"
+                            resizable="height"
+                        />
+                    </ttkframe>
+                </ttkframe>
+            </ttkpanedwindow>
+        </ttklabelframe>
+
+        <!-- information zone -->
+
+        <ttklabelframe
+            text="Information"
+            weight="1"
+        >
+            <!-- info -->
+
+            <ttkpanedwindow
+                orient="vertical"
+                layout="pack"
+                resizable="yes"
+            >
+
+                <!-- character names list -->
+
+                <ttkframe
+                    weight="1"
+                >
+                    <ttklabel
+                        text="Characters:"
+                        layout="pack"
+                        resizable="width"
+                    />
+                    <ttkframe
+                        layout="pack"
+                        resizable="yes"
+                    >
+                        <listbox
+                            id="stb_char_names"
+                            name="listbox_character_names"
+                            height="1"
+                            width="1"
+                            highlightthickness="0"
+                            takefocus="false"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                            resizable="yes"
+                        />
+                        <ttkscrollbar
+                            connect="stb_char_names"
+                            orient="vertical"
+                            layout="grid"
+                            layout_options="row=0, column=1"
+                            resizable="height"
+                        />
+                        <ttkscrollbar
+                            connect="stb_char_names"
+                            orient="horizontal"
+                            layout="grid"
+                            layout_options="row=1, column=0"
+                            resizable="width"
+                        />
+                    </ttkframe>
+                </ttkframe>
+
+                <!-- character's history log -->
+
+                <ttkframe
+                    weight="1"
+                >
+                    <ttklabel
+                        text="About:"
+                        layout="pack"
+                        resizable="width"
+                    />
+                    <!-- character's log info/text -->
+                    <ttkframe
+                        layout="pack"
+                        resizable="yes"
+                    >
+                        <!-- character's name -->
+                        <ttklabel
+                            textvariable="lbl_character_name"
+                            anchor="center"
+                            style="info_big.TLabel"
+                            layout="grid"
+                            layout_options="row=0, column=0, pady=2"
+                            resizable="width"
+                        />
+                        <!-- character's text widget -->
+                        <text
+                            id="characters_log"
+                            name="text_characters_log"
+                            foreground="grey30"
+                            font="sans 8"
+                            height="10"
+                            width="20"
+                            state="disabled"
+                            wrap="word"
+                            layout="grid"
+                            layout_options="row=1, column=0"
+                            resizable="yes"
+                        />
+                        <ttkscrollbar
+                            connect="characters_log"
+                            orient="vertical"
+                            layout="grid"
+                            layout_options="row=1, column=1"
+                            resizable="height"
+                        />
+                    </ttkframe>
+                </ttkframe>
+
+                <!-- zone 3 -->
+
+<!--
+                <ttkframe
+                    weight="1"
+                >
+                    <ttklabel
+                        text="Zone 3 (WIP)"
+                        layout="pack"
+                        resizable="width"
+                    />
+                </ttkframe>
+-->
+            </ttkpanedwindow>
+        </ttklabelframe>
+
+    </ttkpanedwindow>
 </tkwidget>

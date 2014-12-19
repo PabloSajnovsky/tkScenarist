@@ -41,7 +41,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             event handler;
             automatically saves data, if any;
         """
-        print("auto_save")
         # inits
         _lb = self.LBOX_SHOT
         _index = _lb.last_selected
@@ -159,7 +158,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             returns dict (index, text) of current selection or None,
             otherwise;
         """
-        print("get_current_selected")
         # param controls
         if 0 <= force_index < listbox.size():
             # force pointer value
@@ -176,12 +174,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
                 # force clear-ups
                 self.clear_listbox(listbox)
             # end if
-        # end if
-        if listbox is self.LBOX_SCENE:
-            print("=== LBOX_SCENE ===")
-            print("last_selected:", listbox.last_selected)
-            print("curselection:", listbox.curselection())
-            print("==================")
         # end if
         # return result
         return listbox.last_selected
@@ -216,11 +208,9 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             retrieves (scene, shot) numbers from shot listbox item
             located at @index;
         """
-        print("get_scene_shot")
         # inits
         _shot, _title = self.get_shot_chunks(self.LBOX_SHOT.get(index))
         _scene, _shot = _shot.strip("#").split(".")
-        print("(scene, shot):", (_scene, _shot))
         return (_scene, _shot)
     # end def
 
@@ -354,7 +344,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             tab setup along @fname and @archive contents;
         """
-        print("setup_tab")
         # inits
         _rows = json.loads(fname or "[]")
         # update DB table
@@ -366,7 +355,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: tab is now visible;
         """
-        print("slot_on_tab_exposed")
         # reset last selected scene
         self.slot_reset_selected_scene()
     # end def
@@ -388,7 +376,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: resets last selected scene, if any;
         """
-        print("slot_reset_selected_scene")
         # inits
         _index = (
             force_index or self.get_current_selected(self.LBOX_SCENE)
@@ -407,7 +394,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: listbox item has been selected;
         """
-        print("slot_scene_item_selected")
         # save previous shot right now!
         self.save_now()
         # update shot listbox contents along with new scene
@@ -423,7 +409,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: adding new shot to listbox;
         """
-        print("slot_shot_add")
         # inits
         _scene = self.get_current_selected(self.LBOX_SCENE) + 1
         # got selected scene?
@@ -460,7 +445,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: deleting selected shot from listbox;
         """
-        print("slot_shot_delete")
         # inits
         _lb = self.LBOX_SHOT
         _index = self.get_current_selected(_lb)
@@ -493,7 +477,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: listbox item has been selected;
         """
-        print("slot_shot_item_selected")
         # save previous shot right now!
         self.save_now()
         # try out
@@ -532,7 +515,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: purges shot listbox;
         """
-        print("slot_shot_purge")
         # user confirmed purge?
         if self.user_confirm_purge():
             # purge shots in DB
@@ -551,7 +533,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: reset tab to new;
         """
-        print("slot_tab_reset")
         # clear shots in DB
         self.database.stb_clear_shots()
         # reset listboxes
@@ -565,7 +546,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: updates all inputs state;
         """
-        print("slot_update_inputs")
         # inits
         _cur_scene = bool(
             self.get_current_selected(self.LBOX_SCENE) + 1
@@ -603,7 +583,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: updates scene listbox contents;
         """
-        print("slot_update_scene_listbox")
         # get contents
         _lb = self.LBOX_SCENE
         _lb.text_lines = kw.get("lines") or list()
@@ -611,7 +590,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # reset listbox
         self.clear_listbox(_lb)
         _lb.insert(0, *_contents)
-        print("forcing current selected")
         self.get_current_selected(
             _lb, force_index=kw.get("current_selected")
         )
@@ -639,7 +617,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             event handler: updates scene preview text contents along
             with current scene selection;
         """
-        print("slot_update_scene_preview")
         # inits
         _lb = self.LBOX_SCENE
         _index = self.get_current_selected(_lb)
@@ -673,7 +650,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             event handler: updates shot listbox contents along with
             current scene selection;
         """
-        print("slot_update_shot_listbox")
         # get scene number
         _scene = self.get_current_selected(self.LBOX_SCENE) + 1
         # got selected?

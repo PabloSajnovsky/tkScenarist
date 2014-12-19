@@ -42,7 +42,7 @@
                 resizable="yes"
             >
 
-                <!-- resource type browser / manager -->
+                <!-- resource type manager -->
 
                 <ttkframe
                     weight="1"
@@ -53,52 +53,20 @@
                         layout_options="row=0, column=0"
                         resizable="width"
                     />
-
-                    <!-- listbox zone -->
-
-                    <ttkframe
+                    <ttkcombobox
+                        name="combo_res_type"
                         layout="grid"
                         layout_options="row=1, column=0"
-                        resizable="yes"
-                    >
-                        <listbox
-                            id="res_types_list"
-                            name="listbox_resource_types"
-                            height="5"
-                            width="10"
-                            highlightthickness="0"
-                            takefocus="false"
-                            layout="grid"
-                            layout_options="row=0, column=0"
-                            resizable="yes"
-                        />
-                        <ttkscrollbar
-                            connect="res_types_list"
-                            orient="vertical"
-                            layout="grid"
-                            layout_options="row=0, column=1"
-                            resizable="height"
-                        />
-                        <ttkscrollbar
-                            connect="res_types_list"
-                            orient="horizontal"
-                            layout="grid"
-                            layout_options="row=1, column=0"
-                            resizable="width"
-                        />
-                    </ttkframe>
-
+                        resizable="width"
+                    />
                     <!-- spacer -->
-
                     <ttkframe
                         height="5"
                         layout="grid"
                         layout_options="row=2, column=0"
                         resizable="width"
                     />
-
                     <!-- toolbar zone -->
-
                     <ttkframe
                         layout="grid"
                         layout_options="row=3, column=0"
@@ -139,10 +107,10 @@
                     </ttkframe>
                 </ttkframe>
 
-                <!-- resource section browser / manager -->
+                <!-- resource section manager -->
 
                 <ttkframe
-                    weight="3"
+                    weight="1"
                 >
                     <ttklabel
                         text="Section:"
@@ -150,52 +118,20 @@
                         layout_options="row=0, column=0"
                         resizable="width"
                     />
-
-                    <!-- listbox zone -->
-
-                    <ttkframe
+                    <ttkcombobox
+                        name="combo_res_section"
                         layout="grid"
                         layout_options="row=1, column=0"
-                        resizable="yes"
-                    >
-                        <listbox
-                            id="res_sections_list"
-                            name="listbox_resource_sections"
-                            height="10"
-                            width="10"
-                            highlightthickness="0"
-                            takefocus="false"
-                            layout="grid"
-                            layout_options="row=0, column=0"
-                            resizable="yes"
-                        />
-                        <ttkscrollbar
-                            connect="res_sections_list"
-                            orient="vertical"
-                            layout="grid"
-                            layout_options="row=0, column=1"
-                            resizable="height"
-                        />
-                        <ttkscrollbar
-                            connect="res_sections_list"
-                            orient="horizontal"
-                            layout="grid"
-                            layout_options="row=1, column=0"
-                            resizable="width"
-                        />
-                    </ttkframe>
-
+                        resizable="width"
+                    />
                     <!-- spacer -->
-
                     <ttkframe
                         height="5"
                         layout="grid"
                         layout_options="row=2, column=0"
                         resizable="width"
                     />
-
                     <!-- toolbar zone -->
-
                     <ttkframe
                         layout="grid"
                         layout_options="row=3, column=0"
@@ -229,6 +165,101 @@
                             name="btn_purge_section"
                             text="Purge"
                             command="@Resources:Section:Purge"
+                            takefocus="false"
+                            layout="grid"
+                            layout_options="row=0, column=3"
+                        />
+                    </ttkframe>
+                </ttkframe>
+
+                <!-- resource item manager -->
+
+                <ttkframe
+                    weight="3"
+                >
+                    <ttklabel
+                        text="Item:"
+                        layout="grid"
+                        layout_options="row=0, column=0"
+                        resizable="width"
+                    />
+                    <!-- listbox zone -->
+                    <ttkframe
+                        layout="grid"
+                        layout_options="row=1, column=0"
+                        resizable="yes"
+                    >
+                        <listbox
+                            id="res_items_list"
+                            name="listbox_res_item"
+                            height="10"
+                            width="10"
+                            highlightthickness="0"
+                            takefocus="false"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                            resizable="yes"
+                        />
+                        <ttkscrollbar
+                            connect="res_items_list"
+                            orient="vertical"
+                            layout="grid"
+                            layout_options="row=0, column=1"
+                            resizable="height"
+                        />
+                        <ttkscrollbar
+                            connect="res_items_list"
+                            orient="horizontal"
+                            layout="grid"
+                            layout_options="row=1, column=0"
+                            resizable="width"
+                        />
+                    </ttkframe>
+
+                    <!-- spacer -->
+
+                    <ttkframe
+                        height="5"
+                        layout="grid"
+                        layout_options="row=2, column=0"
+                        resizable="width"
+                    />
+
+                    <!-- toolbar zone -->
+
+                    <ttkframe
+                        layout="grid"
+                        layout_options="row=3, column=0"
+                        resizable="width"
+                    >
+                        <ttkbutton
+                            name="btn_add_item"
+                            text="+"
+                            command="@Resources:Item:Add"
+                            width="2"
+                            takefocus="false"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                        />
+                        <ttkbutton
+                            name="btn_del_item"
+                            text="-"
+                            command="@Resources:Item:Delete"
+                            width="2"
+                            takefocus="false"
+                            layout="grid"
+                            layout_options="row=0, column=1"
+                        />
+                        <!-- spacer -->
+                        <ttkframe
+                            layout="grid"
+                            layout_options="row=0, column=2"
+                            resizable="width"
+                        />
+                        <ttkbutton
+                            name="btn_purge_item"
+                            text="Purge"
+                            command="@Resources:Item:Purge"
                             takefocus="false"
                             layout="grid"
                             layout_options="row=0, column=3"
@@ -290,103 +321,11 @@
                     weight="1"
                 >
 
-                    <!-- items list -->
-
-                    <ttklabelframe
-                        text="Items"
-                        weight="1"
-                    >
-
-                        <!-- listbox zone -->
-
-                        <ttkframe
-                            layout="grid"
-                            layout_options="row=0, column=0"
-                            resizable="yes"
-                        >
-                            <listbox
-                                id="res_items_list"
-                                name="listbox_resource_items"
-                                height="10"
-                                width="10"
-                                highlightthickness="0"
-                                takefocus="false"
-                                layout="grid"
-                                layout_options="row=0, column=0"
-                                resizable="yes"
-                            />
-                            <ttkscrollbar
-                                connect="res_items_list"
-                                orient="vertical"
-                                layout="grid"
-                                layout_options="row=0, column=1"
-                                resizable="height"
-                            />
-                            <ttkscrollbar
-                                connect="res_items_list"
-                                orient="horizontal"
-                                layout="grid"
-                                layout_options="row=1, column=0"
-                                resizable="width"
-                            />
-                        </ttkframe>
-
-                        <!-- spacer -->
-
-                        <ttkframe
-                            height="5"
-                            layout="grid"
-                            layout_options="row=1, column=0"
-                            resizable="width"
-                        />
-
-                        <!-- toolbar zone -->
-
-                        <ttkframe
-                            layout="grid"
-                            layout_options="row=2, column=0"
-                            resizable="width"
-                        >
-                            <ttkbutton
-                                name="btn_add_item"
-                                text="+"
-                                command="@Resources:Item:Add"
-                                width="2"
-                                takefocus="false"
-                                layout="grid"
-                                layout_options="row=0, column=0"
-                            />
-                            <ttkbutton
-                                name="btn_del_item"
-                                text="-"
-                                command="@Resources:Item:Delete"
-                                width="2"
-                                takefocus="false"
-                                layout="grid"
-                                layout_options="row=0, column=1"
-                            />
-                            <!-- spacer -->
-                            <ttkframe
-                                layout="grid"
-                                layout_options="row=0, column=2"
-                                resizable="width"
-                            />
-                            <ttkbutton
-                                name="btn_purge_item"
-                                text="Purge"
-                                command="@Resources:Item:Purge"
-                                takefocus="false"
-                                layout="grid"
-                                layout_options="row=0, column=3"
-                            />
-                        </ttkframe>
-                    </ttklabelframe>
-
                     <!-- item / data editor -->
 
                     <ttklabelframe
                         text="Data"
-                        weight="1"
+                        weight="3"
                     >
                         <ttklabel
                             text="coming soon... (WIP)"

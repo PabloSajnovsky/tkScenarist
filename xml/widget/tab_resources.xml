@@ -388,6 +388,10 @@
                         text="Data"
                         weight="1"
                     >
+                        <ttklabel
+                            text="coming soon... (WIP)"
+                            layout="pack"
+                        />
                     </ttklabelframe>
 
                     <!-- notes / remarks -->
@@ -409,7 +413,7 @@
                                 height="10"
                                 state="disabled"
                                 undo="true"
-                                width="20"
+                                width="10"
                                 wrap="word"
                                 layout="grid"
                                 layout_options="row=0, column=0"

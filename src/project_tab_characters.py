@@ -860,6 +860,12 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
                 _lb.selection_set(_index)
                 _lb.see(_index)
             # end if
+            # notify app
+            self.events.raise_event(
+                "Characters:List:Changed",
+                contents=_names,
+                current_selected=_index,
+            )
         # end if
         # enable/disable widgets
         self.enable_widget(self.btn_delete, _flag)

@@ -71,6 +71,9 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         self.events.connect_dict(
             {
+                "Characters:List:Changed":
+                    self.slot_update_characters_listbox,
+
                 "Scenario:Scene:Browser:Changed":
                     self.slot_update_scene_listbox,
 
@@ -88,6 +91,9 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         )
         self.LBOX_SHOT.bind(
             "<<ListboxSelect>>", self.slot_shot_item_selected
+        )
+        self.LBOX_CHARS.bind(
+            "<<ListboxSelect>>", self.slot_characters_item_selected
         )
         self.TEXT_SHOT.bind("<KeyRelease>", self.slot_on_text_keypress)
     # end def
@@ -296,7 +302,9 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.LBL_SHOT = self.get_stringvar("lbl_shot_number")
         self.LBL_CHARNAME = self.get_stringvar("lbl_character_name")
         # reset listboxes
-        self.clear_listbox(self.LBOX_SCENE, self.LBOX_SHOT)
+        self.clear_listbox(
+            self.LBOX_SCENE, self.LBOX_SHOT, self.LBOX_CHARS
+        )
         # update widgets state
         self.slot_update_inputs()
         # event bindings
@@ -350,6 +358,30 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         _rows = json.loads(fname or "[]")
         # update DB table
         self.database.stb_import_shots(_rows)
+    # end def
+
+
+    def slot_characters_item_selected (self, event=None, *args, **kw):
+        """
+            event handler: listbox item has been selected;
+        """
+        print("slot_characters_item_selected")
+        # inits
+        _lb = self.LBOX_CHARS
+        _index = self.get_current_selected(_lb)
+        # got selected?
+        if _index >= 0:
+            # inits
+            _name = _lb.get(_index)
+            # update character's log
+            self.LBL_CHARNAME.set(_name)
+            self.enable_widget(self.TEXT_CHARLOG, True)
+            self.text_set_contents(
+                self.TEXT_CHARLOG,
+                self.mainframe.tab_characters.get_character_log(_name)
+            )
+            self.enable_widget(self.TEXT_CHARLOG, False)
+        # end if
     # end def
 
 
@@ -542,6 +574,20 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         )
         # update widgets state
         self.slot_update_inputs()
+    # end def
+
+
+    def slot_update_characters_listbox (self, *args, **kw):
+        """
+            event handler: updates character names listbox;
+        """
+        # inits
+        _lb = self.LBOX_CHARS
+        _contents = kw.get("contents") or []
+        # clear all
+        self.clear_listbox(_lb)
+        # reset contents
+        _lb.insert(0, *_contents)
     # end def
 
 

@@ -105,18 +105,18 @@
                         resizable="width"
                     >
                         <ttkbutton
-                            name="btn_add_shot"
+                            name="btn_add_type"
                             text="+"
-                            command="@Storyboard:Shot:Add"
+                            command="@Resources:Type:Add"
                             width="2"
                             takefocus="false"
                             layout="grid"
                             layout_options="row=0, column=0"
                         />
                         <ttkbutton
-                            name="btn_del_shot"
+                            name="btn_del_type"
                             text="-"
-                            command="@Storyboard:Shot:Delete"
+                            command="@Resources:Type:Delete"
                             width="2"
                             takefocus="false"
                             layout="grid"
@@ -129,9 +129,9 @@
                             resizable="width"
                         />
                         <ttkbutton
-                            name="btn_purge_shot"
+                            name="btn_purge_type"
                             text="Purge"
-                            command="@Storyboard:Shot:Purge"
+                            command="@Resources:Type:Purge"
                             takefocus="false"
                             layout="grid"
                             layout_options="row=0, column=3"
@@ -202,18 +202,18 @@
                         resizable="width"
                     >
                         <ttkbutton
-                            name="btn_add_shot"
+                            name="btn_add_item"
                             text="+"
-                            command="@Storyboard:Shot:Add"
+                            command="@Resources:Item:Add"
                             width="2"
                             takefocus="false"
                             layout="grid"
                             layout_options="row=0, column=0"
                         />
                         <ttkbutton
-                            name="btn_del_shot"
+                            name="btn_del_item"
                             text="-"
-                            command="@Storyboard:Shot:Delete"
+                            command="@Resources:Item:Delete"
                             width="2"
                             takefocus="false"
                             layout="grid"
@@ -226,9 +226,9 @@
                             resizable="width"
                         />
                         <ttkbutton
-                            name="btn_purge_shot"
+                            name="btn_purge_item"
                             text="Purge"
-                            command="@Storyboard:Shot:Purge"
+                            command="@Resources:Item:Purge"
                             takefocus="false"
                             layout="grid"
                             layout_options="row=0, column=3"
@@ -241,7 +241,7 @@
         <!-- edition zone -->
 
         <ttklabelframe
-            text="Storyboard"
+            text="Planning"
             weight="2"
         >
             <ttkpanedwindow
@@ -250,121 +250,20 @@
                 resizable="yes"
             >
 
-                <!-- scene preview -->
+                <!-- planning canvas -->
 
                 <ttkframe
                     weight="1"
                 >
-                    <ttkframe
-                        layout="pack"
-                        resizable="yes"
-                    >
-                        <ttklabel
-                            text="Scene preview:"
-                            layout="grid"
-                            layout_options="row=0, column=0"
-                        />
-                        <ttklabel
-                            textvariable="lbl_scene_number"
-                            style="info_mini.TLabel"
-                            layout="grid"
-                            layout_options="row=0, column=1, padx=5"
-                            resizable="width"
-                        />
-                    </ttkframe>
-                    <ttkframe
-                        layout="pack"
-                        resizable="yes"
-                    >
-                        <text
-                            id="stb_scene_preview"
-                            name="text_scene_preview"
-                            height="10"
-                            width="10"
-                            state="disabled"
-                            wrap="word"
-                            layout="grid"
-                            layout_options="row=0, column=0"
-                            resizable="yes"
-                        />
-                        <ttkscrollbar
-                            connect="stb_scene_preview"
-                            orient="vertical"
-                            layout="grid"
-                            layout_options="row=0, column=1"
-                            resizable="height"
-                        />
-                    </ttkframe>
+
                 </ttkframe>
 
-                <!-- shot editor -->
+                <!-- type/item editor -->
 
                 <ttkframe
                     weight="3"
                 >
-                    <ttklabel
-                        text="Shot editor:"
-                        layout="pack"
-                        resizable="width"
-                    />
 
-                    <!-- shot number + title -->
-
-                    <ttkframe
-                        padding="0 0 0 3"
-                        layout="pack"
-                        resizable="yes"
-                    >
-                        <ttklabel
-                            textvariable="lbl_shot_number"
-                            style="info_big.TLabel"
-                            layout="grid"
-                            layout_options="row=0, column=0"
-                        />
-                        <ttkentry
-                            name="entry_shot_title"
-                            font="monospace 10"
-                            width="25"
-                            state="disabled"
-                            layout="grid"
-                            layout_options="row=0, column=1, padx=5"
-                            resizable="width"
-                        />
-                    </ttkframe>
-
-                    <!-- shot text editor -->
-
-                    <ttkframe
-                        layout="pack"
-                        resizable="yes"
-                    >
-                        <text
-                            id="stb_shot_editor"
-                            name="text_shot_editor"
-                            autoseparators="true"
-                            font="monospace 12"
-                            height="20"
-                            state="disabled"
-                            undo="true"
-                            width="40"
-                            wrap="word"
-                            layout="grid"
-                            layout_options="row=0, column=0"
-                            resizable="yes"
-                        />
-                        <tkevent
-                            widget="stb_shot_editor"
-                            seq="Key"
-                            slot="@Text:Key:Pressed"
-                        />
-                        <ttkscrollbar
-                            connect="stb_shot_editor"
-                            orient="vertical"
-                            layout="grid"
-                            layout_options="row=0, column=1"
-                            resizable="height"
-                        />
-                    </ttkframe>
                 </ttkframe>
             </ttkpanedwindow>
         </ttklabelframe>
@@ -383,99 +282,32 @@
                 resizable="yes"
             >
 
-                <!-- character names list -->
+                <!-- zone 1 -->
 
                 <ttkframe
                     weight="1"
                 >
                     <ttklabel
-                        text="Characters:"
+                        text="Zone 1 (WIP)"
                         layout="pack"
                         resizable="width"
                     />
-                    <ttkframe
-                        layout="pack"
-                        resizable="yes"
-                    >
-                        <listbox
-                            id="stb_char_names"
-                            name="listbox_character_names"
-                            height="1"
-                            width="1"
-                            highlightthickness="0"
-                            takefocus="false"
-                            layout="grid"
-                            layout_options="row=0, column=0"
-                            resizable="yes"
-                        />
-                        <ttkscrollbar
-                            connect="stb_char_names"
-                            orient="vertical"
-                            layout="grid"
-                            layout_options="row=0, column=1"
-                            resizable="height"
-                        />
-                        <ttkscrollbar
-                            connect="stb_char_names"
-                            orient="horizontal"
-                            layout="grid"
-                            layout_options="row=1, column=0"
-                            resizable="width"
-                        />
-                    </ttkframe>
                 </ttkframe>
 
-                <!-- character's history log -->
+                <!-- zone 2 -->
 
                 <ttkframe
                     weight="1"
                 >
                     <ttklabel
-                        text="About:"
+                        text="Zone 2 (WIP)"
                         layout="pack"
                         resizable="width"
                     />
-                    <!-- character's log info/text -->
-                    <ttkframe
-                        layout="pack"
-                        resizable="yes"
-                    >
-                        <!-- character's name -->
-                        <ttklabel
-                            textvariable="lbl_character_name"
-                            anchor="center"
-                            style="info_big.TLabel"
-                            layout="grid"
-                            layout_options="row=0, column=0, pady=2"
-                            resizable="width"
-                        />
-                        <!-- character's text widget -->
-                        <text
-                            id="characters_log"
-                            name="text_characters_log"
-                            foreground="grey30"
-                            font="sans 8"
-                            height="10"
-                            width="20"
-                            state="disabled"
-                            wrap="word"
-                            layout="grid"
-                            layout_options="row=1, column=0"
-                            resizable="yes"
-                        />
-                        <ttkscrollbar
-                            connect="characters_log"
-                            orient="vertical"
-                            layout="grid"
-                            layout_options="row=1, column=1"
-                            resizable="height"
-                        />
-                    </ttkframe>
                 </ttkframe>
 
                 <!-- zone 3 -->
 
-<!--
                 <ttkframe
                     weight="1"
                 >
@@ -485,7 +317,6 @@
                         resizable="width"
                     />
                 </ttkframe>
--->
             </ttkpanedwindow>
         </ttklabelframe>
 

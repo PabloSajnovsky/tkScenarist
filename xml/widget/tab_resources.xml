@@ -344,6 +344,7 @@
                                 layout_options="row=0, column=1"
                             />
                             <ttkentry
+                                state="disabled"
                                 width="1"
                                 layout="grid"
                                 layout_options="row=0, column=2"

@@ -365,7 +365,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: listbox item has been selected;
         """
-        print("slot_characters_item_selected")
         # inits
         _lb = self.LBOX_CHARS
         _index = self.get_current_selected(_lb)

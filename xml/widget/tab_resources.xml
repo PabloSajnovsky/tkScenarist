@@ -268,57 +268,5 @@
             </ttkpanedwindow>
         </ttklabelframe>
 
-        <!-- information zone -->
-
-        <ttklabelframe
-            text="Information"
-            weight="1"
-        >
-            <!-- info -->
-
-            <ttkpanedwindow
-                orient="vertical"
-                layout="pack"
-                resizable="yes"
-            >
-
-                <!-- zone 1 -->
-
-                <ttkframe
-                    weight="1"
-                >
-                    <ttklabel
-                        text="Zone 1 (WIP)"
-                        layout="pack"
-                        resizable="width"
-                    />
-                </ttkframe>
-
-                <!-- zone 2 -->
-
-                <ttkframe
-                    weight="1"
-                >
-                    <ttklabel
-                        text="Zone 2 (WIP)"
-                        layout="pack"
-                        resizable="width"
-                    />
-                </ttkframe>
-
-                <!-- zone 3 -->
-
-                <ttkframe
-                    weight="1"
-                >
-                    <ttklabel
-                        text="Zone 3 (WIP)"
-                        layout="pack"
-                        resizable="width"
-                    />
-                </ttkframe>
-            </ttkpanedwindow>
-        </ttklabelframe>
-
     </ttkpanedwindow>
 </tkwidget>

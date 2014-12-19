@@ -417,7 +417,6 @@ class AppDatabase (DB.Database):
         """
             inserts or replaces storyboard shot record;
         """
-        print("DB: updating shot #{scene}.{shot}".format(**row))
         # insert or replace
         self.sql_query(
             "INSERT OR REPLACE INTO 'storyboard_shots' "

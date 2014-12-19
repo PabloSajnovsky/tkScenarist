@@ -345,8 +345,8 @@
                         <listbox
                             id="stb_char_names"
                             name="listbox_character_names"
-                            height="5"
-                            width="10"
+                            height="1"
+                            width="1"
                             highlightthickness="0"
                             takefocus="false"
                             layout="grid"
@@ -398,8 +398,10 @@
                         <text
                             id="characters_log"
                             name="text_characters_log"
+                            foreground="grey30"
+                            font="sans 8"
                             height="10"
-                            width="1"
+                            width="30"
                             state="disabled"
                             wrap="word"
                             layout="grid"

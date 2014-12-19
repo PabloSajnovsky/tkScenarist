@@ -139,13 +139,13 @@
                     </ttkframe>
                 </ttkframe>
 
-                <!-- resource item browser / manager -->
+                <!-- resource section browser / manager -->
 
                 <ttkframe
                     weight="3"
                 >
                     <ttklabel
-                        text="Items:"
+                        text="Section:"
                         layout="grid"
                         layout_options="row=0, column=0"
                         resizable="width"
@@ -159,8 +159,8 @@
                         resizable="yes"
                     >
                         <listbox
-                            id="res_items_list"
-                            name="listbox_resource_items"
+                            id="res_sections_list"
+                            name="listbox_resource_sections"
                             height="10"
                             width="10"
                             highlightthickness="0"
@@ -170,14 +170,14 @@
                             resizable="yes"
                         />
                         <ttkscrollbar
-                            connect="res_items_list"
+                            connect="res_sections_list"
                             orient="vertical"
                             layout="grid"
                             layout_options="row=0, column=1"
                             resizable="height"
                         />
                         <ttkscrollbar
-                            connect="res_items_list"
+                            connect="res_sections_list"
                             orient="horizontal"
                             layout="grid"
                             layout_options="row=1, column=0"
@@ -202,18 +202,18 @@
                         resizable="width"
                     >
                         <ttkbutton
-                            name="btn_add_item"
+                            name="btn_add_section"
                             text="+"
-                            command="@Resources:Item:Add"
+                            command="@Resources:Section:Add"
                             width="2"
                             takefocus="false"
                             layout="grid"
                             layout_options="row=0, column=0"
                         />
                         <ttkbutton
-                            name="btn_del_item"
+                            name="btn_del_section"
                             text="-"
-                            command="@Resources:Item:Delete"
+                            command="@Resources:Section:Delete"
                             width="2"
                             takefocus="false"
                             layout="grid"
@@ -226,9 +226,9 @@
                             resizable="width"
                         />
                         <ttkbutton
-                            name="btn_purge_item"
+                            name="btn_purge_section"
                             text="Purge"
-                            command="@Resources:Item:Purge"
+                            command="@Resources:Section:Purge"
                             takefocus="false"
                             layout="grid"
                             layout_options="row=0, column=3"
@@ -242,7 +242,7 @@
 
         <ttklabelframe
             text="Planning"
-            weight="2"
+            weight="3"
         >
             <ttkpanedwindow
                 orient="vertical"
@@ -255,15 +255,45 @@
                 <ttkframe
                     weight="1"
                 >
-
+                    <canvas
+                        id="res_planning"
+                        name="canvas_resources_planning"
+                        bg="grey80"
+                        highlightbackground="grey20"
+                        highlightthickness="1"
+                        relief="solid"
+                        takefocus="false"
+                        layout="grid"
+                        layout_options="row=0, column=0"
+                        resizable="yes"
+                    />
+                    <ttkscrollbar
+                        connect="res_planning"
+                        orient="vertical"
+                        layout="grid"
+                        layout_options="row=0, column=1"
+                        resizable="height"
+                    />
+                    <ttkscrollbar
+                        connect="res_planning"
+                        orient="horizontal"
+                        layout="grid"
+                        layout_options="row=1, column=0"
+                        resizable="width"
+                    />
                 </ttkframe>
 
-                <!-- type/item editor -->
+                <!-- type/section editor -->
 
                 <ttkframe
-                    weight="3"
+                    weight="1"
                 >
-
+                    <label
+                        text="coming soon... (WIP)"
+                        height="10"
+                        layout="pack"
+                        resizable="width"
+                    />
                 </ttkframe>
             </ttkpanedwindow>
         </ttklabelframe>

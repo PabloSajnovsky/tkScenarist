@@ -328,7 +328,7 @@
                 resizable="yes"
             >
 
-                <!-- zone 1 -->
+                <!-- character names list -->
 
                 <ttkframe
                     weight="1"
@@ -345,7 +345,7 @@
                         <listbox
                             id="stb_char_names"
                             name="listbox_character_names"
-                            height="10"
+                            height="5"
                             width="10"
                             highlightthickness="0"
                             takefocus="false"
@@ -370,14 +370,13 @@
                     </ttkframe>
                 </ttkframe>
 
-                <!-- zone 2 -->
+                <!-- character's history log -->
 
                 <ttkframe
                     weight="1"
                 >
                     <ttklabel
                         text="About:"
-                        width="12"
                         layout="pack"
                         resizable="width"
                     />
@@ -419,16 +418,17 @@
 
                 <!-- zone 3 -->
 
+<!--
                 <ttkframe
                     weight="1"
                 >
                     <ttklabel
                         text="Zone 3 (WIP)"
-                        width="12"
                         layout="pack"
                         resizable="width"
                     />
                 </ttkframe>
+-->
             </ttkpanedwindow>
         </ttklabelframe>
 

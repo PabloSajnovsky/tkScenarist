@@ -401,7 +401,7 @@
                             foreground="grey30"
                             font="sans 8"
                             height="10"
-                            width="30"
+                            width="20"
                             state="disabled"
                             wrap="word"
                             layout="grid"

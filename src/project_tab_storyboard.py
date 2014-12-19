@@ -61,7 +61,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
                 title=_title,
                 text=_text,
             )
-            self.database.dump_tables("storyboard_shots")
         # end if
     # end def
 
@@ -463,7 +462,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
                 _scene, _shot = self.get_scene_shot(_index)
                 # remove from database
                 self.database.stb_del_shot(_scene, _shot)
-                self.database.dump_tables("storyboard_shots")
                 # remove from listbox
                 self.listbox_delete(_lb, _index)
             # end if

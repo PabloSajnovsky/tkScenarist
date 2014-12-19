@@ -284,14 +284,17 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.LBOX_SCENE = self.listbox_scene_browser
         self.LBOX_SCENE.text_lines = []
         self.LBOX_SHOT = self.listbox_shot_browser
+        self.LBOX_CHARS = self.listbox_character_names
         self.BTN_ADD = self.btn_add_shot
         self.BTN_DEL = self.btn_del_shot
         self.BTN_PURGE = self.btn_purge_shot
         self.TEXT_SCENE = self.text_scene_preview
         self.TEXT_SHOT = self.text_shot_editor
+        self.TEXT_CHARLOG = self.text_characters_log
         self.ENT_SHOT = self.entry_shot_title
         self.LBL_SCENE = self.get_stringvar("lbl_scene_number")
         self.LBL_SHOT = self.get_stringvar("lbl_shot_number")
+        self.LBL_CHARNAME = self.get_stringvar("lbl_character_name")
         # reset listboxes
         self.clear_listbox(self.LBOX_SCENE, self.LBOX_SHOT)
         # update widgets state
@@ -534,7 +537,9 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # clear shots in DB
         self.database.stb_clear_shots()
         # reset listboxes
-        self.clear_listbox(self.LBOX_SCENE, self.LBOX_SHOT)
+        self.clear_listbox(
+            self.LBOX_SCENE, self.LBOX_SHOT, self.LBOX_CHARS
+        )
         # update widgets state
         self.slot_update_inputs()
     # end def
@@ -550,6 +555,9 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         )
         _cur_shot = bool(
             self.get_current_selected(self.LBOX_SHOT) + 1
+        )
+        _cur_char = bool(
+            self.get_current_selected(self.LBOX_CHARS) + 1
         )
         # buttons reset
         self.enable_widget(self.BTN_ADD, _cur_scene)
@@ -573,7 +581,13 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             # clear and disable
             self.clear_entry(self.ENT_SHOT)
             self.clear_text(self.TEXT_SHOT)
-        # end def
+        # end if
+        # characters reset
+        if not _cur_char:
+            # clear character's log
+            self.LBL_CHARNAME.set("")
+            self.clear_text(self.TEXT_CHARLOG)
+        # end if
     # end def
 
 

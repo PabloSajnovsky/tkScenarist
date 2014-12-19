@@ -334,11 +334,40 @@
                     weight="1"
                 >
                     <ttklabel
-                        text="Zone 1 (WIP)"
-                        width="12"
+                        text="Characters:"
                         layout="pack"
                         resizable="width"
                     />
+                    <ttkframe
+                        layout="pack"
+                        resizable="yes"
+                    >
+                        <listbox
+                            id="stb_char_names"
+                            name="listbox_character_names"
+                            height="10"
+                            width="10"
+                            highlightthickness="0"
+                            takefocus="false"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                            resizable="yes"
+                        />
+                        <ttkscrollbar
+                            connect="stb_char_names"
+                            orient="vertical"
+                            layout="grid"
+                            layout_options="row=0, column=1"
+                            resizable="height"
+                        />
+                        <ttkscrollbar
+                            connect="stb_char_names"
+                            orient="horizontal"
+                            layout="grid"
+                            layout_options="row=1, column=0"
+                            resizable="width"
+                        />
+                    </ttkframe>
                 </ttkframe>
 
                 <!-- zone 2 -->
@@ -347,11 +376,45 @@
                     weight="1"
                 >
                     <ttklabel
-                        text="Zone 2 (WIP)"
+                        text="About:"
                         width="12"
                         layout="pack"
                         resizable="width"
                     />
+                    <!-- character's log info/text -->
+                    <ttkframe
+                        layout="pack"
+                        resizable="yes"
+                    >
+                        <!-- character's name -->
+                        <ttklabel
+                            textvariable="lbl_character_name"
+                            anchor="center"
+                            style="info_big.TLabel"
+                            layout="grid"
+                            layout_options="row=0, column=0, pady=2"
+                            resizable="width"
+                        />
+                        <!-- character's text widget -->
+                        <text
+                            id="characters_log"
+                            name="text_characters_log"
+                            height="10"
+                            width="1"
+                            state="disabled"
+                            wrap="word"
+                            layout="grid"
+                            layout_options="row=1, column=0"
+                            resizable="yes"
+                        />
+                        <ttkscrollbar
+                            connect="characters_log"
+                            orient="vertical"
+                            layout="grid"
+                            layout_options="row=1, column=1"
+                            resizable="height"
+                        />
+                    </ttkframe>
                 </ttkframe>
 
                 <!-- zone 3 -->

@@ -357,7 +357,24 @@
                                 resizable="width"
                             />
                         </ttkframe>
-
+                        <!-- mission entry -->
+                        <ttkframe
+                            layout="pack"
+                            resizable="yes"
+                        >
+                            <ttklabel
+                                text="Mission:"
+                                layout="grid"
+                                layout_options="row=0, column=0"
+                            />
+                            <!-- FIXME: should replace by specific widget -->
+                            <ttkentry
+                                width="1"
+                                layout="grid"
+                                layout_options="row=0, column=1, padx=5"
+                                resizable="width"
+                            />
+                        </ttkframe>
                     </ttklabelframe>
 
                     <!-- notes / remarks -->

@@ -23,6 +23,7 @@
 """
 
 # lib imports
+import os
 import webbrowser
 import tkinter.messagebox as MB
 import tkRAD
@@ -35,6 +36,9 @@ from . import dlg_scenario_elements_editor as DSEE
 
 # app-wide inits (super global)
 __builtins__["ENCODING"] = "UTF-8"
+__builtins__["STATE_MASK"] = (
+    {"nt": 0x20084, "posix": 0x8c}.get(os.name, 0)
+)
 
 
 class MainWindow (tkRAD.RADXMLMainWindow):

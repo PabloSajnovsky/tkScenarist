@@ -398,7 +398,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             event handler: keyboard keypress for text widget;
         """
         # no modifiers?
-        if not (event.state & 0x8c):
+        if not (event.state & STATE_MASK):
             # schedule auto-save for later
             self.async.run_after(3000, self.auto_save)
         # end if

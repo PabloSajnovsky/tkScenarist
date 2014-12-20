@@ -923,7 +923,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # member inits
         self.undo_stack = TextUndoStack(limit=self.UNDO_LIMIT)
-        self.STATE_MASK = {"nt": 0x20084, "posix": 0x8c}.get(os.name, 0)
         # deferred task def
         def deferred ():
             # first time init
@@ -997,7 +996,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # inits
         _char = event.char
-        _modifiers = (event.state & self.STATE_MASK)
+        _modifiers = (event.state & STATE_MASK)
         # letter char?
         if _char >= " " and not _modifiers:
             # delete eventual selection

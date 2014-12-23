@@ -23,7 +23,11 @@
 """
 
 # lib imports
+import json
+import tkinter.messagebox as MB
 import tkRAD
+import tkRAD.core.async as ASYNC
+from tkRAD.core import tools
 
 
 class ProjectTabResources (tkRAD.RADXMLFrame):
@@ -31,13 +35,40 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         application's project tab class;
     """
 
+    # class constant defs
+    RES_DEFAULTS = {
+
+        "Events": {
+
+            "Casting": {
+            },
+
+            "Meeting": {
+            },
+
+            "Promotion": {
+            },
+        },
+
+        "Hardware": {
+
+            "Audio": {
+            },
+
+            "Video": {
+            },
+        },
+
+        "Staff": {
+        },
+    }
+
     def bind_events (self, **kw):
         """
             app-wide event bindings;
         """
         self.events.connect_dict(
             {
-                "Project:Modified": self.slot_project_modified,
 
                 "Tab:Reset": self.slot_tab_reset,
             }
@@ -80,16 +111,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
         # set text widget contents
         #~ self.text_set_contents(self.text_resources, fname)
-        pass
-    # end def
-
-
-    def slot_project_modified (self, *args, flag=True, **kw):
-        """
-            event handler for project's modification flag;
-        """
-        # reset status
-        #~ self.text_resources.edit_modified(flag)
         pass
     # end def
 

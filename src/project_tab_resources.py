@@ -47,13 +47,21 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             },
 
             _("Meeting"): {
-                _("Locations"): {},
-                _("Organizers"): {},
+                _("Location #1"): {},
+                _("Location #2"): {},
+                _("Location #3"): {},
+                _("Organizer #1"): {},
+                _("Organizer #2"): {},
+                _("Organizer #3"): {},
             },
 
             _("Promotion"): {
-                _("Organizers"): {},
-                _("Targets"): {},
+                _("Location #1"): {},
+                _("Location #2"): {},
+                _("Location #3"): {},
+                _("Organizer #1"): {},
+                _("Organizer #2"): {},
+                _("Organizer #3"): {},
             },
         },
 
@@ -67,24 +75,25 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             },
 
             _("Audio"): {
-                _(""): {},
+                _("Microphone"): {},
                 _(""): {},
                 _(""): {},
                 _(""): {},
             },
 
             _("Logistics"): {
-                _(""): {},
-                _(""): {},
-                _(""): {},
-                _(""): {},
+                _("Autobus"): {},
+                _("Minibus"): {},
+                _("Personal car"): {},
+                _("Train"): {},
+                _("Truck"): {},
             },
 
             _("Video"): {
-                _(""): {},
-                _(""): {},
-                _(""): {},
-                _(""): {},
+                _("Camera"): {},
+                _("Dolly"): {},
+                _("Opticals"): {},
+                _("Steady"): {},
             },
 
             _("Wardrobe"): {
@@ -104,6 +113,14 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 _(""): {},
             },
 
+            _("Assistants"): {
+                _("Best boy electric"): {},
+                _("Best boy grip"): {},
+                _("Photographer"): {},
+                _("Reporter"): {},
+                _("Script"): {},
+            },
+
             _("CG team"): {
                 _("CG artist #1"): {},
                 _("CG artist #2"): {},
@@ -113,12 +130,12 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
 
             _("Cookers"): {
                 _("Chef"): {},
-                _("Cooker #1"): {},
-                _("Cooker #2"): {},
-                _("Cooker #3"): {},
                 _("Commis chef #1"): {},
                 _("Commis chef #2"): {},
                 _("Commis chef #3"): {},
+                _("Cooker #1"): {},
+                _("Cooker #2"): {},
+                _("Cooker #3"): {},
                 _("Waiter #1"): {},
                 _("Waiter #2"): {},
                 _("Waiter #3"): {},
@@ -135,13 +152,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 _("Stage director"): {},
             },
 
-            _("Engineers"): {
-                _(""): {},
-                _(""): {},
-                _(""): {},
-                _(""): {},
-            },
-
             _("Make up"): {
                 _("Hairdresser #1"): {},
                 _("Hairdresser #2"): {},
@@ -155,24 +165,29 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             },
 
             _("Producers"): {
-                _(""): {},
+                _("Executive producer"): {},
                 _(""): {},
                 _(""): {},
                 _(""): {},
             },
 
             _("Stunt team"): {
-                _(""): {},
-                _(""): {},
-                _(""): {},
-                _(""): {},
+                _("Big chief"): {},
+                _("Stuntman #1"): {},
+                _("Stuntman #2"): {},
+                _("Stuntman #3"): {},
             },
 
             _("Technicians"): {
-                _("Electrician"): {},
-                _(""): {},
-                _(""): {},
-                _(""): {},
+                _("Electrician #1"): {},
+                _("Electrician #2"): {},
+                _("Electrician #3"): {},
+                _("Decorator #1"): {},
+                _("Decorator #2"): {},
+                _("Decorator #3"): {},
+                _("Mecanician #1"): {},
+                _("Mecanician #2"): {},
+                _("Mecanician #3"): {},
             },
         },
     }

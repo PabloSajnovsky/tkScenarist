@@ -175,7 +175,7 @@
         >
             <!-- help text label -->
             <ttklabel
-                text="Hint: 'Shift-Click-Drag': create relation. 'Ctrl-Click': remove item."
+                text="Hint: &lt;Double-Click&gt;: add new. &lt;Shift-Click-Drag&gt;: create relation. &lt;Ctrl-Click&gt;: remove item."
                 layout="grid"
                 layout_options="row=0, column=0"
                 resizable="width"

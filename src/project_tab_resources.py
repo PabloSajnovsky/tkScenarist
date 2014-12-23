@@ -23,10 +23,9 @@
 """
 
 # lib imports
+import copy
 import json
-import tkinter.messagebox as MB
 import tkRAD
-import tkRAD.core.async as ASYNC
 from tkRAD.core import tools
 
 
@@ -216,8 +215,25 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         self.text_set_contents = self.mainwindow.text_set_contents
         # looks for ^/xml/widget/tab_resources.xml
         self.xml_build("tab_resources")
+        # widget inits
+        self.CBO_TYPE = self.combo_res_type
+        self.CBO_SECTION = self.combo_res_section
+        self.LBOX_ITEM = self.listbox_res_item
         # event bindings
         self.bind_events(**kw)
+    # end def
+
+
+    def reset_resources (self, new_dict):
+        """
+            resets self.RESOURCES dictionary with @new_dict;
+        """
+        if tools.is_pdict(new_dict):
+            # reset dict (unreferenced)
+            self.RESOURCES = copy.deepcopy(new_dict)
+            # reset combo
+            pass                                                        # FIXME
+        # end if
     # end def
 
 

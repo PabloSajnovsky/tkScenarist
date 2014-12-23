@@ -56,7 +56,6 @@
                     <ttkcombobox
                         name="combo_res_type"
                         width="1"
-                        state="disabled"
                         layout="grid"
                         layout_options="row=1, column=0"
                         resizable="width"
@@ -123,7 +122,6 @@
                     <ttkcombobox
                         name="combo_res_section"
                         width="1"
-                        state="disabled"
                         layout="grid"
                         layout_options="row=1, column=0"
                         resizable="width"

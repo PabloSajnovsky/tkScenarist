@@ -240,6 +240,26 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
     # end def
 
 
+    def get_res_item (self):
+        """
+            retrieves resources item along with current resources type
+            and section selected in combos or dict() if not found;
+        """
+        # inits
+        _section = self.get_res_section()
+        return _section.get(self.CBO_SECTION.get()) or dict()
+    # end def
+
+
+    def get_res_section (self):
+        """
+            retrieves resources section along with current resources
+            type selected in combo or dict() if not found;
+        """
+        return self.RESOURCES.get(self.CBO_TYPE.get()) or dict()
+    # end def
+
+
     def init_widget (self, **kw):
         """
             hook method to be reimplemented by subclass;
@@ -253,8 +273,11 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         # looks for ^/xml/widget/tab_resources.xml
         self.xml_build("tab_resources")
         # widget inits
+        _readonly = ["readonly"]
         self.CBO_TYPE = self.combo_res_type
+        self.CBO_TYPE.state(_readonly)
         self.CBO_SECTION = self.combo_res_section
+        self.CBO_SECTION.state(_readonly)
         self.LBOX_ITEM = self.listbox_res_item
         # event bindings
         self.bind_events(**kw)
@@ -274,6 +297,11 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             self.clear_combo(self.CBO_TYPE, self.CBO_SECTION)
             self.clear_listbox(self.LBOX_ITEM)
             self.CBO_TYPE.configure(values=sorted(self.RESOURCES))
+            # got selection?
+            if self.RESOURCES:
+                self.CBO_TYPE.current(0)
+                self.slot_combo_type_selected()
+            # end if
         # end if
     # end def
 
@@ -292,7 +320,19 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: item has been selected in combobox;
         """
-        pass
+        print("slot_combo_section_selected")
+        # inits
+        _item = self.get_res_item()
+        # clear listbox
+        self.clear_listbox(self.LBOX_ITEM)
+        # got selection?
+        if _item:
+            # fill values
+            self.LBOX_ITEM.insert(0, sorted(_item))
+            # select first
+            self.LBOX_ITEM.selection_set(0)
+            self.slot_listbox_item_selected()
+        # end if
     # end def
 
 
@@ -300,15 +340,31 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: item has been selected in combobox;
         """
+        print("slot_combo_type_selected")
         # inits
-        _section = self.RESOURCES.get(self.CBO_TYPE.get())
+        _section = self.get_res_section()
+        # clear listbox
+        self.clear_listbox(self.LBOX_ITEM)
+        # reset combo
+        self.clear_combo(self.CBO_SECTION)
         # got selection?
         if _section:
-            # reset combo
-            self.clear_combo(self.CBO_SECTION)
             # fill values
             self.CBO_SECTION.configure(values=sorted(_section))
+            # select first
+            self.CBO_SECTION.current(0)
+            self.slot_combo_section_selected()
         # end if
+    # end def
+
+
+    def slot_listbox_item_selected (self, event=None, *args, **kw):
+        """
+            event handler: item has been selected in listbox;
+        """
+        print("slot_listbox_item_selected")
+        # inits
+        pass
     # end def
 
 

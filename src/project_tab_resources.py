@@ -188,6 +188,43 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 "Tab:Reset": self.slot_tab_reset,
             }
         )
+        # tkinter event bindings
+        self.CBO_TYPE.bind(
+            "<<ComboboxSelected>>", self.slot_combo_type_selected
+        )
+        self.CBO_SECTION.bind(
+            "<<ComboboxSelected>>", self.slot_combo_section_selected
+        )
+    # end def
+
+
+    def clear_combo (self, *widgets):
+        """
+            clears contents for combobox widget(s);
+        """
+        # browse widgets
+        for _w in widgets:
+            # clear widget
+            _w.delete(0, "end")
+            # clear selection
+            _w.selection_clear()
+        # end for
+    # end def
+
+
+    def clear_listbox (self, *widgets):
+        """
+            clears contents for listbox widget(s);
+        """
+        # browse widgets
+        for _w in widgets:
+            # clear widget
+            _w.delete(0, "end")
+            # clear selection
+            _w.selection_clear(0, "end")
+            # reset last selected
+            _w.last_selected = -1
+        # end for
     # end def
 
 
@@ -221,6 +258,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         self.LBOX_ITEM = self.listbox_res_item
         # event bindings
         self.bind_events(**kw)
+        # reset once
+        self.slot_tab_reset()
     # end def
 
 
@@ -231,8 +270,10 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         if tools.is_pdict(new_dict):
             # reset dict (unreferenced)
             self.RESOURCES = copy.deepcopy(new_dict)
-            # reset combo
-            pass                                                        # FIXME
+            # reset combos + listbox
+            self.clear_combo(self.CBO_TYPE, self.CBO_SECTION)
+            self.clear_listbox(self.LBOX_ITEM)
+            self.CBO_TYPE.configure(values=sorted(self.RESOURCES))
         # end if
     # end def
 
@@ -247,13 +288,36 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
     # end def
 
 
+    def slot_combo_section_selected (self, event=None, *args, **kw):
+        """
+            event handler: item has been selected in combobox;
+        """
+        pass
+    # end def
+
+
+    def slot_combo_type_selected (self, event=None, *args, **kw):
+        """
+            event handler: item has been selected in combobox;
+        """
+        # inits
+        _section = self.RESOURCES.get(self.CBO_TYPE.get())
+        # got selection?
+        if _section:
+            # reset combo
+            self.clear_combo(self.CBO_SECTION)
+            # fill values
+            self.CBO_SECTION.configure(values=sorted(_section))
+        # end if
+    # end def
+
+
     def slot_tab_reset (self, *args, **kw):
         """
             event handler: reset tab to new;
         """
-        # reset Text widget
-        #~ self.text_clear_contents(self.text_resources)
-        pass
+        # reset combos
+        self.reset_resources(self.RES_DEFAULTS)                             # FIXME: self.options?
     # end def
 
 # end class ProjectTabResources

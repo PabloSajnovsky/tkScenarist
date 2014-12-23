@@ -37,63 +37,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
     # class constant defs
     RES_DEFAULTS = {
 
-        _("Events"): {
-
-            _("Casting"): {
-                _("1-Director"): None,
-                _("2-Male #1"): None,
-                _("2-Male #2"): None,
-                _("2-Male #3"): None,
-                _("3-Female #1"): None,
-                _("3-Female #2"): None,
-                _("3-Female #3"): None,
-                _("4-Animal #1"): None,
-                _("4-Animal #2"): None,
-                _("4-Animal #3"): None,
-            },
-
-            _("Meeting"): {
-                _("Location #1"): None,
-                _("Location #2"): None,
-                _("Location #3"): None,
-            },
-
-            _("Promotion"): {
-                _("Location #1"): None,
-                _("Location #2"): None,
-                _("Location #3"): None,
-            },
-        },
-
-        _("Hardware"): {
-
-            _("Audio"): {
-                _("Boom pole"): None,
-                _("Cables"): None,
-                _("Microphone"): None,
-                _("Mixer"): None,
-                _("Recorder"): None,
-            },
-
-            _("Logistics"): {
-                _("Autobus"): None,
-                _("Minibus"): None,
-                _("Personal car"): None,
-                _("Train"): None,
-                _("Truck"): None,
-            },
-
-            _("Video"): {
-                _("Camera"): None,
-                _("Crane"): None,
-                _("Dolly"): None,
-                _("Mount"): None,
-                _("Opticals"): None,
-                _("Steady"): None,
-            },
-        },
-
-        _("Staff"): {
+        _("01-Staff"): {
 
             _("01-Producers"): {
                 _("Executive producer"): None,
@@ -183,10 +127,66 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             },
 
             _("12-CG team"): {
-                _("1-Team manager"): None,
+                _("1-CG supervisor"): None,
                 _("CG artist #1"): None,
                 _("CG artist #2"): None,
                 _("CG artist #3"): None,
+            },
+        },
+
+        _("02-Hardware"): {
+
+            _("Audio"): {
+                _("Boom pole"): None,
+                _("Cables"): None,
+                _("Microphone"): None,
+                _("Mixer"): None,
+                _("Recorder"): None,
+            },
+
+            _("Logistics"): {
+                _("Autobus"): None,
+                _("Minibus"): None,
+                _("Personal car"): None,
+                _("Train"): None,
+                _("Truck"): None,
+            },
+
+            _("Video"): {
+                _("Camera"): None,
+                _("Crane"): None,
+                _("Dolly"): None,
+                _("Mount"): None,
+                _("Opticals"): None,
+                _("Steady"): None,
+            },
+        },
+
+        _("03-Events"): {
+
+            _("Casting"): {
+                _("1-Director"): None,
+                _("2-Male #1"): None,
+                _("2-Male #2"): None,
+                _("2-Male #3"): None,
+                _("3-Female #1"): None,
+                _("3-Female #2"): None,
+                _("3-Female #3"): None,
+                _("4-Animal #1"): None,
+                _("4-Animal #2"): None,
+                _("4-Animal #3"): None,
+            },
+
+            _("Meeting"): {
+                _("Location #1"): None,
+                _("Location #2"): None,
+                _("Location #3"): None,
+            },
+
+            _("Promotion"): {
+                _("Location #1"): None,
+                _("Location #2"): None,
+                _("Location #3"): None,
             },
         },
     }

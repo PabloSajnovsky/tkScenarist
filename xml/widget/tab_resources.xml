@@ -331,7 +331,7 @@
                         <ttklabel
                             text="ID/name:"
                             layout="grid"
-                            layout_options="row=0, column=0"
+                            layout_options="row=0, column=0, sticky='w'"
                         />
                         <!-- spacer -->
                         <ttkframe
@@ -351,20 +351,14 @@
                         <ttklabel
                             text="Role:"
                             layout="grid"
-                            layout_options="row=1, column=0"
-                        />
-                        <!-- spacer -->
-                        <ttkframe
-                            width="5"
-                            layout="grid"
-                            layout_options="row=1, column=1"
+                            layout_options="row=1, column=0, sticky='w'"
                         />
                         <ttkentry
                             name="entry_res_role"
                             state="disabled"
                             width="1"
                             layout="grid"
-                            layout_options="row=1, column=2"
+                            layout_options="row=1, column=2, pady=5"
                             resizable="width"
                         />
                     </ttklabelframe>

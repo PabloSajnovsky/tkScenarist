@@ -337,7 +337,7 @@
                         <ttkframe
                             width="5"
                             layout="grid"
-                            layout_options="row=0, column=1"
+                            layout_options="row=0, column=1, pady=2"
                         />
                         <ttkentry
                             name="entry_res_name"
@@ -358,7 +358,7 @@
                             state="disabled"
                             width="1"
                             layout="grid"
-                            layout_options="row=1, column=2, pady=5"
+                            layout_options="row=1, column=2, pady=2"
                             resizable="width"
                         />
                         <!-- contact entry -->
@@ -372,7 +372,7 @@
                             state="disabled"
                             width="1"
                             layout="grid"
-                            layout_options="row=2, column=2, pady=5"
+                            layout_options="row=2, column=2, pady=2"
                             resizable="width"
                         />
                         <!-- phone contact entry -->
@@ -386,7 +386,7 @@
                             state="disabled"
                             width="1"
                             layout="grid"
-                            layout_options="row=3, column=2, pady=5"
+                            layout_options="row=3, column=2, pady=2"
                             resizable="width"
                         />
                         <!-- e-mail contact entry -->
@@ -400,7 +400,7 @@
                             state="disabled"
                             width="1"
                             layout="grid"
-                            layout_options="row=4, column=2, pady=5"
+                            layout_options="row=4, column=2, pady=2"
                             resizable="width"
                         />
                         <!-- address entry -->
@@ -414,7 +414,7 @@
                             state="disabled"
                             width="1"
                             layout="grid"
-                            layout_options="row=5, column=2, pady=5"
+                            layout_options="row=5, column=2, pady=2"
                             resizable="width"
                         />
                         <!-- zip code entry -->
@@ -428,7 +428,7 @@
                             state="disabled"
                             width="1"
                             layout="grid"
-                            layout_options="row=6, column=2, pady=5"
+                            layout_options="row=6, column=2, pady=2"
                             resizable="width"
                         />
                         <!-- city entry -->
@@ -442,7 +442,7 @@
                             state="disabled"
                             width="1"
                             layout="grid"
-                            layout_options="row=7, column=2, pady=5"
+                            layout_options="row=7, column=2, pady=2"
                             resizable="width"
                         />
                         <!-- country entry -->
@@ -456,7 +456,7 @@
                             state="disabled"
                             width="1"
                             layout="grid"
-                            layout_options="row=8, column=2, pady=5"
+                            layout_options="row=8, column=2, pady=2"
                             resizable="width"
                         />
                     </ttklabelframe>

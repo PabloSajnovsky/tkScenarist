@@ -328,10 +328,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         # got selection?
         if _item:
             # fill values
-            self.LBOX_ITEM.insert(0, sorted(_item))
-            # select first
-            self.LBOX_ITEM.selection_set(0)
-            self.slot_listbox_item_selected()
+            self.LBOX_ITEM.insert(0, *sorted(_item))
         # end if
     # end def
 

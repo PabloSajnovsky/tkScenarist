@@ -95,7 +95,23 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
 
         _("Staff"): {
 
-            _("Actors"): {
+            _("01-Producers"): {
+                _("Executive producer"): None,
+                _("Film producer"): None,
+                _("Line producer"): None,
+                _("Production manager"): None,
+                _("Unit manager"): None,
+            },
+
+            _("02-Directors"): {
+                _("Art director"): None,
+                _("Director of photography"): None,
+                _("Film author"): None,
+                _("Film maker"): None,
+                _("Stage director"): None,
+            },
+
+            _("03-Actors"): {
                 _("1-Main role (male)"): None,
                 _("2-Main role (female)"): None,
                 _("3-Secundary #1"): None,
@@ -105,28 +121,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 _("Extra #3"): None,
             },
 
-            _("CG team"): {
-                _("1-Team manager"): None,
-                _("CG artist #1"): None,
-                _("CG artist #2"): None,
-                _("CG artist #3"): None,
-            },
-
-            _("Directors"): {
-                _("Art director"): None,
-                _("Author"): None,
-                _("Director of photography"): None,
-                _("Film-maker"): None,
-                _("Stage director"): None,
-            },
-
-            _("Electrical"): {
-                _("Electrician #1"): None,
-                _("Electrician #2"): None,
-                _("Electrician #3"): None,
-            },
-
-            _("Grip"): {
+            _("04-Grip"): {
                 _("1-Key grip"): None,
                 _("2-Best boy"): None,
                 _("3-Dolly grip"): None,
@@ -135,7 +130,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 _("Grip #3"): None,
             },
 
-            _("Lighting"): {
+            _("05-Lighting"): {
                 _("1-Gaffer"): None,
                 _("2-Best boy"): None,
                 _("Technician #1"): None,
@@ -143,31 +138,55 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 _("Technician #3"): None,
             },
 
-            _("Make up"): {
-                _("Hairdresser #1"): None,
-                _("Hairdresser #2"): None,
-                _("Hairdresser #3"): None,
-                _("Make up artist #1"): None,
-                _("Make up artist #2"): None,
-                _("Make up artist #3"): None,
-                _("Special FX artist #1"): None,
-                _("Special FX artist #2"): None,
-                _("Special FX artist #3"): None,
+            _("06-Electrical"): {
+                _("Electrician #1"): None,
+                _("Electrician #2"): None,
+                _("Electrician #3"): None,
             },
 
-            _("Producers"): {
-                _("Executive producer"): None,
-                _("Film producer"): None,
-                _("Line producer"): None,
-                _("Production manager"): None,
-                _("Unit manager"): None,
+            _("07-Production sound"): {
+                _("1-Production sound mixer"): None,
+                _("2-Boom operator"): None,
+                _("3-Utility sound technician"): None,
             },
 
-            _("Stunt team"): {
-                _("Stunt coordinator"): None,
+            _("08-Costume dept"): {
+                _("1-Costume designer"): None,
+                _("2-Costume supervisor"): None,
+                _("3-Key costumer"): None,
+                _("4-Costume standby"): None,
+                _("Cutter #1"): None,
+                _("Cutter #2"): None,
+                _("Cutter #3"): None,
+            },
+
+            _("09-Hair and make-up"): {
+                _("1-Key make-up artist"): None,
+                _("2-Make-up supervisor"): None,
+                _("3-Make-up artist"): None,
+                _("4-Key hair"): None,
+                _("5-Hair stylist"): None,
+            },
+
+            _("10-Special effects"): {
+                _("1-SFX supervisor"): None,
+                _("SFX assistant #1"): None,
+                _("SFX assistant #2"): None,
+                _("SFX assistant #3"): None,
+            },
+
+            _("11-Stunt team"): {
+                _("1-Stunt coordinator"): None,
                 _("Stuntman #1"): None,
                 _("Stuntman #2"): None,
                 _("Stuntman #3"): None,
+            },
+
+            _("12-CG team"): {
+                _("1-Team manager"): None,
+                _("CG artist #1"): None,
+                _("CG artist #2"): None,
+                _("CG artist #3"): None,
             },
         },
     }

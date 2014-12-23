@@ -361,6 +361,104 @@
                             layout_options="row=1, column=2, pady=5"
                             resizable="width"
                         />
+                        <!-- contact entry -->
+                        <ttklabel
+                            text="Contact:"
+                            layout="grid"
+                            layout_options="row=2, column=0, sticky='w'"
+                        />
+                        <ttkentry
+                            name="entry_res_contact"
+                            state="disabled"
+                            width="1"
+                            layout="grid"
+                            layout_options="row=2, column=2, pady=5"
+                            resizable="width"
+                        />
+                        <!-- phone contact entry -->
+                        <ttklabel
+                            text="Phone:"
+                            layout="grid"
+                            layout_options="row=3, column=0, sticky='w'"
+                        />
+                        <ttkentry
+                            name="entry_res_phone"
+                            state="disabled"
+                            width="1"
+                            layout="grid"
+                            layout_options="row=3, column=2, pady=5"
+                            resizable="width"
+                        />
+                        <!-- e-mail contact entry -->
+                        <ttklabel
+                            text="E-mail:"
+                            layout="grid"
+                            layout_options="row=4, column=0, sticky='w'"
+                        />
+                        <ttkentry
+                            name="entry_res_email"
+                            state="disabled"
+                            width="1"
+                            layout="grid"
+                            layout_options="row=4, column=2, pady=5"
+                            resizable="width"
+                        />
+                        <!-- address entry -->
+                        <ttklabel
+                            text="Address:"
+                            layout="grid"
+                            layout_options="row=5, column=0, sticky='w'"
+                        />
+                        <ttkentry
+                            name="entry_res_address"
+                            state="disabled"
+                            width="1"
+                            layout="grid"
+                            layout_options="row=5, column=2, pady=5"
+                            resizable="width"
+                        />
+                        <!-- zip code entry -->
+                        <ttklabel
+                            text="Zip code:"
+                            layout="grid"
+                            layout_options="row=6, column=0, sticky='w'"
+                        />
+                        <ttkentry
+                            name="entry_res_zipcode"
+                            state="disabled"
+                            width="1"
+                            layout="grid"
+                            layout_options="row=6, column=2, pady=5"
+                            resizable="width"
+                        />
+                        <!-- city entry -->
+                        <ttklabel
+                            text="City:"
+                            layout="grid"
+                            layout_options="row=7, column=0, sticky='w'"
+                        />
+                        <ttkentry
+                            name="entry_res_city"
+                            state="disabled"
+                            width="1"
+                            layout="grid"
+                            layout_options="row=7, column=2, pady=5"
+                            resizable="width"
+                        />
+                        <!-- country entry -->
+                        <ttklabel
+                            text="Country:"
+                            layout="grid"
+                            layout_options="row=8, column=0, sticky='w'"
+                        />
+                        <ttkentry
+                            name="entry_res_country"
+                            state="disabled"
+                            width="1"
+                            layout="grid"
+                            layout_options="row=8, column=2, pady=5"
+                            resizable="width"
+                        />
                     </ttklabelframe>
 
                     <!-- notes / remarks -->

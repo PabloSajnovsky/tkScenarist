@@ -38,30 +38,146 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
     # class constant defs
     RES_DEFAULTS = {
 
-        "Events": {
+        _("Events"): {
 
-            "Casting": {
+            _("Casting"): {
+                _("Animals"): {},
+                _("Directors"): {},
+                _("Female"): {},
+                _("Male"): {},
             },
 
-            "Meeting": {
+            _("Meeting"): {
+                _("Locations"): {},
+                _("Organizers"): {},
             },
 
-            "Promotion": {
+            _("Promotion"): {
+                _("Organizers"): {},
+                _("Targets"): {},
             },
         },
 
-        "Hardware": {
+        _("Hardware"): {
 
-            "Audio": {
+            _("Accessories"): {
+                _(""): {},
+                _(""): {},
+                _(""): {},
+                _(""): {},
             },
 
-            "Video": {
+            _("Audio"): {
+                _(""): {},
+                _(""): {},
+                _(""): {},
+                _(""): {},
+            },
+
+            _("Logistics"): {
+                _(""): {},
+                _(""): {},
+                _(""): {},
+                _(""): {},
+            },
+
+            _("Video"): {
+                _(""): {},
+                _(""): {},
+                _(""): {},
+                _(""): {},
+            },
+
+            _("Wardrobe"): {
+                _(""): {},
+                _(""): {},
+                _(""): {},
+                _(""): {},
             },
         },
 
-        "Staff": {
+        _("Staff"): {
+
+            _("Actors"): {
+                _(""): {},
+                _(""): {},
+                _(""): {},
+                _(""): {},
+            },
+
+            _("CG team"): {
+                _("CG artist #1"): {},
+                _("CG artist #2"): {},
+                _("CG artist #3"): {},
+                _("Team manager"): {},
+            },
+
+            _("Cookers"): {
+                _("Chef"): {},
+                _("Cooker #1"): {},
+                _("Cooker #2"): {},
+                _("Cooker #3"): {},
+                _("Commis chef #1"): {},
+                _("Commis chef #2"): {},
+                _("Commis chef #3"): {},
+                _("Waiter #1"): {},
+                _("Waiter #2"): {},
+                _("Waiter #3"): {},
+                _("Waitress #1"): {},
+                _("Waitress #2"): {},
+                _("Waitress #3"): {},
+            },
+
+            _("Directors"): {
+                _("Art director"): {},
+                _("Author"): {},
+                _("Film-maker"): {},
+                _("Picture director"): {},
+                _("Stage director"): {},
+            },
+
+            _("Engineers"): {
+                _(""): {},
+                _(""): {},
+                _(""): {},
+                _(""): {},
+            },
+
+            _("Make up"): {
+                _("Hairdresser #1"): {},
+                _("Hairdresser #2"): {},
+                _("Hairdresser #3"): {},
+                _("Make up artist #1"): {},
+                _("Make up artist #2"): {},
+                _("Make up artist #3"): {},
+                _("Special FX artist #1"): {},
+                _("Special FX artist #2"): {},
+                _("Special FX artist #3"): {},
+            },
+
+            _("Producers"): {
+                _(""): {},
+                _(""): {},
+                _(""): {},
+                _(""): {},
+            },
+
+            _("Stunt team"): {
+                _(""): {},
+                _(""): {},
+                _(""): {},
+                _(""): {},
+            },
+
+            _("Technicians"): {
+                _("Electrician"): {},
+                _(""): {},
+                _(""): {},
+                _(""): {},
+            },
         },
     }
+
 
     def bind_events (self, **kw):
         """

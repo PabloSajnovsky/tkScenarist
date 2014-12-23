@@ -337,14 +337,14 @@
                         <ttkframe
                             width="5"
                             layout="grid"
-                            layout_options="row=0, column=1, pady=2"
+                            layout_options="row=0, column=1"
                         />
                         <ttkentry
                             name="entry_res_name"
                             state="disabled"
                             width="1"
                             layout="grid"
-                            layout_options="row=0, column=2"
+                            layout_options="row=0, column=2, pady=2"
                             resizable="width"
                         />
                         <!-- role entry -->
@@ -401,62 +401,6 @@
                             width="1"
                             layout="grid"
                             layout_options="row=4, column=2, pady=2"
-                            resizable="width"
-                        />
-                        <!-- address entry -->
-                        <ttklabel
-                            text="Address:"
-                            layout="grid"
-                            layout_options="row=5, column=0, sticky='w'"
-                        />
-                        <ttkentry
-                            name="entry_res_address"
-                            state="disabled"
-                            width="1"
-                            layout="grid"
-                            layout_options="row=5, column=2, pady=2"
-                            resizable="width"
-                        />
-                        <!-- zip code entry -->
-                        <ttklabel
-                            text="Zip code:"
-                            layout="grid"
-                            layout_options="row=6, column=0, sticky='w'"
-                        />
-                        <ttkentry
-                            name="entry_res_zipcode"
-                            state="disabled"
-                            width="1"
-                            layout="grid"
-                            layout_options="row=6, column=2, pady=2"
-                            resizable="width"
-                        />
-                        <!-- city entry -->
-                        <ttklabel
-                            text="City:"
-                            layout="grid"
-                            layout_options="row=7, column=0, sticky='w'"
-                        />
-                        <ttkentry
-                            name="entry_res_city"
-                            state="disabled"
-                            width="1"
-                            layout="grid"
-                            layout_options="row=7, column=2, pady=2"
-                            resizable="width"
-                        />
-                        <!-- country entry -->
-                        <ttklabel
-                            text="Country:"
-                            layout="grid"
-                            layout_options="row=8, column=0, sticky='w'"
-                        />
-                        <ttkentry
-                            name="entry_res_country"
-                            state="disabled"
-                            width="1"
-                            layout="grid"
-                            layout_options="row=8, column=2, pady=2"
                             resizable="width"
                         />
                     </ttklabelframe>

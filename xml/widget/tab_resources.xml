@@ -328,55 +328,45 @@
                         weight="3"
                     >
                         <!-- ID/name entry -->
+                        <ttklabel
+                            text="ID/name:"
+                            layout="grid"
+                            layout_options="row=0, column=0"
+                        />
+                        <!-- spacer -->
                         <ttkframe
-                            layout="pack"
+                            width="5"
+                            layout="grid"
+                            layout_options="row=0, column=1"
+                        />
+                        <ttkentry
+                            name="entry_res_name"
+                            state="disabled"
+                            width="1"
+                            layout="grid"
+                            layout_options="row=0, column=2"
                             resizable="width"
-                        >
-                            <ttklabel
-                                text="ID/name:"
-                                layout="grid"
-                                layout_options="row=0, column=0"
-                            />
-                            <!-- spacer -->
-                            <ttkframe
-                                width="5"
-                                layout="grid"
-                                layout_options="row=0, column=1"
-                            />
-                            <ttkentry
-                                name="entry_res_name"
-                                state="disabled"
-                                width="1"
-                                layout="grid"
-                                layout_options="row=0, column=2"
-                                resizable="width"
-                            />
-                        </ttkframe>
+                        />
                         <!-- role entry -->
+                        <ttklabel
+                            text="Role:"
+                            layout="grid"
+                            layout_options="row=1, column=0"
+                        />
+                        <!-- spacer -->
                         <ttkframe
-                            layout="pack"
+                            width="5"
+                            layout="grid"
+                            layout_options="row=1, column=1"
+                        />
+                        <ttkentry
+                            name="entry_res_role"
+                            state="disabled"
+                            width="1"
+                            layout="grid"
+                            layout_options="row=1, column=2"
                             resizable="width"
-                        >
-                            <ttklabel
-                                text="Role:"
-                                layout="grid"
-                                layout_options="row=0, column=0"
-                            />
-                            <!-- spacer -->
-                            <ttkframe
-                                width="5"
-                                layout="grid"
-                                layout_options="row=0, column=1"
-                            />
-                            <ttkentry
-                                name="entry_res_role"
-                                state="disabled"
-                                width="1"
-                                layout="grid"
-                                layout_options="row=0, column=2"
-                                resizable="width"
-                            />
-                        </ttkframe>
+                        />
                     </ttklabelframe>
 
                     <!-- notes / remarks -->

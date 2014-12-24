@@ -464,6 +464,20 @@ class AppDatabase (DB.Database):
     # end def
 
 
+    def res_update_item (self, **fields):
+        """
+            updates resources item with new values;
+            inserts if not already exists, replaces otherwise;
+        """
+        self.sql_query(
+            "INSERT OR REPLACE INTO 'resource_items' "
+            "VALUES (NULL, :fk_type, :name, :role, "
+            ":contact, :phone, :email, :notes)",
+            **fields
+        )
+    # end def
+
+
     def sanitize (self, value):
         """
             returns a quote-protected string;

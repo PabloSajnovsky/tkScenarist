@@ -47,11 +47,14 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         # got selected?
         if _index >= 0:
             # inits
-            pass
+            _dict = dict()
+            for _key, _w in self.ENTRIES.items():
+                _dict[_key] = _w.get()
+            # end for
+            _dict["fk_type"] = _lb.items[_lb.get(_index)]
             # update record in database
-            #~ self.database.res_update_item(
-                                                                            # FIXME
-            #~ )
+            self.database.res_update_item(**_dict)
+            self.database.dump_tables("resource_items")
         # end if
     # end def
 
@@ -77,7 +80,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             "<<ListboxSelect>>", self.slot_listbox_item_selected
         )
         self.TEXT.bind("<KeyRelease>", self.slot_on_text_keypress)
-        for _w in self.ENTRIES:
+        for _w in self.ENTRIES.values():
             _w.bind("<KeyRelease>", self.slot_on_text_keypress)
         # end for
     # end def
@@ -204,11 +207,13 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         self.CBO_SECTION = self.combo_res_section
         self.CBO_SECTION.state(_readonly)
         self.LBOX_ITEM = self.listbox_res_item
-        self.ENTRIES = (
-            self.entry_res_name, self.entry_res_role,
-            self.entry_res_contact, self.entry_res_phone,
-            self.entry_res_email,
-        )
+        self.ENTRIES = {
+            "name": self.entry_res_name,
+            "role": self.entry_res_role,
+            "contact": self.entry_res_contact,
+            "phone": self.entry_res_phone,
+            "email": self.entry_res_email,
+        }
         self.TEXT = self.text_notes
         # event bindings
         self.bind_events(**kw)
@@ -264,6 +269,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: item has been selected in combobox;
         """
+        # save last item
+        self.save_now()
         # inits
         _dict = self.get_res_items()
         # clear listbox
@@ -280,6 +287,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: item has been selected in combobox;
         """
+        # save last item
+        self.save_now()
         # inits
         _dict = self.get_res_section()
         # clear listbox
@@ -302,6 +311,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: item has been selected in listbox;
         """
+        # save last item
+        self.save_now()
         # update inputs state
         self.slot_update_inputs()
         # inits
@@ -337,7 +348,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         # inits
         _sel = self.get_current_selected() + 1
         # browse ttkentry widgets
-        for _w in self.ENTRIES:
+        for _w in self.ENTRIES.values():
             # enable widget
             self.enable_widget(_w, True)
             # no selection?

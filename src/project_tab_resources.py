@@ -51,7 +51,10 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             for _key, _w in self.ENTRIES.items():
                 _dict[_key] = _w.get()
             # end for
-            _dict["fk_type"] = _lb.items[_lb.get(_index)]
+            _dict.update(
+                fk_type=_lb.items[_lb.get(_index)],
+                notes=self.text_get_contents(self.TEXT),
+            )
             # update record in database
             self.database.res_update_item(**_dict)
             self.database.dump_tables("resource_items")
@@ -328,6 +331,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         if not (event.state & STATE_MASK):
             # schedule auto-save for later
             self.async.run_after(3000, self.auto_save)
+            # notify app
+            self.events.raise_event("Project:Modified")
         # end if
     # end def
 

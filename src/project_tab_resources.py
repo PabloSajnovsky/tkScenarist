@@ -96,14 +96,14 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
     # end def
 
 
-    def get_res_item (self):
+    def get_res_items (self):
         """
-            retrieves resources item along with current resources type
-            and section selected in combos or dict() if not found;
+            retrieves resource items along with current resources type
+            and section selected in combos;
         """
-        # inits
-        _section = self.get_res_section()
-        return _section.get(self.CBO_SECTION.get()) or dict()
+        return self.database.res_get_types(
+            fk_parent=self.CBO_SECTION.items[self.CBO_SECTION.get()]
+        )
     # end def
 
 
@@ -182,14 +182,12 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
         print("slot_combo_section_selected")
         # inits
-        _item = self.get_res_item()
+        _dict = self.get_res_items()
         # clear listbox
         self.clear_listbox(self.LBOX_ITEM)
-        # got selection?
-        if _item:
-            # fill values
-            self.LBOX_ITEM.insert(0, *sorted(_item))
-        # end if
+        # fill values
+        self.LBOX_ITEM.insert(0, *sorted(_dict.keys()))
+        self.LBOX_ITEM.items = _dict
     # end def
 
 
@@ -211,7 +209,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         if _dict:
             # select first
             self.CBO_SECTION.current(0)
-            #~ self.slot_combo_section_selected()
+            self.slot_combo_section_selected()
         # end if
     # end def
 

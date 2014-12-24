@@ -40,7 +40,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             event handler;
             automatically saves data, if any;
         """
-        print("auto_save")
         # inits
         _lb = self.LBOX_ITEM
         _index = _lb.last_selected
@@ -57,7 +56,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             )
             # update record in database
             self.database.res_update_item(**_dict)
-            self.database.dump_tables("resource_items")
         # end if
     # end def
 
@@ -260,7 +258,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             ensures current template is saved before clearing;
         """
-        print("save_now")
         # stop scheduled tasks
         self.async.stop(self.auto_save)
         # force task right now
@@ -336,6 +333,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         # end for
         # update text notes
         self.text_set_contents(self.TEXT, _row.get("notes") or "")
+        # set focus on first entry
+        self.after_idle(self.ENTRIES["name"].focus_set)
     # end def
 
 

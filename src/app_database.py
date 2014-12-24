@@ -277,7 +277,8 @@ class AppDatabase (DB.Database):
                 item_contact        TEXT NOT NULL DEFAULT "",
                 item_phone          TEXT NOT NULL DEFAULT "",
                 item_email          TEXT NOT NULL DEFAULT "",
-                item_notes          TEXT NOT NULL DEFAULT ""
+                item_notes          TEXT NOT NULL DEFAULT "",
+                UNIQUE (item_fk_type)
             );
         """)
     # end def
@@ -328,8 +329,10 @@ class AppDatabase (DB.Database):
             'resource_items' table;
         """
         self.sql_query(
-            "SELECT * FROM 'resource_items' "
-            "WHERE item_fk_type = ? LIMIT 1",
+            "SELECT item_name AS name, item_role AS role, "
+            "item_contact AS contact, item_phone AS phone, "
+            "item_email AS email, item_notes AS notes "
+            "FROM 'resource_items' WHERE item_fk_type = ? LIMIT 1",
             fk_type
         )
         # only one row

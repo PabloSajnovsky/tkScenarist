@@ -322,6 +322,21 @@ class AppDatabase (DB.Database):
     # end def
 
 
+    def res_get_item (self, fk_type):
+        """
+            retrieves the row corresponding to @fk_type in
+            'resource_items' table;
+        """
+        self.sql_query(
+            "SELECT * FROM 'resource_items' "
+            "WHERE item_fk_type = ? LIMIT 1",
+            fk_type
+        )
+        # only one row
+        return self.fetch(default=dict())
+    # end def
+
+
     def res_get_types (self, fk_parent=0):
         """
             retrieves {type_name: type_key} for a given type_fk_parent;

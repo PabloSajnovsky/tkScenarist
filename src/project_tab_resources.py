@@ -52,7 +52,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 _dict[_key] = _w.get()
             # end for
             _dict.update(
-                fk_type=_lb.items[_lb.get(_index)],
+                fk_type=self.get_fk_type(),
                 notes=self.text_get_contents(self.TEXT),
             )
             # update record in database
@@ -164,6 +164,14 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         #~ fcontents = self.text_get_contents(self.text_resources)
         # always return a dict
         return {fname: fcontents}
+    # end def
+
+
+    def get_fk_type (self):
+        """
+            returns items listbox current selected fk_type id;
+        """
+        return self.LBOX_ITEM.items[self.LBOX_ITEM.last_selected]
     # end def
 
 
@@ -319,7 +327,13 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         # update inputs state
         self.slot_update_inputs()
         # inits
-        pass
+        _row = self.database.res_get_item(self.get_fk_type())
+        # browse ttk entries
+        for _key, _w in self.ENTRIES.items():
+            _w.set(_row.get(_key) or "")
+        # end for
+        # update text notes
+        self.text_set_contents(self.TEXT, _row.get("notes") or "")
     # end def
 
 
@@ -348,7 +362,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
 
     def slot_update_inputs (self, *args, **kw):
         """
-            event handler: updates all inputs widgets;
+            event handler: updates all input widgets;
         """
         # inits
         _sel = self.get_current_selected() + 1
@@ -356,23 +370,17 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         for _w in self.ENTRIES.values():
             # enable widget
             self.enable_widget(_w, True)
-            # no selection?
-            if not _sel:
-                # clear widget
-                _w.delete(0, "end")
-                # disable widget
-                self.enable_widget(_w, False)
-            # end if
+            # clear widget
+            _w.delete(0, "end")
+            # disable widget if not selected
+            self.enable_widget(_w, _sel)
         # end for
         # enable text notes
         self.enable_widget(self.TEXT, True)
-        # no selection?
-        if not _sel:
-            # clear text
-            self.text_clear_contents(self.TEXT)
-            # disable text notes
-            self.enable_widget(self.TEXT, False)
-        # end if
+        # clear text
+        self.text_clear_contents(self.TEXT)
+        # disable text notes if not selected
+        self.enable_widget(self.TEXT, _sel)
     # end def
 
 # end class ProjectTabResources

@@ -171,7 +171,9 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             returns items listbox current selected fk_type id;
         """
-        return self.LBOX_ITEM.items[self.LBOX_ITEM.last_selected]
+        return self.LBOX_ITEM.items[
+            self.LBOX_ITEM.get(self.LBOX_ITEM.last_selected)
+        ]
     # end def
 
 

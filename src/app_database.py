@@ -333,7 +333,7 @@ class AppDatabase (DB.Database):
             fk_type
         )
         # only one row
-        return self.fetch(default=dict())
+        return dict(self.fetch(default=dict()))
     # end def
 
 

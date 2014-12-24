@@ -98,9 +98,9 @@
                             resizable="width"
                         />
                         <ttkbutton
-                            name="btn_purge_type"
-                            text="Purge"
-                            command="@Resources:Type:Purge"
+                            name="btn_rename_type"
+                            text="Rename"
+                            command="@Resources:Type:Rename"
                             takefocus="false"
                             layout="grid"
                             layout_options="row=0, column=3"
@@ -164,9 +164,9 @@
                             resizable="width"
                         />
                         <ttkbutton
-                            name="btn_purge_section"
-                            text="Purge"
-                            command="@Resources:Section:Purge"
+                            name="btn_rename_section"
+                            text="Rename"
+                            command="@Resources:Section:Rename"
                             takefocus="false"
                             layout="grid"
                             layout_options="row=0, column=3"

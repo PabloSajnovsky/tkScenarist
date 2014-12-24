@@ -332,7 +332,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         _row = self.database.res_get_item(self.get_fk_type())
         # browse ttk entries
         for _key, _w in self.ENTRIES.items():
-            _w.set(_row.get(_key) or "")
+            _w.insert(0, _row.get(_key) or "")
         # end for
         # update text notes
         self.text_set_contents(self.TEXT, _row.get("notes") or "")

@@ -340,7 +340,8 @@ class AppDatabase (DB.Database):
             resets resource tables to default values;
         """
         self.sql_script("""
-            DELETE FROM 'resource_types', 'resource_items';
+            DELETE FROM 'resource_items';
+            DELETE FROM 'resource_types';
             INSERT INTO 'resource_types' VALUES
                 (1, 0, '1-Staff'),
                     (4, 1, '01-Producers'),

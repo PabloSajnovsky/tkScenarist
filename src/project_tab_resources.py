@@ -154,6 +154,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         self.clear_listbox(self.LBOX_ITEM)
         # fill types
         _dict = self.database.res_get_types()
+        print("res_get_types:", _dict)
         self.CBO_TYPE.configure(values=sorted(_dict.keys()))
         self.CBO_TYPE.items = _dict
         # got selection?

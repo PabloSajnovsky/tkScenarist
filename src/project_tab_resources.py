@@ -148,7 +148,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             resets all resources (DB, combos, listbox);
         """
         # clear in DB
-        self.database.reset_resources()
+        self.database.res_reset()
         # reset combos + listbox
         self.clear_combo(self.CBO_TYPE, self.CBO_SECTION)
         self.clear_listbox(self.LBOX_ITEM)

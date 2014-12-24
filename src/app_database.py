@@ -322,7 +322,20 @@ class AppDatabase (DB.Database):
     # end def
 
 
-    def reset_resources (self):
+    def res_get_types (self, fk_parent=0):
+        """
+            retrieves {type_name: type_key} for a given type_fk_parent;
+        """
+        self.sql_query(
+            "SELECT type_name, type_key FROM 'resource_types' "
+            "WHERE type_fk_parent = ?",
+            fk_parent
+        )
+        _rows = self.fetch(self.ALL)
+    # end def
+
+
+    def res_reset (self):
         """
             resets resource tables to default values;
         """
@@ -446,19 +459,6 @@ class AppDatabase (DB.Database):
                         (115, 110, 'Location #5')
             ;
         """)
-    # end def
-
-
-    def res_get_types (self, fk_parent=0):
-        """
-            retrieves {type_name: type_key} for a given type_fk_parent;
-        """
-        self.sql_query(
-            "SELECT type_name, type_key FROM 'resource_types' "
-            "WHERE type_fk_parent = ?",
-            fk_parent
-        )
-        _rows = self.fetch(self.ALL)
     # end def
 
 

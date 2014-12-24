@@ -326,30 +326,6 @@ class AppDatabase (DB.Database):
         """
             resets resource tables to default values;
         """
-        _("01-Staff"): {
-
-
-            _("10-Special effects"): {
-                _("1-SFX supervisor"): None,
-                _("SFX assistant #1"): None,
-                _("SFX assistant #2"): None,
-                _("SFX assistant #3"): None,
-            },
-
-            _("11-Stunt team"): {
-                _("1-Stunt coordinator"): None,
-                _("Stuntman #1"): None,
-                _("Stuntman #2"): None,
-                _("Stuntman #3"): None,
-            },
-
-            _("12-CG team"): {
-                _("1-CG supervisor"): None,
-                _("CG artist #1"): None,
-                _("CG artist #2"): None,
-                _("CG artist #3"): None,
-            },
-        },
         self.sql_script("""
             DELETE FROM 'resource_types', 'resource_items';
             INSERT INTO 'resource_types' VALUES
@@ -409,39 +385,80 @@ class AppDatabase (DB.Database):
                         (56, 53, '3-Make-up artist'),
                         (57, 53, '4-Key hair'),
                         (58, 53, '5-Hair stylist'),
-                    (NULL, 1, ''),
-                    (NULL, 1, ''),
-                    (NULL, 1, ''),
-                    (NULL, 1, ''),
+                    (59, 1, '10-Special effects'),
+                        (60, 59, '1-SFX supervisor'),
+                        (61, 59, 'SFX assistant #1'),
+                        (62, 59, 'SFX assistant #2'),
+                        (63, 59, 'SFX assistant #3'),
+                    (64, 1, '11-Stunt team'),
+                        (65, 64, '1-Stunt coordinator'),
+                        (66, 64, 'Stuntman #1'),
+                        (67, 64, 'Stuntman #2'),
+                        (68, 64, 'Stuntman #3'),
+                    (69, 1, '12-CG team'),
+                        (70, 69, '1-CG supervisor'),
+                        (71, 69, 'CG artist #1'),
+                        (72, 69, 'CG artist #2'),
+                        (73, 69, 'CG artist #3'),
                 (2, 0, '2-Hardware'),
-                    (NULL, 2, ''),
-                    (NULL, 2, ''),
-                    (NULL, 2, ''),
-                    (NULL, 2, ''),
-                    (NULL, 2, ''),
-                    (NULL, 2, ''),
-                    (NULL, 2, ''),
-                    (NULL, 2, ''),
-                    (NULL, 2, ''),
-                    (NULL, 2, ''),
-                    (NULL, 2, ''),
+                    (74, 2, '01-Audio'),
+                        (75, 74, 'Boom pole'),
+                        (76, 74, 'Cables'),
+                        (77, 74, 'Microphone'),
+                        (78, 74, 'Mixer'),
+                        (79, 74, 'Recorder'),
+                    (80, 2, '02-Video'),
+                        (81, 80, 'Camera'),
+                        (82, 80, 'Crane'),
+                        (83, 80, 'Dolly'),
+                        (84, 80, 'Mount'),
+                        (85, 80, 'Opticals'),
+                        (86, 80, 'Steady'),
+                    (87, 2, '03-Logistics'),
+                        (88, 87, 'Autobus'),
+                        (89, 87, 'Minibus'),
+                        (90, 87, 'Personal car'),
+                        (91, 87, 'Train'),
+                        (92, 87, 'Truck'),
                 (3, 0, '3-Events'),
-                    (NULL, 3, ''),
-                    (NULL, 3, ''),
-                    (NULL, 3, ''),
-                    (NULL, 3, ''),
-                    (NULL, 3, ''),
-                    (NULL, 3, ''),
-                    (NULL, 3, ''),
-                    (NULL, 3, ''),
-                    (NULL, 3, ''),
-                    (NULL, 3, ''),
-                    (NULL, 3, ''),
-                    (NULL, 3, ''),
-                    (NULL, 3, ''),
-                    (NULL, 3, ''),
+                    (93, 3, '01-Casting'),
+                        (94, 93, '1-Director'),
+                        (95, 93, '2-Male #1'),
+                        (96, 93, '2-Male #2'),
+                        (97, 93, '2-Male #3'),
+                        (98, 93, '3-Female #1'),
+                        (99, 93, '3-Female #2'),
+                        (100, 93, '3-Female #3'),
+                        (101, 93, '4-Animal #1'),
+                        (102, 93, '4-Animal #2'),
+                        (103, 93, '4-Animal #3'),
+                    (104, 3, '02-Meeting'),
+                        (105, 104, 'Location #1'),
+                        (106, 104, 'Location #2'),
+                        (107, 104, 'Location #3'),
+                        (108, 104, 'Location #4'),
+                        (109, 104, 'Location #5'),
+                    (110, 3, '03-Promotion'),
+                        (111, 110, 'Location #1'),
+                        (112, 110, 'Location #2'),
+                        (113, 110, 'Location #3'),
+                        (114, 110, 'Location #4'),
+                        (115, 110, 'Location #5')
             ;
         """)
+    # end def
+
+
+    def res_get_types (self, fk_parent=0):
+        """
+            retrieves {type_name: type_key} for a given type_fk_parent;
+        """
+        self.sql_query(
+            "SELECT type_name, type_key FROM 'resource_types' "
+            "WHERE type_fk_parent = ?",
+            fk_parent
+        )
+        _rows = self.fetch(self.ALL)
     # end def
 
 

@@ -34,68 +34,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         application's project tab class;
     """
 
-    # class constant defs
-    RES_DEFAULTS = {
-
-
-        _("02-Hardware"): {
-
-            _("Audio"): {
-                _("Boom pole"): None,
-                _("Cables"): None,
-                _("Microphone"): None,
-                _("Mixer"): None,
-                _("Recorder"): None,
-            },
-
-            _("Logistics"): {
-                _("Autobus"): None,
-                _("Minibus"): None,
-                _("Personal car"): None,
-                _("Train"): None,
-                _("Truck"): None,
-            },
-
-            _("Video"): {
-                _("Camera"): None,
-                _("Crane"): None,
-                _("Dolly"): None,
-                _("Mount"): None,
-                _("Opticals"): None,
-                _("Steady"): None,
-            },
-        },
-
-        _("03-Events"): {
-
-            _("Casting"): {
-                _("1-Director"): None,
-                _("2-Male #1"): None,
-                _("2-Male #2"): None,
-                _("2-Male #3"): None,
-                _("3-Female #1"): None,
-                _("3-Female #2"): None,
-                _("3-Female #3"): None,
-                _("4-Animal #1"): None,
-                _("4-Animal #2"): None,
-                _("4-Animal #3"): None,
-            },
-
-            _("Meeting"): {
-                _("Location #1"): None,
-                _("Location #2"): None,
-                _("Location #3"): None,
-            },
-
-            _("Promotion"): {
-                _("Location #1"): None,
-                _("Location #2"): None,
-                _("Location #3"): None,
-            },
-        },
-    }
-
-
     def bind_events (self, **kw):
         """
             app-wide event bindings;
@@ -185,6 +123,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         # member inits
         self.mainwindow = self.winfo_toplevel()
         self.mainframe = self.mainwindow.mainframe
+        self.database = self.mainwindow.database
         self.text_clear_contents = self.mainwindow.text_clear_contents
         self.text_get_contents = self.mainwindow.text_get_contents
         self.text_set_contents = self.mainwindow.text_set_contents
@@ -204,22 +143,23 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
     # end def
 
 
-    def reset_resources (self, new_dict):
+    def reset_resources (self):
         """
-            resets self.RESOURCES dictionary with @new_dict;
+            resets all resources (DB, combos, listbox);
         """
-        if tools.is_pdict(new_dict):
-            # reset dict (unreferenced)
-            self.RESOURCES = copy.deepcopy(new_dict)
-            # reset combos + listbox
-            self.clear_combo(self.CBO_TYPE, self.CBO_SECTION)
-            self.clear_listbox(self.LBOX_ITEM)
-            self.CBO_TYPE.configure(values=sorted(self.RESOURCES))
-            # got selection?
-            if self.RESOURCES:
-                self.CBO_TYPE.current(0)
-                self.slot_combo_type_selected()
-            # end if
+        # clear in DB
+        self.database.reset_resources()
+        # reset combos + listbox
+        self.clear_combo(self.CBO_TYPE, self.CBO_SECTION)
+        self.clear_listbox(self.LBOX_ITEM)
+        # fill types
+        _dict = self.database.res_get_types()
+        self.CBO_TYPE.configure(values=sorted(_dict.keys()))
+        self.CBO_TYPE.items = _dict
+        # got selection?
+        if _dict:
+            self.CBO_TYPE.current(0)
+            self.slot_combo_type_selected()
         # end if
     # end def
 
@@ -287,8 +227,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: reset tab to new;
         """
-        # reset combos
-        self.reset_resources(self.RES_DEFAULTS)                             # FIXME: self.options?
+        # reset DB, combos and so on
+        self.reset_resources()
     # end def
 
 # end class ProjectTabResources

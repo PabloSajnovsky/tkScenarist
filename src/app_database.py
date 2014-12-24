@@ -260,6 +260,25 @@ class AppDatabase (DB.Database):
                 shot_text           TEXT NOT NULL DEFAULT "",
                 UNIQUE (shot_scene, shot_shot)
             );
+
+            CREATE TEMPORARY TABLE IF NOT EXISTS 'resource_types'
+            (
+                type_key            INTEGER PRIMARY KEY,
+                type_fk_parent      INTEGER NOT NULL DEFAULT 0,
+                type_name           TEXT NOT NULL DEFAULT ""
+            );
+
+            CREATE TEMPORARY TABLE IF NOT EXISTS 'resource_items'
+            (
+                item_key            INTEGER PRIMARY KEY,
+                item_fk_type        INTEGER NOT NULL DEFAULT 0,
+                item_name           TEXT NOT NULL DEFAULT "",
+                item_role           TEXT NOT NULL DEFAULT "",
+                item_contact        TEXT NOT NULL DEFAULT "",
+                item_phone          TEXT NOT NULL DEFAULT "",
+                item_email          TEXT NOT NULL DEFAULT "",
+                item_notes          TEXT NOT NULL DEFAULT ""
+            );
         """)
     # end def
 
@@ -300,6 +319,129 @@ class AppDatabase (DB.Database):
         row["female"] = self.get_int_boolean(
             row["female"] not in self.FALSE_VALUES
         )
+    # end def
+
+
+    def reset_resources (self):
+        """
+            resets resource tables to default values;
+        """
+        _("01-Staff"): {
+
+
+            _("10-Special effects"): {
+                _("1-SFX supervisor"): None,
+                _("SFX assistant #1"): None,
+                _("SFX assistant #2"): None,
+                _("SFX assistant #3"): None,
+            },
+
+            _("11-Stunt team"): {
+                _("1-Stunt coordinator"): None,
+                _("Stuntman #1"): None,
+                _("Stuntman #2"): None,
+                _("Stuntman #3"): None,
+            },
+
+            _("12-CG team"): {
+                _("1-CG supervisor"): None,
+                _("CG artist #1"): None,
+                _("CG artist #2"): None,
+                _("CG artist #3"): None,
+            },
+        },
+        self.sql_script("""
+            DELETE FROM 'resource_types', 'resource_items';
+            INSERT INTO 'resource_types' VALUES
+                (1, 0, '1-Staff'),
+                    (4, 1, '01-Producers'),
+                        (5, 4, 'Executive producer'),
+                        (6, 4, 'Film producer'),
+                        (7, 4, 'Line producer'),
+                        (8, 4, 'Production manager'),
+                        (9, 4, 'Unit manager'),
+                    (10, 1, '02-Directors'),
+                        (11, 10, 'Art director'),
+                        (12, 10, 'Director of Photography'),
+                        (13, 10, 'Film author'),
+                        (14, 10, 'Film maker'),
+                        (15, 10, 'Stage director'),
+                    (16, 1, '03-Actors'),
+                        (17, 16, '1-Main role (male)'),
+                        (18, 16, '2-Main role (female)'),
+                        (19, 16, '3-Secundary #1'),
+                        (20, 16, '4-Secundary #2'),
+                        (21, 16, 'Extra #1'),
+                        (22, 16, 'Extra #2'),
+                        (23, 16, 'Extra #3'),
+                    (24, 1, '04-Grip'),
+                        (25, 24, '1-Key grip'),
+                        (26, 24, '2-Best boy'),
+                        (27, 24, '3-Dolly grip'),
+                        (28, 24, 'Grip #1'),
+                        (29, 24, 'Grip #2'),
+                        (30, 24, 'Grip #3'),
+                    (31, 1, '05-Lighting'),
+                        (32, 31, '1-Gaffer'),
+                        (33, 31, '2-Best boy'),
+                        (34, 31, 'Technician #1'),
+                        (35, 31, 'Technician #2'),
+                        (36, 31, 'Technician #3'),
+                    (37, 1, '06-Electrical'),
+                        (38, 37, 'Electrician #1'),
+                        (39, 37, 'Electrician #2'),
+                        (40, 37, 'Electrician #3'),
+                    (41, 1, '07-Production sound'),
+                        (42, 41, '1-Production sound mixer'),
+                        (43, 41, '2-Boom operator'),
+                        (44, 41, '3-Utility sound technician'),
+                    (45, 1, '08-Costume dept'),
+                        (46, 45, '1-Costume designer'),
+                        (47, 45, '2-Costume supervisor'),
+                        (48, 45, '3-Key costumer'),
+                        (49, 45, '4-Costume standby'),
+                        (50, 45, 'Cutter #1'),
+                        (51, 45, 'Cutter #2'),
+                        (52, 45, 'Cutter #3'),
+                    (53, 1, '09-Hair and make-up'),
+                        (54, 53, '1-Key make-up artist'),
+                        (55, 53, '2-Make-up supervisor'),
+                        (56, 53, '3-Make-up artist'),
+                        (57, 53, '4-Key hair'),
+                        (58, 53, '5-Hair stylist'),
+                    (NULL, 1, ''),
+                    (NULL, 1, ''),
+                    (NULL, 1, ''),
+                    (NULL, 1, ''),
+                (2, 0, '2-Hardware'),
+                    (NULL, 2, ''),
+                    (NULL, 2, ''),
+                    (NULL, 2, ''),
+                    (NULL, 2, ''),
+                    (NULL, 2, ''),
+                    (NULL, 2, ''),
+                    (NULL, 2, ''),
+                    (NULL, 2, ''),
+                    (NULL, 2, ''),
+                    (NULL, 2, ''),
+                    (NULL, 2, ''),
+                (3, 0, '3-Events'),
+                    (NULL, 3, ''),
+                    (NULL, 3, ''),
+                    (NULL, 3, ''),
+                    (NULL, 3, ''),
+                    (NULL, 3, ''),
+                    (NULL, 3, ''),
+                    (NULL, 3, ''),
+                    (NULL, 3, ''),
+                    (NULL, 3, ''),
+                    (NULL, 3, ''),
+                    (NULL, 3, ''),
+                    (NULL, 3, ''),
+                    (NULL, 3, ''),
+                    (NULL, 3, ''),
+            ;
+        """)
     # end def
 
 

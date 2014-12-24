@@ -64,6 +64,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             _w.delete(0, "end")
             # clear selection
             _w.selection_clear()
+            # clear items
+            _w.items = dict()
         # end for
     # end def
 
@@ -78,9 +80,22 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             _w.delete(0, "end")
             # clear selection
             _w.selection_clear(0, "end")
+            # clear items
+            _w.items = dict()
             # reset last selected
             _w.last_selected = -1
         # end for
+    # end def
+
+
+    def enable_widget (self, widget, state):
+        """
+            enables/disables a tkinter widget along with @state value;
+        """
+        # reset state
+        widget.configure(
+            state={True: "normal"}.get(bool(state), "disabled")
+        )
     # end def
 
 
@@ -138,6 +153,12 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         self.CBO_SECTION = self.combo_res_section
         self.CBO_SECTION.state(_readonly)
         self.LBOX_ITEM = self.listbox_res_item
+        self.ENTRIES = (
+            self.entry_res_name, self.entry_res_role,
+            self.entry_res_contact, self.entry_res_phone,
+            self.entry_res_email,
+        )
+        self.TEXT = self.text_notes
         # event bindings
         self.bind_events(**kw)
         # reset once
@@ -180,7 +201,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: item has been selected in combobox;
         """
-        print("slot_combo_section_selected")
         # inits
         _dict = self.get_res_items()
         # clear listbox
@@ -188,6 +208,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         # fill values
         self.LBOX_ITEM.insert(0, *sorted(_dict.keys()))
         self.LBOX_ITEM.items = _dict
+        # update widgets state
+        self.slot_update_inputs()
     # end def
 
 
@@ -195,7 +217,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: item has been selected in combobox;
         """
-        print("slot_combo_type_selected")
         # inits
         _dict = self.get_res_section()
         # clear listbox
@@ -218,7 +239,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: item has been selected in listbox;
         """
-        print("slot_listbox_item_selected")
+        # update inputs state
+        self.slot_update_inputs()
         # inits
         pass
     # end def
@@ -230,6 +252,36 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
         # reset DB, combos and so on
         self.reset_resources()
+    # end def
+
+
+    def slot_update_inputs (self, *args, **kw):
+        """
+            event handler: updates all inputs widgets;
+        """
+        # inits
+        _sel = bool(self.LBOX_ITEM.curselection())
+        # browse ttkentry widgets
+        for _w in self.ENTRIES:
+            # enable widget
+            self.enable_widget(_w, True)
+            # no selection?
+            if not _sel:
+                # clear widget
+                _w.delete(0, "end")
+                # disable widget
+                self.enable_widget(_w, False)
+            # end if
+        # end for
+        # enable text notes
+        self.enable_widget(self.TEXT, True)
+        # no selection?
+        if not _sel:
+            # clear text
+            self.text_clear_contents(self.TEXT)
+            # disable text notes
+            self.enable_widget(self.TEXT, False)
+        # end if
     # end def
 
 # end class ProjectTabResources

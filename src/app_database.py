@@ -331,7 +331,8 @@ class AppDatabase (DB.Database):
             "WHERE type_fk_parent = ?",
             fk_parent
         )
-        return dict([tuple(i) for i in self.fetch(self.ALL)])
+        # i18n support for text labels
+        return dict([(_(i[0]), i[1]) for i in self.fetch(self.ALL)])
     # end def
 
 

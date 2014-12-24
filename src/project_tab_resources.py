@@ -26,6 +26,7 @@
 import copy
 import json
 import tkRAD
+import tkRAD.core.async as ASYNC
 from tkRAD.core import tools
 
 
@@ -33,6 +34,27 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
     """
         application's project tab class;
     """
+
+    def auto_save (self, *args, **kw):
+        """
+            event handler;
+            automatically saves data, if any;
+        """
+        print("auto_save")
+        # inits
+        _lb = self.LBOX_ITEM
+        _index = _lb.last_selected
+        # got selected?
+        if _index >= 0:
+            # inits
+            pass
+            # update record in database
+            #~ self.database.res_update_item(
+                                                                            # FIXME
+            #~ )
+        # end if
+    # end def
+
 
     def bind_events (self, **kw):
         """
@@ -54,6 +76,10 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         self.LBOX_ITEM.bind(
             "<<ListboxSelect>>", self.slot_listbox_item_selected
         )
+        self.TEXT.bind("<KeyRelease>", self.slot_on_text_keypress)
+        for _w in self.ENTRIES:
+            _w.bind("<KeyRelease>", self.slot_on_text_keypress)
+        # end for
     # end def
 
 
@@ -168,6 +194,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         self.text_clear_contents = self.mainwindow.text_clear_contents
         self.text_get_contents = self.mainwindow.text_get_contents
         self.text_set_contents = self.mainwindow.text_set_contents
+        self.async = ASYNC.get_async_manager()
         # looks for ^/xml/widget/tab_resources.xml
         self.xml_build("tab_resources")
         # widget inits
@@ -208,6 +235,18 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             self.CBO_TYPE.current(0)
             self.slot_combo_type_selected()
         # end if
+    # end def
+
+
+    def save_now (self):
+        """
+            ensures current template is saved before clearing;
+        """
+        print("save_now")
+        # stop scheduled tasks
+        self.async.stop(self.auto_save)
+        # force task right now
+        self.auto_save()
     # end def
 
 
@@ -267,6 +306,18 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         self.slot_update_inputs()
         # inits
         pass
+    # end def
+
+
+    def slot_on_text_keypress (self, event=None, *args, **kw):
+        """
+            event handler: keyboard keypress for text widget;
+        """
+        # no modifiers?
+        if not (event.state & STATE_MASK):
+            # schedule auto-save for later
+            self.async.run_after(3000, self.auto_save)
+        # end if
     # end def
 
 

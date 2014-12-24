@@ -51,6 +51,9 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         self.CBO_SECTION.bind(
             "<<ComboboxSelected>>", self.slot_combo_section_selected
         )
+        self.LBOX_ITEM.bind(
+            "<<ListboxSelect>>", self.slot_listbox_item_selected
+        )
     # end def
 
 
@@ -96,6 +99,27 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         widget.configure(
             state={True: "normal"}.get(bool(state), "disabled")
         )
+    # end def
+
+
+    def get_current_selected (self):
+        """
+            returns index of current selection or None, otherwise;
+        """
+        # inits
+        _lb = self.LBOX_ITEM
+        _sel = _lb.curselection()
+        # got selected?
+        if _sel:
+            # update pointer value
+            _lb.last_selected = _sel[0]
+        # empty listbox?
+        elif not _lb.size():
+            # force clear-ups
+            self.clear_listbox(_lb)
+        # end if
+        # return result
+        return _lb.last_selected
     # end def
 
 
@@ -260,7 +284,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             event handler: updates all inputs widgets;
         """
         # inits
-        _sel = bool(self.LBOX_ITEM.curselection())
+        _sel = self.get_current_selected() + 1
         # browse ttkentry widgets
         for _w in self.ENTRIES:
             # enable widget

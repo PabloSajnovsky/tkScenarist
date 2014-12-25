@@ -150,6 +150,34 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
     # end def
 
 
+    def combo_delete_item (self, combo):
+        """
+            generic procedure for deleting an item from a combobox;
+        """
+        print("combo_delete_item")
+        # inits
+        _index = combo.current()
+        # got selection?
+        if _index >= 0:
+            # inits
+            _label = combo.get()
+            # user confirmed?
+            if self.user_confirm_deletion(_label):
+                # remove from items dict
+                _rowid = combo.items.pop(_label)
+                # remove from database
+                self.database.res_del_type(_rowid)
+                # remove from widget
+                _items = list(combo.cget("values"))
+                _items.pop(_index)
+                combo.configure(values=_items)
+                # notify app
+                self.events.raise_event("Project:Modified")
+            # end if
+        # end if
+    # end def
+
+
     def enable_widget (self, widget, state):
         """
             enables/disables a tkinter widget along with @state value;
@@ -398,7 +426,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: button 'delete' clicked;
         """
-        print("slot_res_item_delete")
         # inits
         _index = self.get_current_selected()
         # got selection?
@@ -410,10 +437,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             if self.user_confirm_deletion(_label):
                 # remove from items dict
                 _rowid = _lb.items.pop(_label)
-                print("rowid:", _rowid)
                 # remove from database
                 self.database.res_del_type(_rowid)
-                self.database.dump_tables("resource_items")
                 # remove from widget
                 _lb.delete(_index)
                 # do some clean-ups
@@ -426,6 +451,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                     _lb.selection_set(_index)
                     self.slot_listbox_item_selected()
                 # end if
+                # notify app
+                self.events.raise_event("Project:Modified")
             # end if
         # end if
     # end def
@@ -451,7 +478,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: button 'delete' clicked;
         """
-        print("slot_res_section_delete")
+        # delegate to generic procedure
+        self.combo_delete_item(self.CBO_SECTION)
     # end def
 
 

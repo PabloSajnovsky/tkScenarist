@@ -394,6 +394,32 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             event handler: button 'delete' clicked;
         """
         print("slot_res_item_delete")
+        # inits
+        _index = self.get_current_selected()
+        # got selection?
+        if _index >= 0:
+            # inits
+            _lb = self.LBOX_ITEM
+            _label = _lb.get(_index)
+            # user confirmed?
+            if self.user_confirm_deletion(_label):
+                # remove from items dict
+                _rowid = _lb.items.pop(_label)
+                print("rowid:", _rowid)
+                # remove from database
+                self.database.res_del_type(_rowid)
+                self.database.dump_tables("resource_items")
+                # remove from widget
+                _lb.delete(_index)
+                # rebind index
+                _index = max(-1, min(_lb.size() - 1, _index))
+                # can select again?
+                if _index >= 0:
+                    _lb.see(_index)
+                    _lb.selection_set(_index)
+                # end if
+            # end if
+        # end if
     # end def
 
 

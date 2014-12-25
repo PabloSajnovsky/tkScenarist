@@ -468,6 +468,9 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
         # inits
         _sel = self.get_current_selected() + 1
+        # update buttons
+        self.enable_widget(self.btn_delete_item, _sel)
+        self.enable_widget(self.btn_rename_item, _sel)
         # browse ttkentry widgets
         for _w in self.ENTRIES.values():
             # enable widget

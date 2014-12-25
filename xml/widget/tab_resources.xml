@@ -83,7 +83,7 @@
                             layout_options="row=0, column=0"
                         />
                         <ttkbutton
-                            name="btn_del_type"
+                            name="btn_delete_type"
                             text="-"
                             command="@Resources:Type:Delete"
                             width="2"
@@ -149,7 +149,7 @@
                             layout_options="row=0, column=0"
                         />
                         <ttkbutton
-                            name="btn_del_section"
+                            name="btn_delete_section"
                             text="-"
                             command="@Resources:Section:Delete"
                             width="2"
@@ -240,7 +240,7 @@
                             layout_options="row=0, column=0"
                         />
                         <ttkbutton
-                            name="btn_del_item"
+                            name="btn_delete_item"
                             text="-"
                             command="@Resources:Item:Delete"
                             width="2"
@@ -269,189 +269,184 @@
 
         <!-- planning / edition zone -->
 
-        <ttklabelframe
-            text="Planning"
+        <ttkpanedwindow
+            orient="vertical"
             weight="4"
         >
+
+            <!-- planning canvas -->
+
+            <ttklabelframe
+                text="Planning"
+                weight="1"
+            >
+                <ttklabel
+                    text="Hint: &lt;Double-Click&gt;: add new. &lt;Ctrl-Click&gt;: remove item."
+                    layout="grid"
+                    layout_options="row=0, column=0"
+                    resizable="width"
+                />
+                <canvas
+                    id="res_planning"
+                    name="canvas_resources_planning"
+                    bg="grey80"
+                    highlightbackground="grey20"
+                    highlightthickness="1"
+                    relief="solid"
+                    takefocus="false"
+                    layout="grid"
+                    layout_options="row=1, column=0"
+                    resizable="yes"
+                />
+                <ttkscrollbar
+                    connect="res_planning"
+                    orient="vertical"
+                    layout="grid"
+                    layout_options="row=1, column=1"
+                    resizable="height"
+                />
+                <ttkscrollbar
+                    connect="res_planning"
+                    orient="horizontal"
+                    layout="grid"
+                    layout_options="row=2, column=0"
+                    resizable="width"
+                />
+            </ttklabelframe>
+
+            <!-- data / notes edition -->
+
             <ttkpanedwindow
-                orient="vertical"
-                layout="pack"
-                resizable="yes"
+                orient="horizontal"
+                weight="3"
             >
 
-                <!-- planning canvas -->
+                <!-- data form -->
 
-                <ttkframe
-                    weight="1"
-                >
-                    <ttklabel
-                        text="Hint: &lt;Double-Click&gt;: add new. &lt;Ctrl-Click&gt;: remove item."
-                        layout="grid"
-                        layout_options="row=0, column=0"
-                        resizable="width"
-                    />
-                    <canvas
-                        id="res_planning"
-                        name="canvas_resources_planning"
-                        bg="grey80"
-                        highlightbackground="grey20"
-                        highlightthickness="1"
-                        relief="solid"
-                        takefocus="false"
-                        layout="grid"
-                        layout_options="row=1, column=0"
-                        resizable="yes"
-                    />
-                    <ttkscrollbar
-                        connect="res_planning"
-                        orient="vertical"
-                        layout="grid"
-                        layout_options="row=1, column=1"
-                        resizable="height"
-                    />
-                    <ttkscrollbar
-                        connect="res_planning"
-                        orient="horizontal"
-                        layout="grid"
-                        layout_options="row=2, column=0"
-                        resizable="width"
-                    />
-                </ttkframe>
-
-                <!-- data / notes edition -->
-
-                <ttkpanedwindow
-                    orient="horizontal"
+                <ttklabelframe
+                    text="Data"
                     weight="3"
                 >
+                    <!-- ID/name entry -->
+                    <ttklabel
+                        text="Name:"
+                        layout="grid"
+                        layout_options="row=0, column=0, sticky='w'"
+                    />
+                    <!-- spacer -->
+                    <ttkframe
+                        width="5"
+                        layout="grid"
+                        layout_options="row=0, column=1"
+                    />
+                    <ttkentry
+                        name="entry_res_name"
+                        state="disabled"
+                        width="1"
+                        layout="grid"
+                        layout_options="row=0, column=2, pady=2"
+                        resizable="width"
+                    />
+                    <!-- role entry -->
+                    <ttklabel
+                        text="Role:"
+                        layout="grid"
+                        layout_options="row=1, column=0, sticky='w'"
+                    />
+                    <ttkentry
+                        name="entry_res_role"
+                        state="disabled"
+                        width="1"
+                        layout="grid"
+                        layout_options="row=1, column=2, pady=2"
+                        resizable="width"
+                    />
+                    <!-- contact entry -->
+                    <ttklabel
+                        text="Contact:"
+                        layout="grid"
+                        layout_options="row=2, column=0, sticky='w'"
+                    />
+                    <ttkentry
+                        name="entry_res_contact"
+                        state="disabled"
+                        width="1"
+                        layout="grid"
+                        layout_options="row=2, column=2, pady=2"
+                        resizable="width"
+                    />
+                    <!-- phone contact entry -->
+                    <ttklabel
+                        text="Phone:"
+                        layout="grid"
+                        layout_options="row=3, column=0, sticky='w'"
+                    />
+                    <ttkentry
+                        name="entry_res_phone"
+                        state="disabled"
+                        width="1"
+                        layout="grid"
+                        layout_options="row=3, column=2, pady=2"
+                        resizable="width"
+                    />
+                    <!-- e-mail contact entry -->
+                    <ttklabel
+                        text="E-mail:"
+                        layout="grid"
+                        layout_options="row=4, column=0, sticky='w'"
+                    />
+                    <ttkentry
+                        name="entry_res_email"
+                        state="disabled"
+                        width="1"
+                        layout="grid"
+                        layout_options="row=4, column=2, pady=2"
+                        resizable="width"
+                    />
+                </ttklabelframe>
 
-                    <!-- data form -->
+                <!-- notes / remarks -->
 
-                    <ttklabelframe
-                        text="Data"
-                        weight="3"
+                <ttklabelframe
+                    text="Notes"
+                    weight="1"
+                >
+                    <!-- notes editor -->
+
+                    <ttkframe
+                        layout="pack"
+                        resizable="yes"
                     >
-                        <!-- ID/name entry -->
-                        <ttklabel
-                            text="Name:"
+                        <text
+                            id="res_notes"
+                            name="text_notes"
+                            autoseparators="true"
+                            height="20"
+                            state="disabled"
+                            undo="true"
+                            width="20"
+                            wrap="word"
                             layout="grid"
-                            layout_options="row=0, column=0, sticky='w'"
+                            layout_options="row=0, column=0"
+                            resizable="yes"
                         />
-                        <!-- spacer -->
-                        <ttkframe
-                            width="5"
+                        <tkevent
+                            widget="res_notes"
+                            seq="Key"
+                            slot="@Text:Key:Pressed"
+                        />
+                        <ttkscrollbar
+                            connect="res_notes"
+                            orient="vertical"
                             layout="grid"
                             layout_options="row=0, column=1"
+                            resizable="height"
                         />
-                        <ttkentry
-                            name="entry_res_name"
-                            state="disabled"
-                            width="1"
-                            layout="grid"
-                            layout_options="row=0, column=2, pady=2"
-                            resizable="width"
-                        />
-                        <!-- role entry -->
-                        <ttklabel
-                            text="Role:"
-                            layout="grid"
-                            layout_options="row=1, column=0, sticky='w'"
-                        />
-                        <ttkentry
-                            name="entry_res_role"
-                            state="disabled"
-                            width="1"
-                            layout="grid"
-                            layout_options="row=1, column=2, pady=2"
-                            resizable="width"
-                        />
-                        <!-- contact entry -->
-                        <ttklabel
-                            text="Contact:"
-                            layout="grid"
-                            layout_options="row=2, column=0, sticky='w'"
-                        />
-                        <ttkentry
-                            name="entry_res_contact"
-                            state="disabled"
-                            width="1"
-                            layout="grid"
-                            layout_options="row=2, column=2, pady=2"
-                            resizable="width"
-                        />
-                        <!-- phone contact entry -->
-                        <ttklabel
-                            text="Phone:"
-                            layout="grid"
-                            layout_options="row=3, column=0, sticky='w'"
-                        />
-                        <ttkentry
-                            name="entry_res_phone"
-                            state="disabled"
-                            width="1"
-                            layout="grid"
-                            layout_options="row=3, column=2, pady=2"
-                            resizable="width"
-                        />
-                        <!-- e-mail contact entry -->
-                        <ttklabel
-                            text="E-mail:"
-                            layout="grid"
-                            layout_options="row=4, column=0, sticky='w'"
-                        />
-                        <ttkentry
-                            name="entry_res_email"
-                            state="disabled"
-                            width="1"
-                            layout="grid"
-                            layout_options="row=4, column=2, pady=2"
-                            resizable="width"
-                        />
-                    </ttklabelframe>
+                    </ttkframe>
+                </ttklabelframe>
 
-                    <!-- notes / remarks -->
-
-                    <ttklabelframe
-                        text="Notes"
-                        weight="1"
-                    >
-                        <!-- notes editor -->
-
-                        <ttkframe
-                            layout="pack"
-                            resizable="yes"
-                        >
-                            <text
-                                id="res_notes"
-                                name="text_notes"
-                                autoseparators="true"
-                                height="20"
-                                state="disabled"
-                                undo="true"
-                                width="20"
-                                wrap="word"
-                                layout="grid"
-                                layout_options="row=0, column=0"
-                                resizable="yes"
-                            />
-                            <tkevent
-                                widget="res_notes"
-                                seq="Key"
-                                slot="@Text:Key:Pressed"
-                            />
-                            <ttkscrollbar
-                                connect="res_notes"
-                                orient="vertical"
-                                layout="grid"
-                                layout_options="row=0, column=1"
-                                resizable="height"
-                            />
-                        </ttkframe>
-                    </ttklabelframe>
-
-                </ttkpanedwindow>
             </ttkpanedwindow>
-        </ttklabelframe>
+        </ttkpanedwindow>
 
     </ttkpanedwindow>
 </tkwidget>

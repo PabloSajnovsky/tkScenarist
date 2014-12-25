@@ -270,7 +270,10 @@ class AppDatabase (DB.Database):
             CREATE TEMPORARY TABLE IF NOT EXISTS 'resource_types'
             (
                 type_key            INTEGER PRIMARY KEY,
-                type_fk_parent      INTEGER NOT NULL DEFAULT 0,
+                type_fk_parent      INTEGER REFERENCES
+                                    'resource_types' ('type_key')
+                                    ON UPDATE CASCADE
+                                    ON DELETE CASCADE,
                 type_name           TEXT NOT NULL DEFAULT ""
             );
 
@@ -335,13 +338,9 @@ class AppDatabase (DB.Database):
         """
             deletes the resource type record matching @rowid;
         """
-        print("res_del_type")
-        print("deleting rowid:", rowid)
-        # this should also delete fk-linked 'resource_items' records
-        self.sql_query(
-            "DELETE FROM 'resource_types' WHERE type_fk_parent = ?",
-            rowid
-        )
+        # this should also delete fk-linked records
+        # in 'resource_items'.'item_fk_type'
+        # and 'resource_types'.'type_fk_parent'
         self.sql_query(
             "DELETE FROM 'resource_types' WHERE type_key = ?", rowid
         )
@@ -365,15 +364,14 @@ class AppDatabase (DB.Database):
     # end def
 
 
-    def res_get_types (self, fk_parent=0):
+    def res_get_types (self, fk_parent=None):
         """
             retrieves {type_name: type_key} for a given type_fk_parent;
         """
-        print("res_get_types")
-        print("fk_parent:", fk_parent)
+        # SQL query
         self.sql_query(
             "SELECT type_name, type_key FROM 'resource_types' "
-            "WHERE type_fk_parent = ?",
+            "WHERE type_fk_parent IS ?",
             fk_parent
         )
         # i18n support for text labels
@@ -391,7 +389,7 @@ class AppDatabase (DB.Database):
             DELETE FROM 'resource_items';
             DELETE FROM 'resource_types';
             INSERT INTO 'resource_types' VALUES
-                (1, 0, '1-Staff'),
+                (1, NULL, '1-Staff'),
                     (4, 1, '01-Producers'),
                         (5, 4, 'Executive producer'),
                         (6, 4, 'Film producer'),
@@ -462,7 +460,7 @@ class AppDatabase (DB.Database):
                         (71, 69, 'CG artist #1'),
                         (72, 69, 'CG artist #2'),
                         (73, 69, 'CG artist #3'),
-                (2, 0, '2-Hardware'),
+                (2, NULL, '2-Hardware'),
                     (74, 2, '01-Audio'),
                         (75, 74, 'Boom pole'),
                         (76, 74, 'Cables'),
@@ -482,7 +480,7 @@ class AppDatabase (DB.Database):
                         (90, 87, 'Personal car'),
                         (91, 87, 'Train'),
                         (92, 87, 'Truck'),
-                (3, 0, '3-Events'),
+                (3, NULL, '3-Events'),
                     (93, 3, '01-Casting'),
                         (94, 93, '1-Director'),
                         (95, 93, '2-Male #1'),

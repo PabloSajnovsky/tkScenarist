@@ -51,11 +51,17 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 _dict[_key] = _w.get()
             # end for
             _dict.update(
-                fk_type=self.get_fk_type(),
-                notes=self.text_get_contents(self.TEXT),
+                notes=self.text_get_contents(self.TEXT).strip(),
             )
-            # update record in database
-            self.database.res_update_item(**_dict)
+            # got data to save?
+            if any(_dict.values()):
+                # foreign key inits
+                _dict.update(
+                    fk_type=self.get_fk_type(),
+                )
+                # update record in database
+                self.database.res_update_item(**_dict)
+            # end if
             self.database.dump_tables("resource_items")
         # end if
     # end def

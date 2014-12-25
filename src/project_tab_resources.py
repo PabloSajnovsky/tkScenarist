@@ -408,7 +408,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 print("rowid:", _rowid)
                 # remove from database
                 self.database.res_del_type(_rowid)
-                self.database.dump_tables("resource_types", "resource_items")
+                self.database.dump_tables("resource_items")
                 # remove from widget
                 _lb.delete(_index)
                 # rebind index
@@ -417,6 +417,10 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 if _index >= 0:
                     _lb.see(_index)
                     _lb.selection_set(_index)
+                    self.slot_listbox_item_selected()
+                else:
+                    # do some clean-ups
+                    self.slot_update_inputs()
                 # end if
             # end if
         # end if

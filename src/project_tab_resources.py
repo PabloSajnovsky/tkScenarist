@@ -42,9 +42,11 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             event handler;
             automatically saves data, if any;
         """
+        print("auto_save")
         # inits
         _lb = self.LBOX_ITEM
         _index = _lb.last_selected
+        print("last selected index:", _index)
         # got selected?
         if _index >= 0:
             # inits

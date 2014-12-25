@@ -42,11 +42,9 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             event handler;
             automatically saves data, if any;
         """
-        print("auto_save")
         # inits
         _lb = self.LBOX_ITEM
         _index = _lb.last_selected
-        print("last selected index:", _index)
         # got selected?
         if _index >= 0:
             # inits
@@ -357,15 +355,20 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         # update inputs state
         self.slot_update_inputs()
         # inits
-        _row = self.database.res_get_item(self.get_fk_type())
-        # browse ttk entries
-        for _key, _w in self.ENTRIES.items():
-            _w.insert(0, _row.get(_key) or "")
-        # end for
-        # update text notes
-        self.text_set_contents(self.TEXT, _row.get("notes") or "")
-        # set focus on first entry
-        self.after_idle(self.ENTRIES["name"].focus_set)
+        _index = self.get_current_selected()
+        # got real selection?
+        if _index >= 0:
+            # inits
+            _row = self.database.res_get_item(self.get_fk_type())
+            # browse ttk entries
+            for _key, _w in self.ENTRIES.items():
+                _w.insert(0, _row.get(_key) or "")
+            # end for
+            # update text notes
+            self.text_set_contents(self.TEXT, _row.get("notes") or "")
+            # set focus on first entry
+            self.after_idle(self.ENTRIES["name"].focus_set)
+        # end if
     # end def
 
 

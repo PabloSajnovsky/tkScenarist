@@ -123,7 +123,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         # browse widgets
         for _w in widgets:
             # clear widget
-            _w.delete(0, "end")
+            _w.set("")
+            _w.configure(values=None)
             # clear selection
             _w.selection_clear()
             # clear items
@@ -167,6 +168,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 _rowid = combo.items.pop(_label)
                 # remove from database
                 self.database.res_del_type(_rowid)
+                self.database.dump_tables("resource_types")
                 # clear listbox
                 self.clear_listbox(self.LBOX_ITEM)
                 self.slot_update_inputs()

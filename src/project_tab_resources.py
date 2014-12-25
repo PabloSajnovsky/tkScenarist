@@ -408,7 +408,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 print("rowid:", _rowid)
                 # remove from database
                 self.database.res_del_type(_rowid)
-                self.database.dump_tables("resource_items")
+                self.database.dump_tables("resource_types", "resource_items")
                 # remove from widget
                 _lb.delete(_index)
                 # rebind index

@@ -271,7 +271,7 @@ class AppDatabase (DB.Database):
             CREATE TEMPORARY TABLE IF NOT EXISTS 'resource_items'
             (
                 item_key            INTEGER PRIMARY KEY,
-                item_fk_type        UNIQUE REFERENCES
+                item_fk_type        INTEGER UNIQUE REFERENCES
                                     'resource_types' ('type_key')
                                     ON UPDATE CASCADE
                                     ON DELETE CASCADE,
@@ -333,6 +333,7 @@ class AppDatabase (DB.Database):
         self.sql_query(
             "DELETE FROM 'resource_types' WHERE type_key = ?", rowid
         )
+        print("deleted resource type rowid:", rowid)
     # end def
 
 

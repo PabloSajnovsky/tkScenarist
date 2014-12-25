@@ -271,14 +271,16 @@ class AppDatabase (DB.Database):
             CREATE TEMPORARY TABLE IF NOT EXISTS 'resource_items'
             (
                 item_key            INTEGER PRIMARY KEY,
-                item_fk_type        INTEGER NOT NULL DEFAULT 0,
-                item_name           TEXT NOT NULL DEFAULT "",
-                item_role           TEXT NOT NULL DEFAULT "",
-                item_contact        TEXT NOT NULL DEFAULT "",
-                item_phone          TEXT NOT NULL DEFAULT "",
-                item_email          TEXT NOT NULL DEFAULT "",
-                item_notes          TEXT NOT NULL DEFAULT "",
-                UNIQUE (item_fk_type)
+                item_fk_type        UNIQUE REFERENCES
+                                    'resource_types' ('type_key')
+                                    ON UPDATE CASCADE
+                                    ON DELETE CASCADE,
+                item_name           TEXT,
+                item_role           TEXT,
+                item_contact        TEXT,
+                item_phone          TEXT,
+                item_email          TEXT,
+                item_notes          TEXT
             );
         """)
     # end def

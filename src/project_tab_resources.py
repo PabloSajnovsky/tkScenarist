@@ -56,6 +56,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             )
             # update record in database
             self.database.res_update_item(**_dict)
+            self.database.dump_tables("resource_items")
         # end if
     # end def
 

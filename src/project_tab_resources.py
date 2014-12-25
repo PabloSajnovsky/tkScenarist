@@ -25,6 +25,8 @@
 # lib imports
 import copy
 import json
+import tkinter.simpledialog as SD
+import tkinter.messagebox as MB
 import tkRAD
 import tkRAD.core.async as ASYNC
 from tkRAD.core import tools
@@ -73,6 +75,26 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
         self.events.connect_dict(
             {
+                "Resources:Item:Add":
+                    self.slot_res_item_add,
+                "Resources:Item:Delete":
+                    self.slot_res_item_delete,
+                "Resources:Item:Rename":
+                    self.slot_res_item_rename,
+
+                "Resources:Section:Add":
+                    self.slot_res_section_add,
+                "Resources:Section:Delete":
+                    self.slot_res_section_delete,
+                "Resources:Section:Rename":
+                    self.slot_res_section_rename,
+
+                "Resources:Type:Add":
+                    self.slot_res_type_add,
+                "Resources:Type:Delete":
+                    self.slot_res_type_delete,
+                "Resources:Type:Rename":
+                    self.slot_res_type_rename,
 
                 "Tab:Reset": self.slot_tab_reset,
             }
@@ -359,6 +381,78 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
     # end def
 
 
+    def slot_res_item_add (self, event=None, *args, **kw):
+        """
+            event handler: button 'add' clicked;
+        """
+        print("slot_res_item_add")
+    # end def
+
+
+    def slot_res_item_delete (self, event=None, *args, **kw):
+        """
+            event handler: button 'delete' clicked;
+        """
+        print("slot_res_item_delete")
+    # end def
+
+
+    def slot_res_item_rename (self, event=None, *args, **kw):
+        """
+            event handler: button 'rename' clicked;
+        """
+        print("slot_res_item_rename")
+    # end def
+
+
+    def slot_res_section_add (self, event=None, *args, **kw):
+        """
+            event handler: button 'add' clicked;
+        """
+        print("slot_res_section_add")
+    # end def
+
+
+    def slot_res_section_delete (self, event=None, *args, **kw):
+        """
+            event handler: button 'delete' clicked;
+        """
+        print("slot_res_section_delete")
+    # end def
+
+
+    def slot_res_section_rename (self, event=None, *args, **kw):
+        """
+            event handler: button 'rename' clicked;
+        """
+        print("slot_res_section_rename")
+    # end def
+
+
+    def slot_res_type_add (self, event=None, *args, **kw):
+        """
+            event handler: button 'add' clicked;
+        """
+        print("slot_res_type_add")
+    # end def
+
+
+    def slot_res_type_delete (self, event=None, *args, **kw):
+        """
+            event handler: button 'delete' clicked;
+        """
+        print("slot_res_type_delete")
+    # end def
+
+
+    def slot_res_type_rename (self, event=None, *args, **kw):
+        """
+            event handler: button 'rename' clicked;
+        """
+        print("slot_res_type_rename")
+    # end def
+
+
     def slot_tab_reset (self, *args, **kw):
         """
             event handler: reset tab to new;
@@ -389,6 +483,21 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         self.text_clear_contents(self.TEXT)
         # disable text notes if not selected
         self.enable_widget(self.TEXT, _sel)
+    # end def
+
+
+    def user_confirm_deletion (self, label):
+        """
+            shows user confirmation dialog for deletion procedure;
+            returns True on confirmation, False otherwise;
+        """
+        return MB.askyesno(
+            title=_("Attention"),
+            message=_(
+                "Do you really want to delete\n'{item}'?"
+            ).format(item=label),
+            parent=self,
+        )
     # end def
 
 # end class ProjectTabResources

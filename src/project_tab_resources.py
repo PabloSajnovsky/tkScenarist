@@ -526,6 +526,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         if self.combo_delete_item(self.CBO_TYPE) < 0:
             # clear section
             self.clear_combo(self.CBO_SECTION)
+            # update widgets state
+            self.slot_update_inputs()
         # end if
     # end def
 

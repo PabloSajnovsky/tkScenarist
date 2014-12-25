@@ -335,6 +335,8 @@ class AppDatabase (DB.Database):
         """
             deletes the resource type record matching @rowid;
         """
+        print("res_del_type")
+        print("deleting rowid:", rowid)
         # this should also delete fk-linked 'resource_items' records
         self.sql_query(
             "DELETE FROM 'resource_types' WHERE type_fk_parent = ?",

@@ -188,10 +188,10 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 self.slot_update_inputs()
                 # notify app
                 self.events.raise_event("Project:Modified")
-                # return current selected index
-                return _index
             # end if
         # end if
+        # return current selected index
+        return _index
     # end def
 
 

@@ -124,7 +124,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         for _w in widgets:
             # clear widget
             _w.set("")
-            _w.configure(values=None)
+            _w.configure(values=[])
             # clear selection
             _w.selection_clear()
             # clear items
@@ -171,7 +171,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 self.database.dump_tables("resource_types")
                 # clear listbox
                 self.clear_listbox(self.LBOX_ITEM)
-                self.slot_update_inputs()
                 # remove from widget
                 _items = list(combo.cget("values"))
                 _items.pop(_index)
@@ -185,8 +184,12 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 else:
                     self.clear_combo(combo)
                 # end if
+                # update widgets state
+                self.slot_update_inputs()
                 # notify app
                 self.events.raise_event("Project:Modified")
+                # return current selected index
+                return _index
             # end if
         # end if
     # end def
@@ -350,6 +353,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: item has been selected in combobox;
         """
+        print("slot_combo_section_selected")
         # save last item
         self.save_now()
         # inits
@@ -368,6 +372,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: item has been selected in combobox;
         """
+        print("slot_combo_type_selected")
         # save last item
         self.save_now()
         # inits
@@ -518,7 +523,10 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             event handler: button 'delete' clicked;
         """
         # delegate to generic procedure
-        self.combo_delete_item(self.CBO_TYPE)
+        if self.combo_delete_item(self.CBO_TYPE) < 0:
+            # clear section
+            self.clear_combo(self.CBO_SECTION)
+        # end if
     # end def
 
 
@@ -544,10 +552,16 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             event handler: updates all input widgets;
         """
         # inits
-        _sel = self.get_current_selected() + 1
+        _seltype = bool(self.CBO_TYPE.current() + 1)
+        _selsection = bool(self.CBO_SECTION.current() + 1)
+        _selitem = bool(self.get_current_selected() + 1)
         # update buttons
-        self.enable_widget(self.btn_delete_item, _sel)
-        self.enable_widget(self.btn_rename_item, _sel)
+        self.enable_widget(self.btn_delete_type, _seltype)
+        self.enable_widget(self.btn_rename_type, _seltype)
+        self.enable_widget(self.btn_delete_section, _selsection)
+        self.enable_widget(self.btn_rename_section, _selsection)
+        self.enable_widget(self.btn_delete_item, _selitem)
+        self.enable_widget(self.btn_rename_item, _selitem)
         # browse ttkentry widgets
         for _w in self.ENTRIES.values():
             # enable widget
@@ -555,14 +569,14 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             # clear widget
             _w.delete(0, "end")
             # disable widget if not selected
-            self.enable_widget(_w, _sel)
+            self.enable_widget(_w, _selitem)
         # end for
         # enable text notes
         self.enable_widget(self.TEXT, True)
         # clear text
         self.text_clear_contents(self.TEXT)
         # disable text notes if not selected
-        self.enable_widget(self.TEXT, _sel)
+        self.enable_widget(self.TEXT, _selitem)
     # end def
 
 

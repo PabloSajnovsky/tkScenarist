@@ -337,11 +337,12 @@ class AppDatabase (DB.Database):
         """
         # this should also delete fk-linked 'resource_items' records
         self.sql_query(
-            "DELETE FROM 'resource_types' "
-            "WHERE type_key = ? OR type_fk_parent = ?",
-            rowid, rowid
+            "DELETE FROM 'resource_types' WHERE type_fk_parent = ?",
+            rowid
         )
-        print("deleted resource type rowid:", rowid)
+        self.sql_query(
+            "DELETE FROM 'resource_types' WHERE type_key = ?", rowid
+        )
     # end def
 
 
@@ -366,6 +367,8 @@ class AppDatabase (DB.Database):
         """
             retrieves {type_name: type_key} for a given type_fk_parent;
         """
+        print("res_get_types")
+        print("fk_parent:", fk_parent)
         self.sql_query(
             "SELECT type_name, type_key FROM 'resource_types' "
             "WHERE type_fk_parent = ?",

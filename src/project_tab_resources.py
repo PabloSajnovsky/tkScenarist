@@ -167,6 +167,9 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 _rowid = combo.items.pop(_label)
                 # remove from database
                 self.database.res_del_type(_rowid)
+                # clear listbox
+                self.clear_listbox(self.LBOX_ITEM)
+                self.slot_update_inputs()
                 # remove from widget
                 _items = list(combo.cget("values"))
                 _items.pop(_index)
@@ -503,7 +506,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: button 'delete' clicked;
         """
-        print("slot_res_type_delete")
+        # delegate to generic procedure
+        self.combo_delete_item(self.CBO_TYPE)
     # end def
 
 

@@ -411,6 +411,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 self.database.dump_tables("resource_items")
                 # remove from widget
                 _lb.delete(_index)
+                # do some clean-ups
+                self.slot_update_inputs()
                 # rebind index
                 _index = max(-1, min(_lb.size() - 1, _index))
                 # can select again?
@@ -418,9 +420,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                     _lb.see(_index)
                     _lb.selection_set(_index)
                     self.slot_listbox_item_selected()
-                else:
-                    # do some clean-ups
-                    self.slot_update_inputs()
                 # end if
             # end if
         # end if

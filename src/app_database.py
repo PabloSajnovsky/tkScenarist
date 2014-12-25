@@ -370,7 +370,9 @@ class AppDatabase (DB.Database):
             fk_parent
         )
         # i18n support for text labels
-        return dict([(_(i[0]), i[1]) for i in self.fetch(self.ALL)])
+        return dict(
+            [(_(i[0]), i[1]) for i in self.fetch(self.ALL) or list()]
+        )
     # end def
 
 

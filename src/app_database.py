@@ -251,6 +251,8 @@ class AppDatabase (DB.Database):
                 UNIQUE (name_name, name_origin)
             );
 
+            -- create table for storyboard shots
+
             CREATE TEMPORARY TABLE IF NOT EXISTS 'storyboard_shots'
             (
                 shot_key            INTEGER PRIMARY KEY,
@@ -260,6 +262,10 @@ class AppDatabase (DB.Database):
                 shot_text           TEXT NOT NULL DEFAULT "",
                 UNIQUE (shot_scene, shot_shot)
             );
+
+            -- create tables for resources
+
+            PRAGMA foreign_keys = ON;
 
             CREATE TEMPORARY TABLE IF NOT EXISTS 'resource_types'
             (

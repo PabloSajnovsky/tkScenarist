@@ -174,6 +174,10 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 _items = list(combo.cget("values"))
                 _items.pop(_index)
                 combo.configure(values=_items)
+                # update selection
+                _index = max(-1, min(len(_items) - 1, _index))
+                combo.current(_index)
+                combo.event_generate("<<ComboboxSelected>>")
                 # notify app
                 self.events.raise_event("Project:Modified")
             # end if

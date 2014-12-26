@@ -157,34 +157,29 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             generic procedure for adding a new item into a combobox;
         """
         # inits
-        _index = combo.current()
-        # got selection?
-        if _index >= 0:
-            # inits
-            _new_name = self.user_add_item_name()
-            # user added new name?
-            if _new_name:
-                # already exists?
-                if _new_name in combo.items:
-                    # notify user
-                    self.error_already_exists(_new_name)
-                # new to list
-                else:
-                    # get row id
-                    _rowid = self.database.res_add_type(
-                        fk_parent, _new_name
-                    )
-                    # update items dict
-                    combo.items[_new_name] = _rowid
-                    # update widget
-                    _items = list(combo.cget("values"))
-                    _items.append(_new_name)
-                    combo.configure(values=sorted(_items))
-                    combo.set(_new_name)
-                    combo.event_generate("<<ComboboxSelected>>")
-                    # notify app
-                    self.events.raise_event("Project:Modified")
-                # end if
+        _new_name = self.user_add_item_name()
+        # user added new name?
+        if _new_name:
+            # already exists?
+            if _new_name in combo.items:
+                # notify user
+                self.error_already_exists(_new_name)
+            # new to list
+            else:
+                # get row id
+                _rowid = self.database.res_add_type(
+                    fk_parent, _new_name
+                )
+                # update items dict
+                combo.items[_new_name] = _rowid
+                # update widget
+                _items = list(combo.cget("values"))
+                _items.append(_new_name)
+                combo.configure(values=sorted(_items))
+                combo.set(_new_name)
+                combo.event_generate("<<ComboboxSelected>>")
+                # notify app
+                self.events.raise_event("Project:Modified")
             # end if
         # end if
     # end def

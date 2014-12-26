@@ -482,6 +482,17 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             event handler: button 'rename' clicked;
         """
         print("slot_res_item_rename")
+        # inits
+        _index = self.get_current_selected()
+        # got selection?
+        if _index >= 0:
+            # inits
+            _new_text = self.user_rename(self.LBOX_ITEM.get(_index))
+            # got something?
+            if _new_text:
+                print("new text:", _new_text)
+            # end if
+        # end if
     # end def
 
 
@@ -592,6 +603,19 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             message=_(
                 "Do you really want to delete\n'{item}'?"
             ).format(item=label),
+            parent=self,
+        )
+    # end def
+
+
+    def user_rename (self, old_text=""):
+        """
+            shows up user renaming dialog;
+        """
+        return SD.askstring(
+            _("Please, insert"),
+            _("Renaming"),
+            initialvalue=old_text,
             parent=self,
         )
     # end def

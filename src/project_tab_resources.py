@@ -436,9 +436,11 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             tab setup along @fname and @archive contents;
         """
-        # set text widget contents
-        #~ self.text_set_contents(self.text_resources, fname)
-        pass
+        # inits
+        _dict = json.loads(fname or "{}")
+        # update DB tables
+        self.database.res_import_types(_dict.get("types"))
+        self.database.res_import_items(_dict.get("items"))
     # end def
 
 

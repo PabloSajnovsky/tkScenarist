@@ -539,7 +539,44 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: button 'add' clicked;
         """
-        print("slot_res_item_add")
+        # inits
+        _combo = self.CBO_SECTION
+        _selsection = _combo.current()
+        # got selection?
+        if _selsection >= 0:
+            # inits
+            _lb = self.LBOX_ITEM
+            _fk_parent = _combo.items[_combo.get()]
+            _new_name = self.user_add_item_name()
+            # user added new name?
+            if _new_name:
+                # already exists?
+                if _new_name in _lb.items:
+                    # notify user
+                    self.error_already_exists(_new_name)
+                # new to list
+                else:
+                    # get row id
+                    _rowid = self.database.res_add_type(
+                        _fk_parent, _new_name
+                    )
+                    # update items dict
+                    _lb.items[_new_name] = _rowid
+                    # update widget
+                    _items = list(_lb.get(0, "end"))
+                    _items.append(_new_name)
+                    _items = sorted(_items)
+                    _index = _items.index(_new_name)
+                    _lb.delete(0, "end")
+                    _lb.insert(0, *_items)
+                    _lb.see(_index)
+                    _lb.selection_set(_index)
+                    self.slot_listbox_item_selected()
+                    # notify app
+                    self.events.raise_event("Project:Modified")
+                # end if
+            # end if
+        # end if
     # end def
 
 

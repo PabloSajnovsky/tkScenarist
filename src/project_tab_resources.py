@@ -214,10 +214,10 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 # update database
                 self.database.res_rename_type(_rowid, _new_name)
                 # update widget
-                _items = combo.cget("values")
+                _items = list(combo.cget("values"))
                 _items.pop(_index)
                 _items.insert(_index, _new_name)
-                combo.configure(values=_items)
+                combo.configure(values=sorted(_items))
                 combo.set(_new_name)
                 # notify app
                 self.events.raise_event("Project:Modified")

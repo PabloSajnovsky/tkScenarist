@@ -361,6 +361,32 @@ class AppDatabase (DB.Database):
     # end def
 
 
+    def res_get_all_items (self):
+        """
+            retrieves all resource items;
+        """
+        # SQL query
+        self.sql_query(
+            "SELECT * FROM 'resource_items'"
+        )
+        # get all rows or default
+        return self.fetch(self.ALL, default=[])
+    # end def
+
+
+    def res_get_all_types (self):
+        """
+            retrieves all resource types;
+        """
+        # SQL query
+        self.sql_query(
+            "SELECT * FROM 'resource_types'"
+        )
+        # get all rows or default
+        return self.fetch(self.ALL, default=[])
+    # end def
+
+
     def res_get_item (self, fk_type):
         """
             retrieves the row corresponding to @fk_type in
@@ -392,6 +418,41 @@ class AppDatabase (DB.Database):
         return dict(
             [(_(i[0]), i[1]) for i in self.fetch(self.ALL) or list()]
         )
+    # end def
+
+
+    def res_import_items (self, sequence):
+        """
+            imports resource item rows from @sequence into DB table;
+        """
+        # truncate table
+        self.sql_query("DELETE FROM 'resource_items'")
+        # import many rows
+        self.cursor.executemany(
+            "INSERT OR IGNORE INTO 'resource_items' "
+            "VALUES (NULL, :item_fk_type, :item_name, :item_role, "
+            ":item_contact, :item_phone, :item_email, :item_notes)",
+            sequence
+        )
+        # commit new transaction
+        self.commit()
+    # end def
+
+
+    def res_import_types (self, sequence):
+        """
+            imports resource type rows from @sequence into DB table;
+        """
+        # truncate table
+        self.sql_query("DELETE FROM 'resource_types'")
+        # import many rows
+        self.cursor.executemany(
+            "INSERT OR IGNORE INTO 'resource_types' "
+            "VALUES (:type_key, :type_fk_parent, :type_name)",
+            sequence
+        )
+        # commit new transaction
+        self.commit()
     # end def
 
 

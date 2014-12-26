@@ -318,9 +318,15 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             returns file contents;
         """
+        # save last item
+        self.save_now()
         # inits
-        fcontents = ""                                                      # FIXME
-        #~ fcontents = self.text_get_contents(self.text_resources)
+        _db = self.database
+        _dict = {
+            "types": [dict(i) for i in _db.res_get_all_types()],
+            "items": [dict(i) for i in _db.res_get_all_items()],
+        }
+        fcontents = json.dumps(_dict)
         # always return a dict
         return {fname: fcontents}
     # end def

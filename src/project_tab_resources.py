@@ -157,7 +157,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             generic procedure for deleting an item from a combobox;
         """
-        print("combo_delete_item")
         # inits
         _index = combo.current()
         # got selection?
@@ -170,7 +169,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 _rowid = combo.items.pop(_label)
                 # remove from database
                 self.database.res_del_type(_rowid)
-                self.database.dump_tables("resource_types")
                 # clear listbox
                 self.clear_listbox(self.LBOX_ITEM)
                 # remove from widget
@@ -188,6 +186,39 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 # end if
                 # update widgets state
                 self.slot_update_inputs()
+                # notify app
+                self.events.raise_event("Project:Modified")
+            # end if
+        # end if
+        # return current selected index
+        return _index
+    # end def
+
+
+    def combo_rename_item (self, combo):
+        """
+            generic procedure for renaming an item from a combobox;
+        """
+        # inits
+        _index = combo.current()
+        # got selection?
+        if _index >= 0:
+            # inits
+            _old_name = combo.get()
+            _new_name = self.user_rename(_old_name)
+            # user renamed?
+            if _new_name and _new_name != _old_name:
+                # update items dict
+                _rowid = combo.items.pop(_old_name)
+                combo.items[_new_name] = _rowid
+                # update database
+                self.database.res_rename_type(_rowid, _new_name)
+                # update widget
+                _items = combo.cget("values")
+                _items.pop(_index)
+                _items.insert(_index, _new_name)
+                combo.configure(values=_items)
+                combo.set(_new_name)
                 # notify app
                 self.events.raise_event("Project:Modified")
             # end if
@@ -499,27 +530,26 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: button 'rename' clicked;
         """
-        print("slot_res_item_rename")
-        # save last item
-        self.save_now()
         # inits
         _index = self.get_current_selected()
         # got selection?
         if _index >= 0:
             # inits
             _lb = self.LBOX_ITEM
-            _old_text = _lb.get(_index)
-            _new_text = self.user_rename(_old_text)
-            # got something?
-            if _new_text:
+            _old_name = _lb.get(_index)
+            _new_name = self.user_rename(_old_name)
+            # user renamed?
+            if _new_name and _new_name != _old_name:
                 # update listbox
                 _lb.delete(_index)
-                _lb.insert(_index, _new_text)
+                _lb.insert(_index, _new_name)
                 # update items
-                _rowid = _lb.items.pop(_old_text)
-                _lb.items[_new_text] = _rowid
+                _rowid = _lb.items.pop(_old_name)
+                _lb.items[_new_name] = _rowid
                 # update database
-                self.database.res_rename_type(_rowid, _new_text)
+                self.database.res_rename_type(_rowid, _new_name)
+                # notify app
+                self.events.raise_event("Project:Modified")
             # end if
         # end if
     # end def
@@ -546,7 +576,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: button 'rename' clicked;
         """
-        print("slot_res_section_rename")
+        # delegate to generic procedure
+        self.combo_rename_item(self.CBO_SECTION)
     # end def
 
 
@@ -576,7 +607,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: button 'rename' clicked;
         """
-        print("slot_res_type_rename")
+        # delegate to generic procedure
+        self.combo_rename_item(self.CBO_TYPE)
     # end def
 
 

@@ -101,6 +101,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         )
         # tkinter event bindings
         self.bind("<Expose>", self.slot_on_tab_exposed)
+        self.bind("<FocusIn>", self.slot_on_tab_exposed)
         self.CBO_TYPE.bind(
             "<<ComboboxSelected>>", self.slot_combo_type_selected
         )
@@ -506,10 +507,19 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         # got selection?
         if _index >= 0:
             # inits
-            _new_text = self.user_rename(self.LBOX_ITEM.get(_index))
+            _lb = self.LBOX_ITEM
+            _old_text = _lb.get(_index)
+            _new_text = self.user_rename(_old_text)
             # got something?
             if _new_text:
-                print("new text:", _new_text)
+                # update listbox
+                _lb.delete(_index)
+                _lb.insert(_index, _new_text)
+                # update items
+                _rowid = _lb.items.pop(_old_text)
+                _lb.items[_new_text] = _rowid
+                # update database
+                self.database.res_rename_type(_rowid, _new_text)
             # end if
         # end if
     # end def
@@ -631,12 +641,14 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             shows up user renaming dialog;
         """
-        return SD.askstring(
-            _("Please, insert"),
-            _("Renaming"),
-            initialvalue=old_text,
-            parent=self,
-        )
+        return str(
+            SD.askstring(
+                _("Please, insert"),
+                _("Renaming"),
+                initialvalue=old_text,
+                parent=self,
+            ) or ""
+        ).strip()
     # end def
 
 # end class ProjectTabResources

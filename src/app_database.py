@@ -381,6 +381,20 @@ class AppDatabase (DB.Database):
     # end def
 
 
+    def res_rename_type (self, rowid, name):
+        """
+            updates @rowid resource type record's inner @name;
+        """
+        # SQL query
+        self.sql_query(
+            "UPDATE 'resource_types' "
+            "SET type_name = ? "
+            "WHERE type_key = ?",
+            name, rowid
+        )
+    # end def
+
+
     def res_reset (self):
         """
             resets resource tables to default values;

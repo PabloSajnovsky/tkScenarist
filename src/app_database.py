@@ -427,15 +427,18 @@ class AppDatabase (DB.Database):
         """
         # truncate table
         self.sql_query("DELETE FROM 'resource_items'")
-        # import many rows
-        self.cursor.executemany(
-            "INSERT OR IGNORE INTO 'resource_items' "
-            "VALUES (NULL, :item_fk_type, :item_name, :item_role, "
-            ":item_contact, :item_phone, :item_email, :item_notes)",
-            sequence
-        )
-        # commit new transaction
-        self.commit()
+        # ensure plain list
+        if tools.is_plist(sequence):
+            # import many rows
+            self.cursor.executemany(
+                "INSERT OR IGNORE INTO 'resource_items' "
+                "VALUES (NULL, :item_fk_type, :item_name, :item_role, "
+                ":item_contact, :item_phone, :item_email, :item_notes)",
+                sequence
+            )
+            # commit new transaction
+            self.commit()
+        # end if
     # end def
 
 
@@ -445,14 +448,17 @@ class AppDatabase (DB.Database):
         """
         # truncate table
         self.sql_query("DELETE FROM 'resource_types'")
-        # import many rows
-        self.cursor.executemany(
-            "INSERT OR IGNORE INTO 'resource_types' "
-            "VALUES (:type_key, :type_fk_parent, :type_name)",
-            sequence
-        )
-        # commit new transaction
-        self.commit()
+        # ensure plain list
+        if tools.is_plist(sequence):
+            # import many rows
+            self.cursor.executemany(
+                "INSERT OR IGNORE INTO 'resource_types' "
+                "VALUES (:type_key, :type_fk_parent, :type_name)",
+                sequence
+            )
+            # commit new transaction
+            self.commit()
+        # end if
     # end def
 
 
@@ -697,15 +703,18 @@ class AppDatabase (DB.Database):
         """
         # truncate table
         self.stb_clear_shots()
-        # import many rows
-        self.cursor.executemany(
-            "INSERT OR IGNORE INTO 'storyboard_shots' "
-            "VALUES (NULL, :shot_scene, :shot_shot, "
-            ":shot_title, :shot_text)",
-            sequence
-        )
-        # commit new transaction
-        self.commit()
+        # ensure plain list
+        if tools.is_plist(sequence):
+            # import many rows
+            self.cursor.executemany(
+                "INSERT OR IGNORE INTO 'storyboard_shots' "
+                "VALUES (NULL, :shot_scene, :shot_shot, "
+                ":shot_title, :shot_text)",
+                sequence
+            )
+            # commit new transaction
+            self.commit()
+        # end if
     # end def
 
 

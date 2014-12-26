@@ -100,6 +100,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             }
         )
         # tkinter event bindings
+        self.bind("<Expose>", self.slot_on_tab_exposed)
         self.CBO_TYPE.bind(
             "<<ComboboxSelected>>", self.slot_combo_type_selected
         )
@@ -419,6 +420,22 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
     # end def
 
 
+    def slot_on_tab_exposed (self, event=None, *args, **kw):
+        """
+            event handler: tab is now visible;
+        """
+        # inits
+        _index = self.LBOX_ITEM.last_selected
+        # got selection?
+        if _index >= 0:
+            # reselect item
+            self.LBOX_ITEM.see(_index)
+            self.LBOX_ITEM.selection_set(_index)
+            self.slot_listbox_item_selected()
+        # end if
+    # end def
+
+
     def slot_on_text_keypress (self, event=None, *args, **kw):
         """
             event handler: keyboard keypress for text widget;
@@ -482,6 +499,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             event handler: button 'rename' clicked;
         """
         print("slot_res_item_rename")
+        # save last item
+        self.save_now()
         # inits
         _index = self.get_current_selected()
         # got selection?

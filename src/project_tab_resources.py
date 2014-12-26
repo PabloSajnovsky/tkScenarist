@@ -477,6 +477,9 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             # select first
             self.CBO_SECTION.current(0)
             self.slot_combo_section_selected()
+        else:
+            # update widgets state
+            self.slot_update_inputs()
         # end if
     # end def
 

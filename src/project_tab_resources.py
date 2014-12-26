@@ -156,6 +156,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             generic procedure for adding a new item into a combobox;
         """
+        # save last item
+        self.save_now()
         # inits
         _new_name = self.user_add_item_name()
         # user added new name?
@@ -539,6 +541,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: button 'add' clicked;
         """
+        # save last item
+        self.save_now()
         # inits
         _combo = self.CBO_SECTION
         _selsection = _combo.current()

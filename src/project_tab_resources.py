@@ -64,7 +64,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 # update record in database
                 self.database.res_update_item(**_dict)
             # end if
-            self.database.dump_tables("resource_items")
         # end if
     # end def
 
@@ -153,6 +152,49 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
     # end def
 
 
+    def combo_add_item (self, combo, fk_parent=None):
+        """
+            generic procedure for adding a new item into a combobox;
+        """
+        # inits
+        _index = combo.current()
+        # got selection?
+        if _index >= 0:
+            # inits
+            _new_name = self.user_add_item_name()
+            # user added new name?
+            if _new_name:
+                # already exists?
+                if _new_name in combo.items:
+                    # notify user
+                    MB.showwarning(
+                        title=_("Attention"),
+                        message=_(
+                            "Item '{item}' already exists."
+                        ).format(item=_new_name),
+                        parent=self,
+                    )
+                # new to list
+                else:
+                    # get row id
+                    _rowid = self.database.res_add_type(
+                        fk_parent, _new_name
+                    )
+                    # update items dict
+                    combo.items[_new_name] = _rowid
+                    # update widget
+                    _items = list(combo.cget("values"))
+                    _items.append(_new_name)
+                    combo.configure(values=sorted(_items))
+                    combo.set(_new_name)
+                    # notify app
+                    self.events.raise_event("Project:Modified")
+                # end if
+            # end if
+        # end if
+    # end def
+
+
     def combo_delete_item (self, combo):
         """
             generic procedure for deleting an item from a combobox;
@@ -197,7 +239,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
 
     def combo_rename_item (self, combo):
         """
-            generic procedure for renaming an item from a combobox;
+            generic procedure for renaming an item into a combobox;
         """
         # inits
         _index = combo.current()
@@ -208,23 +250,34 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             _new_name = self.user_rename(_old_name)
             # user renamed?
             if _new_name and _new_name != _old_name:
-                # update items dict
-                _rowid = combo.items.pop(_old_name)
-                combo.items[_new_name] = _rowid
-                # update database
-                self.database.res_rename_type(_rowid, _new_name)
-                # update widget
-                _items = list(combo.cget("values"))
-                _items.pop(_index)
-                _items.insert(_index, _new_name)
-                combo.configure(values=sorted(_items))
-                combo.set(_new_name)
-                # notify app
-                self.events.raise_event("Project:Modified")
+                # already exists?
+                if _new_name in combo.items:
+                    # notify user
+                    MB.showwarning(
+                        title=_("Attention"),
+                        message=_(
+                            "Item '{item}' already exists."
+                        ).format(item=_new_name),
+                        parent=self,
+                    )
+                # new to list
+                else:
+                    # update items dict
+                    _rowid = combo.items.pop(_old_name)
+                    combo.items[_new_name] = _rowid
+                    # update database
+                    self.database.res_rename_type(_rowid, _new_name)
+                    # update widget
+                    _items = list(combo.cget("values"))
+                    _items.pop(_index)
+                    _items.insert(_index, _new_name)
+                    combo.configure(values=sorted(_items))
+                    combo.set(_new_name)
+                    # notify app
+                    self.events.raise_event("Project:Modified")
+                # end if
             # end if
         # end if
-        # return current selected index
-        return _index
     # end def
 
 
@@ -386,7 +439,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: item has been selected in combobox;
         """
-        print("slot_combo_section_selected")
         # save last item
         self.save_now()
         # inits
@@ -405,7 +457,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: item has been selected in combobox;
         """
-        print("slot_combo_type_selected")
         # save last item
         self.save_now()
         # inits
@@ -540,16 +591,29 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             _new_name = self.user_rename(_old_name)
             # user renamed?
             if _new_name and _new_name != _old_name:
-                # update listbox
-                _lb.delete(_index)
-                _lb.insert(_index, _new_name)
-                # update items
-                _rowid = _lb.items.pop(_old_name)
-                _lb.items[_new_name] = _rowid
-                # update database
-                self.database.res_rename_type(_rowid, _new_name)
-                # notify app
-                self.events.raise_event("Project:Modified")
+                # already exists?
+                if _new_name in _lb.items:
+                    # notify user
+                    MB.showwarning(
+                        title=_("Attention"),
+                        message=_(
+                            "Item '{item}' already exists."
+                        ).format(item=_new_name),
+                        parent=self,
+                    )
+                # new to list
+                else:
+                    # update listbox
+                    _lb.delete(_index)
+                    _lb.insert(_index, _new_name)
+                    # update items
+                    _rowid = _lb.items.pop(_old_name)
+                    _lb.items[_new_name] = _rowid
+                    # update database
+                    self.database.res_rename_type(_rowid, _new_name)
+                    # notify app
+                    self.events.raise_event("Project:Modified")
+                # end if
             # end if
         # end if
     # end def
@@ -559,7 +623,16 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: button 'add' clicked;
         """
-        print("slot_res_section_add")
+        # inits
+        _combo = self.CBO_TYPE
+        _seltype = _combo.current()
+        # got selection?
+        if _seltype >= 0:
+            # inits
+            _fk_parent = _combo.items[_combo.get()]
+            # delegate to generic procedure
+            self.combo_add_item(self.CBO_SECTION, _fk_parent)
+        # end if
     # end def
 
 
@@ -585,7 +658,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: button 'add' clicked;
         """
-        print("slot_res_type_add")
+        # delegate to generic procedure
+        self.combo_add_item(self.CBO_TYPE)
     # end def
 
 
@@ -632,8 +706,10 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         # update buttons
         self.enable_widget(self.btn_delete_type, _seltype)
         self.enable_widget(self.btn_rename_type, _seltype)
+        self.enable_widget(self.btn_add_section, _seltype)
         self.enable_widget(self.btn_delete_section, _selsection)
         self.enable_widget(self.btn_rename_section, _selsection)
+        self.enable_widget(self.btn_add_item, _selsection)
         self.enable_widget(self.btn_delete_item, _selitem)
         self.enable_widget(self.btn_rename_item, _selitem)
         # browse ttkentry widgets
@@ -651,6 +727,20 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         self.text_clear_contents(self.TEXT)
         # disable text notes if not selected
         self.enable_widget(self.TEXT, _selitem)
+    # end def
+
+
+    def user_add_item_name (self):
+        """
+            shows up user text dialog for inserting new item name;
+        """
+        return str(
+            SD.askstring(
+                _("Please, insert"),
+                _("New name"),
+                parent=self,
+            ) or ""
+        ).strip()
     # end def
 
 

@@ -404,8 +404,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             resets all resources (DB, combos, listbox);
         """
-        # clear in DB
-        self.database.res_reset()
         # reset combos + listbox
         self.clear_combo(self.CBO_TYPE, self.CBO_SECTION)
         self.clear_listbox(self.LBOX_ITEM)
@@ -441,6 +439,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         # update DB tables
         self.database.res_import_types(_dict.get("types"))
         self.database.res_import_items(_dict.get("items"))
+        # reset combos, listbox and so on
+        self.reset_resources()
     # end def
 
 
@@ -735,7 +735,9 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: reset tab to new;
         """
-        # reset DB, combos and so on
+        # reset default rows in DB
+        self.database.res_reset()
+        # reset combos, listbox and so on
         self.reset_resources()
     # end def
 

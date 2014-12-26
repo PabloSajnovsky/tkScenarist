@@ -436,11 +436,19 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
         # inits
         _dict = json.loads(fname or "{}")
-        # update DB tables
-        self.database.res_import_types(_dict.get("types"))
-        self.database.res_import_items(_dict.get("items"))
-        # reset combos, listbox and so on
-        self.reset_resources()
+        _type_rows = _dict.get("types")
+        # got rows?
+        if _type_rows:
+            # update DB tables
+            self.database.res_import_types(_type_rows)
+            self.database.res_import_items(_dict.get("items"))
+            # reset combos, listbox and so on
+            self.reset_resources()
+        # no data
+        else:
+            # better reset to new
+            self.slot_tab_reset()
+        # end if
     # end def
 
 

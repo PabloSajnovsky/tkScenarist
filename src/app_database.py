@@ -334,6 +334,20 @@ class AppDatabase (DB.Database):
     # end def
 
 
+    def res_add_type (self, fk_parent, name):
+        """
+            adds new resource type record with @fk_parent and @name;
+        """
+        # SQL query
+        self.sql_query(
+            "INSERT INTO 'resource_types' VALUES (NULL, ?, ?)",
+            fk_parent, name
+        )
+        # newly created ROWID
+        return self.last_row_id
+    # end def
+
+
     def res_del_type (self, rowid):
         """
             deletes the resource type record matching @rowid;

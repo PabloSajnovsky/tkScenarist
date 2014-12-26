@@ -167,13 +167,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 # already exists?
                 if _new_name in combo.items:
                     # notify user
-                    MB.showwarning(
-                        title=_("Attention"),
-                        message=_(
-                            "Item '{item}' already exists."
-                        ).format(item=_new_name),
-                        parent=self,
-                    )
+                    self.error_already_exists(_new_name)
                 # new to list
                 else:
                     # get row id
@@ -187,6 +181,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                     _items.append(_new_name)
                     combo.configure(values=sorted(_items))
                     combo.set(_new_name)
+                    combo.event_generate("<<ComboboxSelected>>")
                     # notify app
                     self.events.raise_event("Project:Modified")
                 # end if
@@ -253,13 +248,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 # already exists?
                 if _new_name in combo.items:
                     # notify user
-                    MB.showwarning(
-                        title=_("Attention"),
-                        message=_(
-                            "Item '{item}' already exists."
-                        ).format(item=_new_name),
-                        parent=self,
-                    )
+                    self.error_already_exists(_new_name)
                 # new to list
                 else:
                     # update items dict
@@ -288,6 +277,21 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         # reset state
         widget.configure(
             state={True: "normal"}.get(bool(state), "disabled")
+        )
+    # end def
+
+
+    def error_already_exists (self, item_name):
+        """
+            notifies user an item already exists in some list;
+        """
+        # notify user
+        MB.showwarning(
+            title=_("Attention"),
+            message=_(
+                "Item '{item}' already exists."
+            ).format(item=item_name),
+            parent=self,
         )
     # end def
 
@@ -594,13 +598,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 # already exists?
                 if _new_name in _lb.items:
                     # notify user
-                    MB.showwarning(
-                        title=_("Attention"),
-                        message=_(
-                            "Item '{item}' already exists."
-                        ).format(item=_new_name),
-                        parent=self,
-                    )
+                    self.error_already_exists(_new_name)
                 # new to list
                 else:
                     # update listbox

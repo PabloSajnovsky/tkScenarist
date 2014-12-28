@@ -38,9 +38,11 @@ class ResourcesCanvas (RC.RADCanvas):
     # class constant defs
     CONFIG = {
         "background": "grey80",
+        "height": None,
         "highlightbackground": "grey20",
         "highlightthickness": 1,
         "takefocus": 0,
+        "width": 0,
     } # end of CONFIG
 
 
@@ -49,6 +51,15 @@ class ResourcesCanvas (RC.RADCanvas):
             returns coordinates sum of bounding boxes;
         """
         return tuple(map(lambda x: sum(x), zip(bbox1, bbox2)))
+    # end def
+
+
+    def box_rel (self, (x0, y0), (width, height)):
+        """
+            returns box coordinates relative to (x0, y0) point of
+            origin and to (width, height);
+        """
+        return (x0, y0, x0 + width, y0 + height)
     # end def
 
 
@@ -369,15 +380,17 @@ class ResourcesCanvas (RC.RADCanvas):
         _bbox = self.bbox("all")
         # got items?
         if _bbox:
+            print("bbox:", _bbox)
             # get all contents bbox
             x0, y0, x1, y1 = _bbox
             _cw, _ch = self.size_xy()
-            x0, y0 = (min(0, x0), min(0, y0))
-            x1, y1 = (max(x1, _cw), max(y1, _ch))
+            x0, y0 = (min(0, x0 + 1), min(0, y0 + 1))
+            #~ x1, y1 = (max(x1 - 1, _cw), max(y1 - 1, _ch))
             # reset scroll region size
             self.configure(scrollregion=(x0, y0, x1, y1))
+            print("scrollregion:", self.cget("scrollregion"))
             # project has been modified
-            self.events.raise_event("Project:Modified")
+            #~ self.events.raise_event("Project:Modified")
         # no items
         else:
             # better clean up everything
@@ -406,6 +419,10 @@ class RCDateRuler:
         Resources Canvas Date Ruler component class;
     """
 
+    # class constant defs
+    XY_ORIGIN = (0, 0)
+
+
     def __init__ (self, canvas, **kw):
         """
             class constructor;
@@ -432,7 +449,7 @@ class RCDateRuler:
         self.canvas.delete(self.tag)
         # redraw frame
         self.frame_id = self.canvas.create_rectangle(
-            0, 0, 200, 50,
+            self.canvas.box_rel(self.XY_ORIGIN, 200, 30),
             outline="black",
             fill="grey90",
             width=1,
@@ -448,6 +465,10 @@ class RCItemList:
     """
         Resources Canvas Item List component class;
     """
+
+    # class constant defs
+    XY_ORIGIN = (0, 30)
+
 
     def __init__ (self, canvas, **kw):
         """
@@ -471,7 +492,7 @@ class RCItemList:
         self.canvas.delete(self.tag)
         # redraw frame
         self.frame_id = self.canvas.create_rectangle(
-            0, 50, 100, 200,
+            self.canvas.box_rel(self.XY_ORIGIN, 200, 300),
             outline="black",
             fill="grey90",
             width=1,

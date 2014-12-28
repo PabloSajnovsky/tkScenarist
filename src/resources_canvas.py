@@ -23,6 +23,7 @@
 """
 
 # lib imports
+from datetime import timedelta, date
 import json
 import tkinter.messagebox as MB
 import tkinter.simpledialog as SD
@@ -218,8 +219,12 @@ class ResourcesCanvas (RC.RADCanvas):
         # members only inits
         self.instance_counter = 0
         self.canvas_groups = dict()
-        # Drag'n'Drop feature
+        # drag'n'drop feature
         self.dnd_reset()
+        # date ruler feature
+        self.date_ruler.reset()
+        # item feature
+        self.item_list.reset()
     # end def
 
 
@@ -227,6 +232,14 @@ class ResourcesCanvas (RC.RADCanvas):
         r"""
             virtual method to be implemented in subclass;
         """
+        # date ruler inits
+        self.date_ruler = RCDateRuler(
+            self, tag=self.get_new_tag("date_ruler")
+        )
+        # item list inits
+        self.item_list = RCItemList(
+            self, tag=self.get_new_tag("item_list")
+        )
         # member inits
         self.init_members(**kw)
         # event bindings
@@ -389,3 +402,85 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 # end class ResourcesCanvas
+
+
+
+class RCDateRuler:
+    """
+        Resources Canvas Date Ruler component class;
+    """
+
+    def __init__ (self, canvas, **kw):
+        """
+            class constructor;
+        """
+        # member inits
+        self.canvas = canvas
+        self.date_min = kw.get("date_min") or date.today()
+        self.date_max = (
+            kw.get("date_max") or
+            self.date_min + timedelta(days=7)
+        )
+        self.tag = (
+            kw.get("tag") or
+            "{}#{}".format(self.__class__.__name__, id(self))
+        )
+    # end def
+
+
+    def reset (self, *args, **kw):
+        """
+            redraws component on canvas;
+        """
+        # ensure no more previous
+        self.canvas.delete(self.tag)
+        # redraw frame
+        self.frame_id = self.canvas.create_rectangle(
+            0, 0, 100, 50,
+            outline="black",
+            fill="white",
+            width=1,
+            tags=self.tag,
+        )
+    # end def
+
+# end class RCDateRuler
+
+
+
+class RCItemList:
+    """
+        Resources Canvas Item List component class;
+    """
+
+    def __init__ (self, canvas, **kw):
+        """
+            class constructor;
+        """
+        # member inits
+        self.canvas = canvas
+        self.items = kw.get("items") or list()
+        self.tag = (
+            kw.get("tag") or
+            "{}#{}".format(self.__class__.__name__, id(self))
+        )
+    # end def
+
+
+    def reset (self, *args, **kw):
+        """
+            redraws component on canvas;
+        """
+        # ensure no more previous
+        self.canvas.delete(self.tag)
+        # redraw frame
+        self.frame_id = self.canvas.create_rectangle(
+            0, 50, 100, 300,
+            outline="black",
+            fill="white",
+            width=1,
+            tags=self.tag,
+        )
+    # end def
+
+# end class RCItemList

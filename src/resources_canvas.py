@@ -272,7 +272,7 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             event handler: pending D'n'D on mouse motion;
         """
-        print("slot_drag_pending")
+        #~ print("slot_drag_pending")
         # param controls
         if event:
             # dragging something?

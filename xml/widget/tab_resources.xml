@@ -286,14 +286,16 @@
                     layout_options="row=0, column=0"
                     resizable="width"
                 />
-                <canvas
+                <module
+                    id="m_resources_canvas"
+                    from="src"
+                    import="resources_canvas"
+                />
+                <widget
                     id="res_planning"
                     name="canvas_resources_planning"
-                    bg="grey80"
-                    highlightbackground="grey20"
-                    highlightthickness="1"
-                    relief="solid"
-                    takefocus="false"
+                    class="ResourcesCanvas"
+                    module="m_resources_canvas"
                     layout="grid"
                     layout_options="row=1, column=0"
                     resizable="yes"

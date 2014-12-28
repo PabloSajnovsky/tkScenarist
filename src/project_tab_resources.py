@@ -393,6 +393,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             "email": self.entry_res_email,
         }
         self.TEXT = self.text_notes
+        self.CANVAS = self.canvas_resources_planning
         # event bindings
         self.bind_events(**kw)
         # reset once

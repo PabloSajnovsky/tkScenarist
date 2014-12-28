@@ -54,15 +54,6 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
-    def box_rel (self, (x0, y0), (width, height)):
-        """
-            returns box coordinates relative to (x0, y0) point of
-            origin and to (width, height);
-        """
-        return (x0, y0, x0 + width, y0 + height)
-    # end def
-
-
     def bind_events (self, **kw):
         """
             event bindings;
@@ -80,6 +71,17 @@ class ResourcesCanvas (RC.RADCanvas):
         self.bind("<ButtonRelease-1>", self.slot_drop)
         self.bind("<Control-ButtonRelease-1>", self.slot_remove_item)
         self.bind("<Double-Button-1>", self.slot_double_clicked)
+    # end def
+
+
+    def box_rel (self, xy0, width, height):
+        """
+            returns box coordinates relative to @xy0 (x0, y0) point of
+            origin and to @width, @height dimensions;
+        """
+        # inits
+        x0, y0 = xy0
+        return (x0, y0, x0 + width, y0 + height)
     # end def
 
 

@@ -142,7 +142,7 @@ class ResourcesCanvas (RC.RADCanvas):
 
     def get_file_contents (self):
         """
-            returns file contents for characters relation links;
+            returns file contents as string of chars;
         """
         # inits
         _dict = dict()
@@ -256,8 +256,9 @@ class ResourcesCanvas (RC.RADCanvas):
 
     def slot_double_clicked (self, event=None, *args, **kw):
         """
-            event handler for mouse double-clicking;
+            event handler: mouse double-clicked;
         """
+        print("slot_double_clicked")
         # param controls
         if event:
             # inits
@@ -269,8 +270,9 @@ class ResourcesCanvas (RC.RADCanvas):
 
     def slot_drag_pending (self, event=None, *args, **kw):
         """
-            event handler for pending D'n'D on mouse motion;
+            event handler: pending D'n'D on mouse motion;
         """
+        print("slot_drag_pending")
         # param controls
         if event:
             # dragging something?
@@ -297,8 +299,9 @@ class ResourcesCanvas (RC.RADCanvas):
 
     def slot_drop (self, event=None, *args, **kw):
         """
-            event handler for D'n'D dropping on mouse release;
+            event handler: D'n'D dropping on mouse release;
         """
+        print("slot_drop")
         # param controls
         if event and self.drag_mode:
             # inits
@@ -314,8 +317,9 @@ class ResourcesCanvas (RC.RADCanvas):
 
     def slot_remove_item (self, event=None, *args, **kw):
         """
-            event handler for Ctrl+Click;
+            event handler: mouse Ctrl+Click;
         """
+        print("slot_remove_item")
         # param controls
         if event:
             # inits
@@ -333,6 +337,7 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             event handler: mouse Drag-and-drop feature;
         """
+        print("slot_start_drag")
         # inits
         self.dnd_reset()
         # got mouse event?
@@ -350,6 +355,7 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             event handler for canvas contents updating;
         """
+        print("update_canvas")
         # inits
         _bbox = self.bbox("all")
         # got items?
@@ -373,7 +379,8 @@ class ResourcesCanvas (RC.RADCanvas):
 
     def viewport_center_xy (self):
         """
-            returns (x, y) coordinates of viewport's center point;
+            returns (x, y) real canvas coordinates of viewport's center
+            point;
         """
         # inits
         x, y = self.center_xy()

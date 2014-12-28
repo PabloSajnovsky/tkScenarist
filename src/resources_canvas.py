@@ -229,17 +229,13 @@ class ResourcesCanvas (RC.RADCanvas):
 
 
     def init_widget (self, **kw):
-        r"""
+        """
             virtual method to be implemented in subclass;
         """
         # date ruler inits
-        self.date_ruler = RCDateRuler(
-            self, tag=self.get_new_tag("date_ruler")
-        )
+        self.date_ruler = RCDateRuler(self)
         # item list inits
-        self.item_list = RCItemList(
-            self, tag=self.get_new_tag("item_list")
-        )
+        self.item_list = RCItemList(self)
         # member inits
         self.init_members(**kw)
         # event bindings

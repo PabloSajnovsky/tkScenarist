@@ -493,7 +493,7 @@ class RCDateRuler:
         self.canvas.delete(self.tag)
         # redraw frame
         self.frame_id = self.canvas.create_rectangle(
-            -1, -1, -1, -1,
+            0, 0, 0, 0,
             outline="black",
             fill="grey90",
             width=1,
@@ -573,7 +573,7 @@ class RCItemList:
         self.canvas.delete(self.tag)
         # redraw frame
         self.frame_id = self.canvas.create_rectangle(
-            -1, -1, -1, -1,
+            0, 0, 0, 0,
             outline="black",
             fill="grey90",
             width=1,

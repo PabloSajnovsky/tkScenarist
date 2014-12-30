@@ -491,6 +491,8 @@ class RCDateRuler:
     # class constant defs
     XY_ORIGIN = (0, 0)
 
+    SCALES = ("days", "weeks", "months")
+
 
     def __init__ (self, canvas, **kw):
         """
@@ -498,15 +500,115 @@ class RCDateRuler:
         """
         # member inits
         self.canvas = canvas
-        self.date_min = kw.get("date_min") or date.today()
-        self.date_max = (
-            kw.get("date_max") or
-            self.date_min + timedelta(days=7)
-        )
-        self.tag = (
-            kw.get("tag") or
-            "{}#{}".format(self.__class__.__name__, id(self))
-        )
+        self.date_min = kw.get("date_min")
+        self.date_max = kw.get("date_max")
+        self.tag = kw.get("tag")
+    # end def
+
+
+    @property
+    def date_max (self):
+        """
+            property attribute;
+            admits only instances of datetime.date class;
+            defaults to date.today() + 7 days if set to incorrect value;
+        """
+        return self.__date_max
+    # end def
+
+    @setter
+    def date_max (self, value):
+        # must be an instance of datetime.date class
+        if isinstance(value, date):
+            # inits
+            self.__date_max = value
+        # go to default value
+        else:
+            # defaults to today() + 7 days
+            self.__date_max = date.today() + timedelta(days=7)
+        # end if
+    # end def
+
+    @deleter
+    def date_max (self):
+        del self.__date_max
+    # end def
+
+
+    @property
+    def date_min (self):
+        """
+            property attribute;
+            admits only instances of datetime.date class;
+            defaults to date.today() if set to incorrect value;
+        """
+        return self.__date_min
+    # end def
+
+    @date_min.setter
+    def date_min (self, value):
+        # must be an instance of datetime.date class
+        if isinstance(value, date):
+            # inits
+            self.__date_min = value
+        # go to default value
+        else:
+            # defaults to today()
+            self.__date_min = date.today()
+        # end if
+    # end def
+
+    @date_min.deleter
+    def date_min (self):
+        del self.__date_min
+    # end def
+
+
+    def fill_with_days (self, *args, **kw):
+        """
+            fills ruler with day values between date min and date max;
+        """
+        print("fill_with_days")
+        # reset ruler
+        self.reset()
+        pass                                                                # FIXME
+    # end def
+
+
+    def fill_with_months (self, *args, **kw):
+        """
+            fills ruler with month values between date min and date max;
+        """
+        print("fill_with_months")
+        # reset ruler
+        self.reset()
+        pass                                                                # FIXME
+    # end def
+
+
+    def fill_with_weeks (self, *args, **kw):
+        """
+            fills ruler with week values between date min and date max;
+        """
+        print("fill_with_weeks")
+        # reset ruler
+        self.reset()
+        pass                                                                # FIXME
+    # end def
+
+
+    def get_scale_name (self, scale=None):
+        """
+            returns scale name along with @scale value, if given or
+            along with self.scale otherwise;
+            admitted values are 0 (days), 1 (weeks) and 2 (months);
+        """
+        # inits
+        _index = scale if scale is not None else self.scale
+        # adjust index
+        _index = int(_index) % len(self.SCALES)
+        # return scale name
+        return self.SCALES[_index]
     # end def
 
 
@@ -524,6 +626,23 @@ class RCDateRuler:
             width=1,
             tags=self.tag,
         )
+    # end def
+
+
+    def update (self, *args, **kw):
+        """
+            fills date ruler with new values along with scale
+            resolution, e.g. scale=0 (days), scale=1 (weeks), scale=2
+            (months);
+            admits 'date_min' and 'date_max' keywords;
+            dates must be of Python's datetime.date() format;
+        """
+        # inits
+        self.scale = kw.get("scale")
+        self.date_min = kw.get("date_min")
+        self.date_max = kw.get("date_max")
+        # fill along with scale resolution
+        getattr(self, "fill_with_{}".format(self.get_scale_name()))()
     # end def
 
 # end class RCDateRuler

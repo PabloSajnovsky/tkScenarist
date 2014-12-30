@@ -183,6 +183,22 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
+    def get_group_tag (self, list_ids):
+        """
+            retrieves group tag from @list_ids;
+        """
+        # param controls
+        if list_ids:
+            # get foreground id tags
+            _tags = self.gettags(list_ids[-1]) or [""]
+            # extract group tag
+            return _tags[0]
+        # end if
+        # failed
+        return ""
+    # end def
+
+
     def get_new_tag (self, tag_radix=None):
         """
             returns a new canvas tag name indexed with

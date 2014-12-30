@@ -673,6 +673,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                     _lb.items[_new_name] = _rowid
                     # update database
                     self.database.res_rename_type(_rowid, _new_name)
+                    # update canvas
+                    self.CANVAS.item_list_rename(_old_name, _new_name)
                     # notify app
                     self.events.raise_event("Project:Modified")
                 # end if

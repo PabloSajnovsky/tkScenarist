@@ -274,12 +274,12 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
-    def item_list_add (self, new_name, rowid):
+    def item_list_add (self, name, rowid):
         """
             adds new resource item in canvas;
         """
         # inits
-        self.item_list.fill_list()
+        self.item_list.fill_list()              # FIXME?
     # end def
 
 
@@ -288,7 +288,16 @@ class ResourcesCanvas (RC.RADCanvas):
             deletes resource item in canvas;
         """
         # inits
-        self.item_list.fill_list()
+        self.item_list.fill_list()              # FIXME?
+    # end def
+
+
+    def item_list_rename (self, old, new):
+        """
+            renames resource item in canvas;
+        """
+        # inits
+        self.item_list.fill_list()              # FIXME?
     # end def
 
 

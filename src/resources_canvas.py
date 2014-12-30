@@ -714,9 +714,9 @@ class RCDateRuler:
             dates must be of Python's datetime.date() format;
         """
         # inits
-        self.scale = kw.get("scale")
-        self.date_min = kw.get("date_min")
-        self.date_max = kw.get("date_max")
+        self.scale = kw.get("scale", self.scale)
+        self.date_min = kw.get("date_min", self.date_min)
+        self.date_max = kw.get("date_max", self.date_max)
         # fill along with scale resolution
         getattr(self, "fill_with_{}".format(self.get_scale_name()))()
     # end def
@@ -741,10 +741,7 @@ class RCItemList:
         # member inits
         self.canvas = canvas
         self.items = kw.get("items") or dict()
-        self.tag = (
-            kw.get("tag") or
-            "{}#{}".format(self.__class__.__name__, id(self))
-        )
+        self.tag = kw.get("tag")
         self.tag_labels = "{}_labels".format(self.tag)
     # end def
 
@@ -799,6 +796,36 @@ class RCItemList:
             width=1,
             tags=self.tag,
         )
+    # end def
+
+
+    @property
+    def tag (self):
+        """
+            property attribute;
+            must be a string;
+            defaults to '{classname}#{id(self)}' on incorrect value;
+        """
+        return self.__tag
+    # end def
+
+    @tag.setter
+    def tag (self, value):
+        # must be a string of chars
+        if value and isinstance(value, str):
+            # inits
+            self.__tag = value
+        else:
+            # default
+            self.__tag = (
+                "{}#{}".format(self.__class__.__name__, id(self))
+            )
+        # end if
+    # end def
+
+    @tag.deleter
+    def tag (self):
+        del self.__tag
     # end def
 
 # end class RCItemList

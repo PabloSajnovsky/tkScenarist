@@ -274,6 +274,33 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
+    def item_list_add (self, new_name, rowid):
+        """
+            adds new resource item in canvas;
+        """
+        # inits
+        self.item_list.fill_list()
+    # end def
+
+
+    def item_list_del (self, name):
+        """
+            deletes resource item in canvas;
+        """
+        # inits
+        self.item_list.fill_list()
+    # end def
+
+
+    def item_list_update (self, item_dict):
+        """
+            updates list of resource items in canvas;
+        """
+        # inits
+        self.item_list.fill_list(item_dict)
+    # end def
+
+
     def reset (self, *args, **kw):
         """
             resets canvas to new;
@@ -416,15 +443,6 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
-    def update_item_list (self, item_dict):
-        """
-            updates list of resource items in canvas;
-        """
-        # inits
-        self.item_list.fill_list(item_dict)
-    # end def
-
-
     def viewport_center_xy (self):
         """
             returns (x, y) real canvas coordinates of viewport's center
@@ -502,7 +520,7 @@ class RCItemList:
         """
         # member inits
         self.canvas = canvas
-        self.items = kw.get("items") or list()
+        self.items = kw.get("items") or dict()
         self.tag = (
             kw.get("tag") or
             "{}#{}".format(self.__class__.__name__, id(self))
@@ -511,13 +529,12 @@ class RCItemList:
     # end def
 
 
-    def fill_list (self, item_dict):
+    def fill_list (self, item_dict=None):
         """
             fills list with items in @item_dict;
         """
         # inits
-        self.items = item_dict
-        _items = sorted(item_dict.keys())
+        self.items = item_dict or self.items
         _x0, _y0 = self.XY_ORIGIN
         # adjust coords
         _x0 += 5
@@ -525,7 +542,7 @@ class RCItemList:
         # clear list
         self.reset()
         # browse items
-        for _index, _item in enumerate(_items):
+        for _index, _item in enumerate(sorted(self.items.keys())):
             # add text label
             self.canvas.create_text(
                 _x0, _y0 + 20 * _index,

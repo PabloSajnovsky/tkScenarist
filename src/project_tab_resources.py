@@ -469,7 +469,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         # update widgets state
         self.slot_update_inputs()
         # update canvas' item list
-        self.CANVAS.update_item_list(_dict)
+        self.CANVAS.item_list_update(_dict)
     # end def
 
 
@@ -595,6 +595,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                     _lb.see(_index)
                     _lb.selection_set(_index)
                     self.slot_listbox_item_selected()
+                    # update canvas
+                    self.CANVAS.item_list_add(_new_name, _rowid)
                     # notify app
                     self.events.raise_event("Project:Modified")
                 # end if
@@ -632,6 +634,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                     _lb.selection_set(_index)
                     self.slot_listbox_item_selected()
                 # end if
+                # update canvas
+                self.CANVAS.item_list_del(_label)
                 # notify app
                 self.events.raise_event("Project:Modified")
             # end if

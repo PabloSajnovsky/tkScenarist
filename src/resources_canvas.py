@@ -296,6 +296,8 @@ class ResourcesCanvas (RC.RADCanvas):
         """
         # inits
         self.item_list.fill_list()              # FIXME?
+        # update canvas
+        self.update_canvas()
     # end def
 
 
@@ -305,6 +307,8 @@ class ResourcesCanvas (RC.RADCanvas):
         """
         # inits
         self.item_list.fill_list()              # FIXME?
+        # update canvas
+        self.update_canvas()
     # end def
 
 
@@ -314,6 +318,8 @@ class ResourcesCanvas (RC.RADCanvas):
         """
         # inits
         self.item_list.fill_list()              # FIXME?
+        # update canvas
+        self.update_canvas()
     # end def
 
 
@@ -323,6 +329,8 @@ class ResourcesCanvas (RC.RADCanvas):
         """
         # inits
         self.item_list.fill_list(item_dict)
+        # update canvas
+        self.update_canvas()
     # end def
 
 

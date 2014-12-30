@@ -403,11 +403,11 @@ class ResourcesCanvas (RC.RADCanvas):
             x0, y0, x1, y1 = _bbox
             _cw, _ch = self.size_xy()
             x0, y0 = (min(0, x0 + 1), min(0, y0 + 1))
-            x1, y1 = (max(x1 - 1, _cw), max(y1 - 1, _ch))
+            #~ x1, y1 = (max(x1 - 1, _cw), max(y1 - 1, _ch))
             # reset scroll region size
             self.configure(scrollregion=(x0, y0, x1, y1))
             # project has been modified
-            self.events.raise_event("Project:Modified")
+            #~ self.events.raise_event("Project:Modified")
         # no items
         else:
             # better clean up everything

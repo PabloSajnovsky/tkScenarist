@@ -502,6 +502,7 @@ class RCDateRuler:
         self.canvas = canvas
         self.date_min = kw.get("date_min")
         self.date_max = kw.get("date_max")
+        self.scale = kw.get("scale")
         self.tag = kw.get("tag")
     # end def
 
@@ -516,7 +517,7 @@ class RCDateRuler:
         return self.__date_max
     # end def
 
-    @setter
+    @date_max.setter
     def date_max (self, value):
         # must be an instance of datetime.date class
         if isinstance(value, date):
@@ -529,7 +530,7 @@ class RCDateRuler:
         # end if
     # end def
 
-    @deleter
+    @date_max.deleter
     def date_max (self):
         del self.__date_max
     # end def
@@ -603,12 +604,26 @@ class RCDateRuler:
             along with self.scale otherwise;
             admitted values are 0 (days), 1 (weeks) and 2 (months);
         """
-        # inits
-        _index = scale if scale is not None else self.scale
-        # adjust index
-        _index = int(_index) % len(self.SCALES)
-        # return scale name
-        return self.SCALES[_index]
+        return self.SCALES[
+            self.get_scale_value(
+                self.scale if scale is None else scale
+            )
+        ]
+    # end def
+
+
+    def get_scale_value (self, value):
+        """
+            rebinds @value such as 0 <= @value < len(self.SCALES);
+            defaults to 0 on incorrect @value;
+        """
+        # must be an integer
+        try:
+            return int(value) % len(self.SCALES)
+        except:
+            # default to nil
+            return 0
+        # end try
     # end def
 
 
@@ -626,6 +641,29 @@ class RCDateRuler:
             width=1,
             tags=self.tag,
         )
+    # end def
+
+
+    @property
+    def scale (self):
+        """
+            property attribute;
+            admits only integers;
+            is automatically rebound to 0 <= s < len(self.SCALES);
+            defaults to 0 on incorrect values;
+        """
+        return self.__scale
+    # end def
+
+    @scale.setter
+    def scale (self, value):
+        # inits
+        self.__scale = self.get_scale_value(value)
+    # end def
+
+    @scale.deleter
+    def scale (self):
+        del self.__scale
     # end def
 
 

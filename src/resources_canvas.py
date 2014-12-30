@@ -667,6 +667,36 @@ class RCDateRuler:
     # end def
 
 
+    @property
+    def tag (self):
+        """
+            property attribute;
+            must be a string;
+            defaults to '{classname}#{id(self)}' on incorrect value;
+        """
+        return self.__tag
+    # end def
+
+    @tag.setter
+    def tag (self, value):
+        # must be a string of chars
+        if value and isinstance(value, str):
+            # inits
+            self.__tag = value
+        else:
+            # default
+            self.__tag = (
+                "{}#{}".format(self.__class__.__name__, id(self))
+            )
+        # end if
+    # end def
+
+    @tag.deleter
+    def tag (self):
+        del self.__tag
+    # end def
+
+
     def update (self, *args, **kw):
         """
             fills date ruler with new values along with scale

@@ -54,6 +54,24 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
+    def bbox_size (self, tag_or_id):
+        """
+            returns box size (width, height) of bbox(tag_or_id);
+        """
+        # inits
+        _bbox = self.bbox(tag_or_id)
+        # got bbox?
+        if _bbox:
+            # inits
+            _x0, _y0, _x1, _y1 = _bbox
+            # return box size
+            return (abs(_x1 - _x0), abs(_y1 - _y0))
+        # end if
+        # failed - no dims
+        return (0, 0)
+    # end def
+
+
     def bind_events (self, **kw):
         """
             event bindings;
@@ -401,6 +419,12 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
+    def update_item_list (self, item_dict):
+        """
+            updates list of resource items in canvas;
+        """
+
+
     def viewport_center_xy (self):
         """
             returns (x, y) real canvas coordinates of viewport's center
@@ -483,6 +507,42 @@ class RCItemList:
             kw.get("tag") or
             "{}#{}".format(self.__class__.__name__, id(self))
         )
+        self.tag_labels = "{}_labels".format(self.tag)
+    # end def
+
+
+    def fill_list (self, *items):
+        """
+            fills list with @items;
+        """
+        # inits
+        _x0, _y0 = self.XY_ORIGIN
+        # adjust coords
+        _x0 += 5
+        _y0 += 5
+        # clear list
+        self.reset()
+        # browse items
+        for _index, _item in enumerate(items):
+            # add text label
+            self.canvas.create_text(
+                _x0, _y0 + 20 * _index,
+                anchor="nw",
+                fill="black",
+                font="sans 10",
+                text=_item,
+                tags=(self.tag, self.tag_labels),
+            )
+        # end for
+        # update box size
+        _w, _h = self.canvas.bbox_size(self.tag_labels)
+        self.canvas.coords(
+            self.frame_id,
+            *self.canvas.box_rel(self.XY_ORIGIN, _w + 10, _h + 10)
+        )
+        # raise tags upon any other
+        self.canvas.tag_raise(self.tag, "all")
+        self.canvas.tag_raise(self.tag_labels, self.frame_id)
     # end def
 
 
@@ -494,7 +554,7 @@ class RCItemList:
         self.canvas.delete(self.tag)
         # redraw frame
         self.frame_id = self.canvas.create_rectangle(
-            self.canvas.box_rel(self.XY_ORIGIN, 200, 300),
+            self.canvas.box_rel(self.XY_ORIGIN, 0, 0),
             outline="black",
             fill="grey90",
             width=1,

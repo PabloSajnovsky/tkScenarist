@@ -468,6 +468,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         self.LBOX_ITEM.items = _dict
         # update widgets state
         self.slot_update_inputs()
+        # update canvas' item list
+        self.CANVAS.update_item_list(_dict)
     # end def
 
 

@@ -395,22 +395,19 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             event handler for canvas contents updating;
         """
-        print("update_canvas")
         # inits
         _bbox = self.bbox("all")
         # got items?
         if _bbox:
-            print("bbox:", _bbox)
             # get all contents bbox
             x0, y0, x1, y1 = _bbox
             _cw, _ch = self.size_xy()
             x0, y0 = (min(0, x0 + 1), min(0, y0 + 1))
-            #~ x1, y1 = (max(x1 - 1, _cw), max(y1 - 1, _ch))
+            x1, y1 = (max(x1 - 1, _cw), max(y1 - 1, _ch))
             # reset scroll region size
             self.configure(scrollregion=(x0, y0, x1, y1))
-            print("scrollregion:", self.cget("scrollregion"))
             # project has been modified
-            #~ self.events.raise_event("Project:Modified")
+            self.events.raise_event("Project:Modified")
         # no items
         else:
             # better clean up everything
@@ -423,6 +420,9 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             updates list of resource items in canvas;
         """
+        # inits
+        self.item_list.fill_list(item_dict)
+    # end def
 
 
     def viewport_center_xy (self):
@@ -511,11 +511,13 @@ class RCItemList:
     # end def
 
 
-    def fill_list (self, *items):
+    def fill_list (self, item_dict):
         """
-            fills list with @items;
+            fills list with items in @item_dict;
         """
         # inits
+        self.items = item_dict
+        _items = sorted(item_dict.keys())
         _x0, _y0 = self.XY_ORIGIN
         # adjust coords
         _x0 += 5
@@ -523,7 +525,7 @@ class RCItemList:
         # clear list
         self.reset()
         # browse items
-        for _index, _item in enumerate(items):
+        for _index, _item in enumerate(_items):
             # add text label
             self.canvas.create_text(
                 _x0, _y0 + 20 * _index,

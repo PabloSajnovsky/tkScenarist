@@ -641,11 +641,11 @@ class RCDateRuler:
                 width=1,
             )
         # end for
-        # get coords
-        _x1 = self.canvas.bbox(self.tag_labels)[2]
         # draw frame
         self.frame_id = self.canvas.create_rectangle(
-            _x0, _y0, _x1, _y0 - self.RULER_HEIGHT,
+            _x0, _y0,
+            self.canvas.bbox(self.tag_labels)[2],
+            _y0 - self.RULER_HEIGHT,
             outline="black",
             fill="grey90",
             width=1,

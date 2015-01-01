@@ -497,11 +497,16 @@ class RCDateRuler:
     """
 
     # class constant defs
-    XY_ORIGIN = (0, 0)
+
+    FONT = "sans 8"
+
+    PAD_X = 10
 
     RULER_HEIGHT = 30
 
     SCALES = ("days", "weeks", "months")
+
+    XY_ORIGIN = (0, 0)
 
 
     def __init__ (self, canvas, **kw):
@@ -515,6 +520,7 @@ class RCDateRuler:
         self.scale = kw.get("scale")
         self.tag = kw.get("tag")
         self.tag_labels = "{}_labels".format(self.tag)
+        self.tick_width = 0
     # end def
 
 
@@ -582,40 +588,64 @@ class RCDateRuler:
         """
         print("fill_with_days")
         # inits
-        _rel_x = 0
-        _pad_x = 10
-        _x, _y = self.XY_ORIGIN
-        _x += 5
-        _y += self.RULER_HEIGHT - 5
+        self.tick_width = 0
+        _labels = list()
+        _x0, _y0 = self.XY_ORIGIN
+        _y0 += self.RULER_HEIGHT
+        _y = _y0 - 5
         _cur_date = min(self.date_min, self.date_max)
         _end_date = max(self.date_min, self.date_max)
-        _first = True
         # reset ruler
         self.reset()
         # loop till reached
         while _cur_date <= _end_date:
             # insert text label
             _id = self.canvas.create_text(
-                _x, _y,
-                anchor="sw",
+                _x0, _y,
+                anchor="s",
                 fill="black",
-                font="sans 8",
-                text="toto",
+                font=self.FONT,
+                text=_cur_date.strftime("%a %d"),
                 tags=(self.tag, self.tag_labels),
             )
+            # add to list
+            _labels.append(_id)
             # get size
             _w, _h = self.canvas.bbox_size(_id)
-            # next label
-            _x += _w + _pad_x
-            # compute deferred adjustments
-            if _first:
-                # no op
-                _first = False
-            else:
-                _delta = _w - _rel_x
-                _rel_x += _delta if _delta > 0 else 0
-            # end if
+            # compute adjustments
+            self.tick_width = max(_w, self.tick_width)
+            # next date
+            _cur_date += timedelta(days=1)
         # end while
+        # adjust tick width
+        self.tick_width += self.PAD_X
+        # browse labels
+        for _index, _id in enumerate(_labels):
+            # inits
+            _x = _x0 + (_index + 1) * self.tick_width
+            # reset pos
+            self.canvas.coords(_id, _x, _y)
+            # draw tick
+            self.canvas.create_line(
+                _x, _y0, _x, _y0 - 3,
+                outline="black",
+                tags=(self.tag, self.tag_labels),
+                width=1,
+            )
+        # end for
+        # get size
+        _w, _h = self.canvas.bbox_size(self.tag_labels)
+        # draw frame
+        self.frame_id = self.canvas.create_rectangle(
+            _x0, _y0, _x0 + _w, _y0 - self.RULER_HEIGHT,
+            outline="black",
+            fill="grey90",
+            width=1,
+            tags=self.tag,
+        )
+        # raise ruler above all
+        self.canvas.tag_raise(self.tag, "all")
+        self.canvas.tag_raise(self.tag_labels, self.frame_id)
     # end def
 
 
@@ -676,14 +706,6 @@ class RCDateRuler:
         """
         # ensure no more previous
         self.canvas.delete(self.tag)
-        # redraw frame
-        self.frame_id = self.canvas.create_rectangle(
-            0, 0, 0, 0,
-            outline="black",
-            fill="grey90",
-            width=1,
-            tags=self.tag,
-        )
     # end def
 
 
@@ -807,9 +829,13 @@ class RCItemList:
         # end for
         # update box size
         _w, _h = self.canvas.bbox_size(self.tag_labels)
-        self.canvas.coords(
-            self.frame_id,
-            *self.canvas.box_rel(self.XY_ORIGIN, _w + 10, _h + 10)
+        # draw frame
+        self.frame_id = self.canvas.create_rectangle(
+            self.canvas.box_rel(self.XY_ORIGIN, _w + 10, _h + 10),
+            outline="black",
+            fill="grey90",
+            width=1,
+            tags=self.tag,
         )
         # raise tags upon any other
         self.canvas.tag_raise(self.tag, "all")
@@ -823,14 +849,6 @@ class RCItemList:
         """
         # ensure no more previous
         self.canvas.delete(self.tag)
-        # redraw frame
-        self.frame_id = self.canvas.create_rectangle(
-            0, 0, 0, 0,
-            outline="black",
-            fill="grey90",
-            width=1,
-            tags=self.tag,
-        )
     # end def
 
 

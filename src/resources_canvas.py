@@ -755,7 +755,7 @@ class RCDateRuler:
         """
         # must be an integer
         try:
-            return int(value) % len(self.SCALES)
+            return max(0, min(len(self.SCALES) - 1, int(value)))
         except:
             # default to nil
             return 0

@@ -329,6 +329,8 @@ class ResourcesCanvas (RC.RADCanvas):
         """
         # inits
         self.item_list.fill_list(item_dict)
+        # update date ruler
+        self.date_ruler.update()
         # update canvas
         self.update_canvas()
     # end def

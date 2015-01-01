@@ -24,6 +24,7 @@
 
 # lib imports
 import os
+import locale
 import webbrowser
 import tkinter.messagebox as MB
 import tkRAD
@@ -39,6 +40,8 @@ __builtins__["ENCODING"] = "UTF-8"
 __builtins__["STATE_MASK"] = (
     {"nt": 0x20084, "posix": 0x8c}.get(os.name, 0)
 )
+# i18n locale setup
+locale.setlocale(locale.LC_ALL, "")
 
 
 class MainWindow (tkRAD.RADXMLMainWindow):

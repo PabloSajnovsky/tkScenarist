@@ -329,8 +329,9 @@ class ResourcesCanvas (RC.RADCanvas):
         """
         # inits
         self.item_list.fill_list(item_dict)
+        _w, _h = self.item_list.size
         # update date ruler
-        self.date_ruler.update()
+        self.date_ruler.update(dx=_w-2)
         # update canvas
         self.update_canvas()
     # end def
@@ -502,7 +503,7 @@ class RCDateRuler:
 
     FONT = "sans 8"
 
-    PAD_X = 0
+    PAD_X = 5
 
     RULER_HEIGHT = 40
 
@@ -593,6 +594,7 @@ class RCDateRuler:
         self.tick_width = 0
         _labels = list()
         _x0, _y0 = self.XY_ORIGIN
+        _x1 = _x0 + (kw.get("dx") or 0)
         _y0 += self.RULER_HEIGHT
         _y = _y0 - 5
         _cur_date = min(self.date_min, self.date_max)
@@ -624,7 +626,7 @@ class RCDateRuler:
         # browse labels
         for _index, _id in enumerate(_labels):
             # inits
-            _x = _x0 + (_index + 1) * self.tick_width
+            _x = _x1 + (_index + 0.5) * self.tick_width
             # reset pos
             self.canvas.coords(_id, _x, _y)
             # draw tick
@@ -640,7 +642,7 @@ class RCDateRuler:
         # draw frame
         self.frame_id = self.canvas.create_rectangle(
             _x0, _y0,
-            _x0 + _w + self.tick_width, _y0 - self.RULER_HEIGHT,
+            _x1 + _w + self.tick_width//2, _y0 - self.RULER_HEIGHT,
             outline="black",
             fill="grey90",
             width=1,
@@ -778,7 +780,9 @@ class RCDateRuler:
         self.date_min = kw.get("date_min", self.date_min)
         self.date_max = kw.get("date_max", self.date_max)
         # fill along with scale resolution
-        getattr(self, "fill_with_{}".format(self.get_scale_name()))()
+        getattr(
+            self, "fill_with_{}".format(self.get_scale_name())
+        )(*args, **kw)
     # end def
 
 # end class RCDateRuler
@@ -852,6 +856,16 @@ class RCItemList:
         """
         # ensure no more previous
         self.canvas.delete(self.tag)
+    # end def
+
+
+    @property
+    def size (self):
+        """
+            property attribute;
+            read-only size (width, height);
+        """
+        return self.canvas.bbox_size(self.tag)
     # end def
 
 

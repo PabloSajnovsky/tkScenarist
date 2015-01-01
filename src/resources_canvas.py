@@ -368,9 +368,11 @@ class ResourcesCanvas (RC.RADCanvas):
         if event:
             # inits
             _scale = self.date_ruler.get_scale_value(
-                self.date_ruler.scale +
-                int(event.num == 4 or event.delta > 0)
-                - int(event.num == 5 or event.delta < 0)
+                self.date_ruler.scale
+                # scroll down increases scale
+                + int(event.num == 5 or event.delta < 0)
+                # scroll up decreases scale
+                - int(event.num == 4 or event.delta > 0)
             )
             # got to update?
             if _scale != self.date_ruler.scale:

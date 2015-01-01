@@ -499,6 +499,8 @@ class RCDateRuler:
     # class constant defs
     XY_ORIGIN = (0, 0)
 
+    RULER_HEIGHT = 30
+
     SCALES = ("days", "weeks", "months")
 
 
@@ -512,6 +514,7 @@ class RCDateRuler:
         self.date_max = kw.get("date_max")
         self.scale = kw.get("scale")
         self.tag = kw.get("tag")
+        self.tag_labels = "{}_labels".format(self.tag)
     # end def
 
 
@@ -578,9 +581,27 @@ class RCDateRuler:
             fills ruler with day values between date min and date max;
         """
         print("fill_with_days")
+        # inits
+        _rel_x = 0
+        _x, _y = self.XY_ORIGIN
+        _x += 5
+        _y += self.RULER_HEIGHT - 5
+        _cur_date = min(self.date_min, self.date_max)
+        _end_date = max(self.date_min, self.date_max)
         # reset ruler
         self.reset()
-        pass                                                                # FIXME
+        # loop till reached
+        while _cur_date <= _end_date:
+            # insert text label
+            _id = self.canvas.create_text(
+                _x, _y,
+                anchor="sw",
+                fill="black",
+                font="sans 8",
+                text="toto",
+                tags=(self.tag, self.tag_labels)
+            )
+        # end while
     # end def
 
 

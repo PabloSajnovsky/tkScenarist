@@ -89,6 +89,9 @@ class ResourcesCanvas (RC.RADCanvas):
         self.bind("<ButtonRelease-1>", self.slot_drop)
         self.bind("<Control-ButtonRelease-1>", self.slot_remove_item)
         self.bind("<Double-Button-1>", self.slot_double_clicked)
+        self.bind("<Control-Button-4>", self.slot_change_date_scale)
+        self.bind("<Control-Button-5>", self.slot_change_date_scale)
+        self.bind("<Control-MouseWheel>", self.slot_change_date_scale)
     # end def
 
 
@@ -331,7 +334,7 @@ class ResourcesCanvas (RC.RADCanvas):
         self.item_list.fill_list(item_dict)
         _w, _h = self.item_list.size
         # update date ruler
-        self.date_ruler.update(dx=_w-2, scale=2, date_max=date(2015, 6, 20))
+        self.date_ruler.update(offset_x=_w-2, date_max=date(2020, 6, 20))
         # update canvas
         self.update_canvas()
     # end def
@@ -354,6 +357,21 @@ class ResourcesCanvas (RC.RADCanvas):
         """
         # get coordinates
         return (self.winfo_reqwidth(), self.winfo_reqheight())
+    # end def
+
+
+    def slot_change_date_scale (self, event=None, *args, **kw):
+        """
+            event handler: Ctrl-MouseWheel changes date scale;
+        """
+        print("slot_change_date_scale")
+        # param controls
+        if event:
+            # inits
+            _scale = self.date_ruler.scale
+            # update date ruler
+            self.date_ruler.update(scale=_scale)
+        # end if
     # end def
 
 
@@ -523,6 +541,7 @@ class RCDateRuler:
         self.scale = kw.get("scale")
         self.tag = kw.get("tag")
         self.tag_labels = "{}_labels".format(self.tag)
+        self.tick_offset = 0
         self.tick_width = 0
     # end def
 
@@ -598,7 +617,7 @@ class RCDateRuler:
         _cb_next = kw.get("next_date")
         _labels = list()
         _x0, _y0 = self.XY_ORIGIN
-        _x1 = _x0 + (kw.get("dx") or 0)
+        _x1 = _x0 + self.tick_offset
         _y0 += self.RULER_HEIGHT
         _y = _y0 - 5
         _cur_date = min(self.date_min, self.date_max)
@@ -661,11 +680,10 @@ class RCDateRuler:
         """
             fills ruler with day values between date min and date max;
         """
-        print("fill_with_days")
         # call with callbacks
         self.draw_ruler(
             *args,
-            get_date_label=lambda d:d.strftime("%a %x"),
+            get_date_label=lambda d: d.strftime("%a %x"),
             next_date=lambda d: d + timedelta(days=1),
             **kw
         )
@@ -676,7 +694,6 @@ class RCDateRuler:
         """
             fills ruler with month values between date min and date max;
         """
-        print("fill_with_months")
         # subfunction def
         def next_month (cdate):
             # inits
@@ -693,7 +710,7 @@ class RCDateRuler:
         # call with callbacks
         self.draw_ruler(
             *args,
-            get_date_label=lambda d:d.strftime("%b %Y"),
+            get_date_label=lambda d: d.strftime("%b %Y"),
             next_date=next_month,
             **kw
         )
@@ -704,11 +721,10 @@ class RCDateRuler:
         """
             fills ruler with week values between date min and date max;
         """
-        print("fill_with_weeks")
         # call with callbacks
         self.draw_ruler(
             *args,
-            get_date_label=lambda d:d.strftime("%a %x"),
+            get_date_label=lambda d: d.strftime("%a %x"),
             next_date=lambda d: d + timedelta(days=7),
             **kw
         )
@@ -815,9 +831,10 @@ class RCDateRuler:
             dates must be of Python's datetime.date() format;
         """
         # inits
-        self.scale = kw.get("scale", self.scale)
-        self.date_min = kw.get("date_min", self.date_min)
-        self.date_max = kw.get("date_max", self.date_max)
+        self.tick_offset = kw.pop("offset_x", self.tick_offset)
+        self.scale = kw.pop("scale", self.scale)
+        self.date_min = kw.pop("date_min", self.date_min)
+        self.date_max = kw.pop("date_max", self.date_max)
         # fill along with scale resolution
         getattr(
             self, "fill_with_{}".format(self.get_scale_name())

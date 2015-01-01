@@ -502,9 +502,9 @@ class RCDateRuler:
 
     FONT = "sans 8"
 
-    PAD_X = 10
+    PAD_X = 0
 
-    RULER_HEIGHT = 30
+    RULER_HEIGHT = 40
 
     SCALES = ("days", "weeks", "months")
 
@@ -630,7 +630,7 @@ class RCDateRuler:
             # draw tick
             self.canvas.create_line(
                 _x, _y0, _x, _y0 - 3,
-                outline="black",
+                fill="black",
                 tags=(self.tag, self.tag_labels),
                 width=1,
             )
@@ -639,7 +639,8 @@ class RCDateRuler:
         _w, _h = self.canvas.bbox_size(self.tag_labels)
         # draw frame
         self.frame_id = self.canvas.create_rectangle(
-            _x0, _y0, _x0 + _w, _y0 - self.RULER_HEIGHT,
+            _x0, _y0,
+            _x0 + _w + self.tick_width, _y0 - self.RULER_HEIGHT,
             outline="black",
             fill="grey90",
             width=1,
@@ -790,7 +791,7 @@ class RCItemList:
     """
 
     # class constant defs
-    XY_ORIGIN = (0, 30)
+    XY_ORIGIN = (0, 40)
 
 
     def __init__ (self, canvas, **kw):

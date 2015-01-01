@@ -368,12 +368,18 @@ class ResourcesCanvas (RC.RADCanvas):
         # param controls
         if event:
             # inits
-            self.date_ruler.scale += (
+            _scale = self.date_ruler.get_scale_value(
+                self.date_ruler.scale +
                 int(event.num == 4 or event.delta > 0)
-                or int(event.num == 5 or event.delta < 0)
+                - int(event.num == 5 or event.delta < 0)
             )
-            # update date ruler
-            self.date_ruler.update()
+            # got to update?
+            if _scale != self.date_ruler.scale:
+                # update date ruler
+                self.date_ruler.update(scale=_scale)
+                # update canvas
+                self.update_canvas()
+            # end if
         # end if
     # end def
 

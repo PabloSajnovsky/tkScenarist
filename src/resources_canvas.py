@@ -334,7 +334,7 @@ class ResourcesCanvas (RC.RADCanvas):
         self.item_list.fill_list(item_dict)
         _w, _h = self.item_list.size
         # update date ruler
-        self.date_ruler.update(offset_x=_w-2, date_max=date(2020, 6, 20))
+        self.date_ruler.update(offset_x=_w-2)
         # update canvas
         self.update_canvas()
     # end def

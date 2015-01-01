@@ -583,11 +583,13 @@ class RCDateRuler:
         print("fill_with_days")
         # inits
         _rel_x = 0
+        _pad_x = 10
         _x, _y = self.XY_ORIGIN
         _x += 5
         _y += self.RULER_HEIGHT - 5
         _cur_date = min(self.date_min, self.date_max)
         _end_date = max(self.date_min, self.date_max)
+        _first = True
         # reset ruler
         self.reset()
         # loop till reached
@@ -599,8 +601,20 @@ class RCDateRuler:
                 fill="black",
                 font="sans 8",
                 text="toto",
-                tags=(self.tag, self.tag_labels)
+                tags=(self.tag, self.tag_labels),
             )
+            # get size
+            _w, _h = self.canvas.bbox_size(_id)
+            # next label
+            _x += _w + _pad_x
+            # compute deferred adjustments
+            if _first:
+                # no op
+                _first = False
+            else:
+                _delta = _w - _rel_x
+                _rel_x += _delta if _delta > 0 else 0
+            # end if
         # end while
     # end def
 

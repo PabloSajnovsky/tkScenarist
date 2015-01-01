@@ -331,7 +331,7 @@ class ResourcesCanvas (RC.RADCanvas):
         self.item_list.fill_list(item_dict)
         _w, _h = self.item_list.size
         # update date ruler
-        self.date_ruler.update(dx=_w-2)
+        self.date_ruler.update(dx=_w-2, date_max=date(2015, 6, 20))
         # update canvas
         self.update_canvas()
     # end def
@@ -505,7 +505,7 @@ class RCDateRuler:
 
     PAD_X = 5
 
-    RULER_HEIGHT = 40
+    RULER_HEIGHT = 24
 
     SCALES = ("days", "weeks", "months")
 
@@ -585,13 +585,17 @@ class RCDateRuler:
     # end def
 
 
-    def fill_with_days (self, *args, **kw):
+    def draw_ruler (self, *args, **kw):
         """
-            fills ruler with day values between date min and date max;
+            really draws ruler along with callback functions; requires
+            'get_date_label' and 'next_date' keywords / callback
+            functions; callback function must admit a datetime.date
+            object as unique input parameter;
         """
-        print("fill_with_days")
         # inits
         self.tick_width = 0
+        _cb_label = kw.get("get_date_label")
+        _cb_next = kw.get("next_date")
         _labels = list()
         _x0, _y0 = self.XY_ORIGIN
         _x1 = _x0 + (kw.get("dx") or 0)
@@ -609,7 +613,7 @@ class RCDateRuler:
                 anchor="s",
                 fill="black",
                 font=self.FONT,
-                text=_cur_date.strftime("%a %d"),
+                text=_cb_label(_cur_date),
                 tags=(self.tag, self.tag_labels),
             )
             # add to list
@@ -619,14 +623,14 @@ class RCDateRuler:
             # compute adjustments
             self.tick_width = max(_w, self.tick_width)
             # next date
-            _cur_date += timedelta(days=1)
+            _cur_date = _cb_next(_cur_date)
         # end while
         # adjust tick width
         self.tick_width += self.PAD_X
         # browse labels
         for _index, _id in enumerate(_labels):
             # inits
-            _x = _x1 + (_index + 0.5) * self.tick_width
+            _x = _x1 + _index * self.tick_width
             # reset pos
             self.canvas.coords(_id, _x, _y)
             # draw tick
@@ -637,12 +641,11 @@ class RCDateRuler:
                 width=1,
             )
         # end for
-        # get size
-        _w, _h = self.canvas.bbox_size(self.tag_labels)
+        # get coords
+        _x1 = self.canvas.bbox(self.tag_labels)[2]
         # draw frame
         self.frame_id = self.canvas.create_rectangle(
-            _x0, _y0,
-            _x1 + _w + self.tick_width//2, _y0 - self.RULER_HEIGHT,
+            _x0, _y0, _x1, _y0 - self.RULER_HEIGHT,
             outline="black",
             fill="grey90",
             width=1,
@@ -651,6 +654,21 @@ class RCDateRuler:
         # raise ruler above all
         self.canvas.tag_raise(self.tag, "all")
         self.canvas.tag_raise(self.tag_labels, self.frame_id)
+    # end def
+
+
+    def fill_with_days (self, *args, **kw):
+        """
+            fills ruler with day values between date min and date max;
+        """
+        print("fill_with_days")
+        # call with callbacks
+        self.draw_ruler(
+            *args,
+            get_date_label=lambda d:d.strftime("%a %x"),
+            next_date=lambda d: d + timedelta(days=1),
+            **kw
+        )
     # end def
 
 
@@ -670,9 +688,13 @@ class RCDateRuler:
             fills ruler with week values between date min and date max;
         """
         print("fill_with_weeks")
-        # reset ruler
-        self.reset()
-        pass                                                                # FIXME
+        # call with callbacks
+        self.draw_ruler(
+            *args,
+            get_date_label=lambda d:d.strftime("%a %x"),
+            next_date=lambda d: d + timedelta(days=7),
+            **kw
+        )
     # end def
 
 
@@ -795,7 +817,7 @@ class RCItemList:
     """
 
     # class constant defs
-    XY_ORIGIN = (0, 40)
+    XY_ORIGIN = (0, RCDateRuler.RULER_HEIGHT)
 
 
     def __init__ (self, canvas, **kw):

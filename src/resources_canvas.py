@@ -331,7 +331,7 @@ class ResourcesCanvas (RC.RADCanvas):
         self.item_list.fill_list(item_dict)
         _w, _h = self.item_list.size
         # update date ruler
-        self.date_ruler.update(dx=_w-2, scale=0)
+        self.date_ruler.update(dx=_w-2, scale=2, date_max=date(2015, 6, 20))
         # update canvas
         self.update_canvas()
     # end def
@@ -677,9 +677,26 @@ class RCDateRuler:
             fills ruler with month values between date min and date max;
         """
         print("fill_with_months")
-        # reset ruler
-        self.reset()
-        pass                                                                # FIXME
+        # subfunction def
+        def next_month (cdate):
+            # inits
+            _y = cdate.year
+            _m = cdate.month + 1
+            _d = cdate.day
+            # overflow?
+            if _m > 12:
+                _y += 1
+                _m = 1
+            # end if
+            return date(_y, _m, _d)
+        # end def
+        # call with callbacks
+        self.draw_ruler(
+            *args,
+            get_date_label=lambda d:d.strftime("%b %Y"),
+            next_date=next_month,
+            **kw
+        )
     # end def
 
 

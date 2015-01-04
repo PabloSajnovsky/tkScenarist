@@ -502,11 +502,18 @@ class ResourcesCanvas (RC.RADCanvas):
         """
         # update item list
         self.item_list.fill_list(item_dict)
-        _w, _h = self.item_list.size
-        # update date ruler
-        self.date_ruler.update(offset_x=_w - 2)
-        # update canvas
-        self.update_canvas()
+        # really got items?
+        if self.item_list.items:
+            # inits
+            _w, _h = self.item_list.size
+            # update date ruler
+            self.date_ruler.update(offset_x=_w - 2)
+            # update canvas
+            self.update_canvas()
+        # better clear all
+        else:
+            self.reset()
+        # end if
     # end def
 
 
@@ -891,31 +898,34 @@ class RCItemList:
         _y0 += 5
         # clear list
         self.reset()
-        # browse items
-        for _index, _item in enumerate(sorted(self.items.keys())):
-            # add text label
-            self.canvas.create_text(
-                _x0, _y0 + 20 * _index,
-                anchor="nw",
-                fill="black",
-                font="sans 10",
-                text=_item,
-                tags=(self.tag, self.tag_labels),
+        # got items?
+        if self.items:
+            # browse items
+            for _index, _item in enumerate(sorted(self.items.keys())):
+                # add text label
+                self.canvas.create_text(
+                    _x0, _y0 + 20 * _index,
+                    anchor="nw",
+                    fill="black",
+                    font="sans 10",
+                    text=_item,
+                    tags=(self.tag, self.tag_labels),
+                )
+            # end for
+            # update box size
+            _w, _h = self.canvas.bbox_size(self.tag_labels)
+            # draw frame
+            self.frame_id = self.canvas.create_rectangle(
+                self.canvas.box_rel(self.XY_ORIGIN, _w + 10, _h + 10),
+                outline="black",
+                fill="grey90",
+                width=1,
+                tags=self.tag,
             )
-        # end for
-        # update box size
-        _w, _h = self.canvas.bbox_size(self.tag_labels)
-        # draw frame
-        self.frame_id = self.canvas.create_rectangle(
-            self.canvas.box_rel(self.XY_ORIGIN, _w + 10, _h + 10),
-            outline="black",
-            fill="grey90",
-            width=1,
-            tags=self.tag,
-        )
-        # raise tags upon any other
-        self.canvas.tag_raise(self.tag, "all")
-        self.canvas.tag_raise(self.tag_labels, self.frame_id)
+            # raise tags upon any other
+            self.canvas.tag_raise(self.tag, "all")
+            self.canvas.tag_raise(self.tag_labels, self.frame_id)
+        # end if
     # end def
 
 

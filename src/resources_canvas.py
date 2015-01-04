@@ -324,8 +324,10 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             updates list of resource items in canvas;
         """
+        # reset value
+        self.item_list.items = item_dict
         # update planning
-        self.update_view(item_dict)
+        self.update_view()
     # end def
 
 

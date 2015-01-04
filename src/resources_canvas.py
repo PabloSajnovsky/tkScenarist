@@ -297,10 +297,8 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             adds new resource item in canvas;
         """
-        # inits
-        self.item_list.fill_list()              # FIXME?
-        # update canvas
-        self.update_canvas()
+        # update planning
+        self.update_view()
     # end def
 
 
@@ -308,10 +306,8 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             deletes resource item in canvas;
         """
-        # inits
-        self.item_list.fill_list()              # FIXME?
-        # update canvas
-        self.update_canvas()
+        # update planning
+        self.update_view()
     # end def
 
 
@@ -319,10 +315,8 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             renames resource item in canvas;
         """
-        # inits
-        self.item_list.fill_list()              # FIXME?
-        # update canvas
-        self.update_canvas()
+        # update planning
+        self.update_view()
     # end def
 
 
@@ -330,13 +324,8 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             updates list of resource items in canvas;
         """
-        # inits
-        self.item_list.fill_list(item_dict)
-        _w, _h = self.item_list.size
-        # update date ruler
-        self.date_ruler.update(offset_x=_w-2)
-        # update canvas
-        self.update_canvas()
+        # update planning
+        self.update_view(item_dict)
     # end def
 
 
@@ -504,6 +493,20 @@ class ResourcesCanvas (RC.RADCanvas):
             # better clean up everything
             self.reset()
         # end if
+    # end def
+
+
+    def update_view (self, item_dict=None):
+        """
+            updates all planning view objects in canvas;
+        """
+        # update item list
+        self.item_list.fill_list(item_dict)
+        _w, _h = self.item_list.size
+        # update date ruler
+        self.date_ruler.update(offset_x=_w - 2)
+        # update canvas
+        self.update_canvas()
     # end def
 
 

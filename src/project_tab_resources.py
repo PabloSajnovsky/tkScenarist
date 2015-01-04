@@ -598,7 +598,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                     _lb.selection_set(_index)
                     self.slot_listbox_item_selected()
                     # update canvas
-                    self.CANVAS.item_list_add(_new_name, _rowid)
+                    self.CANVAS.item_list_update(_lb.items)
                     # notify app
                     self.events.raise_event("Project:Modified")
                 # end if
@@ -637,7 +637,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                     self.slot_listbox_item_selected()
                 # end if
                 # update canvas
-                self.CANVAS.item_list_del(_label)
+                self.CANVAS.item_list_update(_lb.items)
                 # notify app
                 self.events.raise_event("Project:Modified")
             # end if
@@ -674,7 +674,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                     # update database
                     self.database.res_rename_type(_rowid, _new_name)
                     # update canvas
-                    self.CANVAS.item_list_rename(_old_name, _new_name)
+                    self.CANVAS.item_list_update(_lb.items)
                     # notify app
                     self.events.raise_event("Project:Modified")
                 # end if

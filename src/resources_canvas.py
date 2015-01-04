@@ -293,41 +293,24 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
-    def item_list_add (self, name, rowid):
-        """
-            adds new resource item in canvas;
-        """
-        # update planning
-        self.update_view()
-    # end def
-
-
-    def item_list_del (self, name):
-        """
-            deletes resource item in canvas;
-        """
-        # update planning
-        self.update_view()
-    # end def
-
-
-    def item_list_rename (self, old, new):
-        """
-            renames resource item in canvas;
-        """
-        # update planning
-        self.update_view()
-    # end def
-
-
     def item_list_update (self, item_dict):
         """
             updates list of resource items in canvas;
         """
-        # reset value
-        self.item_list.items = item_dict
-        # update planning
-        self.update_view()
+        # really got items?
+        if item_dict:
+            # update item list
+            self.item_list.fill_list(item_dict)
+            # inits
+            _w, _h = self.item_list.size
+            # update date ruler
+            self.date_ruler.update(offset_x=_w - 2)
+            # update canvas
+            self.update_canvas()
+        # better clear all
+        else:
+            self.reset()
+        # end if
     # end def
 
 
@@ -493,27 +476,6 @@ class ResourcesCanvas (RC.RADCanvas):
         # no items
         else:
             # better clean up everything
-            self.reset()
-        # end if
-    # end def
-
-
-    def update_view (self, item_dict=None):
-        """
-            updates all planning view objects in canvas;
-        """
-        # update item list
-        self.item_list.fill_list(item_dict)
-        # really got items?
-        if self.item_list.items:
-            # inits
-            _w, _h = self.item_list.size
-            # update date ruler
-            self.date_ruler.update(offset_x=_w - 2)
-            # update canvas
-            self.update_canvas()
-        # better clear all
-        else:
             self.reset()
         # end if
     # end def
@@ -882,28 +844,28 @@ class RCItemList:
         """
         # member inits
         self.canvas = canvas
-        self.items = kw.get("items") or dict()
+        self.items = None
         self.tag = kw.get("tag")
         self.tag_labels = "{}_labels".format(self.tag)
     # end def
 
 
-    def fill_list (self, item_dict=None):
+    def fill_list (self, item_dict):
         """
             fills list with items in @item_dict;
         """
-        # inits
-        self.items = item_dict or self.items
-        _x0, _y0 = self.XY_ORIGIN
-        # adjust coords
-        _x0 += 5
-        _y0 += 5
         # clear list
         self.reset()
         # got items?
-        if self.items:
+        if item_dict:
+            # inits
+            self.items = item_dict
+            _x0, _y0 = self.XY_ORIGIN
+            # adjust coords
+            _x0 += 5
+            _y0 += 5
             # browse items
-            for _index, _item in enumerate(sorted(self.items.keys())):
+            for _index, _item in enumerate(sorted(item_dict.keys())):
                 # add text label
                 self.canvas.create_text(
                     _x0, _y0 + 20 * _index,
@@ -937,6 +899,8 @@ class RCItemList:
         """
         # ensure no more previous
         self.canvas.delete(self.tag)
+        # no more items
+        self.items = None
     # end def
 
 

@@ -23,6 +23,7 @@
 """
 
 # lib imports
+import calendar
 import tkRAD.widgets.rad_dialog as DLG
 
 
@@ -49,6 +50,37 @@ class DateBarDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def init_combos (self, *groups):
+        """
+            sets default values for date combos groups;
+            group is combo tuple(day, month, year);
+        """
+        # browse groups
+        for _group in groups:
+            # inits
+            _day, _month, _year = _group
+            # day values
+            _day.configure(
+                values=["{:02d}".format(i) for i in range(1, 32)],
+                state="readonly",
+            )
+            _day.current(0)
+            # month values
+            _month.configure(
+                values=calendar.month_abbr,
+                state="readonly",
+            )
+            _month.current(0)
+            # year values
+            _year.configure(
+                values=range(2014, 2021),
+                state="readonly",
+            )
+            _year.current(0)
+        # end for
+    # end def
+
+
     def init_widget (self, **kw):
         r"""
             widget main inits;
@@ -59,7 +91,23 @@ class DateBarDialog (DLG.RADButtonsDialog):
             xml="dlg_date_bar",
         )
         # member inits
-        pass                                                                # FIXME
+        _w = self.container
+        self.LBL_NAME = _w.get_stringvar("item_name")
+        self.LBL_NAME.set(kw.get("item_name") or "sample demo")
+        self.OPT_STATUS = _w.get_stringvar("opt_status")
+        self.CBO_BEGIN = (
+            _w.combo_begin_day,
+            _w.combo_begin_month,
+            _w.combo_begin_year,
+        )
+        self.CBO_END = (
+            _w.combo_end_day,
+            _w.combo_end_month,
+            _w.combo_end_year,
+        )
+        self.COMBOS = self.CBO_BEGIN + self.CBO_END
+        self.init_combos(self.CBO_BEGIN, self.CBO_END)
+        #~ self.reset_combos(**kw)
         # event bindings
         self.bind_events(**kw)
     # end def

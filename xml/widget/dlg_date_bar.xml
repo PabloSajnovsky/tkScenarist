@@ -76,24 +76,21 @@
         />
         <ttkcombobox
             name="combo_begin_day"
-            values="'01', '02', '...', '31'"
             width="2"
             layout="grid"
             layout_options="row=0, column=1, padx=5, pady=2"
         />
         <ttkcombobox
             name="combo_begin_month"
-            values="'Jan', 'Feb', '...', 'Dec'"
             width="5"
             layout="grid"
-            layout_options="row=0, column=2, padx=5, pady=2"
+            layout_options="row=0, column=2"
         />
         <ttkcombobox
             name="combo_begin_year"
-            values="2015, 2016, 2017"
             width="4"
             layout="grid"
-            layout_options="row=0, column=3, padx=5, pady=2"
+            layout_options="row=0, column=3, padx=5"
         />
         <!-- date end -->
         <ttklabel
@@ -103,24 +100,21 @@
         />
         <ttkcombobox
             name="combo_end_day"
-            values="'01', '02', '...', '31'"
             width="2"
             layout="grid"
             layout_options="row=1, column=1, padx=5, pady=2"
         />
         <ttkcombobox
             name="combo_end_month"
-            values="'Jan', 'Feb', '...', 'Dec'"
             width="5"
             layout="grid"
-            layout_options="row=1, column=2, padx=5, pady=2"
+            layout_options="row=1, column=2"
         />
         <ttkcombobox
             name="combo_end_year"
-            values="2015, 2016, 2017"
             width="4"
             layout="grid"
-            layout_options="row=1, column=3, padx=5, pady=2"
+            layout_options="row=1, column=3, padx=5"
         />
     </ttklabelframe>
 </tkwidget>

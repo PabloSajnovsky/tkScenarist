@@ -94,7 +94,7 @@
         />
         <ttkcombobox
             name="combo_begin_year"
-            width="4"
+            width="5"
             layout="grid"
             layout_options="row=0, column=3"
         />
@@ -124,7 +124,7 @@
         />
         <ttkcombobox
             name="combo_end_year"
-            width="4"
+            width="5"
             layout="grid"
             layout_options="row=1, column=3"
         />

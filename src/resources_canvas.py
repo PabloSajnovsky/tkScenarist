@@ -331,7 +331,12 @@ class ResourcesCanvas (RC.RADCanvas):
             x, y = self.get_real_pos(event.x, event.y)
             _tag = self.get_group_tag(self.find_overlapping(x, y, x, y))
             if not _tag:
-                DLG.DateBarDialog(self).show()
+                DLG.DateBarDialog(
+                    self,
+                    item_name="mes couilles, mickey.",
+                    date_begin=date(2012, 12, 21),
+                    date_end=date(2071, 6, 17),
+                ).show()
             # end if
             pass                                                            # FIXME
         # end if

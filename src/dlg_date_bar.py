@@ -23,8 +23,8 @@
 """
 
 # lib imports
-from datetime import date, timedelta
-import calendar
+from datetime import date
+from calendar import month_name
 import tkRAD.widgets.rad_dialog as DLG
 
 
@@ -78,7 +78,7 @@ class DateBarDialog (DLG.RADButtonsDialog):
         """
         # inits
         _DAYS = ["{:02d}".format(i) for i in range(1, 32)]
-        _MONTHS = list(calendar.month_name)[1:]
+        _MONTHS = list(month_name)[1:]
         _YEAR = date.today().year
         _YEARS = list(range(_YEAR - 1, _YEAR + 5))
         # browse groups
@@ -99,7 +99,7 @@ class DateBarDialog (DLG.RADButtonsDialog):
 
 
     def init_widget (self, **kw):
-        r"""
+        """
             widget main inits;
         """
         # super class inits

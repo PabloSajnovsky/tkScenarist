@@ -60,7 +60,9 @@ class DateBarDialog (DLG.RADButtonsDialog):
         # inits
         _day, _month, _year = group
         # retrieve date
-        return date(_year.get(), _month.current() + 1, _day.get())
+        return date(
+            int(_year.get()), _month.current() + 1, int(_day.get())
+        )
     # end def
 
 
@@ -101,12 +103,13 @@ class DateBarDialog (DLG.RADButtonsDialog):
             xml="dlg_date_bar",
         )
         # member inits
+        self.rowid = kw.get("rowid")
         _w = self.container
         self.LBL_NAME = _w.get_stringvar("item_name")
         self.LBL_NAME.set(kw.get("item_name") or "sample demo")
         self.OPT_STATUS = _w.get_stringvar("opt_status")
         self.OPT_STATUS.set(
-            kw.get("status") == "N/A" and kw.get("status") or "OK"
+            kw.get("status") == "N/A" and "N/A" or "OK"
         )
         self.CBO_BEGIN = (
             _w.combo_begin_day,
@@ -171,9 +174,27 @@ class DateBarDialog (DLG.RADButtonsDialog):
             returns True on success, False otherwise;
         """
         # inits
+        _item = self.LBL_NAME.get()
         _status = self.OPT_STATUS.get()
-        _begin = self.get_date(self.CBO_BEGIN)
-        _end = self.get_date(self.CBO_END)
+        try:
+            _begin = self.get_date(self.CBO_BEGIN)
+        except:
+            return self.date_error(self.LBL_ERR_BEGIN)
+        # end try
+        try:
+            _end = self.get_date(self.CBO_END)
+        except:
+            return self.date_error(self.LBL_ERR_END)
+        # end try
+        # notify app
+        self.events.raise_event(
+            "Resources:DateBar:Validate",
+            item_name=_item,
+            rowid=self.rowid,
+            status=_status,
+            date_begin=_begin,
+            date_end=_end,
+        )
         # all is good
         #~ return True
         return False # debugging

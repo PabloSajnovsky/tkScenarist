@@ -78,7 +78,7 @@ class DateBarDialog (DLG.RADButtonsDialog):
         """
         # inits
         _DAYS = ["{:02d}".format(i) for i in range(1, 32)]
-        _MONTHS = list(calendar.month_abbr)[1:]
+        _MONTHS = list(calendar.month)[1:]
         _YEAR = date.today().year
         _YEARS = list(range(_YEAR - 1, _YEAR + 5))
         # browse groups
@@ -189,6 +189,11 @@ class DateBarDialog (DLG.RADButtonsDialog):
         except:
             return self.date_error(self.LBL_ERR_END)
         # end try
+        # incorrect interval?
+        if _begin > _end:
+            # swap dates
+            _begin, _end = _end, _begin
+        # end if
         # notify app
         self.events.raise_event(
             "Dialog:DateBar:Validate",

@@ -88,7 +88,7 @@
         />
         <ttkcombobox
             name="combo_begin_month"
-            width="5"
+            width="12"
             layout="grid"
             layout_options="row=0, column=2, padx=5, pady=2"
         />
@@ -118,7 +118,7 @@
         />
         <ttkcombobox
             name="combo_end_month"
-            width="5"
+            width="12"
             layout="grid"
             layout_options="row=1, column=2, padx=5, pady=2"
         />

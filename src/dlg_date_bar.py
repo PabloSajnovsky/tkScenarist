@@ -23,6 +23,7 @@
 """
 
 # lib imports
+from datetime import date
 import calendar
 import tkRAD.widgets.rad_dialog as DLG
 
@@ -55,27 +56,22 @@ class DateBarDialog (DLG.RADButtonsDialog):
             sets default values for date combos groups;
             group is combo tuple(day, month, year);
         """
+        # inits
+        _DAYS = ["{:02d}".format(i) for i in range(1, 32)]
+        _MONTHS = list(calendar.month_abbr)[1:]
+        _YEARS = list(range(date.today().year - 1, date.today().year + 5))
         # browse groups
         for _group in groups:
             # inits
             _day, _month, _year = _group
             # day values
-            _day.configure(
-                values=["{:02d}".format(i) for i in range(1, 32)],
-                state="readonly",
-            )
+            _day.configure(values=_DAYS, state="readonly")
             _day.current(0)
             # month values
-            _month.configure(
-                values=calendar.month_abbr,
-                state="readonly",
-            )
+            _month.configure(values=_MONTHS, state="readonly")
             _month.current(0)
             # year values
-            _year.configure(
-                values=range(2014, 2021),
-                state="readonly",
-            )
+            _year.configure(values=_YEARS, state="readonly")
             _year.current(0)
         # end for
     # end def

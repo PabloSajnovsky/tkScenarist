@@ -28,6 +28,7 @@ import json
 import tkinter.messagebox as MB
 import tkinter.simpledialog as SD
 import tkRAD.widgets.rad_canvas as RC
+from . import dlg_date_bar as DLG
 
 
 class ResourcesCanvas (RC.RADCanvas):
@@ -330,6 +331,9 @@ class ResourcesCanvas (RC.RADCanvas):
             x, y = self.get_real_pos(event.x, event.y)
             _tag = self.get_group_tag(self.find_overlapping(x, y, x, y))
             print("group tag:", _tag)
+            if not _tag:
+                DLG.DateBarDialog(self).show()
+            # end if
             pass                                                            # FIXME
         # end if
     # end def
@@ -548,7 +552,8 @@ class RCDateBar (RCCanvasItem):
             virtual method to be reimplemented in subclass;
         """
         # member inits
-        self.status = None
+        self.rowid = kw.get("rowid")
+        self.status = kw.get("status")
         self.date_start = kw.get("date_start")
         self.date_end = kw.get("date_end")
     # end def

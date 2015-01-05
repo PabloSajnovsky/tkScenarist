@@ -227,8 +227,7 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             class members only inits;
         """
-        # members only inits
-        self.instance_counter = 0
+        # reset date bars
         self.date_bars = dict()
         # drag'n'drop feature
         self.dnd_reset()

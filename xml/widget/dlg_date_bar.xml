@@ -30,7 +30,7 @@
         resizable="yes"
     >
         <ttklabel
-            text="Item name sample demo"
+            textvariable="item_name"
             style="info_big.TLabel"
             layout="pack"
             resizable="width"
@@ -52,12 +52,18 @@
             layout="grid"
             layout_options="row=0, column=0"
         />
+        <!-- spacer -->
+        <ttkframe
+            width="5"
+            layout="grid"
+            layout_options="row=0, column=1"
+        />
         <ttkradiobutton
             text="Unavailable (N/A)"
             variable="opt_status"
             value="N/A"
             layout="grid"
-            layout_options="row=0, column=1"
+            layout_options="row=0, column=2"
         />
     </ttklabelframe>
 
@@ -74,10 +80,24 @@
             layout="grid"
             layout_options="row=0, column=0, sticky='w'"
         />
-        <ttkentry
+        <ttkcombobox
+            name="combo_begin_day"
+            values="'01', '02', '...', '31'"
+            width="2"
             layout="grid"
             layout_options="row=0, column=1, padx=5, pady=2"
-            resizable="width"
+        />
+        <ttkcombobox
+            name="combo_begin_month"
+            values="'Jan', 'Feb', '...', 'Dec'"
+            layout="grid"
+            layout_options="row=0, column=2, padx=5, pady=2"
+        />
+        <ttkcombobox
+            name="combo_begin_year"
+            values="2015, 2016, 2017"
+            layout="grid"
+            layout_options="row=0, column=3, padx=5, pady=2"
         />
         <!-- date end -->
         <ttklabel
@@ -85,10 +105,24 @@
             layout="grid"
             layout_options="row=1, column=0, sticky='w'"
         />
-        <ttkentry
+        <ttkcombobox
+            name="combo_end_day"
+            values="'01', '02', '...', '31'"
+            width="2"
             layout="grid"
             layout_options="row=1, column=1, padx=5, pady=2"
-            resizable="width"
+        />
+        <ttkcombobox
+            name="combo_end_month"
+            values="'Jan', 'Feb', '...', 'Dec'"
+            layout="grid"
+            layout_options="row=1, column=2, padx=5, pady=2"
+        />
+        <ttkcombobox
+            name="combo_end_year"
+            values="2015, 2016, 2017"
+            layout="grid"
+            layout_options="row=1, column=3, padx=5, pady=2"
         />
     </ttklabelframe>
 </tkwidget>

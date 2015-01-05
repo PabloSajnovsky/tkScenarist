@@ -45,8 +45,7 @@ class DateBarDialog (DLG.RADButtonsDialog):
             #~ }
         #~ )
         # tkinter widget event bindings
-        #~ self.bind("<Escape>", self._slot_button_cancel)
-        pass
+        self.bind("<Escape>", self._slot_button_cancel)
     # end def
 
 

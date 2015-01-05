@@ -52,6 +52,18 @@ class DateBarDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def get_date (self, group):
+        """
+            retrieves a datetime.date object from date data stored in
+            @group;
+        """
+        # inits
+        _day, _month, _year = group
+        # retrieve date
+        return date(_year.get(), _month.current() + 1, _day.get())
+    # end def
+
+
     def init_combos (self, *groups):
         """
             sets default values for date combos groups;
@@ -152,12 +164,16 @@ class DateBarDialog (DLG.RADButtonsDialog):
 
 
     def validate_dialog (self, tk_event=None, *args, **kw):
-        r"""
+        """
             user dialog validation method;
             this is a hook called by '_slot_button_ok()';
             this *MUST* be overridden in subclass;
             returns True on success, False otherwise;
         """
+        # inits
+        _status = self.OPT_STATUS.get()
+        _begin = self.get_date(self.CBO_BEGIN)
+        _end = self.get_date(self.CBO_END)
         # all is good
         #~ return True
         return False # debugging

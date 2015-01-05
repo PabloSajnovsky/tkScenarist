@@ -594,7 +594,7 @@ class RCDateBar (RCCanvasItem):
 
 
 
-class RCDateRuler:
+class RCDateRuler (RCCanvasItem):
     """
         Resources Canvas Date Ruler component class;
     """
@@ -862,36 +862,6 @@ class RCDateRuler:
     # end def
 
 
-    @property
-    def tag (self):
-        """
-            property attribute;
-            must be a string;
-            defaults to '{classname}#{id(self)}' on incorrect value;
-        """
-        return self.__tag
-    # end def
-
-    @tag.setter
-    def tag (self, value):
-        # must be a string of chars
-        if value and isinstance(value, str):
-            # inits
-            self.__tag = value
-        else:
-            # default
-            self.__tag = (
-                "{}#{}".format(self.__class__.__name__, id(self))
-            )
-        # end if
-    # end def
-
-    @tag.deleter
-    def tag (self):
-        del self.__tag
-    # end def
-
-
     def update (self, *args, **kw):
         """
             fills date ruler with new values along with scale
@@ -915,7 +885,7 @@ class RCDateRuler:
 
 
 
-class RCItemList:
+class RCItemList (RCCanvasItem):
     """
         Resources Canvas Item List component class;
     """
@@ -924,15 +894,12 @@ class RCItemList:
     XY_ORIGIN = (0, RCDateRuler.RULER_HEIGHT)
 
 
-    def __init__ (self, canvas, **kw):
+    def init_members (self, *args, **kw):
         """
-            class constructor;
+            virtual method to be reimplemented in subclass;
         """
         # member inits
-        self.canvas = canvas
         self.items = None
-        self.tag = kw.get("tag")
-        self.tag_labels = "{}_labels".format(self.tag)
     # end def
 
 
@@ -940,7 +907,7 @@ class RCItemList:
         """
             fills list with items in @item_dict;
         """
-        # clear list
+        # clear all
         self.reset()
         # got items?
         if item_dict:
@@ -979,17 +946,6 @@ class RCItemList:
     # end def
 
 
-    def reset (self, *args, **kw):
-        """
-            redraws component on canvas;
-        """
-        # ensure no more previous
-        self.canvas.delete(self.tag)
-        # no more items
-        self.items = None
-    # end def
-
-
     @property
     def size (self):
         """
@@ -997,36 +953,6 @@ class RCItemList:
             read-only size (width, height);
         """
         return self.canvas.bbox_size(self.tag)
-    # end def
-
-
-    @property
-    def tag (self):
-        """
-            property attribute;
-            must be a string;
-            defaults to '{classname}#{id(self)}' on incorrect value;
-        """
-        return self.__tag
-    # end def
-
-    @tag.setter
-    def tag (self, value):
-        # must be a string of chars
-        if value and isinstance(value, str):
-            # inits
-            self.__tag = value
-        else:
-            # default
-            self.__tag = (
-                "{}#{}".format(self.__class__.__name__, id(self))
-            )
-        # end if
-    # end def
-
-    @tag.deleter
-    def tag (self):
-        del self.__tag
     # end def
 
 # end class RCItemList

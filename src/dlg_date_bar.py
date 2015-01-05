@@ -93,6 +93,9 @@ class DateBarDialog (DLG.RADButtonsDialog):
         self.LBL_NAME = _w.get_stringvar("item_name")
         self.LBL_NAME.set(kw.get("item_name") or "sample demo")
         self.OPT_STATUS = _w.get_stringvar("opt_status")
+        self.OPT_STATUS.set(
+            kw.get("status") == "N/A" and kw.get("status") or "OK"
+        )
         self.CBO_BEGIN = (
             _w.combo_begin_day,
             _w.combo_begin_month,

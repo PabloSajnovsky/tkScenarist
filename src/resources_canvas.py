@@ -334,6 +334,7 @@ class ResourcesCanvas (RC.RADCanvas):
                 DLG.DateBarDialog(
                     self,
                     item_name="mes couilles, mickey.",
+                    status="N/A",
                     date_begin=date(2012, 12, 21),
                     date_end=date(2071, 6, 17),
                 ).show()

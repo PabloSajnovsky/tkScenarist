@@ -78,11 +78,11 @@ class ResourcesCanvas (RC.RADCanvas):
             event bindings;
         """
         # app-wide event bindings
-        #~ self.events.connect_dict(
-            #~ {
-                #~ "Project:Modified": self.slot_project_modified,
-            #~ }
-        #~ )
+        self.events.connect_dict(
+            {
+                "Dialog:DateBar:Validate": self.slot_datebar_validate,
+            }
+        )
         # tkinter event bindings
         self.bind("<Configure>", self.update_canvas)
         self.bind("<Button-1>", self.slot_start_drag)
@@ -317,6 +317,15 @@ class ResourcesCanvas (RC.RADCanvas):
                 self.update_canvas()
             # end if
         # end if
+    # end def
+
+
+    def slot_datebar_validate (self, *args, **kw):
+        """
+            event handler: datebar dialog has been submitted;
+        """
+        print("slot_datebar_validate")
+        print("keywords:", kw)
     # end def
 
 

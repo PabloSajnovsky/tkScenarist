@@ -42,11 +42,6 @@ class DateBarDialog (DLG.RADButtonsDialog):
         """
             event bindings;
         """
-        # app-wide event bindings
-        #~ self.events.connect_dict(
-            #~ {
-            #~ }
-        #~ )
         # tkinter widget event bindings
         self.bind("<Escape>", self._slot_button_cancel)
     # end def
@@ -113,7 +108,7 @@ class DateBarDialog (DLG.RADButtonsDialog):
             xml="dlg_date_bar",
         )
         # member inits
-        self.rowid = kw.get("rowid")
+        self.datebar_tag = kw.get("datebar_tag")
         _w = self.container
         self.LBL_NAME = _w.get_stringvar("item_name")
         self.LBL_NAME.set(kw.get("item_name") or "sample demo")
@@ -196,16 +191,15 @@ class DateBarDialog (DLG.RADButtonsDialog):
         # end try
         # notify app
         self.events.raise_event(
-            "Resources:DateBar:Validate",
+            "Dialog:DateBar:Validate",
+            datebar_tag=self.datebar_tag,
             item_name=self.LBL_NAME.get(),
-            rowid=self.rowid,
             status=self.OPT_STATUS.get(),
             date_begin=_begin,
             date_end=_end,
         )
         # all is good
-        #~ return True
-        return False # debugging
+        return True
     # end def
 
 # end class DateBarDialog

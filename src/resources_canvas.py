@@ -202,20 +202,6 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
-    def get_new_tag (self, tag_radix=None):
-        """
-            returns a new canvas tag name indexed with
-            self.instance_counter;
-        """
-        # inits
-        tag_radix = tag_radix or "group"
-        # update counter
-        self.instance_counter += 1
-        # return new tag name
-        return "{}#{}".format(tag_radix, self.instance_counter)
-    # end def
-
-
     def get_real_pos (self, x, y):
         """
             returns real position coordinates for canvas viewport
@@ -237,38 +223,13 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
-    def group_add (self, name, **kw):
-        """
-            adds a new canvas group;
-        """
-        # param controls
-        if name:
-            # already exists?
-            if name in self.canvas_groups:
-                raise KeyError(
-                    _("canvas group name '{gname}' already exists.")
-                    .format(gname=name)
-                )
-            # new to list
-            else:
-                # add new group
-                self.canvas_groups[name] = kw
-                # return group
-                return kw
-            # end if
-        # end if
-        # failed
-        return None
-    # end def
-
-
     def init_members (self, **kw):
         """
             class members only inits;
         """
         # members only inits
         self.instance_counter = 0
-        self.canvas_groups = dict()
+        self.date_bars = dict()
         # drag'n'drop feature
         self.dnd_reset()
         # date ruler feature

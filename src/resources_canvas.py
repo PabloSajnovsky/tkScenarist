@@ -243,6 +243,8 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             virtual method to be implemented in subclass;
         """
+        # database inits
+        self.database = self.winfo_toplevel().database
         # date ruler inits
         self.date_ruler = RCDateRuler(self)
         # item list inits
@@ -338,20 +340,15 @@ class ResourcesCanvas (RC.RADCanvas):
         if event and self.bbox("all"):
             # inits
             x, y = self.get_real_pos(event.x, event.y)
+            _item = self.item_list.get_item_from(x, y)
             _tag = self.get_group_tag(self.find_overlapping(x, y, x, y))
-            # empty location?
-            if _tag not in self.date_bars:
-                # get item name
-                _item = self.item_list.get_item_from(x, y)
-                print("item:", _item)
-                # show dialog
-                DLG.DateBarDialog(
-                    self, item_name=_item["name"],
-                ).show()
-            # datebar tag
-            else:
-                pass                                                        # FIXME
-            # end if
+            _datebar = self.date_bars.get(_tag)
+            # show dialog
+            DLG.DateBarDialog(
+                self,
+                item_name=_item["name"],
+                datebar=_datebar,
+            ).show()
         # end if
     # end def
 
@@ -571,7 +568,7 @@ class RCDateBar (RCCanvasItem):
         # member inits
         self.rowid = kw.get("rowid")
         self.status = kw.get("status")
-        self.date_start = kw.get("date_start")
+        self.date_begin = kw.get("date_begin")
         self.date_end = kw.get("date_end")
     # end def
 

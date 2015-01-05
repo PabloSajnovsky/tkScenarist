@@ -108,13 +108,14 @@ class DateBarDialog (DLG.RADButtonsDialog):
             xml="dlg_date_bar",
         )
         # member inits
-        self.datebar_tag = kw.get("datebar_tag")
+        self.datebar = kw.get("datebar")
         _w = self.container
         self.LBL_NAME = _w.get_stringvar("item_name")
         self.LBL_NAME.set(kw.get("item_name") or "sample demo")
         self.OPT_STATUS = _w.get_stringvar("opt_status")
         self.OPT_STATUS.set(
-            kw.get("status") == "N/A" and "N/A" or "OK"
+            self.datebar and self.datebar.status == "N/A" and "N/A"
+            or "OK"
         )
         self.CBO_BEGIN = (
             _w.combo_begin_day,
@@ -141,8 +142,13 @@ class DateBarDialog (DLG.RADButtonsDialog):
         """
         # inits
         _today = date.today()
-        _begin = kw.get("date_begin") or _today
-        _end = kw.get("date_end") or _today
+        if self.datebar:
+            _begin = self.datebar.date_begin
+            _end = self.datebar.date_end
+        else:
+            _begin = _today
+            _end = _today
+        # end if
         # reset dates
         self.reset_date(_begin, self.CBO_BEGIN)
         self.reset_date(_end, self.CBO_END)
@@ -196,7 +202,7 @@ class DateBarDialog (DLG.RADButtonsDialog):
         # notify app
         self.events.raise_event(
             "Dialog:DateBar:Validate",
-            datebar_tag=self.datebar_tag,
+            datebar=self.datebar,
             item_name=self.LBL_NAME.get(),
             status=self.OPT_STATUS.get(),
             date_begin=_begin,

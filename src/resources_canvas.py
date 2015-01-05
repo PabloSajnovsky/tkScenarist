@@ -334,8 +334,8 @@ class ResourcesCanvas (RC.RADCanvas):
             event handler: mouse double-clicked;
         """
         print("slot_double_clicked")
-        # param controls
-        if event:
+        # allowed to proceed?
+        if event and self.bbox("all"):
             # inits
             x, y = self.get_real_pos(event.x, event.y)
             _tag = self.get_group_tag(self.find_overlapping(x, y, x, y))
@@ -343,6 +343,7 @@ class ResourcesCanvas (RC.RADCanvas):
             if _tag not in self.date_bars:
                 # get item name
                 _item = self.item_list.get_item_from(x, y)
+                print("item:", _item)
                 # show dialog
                 DLG.DateBarDialog(
                     self, item_name=_item["name"],

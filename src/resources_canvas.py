@@ -519,7 +519,7 @@ class RCCanvasItem:
             clears component on canvas;
         """
         # clear component
-        self.canvas.delete(self.tag)
+        self.canvas.delete(self.tag, self.tag_labels)
     # end def
 
 

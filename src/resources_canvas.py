@@ -586,6 +586,7 @@ class RCDateBar (RCCanvasItem):
             virtual method to be reimplemented in subclass;
         """
         # member inits
+        self.status = None
         self.date_start = kw.get("date_start")
         self.date_end = kw.get("date_end")
     # end def
@@ -600,15 +601,10 @@ class RCDateRuler (RCCanvasItem):
     """
 
     # class constant defs
-
     FONT = "sans 8"
-
     PAD_X = 5
-
     RULER_HEIGHT = 24
-
     SCALES = ("days", "weeks", "months")
-
     XY_ORIGIN = (0, 0)
 
 

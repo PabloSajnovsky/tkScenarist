@@ -131,8 +131,11 @@ class DateBarDialog (DLG.RADButtonsDialog):
         """
             resets @cdate datetime.date object into combo @group;
         """
-        # inits
-        _cday, _cmonth, _cyear = cdate
+        # date inits
+        _cday = cdate.day
+        _cmonth = cdate.month
+        _cyear = cdate.year
+        # combo inits
         _day, _month, _year = group
         # reset date
         _day.current(_cday - 1)

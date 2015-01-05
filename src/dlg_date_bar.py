@@ -113,6 +113,34 @@ class DateBarDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def reset_combos (self, **kw):
+        """
+            resets date combos to fit real date values;
+        """
+        # inits
+        _today = date.today()
+        _begin = kw.get("date_begin") or _today
+        _end = kw.get("date_end") or _today
+        # reset dates
+        self.reset_date(_begin, self.CBO_BEGIN)
+        self.reset_date(_end, self.CBO_END)
+    # end def
+
+
+    def reset_date (self, cdate, group):
+        """
+            resets @cdate datetime.date object into combo @group;
+        """
+        # inits
+        _cday, _cmonth, _cyear = cdate
+        _day, _month, _year = group
+        # reset date
+        _day.current(_cday - 1)
+        _month.current(_cmonth - 1)
+        _year.set(_cyear)
+    # end def
+
+
     def validate_dialog (self, tk_event=None, *args, **kw):
         r"""
             user dialog validation method;

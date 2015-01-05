@@ -339,16 +339,18 @@ class ResourcesCanvas (RC.RADCanvas):
             # inits
             x, y = self.get_real_pos(event.x, event.y)
             _tag = self.get_group_tag(self.find_overlapping(x, y, x, y))
-            if not _tag:
+            # empty location?
+            if _tag not in self.date_bars:
+                # get item name
+                _item = self.item_list.get_item_from(x, y)
+                # show dialog
                 DLG.DateBarDialog(
-                    self,
-                    item_name="mes couilles, mickey.",
-                    status="N/A",
-                    date_begin=date(2012, 12, 21),
-                    date_end=date(2071, 6, 17),
+                    self, item_name=_item["name"],
                 ).show()
+            # datebar tag
+            else:
+                pass                                                        # FIXME
             # end if
-            pass                                                            # FIXME
         # end if
     # end def
 
@@ -868,7 +870,28 @@ class RCItemList (RCCanvasItem):
     """
 
     # class constant defs
+    LINE_HEIGHT = 20
     XY_ORIGIN = (0, RCDateRuler.RULER_HEIGHT)
+
+
+    def get_item_from (self, x, y):
+        """
+            retrieves item from given (x, y) canvas coordinates;
+        """
+        # got items?
+        if self.items:
+            # inits
+            _x0, _y0 = self.XY_ORIGIN
+            # only need y
+            _index = min(
+                len(self.items) - 1,
+                max(0, y - _y0) // self.LINE_HEIGHT
+            )
+            _name = sorted(self.items)[_index]
+            # return item
+            return dict(name=_name, rowid=self.items[_name])
+        # end if
+    # end def
 
 
     def init_members (self, *args, **kw):
@@ -898,7 +921,7 @@ class RCItemList (RCCanvasItem):
             for _index, _item in enumerate(sorted(item_dict.keys())):
                 # add text label
                 self.canvas.create_text(
-                    _x0, _y0 + 20 * _index,
+                    _x0, _y0 + _index * self.LINE_HEIGHT,
                     anchor="nw",
                     fill="black",
                     font="sans 10",

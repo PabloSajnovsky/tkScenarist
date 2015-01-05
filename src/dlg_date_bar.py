@@ -80,7 +80,7 @@ class DateBarDialog (DLG.RADButtonsDialog):
         _DAYS = ["{:02d}".format(i) for i in range(1, 32)]
         _MONTHS = list(month_name)[1:]
         _YEAR = date.today().year
-        _YEARS = list(range(_YEAR - 1, _YEAR + 5))
+        _YEARS = list(range(_YEAR - 1, _YEAR + 2))
         # browse groups
         for _group in groups:
             # inits
@@ -128,7 +128,6 @@ class DateBarDialog (DLG.RADButtonsDialog):
             _w.combo_end_year,
         )
         self.LBL_ERR_END = _w.get_stringvar("lbl_end_error")
-        self.COMBOS = self.CBO_BEGIN + self.CBO_END
         self.init_combos(self.CBO_BEGIN, self.CBO_END)
         self.reset_combos(**kw)
         # event bindings

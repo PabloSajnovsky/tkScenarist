@@ -35,6 +35,7 @@ class DateBarDialog (DLG.RADButtonsDialog):
 
     # class constant defs
     BUTTONS = ("OK", "Cancel")
+    DATE_ERROR = _("invalid date")
 
 
     def bind_events (self, **kw):
@@ -59,7 +60,8 @@ class DateBarDialog (DLG.RADButtonsDialog):
         # inits
         _DAYS = ["{:02d}".format(i) for i in range(1, 32)]
         _MONTHS = list(calendar.month_abbr)[1:]
-        _YEARS = list(range(date.today().year - 1, date.today().year + 5))
+        _YEAR = date.today().year
+        _YEARS = list(range(_YEAR - 1, _YEAR + 5))
         # browse groups
         for _group in groups:
             # inits
@@ -72,7 +74,7 @@ class DateBarDialog (DLG.RADButtonsDialog):
             _month.current(0)
             # year values
             _year.configure(values=_YEARS, state="readonly")
-            _year.current(0)
+            _year.current(1)
         # end for
     # end def
 
@@ -96,14 +98,16 @@ class DateBarDialog (DLG.RADButtonsDialog):
             _w.combo_begin_month,
             _w.combo_begin_year,
         )
+        self.LBL_ERR_BEGIN = _w.get_stringvar("lbl_begin_error")
         self.CBO_END = (
             _w.combo_end_day,
             _w.combo_end_month,
             _w.combo_end_year,
         )
+        self.LBL_ERR_END = _w.get_stringvar("lbl_end_error")
         self.COMBOS = self.CBO_BEGIN + self.CBO_END
         self.init_combos(self.CBO_BEGIN, self.CBO_END)
-        #~ self.reset_combos(**kw)
+        self.reset_combos(**kw)
         # event bindings
         self.bind_events(**kw)
     # end def

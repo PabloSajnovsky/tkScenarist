@@ -496,6 +496,104 @@ class ResourcesCanvas (RC.RADCanvas):
 
 
 
+class RCCanvasItem:
+    """
+        Resources Canvas CanvasItem base class;
+    """
+
+    def __init__ (self, canvas, **kw):
+        """
+            class constructor;
+        """
+        # member inits
+        self.canvas = canvas
+        self.tag = kw.get("tag")
+        self.tag_labels = "{}_labels".format(self.tag)
+        # other inits
+        self.init_members(**kw)
+    # end def
+
+
+    def clear (self, *args, **kw):
+        """
+            clears component on canvas;
+        """
+        # clear component
+        self.canvas.delete(self.tag)
+    # end def
+
+
+    def init_members (self, *args, **kw):
+        """
+            virtual method to be reimplemented in subclass;
+        """
+        # member inits
+        pass
+    # end def
+
+
+    def reset (self, *args, **kw):
+        """
+            resets component on canvas;
+        """
+        # ensure no more previous
+        self.clear(*args, **kw)
+        # reset members
+        self.init_members(*args, **kw)
+    # end def
+
+
+    @property
+    def tag (self):
+        """
+            property attribute;
+            must be a string;
+            defaults to '{classname}#{id(self)}' on incorrect value;
+        """
+        return self.__tag
+    # end def
+
+    @tag.setter
+    def tag (self, value):
+        # must be a string of chars
+        if value and isinstance(value, str):
+            # inits
+            self.__tag = value
+        else:
+            # default
+            self.__tag = (
+                "{}#{}".format(self.__class__.__name__, id(self))
+            )
+        # end if
+    # end def
+
+    @tag.deleter
+    def tag (self):
+        del self.__tag
+    # end def
+
+# end class RCCanvasItem
+
+
+
+class RCDateBar (RCCanvasItem):
+    """
+        Resources Canvas Date Bar component class;
+    """
+
+    def init_members (self, *args, **kw):
+        """
+            virtual method to be reimplemented in subclass;
+        """
+        # member inits
+        self.date_start = kw.get("date_start")
+        self.date_end = kw.get("date_end")
+    # end def
+
+# end class RCDateBar
+
+
+
 class RCDateRuler:
     """
         Resources Canvas Date Ruler component class;
@@ -512,22 +610,6 @@ class RCDateRuler:
     SCALES = ("days", "weeks", "months")
 
     XY_ORIGIN = (0, 0)
-
-
-    def __init__ (self, canvas, **kw):
-        """
-            class constructor;
-        """
-        # member inits
-        self.canvas = canvas
-        self.date_min = kw.get("date_min")
-        self.date_max = kw.get("date_max")
-        self.scale = kw.get("scale")
-        self.tag = kw.get("tag")
-        self.tag_labels = "{}_labels".format(self.tag)
-        self.tick_offset = 0
-        self.tick_width = 0
-    # end def
 
 
     @property
@@ -606,8 +688,8 @@ class RCDateRuler:
         _y = _y0 - 5
         _cur_date = min(self.date_min, self.date_max)
         _end_date = max(self.date_min, self.date_max)
-        # reset ruler
-        self.reset()
+        # clear ruler
+        self.clear()
         # loop till reached
         while _cur_date <= _end_date:
             # insert text label
@@ -744,12 +826,16 @@ class RCDateRuler:
     # end def
 
 
-    def reset (self, *args, **kw):
+    def init_members (self, *args, **kw):
         """
-            redraws component on canvas;
+            virtual method to be reimplemented in subclass;
         """
-        # ensure no more previous
-        self.canvas.delete(self.tag)
+        # member inits
+        self.date_min = kw.get("date_min")
+        self.date_max = kw.get("date_max")
+        self.scale = kw.get("scale")
+        self.tick_offset = 0
+        self.tick_width = 0
     # end def
 
 

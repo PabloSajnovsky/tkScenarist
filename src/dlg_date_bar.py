@@ -52,6 +52,16 @@ class DateBarDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def date_error (self, cvar):
+        """
+            shows error message at erroneous date input field;
+        """
+        cvar.set(self.DATE_ERROR)
+        self.after(2000, cvar.set, "")
+        return False
+    # end def
+
+
     def get_date (self, group):
         """
             retrieves a datetime.date object from date data stored in
@@ -174,8 +184,6 @@ class DateBarDialog (DLG.RADButtonsDialog):
             returns True on success, False otherwise;
         """
         # inits
-        _item = self.LBL_NAME.get()
-        _status = self.OPT_STATUS.get()
         try:
             _begin = self.get_date(self.CBO_BEGIN)
         except:
@@ -189,9 +197,9 @@ class DateBarDialog (DLG.RADButtonsDialog):
         # notify app
         self.events.raise_event(
             "Resources:DateBar:Validate",
-            item_name=_item,
+            item_name=self.LBL_NAME.get(),
             rowid=self.rowid,
-            status=_status,
+            status=self.OPT_STATUS.get(),
             date_begin=_begin,
             date_end=_end,
         )

@@ -23,7 +23,7 @@
 """
 
 # lib imports
-from datetime import date
+from datetime import date, timedelta
 import calendar
 import tkRAD.widgets.rad_dialog as DLG
 
@@ -74,7 +74,7 @@ class DateBarDialog (DLG.RADButtonsDialog):
             _month.current(0)
             # year values
             _year.configure(values=_YEARS, state="readonly")
-            _year.current(1)
+            _year.current(0)
         # end for
     # end def
 
@@ -135,11 +135,15 @@ class DateBarDialog (DLG.RADButtonsDialog):
         _cday = cdate.day
         _cmonth = cdate.month
         _cyear = cdate.year
+        _YEAR = date.today().year
+        _ymin = min(_YEAR - 1, _cyear)
+        _ymax = max(_YEAR + 5, _cyear)
         # combo inits
         _day, _month, _year = group
         # reset date
         _day.current(_cday - 1)
         _month.current(_cmonth - 1)
+        _year.configure(values=list(range(_ymin, _ymax + 1)))
         _year.set(_cyear)
     # end def
 

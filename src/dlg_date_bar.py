@@ -78,7 +78,7 @@ class DateBarDialog (DLG.RADButtonsDialog):
         """
         # inits
         _DAYS = ["{:02d}".format(i) for i in range(1, 32)]
-        _MONTHS = list(calendar.month)[1:]
+        _MONTHS = list(calendar.month_name)[1:]
         _YEAR = date.today().year
         _YEARS = list(range(_YEAR - 1, _YEAR + 5))
         # browse groups

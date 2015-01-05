@@ -330,7 +330,6 @@ class ResourcesCanvas (RC.RADCanvas):
             # inits
             x, y = self.get_real_pos(event.x, event.y)
             _tag = self.get_group_tag(self.find_overlapping(x, y, x, y))
-            print("group tag:", _tag)
             if not _tag:
                 DLG.DateBarDialog(self).show()
             # end if

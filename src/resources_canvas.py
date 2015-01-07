@@ -671,8 +671,8 @@ class RCDateBar (RCCanvasItem):
     def date_begin (self):
         """
             property attribute;
-            admits datetime.date types or ISO 8601 'YYYY-MM-DD'
-            formatted strings in input;
+            admits datetime.date type or ISO 8601 'YYYY-MM-DD'
+            formatted string in input;
         """
         return self.__date_begin
     # end def
@@ -703,8 +703,8 @@ class RCDateBar (RCCanvasItem):
     def date_end (self):
         """
             property attribute;
-            admits datetime.date types or ISO 8601 'YYYY-MM-DD'
-            formatted strings in input;
+            admits datetime.date type or ISO 8601 'YYYY-MM-DD'
+            formatted string in input;
         """
         return self.__date_end
     # end def

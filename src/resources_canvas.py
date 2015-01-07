@@ -640,7 +640,7 @@ class RCDateBar (RCCanvasItem):
             self.date_begin, self.date_end
         )
         _x, _y = self.canvas.get_xy_pos(self.date_begin, item_name)
-        _y -= _height // 2
+        _y -= _height // 2 - 2
         # draw datebar
         self.canvas.create_rectangle(
             self.canvas.box_rel((_x, _y), _width, _height),
@@ -922,7 +922,7 @@ class RCDateRuler (RCCanvasItem):
         _delta = _dmax - _dmin
         return int(
             self.tick_width * (
-                _delta.days / (1.0, 7.0, 30.43685)[self.scale]
+                (_delta.days + 1) / (1.0, 7.0, 30.43685)[self.scale]
             )
         )
     # end def

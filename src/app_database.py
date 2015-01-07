@@ -294,14 +294,14 @@ class AppDatabase (DB.Database):
 
             CREATE TEMPORARY TABLE IF NOT EXISTS 'resource_datebars'
             (
-                dbar_key            INTEGER PRIMARY KEY,
-                dbar_fk_item        INTEGER UNIQUE REFERENCES
-                                    'resource_items' ('item_key')
+                datebar_key         INTEGER PRIMARY KEY,
+                datebar_fk_type     INTEGER REFERENCES
+                                    'resource_types' ('type_key')
                                     ON UPDATE CASCADE
                                     ON DELETE CASCADE,
-                dbar_status         TEXT,
-                dbar_date_begin     TEXT,
-                dbar_date_end       TEXT
+                datebar_status      TEXT,
+                datebar_date_begin  DATE NOT NULL DEFAULT CURRENT_DATE,
+                datebar_date_end    DATE NOT NULL DEFAULT CURRENT_DATE
             );
         """)
     # end def

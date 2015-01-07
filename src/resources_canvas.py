@@ -341,10 +341,10 @@ class ResourcesCanvas (RC.RADCanvas):
             # inits
             _datebar = RCDateBar(
                 self,
-                rowid=0,                                    # FIXME
+                rowid=self.item_list.items[_item_name],
                 status=_status,
-                date_begin=_begin,
-                date_end=_end,
+                date_begin=_begin.strftime("%x"),
+                date_end=_end.strftime("%x"),
             )
             # add new to collection
             self.date_bars[_datebar.tag] = _datebar
@@ -353,7 +353,7 @@ class ResourcesCanvas (RC.RADCanvas):
         _datebar.draw()
         # store new data in DB
         self.database.res_update_datebar(
-            fk_item=_datebar.rowid,
+            fk_type=_datebar.rowid,
             status=_datebar.status,
             date_begin=_datebar.date_begin,
             date_end=_datebar.date_end,

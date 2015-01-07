@@ -637,7 +637,8 @@ class RCDateBar (RCCanvasItem):
         # inits
         _height = int(self.canvas.item_list.LINE_HEIGHT * 0.8)
         _width = self.canvas.date_ruler.get_width(
-            self.date_begin, self.date_end
+            self.date_begin, self.date_end,
+            overlap=1 # last day is *INCLUDED*
         )
         _x, _y = self.canvas.get_xy_pos(self.date_begin, item_name)
         _y -= _height // 2 - 2
@@ -911,10 +912,11 @@ class RCDateRuler (RCCanvasItem):
     # end def
 
 
-    def get_width (self, date_min, date_max):
+    def get_width (self, date_min, date_max, overlap=0):
         """
             calculates timedelta interval in pixel width along with
             current scale value;
+            parameter @overlap is number of days to include on more;
             returns integer value (pixels);
         """
         # inits
@@ -922,7 +924,8 @@ class RCDateRuler (RCCanvasItem):
         _delta = _dmax - _dmin
         return int(
             self.tick_width * (
-                (_delta.days + 1) / (1.0, 7.0, 30.43685)[self.scale]
+                (_delta.days + overlap) /
+                (1.0, 7.0, 30.43685)[self.scale]
             )
         )
     # end def

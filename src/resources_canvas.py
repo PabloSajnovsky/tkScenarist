@@ -361,8 +361,8 @@ class ResourcesCanvas (RC.RADCanvas):
                 self,
                 rowid=self.item_list.items[_item_name],
                 status=_status,
-                date_begin=_begin.isoformat(),
-                date_end=_end.isoformat(),
+                date_begin=_begin,
+                date_end=_end,
             )
             # add new to collection
             self.date_bars[_datebar.tag] = _datebar
@@ -371,8 +371,8 @@ class ResourcesCanvas (RC.RADCanvas):
         self.database.res_update_datebar(
             fk_type=_datebar.rowid,
             status=_datebar.status,
-            date_begin=_datebar.date_begin,
-            date_end=_datebar.date_end,
+            date_begin=str(_datebar.date_begin),
+            date_end=str(_datebar.date_end),
         )
         # redraw datebar
         _datebar.draw(_item_name)

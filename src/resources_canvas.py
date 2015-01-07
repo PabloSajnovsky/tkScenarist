@@ -636,10 +636,13 @@ class RCDateBar (RCCanvasItem):
         _width = self.canvas.date_ruler.get_width(
             self.date_begin, self.date_end
         )
-        _x, _y = self.canvas.get_xy_pos(self.date_begin, item_name)
         # draw datebar
         self.canvas.create_rectangle(
-            self.canvas.box_rel((_x, _y), _width, _height),
+            self.canvas.box_rel(
+                self.canvas.get_xy_pos(self.date_begin, item_name),
+                _width,
+                _height
+            ),
             outline="black",
             fill=self.COLORS[self.status],
             width=1,

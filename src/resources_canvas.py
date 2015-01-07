@@ -344,29 +344,26 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             event handler: datebar dialog has been submitted;
         """
-        print("slot_datebar_validate")
         # inits
         _datebar = kw.get("datebar")
         _item_name = kw.get("item_name")
-        _status = kw.get("status")
-        _begin, _end = self.date_ruler.get_correct_interval(
-            kw.get("date_begin"), kw.get("date_end")
-        )
-        # resize date ruler if necessary
-        self.date_ruler.resize(_begin, _end)
         # new datebar?
         if not _datebar:
             # inits
             _datebar = RCDateBar(
                 self,
                 rowid=self.item_list.items[_item_name],
-                status=_status,
-                date_begin=_begin,
-                date_end=_end,
             )
             # add new to collection
             self.date_bars[_datebar.tag] = _datebar
         # end if
+        # update datebar data
+        _datebar.status = kw.get("status")
+        _datebar.date_begin, _datebar.date_end = (
+            self.date_ruler.get_correct_interval(
+                kw.get("date_begin"), kw.get("date_end")
+            )
+        )
         # store new data in DB
         self.database.res_update_datebar(
             fk_type=_datebar.rowid,
@@ -374,6 +371,8 @@ class ResourcesCanvas (RC.RADCanvas):
             date_begin=str(_datebar.date_begin),
             date_end=str(_datebar.date_end),
         )
+        # resize date ruler if necessary
+        self.date_ruler.resize(_datebar.date_begin, _datebar.date_end)
         # redraw datebar
         _datebar.draw(_item_name)
     # end def

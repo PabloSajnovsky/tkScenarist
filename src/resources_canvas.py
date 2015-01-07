@@ -224,6 +224,24 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
+    def get_xy_pos (self, cdate, item_name):
+        """
+            calculates (x, y) coordinates of top left datebar corner;
+        """
+        # inits
+        _dr = self.date_ruler
+        _il = self.item_list
+        _x = (
+            _dr.XY_ORIGIN[0]
+            + _dr.tick_offset
+            + _dr.get_width(_dr.date_min, cdate)
+        )
+        _y = _il.get_y_pos(item_name) + 1
+        # return top left corner
+        return (_x, _y)
+    # end def
+
+
     def init_members (self, **kw):
         """
             class members only inits;
@@ -357,7 +375,7 @@ class ResourcesCanvas (RC.RADCanvas):
             date_end=_datebar.date_end,
         )
         # redraw datebar
-        _datebar.draw()
+        _datebar.draw(_item_name)
     # end def
 
 
@@ -607,7 +625,7 @@ class RCDateBar (RCCanvasItem):
     }
 
 
-    def draw (self, *args, **kw):
+    def draw (self, item_name):
         """
             (re)draws datebar on canvas;
         """
@@ -618,7 +636,7 @@ class RCDateBar (RCCanvasItem):
         _width = self.canvas.date_ruler.get_width(
             self.date_begin, self.date_end
         )
-        _x, _y = self.canvas.get_xy_pos(self.date_begin)
+        _x, _y = self.canvas.get_xy_pos(self.date_begin, item_name)
         # draw datebar
         self.canvas.create_rectangle(
             self.canvas.box_rel((_x, _y), _width, _height),
@@ -887,6 +905,23 @@ class RCDateRuler (RCCanvasItem):
     # end def
 
 
+    def get_width (self, date_min, date_max):
+        """
+            calculates timedelta interval in pixel width along with
+            current scale value;
+            returns integer value (pixels);
+        """
+        # inits
+        _dmin, _dmax = self.get_correct_interval(date_min, date_max)
+        _delta = _dmax - _dmin
+        return int(
+            self.tick_width * (
+                _delta.days / (1.0, 7.0, 30.43685)[self.scale]
+            )
+        )
+    # end def
+
+
     def init_members (self, *args, **kw):
         """
             virtual method to be reimplemented in subclass;
@@ -992,10 +1027,23 @@ class RCItemList (RCCanvasItem):
                 len(self.items) - 1,
                 max(0, y - _y0) // self.LINE_HEIGHT
             )
-            _name = sorted(self.items)[_index]
+            _name = self.sorted_items[_index]
             # return item
             return dict(name=_name, rowid=self.items[_name])
         # end if
+    # end def
+
+
+    def get_y_pos (self, item_name):
+        """
+            returns y coordinate position for a given @item_name;
+            raises error if @item_name is *NOT* in items;
+        """
+        # return y pos
+        return int(
+            self.XY_ORIGIN[1] +
+            self.sorted_items.index(item_name) * self.LINE_HEIGHT
+        )
     # end def
 
 
@@ -1005,6 +1053,7 @@ class RCItemList (RCCanvasItem):
         """
         # member inits
         self.items = None
+        self.sorted_items = list()
     # end def
 
 
@@ -1018,12 +1067,13 @@ class RCItemList (RCCanvasItem):
         if item_dict:
             # inits
             self.items = item_dict
+            self.sorted_items = sorted(item_dict)
             _x0, _y0 = self.XY_ORIGIN
             # adjust coords
             _x0 += 5
             _y0 += 5
             # browse items
-            for _index, _item in enumerate(sorted(item_dict.keys())):
+            for _index, _item in enumerate(self.sorted_items):
                 # add text label
                 self.canvas.create_text(
                     _x0, _y0 + _index * self.LINE_HEIGHT,

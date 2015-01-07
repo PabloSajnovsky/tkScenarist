@@ -372,7 +372,7 @@ class ResourcesCanvas (RC.RADCanvas):
             date_end=str(_datebar.date_end),
         )
         # must redraw all current datebars
-        self.canvas.update_datebars()
+        self.update_datebars()
         # notify app
         self.events.raise_event("Project:Modified")
     # end def

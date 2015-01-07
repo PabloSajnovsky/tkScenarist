@@ -403,7 +403,6 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             event handler: pending D'n'D on mouse motion;
         """
-        #~ print("slot_drag_pending")
         # param controls
         if event:
             # dragging something?
@@ -432,7 +431,6 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             event handler: D'n'D dropping on mouse release;
         """
-        print("slot_drop")
         # param controls
         if event and self.drag_mode:
             # inits
@@ -450,7 +448,6 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             event handler: mouse Ctrl+Click;
         """
-        print("slot_remove_item")
         # param controls
         if event:
             # inits
@@ -468,7 +465,6 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             event handler: mouse Drag-and-drop feature;
         """
-        print("slot_start_drag")
         # inits
         self.dnd_reset()
         # got mouse event?
@@ -492,8 +488,8 @@ class ResourcesCanvas (RC.RADCanvas):
         if _bbox:
             # get all contents bbox
             x0, y0, x1, y1 = _bbox
-            _cw, _ch = self.size_xy()
             x0, y0 = (min(0, x0 + 1), min(0, y0 + 1))
+            #~ _cw, _ch = self.size_xy()
             #~ x1, y1 = (max(x1 - 1, _cw), max(y1 - 1, _ch))
             # reset scroll region size
             self.configure(scrollregion=(x0, y0, x1, y1))
@@ -511,7 +507,6 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             event handler: updates all present datebars;
         """
-        print("update_datebars")
         # FIXME: should be deferred task?
         pass                                                                # FIXME
     # end def
@@ -991,14 +986,11 @@ class RCDateRuler (RCCanvasItem):
             admits 'date_min' and 'date_max' keywords;
             dates must be of Python's datetime.date() format;
         """
-        print(__class__.__name__, "update")
-        print("kw:", kw)
         # inits
         self.tick_offset = kw.pop("offset_x", self.tick_offset)
         self.scale = kw.pop("scale", self.scale)
         self.date_min = kw.pop("date_min", self.date_min)
         self.date_max = kw.pop("date_max", self.date_max)
-        print("date_min:", self.date_min, "date_max:", self.date_max)
         # fill along with scale resolution
         getattr(
             self, "fill_with_{}".format(self.get_scale_name())

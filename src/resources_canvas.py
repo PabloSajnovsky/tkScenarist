@@ -635,17 +635,15 @@ class RCDateBar (RCCanvasItem):
         # ensure no more previous
         self.clear()
         # inits
-        _height = self.canvas.item_list.LINE_HEIGHT
+        _height = int(self.canvas.item_list.LINE_HEIGHT * 0.8)
         _width = self.canvas.date_ruler.get_width(
             self.date_begin, self.date_end
         )
+        _x, _y = self.canvas.get_xy_pos(self.date_begin, item_name)
+        _y -= _height // 2
         # draw datebar
         self.canvas.create_rectangle(
-            self.canvas.box_rel(
-                self.canvas.get_xy_pos(self.date_begin, item_name),
-                _width,
-                _height
-            ),
+            self.canvas.box_rel((_x, _y), _width, _height),
             outline="black",
             fill=self.COLORS[self.status],
             width=1,
@@ -1044,13 +1042,14 @@ class RCItemList (RCCanvasItem):
 
     def get_y_pos (self, item_name):
         """
-            returns y coordinate position for a given @item_name;
-            raises error if @item_name is *NOT* in items;
+            returns y coordinate of central axis for a given
+            @item_name; raises error if @item_name is *NOT* in items;
         """
         # return y pos
         return int(
             self.XY_ORIGIN[1] +
-            self.sorted_items.index(item_name) * self.LINE_HEIGHT
+            (self.sorted_items.index(item_name) + 0.5) *
+            self.LINE_HEIGHT
         )
     # end def
 

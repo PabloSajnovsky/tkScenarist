@@ -375,6 +375,8 @@ class ResourcesCanvas (RC.RADCanvas):
         self.date_ruler.resize(_datebar.date_begin, _datebar.date_end)
         # redraw datebar
         _datebar.draw(_item_name)
+        # notify app
+        self.events.raise_event("Project:Modified")
     # end def
 
 
@@ -489,12 +491,8 @@ class ResourcesCanvas (RC.RADCanvas):
             # get all contents bbox
             x0, y0, x1, y1 = _bbox
             x0, y0 = (min(0, x0 + 1), min(0, y0 + 1))
-            #~ _cw, _ch = self.size_xy()
-            #~ x1, y1 = (max(x1 - 1, _cw), max(y1 - 1, _ch))
             # reset scroll region size
             self.configure(scrollregion=(x0, y0, x1, y1))
-            # project has been modified
-            #~ self.events.raise_event("Project:Modified")
         # no items
         else:
             # better clean up everything
@@ -508,7 +506,18 @@ class ResourcesCanvas (RC.RADCanvas):
             event handler: updates all present datebars;
         """
         # FIXME: should be deferred task?
-        pass                                                                # FIXME
+        # inits
+        _names = dict(
+            zip(
+                self.item_list.items.values(),
+                self.item_list.items.keys()
+            )
+        )
+        # browse collection
+        for _datebar in self.date_bars.values():
+            # redraw datebar
+            _datebar.draw(_names[_datebar.rowid])
+        # end for
     # end def
 
 

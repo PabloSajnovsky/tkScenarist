@@ -604,6 +604,19 @@ class AppDatabase (DB.Database):
     # end def
 
 
+    def res_update_datebar (self, **fields):
+        """
+            updates resources datebar with new values;
+            inserts if not already exists, replaces otherwise;
+        """
+        self.sql_query(
+            "INSERT OR REPLACE INTO 'resource_datebars' "
+            "VALUES (NULL, :fk_item, :status, :date_begin, :date_end)",
+            **fields
+        )
+    # end def
+
+
     def res_update_item (self, **fields):
         """
             updates resources item with new values;

@@ -336,6 +336,28 @@ class ResourcesCanvas (RC.RADCanvas):
         )
         # resize date ruler if necessary
         self.date_ruler.resize(_begin, _end)
+        # new datebar?
+        if not _datebar:
+            # inits
+            _datebar = RCDateBar(
+                self,
+                rowid=0,                                    # FIXME
+                status=_status,
+                date_begin=_begin,
+                date_end=_end,
+            )
+            # add new to collection
+            self.date_bars[_datebar.tag] = _datebar
+        # end if
+        # redraw datebar
+        _datebar.draw()
+        # store new data in DB
+        self.database.res_update_datebar(
+            fk_item=_datebar.rowid,
+            status=_datebar.status,
+            date_begin=_datebar.date_begin,
+            date_end=_datebar.date_end,
+        )
     # end def
 
 
@@ -850,7 +872,7 @@ class RCDateRuler (RCCanvasItem):
 
     def resize (self, date_min, date_max):
         """
-            resizes date ruler along with @date_begin and @date_end;
+            resizes date ruler along with @date_min and @date_max;
             parameters must be of datetime.date type;
         """
         # inits

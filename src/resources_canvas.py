@@ -504,29 +504,31 @@ class ResourcesCanvas (RC.RADCanvas):
             event handler: updates all present datebars;
         """
         # FIXME: should be deferred task?
-        # inits
-        _names = dict(
-            zip(
-                self.item_list.items.values(),
-                self.item_list.items.keys()
-            )
-        )
-        _dmin = _dmax = date.today()
-        # browse collection
-        for _datebar in self.date_bars.values():
-            # resize bounds
-            _dmin = min(_dmin, _datebar.date_begin)
-            _dmax = max(_dmax, _datebar.date_end)
-        # end for
-        # redraw date ruler
-        self.date_ruler.update(date_min=_dmin, date_max=_dmax)
-        # browse collection
-        for _datebar in self.date_bars.values():
-            # redraw datebar
-            _datebar.draw(_names[_datebar.rowid])
-        # end for
-        # update canvas
-        self.update_canvas()
+        if self.date_bars:
+            # inits
+            _names = self.item_list.swapped_items
+            _dmin = _dmax = None
+            # browse collection
+            for _datebar in self.date_bars.values():
+                # resize bounds
+                if _dmin:
+                    _dmin = min(_dmin, _datebar.date_begin)
+                    _dmax = max(_dmax, _datebar.date_end)
+                else:
+                    _dmin = _datebar.date_begin
+                    _dmax = _datebar.date_end
+                # end if
+            # end for
+            # redraw date ruler
+            self.date_ruler.update(date_min=_dmin, date_max=_dmax)
+            # browse collection
+            for _datebar in self.date_bars.values():
+                # redraw datebar
+                _datebar.draw(_names[_datebar.rowid])
+            # end for
+            # update canvas
+            self.update_canvas()
+        # end if
     # end def
 
 
@@ -1051,7 +1053,8 @@ class RCItemList (RCCanvasItem):
         """
         # member inits
         self.items = None
-        self.sorted_items = list()
+        self.sorted_items = None
+        self.swapped_items = None
     # end def
 
 
@@ -1066,6 +1069,9 @@ class RCItemList (RCCanvasItem):
             # inits
             self.items = item_dict
             self.sorted_items = sorted(item_dict)
+            self.swapped_items = dict(
+                zip(item_dict.values(), item_dict.keys())
+            )
             _x0, _y0 = self.XY_ORIGIN
             # adjust coords
             _x0 += 5

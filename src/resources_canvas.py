@@ -282,12 +282,12 @@ class ResourcesCanvas (RC.RADCanvas):
         if item_dict:
             # update item list
             self.item_list.fill_list(item_dict)
+            # FIXME: get datebars from DB           FIXME
             # inits
             _w, _h = self.item_list.size
-            # update date ruler
-            self.date_ruler.update(offset_x=_w - 2)
-            # update canvas
-            self.update_canvas()
+            # update date ruler + datebars
+            self.date_ruler.tick_offset = _w - 2
+            self.update_datebars()
         # better clear all
         else:
             self.reset()
@@ -331,10 +331,9 @@ class ResourcesCanvas (RC.RADCanvas):
             )
             # got to update?
             if _scale != self.date_ruler.scale:
-                # update date ruler
-                self.date_ruler.update(scale=_scale)
-                # update canvas
-                self.update_canvas()
+                # update date ruler + datebars
+                self.date_ruler.scale = _scale
+                self.update_datebars()
             # end if
         # end if
     # end def
@@ -989,8 +988,6 @@ class RCDateRuler (RCCanvasItem):
             dates must be of Python's datetime.date() format;
         """
         # inits
-        self.tick_offset = kw.pop("offset_x", self.tick_offset)
-        self.scale = kw.pop("scale", self.scale)
         self.date_min = kw.pop("date_min", self.date_min)
         self.date_max = kw.pop("date_max", self.date_max)
         # fill along with scale resolution

@@ -236,7 +236,7 @@ class ResourcesCanvas (RC.RADCanvas):
                 self.date_ruler.date_min, cdate
             )
         )
-        _y = self.item_list.get_y_pos(item_name) + 2
+        _y = self.item_list.get_y_pos(item_name)
         # return top left corner
         return (_x, _y)
     # end def
@@ -635,7 +635,7 @@ class RCDateBar (RCCanvasItem):
         # ensure no more previous
         self.clear()
         # inits
-        _height = self.canvas.date_ruler.RULER_HEIGHT - 4
+        _height = self.canvas.item_list.LINE_HEIGHT
         _width = self.canvas.date_ruler.get_width(
             self.date_begin, self.date_end
         )

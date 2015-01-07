@@ -291,6 +291,18 @@ class AppDatabase (DB.Database):
                 item_email          TEXT,
                 item_notes          TEXT
             );
+
+            CREATE TEMPORARY TABLE IF NOT EXISTS 'resource_datebars'
+            (
+                dbar_key            INTEGER PRIMARY KEY,
+                dbar_fk_item        INTEGER UNIQUE REFERENCES
+                                    'resource_items' ('item_key')
+                                    ON UPDATE CASCADE
+                                    ON DELETE CASCADE,
+                dbar_status         TEXT,
+                dbar_date_begin     TEXT,
+                dbar_date_end       TEXT
+            );
         """)
     # end def
 

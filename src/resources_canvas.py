@@ -288,6 +288,26 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
+    def resize_date_ruler (self, date_begin, date_end):
+        """
+            resizes date ruler along with @date_begin and @date_end;
+            parameters must be of datetime.date type;
+        """
+        # inits
+        date_begin, date_end = self.date_ruler.get_correct_interval(
+            date_begin, date_end
+        )
+        _dr = self.date_ruler
+        _inbound = lambda x: _dr.date_min <= x <= _dr.date_max
+        # out of bounds?
+        if not _inbound(date_begin) or not _inbound(date_end):
+            # must resize date ruler
+            _dr.date_min = min(_dr.date_min, date_begin, date_end)
+            _dr.date_max = max(_dr.date_max, date_begin, date_end)
+        # end if
+    # end def
+
+
     def size_xy (self):
         """
             returns (width, height) coordinates;
@@ -327,7 +347,15 @@ class ResourcesCanvas (RC.RADCanvas):
             event handler: datebar dialog has been submitted;
         """
         print("slot_datebar_validate")
-        print("keywords:", kw)
+        # inits
+        _datebar = kw.get("datebar")
+        _item_name = kw.get("item_name")
+        _status = kw.get("status")
+        _begin, _end = self.date_ruler.get_correct_interval(
+            kw.get("date_begin"), kw.get("date_end")
+        )
+        # resize date ruler if necessary
+        self.resize_date_ruler(_begin, _end)
     # end def
 
 
@@ -662,8 +690,9 @@ class RCDateRuler (RCCanvasItem):
         _x1 = _x0 + self.tick_offset
         _y0 += self.RULER_HEIGHT
         _y = _y0 - 5
-        _cur_date = min(self.date_min, self.date_max)
-        _end_date = max(self.date_min, self.date_max)
+        _cur_date, _end_date = self.get_correct_interval(
+            self.date_min, self.date_max
+        )
         # clear ruler
         self.clear()
         # loop till reached
@@ -770,6 +799,20 @@ class RCDateRuler (RCCanvasItem):
             next_date=lambda d: d + timedelta(days=7),
             **kw
         )
+    # end def
+
+
+    def get_correct_interval (self, date_min, date_max):
+        """
+            returns a formatted tuple of dates to match a correct time
+            interval; parameters must be of datetime.date type;
+        """
+        # param controls
+        if date_min > date_max:
+            return (date_max, date_min)
+        else:
+            return (date_min, date_max)
+        # end if
     # end def
 
 

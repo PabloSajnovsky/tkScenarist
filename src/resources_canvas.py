@@ -758,6 +758,8 @@ class RCDateRuler (RCCanvasItem):
         _cur_date, _end_date = self.get_correct_interval(
             self.date_min, self.date_max
         )
+        # add one more tick to include overflows
+        _end_date = _cb_next(_end_date)
         # clear ruler
         self.clear()
         # loop till reached

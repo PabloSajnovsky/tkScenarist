@@ -106,7 +106,7 @@
         />
         <!-- date end -->
         <ttklabel
-            text="Date end:"
+            text="Date end (included):"
             layout="grid"
             layout_options="row=1, column=0, sticky='w'"
         />

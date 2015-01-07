@@ -371,10 +371,8 @@ class ResourcesCanvas (RC.RADCanvas):
             date_begin=str(_datebar.date_begin),
             date_end=str(_datebar.date_end),
         )
-        # resize date ruler if necessary
-        self.date_ruler.resize(_datebar.date_begin, _datebar.date_end)
-        # redraw datebar
-        _datebar.draw(_item_name)
+        # must redraw all current datebars
+        self.canvas.update_datebars()
         # notify app
         self.events.raise_event("Project:Modified")
     # end def
@@ -513,11 +511,22 @@ class ResourcesCanvas (RC.RADCanvas):
                 self.item_list.items.keys()
             )
         )
+        _dmin = _dmax = date.today()
+        # browse collection
+        for _datebar in self.date_bars.values():
+            # resize bounds
+            _dmin = min(_dmin, _datebar.date_begin)
+            _dmax = max(_dmax, _datebar.date_end)
+        # end for
+        # redraw date ruler
+        self.date_ruler.update(date_min=_dmin, date_max=_dmax)
         # browse collection
         for _datebar in self.date_bars.values():
             # redraw datebar
             _datebar.draw(_names[_datebar.rowid])
         # end for
+        # update canvas
+        self.update_canvas()
     # end def
 
 
@@ -946,27 +955,6 @@ class RCDateRuler (RCCanvasItem):
     # end def
 
 
-    def resize (self, date_min, date_max):
-        """
-            resizes date ruler along with @date_min and @date_max;
-            parameters must be of datetime.date type;
-        """
-        # inits
-        date_min, date_max = self.get_correct_interval(
-            date_min, date_max
-        )
-        _inbound = lambda x: self.date_min <= x <= self.date_max
-        # out of bounds?
-        if not _inbound(date_min) or not _inbound(date_max):
-            # must resize
-            self.update(
-                date_min=min(self.date_min, date_min, date_max),
-                date_max=max(self.date_max, date_min, date_max),
-            )
-        # end if
-    # end def
-
-
     @property
     def scale (self):
         """
@@ -1007,8 +995,6 @@ class RCDateRuler (RCCanvasItem):
         getattr(
             self, "fill_with_{}".format(self.get_scale_name())
         )(*args, **kw)
-        # must redraw all current datebars
-        self.canvas.update_datebars()
     # end def
 
 # end class RCDateRuler

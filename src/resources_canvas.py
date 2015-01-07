@@ -282,7 +282,8 @@ class ResourcesCanvas (RC.RADCanvas):
         if item_dict:
             # update item list
             self.item_list.fill_list(item_dict)
-            # FIXME: get datebars from DB           FIXME
+            # get datebars from DB
+            self.reset_datebars(item_dict)
             # inits
             _w, _h = self.item_list.size
             # update date ruler + datebars
@@ -303,6 +304,30 @@ class ResourcesCanvas (RC.RADCanvas):
         self.clear_canvas()
         # reset members
         self.init_members(**kw)
+    # end def
+
+
+    def reset_datebars (self, item_dict):
+        """
+            reloads datebar data from DB and recreates RCDateBar object
+            collection;
+        """
+        # inits
+        self.date_bars.clear()
+        _rows = self.database.res_get_datebars(item_dict.values())
+        # browse recordset
+        for _row in _rows:
+            # inits
+            _datebar = RCDateBar(
+                self,
+                rowid=_row["fk_type"],
+                status=_row["status"],
+                date_begin=_row["date_begin"],
+                date_end=_row["date_end"],
+            )
+            # add to collection
+            self.date_bars[_datebar.tag] = _datebar
+        # end for
     # end def
 
 

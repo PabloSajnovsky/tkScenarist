@@ -525,9 +525,13 @@ class ResourcesCanvas (RC.RADCanvas):
                 # redraw datebar
                 _datebar.draw(_names[_datebar.rowid])
             # end for
-            # update canvas
-            self.update_canvas()
+        # no datebars
+        else:
+            # show default date ruler
+            self.date_ruler.update()
         # end if
+        # update canvas
+        self.update_canvas()
     # end def
 
 

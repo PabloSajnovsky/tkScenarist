@@ -611,6 +611,16 @@ class RCDateBar (RCCanvasItem):
         self.date_end = kw.get("date_end")
     # end def
 
+
+    def draw (self, *args, **kw):
+        """
+            (re)draws datebar on canvas
+        """
+        # ensure no more previous
+        self.clear()
+        # draw datebar
+    # end def
+
 # end class RCDateBar
 
 

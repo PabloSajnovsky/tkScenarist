@@ -229,14 +229,14 @@ class ResourcesCanvas (RC.RADCanvas):
             calculates (x, y) coordinates of top left datebar corner;
         """
         # inits
-        _dr = self.date_ruler
-        _il = self.item_list
         _x = (
-            _dr.XY_ORIGIN[0]
-            + _dr.tick_offset
-            + _dr.get_width(_dr.date_min, cdate)
+            self.date_ruler.XY_ORIGIN[0]
+            + self.date_ruler.tick_offset
+            + self.date_ruler.get_width(
+                self.date_ruler.date_min, cdate
+            )
         )
-        _y = _il.get_y_pos(item_name) + 1
+        _y = self.item_list.get_y_pos(item_name) + 2
         # return top left corner
         return (_x, _y)
     # end def
@@ -635,7 +635,7 @@ class RCDateBar (RCCanvasItem):
         # ensure no more previous
         self.clear()
         # inits
-        _height = self.canvas.date_ruler.RULER_HEIGHT - 2
+        _height = self.canvas.date_ruler.RULER_HEIGHT - 4
         _width = self.canvas.date_ruler.get_width(
             self.date_begin, self.date_end
         )

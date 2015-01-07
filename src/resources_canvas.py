@@ -321,6 +321,7 @@ class ResourcesCanvas (RC.RADCanvas):
             _datebar = RCDateBar(
                 self,
                 rowid=_row["fk_type"],
+                tag=_row["tag"],
                 status=_row["status"],
                 date_begin=_row["date_begin"],
                 date_end=_row["date_end"],
@@ -391,6 +392,7 @@ class ResourcesCanvas (RC.RADCanvas):
         # store new data in DB
         self.database.res_update_datebar(
             fk_type=_datebar.rowid,
+            tag=_datebar.tag,
             status=_datebar.status,
             date_begin=str(_datebar.date_begin),
             date_end=str(_datebar.date_end),

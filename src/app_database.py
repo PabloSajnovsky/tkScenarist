@@ -299,6 +299,7 @@ class AppDatabase (DB.Database):
                                     'resource_types' ('type_key')
                                     ON UPDATE CASCADE
                                     ON DELETE CASCADE,
+                datebar_tag         TEXT UNIQUE,
                 datebar_status      TEXT,
                 datebar_date_begin  DATE NOT NULL DEFAULT CURRENT_DATE,
                 datebar_date_end    DATE NOT NULL DEFAULT CURRENT_DATE
@@ -407,14 +408,15 @@ class AppDatabase (DB.Database):
         self.sql_query(
             "SELECT "
             "datebar_fk_type AS fk_type, "
+            "datebar_tag AS tag, "
             "datebar_status AS status, "
             "datebar_date_begin AS date_begin, "
             "datebar_date_end AS date_end "
-            "FROM 'resource_datebars' WHERE datebar_fk_type IN ?",
-            fk_list
+            "FROM 'resource_datebars' WHERE datebar_fk_type IN {}"
+            .format(tuple(fk_list))
         )
         # all rows
-        return self.fetch(self.ALL)
+        return self.fetch(self.ALL, default=list())
     # end def
 
 
@@ -642,7 +644,8 @@ class AppDatabase (DB.Database):
         """
         self.sql_query(
             "INSERT OR REPLACE INTO 'resource_datebars' "
-            "VALUES (NULL, :fk_type, :status, :date_begin, :date_end)",
+            "VALUES "
+            "(NULL, :fk_type, :tag, :status, :date_begin, :date_end)",
             **fields
         )
     # end def

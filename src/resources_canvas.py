@@ -23,7 +23,7 @@
 """
 
 # lib imports
-from datetime import timedelta, date
+from datetime import timedelta, date, datetime
 import json
 import tkinter.messagebox as MB
 import tkinter.simpledialog as SD
@@ -667,6 +667,70 @@ class RCDateBar (RCCanvasItem):
     }
 
 
+    @property
+    def date_begin (self):
+        """
+            property attribute;
+            admits datetime.date types or ISO 8601 'YYYY-MM-DD'
+            formatted strings in input;
+        """
+        return self.__date_begin
+    # end def
+
+    @date_begin.setter
+    def date_begin (self, value):
+        if isinstance(value, date):
+            self.__date_begin = value
+        elif value and isinstance(value, str):
+            self.__date_begin = self.get_iso_date(value)
+        elif value is not None:
+            raise TypeError(
+                "attribute 'date_begin' must be of "
+                "datetime.date type or at least an "
+                "ISO 8601 'YYYY-MM-DD' formatted "
+                "string value in input."
+            )
+        # end if
+    # end def
+
+    @date_begin.deleter
+    def date_begin (self):
+        del self.__date_begin
+    # end def
+
+
+    @property
+    def date_end (self):
+        """
+            property attribute;
+            admits datetime.date types or ISO 8601 'YYYY-MM-DD'
+            formatted strings in input;
+        """
+        return self.__date_end
+    # end def
+
+    @date_end.setter
+    def date_end (self, value):
+        if isinstance(value, date):
+            self.__date_end = value
+        elif value and isinstance(value, str):
+            self.__date_end = self.get_iso_date(value)
+        elif value is not None:
+            raise TypeError(
+                "attribute 'date_end' must be of "
+                "datetime.date type or at least an "
+                "ISO 8601 'YYYY-MM-DD' formatted "
+                "string value in input."
+            )
+        # end if
+    # end def
+
+    @date_end.deleter
+    def date_end (self):
+        del self.__date_end
+    # end def
+
+
     def draw (self, item_name):
         """
             (re)draws datebar on canvas;
@@ -689,6 +753,18 @@ class RCDateBar (RCCanvasItem):
             width=1,
             tags=self.tag,
         )
+    # end def
+
+
+    def get_iso_date (self, date_str):
+        """
+            tries to convert an ISO 8601 'YYYY-MM-DD' formatted string
+            to a regular datetime.date object;
+            returns object on success, raises error otherwise;
+        """
+        # inits
+        _dt = datetime.strptime(date_str, "%Y-%m-%d")
+        return date(_dt.year, _dt.month, _dt.day)
     # end def
 
 

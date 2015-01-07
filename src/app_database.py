@@ -623,7 +623,7 @@ class AppDatabase (DB.Database):
         """
         self.sql_query(
             "INSERT OR REPLACE INTO 'resource_datebars' "
-            "VALUES (NULL, :fk_item, :status, :date_begin, :date_end)",
+            "VALUES (NULL, :fk_type, :status, :date_begin, :date_end)",
             **fields
         )
     # end def

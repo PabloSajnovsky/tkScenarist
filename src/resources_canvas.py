@@ -335,7 +335,6 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             event handler: mouse double-clicked;
         """
-        print("slot_double_clicked")
         # allowed to proceed?
         if event and self.bbox("all"):
             # inits

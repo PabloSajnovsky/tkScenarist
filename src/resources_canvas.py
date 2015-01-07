@@ -614,11 +614,12 @@ class RCDateBar (RCCanvasItem):
 
     def draw (self, *args, **kw):
         """
-            (re)draws datebar on canvas
+            (re)draws datebar on canvas;
         """
         # ensure no more previous
         self.clear()
         # draw datebar
+        pass                                                                # FIXME
     # end def
 
 # end class RCDateBar

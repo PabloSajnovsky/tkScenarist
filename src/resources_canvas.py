@@ -343,8 +343,8 @@ class ResourcesCanvas (RC.RADCanvas):
                 self,
                 rowid=self.item_list.items[_item_name],
                 status=_status,
-                date_begin=_begin.strftime("%x"),
-                date_end=_end.strftime("%x"),
+                date_begin=_begin.isoformat(),
+                date_end=_end.isoformat(),
             )
             # add new to collection
             self.date_bars[_datebar.tag] = _datebar

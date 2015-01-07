@@ -349,8 +349,6 @@ class ResourcesCanvas (RC.RADCanvas):
             # add new to collection
             self.date_bars[_datebar.tag] = _datebar
         # end if
-        # redraw datebar
-        _datebar.draw()
         # store new data in DB
         self.database.res_update_datebar(
             fk_type=_datebar.rowid,
@@ -358,6 +356,8 @@ class ResourcesCanvas (RC.RADCanvas):
             date_begin=_datebar.date_begin,
             date_end=_datebar.date_end,
         )
+        # redraw datebar
+        _datebar.draw()
     # end def
 
 
@@ -600,6 +600,36 @@ class RCDateBar (RCCanvasItem):
         Resources Canvas Date Bar component class;
     """
 
+    # class constant defs
+    COLORS = {
+        "OK": "royal blue",
+        "N/A": "firebrick",
+    }
+
+
+    def draw (self, *args, **kw):
+        """
+            (re)draws datebar on canvas;
+        """
+        # ensure no more previous
+        self.clear()
+        # inits
+        _height = self.canvas.date_ruler.RULER_HEIGHT - 2
+        _width = self.canvas.date_ruler.get_width(
+            self.date_begin, self.date_end
+        )
+        _x, _y = self.canvas.get_xy_pos(self.date_begin)
+        # draw datebar
+        self.canvas.create_rectangle(
+            self.canvas.box_rel((_x, _y), _width, _height),
+            outline="black",
+            fill=self.COLORS[self.status],
+            width=1,
+            tags=self.tag,
+        )
+    # end def
+
+
     def init_members (self, *args, **kw):
         """
             virtual method to be reimplemented in subclass;
@@ -609,17 +639,6 @@ class RCDateBar (RCCanvasItem):
         self.status = kw.get("status")
         self.date_begin = kw.get("date_begin")
         self.date_end = kw.get("date_end")
-    # end def
-
-
-    def draw (self, *args, **kw):
-        """
-            (re)draws datebar on canvas;
-        """
-        # ensure no more previous
-        self.clear()
-        # draw datebar
-        pass                                                                # FIXME
     # end def
 
 # end class RCDateBar

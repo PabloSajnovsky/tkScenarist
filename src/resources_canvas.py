@@ -806,6 +806,8 @@ class RCDateRuler (RCCanvasItem):
         # raise ruler above all
         self.canvas.tag_raise(self.tag, "all")
         self.canvas.tag_raise(self.tag_labels, self.frame_id)
+        # update canvas
+        self.canvas.update_canvas()
     # end def
 
 

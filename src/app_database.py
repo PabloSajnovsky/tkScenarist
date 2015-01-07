@@ -399,6 +399,25 @@ class AppDatabase (DB.Database):
     # end def
 
 
+    def res_get_datebars (self, fk_list):
+        """
+            retrieves all rows corresponding to fk_types in @fk_list in
+            'resource_datebars' table;
+        """
+        self.sql_query(
+            "SELECT "
+            "datebar_fk_type AS fk_type, "
+            "datebar_status AS status, "
+            "datebar_date_begin AS date_begin, "
+            "datebar_date_end AS date_end "
+            "FROM 'resource_datebars' WHERE datebar_fk_type IN ?",
+            fk_list
+        )
+        # all rows
+        return self.fetch(self.ALL)
+    # end def
+
+
     def res_get_item (self, fk_type):
         """
             retrieves the row corresponding to @fk_type in

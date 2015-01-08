@@ -104,6 +104,32 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
+    def can_scroll_x (self):
+        """
+            this is a Tcl/Tk bugfix; returns True if canvas is really
+            allowed to operate, False otherwise;
+        """
+        # inits
+        _w, _h = self.bbox_size("all")
+        _cw = self.winfo_reqwidth()
+        # get authorization
+        return _w and _w >= _cw
+    # end def
+
+
+    def can_scroll_y (self):
+        """
+            this is a Tcl/Tk bugfix; returns True if canvas is really
+            allowed to operate, False otherwise;
+        """
+        # inits
+        _w, _h = self.bbox_size("all")
+        _ch = self.winfo_reqheight()
+        # get authorization
+        return _h and _h >= _ch
+    # end def
+
+
     def clear_canvas (self, *args, **kw):
         """
             event handler for clearing up canvas;
@@ -464,10 +490,13 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             hack for components visibility on contents scrolling;
         """
-        # delegate to super
-        super().xview(*args)
-        # ensure visible components
-        self.update_pos()
+        # Tcl/Tk bugfix
+        if self.can_scroll_x():
+            # delegate to super
+            super().xview(*args)
+            # ensure visible components
+            self.update_pos()
+        # end if
     # end def
 
 
@@ -475,10 +504,13 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             hack for components visibility on contents scrolling;
         """
-        # delegate to super
-        super().xview_moveto(*args)
-        # ensure visible components
-        self.update_pos()
+        # Tcl/Tk bugfix
+        if self.can_scroll_x():
+            # delegate to super
+            super().xview_moveto(*args)
+            # ensure visible components
+            self.update_pos()
+        # end if
     # end def
 
 
@@ -486,10 +518,13 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             hack for components visibility on contents scrolling;
         """
-        # delegate to super
-        super().xview_scroll(*args)
-        # ensure visible components
-        self.update_pos()
+        # Tcl/Tk bugfix
+        if self.can_scroll_x():
+            # delegate to super
+            super().xview_scroll(*args)
+            # ensure visible components
+            self.update_pos()
+        # end if
     # end def
 
 
@@ -497,10 +532,13 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             hack for components visibility on contents scrolling;
         """
-        # delegate to super
-        super().yview(*args)
-        # ensure visible components
-        self.update_pos()
+        # Tcl/Tk bugfix
+        if self.can_scroll_y():
+            # delegate to super
+            super().yview(*args)
+            # ensure visible components
+            self.update_pos()
+        # end if
     # end def
 
 
@@ -508,10 +546,13 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             hack for components visibility on contents scrolling;
         """
-        # delegate to super
-        super().yview_moveto(*args)
-        # ensure visible components
-        self.update_pos()
+        # Tcl/Tk bugfix
+        if self.can_scroll_y():
+            # delegate to super
+            super().yview_moveto(*args)
+            # ensure visible components
+            self.update_pos()
+        # end if
     # end def
 
 
@@ -519,10 +560,13 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             hack for components visibility on contents scrolling;
         """
-        # delegate to super
-        super().yview_scroll(*args)
-        # ensure visible components
-        self.update_pos()
+        # Tcl/Tk bugfix
+        if self.can_scroll_y():
+            # delegate to super
+            super().yview_scroll(*args)
+            # ensure visible components
+            self.update_pos()
+        # end if
     # end def
 
 # end class ResourcesCanvas

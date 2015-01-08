@@ -418,6 +418,8 @@ class AppDatabase (DB.Database):
         """
         # inits
         str_list = str(tuple(fk_list)).strip("(),")
+        print("str_list:", str_list)
+        self.dump_tables("resource_datebars")
         # param controls
         self.sql_query(
             "SELECT "

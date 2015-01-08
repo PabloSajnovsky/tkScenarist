@@ -355,6 +355,8 @@ class ResourcesCanvas (RC.RADCanvas):
         )
         # must redraw all current datebars
         self.update_datebars()
+        # notify app
+        self.events.raise_event("Project:Modified")
     # end def
 
 
@@ -429,6 +431,8 @@ class ResourcesCanvas (RC.RADCanvas):
                 self.xview_moveto(0)
                 # update ruler + datebars
                 self.update_datebars()
+                # notify app
+                self.events.raise_event("Project:Modified")
             # end if
         # end if
     # end def
@@ -491,8 +495,6 @@ class ResourcesCanvas (RC.RADCanvas):
         # end if
         # update canvas
         self.update_canvas()
-        # notify app
-        self.events.raise_event("Project:Modified")
     # end def
 
 

@@ -562,6 +562,17 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
+    def update_pos (self, *args, **kw):
+        """
+            event handler: ensures all specific components are always
+            visible while scrolling canvas contents;
+        """
+        # ensure visible
+        self.item_list.update_pos()
+        self.date_ruler.update_pos()
+    # end def
+
+
     def viewport_center_xy (self):
         """
             returns (x, y) real canvas coordinates of viewport's center
@@ -571,6 +582,39 @@ class ResourcesCanvas (RC.RADCanvas):
         x, y = self.center_xy()
         # viewport's center point
         return (int(self.canvasx(x)), int(self.canvasy(y)))
+    # end def
+
+
+    def yview (self, *args):
+        """
+            hack for header visibility;
+        """
+        # delegate to super
+        super().yview(*args)
+        # ensure visible components
+        self.update_pos()
+    # end def
+
+
+    def yview_moveto (self, *args):
+        """
+            hack for header visibility;
+        """
+        # delegate to super
+        super().yview_moveto(*args)
+        # ensure visible components
+        self.update_pos()
+    # end def
+
+
+    def yview_scroll (self, *args):
+        """
+            hack for header visibility;
+        """
+        # delegate to super
+        super().yview_scroll(*args)
+        # ensure visible components
+        self.update_pos()
     # end def
 
 # end class ResourcesCanvas
@@ -1103,6 +1147,28 @@ class RCDateRuler (RCCanvasItem):
         )(*args, **kw)
     # end def
 
+
+    def update_pos (self, *args, **kw):
+        """
+            ensures component is always visible while scrolling canvas
+            contents;
+        """
+        # try out
+        try:
+            # reset pos
+            self.move(
+                self.tag,
+                0,
+                self.canvas.canvasy(-0.5)
+                - self.canvas.bbox(self.tag)[1]
+            )
+        except:
+            pass
+        # end try
+        # set to foreground
+        self.canvas.tag_raise(self.tag, "all")
+    # end def
+
 # end class RCDateRuler
 
 
@@ -1216,6 +1282,28 @@ class RCItemList (RCCanvasItem):
             read-only size (width, height);
         """
         return self.canvas.bbox_size(self.tag)
+    # end def
+
+
+    def update_pos (self, *args, **kw):
+        """
+            ensures component is always visible while scrolling canvas
+            contents;
+        """
+        # try out
+        try:
+            # reset pos
+            self.move(
+                self.tag,
+                self.canvas.canvasx(-0.5)
+                - self.canvas.bbox(self.tag)[0],
+                0
+            )
+        except:
+            pass
+        # end try
+        # set to foreground
+        self.canvas.tag_raise(self.tag, "all")
     # end def
 
 # end class RCItemList

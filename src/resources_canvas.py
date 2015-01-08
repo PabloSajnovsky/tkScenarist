@@ -104,33 +104,6 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
-    def center_x (self):
-        """
-            returns x coordinates for canvas' center point;
-        """
-        # return center point x coordinates
-        return self.winfo_reqwidth() // 2
-    # end def
-
-
-    def center_xy (self):
-        """
-            returns (x, y) coordinates for canvas' center point;
-        """
-        # return center point coordinates
-        return (self.center_x(), self.center_y())
-    # end def
-
-
-    def center_y (self):
-        """
-            returns y coordinates for canvas' center point;
-        """
-        # return center point y coordinates
-        return self.winfo_reqheight() // 2
-    # end def
-
-
     def clear_canvas (self, *args, **kw):
         """
             event handler for clearing up canvas;
@@ -202,9 +175,7 @@ class ResourcesCanvas (RC.RADCanvas):
             class members only inits;
         """
         # reset date bars
-        self.date_bars = dict()
-        # drag'n'drop feature
-        self.dnd_reset()
+        self.date_bars.clear()
         # date ruler feature
         self.date_ruler.reset()
         # item feature
@@ -222,6 +193,8 @@ class ResourcesCanvas (RC.RADCanvas):
         self.date_ruler = RCDateRuler(self)
         # item list inits
         self.item_list = RCItemList(self)
+        # datebar collection inits
+        self.date_bars = dict()
         # member inits
         self.init_members(**kw)
         # event bindings
@@ -284,15 +257,6 @@ class ResourcesCanvas (RC.RADCanvas):
             # add to collection
             self.date_bars[_datebar.tag] = _datebar
         # end for
-    # end def
-
-
-    def size_xy (self):
-        """
-            returns (width, height) coordinates;
-        """
-        # get coordinates
-        return (self.winfo_reqwidth(), self.winfo_reqheight())
     # end def
 
 
@@ -382,59 +346,18 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
-    def slot_drag_pending (self, event=None, *args, **kw):
-        """
-            event handler: pending D'n'D on mouse motion;
-        """
-        # param controls
-        if event:
-            # dragging something?
-            if self.drag_mode:
-                # inits
-                x, y = self.get_real_pos(event.x, event.y)
-                x0, y0 = self.drag_last_pos
-                dx, dy = (x - x0), (y - y0)
-                # update pos
-                self.drag_last_pos = (x, y)
-                pass                                                            # FIXME
-                # update canvas
-                self.update_canvas()
-                # scrolling
-                self.scan_dragto(event.x, event.y, gain=-1)
-            # end if
-        # end if
-    # end def
-
-
-    def slot_drop (self, event=None, *args, **kw):
-        """
-            event handler: D'n'D dropping on mouse release;
-        """
-        # param controls
-        if event and self.drag_mode:
-            # inits
-            x, y = self.get_real_pos(event.x, event.y)
-            pass                                                            # FIXME
-        # end if
-        # reset D'n'D mode
-        self.dnd_reset()
-        # update canvas
-        self.update_canvas()
-    # end def
-
-
     def slot_on_mouse_wheel (self, event=None, *args, **kw):
         """
             event handler: mouse wheel support;
         """
         # inits
-        _platform = os.name.lower()
+        _os = os.name.lower()
         # MS-Windows specifics
-        if _platform == "nt":
+        if _os == "nt":
             # init step
             _step = -event.delta // 120
         # Apple MacOS specifics
-        elif _platform == "mac":
+        elif _os == "mac":
             # init step
             _step = -event.delta
         # other POSIX / UNIX-like
@@ -462,28 +385,6 @@ class ResourcesCanvas (RC.RADCanvas):
             # inits
             x, y = self.get_real_pos(event.x, event.y)
             pass                                                            # FIXME
-        # end if
-        # reset D'n'D mode
-        self.dnd_reset()
-        # update canvas
-        self.update_canvas()
-    # end def
-
-
-    def slot_start_drag (self, event=None, *args, **kw):
-        """
-            event handler: mouse Drag-and-drop feature;
-        """
-        # inits
-        self.dnd_reset()
-        # got mouse event?
-        if event:
-            # automatic scrolling feature
-            self.scan_mark(event.x, event.y)
-            # inits
-            #~ x, y = self.get_real_pos(event.x, event.y)
-            # set autoscroll by default
-            self.auto_scroll = True
         # end if
     # end def
 
@@ -556,18 +457,6 @@ class ResourcesCanvas (RC.RADCanvas):
         # ensure visible
         self.item_list.update_pos()
         self.date_ruler.update_pos()
-    # end def
-
-
-    def viewport_center_xy (self):
-        """
-            returns (x, y) real canvas coordinates of viewport's center
-            point;
-        """
-        # inits
-        x, y = self.center_xy()
-        # viewport's center point
-        return (int(self.canvasx(x)), int(self.canvasy(y)))
     # end def
 
 

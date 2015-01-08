@@ -348,8 +348,6 @@ class ResourcesCanvas (RC.RADCanvas):
         )
         # must redraw all current datebars
         self.update_datebars()
-        # notify app
-        self.events.raise_event("Project:Modified")
     # end def
 
 
@@ -486,6 +484,8 @@ class ResourcesCanvas (RC.RADCanvas):
         # end if
         # update canvas
         self.update_canvas()
+        # notify app
+        self.events.raise_event("Project:Modified")
     # end def
 
 
@@ -1104,6 +1104,8 @@ class RCDateRuler (RCCanvasItem):
             admits 'date_min' and 'date_max' keywords;
             dates must be of Python's datetime.date() format;
         """
+        print(__class__.__name__, "update")
+        print("self.scale:", self.scale, self.get_scale_name())
         # inits
         self.date_min = kw.pop("date_min", self.date_min)
         self.date_max = kw.pop("date_max", self.date_max)

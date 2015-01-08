@@ -418,8 +418,6 @@ class AppDatabase (DB.Database):
         """
         # inits
         str_list = str(tuple(fk_list)).strip("(),")
-        print("str_list:", str_list)
-        self.dump_tables("resource_datebars")
         # param controls
         self.sql_query(
             "SELECT "
@@ -428,8 +426,8 @@ class AppDatabase (DB.Database):
             "datebar_status AS status, "
             "datebar_date_begin AS date_begin, "
             "datebar_date_end AS date_end "
-            "FROM 'resource_datebars' WHERE datebar_fk_type IN (?)",
-            str_list
+            "FROM 'resource_datebars' WHERE datebar_fk_type IN ({})"
+            .format(str_list)
         )
         # all rows
         return self.fetch(self.ALL, default=list())

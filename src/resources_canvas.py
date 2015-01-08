@@ -1113,11 +1113,9 @@ class RCDateRuler (RCCanvasItem):
             admits 'date_min' and 'date_max' keywords;
             dates must be of Python's datetime.date() format;
         """
-        print(__class__.__name__, "update")
-        print("self.scale:", self.scale, self.get_scale_name())
         # inits
-        self.date_min = kw.pop("date_min", self.date_min)
-        self.date_max = kw.pop("date_max", self.date_max)
+        self.date_min = kw.pop("date_min", None)
+        self.date_max = kw.pop("date_max", None)
         # fill along with scale resolution
         getattr(
             self, "fill_with_{}".format(self.get_scale_name())

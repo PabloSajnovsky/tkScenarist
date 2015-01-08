@@ -234,10 +234,10 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             updates list of resource items in canvas;
         """
+        # clear canvas
+        self.clear_canvas()
         # really got items?
         if item_dict:
-            # clear canvas
-            self.clear_canvas()
             # update item list
             self.item_list.fill_list(item_dict)
             # get datebars from DB
@@ -247,9 +247,6 @@ class ResourcesCanvas (RC.RADCanvas):
             # update date ruler + datebars
             self.date_ruler.tick_offset = _w - 2
             self.update_datebars()
-        # better clear all
-        else:
-            self.reset()
         # end if
     # end def
 
@@ -273,21 +270,25 @@ class ResourcesCanvas (RC.RADCanvas):
         """
         # inits
         self.date_bars.clear()
-        _rows = self.database.res_get_datebars(item_dict.values())
-        # browse recordset
-        for _row in _rows:
-            # inits
-            _datebar = RCDateBar(
-                self,
-                rowid=_row["fk_type"],
-                tag=_row["tag"],
-                status=_row["status"],
-                date_begin=_row["date_begin"],
-                date_end=_row["date_end"],
-            )
-            # add to collection
-            self.date_bars[_datebar.tag] = _datebar
-        # end for
+        # param controls
+        if 1 or item_dict:
+            # get recordset
+            _rows = self.database.res_get_datebars(item_dict.values())
+            # browse recordset
+            for _row in _rows:
+                # inits
+                _datebar = RCDateBar(
+                    self,
+                    rowid=_row["fk_type"],
+                    tag=_row["tag"],
+                    status=_row["status"],
+                    date_begin=_row["date_begin"],
+                    date_end=_row["date_end"],
+                )
+                # add to collection
+                self.date_bars[_datebar.tag] = _datebar
+            # end for
+        # end if
     # end def
 
 

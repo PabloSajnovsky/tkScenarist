@@ -48,14 +48,6 @@ class ResourcesCanvas (RC.RADCanvas):
     } # end of CONFIG
 
 
-    def bbox_add (self, bbox1, bbox2):
-        """
-            returns coordinates sum of bounding boxes;
-        """
-        return tuple(map(lambda x: sum(x), zip(bbox1, bbox2)))
-    # end def
-
-
     def bbox_size (self, tag_or_id):
         """
             returns box size (width, height) of bbox(tag_or_id);
@@ -86,18 +78,17 @@ class ResourcesCanvas (RC.RADCanvas):
         )
         # tkinter event bindings
         self.bind("<Configure>", self.update_canvas)
-        self.bind("<Button-1>", self.slot_start_drag)
-        self.bind("<Motion>", self.slot_drag_pending)
-        self.bind("<ButtonRelease-1>", self.slot_drop)
         self.bind("<Control-ButtonRelease-1>", self.slot_remove_item)
         self.bind("<Double-Button-1>", self.slot_double_clicked)
-        self.bind("<Control-Button-4>", self.slot_change_date_scale)
-        self.bind("<Control-Button-5>", self.slot_change_date_scale)
-        self.bind("<Control-MouseWheel>", self.slot_change_date_scale)
         # mouse wheel support
-        for _seq in ("<Button-4>", "<Button-5>", "<MouseWheel>"):
+        for _b in ("Button-4", "Button-5", "MouseWheel"):
             # tk event bindings
-            self.bind(_seq, self.slot_on_mouse_wheel)
+            self.bind(
+                "<{}>".format(_b), self.slot_on_mouse_wheel
+            )
+            self.bind(
+                "<Control-{}>".format(_b), self.slot_change_date_scale
+            )
         # end for
     # end def
 
@@ -152,36 +143,6 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
-    def dnd_reset (self, *args, **kw):
-        """
-            event handler for resetting D'n'D feature;
-        """
-        # inits
-        self.drag_mode = 0
-        self.drag_tag = ""
-        self.drag_start_xy = (0, 0)
-        self.drag_last_pos = (0, 0)
-        self.auto_scroll = False
-    # end def
-
-
-    def get_bbox_center (self, tag):
-        """
-            returns (x, y) coordinates of central point for a bbox
-            identified by group tag;
-        """
-        # inits
-        _bbox = self.bbox(tag)
-        # got bbox?
-        if _bbox:
-            # get coords
-            x1, y1, x2, y2 = _bbox
-            # return center xy
-            return ((x1 + x2) // 2, (y1 + y2) // 2)
-        # end if
-    # end def
-
-
     def get_file_contents (self):
         """
             returns file contents as string of chars;
@@ -215,18 +176,6 @@ class ResourcesCanvas (RC.RADCanvas):
             coordinates;
         """
         return (int(self.canvasx(x)), int(self.canvasy(y)))
-    # end def
-
-
-    def get_segment_center (self, start_xy, end_xy):
-        """
-            returns (x, y) coordinates of central point for a segment;
-        """
-        # inits
-        x0, y0 = start_xy
-        x1, y1 = end_xy
-        # calculate
-        return ((x0 + x1) // 2, (y0 + y1) // 2)
     # end def
 
 
@@ -452,11 +401,6 @@ class ResourcesCanvas (RC.RADCanvas):
                 self.update_canvas()
                 # scrolling
                 self.scan_dragto(event.x, event.y, gain=-1)
-            # auto-scrolling mode?
-            elif self.auto_scroll:
-                # scrolling
-                self.scan_dragto(event.x, event.y, gain=-5)
-                self.update_pos()
             # end if
         # end if
     # end def
@@ -1367,11 +1311,12 @@ class RCItemList (RCCanvasItem):
         """
         # try out
         try:
-            # inits
-            x0, y0 = self.canvas.get_real_pos(*self.XY_ORIGIN)
-            x1, y1, x2, y2 = self.canvas.bbox(self.tag)
             # reset pos
-            self.canvas.move(self.tag, x0 - x1, y0 - y1)
+            self.canvas.move(
+                self.tag,
+                self.canvas.canvasx(0) - self.canvas.bbox(self.tag)[0],
+                0
+            )
             # set to foreground
             self.canvas.tag_raise(self.tag, "all")
         except:

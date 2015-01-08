@@ -363,6 +363,8 @@ class ResourcesCanvas (RC.RADCanvas):
             )
             # got to update?
             if _scale != self.date_ruler.scale:
+                # return to origin
+                self.xview_moveto(0)
                 # update date ruler + datebars
                 self.date_ruler.scale = _scale
                 self.update_datebars()

@@ -153,13 +153,15 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
-    def get_group_tag (self, list_ids):
+    def get_group_tag (self, x, y):
         """
-            retrieves group tag from @list_ids;
+            retrieves group tag from real canvas pos @(x, y);
         """
+        # init
+        list_ids = self.find_overlapping(x, y, x, y)
         # param controls
         if list_ids:
-            # get foreground id tags
+            # get foreground tag id
             _tags = self.gettags(list_ids[-1]) or [""]
             # extract group tag
             return _tags[0]
@@ -360,7 +362,7 @@ class ResourcesCanvas (RC.RADCanvas):
             # inits
             x, y = self.get_real_pos(event.x, event.y)
             _item = self.item_list.get_item_from(x, y)
-            _tag = self.get_group_tag(self.find_overlapping(x, y, x, y))
+            _tag = self.get_group_tag(x, y)
             _datebar = self.date_bars.get(_tag)
             # show dialog
             DLG.DateBarDialog(
@@ -406,11 +408,21 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             event handler: mouse Ctrl+Click;
         """
-        # param controls
-        if event:
+        # allowed to proceed?
+        if event and self.bbox("all"):
             # inits
             x, y = self.get_real_pos(event.x, event.y)
-            pass                                                            # FIXME
+            _tag = self.get_group_tag(x, y)
+            # registered datebar?
+            if _tag in self.date_bars:
+                # remove from canvas
+                _datebar = self.date_bars.pop(_tag)
+                _datebar.clear()
+                # remove from DB
+                self.database.res_del_datebar(_datebar.tag)
+                # update ruler + datebars
+                self.update_datebars()
+            # end if
         # end if
     # end def
 

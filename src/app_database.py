@@ -361,6 +361,17 @@ class AppDatabase (DB.Database):
     # end def
 
 
+    def res_del_datebar (self, tag):
+        """
+            deletes the resource datebar record matching @tag;
+        """
+        self.sql_query(
+            "DELETE FROM 'resource_datebars' WHERE datebar_tag = ?",
+            tag
+        )
+    # end def
+
+
     def res_del_type (self, rowid):
         """
             deletes the resource type record matching @rowid;

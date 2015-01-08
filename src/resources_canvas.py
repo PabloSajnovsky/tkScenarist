@@ -886,7 +886,6 @@ class RCDateRuler (RCCanvasItem):
         _cb_next = kw.get("next_date")
         _labels = list()
         _x0, _y0 = self.XY_ORIGIN
-        _x1 = _x0 + self.tick_offset
         _y0 += self.RULER_HEIGHT
         _y = _y0 - 5
         _cur_date, _end_date = self.get_correct_interval(
@@ -916,8 +915,9 @@ class RCDateRuler (RCCanvasItem):
             # next date
             _cur_date = _cb_next(_cur_date)
         # end while
-        # adjust tick width
+        # adjust tick width and offset
         self.tick_width += self.PAD_X
+        _x1 = _x0 + max(self.tick_width // 2 + 3, self.tick_offset)
         # browse labels
         for _index, _id in enumerate(_labels):
             # inits
@@ -945,8 +945,6 @@ class RCDateRuler (RCCanvasItem):
         # raise ruler above all
         self.canvas.tag_raise(self.tag, "all")
         self.canvas.tag_raise(self.tag_labels, self.frame_id)
-        # update canvas
-        self.canvas.update_canvas()
     # end def
 
 

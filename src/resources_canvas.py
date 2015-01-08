@@ -205,11 +205,9 @@ class ResourcesCanvas (RC.RADCanvas):
         # reset date bars
         self.date_bars.clear()
         # date ruler feature
-        if not kw.get("except_ruler"):
-            self.date_ruler.reset()
-        # end if
+        self.date_ruler.reset(**kw)
         # item feature
-        self.item_list.reset()
+        self.item_list.reset(**kw)
     # end def
 
 
@@ -249,9 +247,9 @@ class ResourcesCanvas (RC.RADCanvas):
             # update date ruler + datebars
             self.date_ruler.tick_offset = _w - 2
             self.update_datebars()
-        # better clear all (except date ruler)
+        # better clear all (except date ruler's timescale)
         else:
-            self.reset(except_ruler=True)
+            self.reset(except_scale=True)
         # end if
     # end def
 
@@ -276,7 +274,7 @@ class ResourcesCanvas (RC.RADCanvas):
         # inits
         self.date_bars.clear()
         # param controls
-        if 1 or item_dict:
+        if item_dict:
             # get recordset
             _rows = self.database.res_get_datebars(item_dict.values())
             # browse recordset
@@ -1076,7 +1074,9 @@ class RCDateRuler (RCCanvasItem):
         # member inits
         self.date_min = kw.get("date_min")
         self.date_max = kw.get("date_max")
-        self.scale = kw.get("scale")
+        if not kw.get("except_scale"):
+            self.scale = kw.get("scale")
+        # end if
         self.tick_offset = 0
         self.tick_width = 0
     # end def

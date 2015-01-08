@@ -418,7 +418,6 @@ class AppDatabase (DB.Database):
         """
         # inits
         str_list = str(tuple(fk_list)).strip("(),")
-        print("str_list:", str_list)
         # param controls
         self.sql_query(
             "SELECT "

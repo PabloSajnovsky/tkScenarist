@@ -299,8 +299,8 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             event handler: Ctrl-MouseWheel changes date scale;
         """
-        # param controls
-        if event:
+        # allowed to proceed?
+        if event and self.bbox("all"):
             # inits
             _scale = self.date_ruler.get_scale_value(
                 self.date_ruler.scale

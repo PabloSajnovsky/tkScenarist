@@ -420,6 +420,8 @@ class ResourcesCanvas (RC.RADCanvas):
                 _datebar.clear()
                 # remove from DB
                 self.database.res_del_datebar(_datebar.tag)
+                # return to origin
+                self.xview_moveto(0)
                 # update ruler + datebars
                 self.update_datebars()
             # end if

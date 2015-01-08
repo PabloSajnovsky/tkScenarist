@@ -496,7 +496,7 @@ class ResourcesCanvas (RC.RADCanvas):
             _step = (event.num == 5) - (event.num == 4)
         # end if
         # got <Shift> modifier?
-        if event.keysym == "Shift":
+        if event.state & 0x01:
             # do horizontal scrolling
             self.xview_scroll(_step, "units")
         else:

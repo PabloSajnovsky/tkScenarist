@@ -917,7 +917,10 @@ class RCDateRuler (RCCanvasItem):
         # end while
         # adjust tick width and offset
         self.tick_width += self.PAD_X
-        _x1 = _x0 + max(self.tick_width // 2 + 3, self.tick_offset)
+        self.tick_offset = max(
+            self.tick_width // 2 + self.PAD_X, self.tick_offset
+        )
+        _x1 = _x0 + self.tick_offset
         # browse labels
         for _index, _id in enumerate(_labels):
             # inits

@@ -456,6 +456,7 @@ class ResourcesCanvas (RC.RADCanvas):
             elif self.auto_scroll:
                 # scrolling
                 self.scan_dragto(event.x, event.y, gain=-5)
+                self.update_pos()
             # end if
         # end if
     # end def
@@ -538,7 +539,7 @@ class ResourcesCanvas (RC.RADCanvas):
             # inits
             #~ x, y = self.get_real_pos(event.x, event.y)
             # set autoscroll by default
-            self.autoscroll = True
+            self.auto_scroll = True
         # end if
     # end def
 
@@ -1366,13 +1367,11 @@ class RCItemList (RCCanvasItem):
         """
         # try out
         try:
+            # inits
+            x0, y0 = self.canvas.get_real_pos(*self.XY_ORIGIN)
+            x1, y1, x2, y2 = self.canvas.bbox(self.tag)
             # reset pos
-            self.canvas.move(
-                self.tag,
-                self.canvas.canvasx(0)
-                - self.canvas.bbox(self.tag)[0],
-                0
-            )
+            self.canvas.move(self.tag, x0 - x1, y0 - y1)
             # set to foreground
             self.canvas.tag_raise(self.tag, "all")
         except:

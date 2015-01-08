@@ -110,10 +110,10 @@ class ResourcesCanvas (RC.RADCanvas):
             allowed to operate, False otherwise;
         """
         # inits
-        _w, _h = self.bbox_size("all")
-        _cw = self.winfo_reqwidth()
+        _w = self.bbox_size("all")[0]
+        _cw = self.winfo_width()
         # get authorization
-        return _w and _w >= _cw
+        return _w and _w >= _cw - 1
     # end def
 
 
@@ -123,10 +123,10 @@ class ResourcesCanvas (RC.RADCanvas):
             allowed to operate, False otherwise;
         """
         # inits
-        _w, _h = self.bbox_size("all")
-        _ch = self.winfo_reqheight()
+        _h = self.bbox_size("all")[1]
+        _ch = self.winfo_height()
         # get authorization
-        return _h and _h >= _ch
+        return _h and _h >= _ch - 1
     # end def
 
 

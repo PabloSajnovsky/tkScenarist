@@ -205,7 +205,9 @@ class ResourcesCanvas (RC.RADCanvas):
         # reset date bars
         self.date_bars.clear()
         # date ruler feature
-        self.date_ruler.reset()
+        if not kw.get("except_ruler"):
+            self.date_ruler.reset()
+        # end if
         # item feature
         self.item_list.reset()
     # end def
@@ -247,6 +249,9 @@ class ResourcesCanvas (RC.RADCanvas):
             # update date ruler + datebars
             self.date_ruler.tick_offset = _w - 2
             self.update_datebars()
+        # better clear all (except date ruler)
+        else:
+            self.reset(except_ruler=True)
         # end if
     # end def
 

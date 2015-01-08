@@ -145,12 +145,6 @@ class DBViewCanvas (RC.RADCanvas):
         """
             event bindings;
         """
-        # app-wide event bindings
-        #~ self.events.connect_dict(
-            #~ {
-                #~ "DBView:Test": self.slot_test_session,
-            #~ }
-        #~ )
         # tkinter event bindings
         # mouse wheel support
         for _seq in ("<Button-4>", "<Button-5>", "<MouseWheel>"):
@@ -471,7 +465,7 @@ class DBViewCanvas (RC.RADCanvas):
 
 
     def slot_on_mouse_wheel (self, event=None, *args, **kw):
-        r"""
+        """
             event handler: mouse wheel support;
         """
         # inits

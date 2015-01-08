@@ -23,8 +23,9 @@
 """
 
 # lib imports
-from datetime import timedelta, date, datetime
+import os
 import json
+from datetime import timedelta, date, datetime
 import tkinter.messagebox as MB
 import tkinter.simpledialog as SD
 import tkRAD.widgets.rad_canvas as RC
@@ -93,6 +94,11 @@ class ResourcesCanvas (RC.RADCanvas):
         self.bind("<Control-Button-4>", self.slot_change_date_scale)
         self.bind("<Control-Button-5>", self.slot_change_date_scale)
         self.bind("<Control-MouseWheel>", self.slot_change_date_scale)
+        # mouse wheel support
+        for _seq in ("<Button-4>", "<Button-5>", "<MouseWheel>"):
+            # tk event bindings
+            self.bind(_seq, self.slot_on_mouse_wheel)
+        # end for
     # end def
 
 
@@ -470,6 +476,30 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
+    def slot_on_mouse_wheel (self, event=None, *args, **kw):
+        """
+            event handler: mouse wheel support;
+        """
+        # inits
+        _platform = os.name.lower()
+        # MS-Windows specifics
+        if _platform == "nt":
+            # init step
+            _step = -event.delta // 120
+        # Apple MacOS specifics
+        elif _platform == "mac":
+            # init step
+            _step = -event.delta
+        # other POSIX / UNIX-like
+        else:
+            # init step
+            _step = (event.num == 5) - (event.num == 4)
+        # end if
+        # do vertical scrolling
+        self.yview_scroll(_step, "units")
+    # end def
+
+
     def slot_remove_item (self, event=None, *args, **kw):
         """
             event handler: mouse Ctrl+Click;
@@ -508,6 +538,8 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             event handler for canvas contents updating;
         """
+        # ensure visible
+        self.update_pos()
         # inits
         _bbox = self.bbox("all")
         # got items?
@@ -585,9 +617,42 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
+    def xview (self, *args):
+        """
+            hack for components visibility on contents scrolling;
+        """
+        # delegate to super
+        super().xview(*args)
+        # ensure visible components
+        self.update_pos()
+    # end def
+
+
+    def xview_moveto (self, *args):
+        """
+            hack for components visibility on contents scrolling;
+        """
+        # delegate to super
+        super().xview_moveto(*args)
+        # ensure visible components
+        self.update_pos()
+    # end def
+
+
+    def xview_scroll (self, *args):
+        """
+            hack for components visibility on contents scrolling;
+        """
+        # delegate to super
+        super().xview_scroll(*args)
+        # ensure visible components
+        self.update_pos()
+    # end def
+
+
     def yview (self, *args):
         """
-            hack for header visibility;
+            hack for components visibility on contents scrolling;
         """
         # delegate to super
         super().yview(*args)
@@ -598,7 +663,7 @@ class ResourcesCanvas (RC.RADCanvas):
 
     def yview_moveto (self, *args):
         """
-            hack for header visibility;
+            hack for components visibility on contents scrolling;
         """
         # delegate to super
         super().yview_moveto(*args)
@@ -609,7 +674,7 @@ class ResourcesCanvas (RC.RADCanvas):
 
     def yview_scroll (self, *args):
         """
-            hack for header visibility;
+            hack for components visibility on contents scrolling;
         """
         # delegate to super
         super().yview_scroll(*args)
@@ -1156,17 +1221,17 @@ class RCDateRuler (RCCanvasItem):
         # try out
         try:
             # reset pos
-            self.move(
+            self.canvas.move(
                 self.tag,
                 0,
-                self.canvas.canvasy(-0.5)
+                self.canvas.canvasy(0)
                 - self.canvas.bbox(self.tag)[1]
             )
+            # set to foreground
+            self.canvas.tag_raise(self.tag, "all")
         except:
             pass
         # end try
-        # set to foreground
-        self.canvas.tag_raise(self.tag, "all")
     # end def
 
 # end class RCDateRuler
@@ -1293,17 +1358,17 @@ class RCItemList (RCCanvasItem):
         # try out
         try:
             # reset pos
-            self.move(
+            self.canvas.move(
                 self.tag,
-                self.canvas.canvasx(-0.5)
+                self.canvas.canvasx(0)
                 - self.canvas.bbox(self.tag)[0],
                 0
             )
+            # set to foreground
+            self.canvas.tag_raise(self.tag, "all")
         except:
             pass
         # end try
-        # set to foreground
-        self.canvas.tag_raise(self.tag, "all")
     # end def
 
 # end class RCItemList

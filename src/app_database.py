@@ -416,9 +416,7 @@ class AppDatabase (DB.Database):
             retrieves all rows corresponding to fk_types in @fk_list in
             'resource_datebars' table;
         """
-        # inits
-        str_list = str(tuple(fk_list)).strip("(),")
-        # param controls
+        # SQL query
         self.sql_query(
             "SELECT "
             "datebar_fk_type AS fk_type, "
@@ -427,7 +425,7 @@ class AppDatabase (DB.Database):
             "datebar_date_begin AS date_begin, "
             "datebar_date_end AS date_end "
             "FROM 'resource_datebars' WHERE datebar_fk_type IN ({})"
-            .format(str_list)
+            .format(str(tuple(fk_list)).strip("(),"))
         )
         # all rows
         return self.fetch(self.ALL, default=list())

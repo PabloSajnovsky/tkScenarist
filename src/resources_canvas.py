@@ -236,6 +236,8 @@ class ResourcesCanvas (RC.RADCanvas):
         """
         # really got items?
         if item_dict:
+            # clear canvas
+            self.clear_canvas()
             # update item list
             self.item_list.fill_list(item_dict)
             # get datebars from DB
@@ -256,6 +258,7 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             resets canvas to new;
         """
+        print(__class__.__name__, "reset")
         # clear canvas
         self.clear_canvas()
         # reset members

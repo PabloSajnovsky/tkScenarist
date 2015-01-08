@@ -536,8 +536,9 @@ class ResourcesCanvas (RC.RADCanvas):
             # automatic scrolling feature
             self.scan_mark(event.x, event.y)
             # inits
-            x, y = self.get_real_pos(event.x, event.y)
-            pass                                                            # FIXME
+            #~ x, y = self.get_real_pos(event.x, event.y)
+            # set autoscroll by default
+            self.autoscroll = True
         # end if
     # end def
 

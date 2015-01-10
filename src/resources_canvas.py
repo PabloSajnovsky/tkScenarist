@@ -1076,7 +1076,7 @@ class RCDateRuler (RCCanvasItem):
                 (_dmax.year - _dmin.year) * 12
                 + _dmax.month - _dmin.month
             )
-            _days = 0
+            _days = _dmax.day / monthrange(_dmax.year, _dmax.month)[-1]
             print("months:", _months)
             print("date:", _dmax, monthrange(_dmax.year, _dmax.month))
             return int(self.tick_width * (_months + _days))

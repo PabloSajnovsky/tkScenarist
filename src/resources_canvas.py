@@ -977,13 +977,12 @@ class RCDateRuler (RCCanvasItem):
             # inits
             _y = cdate.year
             _m = cdate.month + 1
-            _d = cdate.day
             # overflow?
             if _m > 12:
                 _y += 1
                 _m = 1
             # end if
-            return date(_y, _m, _d)
+            return date(_y, _m, 1)
         # end def
         # call with callbacks
         self.draw_ruler(
@@ -1076,9 +1075,22 @@ class RCDateRuler (RCCanvasItem):
                 (_dmax.year - _dmin.year) * 12
                 + _dmax.month - _dmin.month
             )
-            _days = _dmax.day / monthrange(_dmax.year, _dmax.month)[-1]
+            # must include offset
+            if not _days:
+                _days = float(
+                    _dmax.day / monthrange(_dmax.year, _dmax.month)[-1]
+                )
+            else:
+                _days = float(
+                    _dmax.day / monthrange(_dmax.year, _dmax.month)[-1]
+                    - _dmin.day / monthrange(_dmin.year, _dmin.month)[-1]
+                )
+            # end if
+            print("date min:", _dmin, monthrange(_dmin.year, _dmin.month))
+            print("date max:", _dmax, monthrange(_dmax.year, _dmax.month))
             print("months:", _months)
-            print("date:", _dmax, monthrange(_dmax.year, _dmax.month))
+            print("days:", _days)
+            print("width:", int(self.tick_width * (_months + _days)))
             return int(self.tick_width * (_months + _days))
         # end if
     # end def

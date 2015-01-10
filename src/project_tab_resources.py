@@ -665,7 +665,14 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 else:
                     # update listbox
                     _lb.delete(_index)
-                    _lb.insert(_index, _new_name)
+                    _items = list(_lb.get(0, "end"))
+                    _items.append(_new_name)
+                    _items = sorted(_items)
+                    _index = _items.index(_new_name)
+                    _lb.delete(0, "end")
+                    _lb.insert(0, *_items)
+                    _lb.see(_index)
+                    _lb.selection_set(_index)
                     # update items
                     _rowid = _lb.items.pop(_old_name)
                     _lb.items[_new_name] = _rowid
@@ -673,6 +680,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                     self.database.res_rename_type(_rowid, _new_name)
                     # update canvas
                     self.CANVAS.item_list_update(_lb.items)
+                    # update item form
+                    self.slot_listbox_item_selected()
                     # notify app
                     self.events.raise_event("Project:Modified")
                 # end if

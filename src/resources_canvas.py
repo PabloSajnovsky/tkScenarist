@@ -1081,7 +1081,7 @@ class RCDateRuler (RCCanvasItem):
                 (_dmax.year - _dmin.year) * 12
                 + _dmax.month - _dmin.month
             )
-            _days = float(_dmax.day / _mdays(_dmax) - _rmin)
+            _days = float((_dmax.day - 1) / _mdays(_dmax) - _rmin)
             # end if
             return int(self.tick_width * (_w0 + _months + _days))
         # end if

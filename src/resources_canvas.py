@@ -25,6 +25,7 @@
 # lib imports
 import os
 import json
+from calendar import monthrange
 from datetime import timedelta, date, datetime
 import tkinter.messagebox as MB
 import tkinter.simpledialog as SD
@@ -1061,12 +1062,25 @@ class RCDateRuler (RCCanvasItem):
         # inits
         _dmin, _dmax = self.get_correct_interval(date_min, date_max)
         _delta = _dmax - _dmin
-        return int(
-            self.tick_width * (
-                (_delta.days + overlap) /
-                (1.0, 7.0, 30.43685)[self.scale]
+        _days = _delta.days + overlap
+        # scale is DAYS
+        if not self.scale:
+            return int(self.tick_width * _days)
+        # scale is WEEKS
+        elif self.scale == 1:
+            return int(self.tick_width * _days / 7.0)
+        # scale is MONTHS
+        elif self.scale == 2:
+            # inits
+            _months = int(
+                (_dmax.year - _dmin.year) * 12
+                + _dmax.month - _dmin.month
             )
-        )
+            _days = 0
+            print("months:", _months)
+            print("date:", _dmax, monthrange(_dmax.year, _dmax.month))
+            return int(self.tick_width * (_months + _days))
+        # end if
     # end def
 
 

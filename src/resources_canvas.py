@@ -190,7 +190,7 @@ class ResourcesCanvas (RC.RADCanvas):
             self.date_ruler.XY_ORIGIN[0]
             + self.date_ruler.tick_offset
             + self.date_ruler.get_width(
-                self.date_ruler.date_min, cdate
+                self.date_ruler.date_min, cdate, offset=True
             )
         )
         _y = self.item_list.get_y_pos(item_name)
@@ -1051,11 +1051,14 @@ class RCDateRuler (RCCanvasItem):
     # end def
 
 
-    def get_width (self, date_min, date_max, overlap=0):
+    def get_width (self, date_min, date_max, overlap=0, offset=False):
         """
             calculates timedelta interval in pixel width along with
             current scale value;
             parameter @overlap is number of days to include on more;
+            parameter @offset asks for offset adjustment when tick
+            value is a rounded date e.g. month tick vs date_min in
+            month;
             returns integer value (pixels);
         """
         # inits
@@ -1071,27 +1074,30 @@ class RCDateRuler (RCCanvasItem):
         # scale is MONTHS
         elif self.scale == 2:
             # inits
-            _months = int(
-                (_dmax.year - _dmin.year) * 12
-                + _dmax.month - _dmin.month
+            _mdays = lambda d: monthrange(d.year, d.month)[1]
+            _w0 = float(
+                (_dmin.day - 1) / _mdays(_dmin)
+            ) if offset else 0
+            _months = max(
+                0,
+                int(
+                    (_dmax.year - _dmin.year) * 12
+                    + _dmax.month - _dmin.month
+                )
             )
-            # must include offset
-            if not _days:
+            if not _months:
                 _days = float(
-                    _dmax.day / monthrange(_dmax.year, _dmax.month)[-1]
+                    _dmax.day / _mdays(_dmax)
+                    - (_dmin.day - 1) / _mdays(_dmin)
                 )
             else:
                 _days = float(
-                    _dmax.day / monthrange(_dmax.year, _dmax.month)[-1]
-                    - _dmin.day / monthrange(_dmin.year, _dmin.month)[-1]
+                    1.0
+                    - (_dmin.day - 1) / _mdays(_dmin)
+                    + (_dmax.day - 1) / _mdays(_dmax)
                 )
             # end if
-            print("date min:", _dmin, monthrange(_dmin.year, _dmin.month))
-            print("date max:", _dmax, monthrange(_dmax.year, _dmax.month))
-            print("months:", _months)
-            print("days:", _days)
-            print("width:", int(self.tick_width * (_months + _days)))
-            return int(self.tick_width * (_months + _days))
+            return int(self.tick_width * (_w0 + _months + _days))
         # end if
     # end def
 

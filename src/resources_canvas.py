@@ -876,6 +876,18 @@ class RCDateRuler (RCCanvasItem):
     # end def
 
 
+    def day_ratio (self, cdate):
+        """
+            calculates a tick width ratio along with day number and
+            number of days in @cdate month (variable);
+        """
+        return float(
+            (cdate.day - 1) /
+                monthrange(cdate.year, cdate.month)[1] # days in month
+        )
+    # end def
+
+
     def draw_ruler (self, *args, **kw):
         """
             really draws ruler along with callback functions; requires
@@ -1073,15 +1085,14 @@ class RCDateRuler (RCCanvasItem):
             return int(self.tick_width * _days / 7.0)
         # scale is MONTHS
         elif self.scale == 2:
-            # total days in given month (variable)
-            _mdays = lambda d: monthrange(d.year, d.month)[1]
-            _rmin = float((_dmin.day - 1) / _mdays(_dmin))
+            # inits
+            _rmin = self.day_ratio(_dmin)
             _w0 = _rmin if offset else 0
             _months = int(
                 (_dmax.year - _dmin.year) * 12
                 + _dmax.month - _dmin.month
             )
-            _days = float((_dmax.day - 1) / _mdays(_dmax) - _rmin)
+            _days = self.day_ratio(_dmax) - _rmin
             # end if
             return int(self.tick_width * (_w0 + _months + _days))
         # end if

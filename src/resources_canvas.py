@@ -1073,29 +1073,15 @@ class RCDateRuler (RCCanvasItem):
             return int(self.tick_width * _days / 7.0)
         # scale is MONTHS
         elif self.scale == 2:
-            # inits
+            # total days in given month (variable)
             _mdays = lambda d: monthrange(d.year, d.month)[1]
-            _w0 = float(
-                (_dmin.day - 1) / _mdays(_dmin)
-            ) if offset else 0
-            _months = max(
-                0,
-                int(
-                    (_dmax.year - _dmin.year) * 12
-                    + _dmax.month - _dmin.month
-                )
+            _rmin = float((_dmin.day - 1) / _mdays(_dmin))
+            _w0 = _rmin if offset else 0
+            _months = int(
+                (_dmax.year - _dmin.year) * 12
+                + _dmax.month - _dmin.month
             )
-            if not _months:
-                _days = float(
-                    _dmax.day / _mdays(_dmax)
-                    - (_dmin.day - 1) / _mdays(_dmin)
-                )
-            else:
-                _days = float(
-                    1.0
-                    - (_dmin.day - 1) / _mdays(_dmin)
-                    + (_dmax.day - 1) / _mdays(_dmax)
-                )
+            _days = float(_dmax.day / _mdays(_dmax) - _rmin)
             # end if
             return int(self.tick_width * (_w0 + _months + _days))
         # end if

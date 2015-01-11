@@ -23,6 +23,7 @@
 """
 
 # lib imports
+from calendar import monthrange
 from datetime import date
 from calendar import month_name
 import tkRAD.widgets.rad_dialog as DLG
@@ -44,6 +45,18 @@ class DateBarDialog (DLG.RADButtonsDialog):
         """
         # tkinter widget event bindings
         self.bind("<Escape>", self._slot_button_cancel)
+        # browse combos
+        for _cbo in self.CBO_BEGIN[1:]:
+            _cbo.bind(
+                "<<ComboboxSelected>>", self.slot_combo_begin_selected
+            )
+        # end for
+        # browse combos
+        for _cbo in self.CBO_END[1:]:
+            _cbo.bind(
+                "<<ComboboxSelected>>", self.slot_combo_end_selected
+            )
+        # end for
     # end def
 
 
@@ -71,13 +84,28 @@ class DateBarDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def get_days (self, cdate):
+        """
+            retrieves a formatted days range from @cdate.year and
+            @cdate.month e.g. [1..28] for February, [1..31] for March
+            and so on;
+        """
+        return [
+            "{:02d}".format(i)
+            for i in range(
+                1, monthrange(cdate.year, cdate.month)[1] + 1
+            )
+        ]
+    # end def
+
+
     def init_combos (self, *groups):
         """
             sets default values for date combos groups;
             group is combo tuple(day, month, year);
         """
         # inits
-        _DAYS = ["{:02d}".format(i) for i in range(1, 32)]
+        _DAYS = self.get_days(date.today())
         _MONTHS = list(month_name)[1:]
         _YEAR = date.today().year
         _YEARS = list(range(_YEAR - 1, _YEAR + 2))
@@ -169,10 +197,45 @@ class DateBarDialog (DLG.RADButtonsDialog):
         # combo inits
         _day, _month, _year = group
         # reset date
+        _day.configure(values=self.get_days(cdate))
         _day.current(_cday - 1)
         _month.current(_cmonth - 1)
         _year.configure(values=list(range(_ymin, _ymax + 1)))
         _year.set(_cyear)
+    # end def
+
+
+    def slot_combo_begin_selected (self, event=None, *args, **kw):
+        """
+            event handler: combobox item has been selected;
+        """
+        # update days range
+        self.update_days_range(self.CBO_BEGIN)
+    # end def
+
+
+    def slot_combo_end_selected (self, event=None, *args, **kw):
+        """
+            event handler: combobox item has been selected;
+        """
+        # update days range
+        self.update_days_range(self.CBO_END)
+    # end def
+
+
+    def update_days_range (self, group):
+        """
+            updates days range for new (year, month) values in @group;
+        """
+        print("update_days_range")
+        # inits
+        _day, _month, _year = group
+        _index = _day.current()
+        _days = self.get_days(
+            date(int(_year.get()), _month.current() + 1, 1)
+        )
+        _day.configure(values=_days)
+        _day.current(min(_index, len(_days) - 1))
     # end def
 
 

@@ -12,8 +12,4 @@ TODO list
 
     * in 'tab_resources':
 
-        * improve datebar dialog: day number should adapt to month/year
-        with import calendar.monthrange feature, especially for
-        february, but not only;
-
         * what about datebar overlappings?

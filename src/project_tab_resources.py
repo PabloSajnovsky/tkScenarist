@@ -539,7 +539,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             # reselect item
             self.LBOX_ITEM.see(_index)
             self.LBOX_ITEM.selection_set(_index)
-            self.slot_listbox_item_selected()
+            #~ self.slot_listbox_item_selected() # useless
         # end if
     # end def
 
@@ -548,8 +548,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
             event handler: keyboard keypress for text widget;
         """
-        # no modifiers?
-        if not (event.state & STATE_MASK):
+        # modified?
+        if self.TEXT.edit_modified():
             # schedule auto-save for later
             self.async.run_after(3000, self.auto_save)
             # notify app

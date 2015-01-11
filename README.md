@@ -104,10 +104,7 @@ reminder;
 
 * Seventh tab is the `Resources` panel, including staff, events and
 hardware main sections, plus several subsections, data form for
-resource items and a visual planning canvas widget;
-
-Notice: **WIP** means **Work In Progress**, that is, in fact, meaning
-still in development state.
+resource items and a visual planning widget;
 
 
 ## Screenshots

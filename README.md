@@ -172,10 +172,15 @@ You may consider installing Python3 from:
 
 https://www.python.org/downloads/ (Ctrl+click: open in new tab)
 
-Notice: many major Linux distributions (e.g. Ubuntu, SuSE, etc) do
-already have a pre-installed Python3/Tkinter package. In this
-particular case, **you should *NOT* consider** to make any special
-installation by yourself. Simply download and use this program as is.
+### Notice
+
+Many major Linux distributions (e.g. Ubuntu, SuSE, etc) do already have
+a **pre-installed** Python3/Tkinter package.
+
+In this particular case, **you should *NOT* consider** to make any
+special installation by yourself.
+
+Simply download and use this program as is.
 
 ### MS-Windows&trade; users
 

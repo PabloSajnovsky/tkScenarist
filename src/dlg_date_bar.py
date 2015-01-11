@@ -36,7 +36,6 @@ class DateBarDialog (DLG.RADButtonsDialog):
 
     # class constant defs
     BUTTONS = ("OK", "Cancel")
-    DATE_ERROR = _("invalid date")
 
 
     def bind_events (self, **kw):
@@ -60,34 +59,30 @@ class DateBarDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def date_error (self, cvar):
-        """
-            shows error message at erroneous date input field;
-        """
-        cvar.set(self.DATE_ERROR)
-        self.after(2000, cvar.set, "")
-        return False
-    # end def
-
-
     def get_date (self, group):
         """
-            retrieves a datetime.date object from date data stored in
-            @group;
+            tries to retrieve a datetime.date object from date data
+            stored in @group; returns datetime.date(year, month, 1) on
+            failure;
         """
         # inits
         _day, _month, _year = group
-        # retrieve date
-        return date(
-            int(_year.get()), _month.current() + 1, int(_day.get())
-        )
+        _y = int(_year.get())
+        _m = _month.current() + 1
+        try:
+            # retrieve current date
+            return date(_y, _m, int(_day.get()))
+        except:
+            # retrieve default date
+            return date(_y, _m, 1)
+        # end try
     # end def
 
 
     def get_days (self, cdate):
         """
             retrieves a formatted days range from @cdate.year and
-            @cdate.month e.g. [1..28] for February, [1..31] for March
+            @cdate.month e.g. [01..28] for February, [01..31] for March
             and so on;
         """
         return [
@@ -105,22 +100,22 @@ class DateBarDialog (DLG.RADButtonsDialog):
             group is combo tuple(day, month, year);
         """
         # inits
-        _DAYS = self.get_days(date.today())
-        _MONTHS = list(month_name)[1:]
-        _YEAR = date.today().year
-        _YEARS = list(range(_YEAR - 1, _YEAR + 2))
+        _days = self.get_days(date.today())
+        _months = list(month_name)[1:]
+        _year = date.today().year
+        _years = list(range(_year - 1, _year + 2))
         # browse groups
         for _group in groups:
             # inits
             _day, _month, _year = _group
             # day values
-            _day.configure(values=_DAYS, state="readonly")
+            _day.configure(values=_days, state="readonly")
             _day.current(0)
             # month values
-            _month.configure(values=_MONTHS, state="readonly")
+            _month.configure(values=_months, state="readonly")
             _month.current(0)
             # year values
-            _year.configure(values=_YEARS, state="readonly")
+            _year.configure(values=_years, state="readonly")
             _year.current(0)
         # end for
     # end def
@@ -188,20 +183,17 @@ class DateBarDialog (DLG.RADButtonsDialog):
             resets @cdate datetime.date object into combo @group;
         """
         # date inits
-        _cday = cdate.day
-        _cmonth = cdate.month
-        _cyear = cdate.year
-        _YEAR = date.today().year
-        _ymin = min(_YEAR - 1, _cyear)
-        _ymax = max(_YEAR + 5, _cyear)
+        _year = date.today().year
+        _ymin = min(_year - 1, cdate.year)
+        _ymax = max(_year + 5, cdate.year)
         # combo inits
         _day, _month, _year = group
         # reset date
         _day.configure(values=self.get_days(cdate))
-        _day.current(_cday - 1)
-        _month.current(_cmonth - 1)
+        _day.current(cdate.day - 1)
+        _month.current(cdate.month - 1)
         _year.configure(values=list(range(_ymin, _ymax + 1)))
-        _year.set(_cyear)
+        _year.set(cdate.year)
     # end def
 
 
@@ -227,7 +219,6 @@ class DateBarDialog (DLG.RADButtonsDialog):
         """
             updates days range for new (year, month) values in @group;
         """
-        print("update_days_range")
         # inits
         _day, _month, _year = group
         _index = _day.current()

@@ -220,11 +220,9 @@ class DateBarDialog (DLG.RADButtonsDialog):
             updates days range for new (year, month) values in @group;
         """
         # inits
-        _day, _month, _year = group
+        _days = self.get_days(self.get_date(group))
+        _day = group[0]
         _index = _day.current()
-        _days = self.get_days(
-            date(int(_year.get()), _month.current() + 1, 1)
-        )
         _day.configure(values=_days)
         _day.current(min(_index, len(_days) - 1))
     # end def
@@ -238,16 +236,8 @@ class DateBarDialog (DLG.RADButtonsDialog):
             returns True on success, False otherwise;
         """
         # inits
-        try:
-            _begin = self.get_date(self.CBO_BEGIN)
-        except:
-            return self.date_error(self.LBL_ERR_BEGIN)
-        # end try
-        try:
-            _end = self.get_date(self.CBO_END)
-        except:
-            return self.date_error(self.LBL_ERR_END)
-        # end try
+        _begin = self.get_date(self.CBO_BEGIN)
+        _end = self.get_date(self.CBO_END)
         # incorrect interval?
         if _begin > _end:
             # swap dates

@@ -102,7 +102,9 @@ dialog is available for finer script edition tuning;
 scene preview, shot list manager, shot editor and character's log
 reminder;
 
-* Seventh tab is the `Resources` panel, still in development (WIP);
+* Seventh tab is the `Resources` panel, including staff, events and
+hardware main sections, plus several subsections, data form for
+resource items and a visual planning canvas widget;
 
 Notice: **WIP** means **Work In Progress**, that is, in fact, meaning
 still in development state.
@@ -120,11 +122,13 @@ still in development state.
 ![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-008.png)
 ![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-009.png)
 ![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-010.png)
+![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-011.png)
+![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-012.png)
 
 
 ## Development status
 
-    Development Status :: 3 - Alpha
+    Development Status :: 4 - Beta
 
 Software has been:
 
@@ -133,8 +137,8 @@ Software has been:
 * MacOS:
     * NOT YET TESTED;
 * MS-Windows:
-    * *PARTIALLY* TESTED on MS-Windows(tm) 8 and seems to work quite
-    fine for the moment;
+    * TESTED only on MS-Windows(tm) 8, but seems to work quite fine for
+    the moment;
 
 Any feedback is still the welcome.
 

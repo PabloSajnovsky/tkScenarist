@@ -135,8 +135,8 @@ class ResourcesCanvas (RC.RADCanvas):
         # clear canvas
         self.delete("all")
         self.configure(scrollregion=(0, 0, 0, 0))
-        self.xview_moveto(0)
-        self.yview_moveto(0)
+        self.xview_moveto(0, override=True)
+        self.yview_moveto(0, override=True)
     # end def
 
 
@@ -297,8 +297,6 @@ class ResourcesCanvas (RC.RADCanvas):
             )
             # got to update?
             if _scale != self.date_ruler.scale:
-                # return to origin
-                self.xview_moveto(0)
                 # update date ruler + datebars
                 self.date_ruler.scale = _scale
                 self.update_datebars()
@@ -413,8 +411,6 @@ class ResourcesCanvas (RC.RADCanvas):
                 _datebar.clear()
                 # remove from DB
                 self.database.res_del_datebar(_datebar.tag)
-                # return to origin
-                self.xview_moveto(0)
                 # update ruler + datebars
                 self.update_datebars()
                 # notify app
@@ -467,6 +463,8 @@ class ResourcesCanvas (RC.RADCanvas):
                     _dmax = _datebar.date_end
                 # end if
             # end for
+            # return to origin
+            self.xview_moveto(0, override=True)
             # redraw date ruler
             self.date_ruler.update(date_min=_dmin, date_max=_dmax)
             # browse collection
@@ -509,12 +507,12 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
-    def xview_moveto (self, *args):
+    def xview_moveto (self, *args, override=False):
         """
             hack for components visibility on contents scrolling;
         """
         # Tcl/Tk bugfix
-        if self.can_scroll_x():
+        if self.can_scroll_x() or override:
             # delegate to super
             super().xview_moveto(*args)
             # ensure visible components
@@ -551,12 +549,12 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
-    def yview_moveto (self, *args):
+    def yview_moveto (self, *args, override=False):
         """
             hack for components visibility on contents scrolling;
         """
         # Tcl/Tk bugfix
-        if self.can_scroll_y():
+        if self.can_scroll_y() or override:
             # delegate to super
             super().yview_moveto(*args)
             # ensure visible components

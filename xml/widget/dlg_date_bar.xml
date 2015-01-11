@@ -98,12 +98,6 @@
             layout="grid"
             layout_options="row=0, column=3"
         />
-        <ttklabel
-            textvariable="lbl_begin_error"
-            style="error.TLabel"
-            layout="grid"
-            layout_options="row=0, column=4, padx=5"
-        />
         <!-- date end -->
         <ttklabel
             text="Date end (included):"
@@ -127,12 +121,6 @@
             width="5"
             layout="grid"
             layout_options="row=1, column=3"
-        />
-        <ttklabel
-            textvariable="lbl_end_error"
-            style="error.TLabel"
-            layout="grid"
-            layout_options="row=1, column=4, padx=5"
         />
     </ttklabelframe>
 </tkwidget>

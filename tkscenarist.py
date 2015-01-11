@@ -36,7 +36,7 @@ class tkScenarist (tkRAD.RADApplication):
         "title": _("tkScenarist - screen writing made simpler"),
         "author": _("Raphaël SEBAN <motus@laposte.net>"),
         # current maintainer (may be different from author)
-        "maintainer": _("idem"),
+        "maintainer": _("idem."),
         "copyright": _("(c) 2014+ Raphaël SEBAN."),
         "license": _("""\
 This program is free software: you can redistribute it and/or modify it

@@ -87,12 +87,14 @@
             accelerator="Ctrl+A"
             command="@Edit:Select:All"
         />
+<!--
         <separator/>
         <command
             label="_Preferences"
             accelerator="Ctrl+U"
             command="@Edit:Preferences"
         />
+-->
     </menu>
 
     <!-- menu VIEW -->

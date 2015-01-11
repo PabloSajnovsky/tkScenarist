@@ -24,11 +24,8 @@
 
 # lib imports
 import os
-import json
 from calendar import monthrange
 from datetime import timedelta, date, datetime
-import tkinter.messagebox as MB
-import tkinter.simpledialog as SD
 import tkRAD.widgets.rad_canvas as RC
 from . import dlg_date_bar as DLG
 
@@ -248,7 +245,6 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             resets canvas to new;
         """
-        print(__class__.__name__, "reset")
         # clear canvas
         self.clear_canvas()
         # reset members
@@ -1179,51 +1175,6 @@ class RCItemList (RCCanvasItem):
     XY_ORIGIN = (0, RCDateRuler.RULER_HEIGHT)
 
 
-    def get_item_from (self, x, y):
-        """
-            retrieves item from given (x, y) canvas coordinates;
-        """
-        # got items?
-        if self.items:
-            # inits
-            _x0, _y0 = self.XY_ORIGIN
-            # only need y
-            _index = min(
-                len(self.items) - 1,
-                max(0, y - _y0) // self.LINE_HEIGHT
-            )
-            _name = self.sorted_items[_index]
-            # return item
-            return dict(name=_name, rowid=self.items[_name])
-        # end if
-    # end def
-
-
-    def get_y_pos (self, item_name):
-        """
-            returns y coordinate of central axis for a given
-            @item_name; raises error if @item_name is *NOT* in items;
-        """
-        # return y pos
-        return int(
-            self.XY_ORIGIN[1] +
-            (self.sorted_items.index(item_name) + 0.5) *
-            self.LINE_HEIGHT
-        )
-    # end def
-
-
-    def init_members (self, *args, **kw):
-        """
-            virtual method to be reimplemented in subclass;
-        """
-        # member inits
-        self.items = None
-        self.sorted_items = None
-        self.swapped_items = None
-    # end def
-
-
     def fill_list (self, item_dict):
         """
             fills list with items in @item_dict;
@@ -1268,6 +1219,51 @@ class RCItemList (RCCanvasItem):
             self.canvas.tag_raise(self.tag, "all")
             self.canvas.tag_raise(self.tag_labels, self.frame_id)
         # end if
+    # end def
+
+
+    def get_item_from (self, x, y):
+        """
+            retrieves item from given (x, y) canvas coordinates;
+        """
+        # got items?
+        if self.items:
+            # inits
+            _x0, _y0 = self.XY_ORIGIN
+            # only need y
+            _index = min(
+                len(self.items) - 1,
+                max(0, y - _y0) // self.LINE_HEIGHT
+            )
+            _name = self.sorted_items[_index]
+            # return item
+            return dict(name=_name, rowid=self.items[_name])
+        # end if
+    # end def
+
+
+    def get_y_pos (self, item_name):
+        """
+            returns y coordinate of central axis for a given
+            @item_name; raises error if @item_name is *NOT* in items;
+        """
+        # return y pos
+        return int(
+            self.XY_ORIGIN[1] +
+            (self.sorted_items.index(item_name) + 0.5) *
+            self.LINE_HEIGHT
+        )
+    # end def
+
+
+    def init_members (self, *args, **kw):
+        """
+            virtual method to be reimplemented in subclass;
+        """
+        # member inits
+        self.items = None
+        self.sorted_items = None
+        self.swapped_items = None
     # end def
 
 

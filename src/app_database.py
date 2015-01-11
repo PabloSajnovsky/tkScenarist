@@ -385,6 +385,19 @@ class AppDatabase (DB.Database):
     # end def
 
 
+    def res_get_all_datebars (self):
+        """
+            retrieves all resource datebars;
+        """
+        # SQL query
+        self.sql_query(
+            "SELECT * FROM 'resource_datebars'"
+        )
+        # get all rows or default
+        return self.fetch(self.ALL, default=[])
+    # end def
+
+
     def res_get_all_items (self):
         """
             retrieves all resource items;
@@ -463,6 +476,29 @@ class AppDatabase (DB.Database):
         return dict(
             [(_(i[0]), i[1]) for i in self.fetch(self.ALL) or list()]
         )
+    # end def
+
+
+    def res_import_datebars (self, sequence):
+        """
+            imports resource datebars rows from @sequence into DB
+            table;
+        """
+        # truncate table
+        self.sql_query("DELETE FROM 'resource_datebars'")
+        # ensure plain list
+        if tools.is_plist(sequence):
+            # import many rows
+            self.cursor.executemany(
+                "INSERT OR IGNORE INTO 'resource_datebars' "
+                "VALUES (NULL, :datebar_fk_type, :datebar_tag, "
+                ":datebar_status, :datebar_date_begin, "
+                ":datebar_date_end)",
+                sequence
+            )
+            # commit new transaction
+            self.commit()
+        # end if
     # end def
 
 

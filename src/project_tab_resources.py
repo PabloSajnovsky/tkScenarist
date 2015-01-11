@@ -325,6 +325,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         _dict = {
             "types": [dict(i) for i in _db.res_get_all_types()],
             "items": [dict(i) for i in _db.res_get_all_items()],
+            "datebars": [dict(i) for i in _db.res_get_all_datebars()],
         }
         fcontents = json.dumps(_dict)
         # always return a dict
@@ -443,6 +444,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             # update DB tables
             self.database.res_import_types(_type_rows)
             self.database.res_import_items(_dict.get("items"))
+            self.database.res_import_datebars(_dict.get("datebars"))
             # reset combos, listbox and so on
             self.reset_resources()
         # no data

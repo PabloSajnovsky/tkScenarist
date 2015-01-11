@@ -143,17 +143,6 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
-    def get_file_contents (self):
-        """
-            returns file contents as string of chars;
-        """
-        # inits
-        _dict = dict()
-        pass                                                                # FIXME
-        return json.dumps(_dict)
-    # end def
-
-
     def get_group_tag (self, x, y):
         """
             retrieves group tag from real canvas pos @(x, y);

@@ -119,6 +119,8 @@ class ProjectFileManagement:
                     if tools.is_pstr(fname):
                         # set contents instead
                         fname = _archive.read(fname).decode(ENCODING)
+                        # strip unwanted
+                        fname = fname.strip()
                     # end if
                     # setup notebook tab
                     self.setup_tab(tab_id, fname, _archive)

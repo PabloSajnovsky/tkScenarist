@@ -74,6 +74,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
         self.events.connect_dict(
             {
+                "Project:Modified": self.slot_project_modified,
+
                 "Resources:Item:Add":
                     self.slot_res_item_add,
                 "Resources:Item:Delete":
@@ -555,6 +557,15 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             # notify app
             self.events.raise_event("Project:Modified")
         # end if
+    # end def
+
+
+    def slot_project_modified (self, *args, flag=True, **kw):
+        """
+            event handler for project's modification flag;
+        """
+        # reset status
+        self.TEXT.edit_modified(flag)
     # end def
 
 

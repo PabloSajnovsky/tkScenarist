@@ -448,6 +448,9 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         tk_text.delete("1.0", "end")
         # set contents
         tk_text.insert("1.0", contents)
+        # reset flags
+        tk_text.edit_modified(False)
+        tk_text.edit_reset()
     # end def
 
 # end class MainWindow

@@ -322,11 +322,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 # nothing to do out there
                 pass
             # end try
-            # insert text mark
-            _mark = self.get_new_mark()
-            self.mark_set(_mark, index)
-            self.mark_gravity(_mark, TK.LEFT)
-            print("new mark:", _mark)
             # try out
             try:
                 # switch to specific line creation
@@ -775,9 +770,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def get_new_mark (self):
+    def get_new_id (self):
         """
-            returns a unique mark id;
+            returns a unique id;
         """
         # inits
         self.instance_counter += 1

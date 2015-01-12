@@ -97,6 +97,17 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             "<<ListboxSelect>>", self.slot_characters_item_selected
         )
         self.TEXT_SHOT.bind("<KeyRelease>", self.slot_on_text_keypress)
+        # multiple event inits
+        _events = {
+            "<Key>": self.slot_popup_keypress,
+            "<KeyRelease>": self.slot_popup_keyrelease,
+            "<Button-1>": self.slot_popup_clicked,
+            "<Double-Button-1>": self.slot_popup_double_clicked,
+            "<<ListboxSelect>>": self.slot_popup_item_selected,
+        }
+        for _seq, _slot in _events.items():
+            self.POPUP_LBOX.bind(_seq, _slot)
+        # end for
     # end def
 
 
@@ -434,6 +445,15 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def popup_is_active (self):
+        """
+            returns True if popup window is detected as active (showing
+            up);
+        """
+        return bool(self.POPUP.state() == "normal")
+    # end def
+
+
     def replace_text (self, text, start=None, end=None,
                                 smart_delete=False, keep_cursor=False):
         """
@@ -614,6 +634,138 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             self.update_character_name()
             # schedule auto-save for later
             self.async.run_after(3000, self.auto_save)
+        # end if
+    # end def
+
+
+    def slot_popup_clicked (self, event=None, *args, **kw):
+        """
+            event handler: mouse click on popup;
+        """
+        # ensure popup is shown up
+        if self.popup_is_active():
+            # stop pending tasks
+            self.after_idle(
+                self.async.stop,
+                self.hide_popup_list,
+                self.slot_autocomplete
+            )
+        # end if
+    # end def
+
+
+    def slot_popup_double_clicked (self, event=None, *args, **kw):
+        """
+            event handler: mouse double click on popup;
+        """
+        # do insert text completion
+        return self.slot_popup_insert()
+    # end def
+
+
+    def slot_popup_insert (self, event=None, *args, **kw):
+        """
+            event handler: tab/return keypress on popup;
+        """
+        # ensure popup is shown up
+        if self.popup_is_active():
+            # inits
+            _lb = self.POPUP_LBOX
+            _name = _lb.get(_lb.curselection()[0])
+            # replace text
+            self.replace_text(
+                _name, self.POPUP.start_index, smart_delete=True
+            )
+            # reset focus
+            self.after_idle(self.TEXT_SHOT.focus_set)
+            # break tkevent chain
+            return "break"
+        # end if
+    # end def
+
+
+    def slot_popup_item_selected (self, event=None, *args, **kw):
+        """
+            event handler: item selected on popup;
+        """
+        # update current index
+        self.POPUP_LBOX.current_index = self.POPUP_LBOX.curselection()[0]
+        # break tkevent chain
+        return "break"
+    # end def
+
+
+    def slot_popup_key_arrows (self, event=None, *args, **kw):
+        """
+            event handler: up/down keypress on popup;
+        """
+        # ensure popup is shown up
+        if self.popup_is_active():
+            # inits
+            _key = event.keysym.lower()
+            _lb = self.POPUP_LBOX
+            _ci = _lb.current_index
+            # update index
+            _ci += int(_key == "down") - int(_key == "up")
+            # rebind index
+            _ci = max(0, min(_ci, _lb.size() - 1))
+            # reset selection
+            _lb.current_index = _ci
+            _lb.selection_clear(0, "end")
+            _lb.selection_set(_ci)
+            _lb.see(_ci)
+            # break tkevent chain
+            return "break"
+        # end if
+    # end def
+
+
+    def slot_popup_keypress (self, event=None, *args, **kw):
+        """
+            event handler: any keypress on popup;
+        """
+        # ensure popup is shown up
+        if self.popup_is_active():
+            # inits
+            _key = event.keysym
+            # specific keystrokes
+            if _key in ("Escape",):
+                # hide popup (transferred to slot_popup_keyrelease)
+                pass
+            # up/down arrow keys
+            elif _key in ("Up", "Down"):
+                # manage into popup
+                return self.slot_popup_key_arrows(event, *args, **kw)
+            # tab/return keystrokes
+            elif _key in ("Tab", "Return"):
+                # manage into popup
+                return self.slot_popup_insert(event, *args, **kw)
+            # unsupported keystrokes
+            else:
+                # delegate event chain
+                return None
+            # end if
+            # break tkevent chain by default
+            return "break"
+        # end if
+    # end def
+
+
+    def slot_popup_keyrelease (self, event=None, *args, **kw):
+        """
+            event handler: any keyrelease on popup;
+        """
+        # ensure popup is shown up
+        if self.popup_is_active():
+            # inits
+            _key = event.keysym
+            # specific keystrokes
+            if _key in ("Escape",):
+                # hide popup
+                self.hide_popup_list()
+                # break tkevent chain
+                return "break"
+            # end if
         # end if
     # end def
 

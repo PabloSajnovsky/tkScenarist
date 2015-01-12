@@ -26,6 +26,7 @@
 import re
 import json
 import tkinter.messagebox as MB
+import tkinter as TK
 import tkRAD
 import tkRAD.core.async as ASYNC
 from tkRAD.core import tools
@@ -272,6 +273,19 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def hide_popup_list (self, *args, **kw):
+        """
+            event handler: hides autocompletion popup list;
+        """
+        # stop pending popup openings
+        self.async.stop(self.slot_autocomplete)
+        # hide popup list
+        self.POPUP.withdraw()
+        self.POPUP.start_index = None
+        self.POPUP_LBOX.current_index = 0
+    # end def
+
+
     def init_widget (self, **kw):
         """
             hook method to be reimplemented by subclass;
@@ -280,6 +294,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.mainwindow = self.winfo_toplevel()
         self.mainframe = self.mainwindow.mainframe
         self.database = self.mainwindow.database
+        self.tab_characters = self.mainframe.tab_characters
         self.text_clear_contents = self.mainwindow.text_clear_contents
         self.text_get_contents = self.mainwindow.text_get_contents
         self.text_set_contents = self.mainwindow.text_set_contents
@@ -301,6 +316,17 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.LBL_SCENE = self.get_stringvar("lbl_scene_number")
         self.LBL_SHOT = self.get_stringvar("lbl_shot_number")
         self.LBL_CHARNAME = self.get_stringvar("lbl_character_name")
+        # popup list
+        self.POPUP = self.toplevel_popup_list
+        self.POPUP.transient(self.TEXT_SHOT)
+        self.POPUP.overrideredirect(True)
+        self.POPUP_LBOX = self.listbox_popup_list
+        # (re)route events (POPUP_LBOX has priority on TEXT_SHOT)
+        self.mainframe.tab_scenario.route_events(
+            self.POPUP_LBOX, self.TEXT_SHOT
+        )
+        # hide popup list
+        self.hide_popup_list()
         # reset listboxes
         self.clear_listbox(
             self.LBOX_SCENE, self.LBOX_SHOT, self.LBOX_CHARS
@@ -339,6 +365,46 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def replace_text (self, text, start=None, end=None,
+                                smart_delete=False, keep_cursor=False):
+        """
+            replaces text segment found between @start and @end by
+            @text contents;
+        """
+        # inits
+        start = start or TK.INSERT
+        end = end or TK.INSERT
+        # keep cursor
+        _cursor = self.TEXT_SHOT.index(TK.INSERT)
+        # asked for smart deletion?
+        if smart_delete:
+            # inits
+            _endl = "{} lineend".format(end)
+            _text = self.TEXT_SHOT.get(end, _endl)
+            # search for a non-alphabetical char
+            _found = re.search(r"[^\w\-]", _text)
+            # found word separator?
+            if _found:
+                # update end index
+                end = "{} +{}c".format(end, _found.start())
+            # not found?
+            else:
+                # expand to line end
+                end = _endl
+            # end if
+        # end if
+        # remove old text
+        self.TEXT_SHOT.delete(start, end)
+        # insert new text
+        self.TEXT_SHOT.insert(start, text)
+        # asked to keep cursor?
+        if keep_cursor:
+            # reset cursor location
+            self.TEXT_SHOT.move_cursor(_cursor)
+        # end if
+    # end def
+
+
     def save_now (self):
         """
             ensures current template is saved before clearing;
@@ -358,6 +424,82 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         _rows = json.loads(fname or "[]")
         # update DB table
         self.database.stb_import_shots(_rows)
+    # end def
+
+
+    def show_popup_list (self, *args, **kw):
+        """
+            event handler: shows autocompletion popup list;
+        """
+        # ensure no tkinter.messagebox is up there
+        try:
+            if self.grab_current(): return self.hide_popup_list()
+        except:
+            return self.hide_popup_list()
+        # end try
+        # stop pending tasks
+        self.async.stop(self.hide_popup_list, self.slot_autocomplete)
+        # inits
+        choices = kw.get("choices")
+        start_index = kw.get("start_index") or "insert"
+        self.POPUP.start_index = start_index
+        # param controls
+        if choices:
+            _lb = self.POPUP_LBOX
+            _lb.delete(0, "end")
+            _lb.insert(0, *choices)
+            try:
+                _lb.selection_set(_lb.current_index)
+                _lb.see(_lb.current_index)
+            except:
+                _lb.selection_set(0)
+                _lb.see(0)
+                _lb.current_index = 0
+            # end try
+            _lb.configure(
+                height=min(5, len(choices)),
+                width=min(40, max(map(len, choices))),
+            )
+        # end if
+        # recalc pos
+        _x, _y, _w, _h = self.TEXT.bbox(start_index)
+        _xi, _yi, _wi, _hi = self.TEXT.bbox("insert")
+        _x += self.TEXT.winfo_rootx()
+        _y = self.TEXT.winfo_rooty() + _h + max(_y, _yi)
+        # reset popup window pos
+        self.POPUP.geometry("+{}+{}".format(_x, _y))
+        # show popup list
+        self.POPUP.deiconify()
+    # end def
+
+
+    def slot_autocomplete (self, *args, **kw):
+        """
+            event handler: a word has been detected in shot text widget
+            while buffering keystrokes;
+        """
+        return                                                              # FIXME
+        # inits
+        _word = self.TEXT.get_word()
+        _si = _word["start_index"]
+        # look for matching names
+        _names = self.tab_characters.get_matching_names(_word["word"])
+        # no matching names for word?
+        if not _names:
+            # try out full line
+            _names = self.tab_characters.get_matching_names(
+                self.TEXT.get_line_contents()
+            )
+            _si = "insert linestart"
+        # end if
+        # got matching names?
+        if _names:
+            # show popup list
+            self.show_popup_list(choices=_names, start_index=_si)
+        else:
+            # hide popup list
+            self.hide_popup_list()
+        # end if
     # end def
 
 
@@ -399,6 +541,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         # no modifiers?
         if not (event.state & STATE_MASK):
+            # manage character names
+            self.update_character_name()
             # schedule auto-save for later
             self.async.run_after(3000, self.auto_save)
         # end if
@@ -716,6 +860,48 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             # update listbox contents
             self.clear_listbox(self.LBOX_SHOT)
             self.LBOX_SHOT.insert(0, *_contents)
+        # end if
+    # end def
+
+
+    def update_character_name (self, *args, **kw):
+        """
+            event handler: updates character's name, if any;
+        """
+        print("update_character_name")
+        # inits
+        _tc = self.tab_characters
+        _line = self.TEXT_SHOT.get(
+            "{} linestart".format(TK.INSERT),
+            "{} lineend".format(TK.INSERT)
+        )
+        _name, _start_index = _tc.find_nearest_name(
+            _line,
+            tools.ensure_int(
+                self.TEXT_SHOT.index(TK.INSERT).split(".")[-1]
+            )
+        )
+        # known character name?
+        if _tc.is_registered(_name):
+            print("known character name")
+            # name not in good format?
+            if _name not in _line:
+                print("updating name in contents")
+                # update name into text contents
+                _index = "{} linestart+{{}}c".format(TK.INSERT)
+                self.replace_text(
+                    _name,
+                    _index.format(_start_index),
+                    _index.format(_start_index + len(_name)),
+                    keep_cursor=True,
+                )
+            # end if
+            # no need to autocomplete
+            self.hide_popup_list()
+        # unknown char name
+        else:
+            # look out for autocompletion
+            self.async.run_after_idle(self.slot_autocomplete)
         # end if
     # end def
 

@@ -435,4 +435,36 @@
         </ttklabelframe>
 
     </ttkpanedwindow>
+
+    <!-- text autocompletion popup list widget -->
+    <toplevel
+        name="toplevel_popup_list"
+        visibility="hidden"
+        resizable="no"
+    >
+        <listbox
+            id="lbox_popup_list"
+            name="listbox_popup_list"
+            font="monospace 12"
+            background="lemon chiffon"
+            foreground="grey30"
+            selectbackground="grey30"
+            selectforeground="lemon chiffon"
+            highlightthickness="0"
+            borderwidth="1"
+            relief="solid"
+            layout="grid"
+            layout_options="row=0, column=0"
+            resizable="no"
+        />
+        <scrollbar
+            connect="lbox_popup_list"
+            orient="vertical"
+            relief="flat"
+            width="5"
+            layout="grid"
+            layout_options="row=0, column=1"
+            resizable="height"
+        />
+    </toplevel>
 </tkwidget>

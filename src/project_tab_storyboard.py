@@ -400,7 +400,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # asked to keep cursor?
         if keep_cursor:
             # reset cursor location
-            self.TEXT_SHOT.move_cursor(_cursor)
+            self.TEXT_SHOT.mark_set(TK.INSERT, index)
         # end if
     # end def
 

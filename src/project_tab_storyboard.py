@@ -289,10 +289,10 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         # inits
         _wtext = self.mainframe.tab_scenario.TEXT
-        _line_id = _wtext.get_line_id(
+        _mark = _wtext.mark_previous(
             float(self.LBOX_SCENE.text_lines[scene - 1])
         )
-        print("line id:", _line_id)
+        print("mark:", _mark)
         _contents = []
         # browse rows
         for _row in self.database.stb_get_shot_list(scene):

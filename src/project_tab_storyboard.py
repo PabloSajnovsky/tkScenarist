@@ -159,6 +159,17 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def get_column_index (self, index=None):
+        """
+            retrieves column index as integer for @index location;
+        """
+        # inits
+        index = self.TEXT_SHOT.index(index or TK.INSERT)
+        # return integer
+        return tools.ensure_int(index.split(".")[-1])
+    # end def
+
+
     def get_current_selected (self, listbox, force_index=-1):
         """
             returns dict (index, text) of current selection or None,
@@ -206,6 +217,20 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         # return formatted string
         return "{} {}".format(shot_number, title)
+    # end def
+
+
+    def get_line_contents (self, index=None):
+        """
+            retrieves line text contents at @index or insertion cursor,
+            if omitted;
+        """
+        # inits
+        index = index or TK.INSERT
+        # return contents
+        return self.TEXT_SHOT.get(
+            "{} linestart".format(index), "{} lineend".format(index)
+        )
     # end def
 
 
@@ -270,6 +295,50 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         # return shot number
         return "#{}.{:02d}".format(scene, shot)
+    # end def
+
+
+    def get_word (self, index=None):
+        """
+            retrieves word located at or around @index, if any.
+        """
+        # inits
+        index = index or TK.INSERT
+        _start = "{} linestart".format(index)
+        _end = "{} lineend".format(index)
+        _word = ""
+        # look backward
+        _text = self.TEXT_SHOT.get(_start, index)
+        _pos = _text.rfind(" ")
+        # found?
+        if _pos >= 0:
+            # set first part of word
+            _word += _text[_pos + 1:]
+            # update start index
+            _start = "{}+{}c".format(_start, _pos + 1)
+        else:
+            # take all
+            _word += _text
+        # end if
+        # look forward
+        _text = self.TEXT_SHOT.get(index, _end)
+        _pos = _text.find(" ")
+        # found?
+        if _pos >= 0:
+            # set last part of word
+            _word += _text[:_pos]
+            # update end index
+            _end = "{}+{}c".format(_start, _pos)
+        else:
+            # take all
+            _word += _text
+        # end if
+        # return result
+        return {
+            "word": _word.rstrip(" .:,;?!\"']})"),
+            "start_index": _start,
+            "end_index": _end,
+        }
     # end def
 
 
@@ -400,7 +469,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # asked to keep cursor?
         if keep_cursor:
             # reset cursor location
-            self.TEXT_SHOT.mark_set(TK.INSERT, index)
+            self.TEXT_SHOT.mark_set(TK.INSERT, _cursor)
         # end if
     # end def
 
@@ -441,7 +510,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         self.async.stop(self.hide_popup_list, self.slot_autocomplete)
         # inits
         choices = kw.get("choices")
-        start_index = kw.get("start_index") or "insert"
+        start_index = kw.get("start_index") or TK.INSERT
         self.POPUP.start_index = start_index
         # param controls
         if choices:
@@ -462,10 +531,11 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             )
         # end if
         # recalc pos
-        _x, _y, _w, _h = self.TEXT.bbox(start_index)
-        _xi, _yi, _wi, _hi = self.TEXT.bbox("insert")
-        _x += self.TEXT.winfo_rootx()
-        _y = self.TEXT.winfo_rooty() + _h + max(_y, _yi)
+        _wtext = self.TEXT_SHOT
+        _x, _y, _w, _h = _wtext.bbox(start_index)
+        _xi, _yi, _wi, _hi = _wtext.bbox(TK.INSERT)
+        _x += _wtext.winfo_rootx()
+        _y = _wtext.winfo_rooty() + _h + max(_y, _yi)
         # reset popup window pos
         self.POPUP.geometry("+{}+{}".format(_x, _y))
         # show popup list
@@ -478,9 +548,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             event handler: a word has been detected in shot text widget
             while buffering keystrokes;
         """
-        return                                                              # FIXME
         # inits
-        _word = self.TEXT.get_word()
+        _word = self.get_word(TK.INSERT)
         _si = _word["start_index"]
         # look for matching names
         _names = self.tab_characters.get_matching_names(_word["word"])
@@ -488,9 +557,9 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         if not _names:
             # try out full line
             _names = self.tab_characters.get_matching_names(
-                self.TEXT.get_line_contents()
+                self.get_line_contents(TK.INSERT)
             )
-            _si = "insert linestart"
+            _si = "{} linestart".format(TK.INSERT)
         # end if
         # got matching names?
         if _names:
@@ -870,19 +939,12 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         print("update_character_name")
         # inits
-        _tc = self.tab_characters
-        _line = self.TEXT_SHOT.get(
-            "{} linestart".format(TK.INSERT),
-            "{} lineend".format(TK.INSERT)
-        )
-        _name, _start_index = _tc.find_nearest_name(
-            _line,
-            tools.ensure_int(
-                self.TEXT_SHOT.index(TK.INSERT).split(".")[-1]
-            )
+        _line = self.get_line_contents(TK.INSERT)
+        _name, _start_index = self.tab_characters.find_nearest_name(
+            _line, self.get_column_index(TK.INSERT)
         )
         # known character name?
-        if _tc.is_registered(_name):
+        if self.tab_characters.is_registered(_name):
             print("known character name")
             # name not in good format?
             if _name not in _line:

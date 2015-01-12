@@ -322,6 +322,11 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 # nothing to do out there
                 pass
             # end try
+            # insert text mark
+            _mark = self.get_new_mark()
+            self.mark_set(_mark, index)
+            self.mark_gravity(_mark, TK.LEFT)
+            print("new mark:", _mark)
             # try out
             try:
                 # switch to specific line creation
@@ -770,6 +775,16 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def get_new_mark (self):
+        """
+            returns a unique mark id;
+        """
+        # inits
+        self.instance_counter += 1
+        return "#{}".format(self.instance_counter)
+    # end def
+
+
     def get_options_element (self):
         """
             retrieves RC file element settings or ELEMENT_DEFAULTS if
@@ -885,6 +900,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             class members only inits;
         """
         # members only inits
+        self.instance_counter = 0
         self.current_tag = self.DEFAULT_TAG
         self.reset_elements(self.get_options_element())
     # end def

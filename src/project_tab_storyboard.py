@@ -97,6 +97,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             "<<ListboxSelect>>", self.slot_characters_item_selected
         )
         self.TEXT_SHOT.bind("<KeyRelease>", self.slot_on_text_keypress)
+        self.TEXT_SHOT.bind("<ButtonRelease>", self.slot_on_text_clicked)
+        self.TEXT_SHOT.bind("<FocusOut>", self.slot_on_focus_out)
         # multiple event inits
         _events = {
             "<Key>": self.slot_popup_keypress,
@@ -615,6 +617,15 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def slot_on_focus_out (self, event=None, *args, **kw):
+        """
+            event handler: widget has lost focus;
+        """
+        print("slot_on_focus_out")
+        self.async.run_after_idle(self.hide_popup_list)
+    # end def
+
+
     def slot_on_tab_exposed (self, event=None, *args, **kw):
         """
             event handler: tab is now visible;
@@ -634,6 +645,18 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             self.update_character_name()
             # schedule auto-save for later
             self.async.run_after(3000, self.auto_save)
+        # end if
+    # end def
+
+
+    def slot_on_text_clicked (self, event=None, *args, **kw):
+        """
+            event handler: mouse click on text widget;
+        """
+        # widget enabled?
+        if self.widget_enabled(self.TEXT_SHOT):
+            # manage character names
+            self.update_character_name()
         # end if
     # end def
 

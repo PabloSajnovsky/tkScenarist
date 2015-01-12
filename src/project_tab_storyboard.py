@@ -75,6 +75,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
                 "Characters:List:Changed":
                     self.slot_update_characters_listbox,
 
+                "Project:Modified": self.slot_project_modified,
+
                 "Scenario:Scene:Browser:Changed":
                     self.slot_update_scene_listbox,
 
@@ -639,8 +641,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: keyboard keypress for text widget;
         """
-        # no modifiers?
-        if not (event.state & STATE_MASK):
+        # modified?
+        if self.TEXT_SHOT.edit_modified():
             # manage character names
             self.update_character_name()
             # schedule auto-save for later
@@ -790,6 +792,15 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
                 return "break"
             # end if
         # end if
+    # end def
+
+
+    def slot_project_modified (self, *args, flag=True, **kw):
+        """
+            event handler for project's modification flag;
+        """
+        # reset status
+        self.TEXT_SHOT.edit_modified(flag)
     # end def
 
 

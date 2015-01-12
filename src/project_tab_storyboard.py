@@ -288,10 +288,11 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             returns empty tuple on failure;
         """
         # inits
-        _mark = self.mainframe.tab_scenario.TEXT.mark_previous(
-            float(self.LBOX_SCENE.text_lines[scene - 1])
-        )
-        print("mark:", _mark)
+        _wtext = self.mainframe.tab_scenario.TEXT
+        _index = float(self.LBOX_SCENE.text_lines[scene - 1])
+        print("index:", _index)
+        print("mark_previous:", _wtext.mark_previous(_index))
+        print("mark_next:", _wtext.mark_next(_index))
         _contents = []
         # browse rows
         for _row in self.database.stb_get_shot_list(scene):

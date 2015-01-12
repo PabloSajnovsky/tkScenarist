@@ -623,7 +623,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: widget has lost focus;
         """
-        print("slot_on_focus_out")
         self.async.run_after_idle(self.hide_popup_list)
     # end def
 
@@ -647,6 +646,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             self.update_character_name()
             # schedule auto-save for later
             self.async.run_after(3000, self.auto_save)
+            # notify app
+            self.events.raise_event("Project:Modified")
         # end if
     # end def
 
@@ -1123,7 +1124,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             event handler: updates character's name, if any;
         """
-        print("update_character_name")
         # inits
         _line = self.get_line_contents(TK.INSERT)
         _name, _start_index = self.tab_characters.find_nearest_name(
@@ -1131,10 +1131,8 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         )
         # known character name?
         if self.tab_characters.is_registered(_name):
-            print("known character name")
             # name not in good format?
             if _name not in _line:
-                print("updating name in contents")
                 # update name into text contents
                 _index = "{} linestart+{{}}c".format(TK.INSERT)
                 self.replace_text(

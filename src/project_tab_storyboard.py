@@ -291,7 +291,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # inits
         _wtext = self.mainframe.tab_scenario.TEXT
         _index = float(self.LBOX_SCENE.text_lines[scene - 1])
-        _mark = _wtext.mark_previous(_index)
+        _mark = _wtext.mark_next(_index)
         print("mark:", _mark, "index:", _index)
         _contents = []
         # browse rows

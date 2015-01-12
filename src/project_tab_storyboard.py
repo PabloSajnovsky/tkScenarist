@@ -287,12 +287,12 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             retrieves shot listbox contents alongs with given @scene;
             returns empty tuple on failure;
         """
+        print("get_shot_listbox_contents")
         # inits
         _wtext = self.mainframe.tab_scenario.TEXT
-        _mark = _wtext.mark_previous(
-            float(self.LBOX_SCENE.text_lines[scene - 1])
-        )
-        print("mark:", _mark)
+        _index = float(self.LBOX_SCENE.text_lines[scene - 1])
+        _mark = _wtext.mark_previous(_index)
+        print("mark:", _mark, "index:", _index)
         _contents = []
         # browse rows
         for _row in self.database.stb_get_shot_list(scene):

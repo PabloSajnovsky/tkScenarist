@@ -1120,8 +1120,9 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             marks a new line with a unique mark ID;
         """
+        print("mark_line")
         # inits
-        _index = self.index(index or TK.INSERT)
+        _index = self.index("{} linestart".format(index or TK.INSERT))
         _mark = self.get_new_id()
         self.mark_set(_mark, _index)
         self.mark_gravity(_mark, TK.LEFT)

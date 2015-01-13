@@ -1086,9 +1086,9 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             _scenario = self.mainframe.tab_scenario.TEXT
             _start = float(_lb.text_lines[_index])
             try:
-                _end = "{}.0-1c".format(_lb.text_lines[_index+1])
+                _end = "{}.0".format(_lb.text_lines[_index+1])
             except:
-                _end = "end-1c"
+                _end = "end"
             # end try
             _contents = _scenario.get_tagged_text(_start, _end)
             # set text preview

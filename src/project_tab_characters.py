@@ -25,6 +25,7 @@
 # lib imports
 import re
 import json
+import tkinter.constants as TK
 import tkinter.messagebox as MB
 import tkinter.simpledialog as SD
 import tkRAD
@@ -249,7 +250,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             _index = sorted(self.character_logs).index(name)
             _lb = self.LISTBOX
             # do select name
-            _lb.selection_clear(0, "end")
+            _lb.selection_clear(0, TK.END)
             _lb.selection_set(_index)
             _lb.see(_index)
             # update character's history log
@@ -266,7 +267,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         # param controls
         if state is not None:
             widget.configure(
-                state={True: "normal"}.get(bool(state), "disabled")
+                state=TK.NORMAL if state else TK.DISABLED
             )
         # end if
     # end def
@@ -842,7 +843,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             # end if
         # end if
         # clear listbox
-        _lb.delete(0, "end")
+        _lb.delete(0, TK.END)
         # got list?
         if _names:
             # fill listbox
@@ -912,7 +913,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         """
             returns True if tkinter.Widget is enabled, False otherwise;
         """
-        return bool(widget.cget("state").lower() == "normal")
+        return bool(widget.cget("state") == TK.NORMAL)
     # end def
 
 # end class ProjectTabCharacters

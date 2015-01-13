@@ -26,7 +26,7 @@
 import re
 import json
 import tkinter.messagebox as MB
-import tkinter as TK
+import tkinter.constants as TK
 import tkRAD
 import tkRAD.core.async as ASYNC
 from tkRAD.core import tools
@@ -124,7 +124,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             # enable widget
             self.enable_widget(_w, True)
             # clear widget
-            _w.delete(0, "end")
+            _w.delete(0, TK.END)
             # disable widget
             self.enable_widget(_w, False)
         # end for
@@ -138,9 +138,9 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # browse widgets
         for _w in widgets:
             # clear widget
-            _w.delete(0, "end")
+            _w.delete(0, TK.END)
             # clear selection
-            _w.selection_clear(0, "end")
+            _w.selection_clear(0, TK.END)
             # reset last selected
             _w.last_selected = -1
         # end for
@@ -169,7 +169,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         # reset state
         widget.configure(
-            state={True: "normal"}.get(bool(state), "disabled")
+            state={True: TK.NORMAL}.get(bool(state), TK.DISABLED)
         )
     # end def
 
@@ -432,7 +432,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         listbox.last_selected = -1
         # remove item
         listbox.delete(index)
-        listbox.selection_clear(0, "end")
+        listbox.selection_clear(0, TK.END)
         # reselect current index
         index = max(-1, min(listbox.size() - 1, index))
         # selectable index?
@@ -454,7 +454,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             returns True if popup window is detected as active (showing
             up);
         """
-        return bool(self.POPUP.state() == "normal")
+        return bool(self.POPUP.state() == TK.NORMAL)
     # end def
 
 
@@ -539,7 +539,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # param controls
         if choices:
             _lb = self.POPUP_LBOX
-            _lb.delete(0, "end")
+            _lb.delete(0, TK.END)
             _lb.insert(0, *choices)
             try:
                 _lb.selection_set(_lb.current_index)
@@ -737,7 +737,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             _ci = max(0, min(_ci, _lb.size() - 1))
             # reset selection
             _lb.current_index = _ci
-            _lb.selection_clear(0, "end")
+            _lb.selection_clear(0, TK.END)
             _lb.selection_set(_ci)
             _lb.see(_ci)
             # break tkevent chain
@@ -851,21 +851,21 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             # try out
             try:
                 # get shot number of last item
-                _num, _title = self.get_shot_chunks(_lb.get("end"))
+                _num, _title = self.get_shot_chunks(_lb.get(TK.END))
                 _shot = int(_num.split(".")[-1]) + 1
             except:
                 _shot = _lb.size() + 1
             # end try
             _lb.insert(
-                "end",
+                TK.END,
                 self.get_formatted_shot_text(
                     self.get_shot_number(_scene, _shot)
                 )
             )
             # show selected
-            _lb.selection_clear(0, "end")
-            _lb.selection_set("end")
-            _lb.see("end")
+            _lb.selection_clear(0, TK.END)
+            _lb.selection_set(TK.END)
+            _lb.see(TK.END)
             # update data
             self.slot_shot_item_selected()
             # notify app
@@ -925,7 +925,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             # reset widgets
             self.LBL_SHOT.set(_nb)
             self.enable_widget(self.ENT_SHOT, True)
-            self.ENT_SHOT.delete(0, "end")
+            self.ENT_SHOT.delete(0, TK.END)
             self.ENT_SHOT.insert(0, _title)
             self.enable_widget(self.TEXT_SHOT, True)
             self.text_set_contents(self.TEXT_SHOT, _row["text"])
@@ -1088,7 +1088,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             try:
                 _end = "{}.0".format(_lb.text_lines[_index+1])
             except:
-                _end = "end"
+                _end = TK.END
             # end try
             _contents = _scenario.get_tagged_text(_start, _end)
             # set text preview
@@ -1203,7 +1203,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
             returns True if tkinter.Widget is enabled, False otherwise;
         """
-        return bool(widget.cget("state").lower() == "normal")
+        return bool(widget.cget("state").lower() == TK.NORMAL)
     # end def
 
 # end class ProjectTabStoryboard

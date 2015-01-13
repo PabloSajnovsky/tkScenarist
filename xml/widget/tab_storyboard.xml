@@ -440,7 +440,7 @@
     <toplevel
         name="toplevel_popup_list"
         visibility="hidden"
-        resizable="no"
+        resizable="yes"
     >
         <listbox
             id="lbox_popup_list"
@@ -455,7 +455,7 @@
             relief="solid"
             layout="grid"
             layout_options="row=0, column=0"
-            resizable="no"
+            resizable="yes"
         />
         <scrollbar
             connect="lbox_popup_list"

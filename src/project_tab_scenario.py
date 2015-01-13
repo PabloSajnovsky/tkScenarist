@@ -25,6 +25,7 @@
 # lib imports
 import json
 import random
+import tkinter.constants as TK
 import tkRAD
 import tkRAD.core.async as ASYNC
 import tkRAD.core.path as P
@@ -167,7 +168,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             returns True if popup window is detected as active (showing
             up);
         """
-        return bool(self.POPUP.state() == "normal")
+        return bool(self.POPUP.state() == TK.NORMAL)
     # end def
 
 
@@ -192,7 +193,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         """
         # inits
         self.LISTBOX.current_lines = []
-        self.LISTBOX.delete(0, "end")
+        self.LISTBOX.delete(0, TK.END)
     # end def
 
 
@@ -248,12 +249,12 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         self.async.stop(self.hide_popup_list, self.slot_autocomplete)
         # inits
         choices = kw.get("choices")
-        start_index = kw.get("start_index") or "insert"
+        start_index = kw.get("start_index") or TK.INSERT
         self.POPUP.start_index = start_index
         # param controls
         if choices:
             _lb = self.POPUP_LBOX
-            _lb.delete(0, "end")
+            _lb.delete(0, TK.END)
             _lb.insert(0, *choices)
             try:
                 _lb.selection_set(_lb.current_index)
@@ -270,7 +271,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # end if
         # recalc pos
         _x, _y, _w, _h = self.TEXT.bbox(start_index)
-        _xi, _yi, _wi, _hi = self.TEXT.bbox("insert")
+        _xi, _yi, _wi, _hi = self.TEXT.bbox(TK.INSERT)
         _x += self.TEXT.winfo_rootx()
         _y = self.TEXT.winfo_rooty() + _h + max(_y, _yi)
         # reset popup window pos
@@ -296,7 +297,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             _names = self.tab_characters.get_matching_names(
                 self.TEXT.get_line_contents()
             )
-            _si = "insert linestart"
+            _si = "{} linestart".format(TK.INSERT)
         # end if
         # got matching names?
         if _names:
@@ -460,7 +461,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             _ci = max(0, min(_ci, _lb.size() - 1))
             # reset selection
             _lb.current_index = _ci
-            _lb.selection_clear(0, "end")
+            _lb.selection_clear(0, TK.END)
             _lb.selection_set(_ci)
             _lb.see(_ci)
             # break tkevent chain
@@ -598,7 +599,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             _line, self.TEXT.get_column_index()
         )
         # enable widget
-        self.TXT_CHAR_LOG.configure(state="normal")
+        self.TXT_CHAR_LOG.configure(state=TK.NORMAL)
         # known character name?
         if _tc.is_registered(_name):
             # update info
@@ -629,7 +630,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             self.async.run_after_idle(self.slot_autocomplete)
         # end if
         # disable widget
-        self.TXT_CHAR_LOG.configure(state="disabled")
+        self.TXT_CHAR_LOG.configure(state=TK.DISABLED)
     # end def
 
 
@@ -665,9 +666,9 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         _lines = self.LISTBOX.current_lines = _dict["lines"]
         _index = -1
         # reset listbox
-        self.LISTBOX.delete(0, "end")
+        self.LISTBOX.delete(0, TK.END)
         self.LISTBOX.insert(0, *_dict["texts"])
-        self.LISTBOX.selection_clear(0, "end")
+        self.LISTBOX.selection_clear(0, TK.END)
         # insertion cursor is on a scene line?
         if _cursor in _lines:
             # app components may use this

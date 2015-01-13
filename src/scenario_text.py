@@ -235,7 +235,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             we have to work with classical hotkeys
         """
         self.bind("<Key>", self.slot_on_keypress)
-        #~ self.bind("<KeyRelease>", self.slot_on_keyrelease)
         self.bind("<ButtonRelease>", self.slot_on_click)
         self.bind("<FocusIn>", self.slot_on_focus_in)
         self.bind("<Tab>", self.slot_on_key_tab)
@@ -246,10 +245,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         self.bind("<Control-z>", self.slot_edit_undo)
         self.bind("<Control-Z>", self.slot_edit_redo)
         self.bind("<Delete>", self.slot_on_key_delete)
-        #~ self.bind("<KeyRelease-Delete>", self.slot_on_keyup_delete)
         self.bind("<Control-Delete>", self.slot_on_key_ctrl_delete)
         self.bind("<BackSpace>", self.slot_on_key_backspace)
-        #~ self.bind("<KeyRelease-BackSpace>", self.slot_on_keyup_delete)
         self.bind("<Control-BackSpace>", self.slot_on_key_ctrl_backspace)
     # end def
 
@@ -1523,29 +1520,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "slot_keypress_{}".format(self.get_line_tag()), event
         )
     # end def
-
-
-    #~ def slot_on_keyrelease (self, event=None, *args, **kw):
-        #~ """
-            #~ event handler: general keyboard key release;
-        #~ """
-        #~ # no more to do out there
-        #~ pass
-    #~ # end def
-
-
-    #~ def slot_on_keyup_delete (self, event=None, *args, **kw):
-        #~ """
-            #~ event handler: on <Del> key release;
-        #~ """
-        #~ # text area is empty?
-        #~ if len(self.get("1.0", "3.0")) < 2:
-            #~ # reset widget
-            #~ self.reset()
-            #~ # hook method
-            #~ self.update_modified()
-        #~ # end if
-    #~ # end def
 
 
     def slot_on_select_all (self, event=None, *args, **kw):

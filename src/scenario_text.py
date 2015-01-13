@@ -311,8 +311,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         )
         # got element tag?
         if element_tag in self.ELEMENT:
-            # mark new line
-            self.mark_line(index)
             # try out
             try:
                 # got some preprocessing?
@@ -324,6 +322,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 # nothing to do out there
                 pass
             # end try
+            self.tag_add(self.get_new_id(), index)
             # try out
             try:
                 # switch to specific line creation
@@ -713,6 +712,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # get tags at line start
         index = "{} linestart".format(index or TK.INSERT)
         _tags = self.tag_names(index)
+        print("tags:", _tags)
         # got element tag?
         if _tags and _tags[0] in self.ELEMENT:
             return _tags[0]
@@ -1113,20 +1113,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 name=_name,
             )
         # end if
-    # end def
-
-
-    def mark_line (self, index=None):
-        """
-            marks a new line with a unique mark ID;
-        """
-        print("mark_line")
-        # inits
-        _index = self.index("{} linestart".format(index or TK.INSERT))
-        _mark = self.get_new_id()
-        self.mark_set(_mark, _index)
-        self.mark_gravity(_mark, TK.LEFT)
-        print("index:", _index, "mark:", _mark)
     # end def
 
 

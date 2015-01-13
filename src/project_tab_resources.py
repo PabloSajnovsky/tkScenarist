@@ -25,6 +25,7 @@
 # lib imports
 import copy
 import json
+import tkinter.constants as TK
 import tkinter.simpledialog as SD
 import tkinter.messagebox as MB
 import tkRAD
@@ -143,9 +144,9 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         # browse widgets
         for _w in widgets:
             # clear widget
-            _w.delete(0, "end")
+            _w.delete(0, TK.END)
             # clear selection
-            _w.selection_clear(0, "end")
+            _w.selection_clear(0, TK.END)
             # clear items
             _w.items = dict()
             # reset last selected
@@ -275,7 +276,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
         # reset state
         widget.configure(
-            state={True: "normal"}.get(bool(state), "disabled")
+            state=TK.NORMAL if state else TK.DISABLED
         )
     # end def
 
@@ -599,11 +600,11 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                     # update items dict
                     _lb.items[_new_name] = _rowid
                     # update widget
-                    _items = list(_lb.get(0, "end"))
+                    _items = list(_lb.get(0, TK.END))
                     _items.append(_new_name)
                     _items = sorted(_items)
                     _index = _items.index(_new_name)
-                    _lb.delete(0, "end")
+                    _lb.delete(0, TK.END)
                     _lb.insert(0, *_items)
                     _lb.see(_index)
                     _lb.selection_set(_index)
@@ -678,11 +679,11 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
                 else:
                     # update listbox
                     _lb.delete(_index)
-                    _items = list(_lb.get(0, "end"))
+                    _items = list(_lb.get(0, TK.END))
                     _items.append(_new_name)
                     _items = sorted(_items)
                     _index = _items.index(_new_name)
-                    _lb.delete(0, "end")
+                    _lb.delete(0, TK.END)
                     _lb.insert(0, *_items)
                     _lb.see(_index)
                     _lb.selection_set(_index)
@@ -803,7 +804,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             # enable widget
             self.enable_widget(_w, True)
             # clear widget
-            _w.delete(0, "end")
+            _w.delete(0, TK.END)
             # disable widget if not selected
             self.enable_widget(_w, _selitem)
         # end for

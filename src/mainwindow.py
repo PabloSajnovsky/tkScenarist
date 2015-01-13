@@ -27,6 +27,7 @@ import os
 import locale
 import webbrowser
 import tkinter.messagebox as MB
+import tkinter.constants as TK
 import tkRAD
 import tkRAD.core.async as ASYNC
 from . import project_file_management as PFM
@@ -273,17 +274,17 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             if hasattr(w, "tag_add"):
                 # configure selection tag
                 w.tag_configure(
-                    "sel", background="grey30", foreground="white"
+                    TK.SEL, background="grey30", foreground="white"
                 )
                 # select all text
-                w.tag_add("sel", "1.0", "end")
+                w.tag_add(TK.SEL, "1.0", TK.END)
                 # this disables tkinter chain of internal bindings
                 # thanks to Brian Oakley's cool explanation
                 return "break"
             # ttk/Entry widget?
             elif hasattr(w, "select_range"):
                 # select all text
-                w.select_range(0, "end")
+                w.select_range(0, TK.END)
             # end if
         except:
             pass
@@ -419,7 +420,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             clears text contents for a tkinter.Text widget;
         """
         # clear text widget
-        tk_text.delete("1.0", "end")
+        tk_text.delete("1.0", TK.END)
         # reset flags
         tk_text.edit_modified(False)
         tk_text.edit_reset()
@@ -431,7 +432,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             get text contents from a tkinter.Text widget;
         """
         # inits
-        return tk_text.get("1.0", "end").rstrip() + "\n"
+        return tk_text.get("1.0", TK.END).rstrip() + "\n"
     # end def
 
 
@@ -445,7 +446,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             contents += "\n"
         # end if
         # clear text widget
-        tk_text.delete("1.0", "end")
+        tk_text.delete("1.0", TK.END)
         # set contents
         tk_text.insert("1.0", contents)
         # reset flags

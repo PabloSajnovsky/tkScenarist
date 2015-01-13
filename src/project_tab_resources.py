@@ -152,6 +152,8 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             # reset last selected
             _w.last_selected = -1
         # end for
+        # clear also canvas
+        self.CANVAS.reset(except_scale=True)
     # end def
 
 

@@ -322,7 +322,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 # nothing to do out there
                 pass
             # end try
-            self.tag_add(self.get_new_id(), index)
             # try out
             try:
                 # switch to specific line creation
@@ -712,7 +711,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # get tags at line start
         index = "{} linestart".format(index or TK.INSERT)
         _tags = self.tag_names(index)
-        print("tags:", _tags)
         # got element tag?
         if _tags and _tags[0] in self.ELEMENT:
             return _tags[0]
@@ -778,7 +776,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # inits
         self.instance_counter += 1
-        return "#{}".format(self.instance_counter)
+        return "id#{}".format(self.instance_counter)
     # end def
 
 

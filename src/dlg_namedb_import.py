@@ -25,6 +25,7 @@
 # lib imports
 import csv
 import os.path as OP
+import tkinter.constants as TK
 import tkinter.messagebox as MB
 import tkinter.filedialog as FD
 import tkRAD.core.async as ASYNC
@@ -177,17 +178,17 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         _line = 1
         # enable preview
         self.enable_widget(self.PREVIEW, True)
-        self.PREVIEW.delete("1.0", "end")
+        self.PREVIEW.delete("1.0", TK.END)
         # fill with some rows
         with open(fpath, "r", encoding=ENCODING) as txtfile:
             for _row in txtfile:
-                self.PREVIEW.insert("end", _row)
+                self.PREVIEW.insert(TK.END, _row)
                 _line += 1
                 if _line > 10: break
             # end for
         # end with
         # and so on
-        self.PREVIEW.insert("end", "...")
+        self.PREVIEW.insert(TK.END, "...")
         # disable preview
         self.enable_widget(self.PREVIEW, False)
     # end def
@@ -295,7 +296,7 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         # param controls
         if state is not None:
             widget.configure(
-                state={True: "normal"}.get(bool(state), "disabled")
+                state=TK.NORMAL if state else TK.DISABLED
             )
         # end if
     # end def
@@ -515,14 +516,6 @@ class NameDBImportDialog (DLG.RADButtonsDialog):
         # end if
         # do not quit
         return False
-    # end def
-
-
-    def widget_enabled (self, widget):
-        """
-            returns True if tkinter.Widget is enabled, False otherwise;
-        """
-        return bool(widget.cget("state").lower() == "normal")
     # end def
 
 # end class NameDBImportDialog

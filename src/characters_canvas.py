@@ -321,16 +321,17 @@ class CharactersCanvas (RC.RADCanvas):
             if self.TAG_RADIX_NAME in _tag2:
                 # already linked?
                 if not self.create_relation(_tag1, _tag2):
-                    # inits
-                    _msg = _(
-                        "These two character names "
-                        "are *ALREADY LINKED* together."
-                    )
                     # identical tags?
                     if _tag1 == _tag2:
                         _msg = _(
-                            "Linking a name to "
-                            "itself makes *NO* sense."
+                            "Linking a name to itself "
+                            "makes *NO* sense."
+                        )
+                    # different tags
+                    else:
+                        _msg = _(
+                            "These two character names "
+                            "are *ALREADY LINKED* together."
                         )
                     # end if
                     # warn user
@@ -339,10 +340,12 @@ class CharactersCanvas (RC.RADCanvas):
                         message=_msg,
                         parent=self,
                     )
+                # linked OK
+                else:
+                    # project has been modified
+                    self.events.raise_event("Project:Modified")
                 # end if
             # end if
-            # project has been modified
-            self.events.raise_event("Project:Modified")
         # end if
     # end def
 
@@ -759,6 +762,8 @@ class CharactersCanvas (RC.RADCanvas):
                     self.move(self.drag_tag, dx, dy)
                     # update all tag's link positions
                     self.update_links(self.drag_tag)
+                    # project has been modified
+                    self.events.raise_event("Project:Modified")
                 # dragging relations link
                 elif self.drag_mode == self.DRAG_MODE_LINK:
                     # update link's line representation
@@ -770,8 +775,6 @@ class CharactersCanvas (RC.RADCanvas):
                 self.update_canvas()
                 # scrolling
                 self.scan_dragto(event.x, event.y, gain=-1)
-                # project has been modified
-                self.events.raise_event("Project:Modified")
             # auto-scrolling mode?
             elif self.auto_scroll:
                 # scrolling

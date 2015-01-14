@@ -51,8 +51,9 @@ class MainWindow (tkRAD.RADXMLMainWindow):
     """
 
     # class constant defs
-    OFFLINE_DOC_URL = "^/html/en/index.html"
-    ONLINE_DOC_URL = "https://github.com/tarball69/tkScenarist/wiki"
+    # CAUTION: keep i18n for localized web pages
+    OFFLINE_DOC_URL = _("^/html/en/index.html")
+    ONLINE_DOC_URL = _("https://github.com/tarball69/tkScenarist/wiki")
 
 
     def bind_events (self, **kw):
@@ -240,7 +241,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
 
     def slot_edit_preferences (self, *args, **kw):
         """
-            event handler for menu Edit > Preferences;
+            event handler: menu Edit > Preferences;
         """
         print("Menu:Edit:Preferences")
     # end def
@@ -248,7 +249,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
 
     def slot_edit_redo (self, event=None, *args, **kw):
         """
-            event handler for menu Edit > Redo;
+            event handler: menu Edit > Redo;
         """
         # param controls
         if not event:
@@ -264,7 +265,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
 
     def slot_edit_select_all (self, event=None, *args, **kw):
         """
-            event handler for menu Edit > Select all;
+            event handler: menu Edit > Select all;
         """
         # select all
         try:
@@ -294,7 +295,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
 
     def slot_edit_undo (self, event=None, *args, **kw):
         """
-            event handler for menu Edit > Undo;
+            event handler: menu Edit > Undo;
         """
         # param controls
         if not event:
@@ -310,7 +311,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
 
     def slot_entry_key_pressed (self, event=None, *args, **kw):
         """
-            event handler for ttkentry key press;
+            event handler: ttkentry key press;
         """
         # notify something has changed
         self.events.raise_event("Project:Modified")
@@ -321,7 +322,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
 
     def slot_help_about (self, *args, **kw):
         """
-            event handler for menu Help > About;
+            event handler: menu Help > About;
         """
         MB.showinfo(
             title=_("About..."),
@@ -337,33 +338,30 @@ class MainWindow (tkRAD.RADXMLMainWindow):
 
     def slot_help_online_documentation (self, *args, **kw):
         """
-            event handler for menu Help > Online Documentation;
+            event handler: menu Help > Online Documentation;
         """
-        # launching online documentation
-        # CAUTION:
-        # keep i18n for localized web pages /!\
-        self.launch_web_browser(_(self.ONLINE_DOC_URL))
+        # launch online documentation
+        self.launch_web_browser(kw.get("url") or self.ONLINE_DOC_URL)
     # end def
 
 
     def slot_help_tutorial (self, *args, **kw):
         """
-            event handler for menu Help > Tutorial;
+            event handler: menu Help > Tutorial;
         """
-        # launching offline documentation
-        # CAUTION:
-        # keep i18n for localized web pages /!\
+        # launch offline documentation
         self.launch_web_browser(
             # local file (offline)
-            "file://{}"
-            .format(PFM.P.normalize(_(self.OFFLINE_DOC_URL)))
+            "file://{}".format(
+                PFM.P.normalize(kw.get("file") or self.OFFLINE_DOC_URL)
+            )
         )
     # end def
 
 
     def slot_text_key_pressed (self, event=None, *args, **kw):
         """
-            event handler for text widget key press;
+            event handler: text widget key press;
         """
         # inits
         _ok = True
@@ -387,7 +385,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
 
     def slot_tools_name_db (self, *args, **kw):
         """
-            event handler for menu Tools > Name database;
+            event handler: menu Tools > Name database;
         """
         # show name database dialog (modal)
         DND.NameDatabaseDialog(self).show()
@@ -396,7 +394,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
 
     def slot_tools_pitch_templates (self, *args, **kw):
         """
-            event handler for menu Tools > Pitch templates;
+            event handler: menu Tools > Pitch templates;
         """
         # show story/pitch templates dialog (modal)
         DPT.PitchTemplatesDialog(self).show()
@@ -405,8 +403,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
 
     def slot_tools_scenario_elements_editor (self, *args, **kw):
         """
-            event handler for menu Tools > Scenario Elements Editor
-            (SEE);
+            event handler: menu Tools > Scenario Elements Editor (SEE);
         """
         # show tool dialog (modal)
         DSEE.ScenarioElementsEditorDialog(

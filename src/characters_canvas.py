@@ -24,6 +24,7 @@
 
 # lib imports
 import json
+import tkinter.constants as TK
 import tkinter.messagebox as MB
 import tkinter.simpledialog as SD
 import tkRAD.widgets.rad_canvas as RC
@@ -84,12 +85,6 @@ class CharactersCanvas (RC.RADCanvas):
         """
             event bindings;
         """
-        # app-wide event bindings
-        self.events.connect_dict(
-            {
-                "Project:Modified": self.slot_project_modified,
-            }
-        )
         # tkinter event bindings
         self.bind("<Configure>", self.update_canvas)
         self.bind("<Button-1>", self.slot_start_drag)
@@ -199,7 +194,7 @@ class CharactersCanvas (RC.RADCanvas):
             event handler for clearing up canvas;
         """
         # clear canvas
-        self.delete("all")
+        self.delete(TK.ALL)
         self.configure(scrollregion=(0, 0, 0, 0))
         self.xview_moveto(0)
         self.yview_moveto(0)
@@ -258,7 +253,7 @@ class CharactersCanvas (RC.RADCanvas):
                 width=1,
             )
             # put line under all
-            self.tag_lower(_line, "all")
+            self.tag_lower(_line, TK.ALL)
             # set relation text
             _group = self.create_label(
                 self.TAG_RADIX_LINK,
@@ -438,7 +433,7 @@ class CharactersCanvas (RC.RADCanvas):
                 # store group tag
                 self.drag_tag = _tag
                 # raise group above all others
-                self.tag_raise(self.drag_tag, "all")
+                self.tag_raise(self.drag_tag, TK.ALL)
                 # set drag mode
                 self.drag_mode = drag_mode
             # auto-scrolling mode
@@ -808,15 +803,6 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
-    def slot_project_modified (self, *args, flag=True, **kw):
-        """
-            event handler for project's modification flag;
-        """
-        # inits
-        pass
-    # end def
-
-
     def slot_remove_item (self, event=None, *args, **kw):
         """
             event handler for Ctrl+Click;
@@ -896,7 +882,7 @@ class CharactersCanvas (RC.RADCanvas):
             event handler for canvas contents updating;
         """
         # inits
-        _bbox = self.bbox("all")
+        _bbox = self.bbox(TK.ALL)
         # got items?
         if _bbox:
             # get all contents bbox
@@ -944,7 +930,7 @@ class CharactersCanvas (RC.RADCanvas):
             # update line pos
             self.coords(_group["line"], _start_xy + _end_xy)
             # set line under all
-            self.tag_lower(_group["line"], "all")
+            self.tag_lower(_group["line"], TK.ALL)
             # update label pos
             self.coords(
                 _group["text"],

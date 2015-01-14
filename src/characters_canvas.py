@@ -770,6 +770,8 @@ class CharactersCanvas (RC.RADCanvas):
                 self.update_canvas()
                 # scrolling
                 self.scan_dragto(event.x, event.y, gain=-1)
+                # project has been modified
+                self.events.raise_event("Project:Modified")
             # auto-scrolling mode?
             elif self.auto_scroll:
                 # scrolling

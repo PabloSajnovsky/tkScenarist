@@ -795,6 +795,8 @@ class CharactersCanvas (RC.RADCanvas):
                 # create real link with items and registering
                 self.do_create_link(x, y)
             # end if
+            # project has been modified
+            self.events.raise_event("Project:Modified")
         # end if
         # reset D'n'D mode
         self.dnd_reset()
@@ -892,8 +894,6 @@ class CharactersCanvas (RC.RADCanvas):
             x1, y1 = (max(x1, _cw), max(y1, _ch))
             # reset scroll region size
             self.configure(scrollregion=(x0, y0, x1, y1))
-            # project has been modified
-            self.events.raise_event("Project:Modified")
         # no items
         else:
             # better clean up everything

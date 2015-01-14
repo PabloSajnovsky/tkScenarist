@@ -27,6 +27,7 @@ import re
 import copy
 from tkinter import font
 from tkinter import colorchooser
+import tkinter.constants as TK
 import tkRAD.widgets.rad_dialog as DLG
 import tkRAD.core.async as ASYNC
 
@@ -102,7 +103,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         # param controls
         if state is not None:
             widget.configure(
-                state={True: "normal"}.get(bool(state), "disabled")
+                state=TK.NORMAL if state else TK.DISABLED
             )
         # end if
     # end def
@@ -159,7 +160,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
             retrieves notebook's current selected tab numeric index;
         """
-        return self.NOTEBOOK.index("current")
+        return self.NOTEBOOK.index(TK.CURRENT)
     # end def
 
 
@@ -408,7 +409,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         # enable text preview
         self.enable_widget(_text, True)
         # reset contents
-        _text.delete("1.0", "end")
+        _text.delete("1.0", TK.END)
         _action = self.reformat_line(
             _("This is an 'ACTION' line."), "action"
         )
@@ -483,7 +484,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             event handler: mouse click on preview text widget;
         """
         # inits
-        _tags = self.w.text_preview.tag_names("current")
+        _tags = self.w.text_preview.tag_names(TK.CURRENT)
         # got tags?
         if _tags:
             # inits
@@ -653,7 +654,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             # end if
         # end for
         # always raise selection tag upon any other
-        _text.tag_raise("sel")
+        _text.tag_raise(TK.SEL)
         # update text contents
         self.set_preview_contents()
         # show concerned line
@@ -699,7 +700,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
             returns True if tkinter.Widget is enabled, False otherwise;
         """
-        return bool(widget.cget("state").lower() == "normal")
+        return bool(widget.cget("state") == TK.NORMAL)
     # end def
 
 # end class ScenarioElementsEditorDialog

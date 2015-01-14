@@ -695,12 +695,4 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         return True
     # end def
 
-
-    def widget_enabled (self, widget):
-        """
-            returns True if tkinter.Widget is enabled, False otherwise;
-        """
-        return bool(widget.cget("state") == TK.NORMAL)
-    # end def
-
 # end class ScenarioElementsEditorDialog

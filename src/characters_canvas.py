@@ -932,21 +932,26 @@ class CharactersCanvas (RC.RADCanvas):
         # inits
         _tags = self.relation_links.get(tag) or dict()
         _start_xy = self.get_bbox_center(tag)
-        # browse items
-        for _tag, _group in _tags.items():
-            # inits
-            _end_xy = self.get_bbox_center(_tag)
-            # update line pos
-            self.coords(_group["line"], _start_xy + _end_xy)
-            # set line under all
-            self.tag_lower(_group["line"], TK.ALL)
-            # update label pos
-            self.coords(
-                _group["text"],
-                self.get_segment_center(_start_xy, _end_xy)
-            )
-            self.update_label(_group)
-        # end for
+        # got tags?
+        if _tags:
+            # browse items
+            for _tag, _group in _tags.items():
+                # inits
+                _end_xy = self.get_bbox_center(_tag)
+                # update line pos
+                self.coords(_group["line"], _start_xy + _end_xy)
+                # set line under all
+                self.tag_lower(_group["line"], TK.ALL)
+                # update label pos
+                self.coords(
+                    _group["text"],
+                    self.get_segment_center(_start_xy, _end_xy)
+                )
+                self.update_label(_group)
+            # end for
+            # project has been modified
+            self.events.raise_event("Project:Modified")
+        # end if
     # end def
 
 

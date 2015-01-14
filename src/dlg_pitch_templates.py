@@ -26,6 +26,7 @@
 import os
 import os.path as OP
 import glob
+import tkinter.constants as TK
 import tkinter.filedialog as FD
 import tkinter.messagebox as MB
 import tkRAD.core.path as P
@@ -108,7 +109,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         # enable
         self.enable_widget(_text, True)
         # clear
-        _text.delete("1.0", "end")
+        _text.delete("1.0", TK.END)
         # restore previous state
         self.enable_widget(_text, _flag)
         # clear up template name
@@ -156,7 +157,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         # param controls
         if state is not None:
             widget.configure(
-                state={True: "normal"}.get(bool(state), "disabled")
+                state=TK.NORMAL if state else TK.DISABLED
             )
         # end if
     # end def
@@ -203,7 +204,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         """
             returns all preview Text widget contents;
         """
-        return self.TEXT.get("1.0", "end")
+        return self.TEXT.get("1.0", TK.END)
     # end def
 
 
@@ -393,7 +394,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
             # init listbox
             _lb = self.LISTBOX
             # clear listbox
-            _lb.delete(0, "end")
+            _lb.delete(0, TK.END)
             # file list
             _flist = sorted(
                 map(
@@ -402,7 +403,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
                 )
             )
             # feed listbox
-            _lb.insert("end", *_flist)
+            _lb.insert(TK.END, *_flist)
             # empty list?
             if not _flist:
                 # clear and lock preview text
@@ -506,7 +507,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         """
             returns True if tkinter.Widget is enabled, False otherwise;
         """
-        return bool(widget.cget("state").lower() == "normal")
+        return bool(widget.cget("state") == TK.NORMAL)
     # end def
 
 # end class PitchTemplatesDialog

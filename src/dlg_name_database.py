@@ -23,6 +23,7 @@
 """
 
 # lib imports
+import tkinter.constants as TK
 import tkRAD.core.async as ASYNC
 import tkRAD.widgets.rad_dialog as DLG
 from . import dlg_namedb_import as DNI
@@ -127,7 +128,7 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         # param controls
         if state is not None:
             widget.configure(
-                state={True: "normal"}.get(bool(state), "disabled")
+                state=TK.NORMAL if state else TK.DISABLED
             )
         # end if
     # end def
@@ -275,14 +276,6 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
         self.async.lock(self.do_search_criteria)
         # all is good
         return True
-    # end def
-
-
-    def widget_enabled (self, widget):
-        """
-            returns True if tkinter.Widget is enabled, False otherwise;
-        """
-        return bool(widget.cget("state").lower() == "normal")
     # end def
 
 # end class NameDatabaseDialog

@@ -24,6 +24,7 @@
 
 # lib imports
 import os
+import tkinter.constants as TK
 import tkRAD.core.async as ASYNC
 import tkRAD.widgets.rad_canvas as RC
 
@@ -99,7 +100,7 @@ class DBViewCanvas (RC.RADCanvas):
             protected method def for internal use;
         """
         # inits
-        _bbox = self.bbox("all")
+        _bbox = self.bbox(TK.ALL)
         # got items?
         if _bbox:
             # reset scroll region size
@@ -159,7 +160,7 @@ class DBViewCanvas (RC.RADCanvas):
             event handler for clearing up canvas;
         """
         # clear canvas
-        self.delete("all")
+        self.delete(TK.ALL)
         self.configure(scrollregion=(0, 0, 0, 0))
         self.xview_moveto(0)
         self.yview_moveto(0)
@@ -194,7 +195,7 @@ class DBViewCanvas (RC.RADCanvas):
                 self.move("header", 0, y - y0)
             # end if
             # set to foreground
-            self.tag_raise("header", "all")
+            self.tag_raise("header", TK.ALL)
         except:
             pass
         # end try
@@ -415,12 +416,12 @@ class DBViewCanvas (RC.RADCanvas):
             # inits
             group_tag = str(group_tag).lower()
             # body options
-            if group_tag in ("body", "both", "all"):
+            if group_tag in ("body", "both", TK.ALL):
                 # set options for body field name
                 self._do_set_field_options("body", name, **options)
             # end if
             # header options
-            if group_tag in ("header", "both", "all"):
+            if group_tag in ("header", "both", TK.ALL):
                 # set options for header field name
                 self._do_set_field_options("header", name, **options)
             # end if
@@ -484,7 +485,7 @@ class DBViewCanvas (RC.RADCanvas):
             _step = (event.num == 5) - (event.num == 4)
         # end if
         # do vertical scrolling
-        self.yview_scroll(_step, "units")
+        self.yview_scroll(_step, TK.UNITS)
     # end def
 
 
@@ -869,7 +870,7 @@ class DBViewLabel:
             # create text item
             self.id_text = self.canvas.create_text(
                 left_x - xb0 + 1, top_y - yb0,
-                anchor="nw",
+                anchor=TK.NW,
             )
             # create surrounding box frame item
             _box = self.get_surrounding_box()
@@ -1012,24 +1013,24 @@ class DBViewLabel:
         # allowed to proceed?
         if self.id_box and self.id_text:
             # inits
-            _align = self.text_options.get("align") or "left"
+            _align = self.text_options.get("align") or TK.LEFT
             x0, y0, x1, y1 = kw.get("box") or self.box_coords()
             xb0, yb0, xb1, yb1 = self.LABEL_BOX
             # should center text?
-            if _align == "center":
+            if _align == TK.CENTER:
                 # get central point coords
                 x, y = self.box_center(x0, y0, x1, y1)
-                _anchor = "center"
+                _anchor = TK.CENTER
             # align right hand?
-            elif _align == "right":
+            elif _align == TK.RIGHT:
                 # get bottom right point coords
                 x, y = (x1 - xb1, y1 - yb1)
-                _anchor = "se"
+                _anchor = TK.SE
             # align left hand by default
             else:
                 # get top left point coords
                 x, y = (x0 - xb0 + 1, y0 - yb0)
-                _anchor = "nw"
+                _anchor = TK.NW
             # end if
             # update text position
             self.canvas.coords(self.id_text, x, y)

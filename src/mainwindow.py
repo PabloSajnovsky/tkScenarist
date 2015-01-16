@@ -426,10 +426,18 @@ class MainWindow (tkRAD.RADXMLMainWindow):
 
     def text_get_contents (self, tk_text):
         """
-            get text contents from a tkinter.Text widget;
+            gets text contents from a tkinter.Text widget;
         """
-        # inits
         return tk_text.get("1.0", TK.END).rstrip() + "\n"
+    # end def
+
+
+    def text_is_empty (self, tk_text):
+        """
+            returns True if no text contents in a tkinter.Text widget,
+            False otherwise;
+        """
+        return not tk_text.get("1.0").rstrip()
     # end def
 
 

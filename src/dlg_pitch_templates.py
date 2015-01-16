@@ -149,20 +149,6 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def enable_widget (self, widget, state):
-        """
-            enables/disables a tkinter widget along with @state value;
-            if @state is None, widget keeps unchanged;
-        """
-        # param controls
-        if state is not None:
-            widget.configure(
-                state=TK.NORMAL if state else TK.DISABLED
-            )
-        # end if
-    # end def
-
-
     def get_chk_option (self, cvarname):
         """
             returns True if checkbox linked to @cvarname is checked,
@@ -500,14 +486,6 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         # end if
         # failed
         return False
-    # end def
-
-
-    def widget_enabled (self, widget):
-        """
-            returns True if tkinter.Widget is enabled, False otherwise;
-        """
-        return bool(widget.cget("state") == TK.NORMAL)
     # end def
 
 # end class PitchTemplatesDialog

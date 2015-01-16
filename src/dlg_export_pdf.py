@@ -23,6 +23,7 @@
 """
 
 # lib imports
+import tkinter.constants as TK
 import tkRAD.widgets.rad_dialog as DLG
 
 
@@ -35,11 +36,13 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
     BUTTONS = ("Export", "Cancel")
 
 
-    def _slot_button_export (self, *args, event=None, **kw):
+    def _slot_button_export (self, *args, **kw):
         """
             event handler: button has been clicked;
         """
         print("_slot_button_export")
+        # disable button
+        self.disable_button("Export")
     # end def
 
 

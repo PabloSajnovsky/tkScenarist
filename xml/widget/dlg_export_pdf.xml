@@ -89,6 +89,8 @@
         />
         <ttkprogressbar
             name="progressbar_export"
+            variable="pbar_value"
+            length="300"
             layout="pack"
             resizable="width"
         />

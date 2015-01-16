@@ -83,7 +83,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
                     self.slot_help_tutorial,
 
                 "Project:Export:PDF":
-                    self.project_fm.slot_export_pdf,
+                    self.slot_export_pdf,
                 "Project:Modified":
                     self.project_fm.slot_modified,
                 "Project:New":

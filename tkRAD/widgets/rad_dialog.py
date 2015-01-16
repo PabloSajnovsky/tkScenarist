@@ -376,21 +376,6 @@ class RADDialog (RW.RADWidgetBase, TK.Toplevel):
     # end def
 
 
-    def enable_widget (self, tkwidget, state=True):
-        r"""
-            enables/disables @tkwidget along with @state boolean value;
-            if @state is None, keeps @tkwidget state unchanged;
-        """
-        # all is okay?
-        if state is not None and hasattr(tkwidget, "configure"):
-            # change state
-            tkwidget.configure(
-                state=TK.NORMAL if state else TK.DISABLED
-            )
-        # end if
-    # end def
-
-
     def get_pending_task (self):
         r"""
             returns current "pending task" flag value;
@@ -610,16 +595,6 @@ class RADDialog (RW.RADWidgetBase, TK.Toplevel):
         return False
     # end def
 
-
-    def widget_enabled (self, tkwidget):
-        r"""
-            returns True if @tkwidget is enabled i.e. different from
-            TK.DISABLED state (including 'readonly' for ttk widgets);
-            returns False otherwise;
-        """
-        return bool(tkwidget.cget("state") != TK.DISABLED)
-    # end def
-
 # end class RADDialog
 
 
@@ -631,6 +606,9 @@ class RADButtonsDialog (RADDialog):
         RADDialog subclass implementing a buttonbar;
     """
 
+    # CAUTION:
+    # do *NOT* set i18n _("button_name") translations here
+    # as set_buttons() method supports i18n by itself
     # set your own list in subclass
     BUTTONS = ("OK", "Cancel")
 
@@ -790,7 +768,7 @@ class RADButtonsDialog (RADDialog):
         for _button in _buttons:
             _w = ttk.Button(
                 self.buttonbar,
-                text=_(_button),
+                text=_(_button),                        # i18n support
                 command=self._get_slot(_button),
             )
             _w.pack(side=TK.LEFT, padx=5)

@@ -163,17 +163,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
-    def enable_widget (self, widget, state):
-        """
-            enables/disables a tkinter widget along with @state value;
-        """
-        # reset state
-        widget.configure(
-            state={True: TK.NORMAL}.get(bool(state), TK.DISABLED)
-        )
-    # end def
-
-
     def get_column_index (self, index=None):
         """
             retrieves column index as integer for @index location;
@@ -1196,14 +1185,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             ),
             parent=self,
         )
-    # end def
-
-
-    def widget_enabled (self, widget):
-        """
-            returns True if tkinter.Widget is enabled, False otherwise;
-        """
-        return bool(widget.cget("state").lower() == TK.NORMAL)
     # end def
 
 # end class ProjectTabStoryboard

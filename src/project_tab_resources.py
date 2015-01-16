@@ -272,17 +272,6 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
     # end def
 
 
-    def enable_widget (self, widget, state):
-        """
-            enables/disables a tkinter widget along with @state value;
-        """
-        # reset state
-        widget.configure(
-            state=TK.NORMAL if state else TK.DISABLED
-        )
-    # end def
-
-
     def error_already_exists (self, item_name):
         """
             notifies user an item already exists in some list;

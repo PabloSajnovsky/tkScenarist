@@ -120,20 +120,6 @@ class NameDatabaseDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def enable_widget (self, widget, state):
-        """
-            enables/disables a tkinter widget along with @state value;
-            if @state is None, widget keeps unchanged;
-        """
-        # param controls
-        if state is not None:
-            widget.configure(
-                state=TK.NORMAL if state else TK.DISABLED
-            )
-        # end if
-    # end def
-
-
     def init_widget (self, **kw):
         r"""
             widget main inits;

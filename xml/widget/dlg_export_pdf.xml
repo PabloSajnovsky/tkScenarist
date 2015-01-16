@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tkwidget>
+<!--
+    tkScenarist - screen writing made simpler
+
+    Copyright (c) 2014+ Raphaël Seban <motus@laposte.net>
+
+    This program is free software: you can redistribute it and/or
+    modify it under the terms of the GNU General Public License as
+    published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+    General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.
+
+    If not, see http://www.gnu.org/licenses/
+-->
+<tkwidget>
+
+    <!-- data to export -->
+
+    <ttklabelframe
+        text="Data to export"
+        layout="pack"
+        resizable="yes"
+    >
+        <ttkcheckbutton
+            text="Scenario"
+            variable="chk_scenario"
+            onvalue="1"
+            checked="checked"
+            layout="pack"
+            resizable="width"
+        />
+        <ttkcheckbutton
+            text="Storyboard"
+            variable="chk_storyboard"
+            onvalue="1"
+            layout="pack"
+            resizable="width"
+        />
+        <ttkcheckbutton
+            text="Pitch/Concept"
+            variable="chk_pitch_concept"
+            onvalue="1"
+            layout="pack"
+            resizable="width"
+        />
+        <ttkcheckbutton
+            text="Draft/Notes"
+            variable="chk_draft_notes"
+            onvalue="1"
+            layout="pack"
+            resizable="width"
+        />
+    </ttklabelframe>
+
+    <!-- options -->
+
+    <ttklabelframe
+        text="Options"
+        layout="pack"
+        resizable="yes"
+    >
+        <ttklabel
+            text="Dummy"
+            layout="pack"
+            resizable="width"
+        />
+    </ttklabelframe>
+
+    <!-- status -->
+
+    <ttklabelframe
+        text="Status"
+        layout="pack"
+        resizable="yes"
+    >
+        <!-- export status -->
+        <ttklabel
+            textvariable="lbl_export_status"
+            layout="pack"
+            resizable="width"
+        />
+        <ttkprogressbar
+            name="progressbar_export"
+            layout="pack"
+            resizable="width"
+        />
+    </ttklabelframe>
+</tkwidget>

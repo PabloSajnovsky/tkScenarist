@@ -395,40 +395,6 @@ class ProjectFileManagement:
     # end def
 
 
-    def slot_export_pdf (self, *args, **kw):
-        """
-            event handler for menu Project > Export PDF;
-        """
-        # inits
-        _mf = self.mainframe
-        _wtext = (
-            _mf.tab_draft_notes.text_draft_notes,
-            _mf.tab_pitch_concept.text_pitch_concept,
-            _mf.tab_scenario.TEXT,
-        )
-        _are_empty = map(
-            lambda t: self.mainwindow.text_is_empty(t),
-            _wtext
-        )
-        # got data to export?
-        if not all(_are_empty):
-            # show dialog
-            pass
-        # nothing to do
-        else:
-            MB.showwarning(
-                title=_("Attention"),
-                message=_(
-                    "Export PDF: no text contents to export by now."
-                ),
-                parent=self.mainwindow,
-            )
-            # notify application
-            self.notify(_("Project > Export PDF: aborted."))
-        # end if
-    # end def
-
-
     def slot_modified (self, *args, flag=True, **kw):
         """
             event handler for project's modification flag;

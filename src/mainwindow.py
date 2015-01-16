@@ -32,6 +32,7 @@ import tkRAD
 import tkRAD.core.async as ASYNC
 from . import project_file_management as PFM
 from . import app_database as DB
+from . import dlg_export_pdf as DEP
 from . import dlg_name_database as DND
 from . import dlg_pitch_templates as DPT
 from . import dlg_scenario_elements_editor as DSEE
@@ -317,6 +318,15 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         self.events.raise_event("Project:Modified")
         # validate entry keystrokes
         return True
+    # end def
+
+
+    def slot_export_pdf (self, *args, **kw):
+        """
+            event handler: menu Project > Export PDF;
+        """
+        # show export PDF dialog (modal)
+        DEP.ExportPDFDialog(self).show()
     # end def
 
 

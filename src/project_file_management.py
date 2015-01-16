@@ -399,23 +399,28 @@ class ProjectFileManagement:
         """
             event handler for menu Project > Export PDF;
         """
-        print("Menu:Project:Export PDF")
         # inits
         _mf = self.mainframe
-        _wtext = {
-            "draft/notes": _mf.tab_draft_notes.text_draft_notes,
-            "pitch/concept": _mf.tab_pitch_concept.text_pitch_concept,
-            "scenario": _mf.tab_scenario.TEXT,
-        }
+        _wtext = (
+            _mf.tab_draft_notes.text_draft_notes,
+            _mf.tab_pitch_concept.text_pitch_concept,
+            _mf.tab_scenario.TEXT,
+        )
+        _are_empty = map(
+            lambda t: self.mainwindow.text_is_empty(t),
+            _wtext
+        )
         # got data to export?
-        if not all(*map(lambda t:_mf.text_is_empty(t), _wtext.values())):
+        if not all(_are_empty):
             # show dialog
             pass
         # nothing to do
         else:
             MB.showwarning(
                 title=_("Attention"),
-                message=_("No text contents to export by now."),
+                message=_(
+                    "Export PDF: no text contents to export by now."
+                ),
                 parent=self.mainwindow,
             )
             # notify application

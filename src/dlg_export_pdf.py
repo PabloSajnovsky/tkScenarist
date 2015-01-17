@@ -92,7 +92,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                 text=_("Export"), command=self.slot_export_pdf
             )
             # reset process after a while
-            self.async.run_after(2000, self.reset)
+            self.async.run_after(1200, self.reset)
         # end if
     # end def
 
@@ -121,7 +121,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         """
         # put here your own code in subclass
         self.slot_stop_export()
-        self.async.stop(self._export_loop)
+        self.slot_stop_async()
         # succeeded
         return True
     # end def
@@ -152,7 +152,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         """
             returns a fancier name to show off for a given @doc_name;
         """
-        return str(doc_name).replace("_", "/").capitalize()
+        return str(doc_name).replace("_", " ").capitalize()
     # end def
 
 
@@ -256,6 +256,15 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         )
     # end def
 
+
+    def slot_stop_async (self, *args, **kw):
+        """
+            event handler: stop all async tasks for this dialog;
+        """
+        self.async.stop(self._export_loop, self.reset)
+    # end def
+
+
     def slot_stop_export (self, *args, **kw):
         """
             event handler: breaking exportation loop;
@@ -266,6 +275,24 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         self.show_status(
             _("User asked for cancellation.")
         )
+    # end def
+
+
+    def validate_dialog (self, tk_event=None, *args, **kw):
+        r"""
+            user dialog validation method;
+            this is a hook called by '_slot_button_ok()';
+            this *MUST* be overridden in subclass;
+            returns True on success, False otherwise;
+        """
+        # inits
+        _ret = not self.verify_pending_task()
+        # all is OK?
+        if _ret:
+            # stop pending tasks before quitting
+            self.slot_stop_async()
+        # end if
+        return _ret
     # end def
 
 # end class ExportPDFDialog

@@ -70,8 +70,8 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             self.BTN_EXPORT.configure(
                 text=_("Export"), command=self.slot_export_pdf
             )
-            # reset progressbar after a while
-            self.async.run_after(2000, self.set_progressbar, 0)
+            # reset process after a while
+            self.async.run_after(2000, self.reset)
         # end if
     # end def
 
@@ -151,9 +151,9 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def progressbar_wait (self):
+    def progressbar_wait (self, *args, **kw):
         """
-            simulates progressbar waiting for ops;
+            event handler: simulates progressbar waiting for ops;
         """
         # stop animation
         self.PROGRESSBAR.stop()
@@ -161,6 +161,17 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         self.PROGRESSBAR.configure(mode="indeterminate")
         # restart animation
         self.PROGRESSBAR.start()
+    # end def
+
+
+    def reset (self, *args, **kw):
+        """
+            event handler: resets export process informations;
+        """
+        # reset status
+        self.show_status("")
+        # reset progressbar
+        self.set_progressbar(0)
     # end def
 
 

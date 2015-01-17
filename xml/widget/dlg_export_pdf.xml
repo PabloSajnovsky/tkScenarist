@@ -87,12 +87,23 @@
             layout="pack"
             resizable="width"
         />
-        <ttkprogressbar
-            name="progressbar_export"
-            variable="pbar_value"
-            length="300"
+        <ttkframe
             layout="pack"
-            resizable="width"
-        />
+            resizable="yes"
+        >
+            <ttkprogressbar
+                name="progressbar_export"
+                variable="pbar_value"
+                layout="grid"
+                layout_options="row=0, column=0"
+                resizable="width"
+            />
+            <ttkbutton
+                text="Export"
+                command="@Dialog:ExportPDF:Export"
+                layout="grid"
+                layout_options="row=0, column=1"
+            />
+        </ttkframe>
     </ttklabelframe>
 </tkwidget>

@@ -38,7 +38,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
     # class constant defs
     BUTTONS = ("OK", )
 
-    DOC_NAMES = (
+    ITEM_NAMES = (
         "characters", "draft_notes", "pitch_concept", "resources",
         "scenario", "storyboard",
     )
@@ -55,7 +55,28 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             # inits
             _export_list = kw.get("export_list")
             _step = tools.ensure_int(kw.get("step"))
-            print("export list:", _export_list)
+            # very first step (inits)?
+            if not _step:
+                # inits
+                _doc_index = tools.ensure_int(kw.get("doc_index"))
+                # still got to export docs?
+                if _doc_index < len(_export_list):
+                    # inits
+                    _doc_name = _export_list[_doc_index]
+                    # notify
+                    self.show_status(
+                        _("Trying to export '{}'...")
+                        .format(_(self.get_fancy_name(_doc_name)))
+                    )
+                # no more to export
+                else:
+                    # notify
+                    self.show_status(
+                        _("All selected items exported. Done.")
+                    )
+                    # stop looping
+                    self.slot_stop_export()
+                # end if
             # loop again
             self.async.run_after(100, self._export_loop, kw)
         # end of exportation process
@@ -115,7 +136,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         _list = []
         _sel = lambda n: self.container.get_stringvar("chk_" + n).get()
         # browse doc names
-        for _name in self.DOC_NAMES:
+        for _name in self.ITEM_NAMES:
             # user selected?
             if _sel(_name):
                 # append to list
@@ -124,6 +145,14 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         # end for
         # get list
         return _list
+    # end def
+
+
+    def get_fancy_name (self, doc_name):
+        """
+            returns a fancier name to show off for a given @doc_name;
+        """
+        return str(doc_name).replace("_", "/").capitalize()
     # end def
 
 
@@ -219,7 +248,11 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         # launch exportation loop
         self.async.run_after_idle(
             self._export_loop,
-            dict(export_list=self.get_export_list())
+            dict(
+                export_list=self.get_export_list(),
+                doc_index=0,
+                step=0,
+            )
         )
     # end def
 

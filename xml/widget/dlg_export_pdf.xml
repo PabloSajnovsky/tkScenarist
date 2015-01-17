@@ -45,6 +45,13 @@
             resizable="width"
         />
         <ttkcheckbutton
+            text="Characters"
+            variable="chk_characters"
+            onvalue="1"
+            layout="pack"
+            resizable="width"
+        />
+        <ttkcheckbutton
             text="Pitch/Concept"
             variable="chk_pitch_concept"
             onvalue="1"
@@ -54,13 +61,6 @@
         <ttkcheckbutton
             text="Draft/Notes"
             variable="chk_draft_notes"
-            onvalue="1"
-            layout="pack"
-            resizable="width"
-        />
-        <ttkcheckbutton
-            text="Characters"
-            variable="chk_characters"
             onvalue="1"
             layout="pack"
             resizable="width"

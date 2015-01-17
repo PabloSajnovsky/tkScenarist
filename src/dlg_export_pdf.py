@@ -152,7 +152,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         """
             returns a fancier name to show off for a given @doc_name;
         """
-        return str(doc_name).replace("_", " ").capitalize()
+        return str(doc_name).replace("_", "/").title()
     # end def
 
 

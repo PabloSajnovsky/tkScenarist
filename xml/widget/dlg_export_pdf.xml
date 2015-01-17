@@ -94,15 +94,23 @@
             <ttkprogressbar
                 name="progressbar_export"
                 variable="pbar_value"
+                length="200"
                 layout="grid"
                 layout_options="row=0, column=0"
                 resizable="width"
             />
+            <!-- spacer -->
+            <ttkframe
+                width="5"
+                layout="grid"
+                layout_options="row=0, column=1"
+            />
             <ttkbutton
+                name="btn_export"
                 text="Export"
                 command="@Dialog:ExportPDF:Export"
                 layout="grid"
-                layout_options="row=0, column=1"
+                layout_options="row=0, column=2"
             />
         </ttkframe>
     </ttklabelframe>

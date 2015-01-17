@@ -40,6 +40,12 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         """
             event bindings;
         """
+        # app-wide events
+        self.events.connect_dict(
+            {
+                "Dialog:ExportPDF:Export": self.slot_export_pdf,
+            }
+        )
         # tkinter widget event bindings
         self.bind("<Escape>", self._slot_button_cancel)
     # end def
@@ -56,9 +62,34 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         )
         # member inits
         self.mainframe = self.tk_owner.mainframe
+        self.keep_looping = False
+        # widget inits
         _w = self.container
+        self.BTN_EXPORT = _w.btn_export
         # event bindings
         self.bind_events(**kw)
+    # end def
+
+
+    def slot_export_pdf (self, *args, **kw):
+        """
+            event handler: button clicked;
+        """
+        print("slot_export_pdf")
+        # switch on important task
+        self.slot_pending_task_on()
+        # change export button
+        self.BTN_EXPORT.configure(
+            text=_("Stop"), command=self.slot_stop_export,
+        )
+    # end def
+
+    def slot_stop_export (self, *args, **kw):
+        """
+            event handler: breaking exportation loop;
+        """
+        print("slot_stop_export")
+        self.keep_looping = False
     # end def
 
 # end class ExportPDFDialog

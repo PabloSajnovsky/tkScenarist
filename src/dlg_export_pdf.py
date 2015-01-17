@@ -26,6 +26,7 @@
 import tkinter.constants as TK
 import tkRAD.widgets.rad_dialog as DLG
 import tkRAD.core.async as ASYNC
+from tkRAD.core import tools
 from . import pdf_export as PDF
 
 
@@ -35,7 +36,40 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
     """
 
     # class constant defs
-    BUTTONS = ("OK",)
+    BUTTONS = ("OK", )
+
+    DOC_NAMES = (
+        "characters", "draft_notes", "pitch_concept", "resources",
+        "scenario", "storyboard",
+    )
+
+
+    def _export_loop (self, kw):
+        """
+            tk exportation loop;
+            internal use;
+        """
+        print("_export_loop")
+        # loop controls
+        if self.__keep_looping:
+            # inits
+            _export_list = kw.get("export_list")
+            _step = tools.ensure_int(kw.get("step"))
+            print("export list:", _export_list)
+            # loop again
+            self.async.run_after(100, self._export_loop, kw)
+        # end of exportation process
+        else:
+            # release important task
+            self.events.raise_event("DialogPendingTaskOff")
+            # reset button
+            self.enable_button("OK")
+            # reset export button
+            self.BTN_EXPORT.configure(
+                text=_("Export"), command=self.slot_export_pdf
+            )
+        # end if
+    # end def
 
 
     def bind_events (self, **kw):
@@ -62,36 +96,9 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         """
         # put here your own code in subclass
         self.slot_stop_export()
-        self.async.clear_all()
+        self.async.stop(self._export_loop)
         # succeeded
         return True
-    # end def
-
-
-    def export_loop (self, kw):
-        """
-            tk exportation loop;
-        """
-        print("export_loop")
-        # inits
-        _export_list = kw.get("export_list")
-        _step = kw.get("step") or 0
-        print("export list:", _export_list)
-        self.after(100)
-        # loop again
-        if self.keep_looping:
-            self.async.run_after(100, self.export_loop, kw)
-        # end of exportation process
-        else:
-            # release important task
-            self.events.raise_event("DialogPendingTaskOff")
-            # reset button
-            self.enable_button("OK")
-            # reset export button
-            self.BTN_EXPORT.configure(
-                text=_("Export"), command=self.slot_export_pdf
-            )
-        # end if
     # end def
 
 
@@ -101,22 +108,18 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             names to export;
         """
         # inits
-        _names = (
-            "scenario", "storyboard", "pitch_concept", "draft_notes",
-            "characters", "resources",
-        )
-        _export_list = []
-        _cvar = lambda n: self.container.get_stringvar("chk_" + n).get()
+        _list = []
+        _sel = lambda n: self.container.get_stringvar("chk_" + n).get()
         # browse doc names
-        for _name in _names:
+        for _name in self.DOC_NAMES:
             # user selected?
-            if _cvar(_name):
+            if _sel(_name):
                 # append to list
-                _export_list.append(_name)
+                _list.append(_name)
             # end if
         # end for
         # get list
-        return _export_list
+        return _list
     # end def
 
 
@@ -132,11 +135,49 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         # member inits
         self.mainframe = self.tk_owner.mainframe
         self.async = ASYNC.get_async_manager()
-        self.keep_looping = False
+        self.__keep_looping = False
         # widget inits
-        self.BTN_EXPORT = self.container.btn_export
+        _w = self.container
+        self.LBL_STATUS = _w.get_stringvar("lbl_export_status")
+        self.PROGRESSBAR = _w.progressbar_export
+        self.PBAR_VALUE = _w.get_stringvar("pbar_value")
+        self.BTN_EXPORT = _w.btn_export
         # event bindings
         self.bind_events(**kw)
+    # end def
+
+
+    def progressbar_wait (self):
+        """
+            simulates progressbar waiting for ops;
+        """
+        # stop animation
+        self.PROGRESSBAR.stop()
+        # set indeterminate mode
+        self.PROGRESSBAR.configure(mode="indeterminate")
+        # restart animation
+        self.PROGRESSBAR.start()
+    # end def
+
+
+    def set_progressbar (self, value):
+        """
+            sets progressbar to @value (between 0 and 100);
+        """
+        # set determinate mode
+        self.PROGRESSBAR.configure(mode="determinate")
+        # stop animation
+        self.PROGRESSBAR.stop()
+        # set value
+        self.PBAR_VALUE.set(str(tools.ensure_int(value)))
+    # end def
+
+
+    def show_status (self, message):
+        """
+            shows message in exportation status;
+        """
+        self.LBL_STATUS.set(str(message))
     # end def
 
 
@@ -148,16 +189,22 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         # switch on important task
         self.events.raise_event("DialogPendingTaskOn")
         # disable button
-        #~ self.disable_button("OK")
+        self.disable_button("OK")
         # change export button
         self.BTN_EXPORT.configure(
             text=_("Stop"), command=self.slot_stop_export,
         )
+        # notify
+        self.show_status(
+            _("Trying to export selected items, please wait.")
+        )
+        # waiting for ops
+        self.progressbar_wait()
         # inits
-        self.keep_looping = True
+        self.__keep_looping = True
         # launch exportation loop
         self.async.run_after_idle(
-            self.export_loop,
+            self._export_loop,
             dict(export_list=self.get_export_list())
         )
     # end def
@@ -167,7 +214,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             event handler: breaking exportation loop;
         """
         print("slot_stop_export")
-        self.keep_looping = False
+        self.__keep_looping = False
     # end def
 
 # end class ExportPDFDialog

@@ -81,8 +81,19 @@
         layout="pack"
         resizable="yes"
     >
-        <ttklabel
-            text="Dummy"
+        <ttkcheckbutton
+            text="Print scene/shot numbers LEFT side"
+            variable="chk_print_left"
+            onvalue="1"
+            checked="checked"
+            layout="pack"
+            resizable="width"
+        />
+        <ttkcheckbutton
+            text="Print scene/shot numbers RIGHT side"
+            variable="chk_print_right"
+            onvalue="1"
+            checked="checked"
             layout="pack"
             resizable="width"
         />
@@ -98,7 +109,6 @@
         <!-- export status -->
         <ttklabel
             textvariable="lbl_export_status"
-            style="info.TLabel"
             width="40"
             layout="pack"
             resizable="width"

@@ -55,8 +55,16 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             # inits
             _export_list = kw.get("export_list")
             _step = tools.ensure_int(kw.get("step"))
+            # nothing to export?
+            if not _export_list:
+                # stop looping
+                self.slot_stop_export()
+                # notify
+                self.show_status(
+                    _("Nothing to export. Aborted.")
+                )
             # very first step (inits)?
-            if not _step:
+            elif not _step:
                 # inits
                 _doc_index = tools.ensure_int(kw.get("doc_index"))
                 # still got to export docs?
@@ -70,13 +78,14 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                     )
                 # no more to export
                 else:
+                    # stop looping
+                    self.slot_stop_export()
                     # notify
                     self.show_status(
                         _("All selected items exported. Done.")
                     )
-                    # stop looping
-                    self.slot_stop_export()
                 # end if
+            # end if
             # loop again
             self.async.run_after(100, self._export_loop, kw)
         # end of exportation process
@@ -146,7 +155,6 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                 _list.append(_name)
             # end if
         # end for
-        print("export list:", _list)
         # get list
         return _list
     # end def

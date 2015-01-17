@@ -134,7 +134,10 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         """
         # inits
         _list = []
-        _sel = lambda n: self.container.get_stringvar("chk_" + n).get()
+        _sel = (
+            lambda n:
+                self.container.get_stringvar("chk_" + n).get() == "1"
+        )
         # browse doc names
         for _name in self.ITEM_NAMES:
             # user selected?
@@ -143,6 +146,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                 _list.append(_name)
             # end if
         # end for
+        print("export list:", _list)
         # get list
         return _list
     # end def

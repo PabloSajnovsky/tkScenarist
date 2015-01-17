@@ -25,6 +25,7 @@
 # lib imports
 import tkinter.constants as TK
 import tkRAD.widgets.rad_dialog as DLG
+import tkRAD.core.async as ASYNC
 from . import pdf_export as PDF
 
 
@@ -48,7 +49,22 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             }
         )
         # tkinter widget event bindings
-        self.bind("<Escape>", self._slot_button_cancel)
+        self.bind("<Escape>", self._slot_button_ok)
+    # end def
+
+
+    def cancel_dialog (self, tk_event=None, *args, **kw):
+        r"""
+            user dialog cancellation method;
+            this is a hook called by '_slot_button_cancel()';
+            this *MUST* be overridden in subclass;
+            returns True on success, False otherwise;
+        """
+        # put here your own code in subclass
+        self.slot_stop_export()
+        self.async.clear_all()
+        # succeeded
+        return True
     # end def
 
 
@@ -61,10 +77,10 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         _export_list = kw.get("export_list")
         _step = kw.get("step") or 0
         print("export list:", _export_list)
-        self.after(500)
+        self.after(100)
         # loop again
         if self.keep_looping:
-            self.after_idle(self.export_loop, kw)
+            self.async.run_after_idle(self.export_loop, kw)
         # end of exportation process
         else:
             # release important task
@@ -115,6 +131,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         )
         # member inits
         self.mainframe = self.tk_owner.mainframe
+        self.async = ASYNC.get_async_manager()
         self.keep_looping = False
         # widget inits
         self.BTN_EXPORT = self.container.btn_export
@@ -131,7 +148,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         # switch on important task
         self.events.raise_event("DialogPendingTaskOn")
         # disable button
-        self.disable_button("OK")
+        #~ self.disable_button("OK")
         # change export button
         self.BTN_EXPORT.configure(
             text=_("Stop"), command=self.slot_stop_export,
@@ -139,7 +156,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         # inits
         self.keep_looping = True
         # launch exportation loop
-        self.after_idle(
+        self.async.run_after_idle(
             self.export_loop,
             dict(export_list=self.get_export_list())
         )

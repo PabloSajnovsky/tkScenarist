@@ -60,6 +60,8 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             self.async.run_after(100, self._export_loop, kw)
         # end of exportation process
         else:
+            # reset progressbar
+            self.set_progressbar(100)
             # release important task
             self.events.raise_event("DialogPendingTaskOff")
             # reset button
@@ -68,6 +70,8 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             self.BTN_EXPORT.configure(
                 text=_("Export"), command=self.slot_export_pdf
             )
+            # reset progressbar after a while
+            self.async.run_after(2000, self.set_progressbar, 0)
         # end if
     # end def
 
@@ -185,7 +189,6 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         """
             event handler: button clicked;
         """
-        print("slot_export_pdf")
         # switch on important task
         self.events.raise_event("DialogPendingTaskOn")
         # disable button
@@ -213,8 +216,12 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         """
             event handler: breaking exportation loop;
         """
-        print("slot_stop_export")
+        # break tk loop
         self.__keep_looping = False
+        # notify
+        self.show_status(
+            _("User asked for cancellation.")
+        )
     # end def
 
 # end class ExportPDFDialog

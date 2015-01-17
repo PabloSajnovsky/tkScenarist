@@ -98,6 +98,8 @@
         <!-- export status -->
         <ttklabel
             textvariable="lbl_export_status"
+            style="info.TLabel"
+            width="40"
             layout="pack"
             resizable="width"
         />

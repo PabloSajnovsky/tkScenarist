@@ -82,7 +82,7 @@
         resizable="yes"
     >
         <ttkcheckbutton
-            text="Print scene/shot numbers LEFT side"
+            text="Print scene / shot numbers on LEFT side"
             variable="chk_print_left"
             onvalue="1"
             checked="checked"
@@ -90,7 +90,7 @@
             resizable="width"
         />
         <ttkcheckbutton
-            text="Print scene/shot numbers RIGHT side"
+            text="Print scene / shot numbers on RIGHT side"
             variable="chk_print_right"
             onvalue="1"
             checked="checked"

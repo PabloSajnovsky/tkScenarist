@@ -80,7 +80,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         self.after(100)
         # loop again
         if self.keep_looping:
-            self.async.run_after_idle(self.export_loop, kw)
+            self.async.run_after(100, self.export_loop, kw)
         # end of exportation process
         else:
             # release important task

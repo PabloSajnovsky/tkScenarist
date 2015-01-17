@@ -77,7 +77,9 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         """
         print("slot_export_pdf")
         # switch on important task
-        self.slot_pending_task_on()
+        self._slot_pending_task_on()
+        # disable button
+        self.disable_button("OK")
         # change export button
         self.BTN_EXPORT.configure(
             text=_("Stop"), command=self.slot_stop_export,

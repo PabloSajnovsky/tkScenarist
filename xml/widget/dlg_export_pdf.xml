@@ -58,6 +58,20 @@
             layout="pack"
             resizable="width"
         />
+        <ttkcheckbutton
+            text="Characters"
+            variable="chk_characters"
+            onvalue="1"
+            layout="pack"
+            resizable="width"
+        />
+        <ttkcheckbutton
+            text="Resources"
+            variable="chk_resources"
+            onvalue="1"
+            layout="pack"
+            resizable="width"
+        />
     </ttklabelframe>
 
     <!-- options -->

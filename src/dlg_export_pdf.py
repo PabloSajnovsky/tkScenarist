@@ -25,6 +25,7 @@
 # lib imports
 import tkinter.constants as TK
 import tkRAD.widgets.rad_dialog as DLG
+from . import pdf_export as PDF
 
 
 class ExportPDFDialog (DLG.RADButtonsDialog):
@@ -51,6 +52,58 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def export_loop (self, kw):
+        """
+            tk exportation loop;
+        """
+        print("export_loop")
+        # inits
+        _export_list = kw.get("export_list")
+        _step = kw.get("step") or 0
+        print("export list:", _export_list)
+        self.after(500)
+        # loop again
+        if self.keep_looping:
+            self.after_idle(self.export_loop, kw)
+        # end of exportation process
+        else:
+            # release important task
+            self.events.raise_event("DialogPendingTaskOff")
+            # reset button
+            self.enable_button("OK")
+            # reset export button
+            self.BTN_EXPORT.configure(
+                text=_("Export"), command=self.slot_export_pdf
+            )
+        # end if
+    # end def
+
+
+    def get_export_list (self):
+        """
+            retrieves user's exportation list and returns a list of doc
+            names to export;
+        """
+        # inits
+        _names = (
+            "scenario", "storyboard", "pitch_concept", "draft_notes",
+            "characters", "resources",
+        )
+        _export_list = []
+        _cvar = lambda n: self.container.get_stringvar("chk_" + n).get()
+        # browse doc names
+        for _name in _names:
+            # user selected?
+            if _cvar(_name):
+                # append to list
+                _export_list.append(_name)
+            # end if
+        # end for
+        # get list
+        return _export_list
+    # end def
+
+
     def init_widget (self, **kw):
         """
             widget main inits;
@@ -64,8 +117,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         self.mainframe = self.tk_owner.mainframe
         self.keep_looping = False
         # widget inits
-        _w = self.container
-        self.BTN_EXPORT = _w.btn_export
+        self.BTN_EXPORT = self.container.btn_export
         # event bindings
         self.bind_events(**kw)
     # end def
@@ -77,12 +129,19 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         """
         print("slot_export_pdf")
         # switch on important task
-        self._slot_pending_task_on()
+        self.events.raise_event("DialogPendingTaskOn")
         # disable button
         self.disable_button("OK")
         # change export button
         self.BTN_EXPORT.configure(
             text=_("Stop"), command=self.slot_stop_export,
+        )
+        # inits
+        self.keep_looping = True
+        # launch exportation loop
+        self.after_idle(
+            self.export_loop,
+            dict(export_list=self.get_export_list())
         )
     # end def
 

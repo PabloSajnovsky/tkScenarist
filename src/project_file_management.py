@@ -29,6 +29,7 @@ import tkinter.messagebox as MB
 import tkinter.filedialog as FD
 from tkRAD.core import tools
 from tkRAD.core import path as P
+from . import dlg_export_pdf as DEP
 
 
 class ProjectFileManagement:
@@ -396,6 +397,18 @@ class ProjectFileManagement:
     # end def
 
 
+    def slot_export_pdf (self, *args, **kw):
+        """
+            event handler: menu Project > Export PDF;
+        """
+        # ensure project is really saved (mandatory)
+        if self.ensure_saved():
+            # show export PDF dialog (modal)
+            DEP.ExportPDFDialog(self.mainwindow).show()
+        # end if
+    # end def
+
+
     def slot_modified (self, *args, flag=True, **kw):
         """
             event handler for project's modification flag;
@@ -415,8 +428,8 @@ class ProjectFileManagement:
         """
             event handler for menu Project > New;
         """
-        # current project is saved?
-        if self.ensure_saved():
+        # user did not cancel confirmation?
+        if self.ensure_saved() is not None:
             # reset project to new
             self.do_reset_project()
         # cancelled
@@ -433,8 +446,8 @@ class ProjectFileManagement:
         """
         # inits
         _fpath = None
-        # current project is saved?
-        if self.ensure_saved():
+        # user did not cancel confirmation?
+        if self.ensure_saved() is not None:
             # open project file dialog
             _fpath = FD.askopenfilename(
                 title=_("Open project file..."),

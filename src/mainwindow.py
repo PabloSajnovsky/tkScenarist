@@ -32,7 +32,6 @@ import tkRAD
 import tkRAD.core.async as ASYNC
 from . import project_file_management as PFM
 from . import app_database as DB
-from . import dlg_export_pdf as DEP
 from . import dlg_name_database as DND
 from . import dlg_pitch_templates as DPT
 from . import dlg_scenario_elements_editor as DSEE
@@ -83,7 +82,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
                     self.slot_help_tutorial,
 
                 "Project:Export:PDF":
-                    self.slot_export_pdf,
+                    self.project_fm.slot_export_pdf,
                 "Project:Modified":
                     self.project_fm.slot_modified,
                 "Project:New":
@@ -134,8 +133,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             hook method to be reimplemented in subclass;
             put here user confirmation dialog for quitting app;
         """
-        # user confirmation dialog
-        return self.project_fm.ensure_saved()
+        # user confirmation dialog (anything but cancelled)
+        return self.project_fm.ensure_saved() is not None
     # end def
 
 
@@ -322,18 +321,6 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         self.events.raise_event("Project:Modified")
         # validate entry keystrokes
         return True
-    # end def
-
-
-    def slot_export_pdf (self, *args, **kw):
-        """
-            event handler: menu Project > Export PDF;
-        """
-        # ensure project is saved
-        if self.project_fm.ensure_saved():
-            # show export PDF dialog (modal)
-            DEP.ExportPDFDialog(self).show()
-        # end if
     # end def
 
 

@@ -34,7 +34,11 @@ def get_pdf_document (doc_name):
     """
     # inits
     _pfm = SM.ask_for("PFM") # Project File Management
-    print("PFM:", _pfm.project_path, _pfm.current_dir, _pfm.get_filename())
+    print(
+        "PFM:",
+        _pfm.project_path, _pfm.current_dir,
+        _pfm.get_filename(strip_extension=True)
+    )
 # end def
 
 

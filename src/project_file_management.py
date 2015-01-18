@@ -221,7 +221,7 @@ class ProjectFileManagement:
             cancelled or any other trouble fired up;
         """
         # inits
-        response = bool(self.project_path)
+        response = self.YES
         # got to save first?
         if self.project_modified:
             # ask for saving
@@ -233,12 +233,12 @@ class ProjectFileManagement:
             if response == self.YES:
                 # save project
                 response = self.slot_save()
-                # confirm really saved
-                response = response and self.project_path
             # end if
         # end if
         # CANCEL=None, NO=False, YES=True
-        return response
+        return (
+            response and self.is_good_file_format(self.project_path)
+        )
     # end def
 
 
@@ -403,7 +403,7 @@ class ProjectFileManagement:
             event handler: menu Project > Export PDF;
         """
         # ensure we have a project file path
-        response = self.project_path or self.ensure_saved()
+        response = self.ensure_saved()
         print("response:", response)
         # got a project file path?
         if response == self.YES:

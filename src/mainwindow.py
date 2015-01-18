@@ -191,9 +191,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         self.async = ASYNC.get_async_manager()
         self.project_fm = PFM.ProjectFileManagement(self)
         # register as app-wide service
-        self.services.register_service(
-            "PFM Project File Management", self.project_fm
-        )
+        # PFM: Project File Management
+        self.services.register_service("PFM", self.project_fm)
         # looks for ^/xml/menu/topmenu.xml
         self.topmenu.xml_build()
         # toggle statusbar through menu

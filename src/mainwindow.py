@@ -30,6 +30,7 @@ import tkinter.messagebox as MB
 import tkinter.constants as TK
 import tkRAD
 import tkRAD.core.async as ASYNC
+import tkRAD.core.path as P
 from . import project_file_management as PFM
 from . import app_database as DB
 from . import dlg_name_database as DND
@@ -359,7 +360,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         self.launch_web_browser(
             # local file (offline)
             "file://{}".format(
-                PFM.P.normalize(kw.get("file") or self.OFFLINE_DOC_URL)
+                P.normalize(kw.get("file") or self.OFFLINE_DOC_URL)
             )
         )
     # end def

@@ -198,6 +198,32 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def get_section (self):
+        """
+            returns RC file section for this class;
+        """
+        return self.classname().lower()
+    # end def
+
+
+    def init_options (self, **kw):
+        """
+            RC options widget inits;
+        """
+        # update widgets
+        for _cvarname in self.OPT_NAMES:
+            self.check_cvar(
+                _cvarname,
+                int(
+                    self.options.get(
+                        self.get_section(), _cvarname, fallback="1"
+                    )
+                )
+            )
+        # end for
+    # end def
+
+
     def init_widget (self, **kw):
         """
             widget main inits;
@@ -217,6 +243,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         self.PROGRESSBAR = _w.progressbar_export
         self.PBAR_VALUE = _w.get_stringvar("pbar_value")
         self.BTN_EXPORT = _w.btn_export
+        self.init_options(**kw)
         # event bindings
         self.bind_events(**kw)
     # end def

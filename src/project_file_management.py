@@ -221,7 +221,7 @@ class ProjectFileManagement:
         # inits
         response = True
         # got to save first?
-        if self.project_modified or not self.project_path:
+        if self.project_modified:
             # ask for saving
             response = MB.askyesnocancel(
                 _("Question"),

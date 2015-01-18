@@ -35,11 +35,13 @@ def get_pdf_document (doc_name):
         along with @doc_name document name value;
     """
     # inits
+    _app = SM.ask_for("app") # application
     _pfm = SM.ask_for("PFM") # Project File Management
     _fpath, _fext = OP.splitext(_pfm.project_path)
     # rebuild filepath
     _fpath = P.normalize("{}-{}.pdf".format(_fpath, doc_name))
     print("PFM:", _fpath)
+    print("App data:", _app.APP)
 # end def
 
 

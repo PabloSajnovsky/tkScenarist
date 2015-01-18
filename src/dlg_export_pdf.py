@@ -76,13 +76,20 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                     None
                 )
                 # call step
-                if callable(_method):
+                try:
                     _method(kw)
                 # something went wrong
-                else:
+                except:
                     # better trap out from here
                     self.slot_stop_export()
-                # end if
+                    # notify
+                    self.show_status(
+                        _(
+                            "Got an error while trying to export. "
+                            "Aborting."
+                        )
+                    )
+                # end try
             # end if
             # loop again
             self.async.run_after(100, self._export_loop, kw)

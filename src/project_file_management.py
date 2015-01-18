@@ -404,6 +404,7 @@ class ProjectFileManagement:
         """
         # ensure we have a project file path
         response = self.project_path or self.ensure_saved()
+        print("response:", response)
         # got a project file path?
         if response == self.YES:
             # show export PDF dialog (modal)

@@ -23,7 +23,9 @@
 """
 
 # lib imports
+import os.path as OP
 import reportlab
+import tkRAD.core.path as P
 import tkRAD.core.services as SM
 
 
@@ -34,11 +36,10 @@ def get_pdf_document (doc_name):
     """
     # inits
     _pfm = SM.ask_for("PFM") # Project File Management
-    print(
-        "PFM:",
-        _pfm.project_path, _pfm.current_dir,
-        _pfm.get_filename(strip_extension=True)
-    )
+    _fpath, _fext = OP.splitext(_pfm.project_path)
+    # rebuild filepath
+    _fpath = P.normalize("{}-{}.pdf".format(_fpath, doc_name))
+    print("PFM:", _fpath)
 # end def
 
 

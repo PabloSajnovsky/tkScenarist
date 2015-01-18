@@ -402,8 +402,11 @@ class ProjectFileManagement:
         """
             event handler: menu Project > Export PDF;
         """
-        # ensure we have a project file path
-        response = self.ensure_saved()
+        # ensure we have a correct project file path
+        response = (
+            self.is_good_file_format(self.project_path)
+            or self.ensure_saved()
+        )
         print("response:", response)
         # got a project file path?
         if response == self.YES:

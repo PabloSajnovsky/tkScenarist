@@ -43,6 +43,11 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         "scenario", "storyboard",
     )
 
+    OPT_NAMES = (
+        "chk_print_scene_left", "chk_print_scene_right",
+        "chk_print_shot_left", "chk_print_shot_right",
+    )
+
 
     def _export_loop (self, kw):
         """
@@ -113,6 +118,9 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         # app-wide events
         self.events.connect_dict(
             {
+                "Dialog:ExportPDF:Checkbutton:Click":
+                    self.slot_on_checkbutton_clicked,
+
                 "Dialog:ExportPDF:Export": self.slot_export_pdf,
             }
         )
@@ -136,6 +144,32 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def check_cvar (self, cvarname, state=True):
+        """
+            checks/unchecks checkbutton's control variable along with
+            @state boolean value;
+            if @state is None, keeps checkbutton unchanged;
+        """
+        # param controls
+        if state is not None:
+            self.container.get_stringvar(cvarname).set(
+                "1" if state else ""
+            )
+        # end if
+    # end def
+
+
+    def cvar_checked (self, cvarname):
+        """
+            returns True if control variable @cvarname is checked,
+            False otherwise;
+        """
+        return bool(
+            self.container.get_stringvar(cvarname).get() == "1"
+        )
+    # end def
+
+
     def get_export_list (self):
         """
             retrieves user's exportation list and returns a list of doc
@@ -143,14 +177,10 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         """
         # inits
         _list = []
-        _sel = (
-            lambda n:
-                self.container.get_stringvar("chk_" + n).get() == "1"
-        )
         # browse doc names
         for _name in self.ITEM_NAMES:
             # user selected?
-            if _sel(_name):
+            if self.cvar_checked("chk_" + _name):
                 # append to list
                 _list.append(_name)
             # end if
@@ -266,6 +296,19 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                 step=0,
             )
         )
+    # end def
+
+
+    def slot_on_checkbutton_clicked (self, event=None, *args, **kw):
+        """
+            event handler: checkbutton has been clicked;
+        """
+        # update RC options
+        for _cvarname in self.OPT_NAMES:
+            self.options[self.get_section()][_cvarname] = str(
+                int(self.cvar_checked(_cvarname))
+            )
+        # end for
     # end def
 
 

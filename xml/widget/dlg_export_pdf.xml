@@ -83,6 +83,7 @@
     >
         <ttkcheckbutton
             text="Print SCENE numbers on LEFT side"
+            command="@Dialog:ExportPDF:Checkbutton:Click"
             variable="chk_print_scene_left"
             onvalue="1"
             checked="checked"
@@ -91,6 +92,7 @@
         />
         <ttkcheckbutton
             text="Print SCENE numbers on RIGHT side"
+            command="@Dialog:ExportPDF:Checkbutton:Click"
             variable="chk_print_scene_right"
             onvalue="1"
             checked="checked"
@@ -99,6 +101,7 @@
         />
         <ttkcheckbutton
             text="Print SHOT numbers on LEFT side"
+            command="@Dialog:ExportPDF:Checkbutton:Click"
             variable="chk_print_shot_left"
             onvalue="1"
             checked="checked"
@@ -107,6 +110,7 @@
         />
         <ttkcheckbutton
             text="Print SHOT numbers on RIGHT side"
+            command="@Dialog:ExportPDF:Checkbutton:Click"
             variable="chk_print_shot_right"
             onvalue="1"
             checked="checked"

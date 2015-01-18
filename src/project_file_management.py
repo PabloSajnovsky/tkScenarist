@@ -274,6 +274,24 @@ class ProjectFileManagement:
     # end def
 
 
+    def get_filename (self, fpath=None, strip_extension=False):
+        """
+            returns filename for a given @fpath or for
+            self.project_path if @fpath is omitted; strips file
+            extension if @strip_extension is True;
+        """
+        # inits
+        _fname = OP.basename(P.normalize(fpath or self.project_path))
+        # should strip file extension?
+        if strip_extension:
+            # inits
+            _fname, _fext = OP.splitext(_fname)
+        # end if
+        # get filename
+        return _fname
+    # end def
+
+
     def get_files_from_dict (self, dict_object):
         """
             extracts filenames from an archive dictionnary;

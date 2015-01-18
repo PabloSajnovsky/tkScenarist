@@ -198,20 +198,12 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def get_section (self):
-        """
-            returns RC file section for this class;
-        """
-        return self.classname().lower()
-    # end def
-
-
     def init_rc_options (self, **kw):
         """
             RC options widget inits;
         """
         # inits
-        _s = self.get_section()
+        _s = self.get_rc_section()
         # update widgets
         for _cvarname in self.ALL_NAMES:
             _chk = "chk_" + _cvarname
@@ -277,7 +269,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             event handler: saves RC options from widget states;
         """
         # inits
-        _s = self.get_section()
+        _s = self.get_rc_section()
         # save RC options
         for _cvarname in self.ALL_NAMES:
             _chk = "chk_" + _cvarname

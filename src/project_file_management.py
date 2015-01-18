@@ -459,7 +459,7 @@ class ProjectFileManagement:
             event handler for menu Project > Open;
         """
         # inits
-        _fpath = None
+        _fpath = self.CANCEL
         # user did not cancel confirmation?
         if self.ensure_saved() != self.CANCEL:
             # open project file dialog
@@ -481,7 +481,7 @@ class ProjectFileManagement:
             # notify application
             self.notify(_("Project > Open: cancelled."))
             # failed
-            return False
+            return self.CANCEL
         # end if
     # end def
 
@@ -524,7 +524,7 @@ class ProjectFileManagement:
             # notify application
             self.notify(_("Project > Save as...: cancelled."))
             # cancelled
-            return None
+            return self.CANCEL
         # end if
     # end def
 

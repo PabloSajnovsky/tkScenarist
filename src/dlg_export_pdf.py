@@ -52,45 +52,32 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
     def _export_loop (self, kw):
         """
             tk exportation loop;
-            internal use;
+            for internal use;
         """
         print("_export_loop")
         # loop controls
         if self.__keep_looping:
-            # inits
-            _export_list = kw.get("export_list")
-            _step = tools.ensure_int(kw.get("step"))
             # nothing to export?
-            if not _export_list:
+            if not kw.get("export_list"):
                 # stop looping
                 self.slot_stop_export()
                 # notify
                 self.show_status(
                     _("Nothing to export. Aborted.")
                 )
-            # very first step (inits)?
-            elif not _step:
-                # inits
-                _doc_index = tools.ensure_int(kw.get("doc_index"))
-                # still got to export docs?
-                if _doc_index < len(_export_list):
-                    # inits
-                    _doc_name = _export_list[_doc_index]
-                    # notify
-                    self.show_status(
-                        _("Trying to export '{}'...")
-                        .format(_(self.get_fancy_name(_doc_name)))
-                    )
-                    # get PDF document
-                    _doc = PDF.get_pdf_document()
-                # no more to export
-                else:
-                    # stop looping
-                    self.slot_stop_export()
-                    # notify
-                    self.show_status(
-                        _("All selected items exported. Done.")
-                    )
+            # do ops by steps
+            else:
+                # get method to call
+                _method = getattr(
+                    self,
+                    "_step_{}".format(
+                        tools.ensure_int(kw.get("step"))
+                    ),
+                    None
+                )
+                # call step
+                if callable(_method):
+                    _method(kw)
                 # end if
             # end if
             # loop again
@@ -109,6 +96,41 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             )
             # reset process after a while
             self.async.run_after(1200, self.reset)
+        # end if
+    # end def
+
+
+    def _step_0 (self, kw):
+        """
+            very first step in export loop (inits);
+            for internal use;
+        """
+        # inits
+        _export_list = kw.get("export_list")
+        _doc_index = tools.ensure_int(kw.get("doc_index"))
+        # still got to export docs?
+        if _doc_index < len(_export_list):
+            # inits
+            _doc_name = _export_list[_doc_index]
+            # notify
+            self.show_status(
+                _("Trying to export '{}'...")
+                .format(_(self.get_fancy_name(_doc_name)))
+            )
+            # get PDF document
+            kw["doc"] = PDF.get_pdf_document(_doc_name)
+            # prepare for next document
+            kw["doc_index"] = _doc_index + 1
+            # next step
+            kw["step"] = 1
+        # no more to export
+        else:
+            # stop looping
+            self.slot_stop_export()
+            # notify
+            self.show_status(
+                _("All selected items exported. Done.")
+            )
         # end if
     # end def
 

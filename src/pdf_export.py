@@ -24,3 +24,24 @@
 
 # lib imports
 import reportlab
+import tkRAD.core.services as SM
+
+
+def get_pdf_document (doc_name):
+    """
+        returns a new instance for a PDF document with filepath built
+        along with @doc_name document name value;
+    """
+    # inits
+    _pfm = SM.ask_for("PFM") # Project File Management
+    print("PFM:", _pfm)
+# end def
+
+
+
+
+
+
+
+
+

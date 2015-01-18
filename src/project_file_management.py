@@ -414,7 +414,8 @@ class ProjectFileManagement:
             MB.showwarning(
                 title=_("Attention"),
                 message=_(
-                    "Cannot export data: need a project file path."
+                    "Cannot export data: "
+                    "need a saved project file path."
                 ),
                 parent=self.mainwindow,
             )

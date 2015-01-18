@@ -188,6 +188,10 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         # member inits
         self.async = ASYNC.get_async_manager()
         self.project_fm = PFM.ProjectFileManagement(self)
+        # register as app-wide service
+        self.services.register_service(
+            "PFM Project File Management", self.project_fm
+        )
         # looks for ^/xml/menu/topmenu.xml
         self.topmenu.xml_build()
         # toggle statusbar through menu
@@ -325,8 +329,11 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             event handler: menu Project > Export PDF;
         """
-        # show export PDF dialog (modal)
-        DEP.ExportPDFDialog(self).show()
+        # ensure project is saved
+        if self.project_fm.ensure_saved():
+            # show export PDF dialog (modal)
+            DEP.ExportPDFDialog(self).show()
+        # end if
     # end def
 
 

@@ -81,6 +81,8 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                         _("Trying to export '{}'...")
                         .format(_(self.get_fancy_name(_doc_name)))
                     )
+                    # get PDF document
+                    _doc = PDF.get_pdf_document()
                 # no more to export
                 else:
                     # stop looping

@@ -402,14 +402,14 @@ class ProjectFileManagement:
         """
             event handler: menu Project > Export PDF;
         """
-        # ensure project is saved (mandatory)
-        response = self.ensure_saved()
+        # ensure we have a project file path
+        response = self.project_path or self.ensure_saved()
         # got a project file path?
         if response == self.YES:
             # show export PDF dialog (modal)
             DEP.ExportPDFDialog(self.mainwindow).show()
-        # user denied?
-        elif response == self.NO and not self.project_path:
+        # got trouble?
+        elif response != self.CANCEL:
             # notify user
             MB.showwarning(
                 title=_("Attention"),

@@ -218,7 +218,7 @@ class ProjectFileManagement:
             cancelled or any other trouble fired up;
         """
         # inits
-        cancelled = False
+        response = True
         # got to save first?
         if self.project_modified:
             # ask for saving
@@ -226,16 +226,15 @@ class ProjectFileManagement:
                 _("Question"),
                 _("Project has been modified. Save it?")
             )
-            # update flag
-            cancelled = response is None
-            # answered yes
-            if response:
+            print("response:", response, MB.YES, MB.NO, MB.CANCEL)
+            # user answered yes
+            if response == MB.YES:
                 # save project
-                cancelled = not self.slot_save()
+                response = self.slot_save()
             # end if
         # end if
         # ensure saved
-        return not cancelled
+        return response
     # end def
 
 

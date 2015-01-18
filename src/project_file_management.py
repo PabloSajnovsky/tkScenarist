@@ -56,6 +56,8 @@ class ProjectFileManagement:
         "tab_resources": "resources.txt",
     }
 
+    CANCEL, NO, YES = (None, False, True)
+
     FILE_EXT = "scn"
 
 
@@ -402,7 +404,7 @@ class ProjectFileManagement:
             event handler: menu Project > Export PDF;
         """
         # ensure project is really saved (mandatory)
-        if self.ensure_saved():
+        if self.ensure_saved() == self.YES:
             # show export PDF dialog (modal)
             DEP.ExportPDFDialog(self.mainwindow).show()
         # end if
@@ -429,7 +431,7 @@ class ProjectFileManagement:
             event handler for menu Project > New;
         """
         # user did not cancel confirmation?
-        if self.ensure_saved() is not None:
+        if self.ensure_saved() != self.CANCEL:
             # reset project to new
             self.do_reset_project()
         # cancelled
@@ -447,7 +449,7 @@ class ProjectFileManagement:
         # inits
         _fpath = None
         # user did not cancel confirmation?
-        if self.ensure_saved() is not None:
+        if self.ensure_saved() != self.CANCEL:
             # open project file dialog
             _fpath = FD.askopenfilename(
                 title=_("Open project file..."),
@@ -509,8 +511,8 @@ class ProjectFileManagement:
         else:
             # notify application
             self.notify(_("Project > Save as...: cancelled."))
-            # failed
-            return False
+            # cancelled
+            return None
         # end if
     # end def
 

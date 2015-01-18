@@ -134,7 +134,9 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             put here user confirmation dialog for quitting app;
         """
         # user confirmation dialog (anything but cancelled)
-        return self.project_fm.ensure_saved() is not None
+        return bool(
+            self.project_fm.ensure_saved() != self.project_fm.CANCEL
+        )
     # end def
 
 

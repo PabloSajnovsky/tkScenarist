@@ -55,6 +55,8 @@ with this program.
 If not, see: http://www.gnu.org/licenses/
         """),
         "license_url": _("http://www.gnu.org/licenses/"),
+        "pdflib": "reportlab",
+        "pdflib_author": "(c) ReportLab Europe Ltd. 2000-2012",
     } # end of APP
 
     DIRECTORIES = (

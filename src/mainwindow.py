@@ -337,6 +337,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
                 "{title}\n{description}\n{copyright}"
                 "\n\nAuthor: {author}"
                 "\nCurrent maintainer: {maintainer}"
+                "\nPDF toolkit: {pdflib}"
+                "\nBy: {pdflib_author}"
                 .format(**self.app.APP),
             parent=self,
         )
@@ -354,7 +356,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
 
     def slot_help_tutorial (self, *args, **kw):
         """
-            event handler: menu Help > Tutorial;
+            event handler: menu Help > Getting started (tutorial);
         """
         # launch offline documentation
         self.launch_web_browser(

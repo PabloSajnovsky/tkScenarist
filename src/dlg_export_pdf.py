@@ -153,7 +153,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         # param controls
         if state is not None:
             self.container.get_stringvar(cvarname).set(
-                "1" if state else ""
+                "1" if tools.ensure_int(state) else ""
             )
         # end if
     # end def
@@ -206,7 +206,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def init_options (self, **kw):
+    def init_rc_options (self, **kw):
         """
             RC options widget inits;
         """
@@ -216,7 +216,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         for _cvarname in self.ALL_NAMES:
             _chk = "chk_" + _cvarname
             self.check_cvar(
-                _chk, int(self.options.get(_s, _chk, fallback=None))
+                _chk, self.options.get(_s, _chk, fallback=None)
             )
         # end for
     # end def
@@ -242,7 +242,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         self.PROGRESSBAR = _w.progressbar_export
         self.PBAR_VALUE = _w.get_stringvar("pbar_value")
         self.BTN_EXPORT = _w.btn_export
-        self.init_options(**kw)
+        self.init_rc_options(**kw)
         # event bindings
         self.bind_events(**kw)
     # end def
@@ -269,6 +269,20 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         self.show_status("")
         # reset progressbar
         self.set_progressbar(0)
+    # end def
+
+
+    def save_rc_options (self, *args, **kw):
+        """
+            event handler: saves RC options from widget states;
+        """
+        # inits
+        _s = self.get_section()
+        # save RC options
+        for _cvarname in self.ALL_NAMES:
+            _chk = "chk_" + _cvarname
+            self.options[_s][_chk] = str(int(self.cvar_checked(_chk)))
+        # end for
     # end def
 
 
@@ -329,13 +343,8 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         """
             event handler: checkbutton has been clicked;
         """
-        # inits
-        _s = self.get_section()
-        # update RC options
-        for _cvarname in self.ALL_NAMES:
-            _chk = "chk_" + _cvarname
-            self.options[_s][_chk] = str(int(self.cvar_checked(_chk)))
-        # end for
+        # save RC options
+        self.save_rc_options()
     # end def
 
 

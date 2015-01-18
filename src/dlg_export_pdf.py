@@ -44,8 +44,8 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
     )
 
     OPT_NAMES = (
-        "chk_print_scene_left", "chk_print_scene_right",
-        "chk_print_shot_left", "chk_print_shot_right",
+        "print_scene_left", "print_scene_right", "print_shot_left",
+        "print_shot_right",
     )
 
 
@@ -210,15 +210,13 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         """
             RC options widget inits;
         """
+        # inits
+        _s = self.get_section()
         # update widgets
-        for _cvarname in self.OPT_NAMES:
+        for _cvarname in self.ALL_NAMES:
+            _chk = "chk_" + _cvarname
             self.check_cvar(
-                _cvarname,
-                int(
-                    self.options.get(
-                        self.get_section(), _cvarname, fallback="1"
-                    )
-                )
+                _chk, int(self.options.get(_s, _chk, fallback="1"))
             )
         # end for
     # end def
@@ -234,6 +232,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             xml="dlg_export_pdf",
         )
         # member inits
+        self.ALL_NAMES = self.ITEM_NAMES + self.OPT_NAMES
         self.mainframe = self.tk_owner.mainframe
         self.async = ASYNC.get_async_manager()
         self.__keep_looping = False
@@ -330,11 +329,12 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         """
             event handler: checkbutton has been clicked;
         """
+        # inits
+        _s = self.get_section()
         # update RC options
-        for _cvarname in self.OPT_NAMES:
-            self.options[self.get_section()][_cvarname] = str(
-                int(self.cvar_checked(_cvarname))
-            )
+        for _cvarname in self.ALL_NAMES:
+            _chk = "chk_" + _cvarname
+            self.options[_s][_chk] = str(int(self.cvar_checked(_chk)))
         # end for
     # end def
 

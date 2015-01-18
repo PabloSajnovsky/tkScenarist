@@ -31,6 +31,7 @@
     >
         <ttkcheckbutton
             text="Scenario"
+            command="@Dialog:ExportPDF:Checkbutton:Click"
             variable="chk_scenario"
             onvalue="1"
             checked="checked"
@@ -39,6 +40,7 @@
         />
         <ttkcheckbutton
             text="Storyboard"
+            command="@Dialog:ExportPDF:Checkbutton:Click"
             variable="chk_storyboard"
             onvalue="1"
             layout="pack"
@@ -46,6 +48,7 @@
         />
         <ttkcheckbutton
             text="Characters"
+            command="@Dialog:ExportPDF:Checkbutton:Click"
             variable="chk_characters"
             onvalue="1"
             layout="pack"
@@ -53,6 +56,7 @@
         />
         <ttkcheckbutton
             text="Pitch/Concept"
+            command="@Dialog:ExportPDF:Checkbutton:Click"
             variable="chk_pitch_concept"
             onvalue="1"
             layout="pack"
@@ -60,6 +64,7 @@
         />
         <ttkcheckbutton
             text="Draft/Notes"
+            command="@Dialog:ExportPDF:Checkbutton:Click"
             variable="chk_draft_notes"
             onvalue="1"
             layout="pack"
@@ -67,6 +72,7 @@
         />
         <ttkcheckbutton
             text="Resources"
+            command="@Dialog:ExportPDF:Checkbutton:Click"
             variable="chk_resources"
             onvalue="1"
             layout="pack"

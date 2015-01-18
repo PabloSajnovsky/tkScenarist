@@ -216,7 +216,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         for _cvarname in self.ALL_NAMES:
             _chk = "chk_" + _cvarname
             self.check_cvar(
-                _chk, int(self.options.get(_s, _chk, fallback="1"))
+                _chk, int(self.options.get(_s, _chk, fallback=None))
             )
         # end for
     # end def

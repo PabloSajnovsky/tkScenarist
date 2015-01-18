@@ -41,7 +41,6 @@ def get_pdf_document (doc_name):
     # rebuild filepath
     _fpath = P.normalize("{}-{}.pdf".format(_fpath, doc_name))
     print("PFM:", _fpath)
-    print("App data:", _app.APP)
 # end def
 
 

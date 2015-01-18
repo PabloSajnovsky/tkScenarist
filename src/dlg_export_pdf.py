@@ -78,6 +78,10 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                 # call step
                 if callable(_method):
                     _method(kw)
+                # something went wrong
+                else:
+                    # better trap out from here
+                    self.slot_stop_export()
                 # end if
             # end if
             # loop again

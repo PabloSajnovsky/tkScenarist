@@ -407,12 +407,11 @@ class ProjectFileManagement:
             self.is_good_file_format(self.project_path)
             or self.ensure_saved()
         )
-        print("response:", response)
-        # got a project file path?
+        # got some cool stuff?
         if response == self.YES:
             # show export PDF dialog (modal)
             DEP.ExportPDFDialog(self.mainwindow).show()
-        # got trouble?
+        # trouble
         elif response != self.CANCEL:
             # notify user
             MB.showwarning(

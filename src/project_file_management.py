@@ -220,20 +220,22 @@ class ProjectFileManagement:
         # inits
         response = True
         # got to save first?
-        if self.project_modified:
+        if self.project_modified or not self.project_path:
             # ask for saving
             response = MB.askyesnocancel(
                 _("Question"),
                 _("Project has been modified. Save it?")
             )
-            print("response:", response, MB.YES, MB.NO, MB.CANCEL)
-            # user answered yes
-            if response == MB.YES:
+            # user answered 'yes'
+            if response:
                 # save project
                 response = self.slot_save()
+                # confirm really saved
+                response = response and self.project_path
             # end if
         # end if
         # ensure saved
+        # None=cancelled, False=no, True=yes
         return response
     # end def
 

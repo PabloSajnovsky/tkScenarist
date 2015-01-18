@@ -134,7 +134,7 @@ class ProjectFileManagement:
             # notify application
             self.notify(_("Project opened OK."))
             # succeeded
-            return True
+            return self.YES
         # could not open file
         else:
             # show error
@@ -147,7 +147,7 @@ class ProjectFileManagement:
                 parent=self.mainwindow,
             )
             # failed
-            return False
+            return self.NO
         # end if
     # end def
 
@@ -197,7 +197,7 @@ class ProjectFileManagement:
             # notify application
             self.notify(_("Project saved OK."))
             # succeeded
-            return True
+            return self.YES
         # could not save file
         else:
             # show error
@@ -209,7 +209,7 @@ class ProjectFileManagement:
                 parent=self.mainwindow,
             )
             # failed
-            return False
+            return self.NO
         # end if
     # end def
 
@@ -221,7 +221,7 @@ class ProjectFileManagement:
             cancelled or any other trouble fired up;
         """
         # inits
-        response = True
+        response = bool(self.project_path)
         # got to save first?
         if self.project_modified:
             # ask for saving
@@ -230,15 +230,14 @@ class ProjectFileManagement:
                 _("Project has been modified. Save it?")
             )
             # user answered 'yes'
-            if response:
+            if response == self.YES:
                 # save project
                 response = self.slot_save()
                 # confirm really saved
                 response = response and self.project_path
             # end if
         # end if
-        # ensure saved
-        # None=cancelled, False=no, True=yes
+        # CANCEL=None, NO=False, YES=True
         return response
     # end def
 
@@ -403,10 +402,22 @@ class ProjectFileManagement:
         """
             event handler: menu Project > Export PDF;
         """
-        # ensure project is really saved (mandatory)
-        if self.ensure_saved() == self.YES:
+        # ensure project is saved (mandatory)
+        response = self.ensure_saved()
+        # got a project file path?
+        if response == self.YES:
             # show export PDF dialog (modal)
             DEP.ExportPDFDialog(self.mainwindow).show()
+        # user denied?
+        elif response == self.NO and not self.project_path:
+            # notify user
+            MB.showwarning(
+                title=_("Attention"),
+                message=_(
+                    "Cannot export data: need a project file path."
+                ),
+                parent=self.mainwindow,
+            )
         # end if
     # end def
 

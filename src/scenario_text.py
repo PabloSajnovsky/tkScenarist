@@ -790,14 +790,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
-    def get_rc_section (self):
-        """
-            retrieves RC file section name for this class;
-        """
-        return self.classname().lower()
-    # end def
-
-
     def get_tagged_text (self, index1, index2=None):
         """
             retrieves tuple sequence of chars, tags, chars, tags, ...

@@ -205,14 +205,6 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def get_rc_section (self):
-        """
-            retrieves RC file section name for this class;
-        """
-        return self.classname().lower()
-    # end def
-
-
     def init_widget (self, **kw):
         r"""
             widget main inits;

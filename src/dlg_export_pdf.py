@@ -124,7 +124,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         self.show_status(message)
         # progressbar
         self.set_progressbar(
-            25 * (kw["step"] + (kw.get("progress", 0) / 100))
+            25.0 * (kw["step"] + (kw["progress"] / 100.0))
         )
         # gather infos
         kw["progress"] = callback(kw["doc"])
@@ -152,6 +152,8 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             )
             # get PDF document
             kw["doc"] = PDF.get_pdf_document(_doc_name)
+            # reset progressbar
+            kw["progress"] = 0
             # prepare for next document
             kw["doc_index"] = _doc_index + 1
             # next step

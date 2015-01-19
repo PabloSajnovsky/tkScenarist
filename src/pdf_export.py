@@ -193,7 +193,7 @@ class PDFDocumentBase:
                 "{project_episode}"
                 .format(**_data),
                 subject=_fancy_name,
-                creator=self.app.APP.get("name"),
+                creator=self.app.APP.get("title"),
             )
         # error
         else:

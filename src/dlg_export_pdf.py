@@ -156,7 +156,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                 .format(_(self.get_fancy_name(_doc_name)))
             )
             # get PDF document
-            kw["doc"] = PDF.get_pdf_document(_doc_name)
+            kw["doc"] = PDF.get_pdf_document(_doc_name, kw["options"])
             # reset progressbar
             kw["progress"] = 0
             # prepare for next document
@@ -306,6 +306,22 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def get_options (self):
+        """
+            returns dict of options {name: state, ...};
+            state is a boolean value (True, False);
+        """
+        # inits
+        _options = dict()
+        # browse options
+        for _name in self.OPT_NAMES:
+            # inits
+            _options[_name] = self.cvar_checked("chk_" + _name)
+        # end for
+        return _options
+    # end def
+
+
     def init_rc_options (self, **kw):
         """
             RC options widget inits;
@@ -432,6 +448,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             self._export_loop,
             dict(
                 export_list=self.get_export_list(),
+                options=self.get_options(),
                 doc_index=0,
                 step=0,
             )

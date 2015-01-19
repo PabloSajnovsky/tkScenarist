@@ -64,18 +64,16 @@ def gather_informations (doc):
 # end def
 
 
-def get_pdf_document (doc_name):
+def get_pdf_document (doc_name, options):
     """
         returns a new instance for a PDF document with filepath built
         along with @doc_name document name value;
     """
-    # inits
-    _classname = (
-        "PDFDocument{}"
-        .format(str(doc_name).title().replace("_", ""))
-    )
     # new document instance
-    return eval("{}('{}')".format(_classname, doc_name))
+    return eval(
+        "PDFDocument{name}(doc_name, options)"
+        .format(name=str(doc_name).title().replace("_", ""))
+    )
 # end def
 
 
@@ -85,7 +83,7 @@ class PDFDocumentBase:
         Base class for tkScenarist specific PDF documents to export;
     """
 
-    def __init__ (self, doc_name):
+    def __init__ (self, doc_name, options):
         """
             class constructor;
         """
@@ -96,6 +94,7 @@ class PDFDocumentBase:
         self.database = self.mainwindow.database
         self.document = self.get_document(doc_name)
         self.doc_name = doc_name
+        self.options = options
         self.elements = list()
         self.progress = 0
         self.index = 0

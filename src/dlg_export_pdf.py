@@ -89,8 +89,10 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                             "Aborting."
                         )
                     )
-                    # stdout
-                    print("[ERROR] while trying to export:", e)
+                    # sys.stdout
+                    print(
+                        "[ERROR] while trying to export: {}.".format(e)
+                    )
                 # end try
             # end if
             # loop again

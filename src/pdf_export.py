@@ -27,27 +27,12 @@ import reportlab
 from tkRAD.core import tools
 
 
-def get_pdf_document (doc_name):
+def build_document (doc):
     """
-        returns a new instance for a PDF document with filepath built
-        along with @doc_name document name value;
-    """
-    # inits
-    _classname = (
-        "PDFDocument{}"
-        .format(str(doc_name).title().replace("_", ""))
-    )
-    # new document instance
-    return eval("{}('{}')".format(_classname, doc_name))
-# end def
-
-
-def gather_informations (doc):
-    """
-        gathers informations for specific PDF document;
+        builds final doc for specific PDF document;
     """
     # delegate to specific
-    doc.gather_info()
+    doc.build_document()
     # progression status (0-100%)
     return doc.progress
 # end def
@@ -64,14 +49,29 @@ def build_elements (doc):
 # end def
 
 
-def build_document (doc):
+def gather_informations (doc):
     """
-        builds final doc for specific PDF document;
+        gathers informations for specific PDF document;
     """
     # delegate to specific
-    doc.build_document()
+    doc.gather_info()
     # progression status (0-100%)
     return doc.progress
+# end def
+
+
+def get_pdf_document (doc_name):
+    """
+        returns a new instance for a PDF document with filepath built
+        along with @doc_name document name value;
+    """
+    # inits
+    _classname = (
+        "PDFDocument{}"
+        .format(str(doc_name).title().replace("_", ""))
+    )
+    # new document instance
+    return eval("{}('{}')".format(_classname, doc_name))
 # end def
 
 
@@ -90,9 +90,41 @@ class PDFDocumentBase:
         # member inits
         self.app = SM.ask_for("app") # application
         self.pfm = SM.ask_for("PFM") # Project File Management
+        self.mainwindow = self.app.mainwindow
+        self.database = self.mainwindow.database
         self.doc_name = doc_name
         self.document = self.get_document(doc_name)
         self.progress = 0
+    # end def
+
+
+    def build_document (self):
+        """
+            hook method to be reimplemented in subclass;
+            builds final PDF document;
+        """
+        # inits
+        self.progress = 100
+    # end def
+
+
+    def build_elements (self):
+        """
+            hook method to be reimplemented in subclass;
+            builds document internal elements;
+        """
+        # inits
+        self.progress = 100
+    # end def
+
+
+    def gather_info (self):
+        """
+            hook method to be reimplemented in subclass;
+            gathers specific informations for document building;
+        """
+        # inits
+        self.progress = 100
     # end def
 
 
@@ -133,7 +165,7 @@ class PDFDocumentBase:
     @progress.setter
     def progress (self, value):
         # inits
-        self.__progress = float(value)
+        self.__progress = float(min(100, max(0, value)))
     # end def
 
     @progress.deleter

@@ -164,9 +164,36 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
 
 
 
+class PDFDocumentPitchConcept (PDFDocumentBase):
+    """
+        specific PDF document class for Pitch/Concept application tab;
+    """
+    pass
+# end class PDFDocumentPitchConcept
 
 
 
+class PDFDocumentResources (PDFDocumentBase):
+    """
+        specific PDF document class for Resources application tab;
+    """
+    pass
+# end class PDFDocumentResources
 
 
 
+class PDFDocumentScenario (PDFDocumentBase):
+    """
+        specific PDF document class for Scenario application tab;
+    """
+    pass
+# end class PDFDocumentScenario
+
+
+
+class PDFDocumentStoryboard (PDFDocumentBase):
+    """
+        specific PDF document class for Storyboard application tab;
+    """
+    pass
+# end class PDFDocumentStoryboard

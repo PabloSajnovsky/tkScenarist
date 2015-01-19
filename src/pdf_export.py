@@ -35,13 +35,99 @@ def get_pdf_document (doc_name):
         along with @doc_name document name value;
     """
     # inits
-    _app = SM.ask_for("app") # application
-    _pfm = SM.ask_for("PFM") # Project File Management
-    _fpath, _fext = OP.splitext(_pfm.project_path)
-    # rebuild filepath
-    _fpath = P.normalize("{}-{}.pdf".format(_fpath, doc_name))
-    print("PFM:", _fpath)
+    pass
 # end def
+
+
+def gather_informations (doc):
+    """
+        gathers informations for specific PDF document;
+    """
+    # delegate to specific
+    doc.gather_info()
+    # progression status (0-100%)
+    return doc.progress
+# end def
+
+
+def build_elements (doc):
+    """
+        builds elements for specific PDF document;
+    """
+    # delegate to specific
+    doc.build_elements()
+    # progression status (0-100%)
+    return doc.progress
+# end def
+
+
+def build_document (doc):
+    """
+        builds final doc for specific PDF document;
+    """
+    # delegate to specific
+    doc.build_document()
+    # progression status (0-100%)
+    return doc.progress
+# end def
+
+
+
+class PDFDocumentBase:
+    """
+        Base class for tkScenarist specific PDF documents to export;
+    """
+
+    def __init__ (self, doc_name):
+        """
+            class constructor;
+        """
+        # member inits
+        self.app = SM.ask_for("app") # application
+        self.pfm = SM.ask_for("PFM") # Project File Management
+        self.progress = 0
+        self.document = self.get_document(doc_name)
+    # end def
+
+
+    def get_document (self, doc_name):
+        """
+            provides a reportlab.PDFDocument;
+        """
+        _fpath, _fext = OP.splitext(self.pfm.project_path)
+        # rebuild filepath
+        _fpath = P.normalize("{}-{}.pdf".format(_fpath, doc_name))
+        print("filepath:", _fpath)
+    # end def
+
+
+    @property
+    def progress (self):
+        """
+            property attribute;
+            progression status (0.0-100.0%);
+        """
+        return self.__progress
+    # end def
+
+    @progress.setter
+    def progress (self, value):
+        # inits
+        self.__progress = float(value)
+    # end def
+
+    @progress.deleter
+    def progress (self):
+        # delete
+        del self.__progress
+    # end def
+
+# end class PDFDocumentBase
+
+
+
+
+
 
 
 

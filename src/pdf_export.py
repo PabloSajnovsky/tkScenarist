@@ -96,6 +96,7 @@ class PDFDocumentBase:
         self.pfm = SM.ask_for("PFM") # Project File Management
         self.mainwindow = self.app.mainwindow
         self.mainframe = self.mainwindow.mainframe
+        self.project_data = self.mainframe.tab_title_data.get_data()
         self.database = self.mainwindow.database
         self.pdf = self.get_pdf_document(doc_name)
         self.doc_name = doc_name
@@ -179,7 +180,7 @@ class PDFDocumentBase:
         # param controls
         if tools.is_pstr(doc_name):
             # inits
-            _data = self.mainframe.tab_title_data.get_data()
+            _data = self.project_data
             _fancy_name = _(str(doc_name).title().replace("_", "/"))
             _fpath, _fext = os.path.splitext(self.pfm.project_path)
             # rebuild filepath

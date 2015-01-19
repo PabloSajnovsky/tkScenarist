@@ -27,6 +27,7 @@ import os.path as OP
 import reportlab
 import tkRAD.core.path as P
 import tkRAD.core.services as SM
+from tkRAD.core import tools
 
 
 def get_pdf_document (doc_name):
@@ -35,7 +36,12 @@ def get_pdf_document (doc_name):
         along with @doc_name document name value;
     """
     # inits
-    pass
+    _classname = (
+        "PDFDocument{}"
+        .format(str(doc_name).title().replace("_", ""))
+    )
+    # new document instance
+    return eval("{}('{}')".format(_classname, doc_name))
 # end def
 
 
@@ -85,8 +91,9 @@ class PDFDocumentBase:
         # member inits
         self.app = SM.ask_for("app") # application
         self.pfm = SM.ask_for("PFM") # Project File Management
-        self.progress = 0
+        self.doc_name = doc_name
         self.document = self.get_document(doc_name)
+        self.progress = 0
     # end def
 
 
@@ -94,10 +101,21 @@ class PDFDocumentBase:
         """
             provides a reportlab.PDFDocument;
         """
-        _fpath, _fext = OP.splitext(self.pfm.project_path)
-        # rebuild filepath
-        _fpath = P.normalize("{}-{}.pdf".format(_fpath, doc_name))
-        print("filepath:", _fpath)
+        # param controls
+        if tools.is_pstr(doc_name):
+            # inits
+            _fpath, _fext = OP.splitext(self.pfm.project_path)
+            # rebuild filepath
+            _fpath = P.normalize("{}-{}.pdf".format(_fpath, doc_name))
+            print("filepath:", _fpath)
+        # error
+        else:
+            # notify
+            raise ValueError(
+                "parameter 'doc_name' must be of "
+                "plain string type."
+            )
+        # end if
     # end def
 
 
@@ -126,8 +144,21 @@ class PDFDocumentBase:
 
 
 
+class PDFDocumentCharacters (PDFDocumentBase):
+    """
+        specific PDF document class for Characters application tab;
+    """
+    pass
+# end class PDFDocumentCharacters
 
 
+
+class PDFDocumentDraftNotes (PDFDocumentBase):
+    """
+        specific PDF document class for Draft/Notes application tab;
+    """
+    pass
+# end class PDFDocumentDraftNotes
 
 
 

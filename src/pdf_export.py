@@ -23,10 +23,7 @@
 """
 
 # lib imports
-import os.path as OP
 import reportlab
-import tkRAD.core.path as P
-import tkRAD.core.services as SM
 from tkRAD.core import tools
 
 
@@ -88,6 +85,8 @@ class PDFDocumentBase:
         """
             class constructor;
         """
+        # lib imports
+        import tkRAD.core.services as SM
         # member inits
         self.app = SM.ask_for("app") # application
         self.pfm = SM.ask_for("PFM") # Project File Management
@@ -103,8 +102,11 @@ class PDFDocumentBase:
         """
         # param controls
         if tools.is_pstr(doc_name):
+            # lib imports
+            import os.path
+            import tkRAD.core.path as P
             # inits
-            _fpath, _fext = OP.splitext(self.pfm.project_path)
+            _fpath, _fext = os.path.splitext(self.pfm.project_path)
             # rebuild filepath
             _fpath = P.normalize("{}-{}.pdf".format(_fpath, doc_name))
             print("filepath:", _fpath)

@@ -79,7 +79,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                 try:
                     _method(kw)
                 # something went wrong
-                except:
+                except Exception as e:
                     # better trap out from here
                     self.slot_stop_export()
                     # notify
@@ -89,6 +89,8 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                             "Aborting."
                         )
                     )
+                    # stdout
+                    print("[ERROR] while trying to export:\n", e)
                 # end try
             # end if
             # loop again

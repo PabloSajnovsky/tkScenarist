@@ -115,6 +115,24 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def _generic_step (self, message, kw, callback):
+        """
+            generic step procedure;
+            for internal use;
+        """
+        # notify
+        self.show_status(message)
+        # progressbar
+        self.set_progressbar(
+            25 * (kw["step"] + (kw.get("progress", 0) / 100))
+        )
+        # gather infos
+        kw["progress"] = callback(kw["doc"])
+        # next step - loop until complete
+        kw["step"] += int(kw["progress"] >= 100)
+    # end def
+
+
     def _step_0 (self, kw):
         """
             very first step in export loop (inits);
@@ -147,6 +165,50 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                 _("All selected items exported. Done.")
             )
         # end if
+    # end def
+
+
+    def _step_1 (self, kw):
+        """
+            gathering informations;
+            for internal use;
+        """
+        # generic step structure
+        self._generic_step(
+            _("Gathering informations, please wait..."),
+            kw,
+            PDF.gather_informations
+        )
+    # end def
+
+
+    def _step_2 (self, kw):
+        """
+            building elements;
+            for internal use;
+        """
+        # generic step structure
+        self._generic_step(
+            _("Building elements..."),
+            kw,
+            PDF.build_elements
+        )
+    # end def
+
+
+    def _step_3 (self, kw):
+        """
+            building final document;
+            for internal use;
+        """
+        # generic step structure
+        self._generic_step(
+            _("Exporting to PDF..."),
+            kw,
+            PDF.build_document
+        )
+        # return to step 0 on completion
+        kw["step"] %= 4
     # end def
 
 

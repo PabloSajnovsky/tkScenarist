@@ -24,7 +24,11 @@
 
 # lib imports
 import os.path
-import reportlab
+
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import inch, cm, mm
+
 import tkRAD.core.path as P
 import tkRAD.core.services as SM
 from tkRAD.core import tools
@@ -91,8 +95,9 @@ class PDFDocumentBase:
         self.app = SM.ask_for("app") # application
         self.pfm = SM.ask_for("PFM") # Project File Management
         self.mainwindow = self.app.mainwindow
+        self.mainframe = self.mainwindow.mainframe
         self.database = self.mainwindow.database
-        self.document = self.get_document(doc_name)
+        self.pdf = self.get_pdf_document(doc_name)
         self.doc_name = doc_name
         self.options = options
         self.elements = list()
@@ -108,8 +113,12 @@ class PDFDocumentBase:
         """
         # reset progress
         self.reset_progress()
-        # put your own code in subclass
-        pass
+        # must do it one shot
+        self.pdf.build(
+            self.elements,
+            onFirstPage=self.draw_first_page,
+            onLaterPages=self.draw_pages,
+        )
         # procedure is complete
         self.progress = 100
     # end def
@@ -129,6 +138,26 @@ class PDFDocumentBase:
     # end def
 
 
+    def draw_first_page (self, canvas, doc):
+        """
+            hook method to be reimplemented in subclass;
+            draws fix elements (header, footer, etc) on page;
+        """
+        # put your own code in subclass
+        pass
+    # end def
+
+
+    def draw_pages (self, canvas, doc):
+        """
+            hook method to be reimplemented in subclass;
+            draws fix elements (header, footer, etc) on page;
+        """
+        # put your own code in subclass
+        pass
+    # end def
+
+
     def gather_info (self):
         """
             hook method to be reimplemented in subclass;
@@ -137,23 +166,35 @@ class PDFDocumentBase:
         # reset progress
         self.reset_progress()
         # put your own code in subclass
-        pass
+        print("options:", self.options)
         # procedure is complete
         self.progress = 100
     # end def
 
 
-    def get_document (self, doc_name):
+    def get_pdf_document (self, doc_name):
         """
             provides a reportlab.PDFDocument;
         """
         # param controls
         if tools.is_pstr(doc_name):
             # inits
+            _data = self.mainframe.tab_title_data.get_data()
+            _fancy_name = _(str(doc_name).title().replace("_", "/"))
             _fpath, _fext = os.path.splitext(self.pfm.project_path)
             # rebuild filepath
             _fpath = P.normalize("{}-{}.pdf".format(_fpath, doc_name))
-            print("filepath:", _fpath)
+            # PDF document instance
+            return SimpleDocTemplate(
+                filename=_fpath,
+                author=_data.get("project_author"),
+                title="{project_title} - "
+                "{project_subtitle} - "
+                "{project_episode}"
+                .format(**_data),
+                subject=_fancy_name,
+                creator=self.app.APP.get("name"),
+            )
         # error
         else:
             # notify

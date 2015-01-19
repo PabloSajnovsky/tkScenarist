@@ -81,6 +81,22 @@ class ProjectTabTitleData (tkRAD.RADXMLFrame):
     # end def
 
 
+    def get_data (self):
+        """
+            returns dict of project's data (title, author, etc);
+            used by PDF export features;
+        """
+        # inits
+        _data = dict()
+        # browse fields
+        for _cvarname in self.FIELD_CVARNAMES:
+            # inits
+            _data[_cvarname] = self.cvar_get_text(_cvarname)
+        # end for
+        return _data
+    # end def
+
+
     def get_file_contents (self, fname):
         """
             returns file contents;

@@ -23,8 +23,12 @@
 """
 
 # lib imports
+import os.path
 import reportlab
+import tkRAD.core.path as P
+import tkRAD.core.services as SM
 from tkRAD.core import tools
+
 
 
 def build_document (doc):
@@ -85,16 +89,16 @@ class PDFDocumentBase:
         """
             class constructor;
         """
-        # lib imports
-        import tkRAD.core.services as SM
         # member inits
         self.app = SM.ask_for("app") # application
         self.pfm = SM.ask_for("PFM") # Project File Management
         self.mainwindow = self.app.mainwindow
         self.database = self.mainwindow.database
-        self.doc_name = doc_name
         self.document = self.get_document(doc_name)
+        self.doc_name = doc_name
+        self.elements = list()
         self.progress = 0
+        self.index = 0
     # end def
 
 
@@ -103,7 +107,11 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             builds final PDF document;
         """
-        # inits
+        # reset progress
+        self.reset_progress()
+        # put your own code in subclass
+        pass
+        # procedure is complete
         self.progress = 100
     # end def
 
@@ -113,7 +121,11 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             builds document internal elements;
         """
-        # inits
+        # reset progress
+        self.reset_progress()
+        # put your own code in subclass
+        pass
+        # procedure is complete
         self.progress = 100
     # end def
 
@@ -123,7 +135,11 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             gathers specific informations for document building;
         """
-        # inits
+        # reset progress
+        self.reset_progress()
+        # put your own code in subclass
+        pass
+        # procedure is complete
         self.progress = 100
     # end def
 
@@ -134,9 +150,6 @@ class PDFDocumentBase:
         """
         # param controls
         if tools.is_pstr(doc_name):
-            # lib imports
-            import os.path
-            import tkRAD.core.path as P
             # inits
             _fpath, _fext = os.path.splitext(self.pfm.project_path)
             # rebuild filepath
@@ -172,6 +185,16 @@ class PDFDocumentBase:
     def progress (self):
         # delete
         del self.__progress
+    # end def
+
+
+    def reset_progress (self):
+        """
+            resets progress status to 0 if >= 100 (%);
+        """
+        if self.progress >= 100:
+            self.progress = 0
+        # end if
     # end def
 
 # end class PDFDocumentBase

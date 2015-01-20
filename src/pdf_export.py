@@ -24,15 +24,15 @@
 
 # lib imports
 import os.path
+import datetime
 
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak
-from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import SimpleDocTemplate
+from reportlab.platypus import Paragraph, Spacer, PageBreak
 from reportlab.lib.units import inch, cm, mm
 
 import tkRAD.core.path as P
 import tkRAD.core.services as SM
 from tkRAD.core import tools
-
 
 
 def build_document (doc):
@@ -87,7 +87,7 @@ class PDFDocumentBase:
         Base class for tkScenarist specific PDF documents to export;
     """
 
-    def __init__ (self, doc_name, options):
+    def __init__ (self, doc_name, **kw):
         """
             class constructor;
         """
@@ -96,11 +96,14 @@ class PDFDocumentBase:
         self.pfm = SM.ask_for("PFM") # Project File Management
         self.mainwindow = self.app.mainwindow
         self.mainframe = self.mainwindow.mainframe
-        self.project_data = self.mainframe.tab_title_data.get_data()
+        self.project_data = (
+            kw.get("data") or self.mainframe.tab_title_data.get_data()
+        )
         self.database = self.mainwindow.database
-        self.pdf = self.get_pdf_document(doc_name)
+        self.document = self.get_pdf_document(doc_name)
         self.doc_name = doc_name
-        self.options = options
+        self.fancy_name = _(str(doc_name).title().replace("_", "/"))
+        self.options = kw.get("options")
         self.elements = list()
         self.progress = 0
         self.index = 0
@@ -115,7 +118,7 @@ class PDFDocumentBase:
         # reset progress
         self.reset_progress()
         # must do it one shot
-        self.pdf.build(
+        self.document.build(
             self.elements,
             onFirstPage=self.draw_first_page,
             onLaterPages=self.draw_pages,
@@ -181,7 +184,6 @@ class PDFDocumentBase:
         if tools.is_pstr(doc_name):
             # inits
             _data = self.project_data
-            _fancy_name = _(str(doc_name).title().replace("_", "/"))
             _fpath, _fext = os.path.splitext(self.pfm.project_path)
             # rebuild filepath
             _fpath = P.normalize("{}-{}.pdf".format(_fpath, doc_name))

@@ -30,6 +30,7 @@ from reportlab.platypus import SimpleDocTemplate, Frame
 from reportlab.platypus import Paragraph, Spacer, PageBreak
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import inch, cm, mm
+from reportlab.lib.enums import *                   # text alignments
 
 import tkRAD.core.path as P
 import tkRAD.core.services as SM
@@ -169,6 +170,28 @@ class PDFDocumentBase:
     # end def
 
 
+    def add_pagebreak (self):
+        """
+            adds a PageBreak() object to elements;
+        """
+        # inits
+        self.elements.append(PageBreak())
+    # end def
+
+
+    def add_paragraph (self, text, style):
+        """
+            adds a Paragraph() object only if @text is a plain string
+            of chars;
+        """
+        # ensure we have some text
+        if tools.is_pstr(text):
+            # add paragraph
+            self.elements.append(Paragraph(text, style))
+        # end if
+    # end def
+
+
     def build_document (self):
         """
             hook method to be reimplemented in subclass;
@@ -202,14 +225,11 @@ class PDFDocumentBase:
         # first page elements
         self.set_first_page_elements()
         # put your own code in subclass
-        self.elements.append(PageBreak())
-        self.elements.append(Paragraph("*** TEST ***", _styles["body"]))
-        self.elements.append(Paragraph("*** TEST ***", _styles["body"]))
-        self.elements.append(Paragraph("*** TEST ***", _styles["body"]))
-        self.elements.append(Paragraph("*** TEST ***", _styles["body"]))
-        self.elements.append(Paragraph("*** TEST ***", _styles["body"]))
-        self.elements.append(Paragraph("*** TEST ***", _styles["body"]))
-        self.elements.append(Paragraph("*** TEST ***", _styles["body"]))
+        self.add_pagebreak()
+        for i in range(20):
+            # dummy text
+            self.add_paragraph("*** TEST ***", _styles["body"])
+        # end if
         # procedure is complete
         self.progress = 100
     # end def
@@ -235,7 +255,7 @@ class PDFDocumentBase:
         _header = Paragraph(self.fancy_name, _styles["header"])
         _frame = Frame(
             doc.leftMargin, _height - doc.topMargin / 2.0,
-            _margin_w, _header.style.fontSize,
+            _margin_w, _header.style.fontSize + _header.style.leading,
             leftPadding=0, rightPadding=0,
             topPadding=0, bottomPadding=0,
             showBoundary=1,
@@ -371,24 +391,27 @@ class PDFDocumentBase:
         # inits
         _data = self.project_data
         _styles = self.styles
-        self.elements = [
-            Paragraph(
-                _data.get("project_title") or "",
-                _styles["title"]
+        # reset elements
+        self.elements.clear()
+        # add paragraphs
+        self.add_paragraph(
+            _data.get("project_title"), _styles["title"]
+        )
+        self.add_paragraph(
+            _data.get("project_subtitle"), _styles["subtitle"]
+        )
+        self.add_paragraph(
+            _data.get("project_episode"), _styles["episode"]
+        )
+        self.add_paragraph(
+            tools.str_complete(
+                _("By {}"),
+                _data.get("project_author")
             ),
-            Paragraph(
-                _data.get("project_subtitle") or "",
-                _styles["subtitle"]
-            ),
-            Paragraph(
-                _data.get("project_episode") or "",
-                _styles["episode"]
-            ),
-            Paragraph(
-                _("By {}").format(_data.get("project_author") or ""),
-                _styles["author"]
-            ),
-        ]
+            _styles["author"]
+        )
+        # add page break
+        self.add_pagebreak()
     # end def
 
 # end class PDFDocumentBase

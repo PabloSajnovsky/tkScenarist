@@ -55,7 +55,7 @@ with this program.
 If not, see: http://www.gnu.org/licenses/
         """).strip(),
         "license_url": _("http://www.gnu.org/licenses/"),
-        "pdflib": "reportlab(tm)",
+        "pdflib": "ReportLab®",
         "pdflib_author": "(c) ReportLab Europe Ltd. 2000-2012",
     } # end of APP
 

@@ -28,6 +28,7 @@ import datetime
 
 from reportlab.platypus import SimpleDocTemplate, Frame
 from reportlab.platypus import Paragraph, Spacer, PageBreak
+from reportlab.platypus.frames import ShowBoundaryValue
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import inch, cm, mm
 from reportlab.lib.enums import *                   # text alignments
@@ -88,56 +89,167 @@ def get_stylesheet ():
         returns a dict of ParagraphStyle settings;
     """
     return {
-        "title": ParagraphStyle(
-            "title",
-        ),
-        "subtitle": ParagraphStyle(
-            "subtitle",
-        ),
-        "episode": ParagraphStyle(
-            "episode",
-        ),
-        "author": ParagraphStyle(
-            "author",
-        ),
-        "contact": ParagraphStyle(
-            "contact",
-        ),
+        # main styles
         "header": ParagraphStyle(
             "header",
+            fontName="Times",
+            fontSize=12,
+            leading=0,
+            alignment=TA_CENTER,
+            leftIndent=0,
+            rightIndent=0,
+            spaceBefore=0,
+            spaceAfter=0,
         ),
         "footer": ParagraphStyle(
             "footer",
+            fontName="Times-Italic",
+            fontSize=10,
+            leading=12,
+            alignment=TA_CENTER,
+            leftIndent=0,
+            rightIndent=0,
+            spaceBefore=0,
+            spaceAfter=0,
         ),
         "footer_tiny": ParagraphStyle(
             "footer_tiny",
+            fontName="Helvetica-Oblique",
+            fontSize=6,
+            leading=6,
+            alignment=TA_CENTER,
+            leftIndent=0,
+            rightIndent=0,
+            spaceBefore=0,
+            spaceAfter=0,
         ),
         "body": ParagraphStyle(
             "body",
+            alignment=TA_JUSTIFY,
+            leftIndent=0,
+            rightIndent=0,
+            spaceBefore=0,
+            spaceAfter=0.1*inch,
         ),
+
+        # project data styles
+
+        "title": ParagraphStyle(
+            "title",
+            fontName="Times-Bold",
+            fontSize=36,
+            leading=40,
+            alignment=TA_CENTER,
+            leftIndent=0.5*inch,
+            rightIndent=0.5*inch,
+            spaceBefore=0,
+            spaceAfter=0.1*inch,
+        ),
+        "subtitle": ParagraphStyle(
+            "subtitle",
+            fontName="Times-Italic",
+            fontSize=18,
+            leading=20,
+            alignment=TA_CENTER,
+            leftIndent=1*inch,
+            rightIndent=1*inch,
+            spaceBefore=0,
+            spaceAfter=0.1*inch,
+        ),
+        "episode": ParagraphStyle(
+            "episode",
+            fontName="Helvetica",
+            fontSize=10,
+            leading=12,
+            alignment=TA_CENTER,
+            leftIndent=1.5*inch,
+            rightIndent=1.5*inch,
+            spaceBefore=0,
+            spaceAfter=0.1*inch,
+        ),
+        "author": ParagraphStyle(
+            "author",
+            fontName="Times-BoldItalic",
+            fontSize=16,
+            leading=18,
+            alignment=TA_CENTER,
+            leftIndent=1*inch,
+            rightIndent=1*inch,
+            spaceBefore=0.3*inch,
+            spaceAfter=0.1*inch,
+        ),
+        "contact": ParagraphStyle(
+            "contact",
+            fontName="Times-Italic",
+            fontSize=12,
+            leading=12,
+            alignment=TA_LEFT,
+            leftIndent=0,
+            rightIndent=0,
+            spaceBefore=0,
+            spaceAfter=6,
+        ),
+
+        # scenario tab styles
+
         "action": ParagraphStyle(
             "action",
+            fontName="Times",
+            fontSize=12,
+            leading=0,
+            alignment=TA_CENTER,
         ),
         "character": ParagraphStyle(
             "character",
+            fontName="Times",
+            fontSize=12,
+            leading=0,
+            alignment=TA_CENTER,
         ),
         "dialogue": ParagraphStyle(
             "dialogue",
+            fontName="Times",
+            fontSize=12,
+            leading=0,
+            alignment=TA_CENTER,
         ),
         "parenthetical": ParagraphStyle(
             "parenthetical",
+            fontName="Times",
+            fontSize=12,
+            leading=0,
+            alignment=TA_CENTER,
         ),
         "scene": ParagraphStyle(
             "scene",
+            fontName="Times",
+            fontSize=12,
+            leading=0,
+            alignment=TA_CENTER,
         ),
         "transition": ParagraphStyle(
             "transition",
+            fontName="Times",
+            fontSize=12,
+            leading=0,
+            alignment=TA_CENTER,
         ),
+
+        # storyboard tab styles
+
         "shot_title": ParagraphStyle(
             "shot_title",
+            fontName="Times",
+            fontSize=12,
+            leading=0,
+            alignment=TA_CENTER,
         ),
         "shot_body": ParagraphStyle(
             "shot_body",
+            fontName="Times",
+            fontSize=12,
+            leading=0,
+            alignment=TA_CENTER,
         ),
     }
 # end def
@@ -225,7 +337,6 @@ class PDFDocumentBase:
         # first page elements
         self.set_first_page_elements()
         # put your own code in subclass
-        self.add_pagebreak()
         for i in range(20):
             # dummy text
             self.add_paragraph("*** TEST ***", _styles["body"])
@@ -247,25 +358,69 @@ class PDFDocumentBase:
         _data = self.project_data
         _styles = self.styles
         _width, _height = doc.pagesize
-        _center_x, _center_y = _width / 2.0, _height / 2.0
         # doc inner margin width and height
         _margin_w = _width - doc.leftMargin - doc.rightMargin
-        _margin_h = _height - doc.topMargin - doc.bottomMargin
         # set header
-        _header = Paragraph(self.fancy_name, _styles["header"])
+        _frame_h = _styles["header"].fontSize + 4
         _frame = Frame(
-            doc.leftMargin, _height - doc.topMargin / 2.0,
-            _margin_w, _header.style.fontSize + _header.style.leading,
+            doc.leftMargin, _height - 0.75 * doc.topMargin,
+            _margin_w, _frame_h,
             leftPadding=0, rightPadding=0,
             topPadding=0, bottomPadding=0,
-            showBoundary=1,
+            showBoundary=0,
         )
-        _frame.addFromList([_header], canvas)
+        _frame.addFromList(
+            [Paragraph(self.fancy_name, _styles["header"])],
+            canvas
+        )
         # set contact frame
-        pass # project author / phone / e-mail
-        # set footer
-        pass # printed on ... (date.today)
-        pass # This document has been generated by app_name/pdflib.
+        _style = _styles["contact"]
+        _frame_h = _style.fontSize + _style.spaceAfter
+        _frame = Frame(
+            doc.leftMargin, doc.bottomMargin,
+            _margin_w, _frame_h * 4 - _style.spaceAfter,
+            showBoundary=ShowBoundaryValue(),
+        )
+        _frame.addFromList(
+            [
+                Paragraph(_(_t).format(**_data), _style)
+                for _t in (
+                    "Contact: {project_author}",
+                    "E-mail: {project_author_email}",
+                    "Phone: {project_author_phone}",
+                )
+            ],
+            canvas
+        )
+        # set footer + mentions
+        _frame_h = (
+            _styles["footer"].fontSize
+            + _styles["footer_tiny"].fontSize + 8
+        )
+        _frame = Frame(
+            doc.leftMargin, 0.5 * doc.bottomMargin,
+            _margin_w, _frame_h,
+            leftPadding=0, rightPadding=0,
+            topPadding=0, bottomPadding=0,
+            showBoundary=0,
+        )
+        _frame.addFromList(
+            [
+                Paragraph(
+                    _("Printed on {}")
+                    .format(datetime.datetime.today().strftime("%c")),
+                    _styles["footer"]
+                ),
+                Paragraph(
+                    _(
+                        "Document generated by {name} with "
+                        "{pdflib} PDF toolkit"
+                    ).format(**self.app.APP),
+                    _styles["footer_tiny"]
+                ),
+            ],
+            canvas
+        )
         # restore settings
         canvas.restoreState()
     # end def
@@ -393,6 +548,8 @@ class PDFDocumentBase:
         _styles = self.styles
         # reset elements
         self.elements.clear()
+        # add spacer
+        self.elements.append(Spacer(0, 2*inch))
         # add paragraphs
         self.add_paragraph(
             _data.get("project_title"), _styles["title"]

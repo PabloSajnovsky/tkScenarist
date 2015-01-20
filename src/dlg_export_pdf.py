@@ -156,7 +156,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                 .format(_(self.get_fancy_name(_doc_name)))
             )
             # get PDF document
-            kw["doc"] = PDF.get_pdf_document(_doc_name, kw["options"])
+            kw["doc"] = PDF.get_pdf_document(_doc_name, **kw)
             # reset progressbar
             kw["progress"] = 0
             # prepare for next document
@@ -449,6 +449,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             dict(
                 export_list=self.get_export_list(),
                 options=self.get_options(),
+                data=self.mainframe.tab_title_data.get_data(),
                 doc_index=0,
                 step=0,
             )

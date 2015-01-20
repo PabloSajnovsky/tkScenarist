@@ -28,6 +28,7 @@ import datetime
 
 from reportlab.platypus import SimpleDocTemplate
 from reportlab.platypus import Paragraph, Spacer, PageBreak
+from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import inch, cm, mm
 
 import tkRAD.core.path as P
@@ -68,16 +69,36 @@ def gather_informations (doc):
 # end def
 
 
-def get_pdf_document (doc_name, options):
+def get_pdf_document (doc_name, **kw):
     """
-        returns a new instance for a PDF document with filepath built
-        along with @doc_name document name value;
+        returns a new instance for an app-specific PDF document with
+        filepath built along with @doc_name document name value;
     """
     # new document instance
     return eval(
-        "PDFDocument{name}(doc_name, options)"
+        "PDFDocument{name}(doc_name, **kw)"
         .format(name=str(doc_name).title().replace("_", ""))
     )
+# end def
+
+
+def get_stylesheet ():
+    """
+        returns a dict of ParagraphStyle settings;
+    """
+    return {
+        "title": ParagraphStyle(),
+        "contact": ParagraphStyle(),
+        "header": ParagraphStyle(),
+        "footer": ParagraphStyle(),
+        "body": ParagraphStyle(),
+        "action": ParagraphStyle(),
+        "character": ParagraphStyle(),
+        "dialogue": ParagraphStyle(),
+        "parenthetical": ParagraphStyle(),
+        "scene": ParagraphStyle(),
+        "transition": ParagraphStyle(),
+    }
 # end def
 
 
@@ -104,9 +125,9 @@ class PDFDocumentBase:
         self.doc_name = doc_name
         self.fancy_name = _(str(doc_name).title().replace("_", "/"))
         self.options = kw.get("options")
+        self.styles = get_stylesheet()
         self.elements = list()
         self.progress = 0
-        self.index = 0
     # end def
 
 
@@ -117,7 +138,7 @@ class PDFDocumentBase:
         """
         # reset progress
         self.reset_progress()
-        # must do it one shot
+        # must do it in one shot
         self.document.build(
             self.elements,
             onFirstPage=self.draw_first_page,
@@ -149,6 +170,18 @@ class PDFDocumentBase:
         """
         # put your own code in subclass
         pass
+        # save settings
+        canvas.saveState()
+        # set header
+        pass # fancy name
+        # set title
+        pass # project title / subtitle / episode / by: project_author
+        # set contact frame
+        pass # project author / phone / e-mail
+        # set footer
+        pass # printed on ... (date.today)
+        # restore settings
+        canvas.restoreState()
     # end def
 
 
@@ -159,6 +192,14 @@ class PDFDocumentBase:
         """
         # put your own code in subclass
         pass
+        # save settings
+        canvas.saveState()
+        # set header
+        pass # project title - episode
+        # set footer
+        pass # page number (centered)
+        # restore settings
+        canvas.restoreState()
     # end def
 
 

@@ -232,13 +232,15 @@ class PDFDocumentBase:
         _margin_w = _width - doc.leftMargin - doc.rightMargin
         _margin_h = _height - doc.topMargin - doc.bottomMargin
         # set header
+        _header = Paragraph(self.fancy_name, _styles["header"])
         _frame = Frame(
             doc.leftMargin, _height - doc.topMargin / 2.0,
-            _margin_w, doc.topMargin / 4.0, showBoundary=1
+            _margin_w, _header.style.fontSize,
+            leftPadding=0, rightPadding=0,
+            topPadding=0, bottomPadding=0,
+            showBoundary=1,
         )
-        _frame.addFromList(
-            [Paragraph("toto", _styles["header"])], canvas
-        )
+        _frame.addFromList([_header], canvas)
         # set contact frame
         pass # project author / phone / e-mail
         # set footer

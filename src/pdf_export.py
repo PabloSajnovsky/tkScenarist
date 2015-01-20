@@ -88,9 +88,13 @@ def get_stylesheet ():
     """
     return {
         "title": ParagraphStyle(),
+        "subtitle": ParagraphStyle(),
+        "episode": ParagraphStyle(),
+        "author": ParagraphStyle(),
         "contact": ParagraphStyle(),
         "header": ParagraphStyle(),
         "footer": ParagraphStyle(),
+        "footer_tiny": ParagraphStyle(),
         "body": ParagraphStyle(),
         "action": ParagraphStyle(),
         "character": ParagraphStyle(),
@@ -98,6 +102,8 @@ def get_stylesheet ():
         "parenthetical": ParagraphStyle(),
         "scene": ParagraphStyle(),
         "transition": ParagraphStyle(),
+        "shot_title": ParagraphStyle(),
+        "shot_body": ParagraphStyle(),
     }
 # end def
 
@@ -113,19 +119,19 @@ class PDFDocumentBase:
             class constructor;
         """
         # member inits
+        self.doc_name = doc_name
+        self.options = kw.get("options")
+        self.project_data = kw.get("data")
         self.app = SM.ask_for("app") # application
         self.pfm = SM.ask_for("PFM") # Project File Management
         self.mainwindow = self.app.mainwindow
         self.mainframe = self.mainwindow.mainframe
-        self.project_data = kw.get("data")
         self.database = self.mainwindow.database
         self.document = self.get_pdf_document(doc_name)
-        self.doc_name = doc_name
-        self.fancy_name = _(str(doc_name).title().replace("_", "/"))
-        self.options = kw.get("options")
         self.styles = get_stylesheet()
         self.elements = list()
         self.progress = 0
+        self.index = 0
     # end def
 
 
@@ -198,6 +204,17 @@ class PDFDocumentBase:
         pass # page number (centered)
         # restore settings
         canvas.restoreState()
+    # end def
+
+
+    @property
+    def fancy_name (self):
+        """
+            property attribute;
+            returns a fancier name for self.doc_name;
+            this is a READ-ONLY property;
+        """
+        return _(str(self.doc_name).title().replace("_", "/"))
     # end def
 
 

@@ -24,6 +24,7 @@
 
 # lib imports
 import os.path
+import threading
 from datetime import datetime
 
 from reportlab.platypus import SimpleDocTemplate, Frame
@@ -34,6 +35,7 @@ from reportlab.lib.units import inch, cm, mm
 from reportlab.lib.enums import *                   # text alignments
 
 import tkinter.constants as TK
+import tkRAD.core.async as ASYNC
 import tkRAD.core.path as P
 import tkRAD.core.services as SM
 from tkRAD.core import tools
@@ -273,6 +275,7 @@ class PDFDocumentBase:
         self.doc_name = doc_name
         self.options = kw.get("options")
         self.project_data = kw.get("data")
+        self.async = ASYNC.get_async_manager()
         self.app = SM.ask_for("app") # application
         self.pfm = SM.ask_for("PFM") # Project File Management
         self.mainwindow = self.app.mainwindow
@@ -285,10 +288,13 @@ class PDFDocumentBase:
     # end def
 
 
-    def _loop_progress (self, delay):
-        self.progress = min(99, self.progress + 1)
-        print("progress:", self.progress, "delay:", delay)
-        self.mainwindow.async.run_after(delay, self._loop_progress, delay)
+    def _thread_build (self):
+        print("_thread_build")
+        self.document.build(
+            self.elements,
+            onFirstPage=self.draw_first_page,
+            onLaterPages=self.draw_pages,
+        )
     # end def
 
 
@@ -319,22 +325,28 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             builds final PDF document;
         """
+        print("build_document")
         # reset progress
         self.reset_progress()
-        # estimate tick delay of time to build
-        _delay = int(100 + len(self.elements) // 100)
-        # simulate progression
-        self.mainwindow.async.run_after(100, self._loop_progress, _delay)
-        # must do it in one shot
-        self.document.build(
-            self.elements,
-            onFirstPage=self.draw_first_page,
-            onLaterPages=self.draw_pages,
-        )
-        # stop pending tasks
-        self.mainwindow.async.stop(self._loop_progress)
-        # procedure is complete
-        self.progress = 100
+        # very first step (inits)
+        if not self.step:
+            # next step
+            self.step = 1
+            # launch thread
+            self._thread = threading.Thread(target=self._thread_build)
+            self._thread.start()
+        # all steps
+        else:
+            print("simulating progression")
+            # simulate progression
+            self.progress = min(99.0, self.progress + 0.5)
+            # thread ended?
+            if not self._thread.is_alive():
+                # procedure is complete
+                self.progress = 100
+            # end if
+            print("progress:", self.progress)
+        # end if
     # end def
 
 
@@ -652,6 +664,8 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
             hook method to be reimplemented in subclass;
             builds document internal elements;
         """
+        # reset progress
+        self.reset_progress()
         # very first step (inits)
         if not self.step:
             # reset progress

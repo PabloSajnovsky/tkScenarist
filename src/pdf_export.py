@@ -285,6 +285,13 @@ class PDFDocumentBase:
     # end def
 
 
+    def _loop_progress (self, delay):
+        self.progress = min(99, self.progress + 1)
+        print("progress:", self.progress, "delay:", delay)
+        self.mainwindow.async.run_after(delay, self._loop_progress, delay)
+    # end def
+
+
     def add_pagebreak (self):
         """
             adds a PageBreak() object to elements;
@@ -314,12 +321,18 @@ class PDFDocumentBase:
         """
         # reset progress
         self.reset_progress()
+        # estimate tick delay of time to build
+        _delay = int(100 + len(self.elements) // 100)
+        # simulate progression
+        self.mainwindow.async.run_after(100, self._loop_progress, _delay)
         # must do it in one shot
         self.document.build(
             self.elements,
             onFirstPage=self.draw_first_page,
             onLaterPages=self.draw_pages,
         )
+        # stop pending tasks
+        self.mainwindow.async.stop(self._loop_progress)
         # procedure is complete
         self.progress = 100
     # end def
@@ -648,6 +661,7 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
             self.index = 1.0
             # estimate size of text
             _lines = float(self.wtext.index(TK.END))
+            print(self.fancy_name, "lines:", _lines)
             # not so much?
             if _lines < 3000:
                 # get real size

@@ -54,7 +54,6 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             tk exportation loop;
             for internal use;
         """
-        print("_export_loop")
         # loop controls
         if self.__keep_looping:
             # nothing to export?
@@ -93,7 +92,6 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                     print(
                         "[ERROR] while trying to export: {}.".format(e)
                     )
-                    #~ raise
                 # end try
             # end if
             # loop again

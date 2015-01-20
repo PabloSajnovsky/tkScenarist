@@ -281,10 +281,7 @@ class PDFDocumentBase:
         self.document = self.get_pdf_document(doc_name)
         self.styles = get_stylesheet()
         self.elements = list()
-        self.progress = 0
-        self.index = 0
-        self.step = 0
-        self.total_bytes = 0
+        self.reset_progress(force_reset=True)
     # end def
 
 
@@ -564,11 +561,12 @@ class PDFDocumentBase:
             resets progress status to 0 if >= 100 (%);
         """
         # reached 100%?
-        if self.progress >= 100 or force_reset:
+        if force_reset or self.progress >= 100:
             # reset all
             self.progress = 0
             self.index = 0
             self.step = 0
+            self.read_bytes = 0
             self.total_bytes = 0
         # end if
     # end def
@@ -659,12 +657,32 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
                 # estimate 1 line of text = 200 chars
                 self.total_bytes = _lines * 200
             # end if
+            # ensure > 0
+            self.total_bytes = max(1, self.total_bytes)
+            # first page elements
+            self.set_first_page_elements()
         # next steps
         else:
             # get text block
+            _text = self.wtext.get(self.index, self.index + 100.0)
+            # update index
+            self.index += 100.0
+            # update consumed bytes
+            self.read_bytes += len(_text)
             # evaluate progress
-            # procedure is complete
-            self.progress = 100
+            self.progress = min(99, self.read_bytes // self.total_bytes)
+            # no more text?
+            if not _text:
+                # procedure is complete
+                self.progress = 100
+            # got text
+            else:
+                # browse lines of text
+                for _line in _text.split("\n"):
+                    # add new paragraph
+                    self.add_paragraph(_line, self.styles["body"])
+                # end for
+            # end if
         # end if
     # end def
 

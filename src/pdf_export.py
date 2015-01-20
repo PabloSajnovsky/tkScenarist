@@ -237,7 +237,6 @@ class PDFDocumentBase:
         _frame.addFromList(
             [Paragraph(self.fancy_name, _styles["header"])], canvas
         )
-        canvas.save()
         # set title
         self.elements = (
             [

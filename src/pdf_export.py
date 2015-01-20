@@ -174,6 +174,8 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             builds final PDF document;
         """
+        print("build_document")
+        print("elements:", self.elements)
         # reset progress
         self.reset_progress()
         # must do it in one shot
@@ -192,6 +194,7 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             builds document internal elements;
         """
+        print("build_elements")
         # reset progress
         self.reset_progress()
         # put your own code in subclass
@@ -206,6 +209,7 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             draws fix elements (header, footer, etc) on page;
         """
+        print("draw_first_page")
         # save settings
         canvas.saveState()
         # clear elements list
@@ -262,6 +266,7 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             draws fix elements (header, footer, etc) on page;
         """
+        print("draw_pages")
         # put your own code in subclass
         pass
         # save settings
@@ -291,6 +296,7 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             gathers specific informations for document building;
         """
+        print("gather_info")
         # reset progress
         self.reset_progress()
         # put your own code in subclass
@@ -304,6 +310,7 @@ class PDFDocumentBase:
         """
             provides a reportlab.PDFDocument;
         """
+        print("get_pdf_document")
         # param controls
         if tools.is_pstr(doc_name):
             # inits
@@ -359,6 +366,7 @@ class PDFDocumentBase:
         """
             resets progress status to 0 if >= 100 (%);
         """
+        print("reset_progress")
         if self.progress >= 100:
             self.progress = 0
         # end if

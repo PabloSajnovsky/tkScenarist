@@ -199,6 +199,8 @@ class PDFDocumentBase:
         _styles = self.styles
         # reset progress
         self.reset_progress()
+        # first page elements
+        self.set_first_page_elements()
         # put your own code in subclass
         self.elements.append(PageBreak())
         self.elements.append(Paragraph("*** TEST ***", _styles["body"]))
@@ -236,28 +238,6 @@ class PDFDocumentBase:
         )
         _frame.addFromList(
             [Paragraph(self.fancy_name, _styles["header"])], canvas
-        )
-        # set title
-        self.elements = (
-            [
-                Paragraph(
-                    _data.get("project_title") or "",
-                    _styles["title"]
-                ),
-                Paragraph(
-                    _data.get("project_subtitle") or "",
-                    _styles["subtitle"]
-                ),
-                Paragraph(
-                    _data.get("project_episode") or "",
-                    _styles["episode"]
-                ),
-                Paragraph(
-                    _("By: {project_author}").format(**_data),
-                    _styles["author"]
-                ),
-            ]
-            + self.elements
         )
         # set contact frame
         pass # project author / phone / e-mail
@@ -378,6 +358,35 @@ class PDFDocumentBase:
         if self.progress >= 100:
             self.progress = 0
         # end if
+    # end def
+
+
+    def set_first_page_elements (self):
+        """
+            sets document's first page flowable elements such as title,
+            subtitle, episode, etc;
+        """
+        # inits
+        _data = self.project_data
+        _styles = self.styles
+        self.elements = [
+            Paragraph(
+                _data.get("project_title") or "",
+                _styles["title"]
+            ),
+            Paragraph(
+                _data.get("project_subtitle") or "",
+                _styles["subtitle"]
+            ),
+            Paragraph(
+                _data.get("project_episode") or "",
+                _styles["episode"]
+            ),
+            Paragraph(
+                _("By {}").format(_data.get("project_author") or ""),
+                _styles["author"]
+            ),
+        ]
     # end def
 
 # end class PDFDocumentBase

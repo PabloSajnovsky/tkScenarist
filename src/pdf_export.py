@@ -87,23 +87,57 @@ def get_stylesheet ():
         returns a dict of ParagraphStyle settings;
     """
     return {
-        "title": ParagraphStyle("title"),
-        "subtitle": ParagraphStyle("subtitle"),
-        "episode": ParagraphStyle("episode"),
-        "author": ParagraphStyle("author"),
-        "contact": ParagraphStyle("contact"),
-        "header": ParagraphStyle("header"),
-        "footer": ParagraphStyle("footer"),
-        "footer_tiny": ParagraphStyle("footer_tiny"),
-        "body": ParagraphStyle("body"),
-        "action": ParagraphStyle("action"),
-        "character": ParagraphStyle("character"),
-        "dialogue": ParagraphStyle("dialogue"),
-        "parenthetical": ParagraphStyle("parenthetical"),
-        "scene": ParagraphStyle("scene"),
-        "transition": ParagraphStyle("transition"),
-        "shot_title": ParagraphStyle("shot_title"),
-        "shot_body": ParagraphStyle("shot_body"),
+        "title": ParagraphStyle(
+            "title",
+        ),
+        "subtitle": ParagraphStyle(
+            "subtitle",
+        ),
+        "episode": ParagraphStyle(
+            "episode",
+        ),
+        "author": ParagraphStyle(
+            "author",
+        ),
+        "contact": ParagraphStyle(
+            "contact",
+        ),
+        "header": ParagraphStyle(
+            "header",
+        ),
+        "footer": ParagraphStyle(
+            "footer",
+        ),
+        "footer_tiny": ParagraphStyle(
+            "footer_tiny",
+        ),
+        "body": ParagraphStyle(
+            "body",
+        ),
+        "action": ParagraphStyle(
+            "action",
+        ),
+        "character": ParagraphStyle(
+            "character",
+        ),
+        "dialogue": ParagraphStyle(
+            "dialogue",
+        ),
+        "parenthetical": ParagraphStyle(
+            "parenthetical",
+        ),
+        "scene": ParagraphStyle(
+            "scene",
+        ),
+        "transition": ParagraphStyle(
+            "transition",
+        ),
+        "shot_title": ParagraphStyle(
+            "shot_title",
+        ),
+        "shot_body": ParagraphStyle(
+            "shot_body",
+        ),
     }
 # end def
 

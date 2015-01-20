@@ -237,7 +237,7 @@ class PDFDocumentBase:
             _margin_w, doc.topMargin / 4.0, showBoundary=1
         )
         _frame.addFromList(
-            [Paragraph(self.fancy_name, _styles["header"])], canvas
+            [Paragraph("toto", _styles["header"])], canvas
         )
         # set contact frame
         pass # project author / phone / e-mail

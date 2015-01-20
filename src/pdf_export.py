@@ -677,7 +677,9 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
             # update consumed bytes
             self.read_bytes += len(_text)
             # evaluate progress
-            self.progress = min(99, self.read_bytes // self.total_bytes)
+            self.progress = min(
+                99.0, 100.0 * self.read_bytes / self.total_bytes
+            )
             # no more text?
             if not _text:
                 # procedure is complete

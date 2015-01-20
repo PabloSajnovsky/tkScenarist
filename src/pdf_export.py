@@ -669,11 +669,10 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
             self.set_first_page_elements()
         # next steps
         else:
-            print("doing steps")
             # get text block
-            _text = self.wtext.get(self.index, self.index + 10.0)
+            _text = self.wtext.get(self.index, self.index + 100.0)
             # update index
-            self.index += 10.0
+            self.index += 100.0
             # update consumed bytes
             self.read_bytes += len(_text)
             # evaluate progress
@@ -692,7 +691,6 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
                     self.add_paragraph(_line, self.styles["body"])
                 # end for
             # end if
-            print("progress:", self.progress)
         # end if
     # end def
 

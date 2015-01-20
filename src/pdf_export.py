@@ -300,7 +300,7 @@ class PDFDocumentBase:
         # reset progress
         self.reset_progress()
         # put your own code in subclass
-        print("options:", self.options)
+        pass
         # procedure is complete
         self.progress = 100
     # end def

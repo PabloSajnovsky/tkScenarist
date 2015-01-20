@@ -211,13 +211,21 @@ class PDFDocumentBase:
         # clear elements list
         self.elements.clear()
         # inits
+        _data = self.project_data
+        _styles = self.styles
         _width, _height = doc.pagesize
         _center_x, _center_y = _width / 2.0, _height / 2.0
         # doc inner margin width and height
         _margin_w = _width - doc.leftMargin - doc.rightMargin
         _margin_h = _height - doc.topMargin - doc.bottomMargin
         # set header
-        pass # fancy name
+        _frame = Frame(
+            doc.leftMargin, _height - doc.topMargin / 2.0,
+            _margin_w, doc.topMargin / 4.0, showBoundary=1
+        )
+        _frame.addFromList(
+            [Paragraph(self.fancy_name, _styles["header"])], canvas
+        )
         # set title
         pass # project title / subtitle / episode / by: project_author
         # set contact frame

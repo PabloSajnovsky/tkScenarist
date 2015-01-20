@@ -35,7 +35,6 @@ from reportlab.lib.units import inch, cm, mm
 from reportlab.lib.enums import *                   # text alignments
 
 import tkinter.constants as TK
-import tkRAD.core.async as ASYNC
 import tkRAD.core.path as P
 import tkRAD.core.services as SM
 from tkRAD.core import tools
@@ -275,7 +274,6 @@ class PDFDocumentBase:
         self.doc_name = doc_name
         self.options = kw.get("options")
         self.project_data = kw.get("data")
-        self.async = ASYNC.get_async_manager()
         self.app = SM.ask_for("app") # application
         self.pfm = SM.ask_for("PFM") # Project File Management
         self.mainwindow = self.app.mainwindow
@@ -289,7 +287,13 @@ class PDFDocumentBase:
 
 
     def _thread_build (self):
-        print("_thread_build")
+        """
+            private method def;
+            for internal use only;
+            thread for building PDF document as it may take a (very)
+            long time;
+        """
+        # build PDF document
         self.document.build(
             self.elements,
             onFirstPage=self.draw_first_page,
@@ -325,27 +329,28 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             builds final PDF document;
         """
-        print("build_document")
         # reset progress
         self.reset_progress()
         # very first step (inits)
         if not self.step:
             # next step
             self.step = 1
+            # incremental step
+            self.index = 4700.0 / (1.0 + len(self.elements))
             # launch thread
             self._thread = threading.Thread(target=self._thread_build)
             self._thread.start()
         # all steps
         else:
-            print("simulating progression")
             # simulate progression
-            self.progress = min(99.0, self.progress + 0.5)
+            self.progress = min(99.0, self.progress + self.index)
             # thread ended?
             if not self._thread.is_alive():
                 # procedure is complete
                 self.progress = 100
+                # destroy thread
+                del self._thread
             # end if
-            print("progress:", self.progress)
         # end if
     # end def
 
@@ -675,7 +680,6 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
             self.index = 1.0
             # estimate size of text
             _lines = float(self.wtext.index(TK.END))
-            print(self.fancy_name, "lines:", _lines)
             # not so much?
             if _lines < 3000:
                 # get real size

@@ -92,7 +92,7 @@ def get_stylesheet ():
         # main styles
         "header": ParagraphStyle(
             "header",
-            fontName="Times",
+            fontName="Times-BoldItalic",
             fontSize=12,
             leading=0,
             alignment=TA_CENTER,
@@ -173,8 +173,8 @@ def get_stylesheet ():
             fontSize=16,
             leading=18,
             alignment=TA_CENTER,
-            leftIndent=1*inch,
-            rightIndent=1*inch,
+            leftIndent=1.5*inch,
+            rightIndent=1.5*inch,
             spaceBefore=0.3*inch,
             spaceAfter=0.1*inch,
         ),
@@ -357,7 +357,7 @@ class PDFDocumentBase:
         _data = self.project_data
         _styles = self.styles
         _width, _height = doc.pagesize
-        # doc inner margin width and height
+        # doc inner margin width
         _margin_w = _width - doc.leftMargin - doc.rightMargin
         # set header
         _frame_h = _styles["header"].fontSize + 4
@@ -436,7 +436,7 @@ class PDFDocumentBase:
         _data = self.project_data
         _styles = self.styles
         _width, _height = doc.pagesize
-        # doc inner margin width and height
+        # doc inner margin width
         _margin_w = _width - doc.leftMargin - doc.rightMargin
         # set header
         _frame_h = _styles["header"].fontSize + 4
@@ -451,7 +451,7 @@ class PDFDocumentBase:
             [Paragraph(_data["project_title"], _styles["header"])],
             canvas
         )
-        # set footer + mentions
+        # set footer
         _frame_h = _styles["footer"].fontSize + 4
         _frame = Frame(
             doc.leftMargin, 0.5 * doc.bottomMargin,

@@ -33,6 +33,7 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import inch, cm, mm
 from reportlab.lib.enums import *                   # text alignments
 
+import tkinter.constants as TK
 import tkRAD.core.path as P
 import tkRAD.core.services as SM
 from tkRAD.core import tools
@@ -125,6 +126,9 @@ def get_stylesheet ():
         ),
         "body": ParagraphStyle(
             "body",
+            fontName="Courier",
+            fontSize=10,
+            leading=12,
             alignment=TA_JUSTIFY,
             leftIndent=0,
             rightIndent=0,
@@ -279,6 +283,8 @@ class PDFDocumentBase:
         self.elements = list()
         self.progress = 0
         self.index = 0
+        self.step = 0
+        self.total_bytes = 0
     # end def
 
 
@@ -309,8 +315,6 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             builds final PDF document;
         """
-        print("build_document")
-        print("elements:", bool(self.elements))
         # reset progress
         self.reset_progress()
         # must do it in one shot
@@ -329,7 +333,6 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             builds document internal elements;
         """
-        print("build_elements")
         # inits
         _styles = self.styles
         # reset progress
@@ -448,7 +451,7 @@ class PDFDocumentBase:
             showBoundary=0,
         )
         _frame.addFromList(
-            [Paragraph(_data["project_title"], _styles["header"])],
+            [Paragraph(_data["project_title"][:80], _styles["header"])],
             canvas
         )
         # set footer
@@ -490,7 +493,6 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             gathers specific informations for document building;
         """
-        print("gather_info")
         # reset progress
         self.reset_progress()
         # put your own code in subclass
@@ -504,7 +506,6 @@ class PDFDocumentBase:
         """
             provides a reportlab.PDFDocument;
         """
-        print("get_pdf_document")
         # param controls
         if tools.is_pstr(doc_name):
             # inits
@@ -558,13 +559,17 @@ class PDFDocumentBase:
     # end def
 
 
-    def reset_progress (self):
+    def reset_progress (self, force_reset=False):
         """
             resets progress status to 0 if >= 100 (%);
         """
-        print("reset_progress")
-        if self.progress >= 100:
+        # reached 100%?
+        if self.progress >= 100 or force_reset:
+            # reset all
             self.progress = 0
+            self.index = 0
+            self.step = 0
+            self.total_bytes = 0
         # end if
     # end def
 
@@ -619,7 +624,50 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
     """
         specific PDF document class for Draft/Notes application tab;
     """
-    pass
+
+    def __init__ (self, doc_name, **kw):
+        """
+            class constructor;
+        """
+        # super class inits
+        super().__init__(doc_name, **kw)
+        # additional member inits
+        self.wtext = self.mainframe.tab_draft_notes.text_draft_notes
+    # end def
+
+
+    def build_elements (self):
+        """
+            hook method to be reimplemented in subclass;
+            builds document internal elements;
+        """
+        # very first step (inits)
+        if not self.step:
+            # reset progress
+            self.reset_progress(force_reset=True)
+            # next step
+            self.step = 1
+            self.index = 1.0
+            # estimate size of text
+            _lines = float(self.wtext.index(TK.END))
+            # not so much?
+            if _lines < 1000:
+                # get real size
+                self.total_bytes = len(self.wtext.get("1.0", TK.END))
+            # spare time
+            else:
+                # estimate 1 line of text = 200 chars
+                self.total_bytes = _lines * 200
+            # end if
+        # next steps
+        else:
+            # get text block
+            # evaluate progress
+            # procedure is complete
+            self.progress = 100
+        # end if
+    # end def
+
 # end class PDFDocumentDraftNotes
 
 

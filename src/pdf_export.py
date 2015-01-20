@@ -175,7 +175,7 @@ class PDFDocumentBase:
             builds final PDF document;
         """
         print("build_document")
-        print("elements:", self.elements)
+        print("elements:", bool(self.elements))
         # reset progress
         self.reset_progress()
         # must do it in one shot
@@ -221,8 +221,6 @@ class PDFDocumentBase:
         print("draw_first_page")
         # save settings
         canvas.saveState()
-        # clear elements list
-        self.elements.clear()
         # inits
         _data = self.project_data
         _styles = self.styles
@@ -239,8 +237,9 @@ class PDFDocumentBase:
         _frame.addFromList(
             [Paragraph(self.fancy_name, _styles["header"])], canvas
         )
+        canvas.save()
         # set title
-        self.elements.extend(
+        self.elements = (
             [
                 Paragraph(
                     _data.get("project_title") or "",
@@ -259,6 +258,7 @@ class PDFDocumentBase:
                     _styles["author"]
                 ),
             ]
+            + self.elements
         )
         # set contact frame
         pass # project author / phone / e-mail

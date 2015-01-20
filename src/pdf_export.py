@@ -227,7 +227,26 @@ class PDFDocumentBase:
             [Paragraph(self.fancy_name, _styles["header"])], canvas
         )
         # set title
-        pass # project title / subtitle / episode / by: project_author
+        self.elements.extend(
+            [
+                Paragraph(
+                    _data.get("project_title") or "",
+                    _styles["title"]
+                ),
+                Paragraph(
+                    _data.get("project_subtitle") or "",
+                    _styles["subtitle"]
+                ),
+                Paragraph(
+                    _data.get("project_episode") or "",
+                    _styles["episode"]
+                ),
+                Paragraph(
+                    _("By: {project_author}").format(**_data),
+                    _styles["author"]
+                ),
+            ]
+        )
         # set contact frame
         pass # project author / phone / e-mail
         # set footer

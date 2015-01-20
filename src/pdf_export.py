@@ -639,10 +639,8 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
             hook method to be reimplemented in subclass;
             builds document internal elements;
         """
-        print("build_elements")
         # very first step (inits)
         if not self.step:
-            print("making inits")
             # reset progress
             self.reset_progress(force_reset=True)
             # next step
@@ -650,22 +648,17 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
             self.index = 1.0
             # estimate size of text
             _lines = float(self.wtext.index(TK.END))
-            print("lines:", _lines)
             # not so much?
-            if _lines < 1000:
-                print("getting real size")
+            if _lines < 3000:
                 # get real size
                 self.total_bytes = len(self.wtext.get("1.0", TK.END))
             # spare time
             else:
-                print("estimating size")
                 # estimate 1 line of text = ~360 chars
                 self.total_bytes = _lines * 360
             # end if
             # ensure it is > 0
             self.total_bytes = max(1, self.total_bytes)
-            print("total bytes:", self.total_bytes)
-            print("real size:", len(self.wtext.get("1.0", TK.END)))
             # first page elements
             self.set_first_page_elements()
         # next steps
@@ -699,11 +692,21 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
 
 
 
-class PDFDocumentPitchConcept (PDFDocumentBase):
+class PDFDocumentPitchConcept (PDFDocumentDraftNotes):
     """
         specific PDF document class for Pitch/Concept application tab;
     """
-    pass
+
+    def __init__ (self, doc_name, **kw):
+        """
+            class constructor;
+        """
+        # super class inits
+        super().__init__(doc_name, **kw)
+        # additional member inits
+        self.wtext = self.mainframe.tab_pitch_concept.text_pitch_concept
+    # end def
+
 # end class PDFDocumentPitchConcept
 
 

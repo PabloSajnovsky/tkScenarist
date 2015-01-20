@@ -659,12 +659,13 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
             # spare time
             else:
                 print("estimating size")
-                # estimate 1 line of text = 200 chars
-                self.total_bytes = _lines * 200
+                # estimate 1 line of text = ~360 chars
+                self.total_bytes = _lines * 360
             # end if
-            # ensure > 0
+            # ensure it is > 0
             self.total_bytes = max(1, self.total_bytes)
             print("total bytes:", self.total_bytes)
+            print("real size:", len(self.wtext.get("1.0", TK.END)))
             # first page elements
             self.set_first_page_elements()
         # next steps

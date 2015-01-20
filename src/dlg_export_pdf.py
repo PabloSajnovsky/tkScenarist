@@ -111,7 +111,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                 text=_("Export"), command=self.slot_export_pdf
             )
             # reset process after a while
-            self.async.run_after(1200, self.reset)
+            self.async.run_after(3000, self.reset)
         # end if
     # end def
 
@@ -428,6 +428,8 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         """
             event handler: button clicked;
         """
+        # stop eventually pending tasks
+        self.slot_stop_async()
         # switch on important task
         self.events.raise_event("DialogPendingTaskOn")
         # disable button

@@ -24,7 +24,7 @@
 
 # lib imports
 import os.path
-import datetime
+from datetime import datetime
 
 from reportlab.platypus import SimpleDocTemplate, Frame
 from reportlab.platypus import Paragraph, Spacer, PageBreak
@@ -351,7 +351,6 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             draws fix elements (header, footer, etc) on page;
         """
-        print("draw_first_page")
         # save settings
         canvas.saveState()
         # inits
@@ -383,11 +382,11 @@ class PDFDocumentBase:
         )
         _frame.addFromList(
             [
-                Paragraph(_(_t).format(**_data), _style)
+                Paragraph(_t.format(**_data), _style)
                 for _t in (
-                    "Contact: {project_author}",
-                    "E-mail: {project_author_email}",
-                    "Phone: {project_author_phone}",
+                    _("Contact: {project_author}"),
+                    _("E-mail: {project_author_email}"),
+                    _("Phone: {project_author_phone}"),
                 )
             ],
             canvas
@@ -407,8 +406,8 @@ class PDFDocumentBase:
         _frame.addFromList(
             [
                 Paragraph(
-                    _("Printed on {}")
-                    .format(datetime.datetime.today().strftime("%c")),
+                    _("Printed on {date}")
+                    .format(date=datetime.today().strftime("%c")),
                     _styles["footer"]
                 ),
                 Paragraph(
@@ -431,15 +430,51 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             draws fix elements (header, footer, etc) on page;
         """
-        print("draw_pages")
-        # put your own code in subclass
-        pass
         # save settings
         canvas.saveState()
+        # inits
+        _data = self.project_data
+        _styles = self.styles
+        _width, _height = doc.pagesize
+        # doc inner margin width and height
+        _margin_w = _width - doc.leftMargin - doc.rightMargin
         # set header
-        pass # project title - episode
-        # set footer
-        pass # page number (centered)
+        _frame_h = _styles["header"].fontSize + 4
+        _frame = Frame(
+            doc.leftMargin, _height - 0.75 * doc.topMargin,
+            _margin_w, _frame_h,
+            leftPadding=0, rightPadding=0,
+            topPadding=0, bottomPadding=0,
+            showBoundary=0,
+        )
+        _frame.addFromList(
+            [
+                Paragraph(
+                    "{project_title} - {project_episode}"
+                    .format(**_data),
+                    _styles["header"]
+                )
+            ],
+            canvas
+        )
+        # set footer + mentions
+        _frame_h = _styles["footer"].fontSize + 4
+        _frame = Frame(
+            doc.leftMargin, 0.5 * doc.bottomMargin,
+            _margin_w, _frame_h,
+            leftPadding=0, rightPadding=0,
+            topPadding=0, bottomPadding=0,
+            showBoundary=0,
+        )
+        _frame.addFromList(
+            [
+                Paragraph(
+                    _("Page {number}").format(number=doc.page),
+                    _styles["footer"]
+                )
+            ],
+            canvas
+        )
         # restore settings
         canvas.restoreState()
     # end def

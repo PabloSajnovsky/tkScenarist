@@ -639,8 +639,10 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
             hook method to be reimplemented in subclass;
             builds document internal elements;
         """
+        print("build_elements")
         # very first step (inits)
         if not self.step:
+            print("making inits")
             # reset progress
             self.reset_progress(force_reset=True)
             # next step
@@ -648,25 +650,30 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
             self.index = 1.0
             # estimate size of text
             _lines = float(self.wtext.index(TK.END))
+            print("lines:", _lines)
             # not so much?
             if _lines < 1000:
+                print("getting real size")
                 # get real size
                 self.total_bytes = len(self.wtext.get("1.0", TK.END))
             # spare time
             else:
+                print("estimating size")
                 # estimate 1 line of text = 200 chars
                 self.total_bytes = _lines * 200
             # end if
             # ensure > 0
             self.total_bytes = max(1, self.total_bytes)
+            print("total bytes:", self.total_bytes)
             # first page elements
             self.set_first_page_elements()
         # next steps
         else:
+            print("doing steps")
             # get text block
-            _text = self.wtext.get(self.index, self.index + 100.0)
+            _text = self.wtext.get(self.index, self.index + 10.0)
             # update index
-            self.index += 100.0
+            self.index += 10.0
             # update consumed bytes
             self.read_bytes += len(_text)
             # evaluate progress
@@ -683,6 +690,7 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
                     self.add_paragraph(_line, self.styles["body"])
                 # end for
             # end if
+            print("progress:", self.progress)
         # end if
     # end def
 

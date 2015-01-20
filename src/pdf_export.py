@@ -117,9 +117,7 @@ class PDFDocumentBase:
         self.pfm = SM.ask_for("PFM") # Project File Management
         self.mainwindow = self.app.mainwindow
         self.mainframe = self.mainwindow.mainframe
-        self.project_data = (
-            kw.get("data") or self.mainframe.tab_title_data.get_data()
-        )
+        self.project_data = kw.get("data")
         self.database = self.mainwindow.database
         self.document = self.get_pdf_document(doc_name)
         self.doc_name = doc_name
@@ -236,7 +234,7 @@ class PDFDocumentBase:
                 "{project_subtitle} - "
                 "{project_episode}"
                 .format(**_data),
-                subject=_fancy_name,
+                subject=self.fancy_name,
                 creator=self.app.APP.get("title"),
             )
         # error

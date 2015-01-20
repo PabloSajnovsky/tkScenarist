@@ -445,7 +445,7 @@ class PDFDocumentBase:
             _margin_w, _frame_h,
             leftPadding=0, rightPadding=0,
             topPadding=0, bottomPadding=0,
-            showBoundary=1,
+            showBoundary=0,
         )
         _frame.addFromList(
             [Paragraph(_data["project_title"], _styles["header"])],
@@ -458,7 +458,7 @@ class PDFDocumentBase:
             _margin_w, _frame_h,
             leftPadding=0, rightPadding=0,
             topPadding=0, bottomPadding=0,
-            showBoundary=1,
+            showBoundary=0,
         )
         _frame.addFromList(
             [
@@ -523,7 +523,7 @@ class PDFDocumentBase:
                 subject=self.fancy_name,
                 creator=self.app.APP.get("title"),
                 # debugging
-                showBoundary=1,
+                showBoundary=0,
             )
         # error
         else:

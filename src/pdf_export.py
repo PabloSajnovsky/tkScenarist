@@ -660,7 +660,7 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
                 self.total_bytes = len(self.wtext.get("1.0", TK.END))
             # spare time
             else:
-                # estimate 1 line of text = ~360 chars
+                # estimate 1 line of text is about 360 chars
                 self.total_bytes = _lines * 360
             # end if
             # ensure it is > 0
@@ -730,7 +730,79 @@ class PDFDocumentScenario (PDFDocumentBase):
     """
         specific PDF document class for Scenario application tab;
     """
-    pass
+
+    def __init__ (self, doc_name, **kw):
+        """
+            class constructor;
+        """
+        # super class inits
+        super().__init__(doc_name, **kw)
+        # additional member inits
+        self.wtext = self.mainframe.tab_scenario.TEXT
+    # end def
+
+
+    def build_elements (self):
+        """
+            hook method to be reimplemented in subclass;
+            builds document internal elements;
+        """
+        # reset progress
+        self.reset_progress()
+        # very first step (inits)
+        if not self.step:
+            # force reset all
+            self.reset_progress(force_reset=True)
+            # next step
+            self.step = 1
+            self.index = 1.0
+            # estimate size of text
+            # without loading text contents
+            _lines = float(self.wtext.index(TK.END))
+            # not so much?
+            if _lines < 3000:
+                # get real size
+                self.total_bytes = len(self.wtext.get("1.0", TK.END))
+            # spare time
+            else:
+                # estimate 1 line of text is about 360 chars
+                self.total_bytes = _lines * 360
+            # end if
+            # ensure it is > 0
+            self.total_bytes = max(1, self.total_bytes)
+            # first page elements
+            self.set_first_page_elements()
+        # next steps
+        else:
+            # get text block (with tags)
+            _text = self.wtext.get_tagged_text(
+                self.index, self.index + 100.0
+            )
+            print("tagged text:", _text)
+            # update index
+            self.index += 100.0
+            # update consumed bytes
+            self.read_bytes += len(_text)
+            # evaluate progress
+            self.progress = min(
+                99.0, 100.0 * self.read_bytes / self.total_bytes
+            )
+            # no more text?
+            if not _text:
+                # procedure is complete
+                self.progress = 100
+            # got text
+            else:
+                # browse lines of text
+                for _line in _text.split("\n"):
+                    # add new paragraph
+                    pass # FIXME
+                    #~ self.add_paragraph(_line, self.styles["body"])
+                # end for
+            # end if
+        # end if
+    # end def
+
 # end class PDFDocumentScenario
 
 

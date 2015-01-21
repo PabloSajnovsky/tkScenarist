@@ -270,14 +270,19 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             )
         # end if
         # recalc pos
-        _x, _y, _w, _h = self.TEXT.bbox(start_index)
-        _xi, _yi, _wi, _hi = self.TEXT.bbox(TK.INSERT)
-        _x += self.TEXT.winfo_rootx()
-        _y = self.TEXT.winfo_rooty() + _h + max(_y, _yi)
-        # reset popup window pos
-        self.POPUP.geometry("+{}+{}".format(_x, _y))
-        # show popup list
-        self.POPUP.deiconify()
+        try:
+            _x, _y, _w, _h = self.TEXT.bbox(start_index)
+            _xi, _yi, _wi, _hi = self.TEXT.bbox(TK.INSERT)
+        except:
+            pass
+        else:
+            _x += self.TEXT.winfo_rootx()
+            _y = self.TEXT.winfo_rooty() + _h + max(_y, _yi)
+            # reset popup window pos
+            self.POPUP.geometry("+{}+{}".format(_x, _y))
+            # show popup list
+            self.POPUP.deiconify()
+        # end try
     # end def
 
 

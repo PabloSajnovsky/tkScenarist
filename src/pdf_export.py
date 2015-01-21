@@ -793,10 +793,10 @@ class PDFDocumentScenario (PDFDocumentBase):
                 self.progress = 100
             # got text
             else:
+                pass                                                        # FIXME
                 # browse lines of text
-                for _line in _text.split("\n"):
-                    # add new paragraph
-                    pass # FIXME
+                #~ for _line in _text.split("\n"):
+                    #~ # add new paragraph
                     #~ self.add_paragraph(_line, self.styles["body"])
                 # end for
             # end if

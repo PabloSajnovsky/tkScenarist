@@ -778,11 +778,12 @@ class PDFDocumentScenario (PDFDocumentBase):
             _tagged_text = self.wtext.get_tagged_text(
                 self.index, self.index + 100.0
             )
-            print("tagged text:", _tagged_text)
+            _only_texts = _tagged_text[::2]
+            _only_tags = _tagged_text[1::2]
             # update index
             self.index += 100.0
             # update consumed bytes
-            _bytes = sum(map(len, _tagged_text[::2]))
+            _bytes = sum(map(len, _only_texts))
             self.read_bytes += _bytes
             # evaluate progress
             self.progress = min(
@@ -795,12 +796,16 @@ class PDFDocumentScenario (PDFDocumentBase):
             # got text
             else:
                 # browse collection
-                for _index, _text in enumerate(_tagged_text[::2]):
+                for _index, _text in enumerate(_only_texts):
                     # inits
                     _text = _text.strip()
-                    _tags = _tagged_text[_index+1:_index+2]
-                    _style = _tags[0] if _tags else "body"
-                    print("text:", _text, "style:", _style)
+                    try:
+                        # get style from tags
+                        _style = self.styles[_only_tags[_index][0]]
+                    except:
+                        # default style
+                        _style = self.styles["body"]
+                    # end try
                     # browse lines in text
                     for _line in _text.split("\n"):
                         # add new paragraph

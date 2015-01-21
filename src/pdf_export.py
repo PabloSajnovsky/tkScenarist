@@ -62,17 +62,6 @@ def build_elements (doc):
 # end def
 
 
-def gather_informations (doc):
-    """
-        gathers informations for specific PDF document;
-    """
-    # delegate to specific
-    doc.gather_info()
-    # progression status (0-100%)
-    return doc.progress
-# end def
-
-
 def get_pdf_document (doc_name, **kw):
     """
         returns a new instance for an app-specific PDF document with
@@ -360,8 +349,6 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             builds document internal elements;
         """
-        # inits
-        _styles = self.styles
         # reset progress
         self.reset_progress()
         # first page elements
@@ -369,7 +356,7 @@ class PDFDocumentBase:
         # put your own code in subclass
         for i in range(20):
             # dummy text
-            self.add_paragraph("*** TEST ***", _styles["body"])
+            self.add_paragraph("*** TEST ***", self.styles["body"])
         # end if
         # procedure is complete
         self.progress = 100
@@ -515,20 +502,6 @@ class PDFDocumentBase:
     # end def
 
 
-    def gather_info (self):
-        """
-            hook method to be reimplemented in subclass;
-            gathers specific informations for document building;
-        """
-        # reset progress
-        self.reset_progress()
-        # put your own code in subclass
-        pass
-        # procedure is complete
-        self.progress = 100
-    # end def
-
-
     def get_pdf_document (self, doc_name):
         """
             provides a reportlab.PDFDocument;
@@ -590,7 +563,7 @@ class PDFDocumentBase:
         """
             resets progress status to 0 if >= 100 (%);
         """
-        # reached 100%?
+        # forced or reached 100%?
         if force_reset or self.progress >= 100:
             # reset all
             self.progress = 0
@@ -673,12 +646,13 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
         self.reset_progress()
         # very first step (inits)
         if not self.step:
-            # reset progress
+            # force reset all
             self.reset_progress(force_reset=True)
             # next step
             self.step = 1
             self.index = 1.0
             # estimate size of text
+            # without loading text contents
             _lines = float(self.wtext.index(TK.END))
             # not so much?
             if _lines < 3000:

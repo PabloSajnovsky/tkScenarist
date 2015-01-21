@@ -109,7 +109,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                 text=_("Export"), command=self.slot_export_pdf
             )
             # reset process after a while
-            self.async.run_after(3000, self.reset)
+            self.async.run_after(5000, self.reset)
         # end if
     # end def
 
@@ -176,20 +176,6 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
 
     def _step_1 (self, kw):
         """
-            gathering informations;
-            for internal use;
-        """
-        # generic step structure
-        self._generic_step(
-            _("Gathering informations, please wait..."),
-            kw,
-            PDF.gather_informations
-        )
-    # end def
-
-
-    def _step_2 (self, kw):
-        """
             building elements;
             for internal use;
         """
@@ -202,7 +188,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
     # end def
 
 
-    def _step_3 (self, kw):
+    def _step_2 (self, kw):
         """
             building final document;
             for internal use;
@@ -214,7 +200,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             PDF.build_document
         )
         # return to step 0 on completion
-        kw["step"] %= 4
+        kw["step"] %= 3
     # end def
 
 

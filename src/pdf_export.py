@@ -775,20 +775,22 @@ class PDFDocumentScenario (PDFDocumentBase):
         # next steps
         else:
             # get text block (with tags)
-            _text = self.wtext.get_tagged_text(
+            _tagged_text = self.wtext.get_tagged_text(
                 self.index, self.index + 100.0
             )
-            print("tagged text:", _text)
+            print("tagged text:", _tagged_text)
             # update index
             self.index += 100.0
             # update consumed bytes
-            self.read_bytes += len(_text)
+            _bytes = sum(map(len, _tagged_text[::2]))
+            self.read_bytes += _bytes
+            print("consumed bytes:", _bytes)
             # evaluate progress
             self.progress = min(
                 99.0, 100.0 * self.read_bytes / self.total_bytes
             )
             # no more text?
-            if not _text:
+            if len(_tagged_text) < 3 and not _tagged_text[0]:
                 # procedure is complete
                 self.progress = 100
             # got text

@@ -105,6 +105,12 @@
             layout="pack"
             resizable="width"
         />
+        <ttkseparator
+            orient="horizontal"
+            layout="pack"
+            layout_options="pady=5"
+            resizable="width"
+        />
         <ttkcheckbutton
             text="Print SHOT numbers on LEFT side"
             command="@Dialog:ExportPDF:Checkbutton:Click"
@@ -118,6 +124,21 @@
             text="Print SHOT numbers on RIGHT side"
             command="@Dialog:ExportPDF:Checkbutton:Click"
             variable="chk_print_shot_right"
+            onvalue="1"
+            checked="checked"
+            layout="pack"
+            resizable="width"
+        />
+        <ttkseparator
+            orient="horizontal"
+            layout="pack"
+            layout_options="pady=5"
+            resizable="width"
+        />
+        <ttkcheckbutton
+            text="Show in PDF viewer (whenever possible)"
+            command="@Dialog:ExportPDF:Checkbutton:Click"
+            variable="chk_show_in_viewer"
             onvalue="1"
             checked="checked"
             layout="pack"

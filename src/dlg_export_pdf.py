@@ -45,7 +45,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
 
     OPT_NAMES = (
         "print_scene_left", "print_scene_right", "print_shot_left",
-        "print_shot_right",
+        "print_shot_right", "show_in_viewer",
     )
 
 

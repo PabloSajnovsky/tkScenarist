@@ -774,32 +774,36 @@ class PDFDocumentScenario (PDFDocumentBase):
             self.set_first_page_elements()
         # next steps
         else:
-            # get text block (with tags)
+            # get tagged text block
             _tagged_text = self.wtext.get_tagged_text(
                 self.index, self.index + 100.0
             )
-            print("tagged text:", _tagged_text)
             # update index
             self.index += 100.0
             # update consumed bytes
             _bytes = sum(map(len, _tagged_text[::2]))
             self.read_bytes += _bytes
-            print("consumed bytes:", _bytes)
             # evaluate progress
             self.progress = min(
                 99.0, 100.0 * self.read_bytes / self.total_bytes
             )
             # no more text?
-            if len(_tagged_text) < 3 and not _tagged_text[0]:
+            if not _bytes:
                 # procedure is complete
                 self.progress = 100
             # got text
             else:
-                pass                                                        # FIXME
-                # browse lines of text
-                #~ for _line in _text.split("\n"):
-                    #~ # add new paragraph
-                    #~ self.add_paragraph(_line, self.styles["body"])
+                # browse collection
+                for _text, _tags in _tagged_text:
+                    # inits
+                    _text = _text.strip()
+                    _style = _tags[0] if _tags else "body"
+                    print("style:", _style)
+                    # browse lines in text
+                    for _line in _text.split("\n"):
+                        # add new paragraph
+                        self.add_paragraph(_line, _style)
+                    # end for
                 # end for
             # end if
         # end if

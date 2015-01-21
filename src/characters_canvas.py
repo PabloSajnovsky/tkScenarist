@@ -712,7 +712,6 @@ class CharactersCanvas (RC.RADCanvas):
         """
             event handler for mouse double-clicking;
         """
-        print("slot_double_clicked")
         # param controls
         if event:
             # inits
@@ -788,7 +787,6 @@ class CharactersCanvas (RC.RADCanvas):
         """
             event handler for D'n'D dropping on mouse release;
         """
-        print("slot_drop")
         # param controls
         if event and self.drag_mode:
             # inits
@@ -820,7 +818,6 @@ class CharactersCanvas (RC.RADCanvas):
         """
             event handler for Ctrl+Click;
         """
-        print("slot_remove_item")
         # param controls
         if event:
             # inits
@@ -856,7 +853,6 @@ class CharactersCanvas (RC.RADCanvas):
         """
             event handler for name frame D'n'D;
         """
-        print("slot_start_drag")
         # start D'n'D for text items
         self.do_start_drag(event, self.DRAG_MODE_TEXT)
     # end def
@@ -866,7 +862,6 @@ class CharactersCanvas (RC.RADCanvas):
         """
             event handler for relation linkings;
         """
-        print("slot_start_link")
         # start D'n'D for relations link creation
         self.do_start_drag(event, self.DRAG_MODE_LINK)
         # started dragging?

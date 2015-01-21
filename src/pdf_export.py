@@ -207,6 +207,7 @@ def get_stylesheet ():
         "character": ParagraphStyle(
             "character",
             parent=_scenario_root,
+            fontName="Courier-Bold",
             alignment=TA_CENTER,
             leftIndent=2*inch,
             rightIndent=2*inch,

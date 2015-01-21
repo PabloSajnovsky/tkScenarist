@@ -375,7 +375,6 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             draws fix elements (header, footer, etc) on page;
         """
-        print("document:", doc)
         # save settings
         canvas.saveState()
         # inits

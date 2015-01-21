@@ -208,8 +208,8 @@ def get_stylesheet ():
             "character",
             parent=_scenario_root,
             alignment=TA_CENTER,
-            leftIndent=3*inch,
-            rightIndent=3*inch,
+            leftIndent=2*inch,
+            rightIndent=2*inch,
         ),
         "dialogue": ParagraphStyle(
             "dialogue",
@@ -223,8 +223,8 @@ def get_stylesheet ():
             parent=_scenario_root,
             fontName="Courier-Oblique",
             alignment=TA_CENTER,
-            leftIndent=2*inch,
-            rightIndent=2*inch,
+            leftIndent=1.5*inch,
+            rightIndent=1.5*inch,
         ),
         "scene": ParagraphStyle(
             "scene",

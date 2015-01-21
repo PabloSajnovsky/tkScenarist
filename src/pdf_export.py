@@ -79,6 +79,19 @@ def get_stylesheet ():
     """
         returns a dict of ParagraphStyle settings;
     """
+    # inits
+    _scenario_root = ParagraphStyle(
+        "scenario_root",
+        fontName="Courier",
+        fontSize=10,
+        leading=12,
+        alignment=TA_LEFT,
+        leftIndent=0,
+        rightIndent=0,
+        spaceBefore=0,
+        spaceAfter=0.1*inch,
+    )
+    # stylesheet as Python dict()
     return {
         # main styles
         "header": ParagraphStyle(
@@ -188,31 +201,26 @@ def get_stylesheet ():
 
         "action": ParagraphStyle(
             "action",
-            fontName="Courier",
-            fontSize=10,
-            leading=12,
+            parent=_scenario_root,
             alignment=TA_JUSTIFY,
-            leftIndent=0,
-            rightIndent=0,
-            spaceBefore=0,
-            spaceAfter=0.1*inch,
         ),
         "character": ParagraphStyle(
             "character",
-            parent="action",
+            parent=_scenario_root,
             alignment=TA_CENTER,
             leftIndent=3*inch,
             rightIndent=3*inch,
         ),
         "dialogue": ParagraphStyle(
             "dialogue",
-            parent="action",
+            parent=_scenario_root,
+            alignment=TA_JUSTIFY,
             leftIndent=1*inch,
             rightIndent=1*inch,
         ),
         "parenthetical": ParagraphStyle(
             "parenthetical",
-            parent="action",
+            parent=_scenario_root,
             fontName="Courier-Oblique",
             alignment=TA_CENTER,
             leftIndent=2*inch,
@@ -220,13 +228,13 @@ def get_stylesheet ():
         ),
         "scene": ParagraphStyle(
             "scene",
-            parent="action",
+            parent=_scenario_root,
             fontName="Courier-Bold",
-            backColor="#d2d2d2",
+            backColor="#f0f0f0",
         ),
         "transition": ParagraphStyle(
             "transition",
-            parent="action",
+            parent=_scenario_root,
             alignment=TA_RIGHT,
         ),
 
@@ -234,17 +242,16 @@ def get_stylesheet ():
 
         "shot_title": ParagraphStyle(
             "shot_title",
-            fontName="Times",
-            fontSize=12,
-            leading=0,
-            alignment=TA_CENTER,
+            parent=_scenario_root,
+            fontName="Courier-Bold",
+            backColor="#f0f0f0",
         ),
         "shot_body": ParagraphStyle(
             "shot_body",
-            fontName="Times",
-            fontSize=12,
-            leading=0,
-            alignment=TA_CENTER,
+            parent=_scenario_root,
+            alignment=TA_JUSTIFY,
+            leftIndent=0.2*inch,
+            rightIndent=0.2*inch,
         ),
     }
 # end def

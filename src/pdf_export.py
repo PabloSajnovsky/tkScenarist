@@ -98,7 +98,7 @@ def get_stylesheet ():
             "header",
             fontName="Times-BoldItalic",
             fontSize=12,
-            leading=0,
+            leading=12,
             alignment=TA_CENTER,
             leftIndent=0,
             rightIndent=0,
@@ -129,14 +129,8 @@ def get_stylesheet ():
         ),
         "body": ParagraphStyle(
             "body",
-            fontName="Courier",
-            fontSize=10,
-            leading=12,
+            parent=_scenario_root,
             alignment=TA_JUSTIFY,
-            leftIndent=0,
-            rightIndent=0,
-            spaceBefore=0,
-            spaceAfter=0.1*inch,
         ),
 
         # project data styles
@@ -211,6 +205,8 @@ def get_stylesheet ():
             alignment=TA_CENTER,
             leftIndent=2*inch,
             rightIndent=2*inch,
+            spaceAfter=0,
+            keepWithNext=True,
         ),
         "dialogue": ParagraphStyle(
             "dialogue",
@@ -226,6 +222,8 @@ def get_stylesheet ():
             alignment=TA_CENTER,
             leftIndent=1.5*inch,
             rightIndent=1.5*inch,
+            spaceAfter=0,
+            keepWithNext=True,
         ),
         "scene": ParagraphStyle(
             "scene",
@@ -748,6 +746,59 @@ class PDFDocumentScenario (PDFDocumentBase):
         super().__init__(doc_name, **kw)
         # additional member inits
         self.wtext = self.mainframe.tab_scenario.TEXT
+        self.stats = dict()
+    # end def
+
+
+    def _update_stats (self, text, tag):
+        """
+            protected method def for internal use only;
+            updates document stats in order to show them off as
+            appendix;
+        """
+        # inits
+        _s = self.stats
+        # nb of paragraphs
+        _s["paragraph_count"] = (
+            _s.setdefault("paragraph_count", 0) + 1
+        )
+        # nb of words
+        _s["word_count"] = (
+            _s.setdefault("word_count", 0)
+            + ((text or 0) and (text.count(" ") + 1))
+        )
+        # nb of characters
+        _s["char_count"] = (
+            _s.setdefault("char_count", 0) + len(text)
+        )
+        # nb of scenes
+        _s["scene_count"] = (
+            _s.setdefault("scene_count", 0) + int(tag == "scene")
+        )
+        # nb of dialogues
+        _s["dialogue_count"] = (
+            _s.setdefault("dialogue_count", 0) + int(tag == "dialogue")
+        )
+        # total pages
+        _s["total_pages"] = (
+            max(
+                _s.setdefault("total_pages", 0),
+                self.document.page - 1
+            )
+        )
+        pass                                                                # FIXME
+    # end def
+
+
+    def add_stats_elements (self):
+        """
+            adds statistics to document as appendix;
+        """
+        # new page
+        self.add_pagebreak()
+        # stats sum-up
+        print("stats:", self.stats)
+        pass                                                                # FIXME
     # end def
 
 
@@ -762,6 +813,8 @@ class PDFDocumentScenario (PDFDocumentBase):
         if not self.step:
             # force reset all
             self.reset_progress(force_reset=True)
+            # reset stats
+            self.stats.clear()
             # next step
             self.step = 1
             self.index = 1.0
@@ -800,6 +853,8 @@ class PDFDocumentScenario (PDFDocumentBase):
             )
             # no more text?
             if not _bytes:
+                # add stats as appendix
+                self.add_stats_elements()
                 # procedure is complete
                 self.progress = 100
             # got text
@@ -817,8 +872,12 @@ class PDFDocumentScenario (PDFDocumentBase):
                     # end try
                     # browse lines in text
                     for _line in _text.split("\n"):
+                        # do some clean-ups
+                        _line = _line.strip()
                         # add new paragraph
                         self.add_paragraph(_line, _style)
+                        # update statistics
+                        self._update_stats(_line, _style.name)
                     # end for
                 # end for
             # end if

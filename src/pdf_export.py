@@ -375,6 +375,7 @@ class PDFDocumentBase:
             hook method to be reimplemented in subclass;
             draws fix elements (header, footer, etc) on page;
         """
+        print("document:", doc)
         # save settings
         canvas.saveState()
         # inits
@@ -779,13 +780,7 @@ class PDFDocumentScenario (PDFDocumentBase):
         _s["dialogue_count"] = (
             _s.setdefault("dialogue_count", 0) + int(tag == "dialogue")
         )
-        # total pages
-        _s["total_pages"] = (
-            max(
-                _s.setdefault("total_pages", 0),
-                self.document.page - 1
-            )
-        )
+        # TODO: how to get total pages count?
         pass                                                                # FIXME
     # end def
 

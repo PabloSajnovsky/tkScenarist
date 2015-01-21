@@ -299,7 +299,6 @@ class PDFDocumentBase:
             onFirstPage=self.draw_first_page,
             onLaterPages=self.draw_pages,
         )
-        self.step = 2
     # end def
 
 
@@ -339,20 +338,18 @@ class PDFDocumentBase:
             # incremental step
             self.index = 4700.0 / (1.0 + len(self.elements))
             # launch thread
-            #~ self._thread = threading.Thread(target=self._thread_build)
-            #~ self._thread.start()
-            self.mainwindow.after_idle(self._thread_build)
+            self._thread = threading.Thread(target=self._thread_build)
+            self._thread.start()
         # all steps
         else:
             # simulate progression
             self.progress = min(99.0, self.progress + self.index)
             # thread ended?
-            #~ if not self._thread.is_alive():
-            if self.step > 1:
+            if not self._thread.is_alive():
                 # procedure is complete
                 self.progress = 100
                 # destroy thread
-                #~ del self._thread
+                del self._thread
             # end if
         # end if
     # end def

@@ -473,7 +473,11 @@ class PDFDocumentBase:
             showBoundary=0,
         )
         _frame.addFromList(
-            [Paragraph(_data["project_title"][:80], _styles["header"])],
+            [Paragraph(
+                "{} - {}"
+                .format(_data["project_title"][:80], self.fancy_name),
+                _styles["header"]
+            )],
             canvas
         )
         # set footer

@@ -465,7 +465,7 @@ class PDFDocumentBase:
         _margin_w = _width - doc.leftMargin - doc.rightMargin
         # set header
         _title = _data["project_title"]
-        _title = _title[:70] + len(_title) >= 70 and "..." or ""
+        _title = _title[:60].strip() + (len(_title) >= 70 and "..." or "")
         _frame_h = _styles["header"].fontSize + 4
         _frame = Frame(
             doc.leftMargin, _height - 0.75 * doc.topMargin,

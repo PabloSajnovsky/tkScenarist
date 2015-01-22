@@ -428,7 +428,9 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                 # UNIX-like
                 else:
                     # launch through XDG
-                    os.system('xdg-open "{}"'.format(_filepath))
+                    assert os.system(
+                        'xdg-open "{}"'.format(_filepath)
+                    ) == os.EX_OK
                 # end if
             # failed
             except:

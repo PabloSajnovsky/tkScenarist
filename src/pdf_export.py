@@ -768,7 +768,11 @@ class PDFDocumentScenario (PDFDocumentBase):
         _texts = (
             (_("Statistics"), "h1"),
             (_("Document"), "h2"),
-            (_("Pages: <pageNumber/>"), ""),
+            (
+                '<docPara expr="doc.page" format="{}"/>'
+                .format(_("Pages: %(__expr__)d")),
+                ""
+            ),
             (_("Paragraphs: {paragraph_count}").format(**_s), ""),
             (_("Words: {word_count}").format(**_s), ""),
             (_("Glyphs (letters/signs): {byte_count}").format(**_s), ""),

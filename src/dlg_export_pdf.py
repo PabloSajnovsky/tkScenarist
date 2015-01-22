@@ -418,7 +418,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         # user asked for and no previous failure?
         if kw["options"]["show_in_viewer"] and not self.__viewer_failure:
             # inits
-            _filepath = kw["doc"].filename
+            _filepath = kw["doc"].filepath
             # try out
             try:
                 # MS-Windows?

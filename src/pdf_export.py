@@ -267,6 +267,7 @@ class PDFDocumentBase:
             class constructor;
         """
         # member inits
+        self.filepath = None
         self.doc_name = doc_name
         self.options = kw.get("options")
         self.project_data = kw.get("data")
@@ -519,10 +520,12 @@ class PDFDocumentBase:
             _data = self.project_data
             _fpath, _fext = os.path.splitext(self.pfm.project_path)
             # rebuild filepath
-            _fpath = P.normalize("{}-{}.pdf".format(_fpath, doc_name))
+            self.filepath = P.normalize(
+                "{}-{}.pdf".format(_fpath, doc_name)
+            )
             # PDF document instance
             return SimpleDocTemplate(
-                filename=_fpath,
+                filename=self.filepath,
                 author=_data.get("project_author"),
                 title="{project_title} - "
                 "{project_subtitle} - "

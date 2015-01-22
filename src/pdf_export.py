@@ -464,6 +464,8 @@ class PDFDocumentBase:
         # doc inner margin width
         _margin_w = _width - doc.leftMargin - doc.rightMargin
         # set header
+        _title = _data["project_title"]
+        _title = _title[:70] + len(_title) >= 70 and "..." or ""
         _frame_h = _styles["header"].fontSize + 4
         _frame = Frame(
             doc.leftMargin, _height - 0.75 * doc.topMargin,
@@ -474,8 +476,7 @@ class PDFDocumentBase:
         )
         _frame.addFromList(
             [Paragraph(
-                "{} - {}"
-                .format(_data["project_title"][:80], self.fancy_name),
+                "{} - {}".format(_title, self.fancy_name),
                 _styles["header"]
             )],
             canvas

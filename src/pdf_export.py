@@ -105,8 +105,9 @@ def get_stylesheet ():
         "body": ParagraphStyle(
             "body",
             parent=_root_style,
-            fontName="Times",
+            fontName="Helvetica",
             alignment=TA_JUSTIFY,
+            spaceAfter=0.1*inch,
         ),
         "footer": ParagraphStyle(
             "footer",

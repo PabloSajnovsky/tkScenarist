@@ -764,7 +764,6 @@ class PDFDocumentScenario (PDFDocumentBase):
             adds statistics to document as appendix;
         """
         # inits
-        print(dir(self.document))
         _s = self.stats
         _texts = (
             (_("Statistics"), "h1"),

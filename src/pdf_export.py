@@ -769,8 +769,8 @@ class PDFDocumentScenario (PDFDocumentBase):
             (_("Statistics"), "h1"),
             (_("Document"), "h2"),
             (
-                '<docPara expr="doc.page" format="{}"/>'
-                .format(_("Pages: %(__expr__)d")),
+                '<onDraw name="toto"/>',
+                #~ .format(_("Pages: %(__expr__)d")),
                 ""
             ),
             (_("Paragraphs: {paragraph_count}").format(**_s), ""),

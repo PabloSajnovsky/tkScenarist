@@ -764,15 +764,12 @@ class PDFDocumentScenario (PDFDocumentBase):
             adds statistics to document as appendix;
         """
         # inits
+        print(dir(self.document))
         _s = self.stats
         _texts = (
             (_("Statistics"), "h1"),
             (_("Document"), "h2"),
-            (
-                '<onDraw name="toto"/>',
-                #~ .format(_("Pages: %(__expr__)d")),
-                ""
-            ),
+            (_("Pages: {page_count}"), ""),                                 # FIXME
             (_("Paragraphs: {paragraph_count}").format(**_s), ""),
             (_("Words: {word_count}").format(**_s), ""),
             (_("Glyphs (letters/signs): {byte_count}").format(**_s), ""),
@@ -788,7 +785,7 @@ class PDFDocumentScenario (PDFDocumentBase):
             ),
             (
                 _("Estimated movie duration: {movie_duration}")
-                .format(movie_duration=self.get_duration(95)),              # FIXME
+                .format(movie_duration=self.get_duration(148)),              # FIXME
                 ""
             ),
             #~ (_("").format(), ""),

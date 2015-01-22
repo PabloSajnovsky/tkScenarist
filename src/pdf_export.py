@@ -459,46 +459,29 @@ class PDFDocumentBase:
         canvas.saveState()
         # inits
         _data = self.project_data
-        _styles = self.styles
         _width, _height = doc.pagesize
         # doc inner margin width
         _margin_w = _width - doc.leftMargin - doc.rightMargin
         # set header
-        _title = _data["project_title"]
-        _title = _title[:60].strip() + (len(_title) >= 70 and "..." or "")
-        _frame_h = _styles["header"].fontSize + 4
-        _frame = Frame(
+        _text = _data["project_title"].strip()
+        _text = "{} - {}".format(
+            _text[:60].strip() + (len(_text) >= 60 and "..." or ""),
+            self.fancy_name
+        )
+        _style = self.styles["header"]
+        _frame_h = _style.fontSize + 4
+        Frame(
             doc.leftMargin, _height - 0.75 * doc.topMargin,
             _margin_w, _frame_h,
-            leftPadding=0, rightPadding=0,
-            topPadding=0, bottomPadding=0,
-            showBoundary=0,
-        )
-        _frame.addFromList(
-            [Paragraph(
-                "{} - {}".format(_title, self.fancy_name),
-                _styles["header"]
-            )],
-            canvas
-        )
+        ).addFromList([Paragraph(_text, _style)], canvas)
         # set footer
-        _frame_h = _styles["footer"].fontSize + 4
-        _frame = Frame(
+        _text = _("Page {number}").format(number=doc.page)
+        _style = self.styles["footer"]
+        _frame_h = _style.fontSize + 4
+        Frame(
             doc.leftMargin, 0.5 * doc.bottomMargin,
             _margin_w, _frame_h,
-            leftPadding=0, rightPadding=0,
-            topPadding=0, bottomPadding=0,
-            showBoundary=0,
-        )
-        _frame.addFromList(
-            [
-                Paragraph(
-                    _("Page {number}").format(number=doc.page),
-                    _styles["footer"]
-                )
-            ],
-            canvas
-        )
+        ).addFromList([Paragraph(_text, _style)], canvas)
         # restore settings
         canvas.restoreState()
     # end def

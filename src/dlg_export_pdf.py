@@ -23,6 +23,8 @@
 """
 
 # lib imports
+import os
+import tkinter.messagebox as MB
 import tkinter.constants as TK
 import tkRAD.widgets.rad_dialog as DLG
 import tkRAD.core.async as ASYNC
@@ -147,6 +149,11 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         _doc_index = tools.ensure_int(kw.get("doc_index"))
         # still got to export docs?
         if _doc_index < len(_export_list):
+            # got a previously exported document?
+            if kw.get("doc"):
+                # try to show document in viewer
+                self.show_in_viewer(kw)
+            # end if
             # inits
             _doc_name = _export_list[_doc_index]
             # notify
@@ -170,6 +177,8 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             self.show_status(
                 _("All selected items exported. Done.")
             )
+            # try to show document in viewer
+            self.show_in_viewer(kw)
         # end if
     # end def
 
@@ -337,6 +346,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         self.mainframe = self.tk_owner.mainframe
         self.async = ASYNC.get_async_manager()
         self.__keep_looping = False
+        self.__viewer_failure = False
         # widget inits
         _w = self.container
         self.LBL_STATUS = _w.get_stringvar("lbl_export_status")
@@ -397,6 +407,41 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         self.PROGRESSBAR.stop()
         # set value
         self.PBAR_VALUE.set(str(tools.ensure_int(value)))
+    # end def
+
+
+    def show_in_viewer (self, kw):
+        """
+            tries to show up exported document into a PDF viewer
+            (whenever possible);
+        """
+        # user asked for and no previous failure?
+        if kw["options"]["show_in_viewer"] and not self.__viewer_failure:
+            # inits
+            _filepath = kw["doc"].filename
+            # try out
+            try:
+                # MS-Windows?
+                if hasattr(os, "startfile"):
+                    # launch as service
+                    os.startfile(_filepath)
+                # UNIX-like
+                else:
+                    # launch through XDG
+                    os.system('xdg-open "{}"'.format(_filepath))
+                # end if
+            # failed
+            except:
+                # viewer failure
+                self.__viewer_failure = True
+                # notify user
+                MB.showwarning(
+                    title=_("Attention"),
+                    message=_("Could not launch any PDF viewer."),
+                    parent=self,
+                )
+            # end try
+        # end if
     # end def
 
 

@@ -80,8 +80,8 @@ def get_stylesheet ():
         returns a dict of ParagraphStyle settings;
     """
     # inits
-    _scenario_root = ParagraphStyle(
-        "scenario_root",
+    _root_style = ParagraphStyle(
+        "root_style",
         fontName="Courier",
         fontSize=10,
         leading=12,
@@ -89,48 +89,37 @@ def get_stylesheet ():
         leftIndent=0,
         rightIndent=0,
         spaceBefore=0,
-        spaceAfter=0.1*inch,
+        spaceAfter=0,
     )
     # stylesheet as Python dict()
     return {
         # main styles
         "header": ParagraphStyle(
             "header",
+            parent=_root_style,
             fontName="Times-BoldItalic",
             fontSize=12,
             leading=12,
             alignment=TA_CENTER,
-            leftIndent=0,
-            rightIndent=0,
-            spaceBefore=0,
-            spaceAfter=0,
+        ),
+        "body": ParagraphStyle(
+            "body",
+            parent=_root_style,
+            alignment=TA_JUSTIFY,
         ),
         "footer": ParagraphStyle(
             "footer",
+            parent=_root_style,
             fontName="Times-Italic",
-            fontSize=10,
-            leading=12,
             alignment=TA_CENTER,
-            leftIndent=0,
-            rightIndent=0,
-            spaceBefore=0,
-            spaceAfter=0,
         ),
         "footer_tiny": ParagraphStyle(
             "footer_tiny",
+            parent=_root_style,
             fontName="Helvetica-Oblique",
             fontSize=6,
             leading=6,
             alignment=TA_CENTER,
-            leftIndent=0,
-            rightIndent=0,
-            spaceBefore=0,
-            spaceAfter=0,
-        ),
-        "body": ParagraphStyle(
-            "body",
-            parent=_scenario_root,
-            alignment=TA_JUSTIFY,
         ),
 
         # project data styles
@@ -195,62 +184,66 @@ def get_stylesheet ():
 
         "action": ParagraphStyle(
             "action",
-            parent=_scenario_root,
+            parent=_root_style,
             alignment=TA_JUSTIFY,
+            spaceAfter=0.1*inch,
         ),
         "character": ParagraphStyle(
             "character",
-            parent=_scenario_root,
+            parent=_root_style,
             fontName="Courier-Bold",
             alignment=TA_CENTER,
             leftIndent=2*inch,
             rightIndent=2*inch,
-            spaceAfter=0,
             keepWithNext=True,
         ),
         "dialogue": ParagraphStyle(
             "dialogue",
-            parent=_scenario_root,
+            parent=_root_style,
             alignment=TA_JUSTIFY,
             leftIndent=1*inch,
             rightIndent=1*inch,
+            spaceAfter=0.1*inch,
         ),
         "parenthetical": ParagraphStyle(
             "parenthetical",
-            parent=_scenario_root,
+            parent=_root_style,
             fontName="Courier-Oblique",
             alignment=TA_CENTER,
             leftIndent=1.5*inch,
             rightIndent=1.5*inch,
-            spaceAfter=0,
             keepWithNext=True,
         ),
         "scene": ParagraphStyle(
             "scene",
-            parent=_scenario_root,
+            parent=_root_style,
             fontName="Courier-Bold",
             backColor="#f0f0f0",
+            spaceAfter=0.1*inch,
         ),
         "transition": ParagraphStyle(
             "transition",
-            parent=_scenario_root,
+            parent=_root_style,
             alignment=TA_RIGHT,
+            spaceAfter=0.1*inch,
         ),
 
         # storyboard tab styles
 
         "shot_title": ParagraphStyle(
             "shot_title",
-            parent=_scenario_root,
+            parent=_root_style,
             fontName="Courier-Bold",
             backColor="#f0f0f0",
+            spaceAfter=0.1*inch,
         ),
         "shot_body": ParagraphStyle(
             "shot_body",
-            parent=_scenario_root,
+            parent=_root_style,
             alignment=TA_JUSTIFY,
             leftIndent=0.2*inch,
             rightIndent=0.2*inch,
+            spaceAfter=0.1*inch,
         ),
     }
 # end def

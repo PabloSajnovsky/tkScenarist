@@ -732,49 +732,43 @@ class PDFDocumentScenario (PDFDocumentBase):
     # end def
 
 
-    def _update_stats (self, text, tag):
-        """
-            protected method def for internal use only;
-            updates document stats in order to show them off as
-            appendix;
-        """
-        # inits
-        _s = self.stats
-        # nb of paragraphs
-        _s["paragraph_count"] = (
-            _s.setdefault("paragraph_count", 0) + 1
-        )
-        # nb of words
-        _s["word_count"] = (
-            _s.setdefault("word_count", 0)
-            + ((text or 0) and (text.count(" ") + 1))
-        )
-        # nb of characters
-        _s["char_count"] = (
-            _s.setdefault("char_count", 0) + len(text)
-        )
-        # nb of scenes
-        _s["scene_count"] = (
-            _s.setdefault("scene_count", 0) + int(tag == "scene")
-        )
-        # nb of dialogues
-        _s["dialogue_count"] = (
-            _s.setdefault("dialogue_count", 0) + int(tag == "dialogue")
-        )
-        # TODO: how to get total pages count?
-        pass                                                                # FIXME
-    # end def
-
-
     def add_stats_elements (self):
         """
             adds statistics to document as appendix;
         """
+        # inits
+        _s = self.stats
+        _texts = (
+            (_("Statistics"), "h1"),
+            (_("Document"), "h2"),
+            (_("Pages: {page_count}").format(**_s), "body"),
+            (_("Paragraphs: {paragraph_count}").format(**_s), "body"),
+            (_("Words: {word_count}").format(**_s), "body"),
+            (_("Chars: {byte_count}").format(**_s), "body"),
+            (_("Elements"), "h2"),
+            (_("Scenes: {scene_count}").format(**_s), "body"),
+            (_("Dialogues: {dialogue_count}").format(**_s), "body"),
+            (_("Transitions: {transition_count}").format(**_s), "body"),
+            (_("Movie"), "h2"),
+            (
+                _("Movie characters: {char_count}")
+                .format(char_count=len(_s["movie_chars"])),
+                "body"
+            ),
+            (
+                _("Estimated movie duration: {movie_duration}")
+                .format(movie_duration=self.get_duration(95)),              # FIXME
+                "body"
+            ),
+            #~ (_("").format(), "body"),
+        )
         # new page
         self.add_pagebreak()
-        # stats sum-up
-        print("stats:", self.stats)
-        pass                                                                # FIXME
+        # loop on collection
+        for (_text, _stylename) in _texts:
+            # add paragraph
+            self.add_paragraph(_text, self.styles[_stylename])
+        # end for
     # end def
 
 
@@ -853,11 +847,70 @@ class PDFDocumentScenario (PDFDocumentBase):
                         # add new paragraph
                         self.add_paragraph(_line, _style)
                         # update statistics
-                        self._update_stats(_line, _style.name)
+                        self.update_stats(_line, _style.name)
                     # end for
                 # end for
             # end if
         # end if
+    # end def
+
+
+    def get_duration (self, duration):
+        """
+            returns a formatted string for a given movie @duration
+            (input value in minutes);
+        """
+        return _(
+            "{hours:02d} h {minutes:02d} min"
+        ).format(
+            hours=(duration // 60), minutes=(duration % 60)
+        )
+    # end def
+
+
+    def update_stats (self, text, tag):
+        """
+            for internal use only;
+            updates document stats in order to show them off as
+            appendix;
+        """
+        # inits
+        _s = self.stats
+        # nb of paragraphs
+        _s["paragraph_count"] = (
+            _s.setdefault("paragraph_count", 0) + 1
+        )
+        # nb of words
+        _s["word_count"] = (
+            _s.setdefault("word_count", 0)
+            + ((text or 0) and (text.count(" ") + 1))
+        )
+        # nb of bytes
+        _s["byte_count"] = (
+            _s.setdefault("byte_count", 0) + len(text)
+        )
+        # nb of scenes
+        _s["scene_count"] = (
+            _s.setdefault("scene_count", 0) + int(tag == "scene")
+        )
+        # nb of dialogues
+        _s["dialogue_count"] = (
+            _s.setdefault("dialogue_count", 0) + int(tag == "dialogue")
+        )
+        # nb of transitions
+        _s["transition_count"] = (
+            _s.setdefault("transition_count", 0)
+            + int(tag == "transition")
+        )
+        # nb of movie characters
+        if tag == "character":
+            # inits
+            _s["movie_chars"] = _s.setdefault("movie_chars", set())
+            # add character name
+            _s["movie_chars"].add(text)
+        # end if
+        # nb of pages
+        _s["page_count"] = '<seq template="%(Page)s"/>'
     # end def
 
 # end class PDFDocumentScenario

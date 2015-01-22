@@ -464,8 +464,9 @@ class PDFDocumentBase:
         _margin_w = _width - doc.leftMargin - doc.rightMargin
         # set header
         _text = _data["project_title"].strip()
-        _text = "{} - {}".format(
-            _text[:60].strip() + (len(_text) >= 60 and "..." or ""),
+        _text = "{}{} - {}".format(
+            _text[:60].strip(),
+            len(_text) >= 60 and "..." or "",
             self.fancy_name
         )
         _style = self.styles["header"]

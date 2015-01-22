@@ -105,7 +105,7 @@ def get_stylesheet ():
         "h1": ParagraphStyle(
             "h1",
             parent=_root_style,
-            fontName="Times-BoldItalic",
+            fontName="Times-Bold",
             fontSize=24,
             leading=26,
             alignment=TA_CENTER,
@@ -771,7 +771,7 @@ class PDFDocumentScenario (PDFDocumentBase):
             (_("Paragraphs: {paragraph_count}").format(**_s), ""),
             (_("Words: {word_count}").format(**_s), ""),
             (_("Chars: {byte_count}").format(**_s), ""),
-            (_("Elements"), "h2"),
+            (_("Scenario"), "h2"),
             (_("Scenes: {scene_count}").format(**_s), ""),
             (_("Dialogues: {dialogue_count}").format(**_s), ""),
             (_("Transitions: {transition_count}").format(**_s), ""),

@@ -247,6 +247,14 @@ def get_stylesheet ():
             alignment=TA_RIGHT,
             spaceAfter=0.1*inch,
         ),
+        "stats": ParagraphStyle(
+            "stats",
+            parent=_root_style,
+            fontName="Times",
+            alignment=TA_LEFT,
+            leftIndent=0.5*inch,
+            spaceAfter=0.1*inch,
+        ),
 
         # storyboard tab styles
 
@@ -759,33 +767,35 @@ class PDFDocumentScenario (PDFDocumentBase):
         _texts = (
             (_("Statistics"), "h1"),
             (_("Document"), "h2"),
-            (_("Pages: {page_count}").format(**_s), "body"),
-            (_("Paragraphs: {paragraph_count}").format(**_s), "body"),
-            (_("Words: {word_count}").format(**_s), "body"),
-            (_("Chars: {byte_count}").format(**_s), "body"),
+            (_("Pages: {page_count}").format(**_s), ""),
+            (_("Paragraphs: {paragraph_count}").format(**_s), ""),
+            (_("Words: {word_count}").format(**_s), ""),
+            (_("Chars: {byte_count}").format(**_s), ""),
             (_("Elements"), "h2"),
-            (_("Scenes: {scene_count}").format(**_s), "body"),
-            (_("Dialogues: {dialogue_count}").format(**_s), "body"),
-            (_("Transitions: {transition_count}").format(**_s), "body"),
+            (_("Scenes: {scene_count}").format(**_s), ""),
+            (_("Dialogues: {dialogue_count}").format(**_s), ""),
+            (_("Transitions: {transition_count}").format(**_s), ""),
             (_("Movie"), "h2"),
             (
                 _("Movie characters: {char_count}")
                 .format(char_count=len(_s["movie_chars"])),
-                "body"
+                ""
             ),
             (
                 _("Estimated movie duration: {movie_duration}")
                 .format(movie_duration=self.get_duration(95)),              # FIXME
-                "body"
+                ""
             ),
-            #~ (_("").format(), "body"),
+            #~ (_("").format(), ""),
         )
         # new page
         self.add_pagebreak()
         # loop on collection
         for (_text, _stylename) in _texts:
             # add paragraph
-            self.add_paragraph(_text, self.styles[_stylename])
+            self.add_paragraph(
+                _text, self.styles[_stylename or "stats"]
+            )
         # end for
     # end def
 

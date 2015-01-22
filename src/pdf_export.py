@@ -262,6 +262,14 @@ class PDFDocumentBase:
         Base class for tkScenarist specific PDF documents to export;
     """
 
+    # class constant defs
+    FRAME_OPTIONS = {
+        "leftPadding": 0, "rightPadding": 0,
+        "topPadding": 0, "bottomPadding": 0,
+        "showBoundary": 0,
+    }
+
+
     def __init__ (self, doc_name, **kw):
         """
             class constructor;
@@ -380,32 +388,24 @@ class PDFDocumentBase:
         canvas.saveState()
         # inits
         _data = self.project_data
-        _styles = self.styles
         _width, _height = doc.pagesize
         # doc inner margin width
         _margin_w = _width - doc.leftMargin - doc.rightMargin
         # set header
-        _frame_h = _styles["header"].fontSize + 4
-        _frame = Frame(
+        _style = self.styles["header"]
+        _frame_h = _style.fontSize + 4
+        Frame(
             doc.leftMargin, _height - 0.75 * doc.topMargin,
-            _margin_w, _frame_h,
-            leftPadding=0, rightPadding=0,
-            topPadding=0, bottomPadding=0,
-            showBoundary=0,
-        )
-        _frame.addFromList(
-            [Paragraph(self.fancy_name, _styles["header"])],
-            canvas
-        )
+            _margin_w, _frame_h, **self.FRAME_OPTIONS
+        ).addFromList([Paragraph(self.fancy_name, _style)], canvas)
         # set contact frame
-        _style = _styles["contact"]
+        _style = self.styles["contact"]
         _frame_h = _style.fontSize + _style.spaceAfter
-        _frame = Frame(
+        Frame(
             doc.leftMargin, doc.bottomMargin,
             _margin_w, _frame_h * 4 - _style.spaceAfter,
             showBoundary=ShowBoundaryValue(),
-        )
-        _frame.addFromList(
+        ).addFromList(
             [
                 Paragraph(_t.format(**_data), _style)
                 for _t in (
@@ -418,17 +418,13 @@ class PDFDocumentBase:
         )
         # set footer + mentions
         _frame_h = (
-            _styles["footer"].fontSize
-            + _styles["footer_tiny"].fontSize + 8
+            self.styles["footer"].fontSize +
+            self.styles["footer_tiny"].fontSize + 8
         )
-        _frame = Frame(
+        Frame(
             doc.leftMargin, 0.5 * doc.bottomMargin,
-            _margin_w, _frame_h,
-            leftPadding=0, rightPadding=0,
-            topPadding=0, bottomPadding=0,
-            showBoundary=0,
-        )
-        _frame.addFromList(
+            _margin_w, _frame_h, **self.FRAME_OPTIONS
+        ).addFromList(
             [
                 Paragraph(
                     _("Printed on {date}")
@@ -473,7 +469,7 @@ class PDFDocumentBase:
         _frame_h = _style.fontSize + 4
         Frame(
             doc.leftMargin, _height - 0.75 * doc.topMargin,
-            _margin_w, _frame_h,
+            _margin_w, _frame_h, **self.FRAME_OPTIONS
         ).addFromList([Paragraph(_text, _style)], canvas)
         # set footer
         _text = _("Page {number}").format(number=doc.page)
@@ -481,7 +477,7 @@ class PDFDocumentBase:
         _frame_h = _style.fontSize + 4
         Frame(
             doc.leftMargin, 0.5 * doc.bottomMargin,
-            _margin_w, _frame_h,
+            _margin_w, _frame_h, **self.FRAME_OPTIONS
         ).addFromList([Paragraph(_text, _style)], canvas)
         # restore settings
         canvas.restoreState()

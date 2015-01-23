@@ -1016,3 +1016,81 @@ class PageNumber (Paragraph):
     # end def
 
 # end class PageNumber
+
+
+
+class SeqNumberParagraph (Paragraph):
+    """
+        Special flowable paragraph with sequential number feature while
+        drawing;
+    """
+
+    # class constant defs
+    COUNTER = 1
+
+    def __init__(
+        self, text, style,
+        bulletText=None, frags=None,
+        caseSensitive=1, encoding='utf8',
+        print_left=True, print_right=True
+    ):
+        """
+            class constructor;
+        """
+        # member inits
+        self.options = {
+            "print_left": bool(print_left),
+            "print_right": bool(print_right),
+        }
+        # super class inits
+        super().__init__(
+            text, style, bulletText, frags, caseSensitive, encoding
+        )
+    # end def
+
+
+    def draw (self):
+        """
+            subclass override;
+            refer to reportlab/platypus/paragraph.py
+            for more detail;
+        """
+        # draw option marks
+        self.draw_options()
+        # delegate to super class
+        super().draw()
+    # end def
+
+
+    def draw_options (self):
+        """
+            draws sequential number marks on margin left/right side of
+            current paragraph along with self.options settings;
+        """
+        # inits
+        _canvas = self.canv
+        _doc = self.canv._doctemplate
+        _text = "#{}".format(self.COUNTER)
+        # update counter between instances
+        __class__.COUNTER += 1
+        # keep settings
+        _canvas.saveState()
+        # fixed style for marks
+        _canvas.setFont("Courier-Bold", 12)
+        # print mark on left side?
+        if self.options["print_left"]:
+            # print mark
+            _canvas.drawStringRight(_text, -2, 0)
+        # end if
+        # print mark on right side?
+        if self.options["print_right"]:
+            # print mark
+            _canvas.drawString(
+                _text, _doc.pagesize[0] - _doc.rightMargin + 2, 0
+            )
+        # end if
+        # restore settings
+        _canvas.restoreState()
+    # end def
+
+# end class PageNumber

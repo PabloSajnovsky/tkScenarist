@@ -106,6 +106,10 @@ reminder;
 hardware main sections, plus several subsections, data form for
 resource items and a visual planning widget;
 
+* PDF export feature is now a multiple document user dialog with
+options (some documents are still work in progress, but you already can
+export at least your scenario script + draft and pitch notes);
+
 
 ## Screenshots
 
@@ -121,6 +125,8 @@ resource items and a visual planning widget;
 ![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-010.png)
 ![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-011.png)
 ![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-012.png)
+![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-013.png)
+![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-014.png)
 
 
 ## Development status

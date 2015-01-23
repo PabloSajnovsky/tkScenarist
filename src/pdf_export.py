@@ -747,6 +747,27 @@ class PDFDocumentScenario (PDFDocumentBase):
         specific PDF document class for Scenario application tab;
     """
 
+    # subclass def
+    class PageCount (Paragraph):
+        """
+            Special flowable paragraph with PageCount feature while
+            drawing;
+        """
+
+        def draw (self):
+            """
+                subclass override;
+                refer to reportlab/platypus/paragraph.py
+                for more detail;
+            """
+            print("PageCount dir:", dir(self))
+            # delegate to super class
+            super().draw()
+        # end def
+
+    # end class PageCount
+
+
     def __init__ (self, doc_name, **kw):
         """
             class constructor;
@@ -768,7 +789,12 @@ class PDFDocumentScenario (PDFDocumentBase):
         _texts = (
             (_("Statistics"), "h1"),
             (_("Document"), "h2"),
-            (_("Pages: {page_count}"), ""),                                 # FIXME
+            (
+                PageCount(
+                    _("Pages: {page_count}"), self.styles["stats"]
+                ),
+                "*"
+            ),
             (_("Paragraphs: {paragraph_count}").format(**_s), ""),
             (_("Words: {word_count}").format(**_s), ""),
             (_("Glyphs (letters/signs): {byte_count}").format(**_s), ""),
@@ -793,10 +819,17 @@ class PDFDocumentScenario (PDFDocumentBase):
         self.add_pagebreak()
         # loop on collection
         for (_text, _stylename) in _texts:
-            # add paragraph
-            self.add_paragraph(
-                _text, self.styles[_stylename or "stats"]
-            )
+            # special flowable?
+            if _stylename == "*":
+                # add flowable
+                self.elements.append(_text)
+            # default paragraph
+            else:
+                # add paragraph
+                self.add_paragraph(
+                    _text, self.styles[_stylename or "stats"]
+                )
+            # end if
         # end for
     # end def
 

@@ -747,7 +747,7 @@ class PDFDocumentScenario (PDFDocumentBase):
         specific PDF document class for Scenario application tab;
     """
 
-    # subclass def
+    # inner class def
     class PageCount (Paragraph):
         """
             Special flowable paragraph with PageCount feature while

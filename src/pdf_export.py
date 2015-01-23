@@ -1087,24 +1087,22 @@ class SeqNumberParagraph (Paragraph):
         _canvas = self.canv
         _doc = self.canv._doctemplate
         _text = "#{}".format(self.COUNTER)
+        _padding = 10
         # update counter between instances
         __class__.COUNTER += 1
         # keep settings
         _canvas.saveState()
         # fixed style for marks
-        _canvas.setFont("Courier-Bold", 12)
+        _canvas.setFont("Courier-Bold", 10)
         # print mark on left side?
         if self.options["print_left"]:
             # print mark
-            _canvas.drawRightString(-2, 0, _text)
+            _canvas.drawRightString(-_padding, 0, _text)
         # end if
         # print mark on right side?
         if self.options["print_right"]:
             # print mark
-            _canvas.drawString(
-                _doc.pagesize[0] - _doc.rightMargin + 2, 0,
-                _text
-            )
+            _canvas.drawString(self.width + _padding, 0, _text)
         # end if
         # restore settings
         _canvas.restoreState()

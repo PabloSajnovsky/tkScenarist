@@ -408,6 +408,8 @@ class PDFDocumentBase:
         """
         # save settings
         canvas.saveState()
+        # reset sequence counters
+        SeqNumberParagraph.reset()
         # inits
         _data = self.project_data
         _width, _height = doc.pagesize
@@ -1089,14 +1091,15 @@ class SeqNumberParagraph (Paragraph):
         # inits
         _canvas = self.canv
         _text = self.get_seq_mark()
-        _padding = 10
-        _dy = self.height - self.blPara.fontSize
+        _padding = 0.1*inch
+        _font_size = self.blPara.fontSize
+        _dy = self.height - _font_size
         # update counter(s) between instances
         self.update_seq_count()
         # keep settings
         _canvas.saveState()
         # fixed style for marks
-        _canvas.setFont("Courier-Bold", 16)
+        _canvas.setFont("Courier-Bold", _font_size)
         # print mark on left side?
         if self.options["print_left"]:
             # print mark
@@ -1125,6 +1128,17 @@ class SeqNumberParagraph (Paragraph):
             # format string
             return "#{}".format(self.MAIN_COUNTER)
         # end if
+    # end def
+
+
+    @classmethod
+    def reset (cls):
+        """
+            resets counters before building a document;
+        """
+        # reset
+        cls.MAIN_COUNTER = 1
+        cls.SUB_COUNTER = 1
     # end def
 
 

@@ -756,6 +756,9 @@ class PDFDocumentScenario (PDFDocumentBase):
 
         def __init__(self, text, style, bulletText=None, frags=None,
         caseSensitive=1, encoding='utf8', adjust=0, formatter=None):
+            """
+                class constructor;
+            """
             # member inits
             self.field_adjust = adjust
             self.field_formatter = formatter
@@ -785,7 +788,7 @@ class PDFDocumentScenario (PDFDocumentBase):
                     _frags[_frags.index(_field)] = _formatter(
                         self.canv._doctemplate.page + self.field_adjust
                     )
-                    # trap out
+                    # trap out - do it once
                     break
                 # end if
             # end for

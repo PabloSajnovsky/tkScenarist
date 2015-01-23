@@ -774,7 +774,7 @@ class PDFDocumentScenario (PDFDocumentBase):
             """
             # inits
             _field = "{field}"
-            _formatter = self.field_formatter or lambda t:str(t)
+            _formatter = self.field_formatter or (lambda t:str(t))
             # browse collection
             for _i, _line in enumerate(self.blPara.lines):
                 # inits
@@ -840,7 +840,7 @@ class PDFDocumentScenario (PDFDocumentBase):
             (_("Transitions: {transition_count}").format(**_s), ""),
             (_("Movie"), "h2"),
             (
-                _("Movie characters: {char_count}")
+                _("Movie protagonists: {char_count}")
                 .format(char_count=len(_s["movie_chars"])),
                 ""
             ),

@@ -872,6 +872,9 @@ class PDFDocumentScenario (PDFDocumentBase):
                 self.progress = 100
             # got text
             else:
+                # inits
+                _print_left = self.options.get("print_scene_left")
+                _print_right = self.options.get("print_scene_right")
                 # browse collection
                 for _index, _text in enumerate(_only_texts):
                     # inits
@@ -887,8 +890,21 @@ class PDFDocumentScenario (PDFDocumentBase):
                     for _line in _text.split("\n"):
                         # do some clean-ups
                         _line = _line.strip()
-                        # add new paragraph
-                        self.add_paragraph(_line, _style)
+                        # specific flowable for scenes
+                        if _style.name == "scene":
+                            # add special paragraph
+                            self.elements.append(
+                                SeqNumberParagraph(
+                                    _line, _style,
+                                    print_left=_print_left,
+                                    print_right=_print_right,
+                                )
+                            )
+                        # default flowable
+                        else:
+                            # add new paragraph
+                            self.add_paragraph(_line, _style)
+                        # end if
                         # update statistics
                         self.update_stats(_line, _style.name)
                     # end for

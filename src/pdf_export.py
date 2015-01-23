@@ -1097,12 +1097,12 @@ class SeqNumberParagraph (Paragraph):
         # print mark on left side?
         if self.options["print_left"]:
             # print mark
-            _canvas.drawRightString(-_padding, 0, _text)
+            _canvas.drawRightString(-_padding, -10, _text)
         # end if
         # print mark on right side?
         if self.options["print_right"]:
             # print mark
-            _canvas.drawString(self.width + _padding, 0, _text)
+            _canvas.drawString(self.width + _padding, -10, _text)
         # end if
         # restore settings
         _canvas.restoreState()

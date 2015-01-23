@@ -760,7 +760,10 @@ class PDFDocumentScenario (PDFDocumentBase):
                 refer to reportlab/platypus/paragraph.py
                 for more detail;
             """
-            print("PageCount dir:", dir(self))
+            # text *MUST* embed {page_count} field name
+            self.text = self.text.format(
+                page_count=(self.canv._doctemplate.page - 2)
+            )
             # delegate to super class
             super().draw()
         # end def
@@ -790,7 +793,7 @@ class PDFDocumentScenario (PDFDocumentBase):
             (_("Statistics"), "h1"),
             (_("Document"), "h2"),
             (
-                PageCount(
+                self.PageCount(
                     _("Pages: {page_count}"), self.styles["stats"]
                 ),
                 "*"

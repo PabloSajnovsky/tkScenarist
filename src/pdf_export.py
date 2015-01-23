@@ -1042,13 +1042,15 @@ class SeqNumberParagraph (Paragraph):
     """
 
     # class constant defs
-    COUNTER = 1
+    MAIN_COUNTER = 1
+    SUB_COUNTER = 1
 
     def __init__(
         self, text, style,
         bulletText=None, frags=None,
         caseSensitive=1, encoding='utf8',
-        print_left=True, print_right=True
+        print_left=True, print_right=True,
+        use_subcounter=False,
     ):
         """
             class constructor;
@@ -1057,6 +1059,7 @@ class SeqNumberParagraph (Paragraph):
         self.options = {
             "print_left": bool(print_left),
             "print_right": bool(print_right),
+            "use_subcounter": bool(use_subcounter),
         }
         # super class inits
         super().__init__(
@@ -1085,27 +1088,61 @@ class SeqNumberParagraph (Paragraph):
         """
         # inits
         _canvas = self.canv
-        _doc = self.canv._doctemplate
-        _text = "#{}".format(self.COUNTER)
+        _text = self.get_seq_mark()
         _padding = 10
-        # update counter between instances
-        __class__.COUNTER += 1
+        _dy = self.height - self.blPara.fontSize
+        # update counter(s) between instances
+        self.update_seq_count()
         # keep settings
         _canvas.saveState()
         # fixed style for marks
-        _canvas.setFont("Courier-Bold", 10)
+        _canvas.setFont("Courier-Bold", 16)
         # print mark on left side?
         if self.options["print_left"]:
             # print mark
-            _canvas.drawRightString(-_padding, -10, _text)
+            _canvas.drawRightString(-_padding, _dy, _text)
         # end if
         # print mark on right side?
         if self.options["print_right"]:
             # print mark
-            _canvas.drawString(self.width + _padding, -10, _text)
+            _canvas.drawString(self.width + _padding, _dy, _text)
         # end if
         # restore settings
         _canvas.restoreState()
+    # end def
+
+
+    def get_seq_mark (self):
+        """
+            returns formatted string for sequence mark;
+        """
+        # need subcounter?
+        if self.options["use_subcounter"]:
+            # format string
+            return "#{}.{}".format(self.MAIN_COUNTER, self.SUB_COUNTER)
+        # simple sequence
+        else:
+            # format string
+            return "#{}".format(self.MAIN_COUNTER)
+        # end if
+    # end def
+
+
+    def update_seq_count (self):
+        """
+            updates sequence counter(s) between instances;
+        """
+        # need subcounter?
+        if self.options["use_subcounter"]:
+            # update subcounter only
+            __class__.SUB_COUNTER += 1
+        # simple sequence
+        else:
+            # update main counter
+            __class__.MAIN_COUNTER += 1
+            # reset subcounter
+            __class__.SUB_COUNTER = 1
+        # end if
     # end def
 
 # end class PageNumber

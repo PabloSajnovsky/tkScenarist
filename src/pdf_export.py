@@ -279,58 +279,6 @@ def get_stylesheet ():
 
 
 
-class PageNumber (Paragraph):
-    """
-        Special flowable paragraph with PageNumber feature while
-        drawing;
-    """
-
-    def __init__(self, text, style, bulletText=None, frags=None,
-    caseSensitive=1, encoding='utf8', adjust=0, formatter=None):
-        """
-            class constructor;
-        """
-        # member inits
-        self.field_adjust = adjust
-        self.field_formatter = formatter
-        # super class inits
-        super().__init__(
-            text, style, bulletText, frags, caseSensitive, encoding
-        )
-    # end def
-
-
-    def draw (self):
-        """
-            subclass override;
-            refer to reportlab/platypus/paragraph.py
-            for more detail;
-        """
-        # inits
-        _field = "{field}"
-        _formatter = self.field_formatter or (lambda t:str(t))
-        # browse collection
-        for _i, _line in enumerate(self.blPara.lines):
-            # inits
-            _frags = _line[1]
-            # text *MUST* embed {field} tag
-            if _field in _frags:
-                # replace tag by field value
-                _frags[_frags.index(_field)] = _formatter(
-                    self.canv._doctemplate.page + self.field_adjust
-                )
-                # trap out - do it once
-                break
-            # end if
-        # end for
-        # delegate to super class
-        super().draw()
-    # end def
-
-# end class PageNumber
-
-
-
 class PDFDocumentBase:
     """
         Base class for tkScenarist specific PDF documents to export;
@@ -1004,8 +952,6 @@ class PDFDocumentScenario (PDFDocumentBase):
             # add character name
             _s["movie_chars"].add(text)
         # end if
-        # nb of pages
-        _s["page_count"] = '<seq template="%(Page)s"/>'
     # end def
 
 # end class PDFDocumentScenario
@@ -1018,3 +964,55 @@ class PDFDocumentStoryboard (PDFDocumentBase):
     """
     pass
 # end class PDFDocumentStoryboard
+
+
+
+class PageNumber (Paragraph):
+    """
+        Special flowable paragraph with PageNumber feature while
+        drawing;
+    """
+
+    def __init__(self, text, style, bulletText=None, frags=None,
+    caseSensitive=1, encoding='utf8', adjust=0, formatter=None):
+        """
+            class constructor;
+        """
+        # member inits
+        self.field_adjust = adjust
+        self.field_formatter = formatter
+        # super class inits
+        super().__init__(
+            text, style, bulletText, frags, caseSensitive, encoding
+        )
+    # end def
+
+
+    def draw (self):
+        """
+            subclass override;
+            refer to reportlab/platypus/paragraph.py
+            for more detail;
+        """
+        # inits
+        _field = "{field}"
+        _formatter = self.field_formatter or (lambda t:str(t))
+        # browse collection
+        for _i, _line in enumerate(self.blPara.lines):
+            # inits
+            _frags = _line[1]
+            # text *MUST* embed {field} tag
+            if _field in _frags:
+                # replace tag by field value
+                _frags[_frags.index(_field)] = _formatter(
+                    self.canv._doctemplate.page + self.field_adjust
+                )
+                # trap out - do it once
+                break
+            # end if
+        # end for
+        # delegate to super class
+        super().draw()
+    # end def
+
+# end class PageNumber

@@ -754,16 +754,41 @@ class PDFDocumentScenario (PDFDocumentBase):
             drawing;
         """
 
+        def __init__(self, text, style, bulletText=None, frags=None,
+        caseSensitive=1, encoding='utf8', adjust=0, formatter=None):
+            # member inits
+            self.field_adjust = adjust
+            self.field_formatter = formatter
+            # super class inits
+            super().__init__(
+                text, style, bulletText, frags, caseSensitive, encoding
+            )
+        # end def
+
+
         def draw (self):
             """
                 subclass override;
                 refer to reportlab/platypus/paragraph.py
                 for more detail;
             """
-            # text *MUST* embed {page_count} field name
-            self.text = self.text.format(
-                page_count=(self.canv._doctemplate.page - 2)
-            )
+            # inits
+            _field = "{field}"
+            _formatter = self.field_formatter or lambda t:str(t)
+            # browse collection
+            for _i, _line in enumerate(self.blPara.lines):
+                # inits
+                _frags = _line[1]
+                # text *MUST* embed {field} tag
+                if _field in _frags:
+                    # replace tag by field value
+                    _frags[_frags.index(_field)] = _formatter(
+                        self.canv._doctemplate.page + self.field_adjust
+                    )
+                    # trap out
+                    break
+                # end if
+            # end for
             # delegate to super class
             super().draw()
         # end def
@@ -794,7 +819,7 @@ class PDFDocumentScenario (PDFDocumentBase):
             (_("Document"), "h2"),
             (
                 self.PageCount(
-                    _("Pages: {page_count}"), self.styles["stats"]
+                    _("Pages: {field}"), self.styles["stats"]
                 ),
                 "*"
             ),
@@ -802,6 +827,14 @@ class PDFDocumentScenario (PDFDocumentBase):
             (_("Words: {word_count}").format(**_s), ""),
             (_("Glyphs (letters/signs): {byte_count}").format(**_s), ""),
             (_("Scenario"), "h2"),
+            (
+                self.PageCount(
+                    _("Pages: {field}"),
+                    self.styles["stats"],
+                    adjust=-2
+                ),
+                "*"
+            ),
             (_("Scenes: {scene_count}").format(**_s), ""),
             (_("Dialogues: {dialogue_count}").format(**_s), ""),
             (_("Transitions: {transition_count}").format(**_s), ""),
@@ -812,9 +845,13 @@ class PDFDocumentScenario (PDFDocumentBase):
                 ""
             ),
             (
-                _("Estimated movie duration: {movie_duration}")
-                .format(movie_duration=self.get_duration(148)),              # FIXME
-                ""
+                self.PageCount(
+                    _("Estimated movie duration: {field}"),
+                    self.styles["stats"],
+                    adjust=-2,
+                    formatter=self.get_duration,
+                ),
+                "*"
             ),
             #~ (_("").format(), ""),
         )

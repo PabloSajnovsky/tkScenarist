@@ -539,10 +539,10 @@ class CharactersCanvas (RC.RADCanvas):
                     # relations group as dict
                     dict(
                         # replace tags by names
-                        name0=_names[_group["tag0"]]
-                        name1=_names[_group["tag1"]]
+                        name0=_names[_group["tag0"]],
+                        name1=_names[_group["tag1"]],
                         # replace text IDs by text contents
-                        text=self.itemcget(_group["text"], "text")
+                        text=self.itemcget(_group["text"], "text"),
                     )
                 )
             # end if

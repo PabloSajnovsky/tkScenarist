@@ -788,6 +788,10 @@ class PDFDocumentCharacters (PDFDocumentBase):
             hook method to be reimplemented in subclass;
             builds document internal elements;
         """
+        # paragraph style inits
+        _h1 = self.styles["h1"]
+        _h2 = self.styles["h2"]
+        _body = self.styles["body"]
         # reset progress
         self.reset_progress()
         # very first step (inits)
@@ -800,9 +804,6 @@ class PDFDocumentCharacters (PDFDocumentBase):
             self.set_first_page_elements()
         # step 1: characters history logs
         elif self.step == 1:
-            # inits
-            _h2 = self.styles["h2"]
-            _body = self.styles["body"]
             # add little stats
             self.add_paragraph(_("Statistics"), _h2)
             self.add_paragraph(
@@ -840,7 +841,7 @@ class PDFDocumentCharacters (PDFDocumentBase):
             # new page
             self.add_pagebreak()
             # page title
-            self.add_paragraph(_("Relations"), self.styles["h1"])
+            self.add_paragraph(_("Relations"), _h1)
             # add little stats
             self.add_paragraph(_("Statistics"), _h2)
             self.add_paragraph(

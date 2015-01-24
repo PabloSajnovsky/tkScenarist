@@ -899,6 +899,13 @@ class PDFDocumentCharacters (PDFDocumentBase):
             elements building process step;
             for internal use only;
         """
+        # no relations to dump out?
+        if not self.relations:
+            # procedure is complete
+            self.progress = 100
+            # stop right now
+            return
+        # end if
         # new page
         self.add_pagebreak()
         # page title

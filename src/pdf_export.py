@@ -228,6 +228,7 @@ def get_stylesheet ():
             fontSize=14,
             leading=16,
             alignment=TA_LEFT,
+            spaceBefore=0.1*inch,
             spaceAfter=0.1*inch,
             keepWithNext=True,
         ),

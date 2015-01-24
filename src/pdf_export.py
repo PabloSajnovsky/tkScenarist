@@ -30,6 +30,7 @@ from datetime import datetime
 from reportlab.platypus import SimpleDocTemplate, Frame
 from reportlab.platypus import Paragraph, Spacer, PageBreak, Table
 from reportlab.platypus.frames import ShowBoundaryValue
+from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import inch, cm, mm
 from reportlab.lib.enums import *                      # text alignments
@@ -878,12 +879,12 @@ class PDFDocumentCharacters (PDFDocumentBase):
                     )
                 # end for
             # end for
+            _style = [
+                ("INNERGRID", (0, 0), (-1, -1), 0.1, colors.black),
+            ]
             # add table
             self.elements.append(
-                Table(
-                    _tr, repeatRows=1,
-                    style=[("INNERGRID", (0, 0), (-1, -1), 0.1)]
-                )
+                Table(_tr, repeatRows=1, style=_style)
             )
             # procedure is complete
             self.progress = 100

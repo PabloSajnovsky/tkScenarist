@@ -537,6 +537,39 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
+    def get_named_relations (self):
+        """
+            returns list of relation groups as Python dict objects,
+            such as {'name0':str, 'name1':str, 'text':str};
+        """
+        # inits
+        _groups = list()
+        # swap key <--> value
+        _names = dict(
+            zip(
+                [_g["tag"] for _g in self.character_names.values()],
+                self.character_names.keys()
+            )
+        )
+        # browse groups
+        for _tag, _group in self.canvas_groups.items():
+            # relation link type?
+            if self.TAG_RADIX_LINK in _tag:
+                # inits
+                _rels = dict()
+                # replace tags by names
+                _rels["name0"] = _names[_group["tag0"]]
+                _rels["name1"] = _names[_group["tag1"]]
+                # replace text IDs by text contents
+                _rels["text"] = self.itemcget(_group["text"], "text")
+                # update list
+                _groups.append(_rels)
+            # end if
+        # end for
+        return _groups
+    # end def
+
+
     def get_new_tag (self, tag_radix=None):
         """
             returns a new canvas tag name indexed with

@@ -870,7 +870,7 @@ class PDFDocumentCharacters (PDFDocumentBase):
                 # browse groups
                 for _group in _groups.values():
                     # add relation
-                    _relations[_names[_group["tag"]]] = _group["text"]
+                    _relations[_names[_group["tag1"]]] = _group["text"]
                 # end for
                 # browse relations
                 for _name2 in sorted(_relations):

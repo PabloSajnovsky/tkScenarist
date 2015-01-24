@@ -121,6 +121,7 @@ def get_stylesheet ():
             leading=16,
             alignment=TA_LEFT,
             spaceAfter=0.1*inch,
+            keepWithNext=True,
         ),
         "body": ParagraphStyle(
             "body",

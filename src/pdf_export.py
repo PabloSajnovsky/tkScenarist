@@ -749,9 +749,6 @@ class PDFDocumentScenario (PDFDocumentBase):
         specific PDF document class for Scenario application tab;
     """
 
-    # inner class def
-
-
     def __init__ (self, doc_name, **kw):
         """
             class constructor;

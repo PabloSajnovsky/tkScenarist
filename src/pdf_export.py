@@ -742,7 +742,7 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
                 self.total_bytes = len(self.wtext.get("1.0", TK.END))
             # spare time
             else:
-                # estimate 1 line of text is about 360 chars
+                # estimate 1 paragraph is about 360 chars
                 self.total_bytes = _paragraphs * 360
             # end if
             # ensure it is > 0
@@ -767,10 +767,10 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
                 self.progress = 100
             # got text
             else:
-                # browse lines of text
-                for _line in _text.split("\n"):
+                # browse collection
+                for _p in _text.split("\n"):
                     # add new paragraph
-                    self.add_paragraph(_line, self.styles["body"])
+                    self.add_paragraph(_p, self.styles["body"])
                 # end for
             # end if
         # end if

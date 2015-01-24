@@ -880,6 +880,7 @@ class PDFDocumentCharacters (PDFDocumentBase):
                 # end for
             # end for
             _style = [
+                ("BOX", (0, 0), (-1, -1), 0.2, colors.black),
                 ("INNERGRID", (0, 0), (-1, -1), 0.1, colors.black),
             ]
             # add table

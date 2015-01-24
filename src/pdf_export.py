@@ -121,7 +121,6 @@ def get_stylesheet ():
             leading=16,
             alignment=TA_LEFT,
             spaceAfter=0.1*inch,
-            keepWithNext=True,
         ),
         "body": ParagraphStyle(
             "body",
@@ -218,6 +217,28 @@ def get_stylesheet ():
             rightIndent=0,
             spaceBefore=0,
             spaceAfter=6,
+        ),
+
+        # characters tab styles
+
+        "charname": ParagraphStyle(
+            "charname",
+            parent=_root_style,
+            fontName="Times-Bold",
+            fontSize=14,
+            leading=16,
+            alignment=TA_LEFT,
+            spaceAfter=0.1*inch,
+            keepWithNext=True,
+        ),
+        "charlog": ParagraphStyle(
+            "charlog",
+            parent=_root_style,
+            fontName="Helvetica",
+            alignment=TA_JUSTIFY,
+            leftIndent=0.1*inch,
+            rightIndent=0.1*inch,
+            spaceAfter=0.1*inch,
         ),
 
         # scenario tab styles
@@ -841,21 +862,21 @@ class PDFDocumentCharacters (PDFDocumentBase):
             # get character name
             _name = self.sorted_names[self.index]
             # character name as paragraph heading
-            self.add_paragraph(_name, self.styles["h2"])
+            self.add_paragraph(_name, self.styles["charname"])
             # inits
             _log = self.character_logs[_name].strip()
             # got history log?
             if _log:
                 # character history log as body text
                 for _p in _log.split("\n"):
-                    self.add_paragraph(_p, self.styles["body"])
+                    self.add_paragraph(_p, self.styles["charlog"])
                 # end for
             # no history log
             else:
                 # notify
                 self.add_paragraph(
                     "<i>{}</i>".format(_("(no history log)")),
-                    self.styles["body"]
+                    self.styles["charlog"]
                 )
             # end if
             # update progression

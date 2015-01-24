@@ -778,7 +778,7 @@ class PDFDocumentCharacters (PDFDocumentBase):
         _canvas = _tab.CANVAS
         self.character_logs = _tab.character_logs
         self.character_names = _canvas.character_names
-        self.relation_links = _canvas.relation_links
+        self.relations = _canvas.get_named_relations()
     # end def
 
 
@@ -852,26 +852,10 @@ class PDFDocumentCharacters (PDFDocumentBase):
                     Paragraph(_("Relation"), _th),
                 )
             )
-            # get character's name by group tag
-            # swap key <--> value
-            _names = dict(
-                zip(
-                    [_g["tag"] for _g in self.character_names.values()],
-                    self.character_names.keys()
-                )
-            )
             # browse sorted list of character names
             for _name in sorted(self.character_names):
-                # related groups
-                _groups = self.relation_links.get(
-                    self.character_names[_name]["tag"]
-                ) or dict()
-                _relations = dict()
-                # browse groups
-                for _group in _groups.values():
-                    # add relation
-                    _relations[_names[_group["tag1"]]] = _group["text"]
-                # end for
+                # related dict
+                _relations = self.get_relations_for(_name)
                 # browse relations
                 for _name2 in sorted(_relations):
                     # add table row
@@ -889,6 +873,29 @@ class PDFDocumentCharacters (PDFDocumentBase):
             # procedure is complete
             self.progress = 100
         # end if
+    # end def
+
+
+    def get_relations_for (self, character_name):
+        """
+            returns a Python dict() of {name:relation_text} matching
+            @character_name parameter value;
+        """
+        # inits
+        _dict = dict()
+        # browse relations
+        for _group in self.relations:
+            # group contains searched character name?
+            if _group["name0"] == character_name:
+                # add to dict
+                _dict[_group["name1"]] = _group["text"]
+            elif _group["name1"] == character_name:
+                # add to dict
+                _dict[_group["name0"]] = _group["text"]
+            # end if
+        # end for
+        # return relations dict
+        return _dict
     # end def
 
 # end class PDFDocumentCharacters

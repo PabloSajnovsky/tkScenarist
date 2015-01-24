@@ -841,15 +841,22 @@ class PDFDocumentCharacters (PDFDocumentBase):
             elements building process step;
             for internal use only;
         """
-        # add little stats
-        self.add_paragraph(_("Statistics"), self.styles["h2"])
-        self.add_paragraph(
-            _("Known character names: {name_count}")
-            .format(name_count=len(self.character_logs)),
-            self.styles["body"]
-        )
-        # next step
-        self.step += 1
+        # got character names?
+        if self.character_logs:
+            # add little stats
+            self.add_paragraph(_("Statistics"), self.styles["h2"])
+            self.add_paragraph(
+                _("Known character names: {name_count}")
+                .format(name_count=len(self.character_logs)),
+                self.styles["body"]
+            )
+            # next step
+            self.step += 1
+        # nothing to dump
+        else:
+            # procedure is complete
+            self.progress = 100
+        # end if
     # end def
 
 

@@ -68,17 +68,9 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                 )
             # do ops by steps
             else:
-                # get method to call
-                _method = getattr(
-                    self,
-                    "_step_{}".format(
-                        tools.ensure_int(kw.get("step"))
-                    ),
-                    None
-                )
                 # call step
                 try:
-                    _method(kw)
+                    exec("self._step_{}(kw)".format(kw.get("step", 0)))
                 # something went wrong
                 except Exception as e:
                     # better trap out from here
@@ -94,7 +86,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                     print(
                         "[ERROR] while trying to export: {}.".format(e)
                     )
-                    raise
+                    #~ raise
                 # end try
             # end if
             # loop again
@@ -191,9 +183,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         """
         # generic step structure
         self._generic_step(
-            _("Building elements..."),
-            kw,
-            PDF.build_elements
+            _("Building elements..."), kw, PDF.build_elements
         )
     # end def
 
@@ -205,9 +195,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         """
         # generic step structure
         self._generic_step(
-            _("Exporting to PDF..."),
-            kw,
-            PDF.build_document
+            _("Exporting to PDF..."), kw, PDF.build_document
         )
         # return to step 0 on completion
         kw["step"] %= 3

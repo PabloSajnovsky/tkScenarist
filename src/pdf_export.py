@@ -32,7 +32,7 @@ from reportlab.platypus import Paragraph, Spacer, PageBreak
 from reportlab.platypus.frames import ShowBoundaryValue
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import inch, cm, mm
-from reportlab.lib.enums import *                   # text alignments
+from reportlab.lib.enums import *                      # text alignments
 
 import tkinter.constants as TK
 import tkRAD.core.path as P
@@ -634,7 +634,72 @@ class PDFDocumentCharacters (PDFDocumentBase):
     """
         specific PDF document class for Characters application tab;
     """
-    pass
+
+    def __init__ (self, doc_name, **kw):
+        """
+            class constructor;
+        """
+        # super class inits
+        super().__init__(doc_name, **kw)
+        # additional member inits
+        self.character_logs = (
+            self.mainframe.tab_characters.character_logs
+        )
+    # end def
+
+
+    def build_elements (self):
+        """
+            hook method to be reimplemented in subclass;
+            builds document internal elements;
+        """
+        # reset progress
+        self.reset_progress()
+        # very first step (inits)
+        if not self.step:
+            # force reset all
+            self.reset_progress(force_reset=True)
+            # next step
+            self.step = 1
+            # first page elements
+            self.set_first_page_elements()
+        # next steps
+        else:
+            """
+                CAUTION:
+                it is no use fragmenting the following ops; even if we
+                had > 1000 characters, it wouldn't take so long;
+                regular movie stats show about 30 characters max per
+                movie i.e. primary + secundary roles (except extras);
+            """
+            # inits
+            _h2 = self.styles["h2"]
+            _body = self.styles["body"]
+            for _name in sorted(self.character_logs):
+                # character name as paragraph heading
+                self.add_paragraph(_name, _h2)
+                # inits
+                _log = self.character_logs[_name].strip()
+                # got history log?
+                if _log:
+                    # character history log as body text
+                    for _p in _log.split("\n"):
+                        self.add_paragraph(_p, _body)
+                    # end for
+                # no history log
+                else:
+                    # notify
+                    self.add_paragraph(
+                        "<i>{}</i>".format(_("(no history log)")),
+                        _body
+                    )
+                # end if
+            # end for
+            # procedure is complete
+            self.progress = 100
+        # end if
+    # end def
+
 # end class PDFDocumentCharacters
 
 
@@ -669,17 +734,16 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
             # next step
             self.step = 1
             self.index = 1.0
-            # estimate size of text
-            # without loading text contents
-            _lines = float(self.wtext.index(TK.END))
+            # estimate size of text without loading text contents
+            _paragraphs = float(self.wtext.index(TK.END))
             # not so much?
-            if _lines < 3000:
+            if _paragraphs < 3000:
                 # get real size
                 self.total_bytes = len(self.wtext.get("1.0", TK.END))
             # spare time
             else:
                 # estimate 1 line of text is about 360 chars
-                self.total_bytes = _lines * 360
+                self.total_bytes = _paragraphs * 360
             # end if
             # ensure it is > 0
             self.total_bytes = max(1, self.total_bytes)
@@ -832,15 +896,15 @@ class PDFDocumentScenario (PDFDocumentBase):
             self.index = 1.0
             # estimate size of text
             # without loading text contents
-            _lines = float(self.wtext.index(TK.END))
+            _paragraphs = float(self.wtext.index(TK.END))
             # not so much?
-            if _lines < 3000:
+            if _paragraphs < 3000:
                 # get real size
                 self.total_bytes = len(self.wtext.get("1.0", TK.END))
             # spare time
             else:
-                # estimate 1 line of text is about 360 chars
-                self.total_bytes = _lines * 360
+                # estimate 1 paragraph is about 360 chars
+                self.total_bytes = _paragraphs * 360
             # end if
             # ensure it is > 0
             self.total_bytes = max(1, self.total_bytes)

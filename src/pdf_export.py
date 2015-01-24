@@ -630,6 +630,122 @@ class PDFDocumentBase:
 
 
 
+class PDFDocumentBaseText (PDFDocumentBase):
+    """
+        base PDF document for tkinter.Text widget contents;
+    """
+
+    def __init__ (self, doc_name, **kw):
+        """
+            class constructor;
+        """
+        # super class inits
+        super().__init__(doc_name, **kw)
+        # additional member inits
+        self.init_document(**kw)
+    # end def
+
+
+    def build_elements (self):
+        """
+            hook method to be reimplemented in subclass;
+            builds document internal elements;
+        """
+        # reset progress
+        self.reset_progress()
+        # very first step (inits)
+        if not self.step:
+            # init elements list
+            self.init_elements()
+        # next steps
+        else:
+            # do steps
+            self.do_steps()
+        # end if
+    # end def
+
+
+    def do_steps (self):
+        """
+            executes elements building step by step;
+            this is one step at a time;
+        """
+        # get text block
+        _text = self.wtext.get(self.index, self.index + 100.0)
+        # update index
+        self.index += 100.0
+        # update consumed bytes
+        self.read_bytes += len(_text)
+        # evaluate progress
+        self.progress = min(
+            99.0, 100.0 * self.read_bytes / self.total_bytes
+        )
+        # no more text?
+        if not _text:
+            # procedure is complete
+            self.progress = 100
+        # got text
+        else:
+            # browse collection
+            for _p in _text.split("\n"):
+                # add new paragraph
+                self.add_paragraph(_p, self.styles["body"])
+            # end for
+        # end if
+    # end def
+
+
+    def estimate_text_size (self):
+        """
+            tries to estimate text size without loading text contents;
+        """
+        # estimate size of text without loading text contents
+        _paragraphs = float(self.wtext.index(TK.END))
+        # not so much?
+        if _paragraphs < 3000:
+            # get real size
+            self.total_bytes = len(self.wtext.get("1.0", TK.END))
+        # spare time
+        else:
+            # estimate 1 paragraph is about 360 chars
+            self.total_bytes = _paragraphs * 360
+        # end if
+        # ensure it is > 0
+        self.total_bytes = max(1, self.total_bytes)
+    # end def
+
+
+    def init_document (self, **kw):
+        """
+            hook method to be reimplemented in subclass;
+            additional member and document inits;
+        """
+        # put your own code in subclass
+        pass
+        # member inits
+        self.wtext = None       # tkinter.Text widget to redefine here
+    # end def
+
+
+    def init_elements (self):
+        """
+            inits elements list;
+        """
+        # force reset all
+        self.reset_progress(force_reset=True)
+        # next step
+        self.step = 1
+        self.index = 1.0
+        # estimate text size
+        self.estimate_text_size()
+        # first page elements
+        self.set_first_page_elements()
+    # end def
+
+# end class PDFDocumentBaseText
+
+
+
 class PDFDocumentCharacters (PDFDocumentBase):
     """
         specific PDF document class for Characters application tab;
@@ -704,121 +820,34 @@ class PDFDocumentCharacters (PDFDocumentBase):
 
 
 
-class PDFDocumentDraftNotes (PDFDocumentBase):
+class PDFDocumentDraftNotes (PDFDocumentBaseText):
     """
         specific PDF document class for Draft/Notes application tab;
     """
 
-    def __init__ (self, doc_name, **kw):
-        """
-            class constructor;
-        """
-        # super class inits
-        super().__init__(doc_name, **kw)
-        # additional member inits
-        self.wtext = self.mainframe.tab_draft_notes.text_draft_notes
-    # end def
-
-
-    def build_elements (self):
+    def init_document (self, **kw):
         """
             hook method to be reimplemented in subclass;
-            builds document internal elements;
+            additional member and document inits;
         """
-        # reset progress
-        self.reset_progress()
-        # very first step (inits)
-        if not self.step:
-            # init elements list
-            self.init_elements()
-        # next steps
-        else:
-            # do steps
-            self.do_steps()
-        # end if
-    # end def
-
-
-    def do_steps (self):
-        """
-            executes elements building step by step;
-            this is one step at a time;
-        """
-        # get text block
-        _text = self.wtext.get(self.index, self.index + 100.0)
-        # update index
-        self.index += 100.0
-        # update consumed bytes
-        self.read_bytes += len(_text)
-        # evaluate progress
-        self.progress = min(
-            99.0, 100.0 * self.read_bytes / self.total_bytes
-        )
-        # no more text?
-        if not _text:
-            # procedure is complete
-            self.progress = 100
-        # got text
-        else:
-            # browse collection
-            for _p in _text.split("\n"):
-                # add new paragraph
-                self.add_paragraph(_p, self.styles["body"])
-            # end for
-        # end if
-    # end def
-
-
-    def estimate_text_size (self):
-        """
-            tries to estimate text size without loading text contents;
-        """
-        # estimate size of text without loading text contents
-        _paragraphs = float(self.wtext.index(TK.END))
-        # not so much?
-        if _paragraphs < 3000:
-            # get real size
-            self.total_bytes = len(self.wtext.get("1.0", TK.END))
-        # spare time
-        else:
-            # estimate 1 paragraph is about 360 chars
-            self.total_bytes = _paragraphs * 360
-        # end if
-        # ensure it is > 0
-        self.total_bytes = max(1, self.total_bytes)
-    # end def
-
-
-    def init_elements (self):
-        """
-            inits elements list;
-        """
-        # force reset all
-        self.reset_progress(force_reset=True)
-        # next step
-        self.step = 1
-        self.index = 1.0
-        # estimate text size
-        self.estimate_text_size()
-        # first page elements
-        self.set_first_page_elements()
+        # additional member inits
+        self.wtext = self.mainframe.tab_draft_notes.text_draft_notes
     # end def
 
 # end class PDFDocumentDraftNotes
 
 
 
-class PDFDocumentPitchConcept (PDFDocumentDraftNotes):
+class PDFDocumentPitchConcept (PDFDocumentBaseText):
     """
         specific PDF document class for Pitch/Concept application tab;
     """
 
-    def __init__ (self, doc_name, **kw):
+    def init_document (self, **kw):
         """
-            class constructor;
+            hook method to be reimplemented in subclass;
+            additional member and document inits;
         """
-        # super class inits
-        super().__init__(doc_name, **kw)
         # additional member inits
         self.wtext = self.mainframe.tab_pitch_concept.text_pitch_concept
     # end def
@@ -836,22 +865,10 @@ class PDFDocumentResources (PDFDocumentBase):
 
 
 
-class PDFDocumentScenario (PDFDocumentDraftNotes):
+class PDFDocumentScenario (PDFDocumentBaseText):
     """
         specific PDF document class for Scenario application tab;
     """
-
-    def __init__ (self, doc_name, **kw):
-        """
-            class constructor;
-        """
-        # super class inits
-        super().__init__(doc_name, **kw)
-        # additional member inits
-        self.wtext = self.mainframe.tab_scenario.TEXT
-        self.stats = dict()
-    # end def
-
 
     def add_stats_elements (self):
         """
@@ -908,7 +925,7 @@ class PDFDocumentScenario (PDFDocumentDraftNotes):
         """
             executes elements building step by step;
             this is one step at a time;
-            inherited from PDFDocumentDraftNotes;
+            inherited from PDFDocumentBaseText;
         """
         # get tagged text block
         _tagged_text = self.wtext.get_tagged_text(
@@ -984,6 +1001,17 @@ class PDFDocumentScenario (PDFDocumentDraftNotes):
         ).format(
             hours=(duration // 60), minutes=(duration % 60)
         )
+    # end def
+
+
+    def init_document (self, **kw):
+        """
+            hook method to be reimplemented in subclass;
+            additional member and document inits;
+        """
+        # additional member inits
+        self.wtext = self.mainframe.tab_scenario.TEXT
+        self.stats = dict()
     # end def
 
 

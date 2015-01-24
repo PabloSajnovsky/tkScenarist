@@ -811,6 +811,8 @@ class PDFDocumentCharacters (PDFDocumentBase):
                     )
                 # end if
             # end for
+            # next step
+            self.step += 1
             # procedure is half complete
             self.progress = 50
         # step 2: character relations

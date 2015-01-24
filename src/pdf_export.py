@@ -779,8 +779,8 @@ class PDFDocumentCharacters (PDFDocumentBase):
             self.step = 1
             # first page elements
             self.set_first_page_elements()
-        # next steps
-        else:
+        # step 1: characters history logs
+        elif self.step == 1:
             """
                 CAUTION:
                 it is no use fragmenting the following ops; even if we
@@ -811,6 +811,16 @@ class PDFDocumentCharacters (PDFDocumentBase):
                     )
                 # end if
             # end for
+            # procedure is half complete
+            self.progress = 50
+        # step 2: character relations
+        else:
+            # new page
+            self.add_pagebreak()
+            # page title
+            self.add_paragraph(_("Relations"), self.styles["h1"])
+            # set table: name, relation, name
+            pass                                                            # FIXME
             # procedure is complete
             self.progress = 100
         # end if

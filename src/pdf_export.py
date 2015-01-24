@@ -228,7 +228,7 @@ def get_stylesheet ():
             fontSize=14,
             leading=16,
             alignment=TA_LEFT,
-            spaceBefore=0.1*inch,
+            spaceBefore=0.3*inch,
             spaceAfter=0.1*inch,
             keepWithNext=True,
         ),
@@ -973,6 +973,7 @@ class PDFDocumentCharacters (PDFDocumentBase):
             _style = [
                 ("BOX", (0, 0), (-1, -1), 0.2, colors.black),
                 ("INNERGRID", (0, 0), (-1, -1), 0.1, colors.black),
+                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
             ]
             # add table
             self.elements.append(

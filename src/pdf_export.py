@@ -150,7 +150,7 @@ def get_stylesheet ():
             fontName="Helvetica-Bold",
             fontSize=12,
             leading=14,
-            alignment=TA_LEFT,
+            alignment=TA_CENTER,
         ),
         # table data
         "td": ParagraphStyle(
@@ -789,107 +789,175 @@ class PDFDocumentCharacters (PDFDocumentBase):
             hook method to be reimplemented in subclass;
             builds document internal elements;
         """
-        # paragraph style inits
-        _h1 = self.styles["h1"]
-        _h2 = self.styles["h2"]
-        _body = self.styles["body"]
         # reset progress
         self.reset_progress()
-        # very first step (inits)
-        if not self.step:
-            # force reset all
-            self.reset_progress(force_reset=True)
-            # next step
-            self.step = 1
-            # first page elements
-            self.set_first_page_elements()
-        # step 1: characters history logs
-        elif self.step == 1:
-            # add little stats
-            self.add_paragraph(_("Statistics"), _h2)
-            self.add_paragraph(
-                _("Known character names: {name_count}")
-                .format(name_count=len(self.character_logs)),
-                _body
-            )
-            # browse sorted list of character names
-            for _name in sorted(self.character_logs):
-                # character name as paragraph heading
-                self.add_paragraph(_name, _h2)
-                # inits
-                _log = self.character_logs[_name].strip()
-                # got history log?
-                if _log:
-                    # character history log as body text
-                    for _p in _log.split("\n"):
-                        self.add_paragraph(_p, _body)
-                    # end for
-                # no history log
-                else:
-                    # notify
-                    self.add_paragraph(
-                        "<i>{}</i>".format(_("(no history log)")),
-                        _body
-                    )
-                # end if
-            # end for
-            # next step
-            self.step += 1
+        # switch to step method
+        exec("self.do_step_{}()".format(self.step))
+    # end def
+
+
+    def do_step_0 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        # force reset all
+        self.reset_progress(force_reset=True)
+        # sorted list of character names
+        self.sorted_names = sorted(self.character_logs)
+        self.index = 0
+        # first page elements
+        self.set_first_page_elements()
+        # next step
+        self.step += 1
+    # end def
+
+
+    def do_step_1 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        # add little stats
+        self.add_paragraph(_("Statistics"), self.styles["h2"])
+        self.add_paragraph(
+            _("Known character names: {name_count}")
+            .format(name_count=len(self.character_logs)),
+            self.styles["body"]
+        )
+        # next step
+        self.step += 1
+    # end def
+
+
+    def do_step_2 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        # try out
+        try:
+            # get character name
+            _name = self.sorted_names[self.index]
+            # character name as paragraph heading
+            self.add_paragraph(_name, self.styles["h2"])
+            # inits
+            _log = self.character_logs[_name].strip()
+            # got history log?
+            if _log:
+                # character history log as body text
+                for _p in _log.split("\n"):
+                    self.add_paragraph(_p, self.styles["body"])
+                # end for
+            # no history log
+            else:
+                # notify
+                self.add_paragraph(
+                    "<i>{}</i>".format(_("(no history log)")),
+                    self.styles["body"]
+                )
+            # end if
+            # update progression
+            self.progress = 50.0 * self.index / len(self.sorted_names)
+            # next index
+            self.index += 1
+        # end of list
+        except:
             # procedure is half complete
             self.progress = 50
-        # step 2: character relations
-        else:
-            # new page
-            self.add_pagebreak()
-            # page title
-            self.add_paragraph(_("Relations"), _h1)
-            # add little stats
-            self.add_paragraph(_("Statistics"), _h2)
-            self.add_paragraph(
-                _("Known distinct mutual relations: {relation_count}")
-                .format(relation_count=len(self.relations)),
-                _body
+            # next step
+            self.step += 1
+        # end try
+    # end def
+
+
+    def do_step_3 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        # new page
+        self.add_pagebreak()
+        # page title
+        self.add_paragraph(_("Relations"), self.styles["h1"])
+        # inits
+        _count = len(self.relations)
+        # add little stats
+        self.add_paragraph(_("Statistics"), self.styles["h2"])
+        self.add_paragraph(
+            _("Known distinct mutual relations: {relation_count}")
+            .format(relation_count=_count),
+            self.styles["body"]
+        )
+        self.add_paragraph(
+            _("Listed relations: {list_count}")
+            .format(list_count=_count*2),
+            self.styles["body"]
+        )
+        self.add_paragraph(_("Relations"), self.styles["h2"])
+        # table rows
+        self.table_rows = []
+        # set headers
+        self.table_rows.append(
+            (
+                Paragraph(_("Name"), self.styles["th"]),
+                Paragraph(_("Name"), self.styles["th"]),
+                Paragraph(_("Relation"), self.styles["th"]),
             )
-            self.add_paragraph(_("Relations"), _h2)
+        )
+        # reset list of character names
+        self.sorted_names = sorted(self.character_names)
+        self.index = 0
+        # next step
+        self.step += 1
+    # end def
+
+
+    def do_step_4 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        # try out
+        try:
             # inits
-            _th, _td = self.styles["th"], self.styles["td"]
-            # table rows
-            _tr = []
-            # set headers
-            _tr.append(
-                (
-                    Paragraph(_("Name"), _th),
-                    Paragraph(_("Name"), _th),
-                    Paragraph(_("Relation"), _th),
-                )
-            )
-            # browse sorted list of character names
-            for _name in sorted(self.character_names):
-                # related dict
-                _relations = self.get_relations_for(_name)
-                # browse relations
-                for _name2 in sorted(_relations):
-                    # add table row
-                    _tr.append(
-                        (
-                            Paragraph(_name, _td),
-                            Paragraph(_name2, _td),
-                            Paragraph(_relations[_name2], _td),
-                        )
+            _td = self.styles["td"]
+            # get character name
+            _name = self.sorted_names[self.index]
+            # related dict
+            _relations = self.get_relations_for(_name)
+            # browse relations
+            for _name2 in sorted(_relations):
+                # add table row
+                self.table_rows.append(
+                    (
+                        Paragraph(_name, _td),
+                        Paragraph(_name2, _td),
+                        Paragraph(_relations[_name2], _td),
                     )
-                # end for
+                )
             # end for
+            # update progression
+            self.progress = min(
+                99.0,
+                50.0 * (1.0 + self.index / len(self.sorted_names))
+            )
+            # next index
+            self.index += 1
+        # end of list
+        except:
+            # inits
             _style = [
                 ("BOX", (0, 0), (-1, -1), 0.2, colors.black),
                 ("INNERGRID", (0, 0), (-1, -1), 0.1, colors.black),
             ]
             # add table
             self.elements.append(
-                Table(_tr, repeatRows=1, style=_style)
+                Table(self.table_rows, repeatRows=1, style=_style)
             )
             # procedure is complete
             self.progress = 100
-        # end if
+        # end try
     # end def
 
 

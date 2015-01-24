@@ -149,7 +149,7 @@ def get_stylesheet ():
             fontName="Helvetica-Bold",
             fontSize=12,
             leading=14,
-            alignment=TA_CENTER,
+            alignment=TA_LEFT,
         ),
         # table data
         "td": ParagraphStyle(

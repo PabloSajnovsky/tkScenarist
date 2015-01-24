@@ -729,51 +729,79 @@ class PDFDocumentDraftNotes (PDFDocumentBase):
         self.reset_progress()
         # very first step (inits)
         if not self.step:
-            # force reset all
-            self.reset_progress(force_reset=True)
-            # next step
-            self.step = 1
-            self.index = 1.0
-            # estimate size of text without loading text contents
-            _paragraphs = float(self.wtext.index(TK.END))
-            # not so much?
-            if _paragraphs < 3000:
-                # get real size
-                self.total_bytes = len(self.wtext.get("1.0", TK.END))
-            # spare time
-            else:
-                # estimate 1 paragraph is about 360 chars
-                self.total_bytes = _paragraphs * 360
-            # end if
-            # ensure it is > 0
-            self.total_bytes = max(1, self.total_bytes)
-            # first page elements
-            self.set_first_page_elements()
+            # init elements list
+            self.init_elements()
         # next steps
         else:
-            # get text block
-            _text = self.wtext.get(self.index, self.index + 100.0)
-            # update index
-            self.index += 100.0
-            # update consumed bytes
-            self.read_bytes += len(_text)
-            # evaluate progress
-            self.progress = min(
-                99.0, 100.0 * self.read_bytes / self.total_bytes
-            )
-            # no more text?
-            if not _text:
-                # procedure is complete
-                self.progress = 100
-            # got text
-            else:
-                # browse collection
-                for _p in _text.split("\n"):
-                    # add new paragraph
-                    self.add_paragraph(_p, self.styles["body"])
-                # end for
-            # end if
+            # do steps
+            self.do_steps()
         # end if
+    # end def
+
+
+    def do_steps (self):
+        """
+            executes elements building step by step;
+            this is one step at a time;
+        """
+        # get text block
+        _text = self.wtext.get(self.index, self.index + 100.0)
+        # update index
+        self.index += 100.0
+        # update consumed bytes
+        self.read_bytes += len(_text)
+        # evaluate progress
+        self.progress = min(
+            99.0, 100.0 * self.read_bytes / self.total_bytes
+        )
+        # no more text?
+        if not _text:
+            # procedure is complete
+            self.progress = 100
+        # got text
+        else:
+            # browse collection
+            for _p in _text.split("\n"):
+                # add new paragraph
+                self.add_paragraph(_p, self.styles["body"])
+            # end for
+        # end if
+    # end def
+
+
+    def estimate_text_size (self):
+        """
+            tries to estimate text size without loading text contents;
+        """
+        # estimate size of text without loading text contents
+        _paragraphs = float(self.wtext.index(TK.END))
+        # not so much?
+        if _paragraphs < 3000:
+            # get real size
+            self.total_bytes = len(self.wtext.get("1.0", TK.END))
+        # spare time
+        else:
+            # estimate 1 paragraph is about 360 chars
+            self.total_bytes = _paragraphs * 360
+        # end if
+        # ensure it is > 0
+        self.total_bytes = max(1, self.total_bytes)
+    # end def
+
+
+    def init_elements (self):
+        """
+            inits elements list;
+        """
+        # force reset all
+        self.reset_progress(force_reset=True)
+        # next step
+        self.step = 1
+        self.index = 1.0
+        # estimate text size
+        self.estimate_text_size()
+        # first page elements
+        self.set_first_page_elements()
     # end def
 
 # end class PDFDocumentDraftNotes
@@ -808,7 +836,7 @@ class PDFDocumentResources (PDFDocumentBase):
 
 
 
-class PDFDocumentScenario (PDFDocumentBase):
+class PDFDocumentScenario (PDFDocumentDraftNotes):
     """
         specific PDF document class for Scenario application tab;
     """
@@ -832,7 +860,7 @@ class PDFDocumentScenario (PDFDocumentBase):
         # inits
         _s = self.stats
         _ds = self.styles["stats"]
-        _texts = (
+        _elements = (
             (_("Statistics"), "h1"),
             (_("Document"), "h2"),
             (PageNumber(_("Pages: {field}"), _ds), "*"),
@@ -862,117 +890,86 @@ class PDFDocumentScenario (PDFDocumentBase):
         # new page
         self.add_pagebreak()
         # loop on collection
-        for (_text, _stylename) in _texts:
-            # special flowable?
-            if _stylename == "*":
-                # add flowable
-                self.elements.append(_text)
+        for (_p, _s) in _elements:
+            # special paragraph?
+            if _s == "*":
+                # add special
+                self.elements.append(_p)
             # default paragraph
             else:
                 # add paragraph
-                self.add_paragraph(
-                    _text, self.styles[_stylename or "stats"]
-                )
+                self.add_paragraph(_p, self.styles[_s or "stats"])
             # end if
         # end for
     # end def
 
 
-    def build_elements (self):
+    def do_steps (self):
         """
-            hook method to be reimplemented in subclass;
-            builds document internal elements;
+            executes elements building step by step;
+            this is one step at a time;
+            inherited from PDFDocumentDraftNotes;
         """
-        # reset progress
-        self.reset_progress()
-        # very first step (inits)
-        if not self.step:
-            # force reset all
-            self.reset_progress(force_reset=True)
-            # reset stats
-            self.stats.clear()
-            # next step
-            self.step = 1
-            self.index = 1.0
-            # estimate size of text
-            # without loading text contents
-            _paragraphs = float(self.wtext.index(TK.END))
-            # not so much?
-            if _paragraphs < 3000:
-                # get real size
-                self.total_bytes = len(self.wtext.get("1.0", TK.END))
-            # spare time
-            else:
-                # estimate 1 paragraph is about 360 chars
-                self.total_bytes = _paragraphs * 360
-            # end if
-            # ensure it is > 0
-            self.total_bytes = max(1, self.total_bytes)
-            # first page elements
-            self.set_first_page_elements()
-        # next steps
+        # get tagged text block
+        _tagged_text = self.wtext.get_tagged_text(
+            self.index, self.index + 100.0
+        )
+        _only_texts = _tagged_text[::2]
+        _only_tags = _tagged_text[1::2]
+        # update index
+        self.index += 100.0
+        # update consumed bytes
+        _bytes = sum(map(len, _only_texts))
+        self.read_bytes += _bytes
+        # evaluate progress
+        self.progress = min(
+            99.0, 100.0 * self.read_bytes / self.total_bytes
+        )
+        # no more text?
+        if not _bytes:
+            # add stats as appendix
+            self.add_stats_elements()
+            # procedure is complete
+            self.progress = 100
+        # got text
         else:
-            # get tagged text block
-            _tagged_text = self.wtext.get_tagged_text(
-                self.index, self.index + 100.0
-            )
-            _only_texts = _tagged_text[::2]
-            _only_tags = _tagged_text[1::2]
-            # update index
-            self.index += 100.0
-            # update consumed bytes
-            _bytes = sum(map(len, _only_texts))
-            self.read_bytes += _bytes
-            # evaluate progress
-            self.progress = min(
-                99.0, 100.0 * self.read_bytes / self.total_bytes
-            )
-            # no more text?
-            if not _bytes:
-                # add stats as appendix
-                self.add_stats_elements()
-                # procedure is complete
-                self.progress = 100
-            # got text
-            else:
+            # inits
+            _print_left = self.options.get("print_scene_left")
+            _print_right = self.options.get("print_scene_right")
+            # browse collection
+            for _index, _text in enumerate(_only_texts):
                 # inits
-                _print_left = self.options.get("print_scene_left")
-                _print_right = self.options.get("print_scene_right")
-                # browse collection
-                for _index, _text in enumerate(_only_texts):
-                    # inits
-                    _text = _text.strip()
-                    try:
-                        # get style from tags
-                        _style = self.styles[_only_tags[_index][0]]
-                    except:
-                        # default style
-                        _style = self.styles["body"]
-                    # end try
-                    # browse lines in text
-                    for _line in _text.split("\n"):
-                        # do some clean-ups
-                        _line = _line.strip()
-                        # specific flowable for scenes
-                        if _style.name == "scene":
-                            # add special paragraph
-                            self.elements.append(
-                                SeqNumberParagraph(
-                                    _line, _style,
-                                    print_left=_print_left,
-                                    print_right=_print_right,
-                                )
+                _text = _text.strip()
+                try:
+                    # get style from tags
+                    _style = self.styles[_only_tags[_index][0]]
+                except:
+                    # default style
+                    _style = self.styles["body"]
+                # end try
+                # browse lines in text
+                for _line in _text.split("\n"):
+                    # do some clean-ups
+                    _line = _line.strip()
+                    # specific flowable for scenes
+                    if _style.name == "scene":
+                        # add special paragraph
+                        self.elements.append(
+                            SeqNumberParagraph(
+                                _line, _style,
+                                print_left=_print_left,
+                                print_right=_print_right,
                             )
-                        # default flowable
-                        else:
-                            # add new paragraph
-                            self.add_paragraph(_line, _style)
-                        # end if
-                        # update statistics
-                        self.update_stats(_line, _style.name)
-                    # end for
+                        )
+                    # default flowable
+                    else:
+                        # add new paragraph
+                        self.add_paragraph(_line, _style)
+                    # end if
+                    # update statistics
+                    self.update_stats(_line, _style.name)
                 # end for
-            # end if
+            # end for
         # end if
     # end def
 
@@ -987,6 +984,17 @@ class PDFDocumentScenario (PDFDocumentBase):
         ).format(
             hours=(duration // 60), minutes=(duration % 60)
         )
+    # end def
+
+
+    def init_elements (self):
+        """
+            inits elements list;
+        """
+        # super class inits
+        super().init_elements()
+        # reset stats
+        self.stats.clear()
     # end def
 
 

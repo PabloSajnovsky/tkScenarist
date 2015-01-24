@@ -821,7 +821,7 @@ class PDFDocumentCharacters (PDFDocumentBase):
             self.add_pagebreak()
             # page title
             self.add_paragraph(_("Relations"), self.styles["h1"])
-            # set table: name, relation, name
+            # set table: name, name, relation
             pass                                                            # FIXME
             # procedure is complete
             self.progress = 100

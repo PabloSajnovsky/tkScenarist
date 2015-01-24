@@ -28,7 +28,7 @@ import threading
 from datetime import datetime
 
 from reportlab.platypus import SimpleDocTemplate, Frame
-from reportlab.platypus import Paragraph, Spacer, PageBreak
+from reportlab.platypus import Paragraph, Spacer, PageBreak, Table
 from reportlab.platypus.frames import ShowBoundaryValue
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import inch, cm, mm
@@ -141,6 +141,22 @@ def get_stylesheet ():
             fontSize=6,
             leading=6,
             alignment=TA_CENTER,
+        ),
+        # table header
+        "th": ParagraphStyle(
+            "th",
+            parent=_root_style,
+            fontName="Helvetica-Bold",
+            fontSize=12,
+            leading=14,
+            alignment=TA_CENTER,
+        ),
+        # table data
+        "td": ParagraphStyle(
+            "td",
+            parent=_root_style,
+            alignment=TA_JUSTIFY,
+            spaceAfter=0.1*inch,
         ),
 
         # project data styles
@@ -758,9 +774,11 @@ class PDFDocumentCharacters (PDFDocumentBase):
         # super class inits
         super().__init__(doc_name, **kw)
         # additional member inits
-        self.character_logs = (
-            self.mainframe.tab_characters.character_logs
-        )
+        _tab = self.mainframe.tab_characters
+        _canvas = _tab.CANVAS
+        self.character_logs = _tab.character_logs
+        self.character_names = _canvas.character_names
+        self.relation_links = _canvas.relation_links
     # end def
 
 
@@ -791,6 +809,7 @@ class PDFDocumentCharacters (PDFDocumentBase):
             # inits
             _h2 = self.styles["h2"]
             _body = self.styles["body"]
+            # browse sorted list of character names
             for _name in sorted(self.character_logs):
                 # character name as paragraph heading
                 self.add_paragraph(_name, _h2)
@@ -821,8 +840,52 @@ class PDFDocumentCharacters (PDFDocumentBase):
             self.add_pagebreak()
             # page title
             self.add_paragraph(_("Relations"), self.styles["h1"])
-            # set table: name, name, relation
-            pass                                                            # FIXME
+            # inits
+            _th, _td = self.styles["th"], self.styles["td"]
+            # table rows
+            _tr = []
+            # set headers
+            _tr.append(
+                (
+                    Paragraph(_("Name"), _th),
+                    Paragraph(_("Name"), _th),
+                    Paragraph(_("Relation"), _th),
+                )
+            )
+            # get character's name by group tag
+            # swap key <--> value
+            _names = dict(
+                zip(
+                    [_g["tag"] for _g in self.character_names.values()],
+                    self.character_names.keys()
+                )
+            )
+            # browse sorted list of character names
+            for _name in sorted(self.character_names):
+                # related groups
+                _groups = self.relation_links.get(
+                    self.character_names[_name]["tag"]
+                ) or dict()
+                _relations = dict()
+                # browse groups
+                for _group in _groups.values():
+                    # add relation
+                    _relations[_names[_group["tag"]]] = _group["text"]
+                # end for
+                # browse relations
+                for _name2 in sorted(_relations):
+                    # add table row
+                    _tr.append(
+                        (
+                            Paragraph(_name, _td),
+                            Paragraph(_name2, _td),
+                            Paragraph(_relations[_name2], _td),
+                        )
+                    )
+                # end for
+            # end for
+            # add table
+            self.elements.append(Table(_tr, repeatRows=1))
             # procedure is complete
             self.progress = 100
         # end if

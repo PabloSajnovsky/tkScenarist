@@ -472,35 +472,14 @@ class CharactersCanvas (RC.RADCanvas):
         """
         # inits
         _pos = dict()
-        _groups = list()
-        # swap key <--> value
-        _names = dict(
-            zip(
-                [_g["tag"] for _g in self.character_names.values()],
-                self.character_names.keys()
-            )
-        )
         # browse names
         for _name, _group in self.character_names.items():
             # store label position
             _pos[_name] = self.coords(_group["text"])
         # end for
-        # browse groups
-        for _tag, _group in self.canvas_groups.items():
-            # relation link type?
-            if self.TAG_RADIX_LINK in _tag:
-                # inits
-                _rels = dict()
-                # replace tags by names
-                _rels["name0"] = _names[_group["tag0"]]
-                _rels["name1"] = _names[_group["tag1"]]
-                # replace text IDs by text contents
-                _rels["text"] = self.itemcget(_group["text"], "text")
-                # update list
-                _groups.append(_rels)
-            # end if
-        # end for
-        return json.dumps(dict(label_pos=_pos, links=_groups))
+        return json.dumps(
+            dict(label_pos=_pos, links=self.get_named_relations())
+        )
     # end def
 
 
@@ -539,8 +518,8 @@ class CharactersCanvas (RC.RADCanvas):
 
     def get_named_relations (self):
         """
-            returns list of relation groups as Python dict objects,
-            such as {'name0':str, 'name1':str, 'text':str};
+            returns list of relation groups, as Python dict objects,
+            such as group = {'name0':str, 'name1':str, 'text':str};
         """
         # inits
         _groups = list()
@@ -555,15 +534,17 @@ class CharactersCanvas (RC.RADCanvas):
         for _tag, _group in self.canvas_groups.items():
             # relation link type?
             if self.TAG_RADIX_LINK in _tag:
-                # inits
-                _rels = dict()
-                # replace tags by names
-                _rels["name0"] = _names[_group["tag0"]]
-                _rels["name1"] = _names[_group["tag1"]]
-                # replace text IDs by text contents
-                _rels["text"] = self.itemcget(_group["text"], "text")
-                # update list
-                _groups.append(_rels)
+                # update list of groups
+                _groups.append(
+                    # relations group as dict
+                    dict(
+                        # replace tags by names
+                        name0=_names[_group["tag0"]]
+                        name1=_names[_group["tag1"]]
+                        # replace text IDs by text contents
+                        text=self.itemcget(_group["text"], "text")
+                    )
+                )
             # end if
         # end for
         return _groups

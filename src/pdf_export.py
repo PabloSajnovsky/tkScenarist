@@ -224,7 +224,7 @@ def get_stylesheet ():
         "charname": ParagraphStyle(
             "charname",
             parent=_root_style,
-            fontName="Times-Bold",
+            fontName="Helvetica-Bold",
             fontSize=14,
             leading=16,
             alignment=TA_LEFT,

@@ -155,6 +155,7 @@ def get_stylesheet ():
         "td": ParagraphStyle(
             "td",
             parent=_root_style,
+            fontName="Helvetica",
             alignment=TA_JUSTIFY,
             spaceAfter=0.1*inch,
         ),
@@ -799,16 +800,16 @@ class PDFDocumentCharacters (PDFDocumentBase):
             self.set_first_page_elements()
         # step 1: characters history logs
         elif self.step == 1:
-            """
-                CAUTION:
-                it is no use fragmenting the following ops; even if we
-                had > 1000 characters, it wouldn't take so long;
-                regular movie stats show about 30 characters max per
-                movie i.e. primary + secundary roles (except extras);
-            """
             # inits
             _h2 = self.styles["h2"]
             _body = self.styles["body"]
+            # add little stats
+            self.add_paragraph(_("Statistics"), _h2)
+            self.add_paragraph(
+                _("Known character names: {name_count}")
+                .format(name_count=len(self.character_logs)),
+                _body
+            )
             # browse sorted list of character names
             for _name in sorted(self.character_logs):
                 # character name as paragraph heading
@@ -840,6 +841,14 @@ class PDFDocumentCharacters (PDFDocumentBase):
             self.add_pagebreak()
             # page title
             self.add_paragraph(_("Relations"), self.styles["h1"])
+            # add little stats
+            self.add_paragraph(_("Statistics"), _h2)
+            self.add_paragraph(
+                _("Known distinct mutual relations: {relation_count}")
+                .format(relation_count=len(self.relations)),
+                _body
+            )
+            self.add_paragraph(_("Relations"), _h2)
             # inits
             _th, _td = self.styles["th"], self.styles["td"]
             # table rows
@@ -869,7 +878,12 @@ class PDFDocumentCharacters (PDFDocumentBase):
                 # end for
             # end for
             # add table
-            self.elements.append(Table(_tr, repeatRows=1))
+            self.elements.append(
+                Table(
+                    _tr, repeatRows=1,
+                    style=[("INNERGRID", (0, 0), (-1, -1), 0.1)]
+                )
+            )
             # procedure is complete
             self.progress = 100
         # end if

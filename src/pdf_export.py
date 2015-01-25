@@ -1426,6 +1426,8 @@ class PDFDocumentStoryboard (PDFDocumentBase):
                     # end if
                 # end for
             # end for
+            # add some text
+            self.add_paragraph(_("Scene shots"), self.styles["h2"])
             # go next step: print scene shots
             self.step += 1
         # end try
@@ -1442,11 +1444,29 @@ class PDFDocumentStoryboard (PDFDocumentBase):
         #
         # try out
         try:
-            pass
+            # next shot
+            _row = next(self.scene_shots)
+        # no more shot
+        except:
+            # next scene
+            self.index += 1
             # return to step 1
             self.step = 1
-        except:
-            pass
+        # keep on trying
+        else:
+            # shot title
+            self.elements.append(
+                SeqNumberParagraph(
+                    _row["title"], self.styles["shot_title"],
+                    print_left=self.options.get("print_shot_left"),
+                    print_right=self.options.get("print_shot_right"),
+                    use_subcounter=True,
+                )
+            )
+            # shot text
+            for _line in _row["text"].strip().split("\n"):
+                self.add_paragraph(_line, self.styles["shot_body"])
+            # end for
         # end try
     # end def
 

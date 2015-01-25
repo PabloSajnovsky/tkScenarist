@@ -1554,6 +1554,7 @@ class SeqNumberParagraph (Paragraph):
     def set_main_counter (cls, value):
         """
             forces current main counter to fit @value (integer);
+            resets current sub counter to 1;
         """
         # reset counters
         cls.MAIN_COUNTER = max(1, tools.ensure_int(value))

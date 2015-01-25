@@ -1523,12 +1523,10 @@ class PDFDocumentStoryboard (PDFDocumentBase):
             (_("Storyboard"), "h2"),
             (_("Total shots: {shot_count}").format(**_s), ""),
             (
-                _("Average number of shots per scene: {avg_shot}")
+                _("Average number of shots per scene: {:01.3f}")
                 .format(
-                    avg_shot=(
-                        _s["shot_count"] / _s["scene_count"]
-                        if _s["scene_count"] else 0
-                    )
+                    _s["shot_count"] / _s["scene_count"]
+                    if _s["scene_count"] else 0.0
                 ),
                 ""
             ),

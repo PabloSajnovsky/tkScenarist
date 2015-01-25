@@ -1354,47 +1354,7 @@ class PDFDocumentStoryboard (PDFDocumentBase):
             elements building process step;
             for internal use only;
         """
-        # try out
-        try:
-            # inits
-            _td = self.styles["td"]
-            # get character name
-            _name = self.sorted_names[self.index]
-            # related dict
-            _relations = self.get_relations_for(_name)
-            # browse relations
-            for _name2 in sorted(_relations):
-                # add table row
-                self.table_rows.append(
-                    (
-                        Paragraph(_name, _td),
-                        Paragraph(_name2, _td),
-                        Paragraph(_relations[_name2], _td),
-                    )
-                )
-            # end for
-            # update progression
-            self.progress = min(
-                99.0,
-                50.0 * (1.0 + self.index / len(self.sorted_names))
-            )
-            # next index
-            self.index += 1
-        # end of list
-        except:
-            # inits
-            _style = [
-                ("BOX", (0, 0), (-1, -1), 0.2, colors.black),
-                ("INNERGRID", (0, 0), (-1, -1), 0.1, colors.black),
-                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-            ]
-            # add table
-            self.elements.append(
-                Table(self.table_rows, repeatRows=1, style=_style)
-            )
-            # procedure is complete
-            self.progress = 100
-        # end try
+        pass
     # end def
 
 # end class PDFDocumentStoryboard

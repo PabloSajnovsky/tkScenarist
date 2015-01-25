@@ -1445,7 +1445,7 @@ class PDFDocumentStoryboard (PDFDocumentBase):
         # try out
         try:
             # next shot
-            _row = next(self.scene_shots)
+            _row = self.scene_shots.pop()
         # no more shot
         except:
             # next scene

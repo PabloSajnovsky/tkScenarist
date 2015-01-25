@@ -1474,6 +1474,9 @@ class SeqNumberParagraph (Paragraph):
             "print_right": bool(print_right),
             "use_subcounter": bool(use_subcounter),
         }
+        # save state for later use
+        self._main_counter = self.MAIN_COUNTER
+        self._sub_counter = self.SUB_COUNTER
         # super class inits
         super().__init__(
             text, style, bulletText, frags, caseSensitive, encoding
@@ -1532,15 +1535,15 @@ class SeqNumberParagraph (Paragraph):
         """
         # need subcounter?
         if self.options["use_subcounter"]:
-            # format string
+            # format string - use saved state counters
             return (
                 "#{}.{:02d}"
-                .format(self.MAIN_COUNTER, self.SUB_COUNTER)
+                .format(self._main_counter, self._sub_counter)
             )
         # simple sequence
         else:
-            # format string
-            return "#{}".format(self.MAIN_COUNTER)
+            # format string - use saved state counter
+            return "#{}".format(self._main_counter)
         # end if
     # end def
 

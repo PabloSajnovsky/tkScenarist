@@ -90,7 +90,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                     print(
                         "[ERROR] while trying to export: {}.".format(e)
                     )
-                    raise
+                    #~ raise
                 # end try
             # end if
             # loop again

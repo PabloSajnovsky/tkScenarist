@@ -1354,8 +1354,8 @@ class PDFDocumentStoryboard (PDFDocumentBase):
             # no more scene?
             if self.index >= self.total_scenes:
                 # got stats to print?
-                if _s.get("paragraph_count"):
-                    # go to step 4: stats
+                if self.stats.get("byte_count"):
+                    # go to step 4: print stats
                     self.step = 4
                 # no stats
                 else:

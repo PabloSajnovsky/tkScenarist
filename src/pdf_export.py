@@ -1331,13 +1331,26 @@ class PDFDocumentStoryboard (PDFDocumentBase):
             elements building process step;
             for internal use only;
         """
+        # scene number starts at 1
+        _scene = self.index + 1
         # get shots for current scene number
-        self.scene_shots = self.database.stb_get_scene_shots(
-            self.index + 1
-        )
+        self.scene_shots = self.database.stb_get_scene_shots(_scene)
+        # update progress
+        self.progress = min(99.0, 100.0 * _scene / self.total_scenes)
         # no shots for this scene?
         if not self.scene_shots:
             # go next scene
+            self.index += 1
+            # no more scene?
+            if self.index >= self.total_scenes:
+                # procedure is complete
+                self.progress = 100
+            # end if
+        # got scene shots to show off
+        else:
+            # next step: show scene preview
+            self.step += 1
+        # end if
     # end def
 
 
@@ -1346,7 +1359,12 @@ class PDFDocumentStoryboard (PDFDocumentBase):
             elements building process step;
             for internal use only;
         """
-        pass
+        # scene preview
+        try:
+            pass
+        except:
+            pass
+        # end try
     # end def
 
 
@@ -1355,7 +1373,12 @@ class PDFDocumentStoryboard (PDFDocumentBase):
             elements building process step;
             for internal use only;
         """
-        pass
+        # scene shot step
+        try:
+            pass
+        except:
+            pass
+        # end try
     # end def
 
 
@@ -1364,24 +1387,7 @@ class PDFDocumentStoryboard (PDFDocumentBase):
             elements building process step;
             for internal use only;
         """
-        pass
-    # end def
-
-
-    def do_step_5 (self):
-        """
-            elements building process step;
-            for internal use only;
-        """
-        pass
-    # end def
-
-
-    def do_step_6 (self):
-        """
-            elements building process step;
-            for internal use only;
-        """
+        # stats?
         pass
     # end def
 
@@ -1482,13 +1488,13 @@ class SeqNumberParagraph (Paragraph):
             for more detail;
         """
         # draw option marks
-        self.draw_options()
+        self.draw_option_marks()
         # delegate to super class
         super().draw()
     # end def
 
 
-    def draw_options (self):
+    def draw_option_marks (self):
         """
             draws sequential number marks on margin left/right side of
             current paragraph along with self.options settings;
@@ -1589,4 +1595,4 @@ class SeqNumberParagraph (Paragraph):
         # end if
     # end def
 
-# end class PageNumber
+# end class SeqNumberParagraph

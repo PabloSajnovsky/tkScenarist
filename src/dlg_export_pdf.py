@@ -38,7 +38,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
     """
 
     # class constant defs
-    BUTTONS = ("OK", )
+    BUTTONS = ("Close", )
 
     ITEM_NAMES = (
         "characters", "draft_notes", "pitch_concept", "resources",
@@ -49,6 +49,10 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         "print_scene_left", "print_scene_right", "print_shot_left",
         "print_shot_right", "show_in_viewer",
     )
+
+
+    # alias for 'OK' button, in fact
+    _slot_button_close = DLG.RADButtonsDialog._slot_button_ok
 
 
     def _export_loop (self, kw):
@@ -86,7 +90,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                     print(
                         "[ERROR] while trying to export: {}.".format(e)
                     )
-                    #~ raise
+                    raise
                 # end try
             # end if
             # loop again

@@ -1389,6 +1389,10 @@ class PDFDocumentStoryboard (PDFDocumentBase):
             _tagged_text = self.wtext.get_tagged_text(_start, _end)
             _only_texts = _tagged_text[::2]
             _only_tags = _tagged_text[1::2]
+            # add page break for scene numbers > 1
+            if self.index:
+                self.add_pagebreak()
+            # end if
             # add some text
             self.add_paragraph(_("Scene preview"), self.styles["h2"])
             # printing options

@@ -1292,6 +1292,7 @@ class PDFDocumentStoryboard (PDFDocumentBase):
         # additional member inits
         self.scenario = self.mainframe.tab_scenario
         self.wtext = self.scenario.TEXT
+        self.stats = dict()
     # end def
 
 
@@ -1317,6 +1318,8 @@ class PDFDocumentStoryboard (PDFDocumentBase):
         #
         # force reset all
         self.reset_progress(force_reset=True)
+        # reset stats
+        self.stats.clear()
         # get scene line numbers
         self.scene_lines = self.scenario.LISTBOX.current_lines
         # get nb of scenes
@@ -1350,11 +1353,20 @@ class PDFDocumentStoryboard (PDFDocumentBase):
             self.index += 1
             # no more scene?
             if self.index >= self.total_scenes:
-                # procedure is complete
-                self.progress = 100
+                # go to step 4: stats
+                self.step = 4
             # end if
         # got scene shots to print
         else:
+            # update stats
+            _len_shots = len(self.scene_shots)
+            self.stats["min_shot"] = min(
+                self.stats.setdefault("min_shot", _len_shots),
+                _len_shots
+            )
+            self.stats["max_shot"] = max(
+                self.stats.setdefault("max_shot", 0), _len_shots
+            )
             # next step: print scene preview
             self.step += 1
         # end if
@@ -1428,6 +1440,8 @@ class PDFDocumentStoryboard (PDFDocumentBase):
                         # add new paragraph
                         self.add_paragraph(_line, _style)
                     # end if
+                    # update stats
+                    self.update_stats(_line, _style.name)
                 # end for
             # end for
             # add some text
@@ -1449,7 +1463,7 @@ class PDFDocumentStoryboard (PDFDocumentBase):
         # try out
         try:
             # next shot
-            _row = self.scene_shots.pop()
+            _row = self.scene_shots.pop(0)
         # no more shot
         except:
             # next scene
@@ -1467,11 +1481,118 @@ class PDFDocumentStoryboard (PDFDocumentBase):
                     use_subcounter=True,
                 )
             )
+            # update stats
+            self.update_stats(_row["title"], "shot_title")
             # shot text
             for _line in _row["text"].strip().split("\n"):
                 self.add_paragraph(_line, self.styles["shot_body"])
+                # update stats
+                self.update_stats(_line, "shot_body")
             # end for
         # end try
+    # end def
+
+
+    def do_step_4 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        #
+        # step 4: print document stats
+        #
+        # inits
+        _s = self.stats
+        _elements = (
+            (_("Statistics"), "h1"),
+            (_("Document"), "h2"),
+            (
+                PageNumber(_("Pages: {field}"), self.styles["stats"]),
+                "*"
+            ),
+            (_("Paragraphs: {paragraph_count}").format(**_s), ""),
+            (_("Words: {word_count}").format(**_s), ""),
+            (
+                _("Glyphs (letters/signs): {byte_count}").format(**_s),
+                ""
+            ),
+            (_("Scenario"), "h2"),
+            (_("Scenes with shots: {scene_count}").format(**_s), ""),
+            (_("Dialogues: {dialogue_count}").format(**_s), ""),
+            (_("Transitions: {transition_count}").format(**_s), ""),
+            (_("Storyboard"), "h2"),
+            (_("Total shots: {shot_count}").format(**_s), ""),
+            (
+                _("Average number of shots per scene: {avg_shot}")
+                .format(
+                    avg_shot=(
+                        _s["shot_count"] / _s["scene_count"]
+                        if _s["scene_count"] else 0
+                    )
+                ),
+                ""
+            ),
+            (_("Min. shots per scene: {min_shot}").format(**_s), ""),
+            (_("Max. shots per scene: {max_shot}").format(**_s), ""),
+            #~ (_("").format(), ""),
+        )
+        # new page
+        self.add_pagebreak()
+        # loop on collection
+        for (_p, _s) in _elements:
+            # special paragraph?
+            if _s == "*":
+                # add special
+                self.elements.append(_p)
+            # default paragraph
+            else:
+                # add paragraph
+                self.add_paragraph(_p, self.styles[_s or "stats"])
+            # end if
+        # end for
+        # procedure is complete
+        self.progress = 100
+    # end def
+
+
+    def update_stats (self, text, tag):
+        """
+            for internal use only;
+            updates document stats in order to show them off as
+            appendix;
+        """
+        # inits
+        _s = self.stats
+        # nb of paragraphs
+        _s["paragraph_count"] = (
+            _s.setdefault("paragraph_count", 0) + 1
+        )
+        # nb of words
+        _s["word_count"] = (
+            _s.setdefault("word_count", 0)
+            + ((text or 0) and (text.count(" ") + 1))
+        )
+        # nb of bytes
+        _s["byte_count"] = (
+            _s.setdefault("byte_count", 0) + len(text)
+        )
+        # nb of scenes
+        _s["scene_count"] = (
+            _s.setdefault("scene_count", 0) + int(tag == "scene")
+        )
+        # nb of dialogues
+        _s["dialogue_count"] = (
+            _s.setdefault("dialogue_count", 0) + int(tag == "dialogue")
+        )
+        # nb of transitions
+        _s["transition_count"] = (
+            _s.setdefault("transition_count", 0)
+            + int(tag == "transition")
+        )
+        # nb of scene shots
+        _s["shot_count"] = (
+            _s.setdefault("shot_count", 0) + int(tag == "shot_title")
+        )
     # end def
 
 # end class PDFDocumentStoryboard

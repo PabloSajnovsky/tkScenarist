@@ -1282,7 +1282,121 @@ class PDFDocumentStoryboard (PDFDocumentBase):
     """
         specific PDF document class for Storyboard application tab;
     """
-    pass
+
+    def __init__ (self, doc_name, **kw):
+        """
+            class constructor;
+        """
+        # super class inits
+        super().__init__(doc_name, **kw)
+        # additional member inits
+        self.scenario = self.mainframe.tab_scenario
+        self.storyboard = self.mainframe.tab_storyboard
+    # end def
+
+
+    def build_elements (self):
+        """
+            hook method to be reimplemented in subclass;
+            builds document internal elements;
+        """
+        # reset progress
+        self.reset_progress()
+        # switch to step method
+        exec("self.do_step_{}()".format(self.step))
+    # end def
+
+
+    def do_step_0 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        # force reset all
+        self.reset_progress(force_reset=True)
+        pass
+        # first page elements
+        self.set_first_page_elements()
+        # next step
+        self.step += 1
+    # end def
+
+
+    def do_step_1 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        pass
+    # end def
+
+
+    def do_step_2 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        pass
+    # end def
+
+
+    def do_step_3 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        pass
+    # end def
+
+
+    def do_step_4 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        # try out
+        try:
+            # inits
+            _td = self.styles["td"]
+            # get character name
+            _name = self.sorted_names[self.index]
+            # related dict
+            _relations = self.get_relations_for(_name)
+            # browse relations
+            for _name2 in sorted(_relations):
+                # add table row
+                self.table_rows.append(
+                    (
+                        Paragraph(_name, _td),
+                        Paragraph(_name2, _td),
+                        Paragraph(_relations[_name2], _td),
+                    )
+                )
+            # end for
+            # update progression
+            self.progress = min(
+                99.0,
+                50.0 * (1.0 + self.index / len(self.sorted_names))
+            )
+            # next index
+            self.index += 1
+        # end of list
+        except:
+            # inits
+            _style = [
+                ("BOX", (0, 0), (-1, -1), 0.2, colors.black),
+                ("INNERGRID", (0, 0), (-1, -1), 0.1, colors.black),
+                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ]
+            # add table
+            self.elements.append(
+                Table(self.table_rows, repeatRows=1, style=_style)
+            )
+            # procedure is complete
+            self.progress = 100
+        # end try
+    # end def
+
 # end class PDFDocumentStoryboard
 
 

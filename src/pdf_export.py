@@ -1613,8 +1613,9 @@ class SeqNumberParagraph (Paragraph):
         if self.options["use_subcounter"]:
             # format string
             return (
+                # at this time, main counter is always one step beyond
                 "#{}.{:02d}"
-                .format(self.MAIN_COUNTER, self.SUB_COUNTER)
+                .format(self.MAIN_COUNTER - 1, self.SUB_COUNTER)
             )
         # simple sequence
         else:

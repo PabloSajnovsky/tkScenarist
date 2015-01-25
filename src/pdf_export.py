@@ -1556,28 +1556,6 @@ class SeqNumberParagraph (Paragraph):
     # end def
 
 
-    @classmethod
-    def set_main_counter (cls, value):
-        """
-            forces current main counter to fit @value (integer);
-            resets current sub counter to 1;
-        """
-        # reset counters
-        cls.MAIN_COUNTER = max(1, tools.ensure_int(value))
-        cls.SUB_COUNTER = 1
-    # end def
-
-
-    @classmethod
-    def set_sub_counter (cls, value):
-        """
-            forces current sub counter to fit @value (integer);
-        """
-        # reset counter
-        cls.SUB_COUNTER = max(1, tools.ensure_int(value))
-    # end def
-
-
     def update_seq_count (self):
         """
             updates sequence counter(s) between instances;

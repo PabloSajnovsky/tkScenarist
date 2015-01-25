@@ -1291,6 +1291,7 @@ class PDFDocumentStoryboard (PDFDocumentBase):
         super().__init__(doc_name, **kw)
         # additional member inits
         self.scenario = self.mainframe.tab_scenario
+        self.wtext = self.scenario.TEXT
     # end def
 
 
@@ -1311,6 +1312,9 @@ class PDFDocumentStoryboard (PDFDocumentBase):
             elements building process step;
             for internal use only;
         """
+        #
+        # step 0: document inits
+        #
         # force reset all
         self.reset_progress(force_reset=True)
         # get scene line numbers
@@ -1331,6 +1335,9 @@ class PDFDocumentStoryboard (PDFDocumentBase):
             elements building process step;
             for internal use only;
         """
+        #
+        # step 1: ensure current scene has shots
+        #
         # scene number starts at 1
         _scene = self.index + 1
         # get shots for current scene number
@@ -1346,9 +1353,9 @@ class PDFDocumentStoryboard (PDFDocumentBase):
                 # procedure is complete
                 self.progress = 100
             # end if
-        # got scene shots to show off
+        # got scene shots to print
         else:
-            # next step: show scene preview
+            # next step: print scene preview
             self.step += 1
         # end if
     # end def
@@ -1359,11 +1366,68 @@ class PDFDocumentStoryboard (PDFDocumentBase):
             elements building process step;
             for internal use only;
         """
-        # scene preview
+        #
+        # step 2: print current scene's preview
+        #
+        # try out
         try:
-            pass
+            # get scene line number (tkinter.Text.index)
+            _start = float(self.scene_lines[self.index])
+        # no more scene
         except:
-            pass
+            # procedure is complete
+            self.progress = 100
+        # go on trying
+        else:
+            # get next scene line number (tkinter.Text.index)
+            try:
+                _end = float(self.scene_lines[self.index + 1])
+            except:
+                _end = TK.END
+            # end try
+            # get tagged text block for entire scene
+            _tagged_text = self.wtext.get_tagged_text(_start, _end)
+            _only_texts = _tagged_text[::2]
+            _only_tags = _tagged_text[1::2]
+            # add some text
+            self.add_paragraph(_("Scene preview"), self.styles["h2"])
+            # printing options
+            _print_left = self.options.get("print_shot_left")
+            _print_right = self.options.get("print_shot_right")
+            # browse collection
+            for _index, _text in enumerate(_only_texts):
+                # inits
+                _text = _text.strip()
+                try:
+                    # get style from tags
+                    _style = self.styles[_only_tags[_index][0]]
+                except:
+                    # default style
+                    _style = self.styles["body"]
+                # end try
+                # browse lines in text
+                for _line in _text.split("\n"):
+                    # do some clean-ups
+                    _line = _line.strip()
+                    # specific flowable for scenes
+                    if _style.name == "scene":
+                        # add special paragraph
+                        self.elements.append(
+                            SeqNumberParagraph(
+                                _line, _style,
+                                print_left=_print_left,
+                                print_right=_print_right,
+                            )
+                        )
+                    # default flowable
+                    else:
+                        # add new paragraph
+                        self.add_paragraph(_line, _style)
+                    # end if
+                # end for
+            # end for
+            # go next step: print scene shots
+            self.step += 1
         # end try
     # end def
 
@@ -1373,22 +1437,17 @@ class PDFDocumentStoryboard (PDFDocumentBase):
             elements building process step;
             for internal use only;
         """
-        # scene shot step
+        #
+        # step 3: print all current scene shots
+        #
+        # try out
         try:
             pass
+            # return to step 1
+            self.step = 1
         except:
             pass
         # end try
-    # end def
-
-
-    def do_step_4 (self):
-        """
-            elements building process step;
-            for internal use only;
-        """
-        # stats?
-        pass
     # end def
 
 # end class PDFDocumentStoryboard

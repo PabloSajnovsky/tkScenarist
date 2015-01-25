@@ -1291,7 +1291,6 @@ class PDFDocumentStoryboard (PDFDocumentBase):
         super().__init__(doc_name, **kw)
         # additional member inits
         self.scenario = self.mainframe.tab_scenario
-        self.storyboard = self.mainframe.tab_storyboard
     # end def
 
 
@@ -1314,7 +1313,12 @@ class PDFDocumentStoryboard (PDFDocumentBase):
         """
         # force reset all
         self.reset_progress(force_reset=True)
-        pass
+        # get scene line numbers
+        self.scene_lines = self.scenario.LISTBOX.current_lines
+        # get nb of scenes
+        self.total_scenes = len(self.scene_lines)
+        # reset index
+        self.index = 0
         # first page elements
         self.set_first_page_elements()
         # next step
@@ -1327,7 +1331,13 @@ class PDFDocumentStoryboard (PDFDocumentBase):
             elements building process step;
             for internal use only;
         """
-        pass
+        # get shots for current scene number
+        self.scene_shots = self.database.stb_get_scene_shots(
+            self.index + 1
+        )
+        # no shots for this scene?
+        if not self.scene_shots:
+            # go next scene
     # end def
 
 
@@ -1350,6 +1360,24 @@ class PDFDocumentStoryboard (PDFDocumentBase):
 
 
     def do_step_4 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        pass
+    # end def
+
+
+    def do_step_5 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        pass
+    # end def
+
+
+    def do_step_6 (self):
         """
             elements building process step;
             for internal use only;
@@ -1422,6 +1450,7 @@ class SeqNumberParagraph (Paragraph):
     # class constant defs
     MAIN_COUNTER = 1
     SUB_COUNTER = 1
+
 
     def __init__(
         self, text, style,
@@ -1498,7 +1527,10 @@ class SeqNumberParagraph (Paragraph):
         # need subcounter?
         if self.options["use_subcounter"]:
             # format string
-            return "#{}.{}".format(self.MAIN_COUNTER, self.SUB_COUNTER)
+            return (
+                "#{}.{:02d}"
+                .format(self.MAIN_COUNTER, self.SUB_COUNTER)
+            )
         # simple sequence
         else:
             # format string
@@ -1512,9 +1544,30 @@ class SeqNumberParagraph (Paragraph):
         """
             resets counters before building a document;
         """
-        # reset
+        # reset counters
         cls.MAIN_COUNTER = 1
         cls.SUB_COUNTER = 1
+    # end def
+
+
+    @classmethod
+    def set_main_counter (cls, value):
+        """
+            forces current main counter to fit @value (integer);
+        """
+        # reset counters
+        cls.MAIN_COUNTER = max(1, tools.ensure_int(value))
+        cls.SUB_COUNTER = 1
+    # end def
+
+
+    @classmethod
+    def set_sub_counter (cls, value):
+        """
+            forces current sub counter to fit @value (integer);
+        """
+        # reset counter
+        cls.SUB_COUNTER = max(1, tools.ensure_int(value))
     # end def
 
 

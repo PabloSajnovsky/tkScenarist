@@ -761,6 +761,23 @@ class AppDatabase (DB.Database):
     # end def
 
 
+    def stb_get_scene_shots (self, scene):
+        """
+            retrieves storyboard shots for given @scene;
+        """
+        # SQL query
+        self.sql_query(
+            "SELECT shot_shot AS shot, "
+            "shot_title AS title, shot_text AS text "
+            "FROM 'storyboard_shots' "
+            "WHERE shot_scene = ? ORDER BY shot_shot",
+            int(scene)
+        )
+        # get all rows or default
+        return self.fetch(self.ALL, default=[])
+    # end def
+
+
     def stb_get_shot (self, scene, shot):
         """
             retrieves storyboard shot record;

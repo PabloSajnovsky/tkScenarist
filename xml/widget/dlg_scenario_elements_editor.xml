@@ -201,7 +201,6 @@
                 />
                 <button
                     name="btn_choose_bg"
-                    text="white"
                     command="@Dialog:Color:Choose"
                     background="white"
                     foreground="grey20"
@@ -215,7 +214,6 @@
                 />
                 <button
                     name="btn_choose_fg"
-                    text="black"
                     command="@Dialog:Color:Choose"
                     background="black"
                     foreground="grey80"

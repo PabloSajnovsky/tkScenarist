@@ -27,7 +27,7 @@ import os
 import locale
 import webbrowser
 import tkinter.messagebox as MB
-import tkinter.constants as TK
+import tkinter as TK
 import tkRAD
 import tkRAD.core.async as ASYNC
 import tkRAD.core.path as P
@@ -126,6 +126,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
                 "Text", "<Control-{}>".format(_char.upper())
             )
         # end for
+        # close splash screen
+        #~ self.splash.withdraw()
     # end def
 
 
@@ -170,6 +172,36 @@ class MainWindow (tkRAD.RADXMLMainWindow):
     # end def
 
 
+    def get_splash_screen (self):
+        """
+            returns a tkinter.Toplevel splash screen;
+        """
+        # inits
+        _splash = TK.Toplevel(
+            self, relief=TK.SOLID, bd=1, highlightcolor="grey30"
+        )
+        _splash.transient(self)
+        _splash.overrideredirect(True)
+        _f = TK.ttk.Frame(_splash, padding=5)
+        _f.pack()
+        TK.ttk.Label(
+            _f, text=self.app.APP["name"], foreground="royal blue",
+            font="monospace 36 bold",
+        ).pack()
+        TK.ttk.Label(
+            _f, text=_("Loading application, please wait..."),
+            foreground="grey30", font="sans 8",
+        ).pack()
+        _splash.geometry(
+            "+{x}+{y}".format(
+                x=(self.winfo_screenwidth() - _splash.winfo_reqwidth())//2,
+                y=(self.winfo_screenheight() - _splash.winfo_reqheight())//2,
+            )
+        )
+        return _splash
+    # end def
+
+
     def init_deferred (self):
         """
             deferred widget inits;
@@ -179,9 +211,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         # looks for ^/xml/widget/mainwindow.xml
         self.xml_build()
         # event bindings
-        self.bind_events()
-        # unlock title changes display off
-        self.after_idle(self.project_fm.lock_title, False)
+        self.after_idle(self.bind_events)
     # end def
 
 
@@ -190,6 +220,9 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             hook method to be reimplemented by subclass;
         """
         # member inits
+        self.splash = self.get_splash_screen()
+        self.splash.deiconify()
+        self.update_idletasks()
         self.async = ASYNC.get_async_manager()
         self.project_fm = PFM.ProjectFileManagement(self)
         # register as app-wide service

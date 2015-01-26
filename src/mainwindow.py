@@ -241,6 +241,9 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             self.async.clear_all()
             self.database.close_database()
             self.options.save()
+            # uncomment the following to get easy
+            # i18n translation file template (POT file)
+            # e.g. ^/locale/template.pot
             #~ tkRAD.i18n.dump_pot_file()
         except:
             pass

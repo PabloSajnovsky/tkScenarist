@@ -51,11 +51,13 @@ def _ (text):
         tries to retrieve a locale translation along setup;
         returns translated text on success, original text otherwise;
     """
+    # asked for switching off translations?
     if __switch_off:
         return text
     # end if
     # track requests for POT file
     __pot_msgids.add(text)
+    # try to get translation
     return tools.choose_str(__translations_table.get(text), text)
 # end def
 

@@ -1,415 +1,1643 @@
 ########################################################################
-#
-# File:             fr_FR.po
-#
-# Language:         French (France)
-#
-# Created (by):     2014/11/02 19:09:36 (tarball69)
-#
-# Modified (by):    2014/11/02 19:09:48 (tarball69)
-#
-# Encoding:         UTF-8
-#
+#                                                                      #
+# File:             fr_FR.po                                           #
+#                                                                      #
+# Language:         French (France)                                    #
+#                                                                      #
+# Created (by):     2014/11/02 19:09:36 (tarball69)                    #
+#                                                                      #
+# Modified (by):    2015/01/26 18:15:53 (tarball69)                    #
+#                                                                      #
+# Encoding:         UTF-8                                              #
+#                                                                      #
 ########################################################################
 
 
 msgid ""
-""
+"'CHARACTER' name"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"'TRANSITION' line."
 msgstr ""
 ""
-
 
 msgid ""
-""
+"(c) 2014+ Raphaël SEBAN."
 msgstr ""
 ""
-
 
 msgid ""
-""
+"(c) ReportLab Europe Ltd. 2000-2012"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"(c) YEAR author name."
 msgstr ""
 ""
-
 
 msgid ""
-""
+"(no history log)"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"+"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"-"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"--- not found ---"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"0.1a"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"0.9b"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"01-Audio"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"01-Casting"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"01-Producers"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"02-Directors"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"02-Meeting"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"02-Video"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"03-Actors"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"03-Logistics"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"03-Promotion"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"04-Grip"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"05-Lighting"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"06-Electrical"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"07-Production sound"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"08-Costume dept"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"09-Hair and make-up"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"1-CG supervisor"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"1-Costume designer"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"1-Director"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"1-Gaffer"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"1-Key grip"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"1-Key make-up artist"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"1-Main role (male)"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"1-Production sound mixer"
 msgstr ""
 ""
-
 
 msgid ""
-""
+"1-SFX supervisor"
 msgstr ""
 ""
-
 
 msgid ""
+"1-Staff"
+msgstr ""
 ""
+
+msgid ""
+"1-Stunt coordinator"
 msgstr ""
 ""
 
+msgid ""
+"10-Special effects"
+msgstr ""
+""
 
 msgid ""
+"11-Stunt team"
+msgstr ""
 ""
+
+msgid ""
+"12-CG team"
 msgstr ""
 ""
 
+msgid ""
+"2-Best boy"
+msgstr ""
+""
 
 msgid ""
+"2-Boom operator"
+msgstr ""
 ""
+
+msgid ""
+"2-Costume supervisor"
 msgstr ""
 ""
 
+msgid ""
+"2-Hardware"
+msgstr ""
+""
 
 msgid ""
+"2-Main role (female)"
+msgstr ""
 ""
+
+msgid ""
+"2-Make-up supervisor"
 msgstr ""
 ""
 
+msgid ""
+"2-Male #1"
+msgstr ""
+""
 
 msgid ""
+"2-Male #2"
+msgstr ""
 ""
+
+msgid ""
+"2-Male #3"
 msgstr ""
 ""
 
+msgid ""
+"3-Dolly grip"
+msgstr ""
+""
 
 msgid ""
+"3-Events"
+msgstr ""
 ""
+
+msgid ""
+"3-Female #1"
 msgstr ""
 ""
 
+msgid ""
+"3-Female #2"
+msgstr ""
+""
 
 msgid ""
+"3-Female #3"
+msgstr ""
 ""
+
+msgid ""
+"3-Key costumer"
 msgstr ""
 ""
 
+msgid ""
+"3-Make-up artist"
+msgstr ""
+""
 
 msgid ""
+"3-Secundary #1"
+msgstr ""
 ""
+
+msgid ""
+"3-Utility sound technician"
 msgstr ""
 ""
 
+msgid ""
+"4-Animal #1"
+msgstr ""
+""
 
 msgid ""
+"4-Animal #2"
+msgstr ""
 ""
+
+msgid ""
+"4-Animal #3"
 msgstr ""
 ""
 
+msgid ""
+"4-Costume standby"
+msgstr ""
+""
 
 msgid ""
+"4-Key hair"
+msgstr ""
 ""
+
+msgid ""
+"4-Secundary #2"
 msgstr ""
 ""
 
+msgid ""
+"5-Hair stylist"
+msgstr ""
+""
 
 msgid ""
+"< 1 minute"
+msgstr ""
 ""
+
+msgid ""
+"<Ctrl-Return>"
 msgstr ""
 ""
 
+msgid ""
+"<Ctrl-Return>:"
+msgstr ""
+""
 
 msgid ""
+"<Return>"
+msgstr ""
 ""
+
+msgid ""
+"<Return>:"
 msgstr ""
 ""
 
+msgid ""
+"<Tab>"
+msgstr ""
+""
 
 msgid ""
+"<Tab>:"
+msgstr ""
 ""
+
+msgid ""
+"About..."
 msgstr ""
 ""
 
+msgid ""
+"About:"
+msgstr ""
+""
 
 msgid ""
+"Action"
+msgstr ""
 ""
+
+msgid ""
+"Actions"
 msgstr ""
 ""
 
+msgid ""
+"Add new"
+msgstr ""
+""
 
 msgid ""
+"Align:"
+msgstr ""
 ""
+
+msgid ""
+"All files"
 msgstr ""
 ""
 
+msgid ""
+"All inits done. OK."
+msgstr ""
+""
 
 msgid ""
+"All names"
+msgstr ""
 ""
+
+msgid ""
+"Art director"
 msgstr ""
 ""
 
+msgid ""
+"Attention"
+msgstr ""
+""
 
 msgid ""
+"Author:"
+msgstr ""
 ""
+
+msgid ""
+"Autobus"
 msgstr ""
 ""
 
+msgid ""
+"Background:"
+msgstr ""
+""
 
 msgid ""
+"Boom pole"
+msgstr ""
 ""
+
+msgid ""
+"Browse"
 msgstr ""
 ""
 
+msgid ""
+"CG artist #1"
+msgstr ""
+""
 
 msgid ""
+"CG artist #2"
+msgstr ""
 ""
+
+msgid ""
+"CG artist #3"
 msgstr ""
 ""
 
+msgid ""
+"CSV files"
+msgstr ""
+""
 
 msgid ""
+"Cables"
+msgstr ""
 ""
+
+msgid ""
+"Camera"
 msgstr ""
 ""
 
+msgid ""
+"Cancel"
+msgstr ""
+""
 
 msgid ""
+"Cannot delete name '{name}'.\n"
+"This character name is still mentioned into scenario's text."
+msgstr ""
 ""
+
+msgid ""
+"Cannot export data: need a saved project file path."
 msgstr ""
 ""
 
+msgid ""
+"Cannot rename '{name}'.\n"
+"This character name is still mentioned into scenario's text."
+msgstr ""
+""
 
 msgid ""
+"Character"
+msgstr ""
 ""
+
+msgid ""
+"Character '{name}' has *NOT* been found into scenario's text.\n"
+"Do you really want to delete this character?"
 msgstr ""
 ""
 
+msgid ""
+"Character name"
+msgstr ""
+""
 
 msgid ""
+"Character's log"
+msgstr ""
 ""
+
+msgid ""
+"Characters"
 msgstr ""
 ""
 
+msgid ""
+"Characters:"
+msgstr ""
+""
 
 msgid ""
+"Close"
+msgstr ""
 ""
+
+msgid ""
+"Contact:"
 msgstr ""
 ""
 
+msgid ""
+"Crane"
+msgstr ""
+""
 
 msgid ""
+"Create new line of:"
+msgstr ""
 ""
+
+msgid ""
+"Current element:"
 msgstr ""
 ""
 
+msgid ""
+"Current selected:"
+msgstr ""
+""
 
 msgid ""
+"Cutter #1"
+msgstr ""
 ""
+
+msgid ""
+"Cutter #2"
 msgstr ""
 ""
 
+msgid ""
+"Cutter #3"
+msgstr ""
+""
 
 msgid ""
+"Data"
+msgstr ""
 ""
+
+msgid ""
+"Data to export"
 msgstr ""
 ""
 
+msgid ""
+"Delete"
+msgstr ""
+""
 
 msgid ""
+"Describe here my application"
+msgstr ""
 ""
+
+msgid ""
+"Description"
 msgstr ""
 ""
 
+msgid ""
+"Description:"
+msgstr ""
+""
 
 msgid ""
+"Dialogue"
+msgstr ""
 ""
+
+msgid ""
+"Director of Photography"
 msgstr ""
 ""
 
+msgid ""
+"Directory:"
+msgstr ""
+""
 
 msgid ""
+"Do you really want to delete\n"
+"'{item}'?"
+msgstr ""
 ""
+
+msgid ""
+"Do you really want to delete *ALL* names that are *NOT* "
+"mentioned into scenario's text?"
 msgstr ""
 ""
 
+msgid ""
+"Do you really want to delete selected shot?"
+msgstr ""
+""
 
 msgid ""
+"Do you really want to remove *ALL* empty shots from list?"
+msgstr ""
 ""
+
+msgid ""
+"Dolly"
 msgstr ""
 ""
 
+msgid ""
+"Draft/Notes"
+msgstr ""
+""
 
 msgid ""
+"E-mail:"
+msgstr ""
 ""
+
+msgid ""
+"Edition"
+msgstr ""
+""
+
+msgid ""
+"Electrician #1"
+msgstr ""
+""
+
+msgid ""
+"Electrician #2"
+msgstr ""
+""
+
+msgid ""
+"Electrician #3"
+msgstr ""
+""
+
+msgid ""
+"Element"
+msgstr ""
+""
+
+msgid ""
+"Est. movie duration:"
+msgstr ""
+""
+
+msgid ""
+"Est. nb of pages (scenario):"
+msgstr ""
+""
+
+msgid ""
+"Est. page:"
+msgstr ""
+""
+
+msgid ""
+"Executive producer"
+msgstr ""
+""
+
+msgid ""
+"Export"
+msgstr ""
+""
+
+msgid ""
+"Extra #1"
+msgstr ""
+""
+
+msgid ""
+"Extra #2"
+msgstr ""
+""
+
+msgid ""
+"Extra #3"
+msgstr ""
+""
+
+msgid ""
+"Extra notes"
+msgstr ""
+""
+
+msgid ""
+"Female names"
+msgstr ""
+""
+
+msgid ""
+"Fields"
+msgstr ""
+""
+
+msgid ""
+"File to import"
+msgstr ""
+""
+
+msgid ""
+"Film author"
+msgstr ""
+""
+
+msgid ""
+"Film maker"
+msgstr ""
+""
+
+msgid ""
+"Film producer"
+msgstr ""
+""
+
+msgid ""
+"Gender"
+msgstr ""
+""
+
+msgid ""
+"Gender:"
+msgstr ""
+""
+
+msgid ""
+"Global settings"
+msgstr ""
+""
+
+msgid ""
+"Grip #1"
+msgstr ""
+""
+
+msgid ""
+"Grip #2"
+msgstr ""
+""
+
+msgid ""
+"Grip #3"
+msgstr ""
+""
+
+msgid ""
+"Hint:"
+msgstr ""
+""
+
+msgid ""
+"Hint: <Double-Click>: add new / modify. "
+"<Ctrl-Click>: remove item. <Ctrl-MouseWheel>: date scale."
+msgstr ""
+""
+
+msgid ""
+"Hint: <Double-Click>: add new. <Shift-Click-Drag>: "
+"create relation. <Ctrl-Click>: remove item."
+msgstr ""
+""
+
+msgid ""
+"Identification"
+msgstr ""
+""
+
+msgid ""
+"Import"
+msgstr ""
+""
+
+msgid ""
+"Import file (CSV)"
+msgstr ""
+""
+
+msgid ""
+"Information"
+msgstr ""
+""
+
+msgid ""
+"Insert a copy into Draft/Notes"
+msgstr ""
+""
+
+msgid ""
+"Insert a copy into Pitch/Concept"
+msgstr ""
+""
+
+msgid ""
+"Into:"
+msgstr ""
+""
+
+msgid ""
+"Item:"
+msgstr ""
+""
+
+msgid ""
+"Launching web browser, please wait."
+msgstr ""
+""
+
+msgid ""
+"Line producer"
+msgstr ""
+""
+
+msgid ""
+"Loading application, please wait..."
+msgstr ""
+""
+
+msgid ""
+"Location #1"
+msgstr ""
+""
+
+msgid ""
+"Location #2"
+msgstr ""
+""
+
+msgid ""
+"Location #3"
+msgstr ""
+""
+
+msgid ""
+"Location #4"
+msgstr ""
+""
+
+msgid ""
+"Location #5"
+msgstr ""
+""
+
+msgid ""
+"Location:"
+msgstr ""
+""
+
+msgid ""
+"Look'n'feel"
+msgstr ""
+""
+
+msgid ""
+"Male names"
+msgstr ""
+""
+
+msgid ""
+"Mention:"
+msgstr ""
+""
+
+msgid ""
+"Microphone"
+msgstr ""
+""
+
+msgid ""
+"Minibus"
+msgstr ""
+""
+
+msgid ""
+"Mixer"
+msgstr ""
+""
+
+msgid ""
+"Mount"
+msgstr ""
+""
+
+msgid ""
+"Movie scriptwriting utility program."
+msgstr ""
+""
+
+msgid ""
+"My Application"
+msgstr ""
+""
+
+msgid ""
+"My Application is wonderful!"
+msgstr ""
+""
+
+msgid ""
+"Name"
+msgstr ""
+""
+
+msgid ""
+"Name:"
+msgstr ""
+""
+
+msgid ""
+"Navigation"
+msgstr ""
+""
+
+msgid ""
+"New name"
+msgstr ""
+""
+
+msgid ""
+"Notes"
+msgstr ""
+""
+
+msgid ""
+"OK"
+msgstr ""
+""
+
+msgid ""
+"ONE PAGE of script is roughly equal to ONE MINUTE of movie."
+msgstr ""
+""
+
+msgid ""
+"On key:"
+msgstr ""
+""
+
+msgid ""
+"Open project file..."
+msgstr ""
+""
+
+msgid ""
+"Opening project, please wait."
+msgstr ""
+""
+
+msgid ""
+"Opticals"
+msgstr ""
+""
+
+msgid ""
+"Options"
+msgstr ""
+""
+
+msgid ""
+"Origin"
+msgstr ""
+""
+
+msgid ""
+"Origin:"
+msgstr ""
+""
+
+msgid ""
+"Parenthetical"
+msgstr ""
+""
+
+msgid ""
+"Personal car"
+msgstr ""
+""
+
+msgid ""
+"Phone:"
+msgstr ""
+""
+
+msgid ""
+"Pitch/Concept"
+msgstr ""
+""
+
+msgid ""
+"Planning"
+msgstr ""
+""
+
+msgid ""
+"Please, insert"
+msgstr ""
+""
+
+msgid ""
+"Preview"
+msgstr ""
+""
+
+msgid ""
+"Print SCENE numbers on LEFT side"
+msgstr ""
+""
+
+msgid ""
+"Print SCENE numbers on RIGHT side"
+msgstr ""
+""
+
+msgid ""
+"Print SHOT numbers on LEFT side"
+msgstr ""
+""
+
+msgid ""
+"Print SHOT numbers on RIGHT side"
+msgstr ""
+""
+
+msgid ""
+"Production manager"
+msgstr ""
+""
+
+msgid ""
+"Project has been modified. Save it?"
+msgstr ""
+""
+
+msgid ""
+"Project opened OK."
+msgstr ""
+""
+
+msgid ""
+"Project settings"
+msgstr ""
+""
+
+msgid ""
+"Project's episode:"
+msgstr ""
+""
+
+msgid ""
+"Project's filename:"
+msgstr ""
+""
+
+msgid ""
+"Project's subtitle:"
+msgstr ""
+""
+
+msgid ""
+"Project's title:"
+msgstr ""
+""
+
+msgid ""
+"Purge"
+msgstr ""
+""
+
+msgid ""
+"Question"
+msgstr ""
+""
+
+msgid ""
+"Raphaël SEBAN <motus@laposte.net>"
+msgstr ""
+""
+
+msgid ""
+"Ready."
+msgstr ""
+""
+
+msgid ""
+"Recorder"
+msgstr ""
+""
+
+msgid ""
+"Relations"
+msgstr ""
+""
+
+msgid ""
+"Rename"
+msgstr ""
+""
+
+msgid ""
+"Renaming"
+msgstr ""
+""
+
+msgid ""
+"ReportLab®"
+msgstr ""
+""
+
+msgid ""
+"Reset to default dir"
+msgstr ""
+""
+
+msgid ""
+"Reset to defaults"
+msgstr ""
+""
+
+msgid ""
+"Resources"
+msgstr ""
+""
+
+msgid ""
+"Role:"
+msgstr ""
+""
+
+msgid ""
+"SFX assistant #1"
+msgstr ""
+""
+
+msgid ""
+"SFX assistant #2"
+msgstr ""
+""
+
+msgid ""
+"SFX assistant #3"
+msgstr ""
+""
+
+msgid ""
+"Save _as..."
+msgstr ""
+""
+
+msgid ""
+"Scenario"
+msgstr ""
+""
+
+msgid ""
+"Scene"
+msgstr ""
+""
+
+msgid ""
+"Scene browser:"
+msgstr ""
+""
+
+msgid ""
+"Scene preview:"
+msgstr ""
+""
+
+msgid ""
+"Search"
+msgstr ""
+""
+
+msgid ""
+"Section:"
+msgstr ""
+""
+
+msgid ""
+"Select all"
+msgstr ""
+""
+
+msgid ""
+"Shot browser:"
+msgstr ""
+""
+
+msgid ""
+"Shot editor:"
+msgstr ""
+""
+
+msgid ""
+"Show first"
+msgstr ""
+""
+
+msgid ""
+"Show in PDF viewer (whenever possible)"
+msgstr ""
+""
+
+msgid ""
+"Show next"
+msgstr ""
+""
+
+msgid ""
+"Show previous"
+msgstr ""
+""
+
+msgid ""
+"Show:"
+msgstr ""
+""
+
+msgid ""
+"Stage director"
+msgstr ""
+""
+
+msgid ""
+"Stats:"
+msgstr ""
+""
+
+msgid ""
+"Status"
+msgstr ""
+""
+
+msgid ""
+"Status:"
+msgstr ""
+""
+
+msgid ""
+"Steady"
+msgstr ""
+""
+
+msgid ""
+"Storyboard"
+msgstr ""
+""
+
+msgid ""
+"Stuntman #1"
+msgstr ""
+""
+
+msgid ""
+"Stuntman #2"
+msgstr ""
+""
+
+msgid ""
+"Stuntman #3"
+msgstr ""
+""
+
+msgid ""
+"Switch line to:"
+msgstr ""
+""
+
+msgid ""
+"Technician #1"
+msgstr ""
+""
+
+msgid ""
+"Technician #2"
+msgstr ""
+""
+
+msgid ""
+"Technician #3"
+msgstr ""
+""
+
+msgid ""
+"Template name:"
+msgstr ""
+""
+
+msgid ""
+"Templates"
+msgstr ""
+""
+
+msgid ""
+"Text files"
+msgstr ""
+""
+
+msgid ""
+"This is a 'DIALOGUE' line."
+msgstr ""
+""
+
+msgid ""
+"This is an 'ACTION' line."
+msgstr ""
+""
+
+msgid ""
+"Title/Data"
+msgstr ""
+""
+
+msgid ""
+"Tools"
+msgstr ""
+""
+
+msgid ""
+"Train"
+msgstr ""
+""
+
+msgid ""
+"Transition"
+msgstr ""
+""
+
+msgid ""
+"Truck"
+msgstr ""
+""
+
+msgid ""
+"Type:"
+msgstr ""
+""
+
+msgid ""
+"Unit manager"
+msgstr ""
+""
+
+msgid ""
+"View"
+msgstr ""
+""
+
+msgid ""
+"^/data/json/info_hints.en.json"
+msgstr ""
+""
+
+msgid ""
+"^/data/templates/pitch/"
+msgstr ""
+""
+
+msgid ""
+"^/html/en/index.html"
+msgstr ""
+""
+
+msgid ""
+"_About..."
+msgstr ""
+""
+
+msgid ""
+"_Edit"
+msgstr ""
+""
+
+msgid ""
+"_Export to PDF"
+msgstr ""
+""
+
+msgid ""
+"_Getting started"
+msgstr ""
+""
+
+msgid ""
+"_Help"
+msgstr ""
+""
+
+msgid ""
+"_Name database"
+msgstr ""
+""
+
+msgid ""
+"_New"
+msgstr ""
+""
+
+msgid ""
+"_Online documentation"
+msgstr ""
+""
+
+msgid ""
+"_Open"
+msgstr ""
+""
+
+msgid ""
+"_Project"
+msgstr ""
+""
+
+msgid ""
+"_Quit"
+msgstr ""
+""
+
+msgid ""
+"_Redo"
+msgstr ""
+""
+
+msgid ""
+"_Save"
+msgstr ""
+""
+
+msgid ""
+"_Scenario Elements Editor (SEE)"
+msgstr ""
+""
+
+msgid ""
+"_Story/pitch templates"
+msgstr ""
+""
+
+msgid ""
+"_Toggle status bar"
+msgstr ""
+""
+
+msgid ""
+"_Tools"
+msgstr ""
+""
+
+msgid ""
+"_Undo"
+msgstr ""
+""
+
+msgid ""
+"_View"
+msgstr ""
+""
+
+msgid ""
+"black"
+msgstr ""
+""
+
+msgid ""
+"center"
+msgstr ""
+""
+
+msgid ""
+"contains"
+msgstr ""
+""
+
+msgid ""
+"determines whether application should run in Graphical "
+"User Interface mode (GUI) or in Command-Line Interface "
+"mode (CLI - console)."
+msgstr ""
+""
+
+msgid ""
+"ends with"
+msgstr ""
+""
+
+msgid ""
+"ext - day - this is a 'SCENE' line"
+msgstr ""
+""
+
+msgid ""
+"foreground:"
+msgstr ""
+""
+
+msgid ""
+"http://www.gnu.org/licenses/"
+msgstr ""
+""
+
+msgid ""
+"https://github.com/tarball69/tkScenarist/wiki"
+msgstr ""
+""
+
+msgid ""
+"idem."
+msgstr ""
+""
+
+msgid ""
+"left"
+msgstr ""
+""
+
+msgid ""
+"mainwindow"
+msgstr ""
+""
+
+msgid ""
+"margin left:"
+msgstr ""
+""
+
+msgid ""
+"margin right:"
+msgstr ""
+""
+
+msgid ""
+"matches exactly"
+msgstr ""
+""
+
+msgid ""
+"my name <email@domain.org>"
+msgstr ""
+""
+
+msgid ""
+"right"
+msgstr ""
+""
+
+msgid ""
+"starts with"
+msgstr ""
+""
+
+msgid ""
+"this is a 'PARENTHETICAL' line"
+msgstr ""
+""
+
+msgid ""
+"tkScenarist"
+msgstr ""
+""
+
+msgid ""
+"tkScenarist - screen writing made simpler"
+msgstr ""
+""
+
+msgid ""
+"tkScenarist files"
+msgstr ""
+""
+
+msgid ""
+"white"
+msgstr ""
+""
+
+msgid ""
+"zip files"
+msgstr ""
+""
+
+msgid ""
+"{classname} class console argument parser."
+msgstr ""
+""
+
+msgid ""
+"{hours:02d} h {minutes:02d} min"
+msgstr ""
+""
+
+msgid ""
+"{page} of {total}"
 msgstr ""
 ""

@@ -236,7 +236,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         # member inits
         self.splash = self.get_splash_screen()
         self.splash.deiconify()
-        self.update_idletasks()
+        self.splash.update_idletasks()
+        #~ self.update_idletasks()
         self.async = ASYNC.get_async_manager()
         self.project_fm = PFM.ProjectFileManagement(self)
         # register as app-wide service

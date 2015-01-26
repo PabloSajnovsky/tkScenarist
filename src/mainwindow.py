@@ -241,6 +241,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             self.async.clear_all()
             self.database.close_database()
             self.options.save()
+            tkRAD.i18n.dump_pot_file()
         except:
             pass
         # end try

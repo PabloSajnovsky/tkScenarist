@@ -55,12 +55,13 @@ with this program.
 If not, see: http://www.gnu.org/licenses/
         """).strip(),
         "license_url": _("http://www.gnu.org/licenses/"),
-        "pdflib": "ReportLab®",
-        "pdflib_author": "(c) ReportLab Europe Ltd. 2000-2012",
+        "pdflib": _("ReportLab®"),
+        "pdflib_author": _("(c) ReportLab Europe Ltd. 2000-2012"),
     } # end of APP
 
     DIRECTORIES = (
-        "data", "etc", "html", "locale", "src", "tkRAD", "xml",
+        "data", "etc", "html", "locale", "reportlab", "src", "tkRAD",
+        "xml",
     ) # end of DIRECTORIES
 
     PYTHON = {
@@ -86,8 +87,8 @@ If not, see: http://www.gnu.org/licenses/
 # end class tkScenarist
 
 
+# asked for launching?
 if __name__ == "__main__":
-
+    # run app
     tkScenarist().run()
-
 # end if

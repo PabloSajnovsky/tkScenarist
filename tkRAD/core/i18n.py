@@ -42,6 +42,9 @@ __translations_table = dict()
 # i18n support switcher
 __switch_off = False
 
+# i18n POT tracker
+__pot_msgids = set()
+
 
 def _ (text):
     r"""
@@ -51,12 +54,40 @@ def _ (text):
     if __switch_off:
         return text
     # end if
+    # track requests for POT file
+    __pot_msgids.add(text)
     return tools.choose_str(__translations_table.get(text), text)
 # end def
 
 
 # set overall scope function
 __builtins__["_"] = _
+
+
+def dump_pot_file ():
+    r"""
+        dumps all tracked entries into a POT file;
+    """
+    # inits
+    _fpath = path.normalize(
+        OP.join(get_translations_dir(), "template.pot")
+    )
+    _tpl = 'msgid ""\n"{msgid}"\nmsgstr ""\n""\n'
+    # open POT file for dumping
+    with open(_fpath, "w") as _pot_file:
+        # write data
+        _pot_file.write(
+            "\n".join(
+                map(
+                    lambda s:_tpl.format(
+                        msgid=s.replace("\n", '\\n"\n"')
+                    ),
+                    sorted(__pot_msgids)
+                )
+            )
+        )
+    # end with
+# end def
 
 
 def get_translations_dir ():

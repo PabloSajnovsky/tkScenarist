@@ -180,6 +180,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         self.xml_build()
         # event bindings
         self.bind_events()
+        # unlock title changes display off
+        self.after_idle(self.project_fm.lock_title, False)
     # end def
 
 

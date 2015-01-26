@@ -78,6 +78,8 @@ class ProjectFileManagement:
             (_("tkScenarist files"), "*{}".format(self.FILE_EXT)),
             (_("zip files"), "*.zip"),
         ]
+        # lock title changes
+        self.lock_title()
         # hook method
         self.init_members()
     # end def
@@ -347,6 +349,14 @@ class ProjectFileManagement:
     # end def
 
 
+    def lock_title (self, state=True):
+        """
+            locks mainwindow's title changes display off;
+        """
+        self.__title_lock = bool(state)
+    # end def
+
+
     def normalize_file_ext (self, file_ext):
         """
             resets file extension to match a correct format;
@@ -452,7 +462,7 @@ class ProjectFileManagement:
         self.project_modified = bool(flag)
         # update visual indicator
         _title = self.mainwindow.title().rstrip("*")
-        if flag:
+        if flag and not self.__title_lock:
             _title += "*"
         # end if
         self.mainwindow.title(_title)

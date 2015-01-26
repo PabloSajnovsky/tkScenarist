@@ -282,6 +282,7 @@ def get_stylesheet ():
             fontName="Courier-Bold",
             backColor="#f0f0f0",
             spaceAfter=0.1*inch,
+            keepWithNext=True,
         ),
         "transition": ParagraphStyle(
             "transition",
@@ -306,6 +307,7 @@ def get_stylesheet ():
             fontName="Courier-Bold",
             backColor="#f0f0f0",
             spaceAfter=0.1*inch,
+            keepWithNext=True,
         ),
         "shot_body": ParagraphStyle(
             "shot_body",

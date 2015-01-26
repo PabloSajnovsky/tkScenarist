@@ -28,7 +28,6 @@ import locale
 import tkinter.constants as TK
 import tkRAD
 import tkRAD.core.async as ASYNC
-import tkRAD.core.path as P
 from . import project_file_management as PFM
 
 
@@ -416,7 +415,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         self.launch_web_browser(
             # local file (offline)
             "file://{}".format(
-                P.normalize(kw.get("file") or self.OFFLINE_DOC_URL)
+                PFM.P.normalize(kw.get("file") or self.OFFLINE_DOC_URL)
             )
         )
     # end def

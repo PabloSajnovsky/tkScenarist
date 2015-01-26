@@ -25,17 +25,12 @@
 # lib imports
 import os
 import locale
-import webbrowser
-import tkinter.messagebox as MB
-import tkinter as TK
+import tkinter.constants as TK
 import tkRAD
 import tkRAD.core.async as ASYNC
 import tkRAD.core.path as P
 from . import project_file_management as PFM
-from . import app_database as DB
-from . import dlg_name_database as DND
-from . import dlg_pitch_templates as DPT
-from . import dlg_scenario_elements_editor as DSEE
+
 
 # app-wide inits (super global)
 __builtins__["ENCODING"] = "UTF-8"
@@ -44,6 +39,7 @@ __builtins__["STATE_MASK"] = (
 )
 # i18n locale setup
 locale.setlocale(locale.LC_ALL, "")
+
 
 
 class MainWindow (tkRAD.RADXMLMainWindow):
@@ -176,8 +172,10 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             returns a tkinter.Toplevel splash screen;
         """
+        # lib imports
+        import tkinter as tk
         # inits
-        _splash = TK.Toplevel(
+        _splash = tk.Toplevel(
             self, relief=TK.SOLID, highlightthickness=1,
             highlightbackground="grey50",
         )
@@ -185,14 +183,14 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         _splash.transient(self)
         _splash.overrideredirect(True)
         _splash.bind("<Button-1>", lambda e: _splash.withdraw())
-        _frame = TK.ttk.Frame(_splash, padding=20)
-        TK.ttk.Label(
+        _frame = tk.ttk.Frame(_splash, padding=20)
+        tk.ttk.Label(
             _frame,
             text=self.app.APP["name"],
             foreground="royal blue",
             font="monospace 36 bold",
         ).pack()
-        TK.ttk.Label(
+        tk.ttk.Label(
             _frame,
             text=_("Loading application, please wait..."),
             foreground="grey30",
@@ -220,6 +218,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             deferred widget inits;
         """
+        # lib imports
+        from . import app_database as DB
         # this may take a while
         self.database = DB.get_database()
         # looks for ^/xml/widget/mainwindow.xml
@@ -258,6 +258,9 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
         # param controls
         if url:
+            # lib imports
+            import webbrowser
+            import tkinter.messagebox as MB
             # launching web browser
             webbrowser.open(url)
             # warning message
@@ -380,6 +383,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             event handler: menu Help > About;
         """
+        # lib imports
+        import tkinter.messagebox as MB
         MB.showinfo(
             title=_("About..."),
             message=
@@ -445,6 +450,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             event handler: menu Tools > Name database;
         """
+        # lib imports
+        from . import dlg_name_database as DND
         # show name database dialog (modal)
         DND.NameDatabaseDialog(self).show()
     # end def
@@ -454,6 +461,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             event handler: menu Tools > Pitch templates;
         """
+        # lib imports
+        from . import dlg_pitch_templates as DPT
         # show story/pitch templates dialog (modal)
         DPT.PitchTemplatesDialog(self).show()
     # end def
@@ -463,6 +472,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         """
             event handler: menu Tools > Scenario Elements Editor (SEE);
         """
+        # lib imports
+        from . import dlg_scenario_elements_editor as DSEE
         # show tool dialog (modal)
         DSEE.ScenarioElementsEditorDialog(
             self, w_text=self.mainframe.tab_scenario.TEXT

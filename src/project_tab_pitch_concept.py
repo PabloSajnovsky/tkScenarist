@@ -63,7 +63,7 @@ class ProjectTabPitchConcept (tkRAD.RADXMLFrame):
             hook method to be reimplemented by subclass;
         """
         # member inits
-        self.mainwindow = self.winfo_toplevel()
+        self.mainwindow = self.app.mainwindow
         self.mainframe = self.mainwindow.mainframe
         self.text_clear_contents = self.mainwindow.text_clear_contents
         self.text_get_contents = self.mainwindow.text_get_contents

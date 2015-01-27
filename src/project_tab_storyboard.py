@@ -364,7 +364,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             hook method to be reimplemented by subclass;
         """
         # member inits
-        self.mainwindow = self.winfo_toplevel()
+        self.mainwindow = self.app.mainwindow
         self.mainframe = self.mainwindow.mainframe
         self.database = self.mainwindow.database
         self.tab_characters = self.mainframe.tab_characters

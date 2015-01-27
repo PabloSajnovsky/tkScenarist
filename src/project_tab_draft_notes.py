@@ -63,7 +63,7 @@ class ProjectTabDraftNotes (tkRAD.RADXMLFrame):
             hook method to be reimplemented by subclass;
         """
         # member inits
-        self.mainwindow = self.app.mainwindow
+        self.mainwindow = self.services.ask_for("mainwindow")
         self.mainframe = self.mainwindow.mainframe
         self.text_clear_contents = self.mainwindow.text_clear_contents
         self.text_get_contents = self.mainwindow.text_get_contents

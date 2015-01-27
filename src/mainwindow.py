@@ -192,6 +192,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         # register as app-wide service
         # PFM: Project File Management
         self.services.register_service("PFM", self.project_fm)
+        self.services.register_service("mainwindow", self)
         # looks for ^/xml/menu/topmenu.xml
         self.topmenu.xml_build()
         # toggle statusbar through menu

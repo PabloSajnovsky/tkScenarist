@@ -84,6 +84,7 @@ If not, see: http://www.gnu.org/licenses/
         self.root = Tk()
         self.root.withdraw()
         # show splash screen
+        self.setup_splash_screen()
         self.show_splash_screen()
         # GUI
         import src.mainwindow as MW
@@ -104,9 +105,9 @@ If not, see: http://www.gnu.org/licenses/
     # end def
 
 
-    def show_splash_screen (self, *args, **kw):
+    def setup_splash_screen (self, *args, **kw):
         """
-            event handler: shows up a tkinter.Toplevel splash screen;
+            event handler: sets up a tkinter.Toplevel splash screen;
         """
         # lib imports
         from tkinter import Toplevel
@@ -145,10 +146,21 @@ If not, see: http://www.gnu.org/licenses/
                 y=(_sp.winfo_screenheight() - _sp.winfo_reqheight())//2,
             )
         )
-        # show splash screen
-        _sp.deiconify()
-        # update display
-        _sp.update_idletasks()
+    # end def
+
+
+    def show_splash_screen (self, *args, **kw):
+        """
+            event handler: shows up a tkinter.Toplevel splash screen;
+        """
+        try:
+            # show splash screen
+            self.splash.deiconify()
+            # update display for more efficiency
+            self.splash.update_idletasks()
+        except:
+            pass
+        # end try
     # end def
 
 # end class tkScenarist

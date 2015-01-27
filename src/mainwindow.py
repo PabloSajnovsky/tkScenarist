@@ -41,7 +41,7 @@ locale.setlocale(locale.LC_ALL, "")
 
 
 
-class MainWindow (tkRAD.RADXMLMainWindow):
+class MainWindow (tkRAD.RADXMLWindow):
     """
         Application's GUI main window;
     """

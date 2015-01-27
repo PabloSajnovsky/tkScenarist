@@ -117,7 +117,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             hook method to be reimplemented by subclass;
         """
         # member inits
-        self.mainwindow = self.services.ask_for("mainwindow")
+        self.mainwindow = self.services.get_service("mainwindow")
         self.mainframe = self.mainwindow.mainframe
         self.tab_characters = self.mainframe.tab_characters
         self.text_clear_contents = self.mainwindow.text_clear_contents

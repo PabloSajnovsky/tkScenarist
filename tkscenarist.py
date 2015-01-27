@@ -78,12 +78,8 @@ If not, see: http://www.gnu.org/licenses/
 
 
     def _start_gui (self, **kw):
-        # lib imports
-        from tkinter import Tk
         # tkinter root window inits
-        self.root = Tk()
-        # hide this ugly window
-        self.root.withdraw()
+        self.init_root_window()
         # splash screen inits
         self.init_splash_screen()
         # show splash screen
@@ -104,6 +100,21 @@ If not, see: http://www.gnu.org/licenses/
         except:
             pass
         # end try
+    # end def
+
+
+    def init_root_window (self, *args, **kw):
+        """
+            event handler: sets up the Tk() root window;
+        """
+        # lib imports
+        from tkinter import Tk
+        # tkinter root window inits
+        self.root = Tk()
+        # hide this ugly window
+        self.root.withdraw()
+        # raise above all (MS-Win fixups)
+        self.root.lift()
     # end def
 
 
@@ -151,6 +162,19 @@ If not, see: http://www.gnu.org/licenses/
     # end def
 
 
+    def keep_under_splash_screen (self, window):
+        """
+            event handler: tries to keep @window display under splash
+            screen;
+        """
+        try:
+            window.lower(self.splash)
+        except:
+            pass
+        # end try
+    # end def
+
+
     def show_splash_screen (self, *args, **kw):
         """
             event handler: shows up a tkinter.Toplevel splash screen;
@@ -158,8 +182,12 @@ If not, see: http://www.gnu.org/licenses/
         try:
             # show splash screen
             self.splash.deiconify()
+            # raise above all
+            self.lift()
             # update display for more efficiency
             self.splash.update_idletasks()
+            # MS-Win fixups
+            #~ self.splash.update()
         except:
             pass
         # end try

@@ -185,6 +185,8 @@ class MainWindow (tkRAD.RADXMLWindow):
         """
             hook method to be reimplemented by subclass;
         """
+        # ensure under splash screen (MS-Win fixups)
+        self.app.keep_under_splash_screen(self)
         # member inits
         self.async = ASYNC.get_async_manager()
         self.project_fm = PFM.ProjectFileManagement(self)

@@ -80,13 +80,15 @@ If not, see: http://www.gnu.org/licenses/
     def _start_gui (self, **kw):
         # lib imports
         from tkinter import Tk
-        # get root
+        # tkinter root window inits
         self.root = Tk()
+        # hide this ugly window
         self.root.withdraw()
+        # splash screen inits
+        self.init_splash_screen()
         # show splash screen
-        self.setup_splash_screen()
         self.show_splash_screen()
-        # GUI
+        # application main window inits (tkRAD - GUI)
         import src.mainwindow as MW
         self.mainwindow = MW.MainWindow(**kw)
         self.mainwindow.run()
@@ -105,7 +107,7 @@ If not, see: http://www.gnu.org/licenses/
     # end def
 
 
-    def setup_splash_screen (self, *args, **kw):
+    def init_splash_screen (self, *args, **kw):
         """
             event handler: sets up a tkinter.Toplevel splash screen;
         """

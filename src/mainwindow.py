@@ -40,10 +40,9 @@ __builtins__["STATE_MASK"] = (
 locale.setlocale(locale.LC_ALL, "")
 
 
-
 class MainWindow (tkRAD.RADXMLWindow):
     """
-        Application's GUI main window;
+        Application's main window (GUI - Graphical User Interface);
     """
 
     # class constant defs

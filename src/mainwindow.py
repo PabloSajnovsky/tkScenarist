@@ -243,8 +243,8 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             self.options.save()
             # uncomment the following to get easy
             # i18n translation file template (POT file)
-            # e.g. ^/locale/template.pot
-            #~ tkRAD.i18n.dump_pot_file()
+            # i.e. ^/locale/template.pot
+            tkRAD.i18n.dump_pot_file()
         except:
             pass
         # end try

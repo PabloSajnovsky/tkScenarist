@@ -123,8 +123,7 @@ If not, see: http://www.gnu.org/licenses/
             event handler: sets up a tkinter.Toplevel splash screen;
         """
         # lib imports
-        from tkinter import Toplevel
-        from tkinter.ttk import Frame, Label
+        from tkinter import Toplevel, Frame, Label
         # inits
         _sp = self.splash = Toplevel(
             self.root,
@@ -135,19 +134,21 @@ If not, see: http://www.gnu.org/licenses/
         _sp.withdraw()
         _sp.overrideredirect(True)
         _sp.bind("<Button-1>", self.hide_splash_screen)
-        _frame = Frame(_sp, padding=20)
+        _frame = Frame(_sp, background="grey95")
         Label(
             _frame,
             text=self.APP["name"],
+            font="times 36 bold italic",
+            background=_frame["background"],
             foreground="royal blue",
-            font="monospace 36 bold",
-        ).pack()
+        ).pack(expand=1, fill="x", padx=20)
         Label(
             _frame,
             text=_("Loading application, please wait..."),
-            foreground="grey30",
-            font="sans 8",
-        ).pack()
+            font="helvetica 9",
+            background=_frame["background"],
+            foreground="grey20",
+        ).pack(expand=1, fill="x", pady=10)
         _frame.pack()
         # update coordinates
         _sp.update_idletasks()

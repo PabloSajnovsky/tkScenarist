@@ -112,16 +112,16 @@ If not, see: http://www.gnu.org/licenses/
         from tkinter import Toplevel
         from tkinter.ttk import Frame, Label
         # inits
-        self.splash = _splash = Toplevel(
+        self.splash = _sp = Toplevel(
             self.root,
             relief="solid",
             highlightthickness=1,
             highlightbackground="grey50",
         )
-        _splash.withdraw()
-        _splash.overrideredirect(True)
-        _splash.bind("<Button-1>", self.hide_splash_screen)
-        _frame = Frame(_splash, padding=20)
+        _sp.withdraw()
+        _sp.overrideredirect(True)
+        _sp.bind("<Button-1>", self.hide_splash_screen)
+        _frame = Frame(_sp, padding=20)
         Label(
             _frame,
             text=self.APP["name"],
@@ -136,22 +136,19 @@ If not, see: http://www.gnu.org/licenses/
         ).pack()
         _frame.pack()
         # update coordinates
-        _splash.update_idletasks()
+        _sp.update_idletasks()
         # center on screen
-        _splash.geometry(
-            "+{x}+{y}".format(
-                x=(
-                    self.winfo_screenwidth()-_splash.winfo_reqwidth()
-                )//2,
-                y=(
-                    self.winfo_screenheight()-_splash.winfo_reqheight()
-                )//2,
+        _sp.geometry(
+            "+{x}+{y}"
+            .format(
+                x=(_sp.winfo_screenwidth() - _sp.winfo_reqwidth())//2,
+                y=(_sp.winfo_screenheight() - _sp.winfo_reqheight())//2,
             )
         )
         # show splash screen
-        _splash.deiconify()
+        _sp.deiconify()
         # update display
-        _splash.update_idletasks()
+        _sp.update_idletasks()
     # end def
 
 # end class tkScenarist

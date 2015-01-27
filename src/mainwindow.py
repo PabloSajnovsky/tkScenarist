@@ -187,7 +187,6 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             hook method to be reimplemented by subclass;
         """
         # member inits
-        self.show_splash_screen()
         self.async = ASYNC.get_async_manager()
         self.project_fm = PFM.ProjectFileManagement(self)
         # register as app-wide service

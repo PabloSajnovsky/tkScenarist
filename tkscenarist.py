@@ -115,7 +115,7 @@ If not, see: http://www.gnu.org/licenses/
         from tkinter import Toplevel
         from tkinter.ttk import Frame, Label
         # inits
-        self.splash = _sp = Toplevel(
+        _sp = self.splash = Toplevel(
             self.root,
             relief="solid",
             highlightthickness=1,

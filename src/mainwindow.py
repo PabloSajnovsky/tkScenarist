@@ -122,7 +122,7 @@ class MainWindow (tkRAD.RADXMLMainWindow):
             )
         # end for
         # close splash screen
-        self.after(1000, self.hide_splash_screen)
+        self.after(1000, self.app.hide_splash_screen)
     # end def
 
 
@@ -164,14 +164,6 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         except:
             pass
         # end try
-    # end def
-
-
-    def hide_splash_screen (self):
-        """
-            hides application's splash screen;
-        """
-        self.splash.withdraw()
     # end def
 
 
@@ -248,56 +240,6 @@ class MainWindow (tkRAD.RADXMLMainWindow):
         except:
             pass
         # end try
-    # end def
-
-
-    def show_splash_screen (self):
-        """
-            shows up a tkinter.Toplevel splash screen;
-        """
-        # lib imports
-        from tkinter import Toplevel
-        from tkinter.ttk import Frame, Label
-        # inits
-        self.splash = _splash = Toplevel(
-            self, relief=TK.SOLID, highlightthickness=1,
-            highlightbackground="grey50",
-        )
-        _splash.withdraw()
-        _splash.transient(self)
-        _splash.overrideredirect(True)
-        _splash.bind("<Button-1>", lambda e: _splash.withdraw())
-        _frame = Frame(_splash, padding=20)
-        Label(
-            _frame,
-            text=self.app.APP["name"],
-            foreground="royal blue",
-            font="monospace 36 bold",
-        ).pack()
-        Label(
-            _frame,
-            text=_("Loading application, please wait..."),
-            foreground="grey30",
-            font="sans 8",
-        ).pack()
-        _frame.pack()
-        # update coordinates
-        _splash.update_idletasks()
-        # center on screen
-        _splash.geometry(
-            "+{x}+{y}".format(
-                x=(
-                    self.winfo_screenwidth()-_splash.winfo_reqwidth()
-                )//2,
-                y=(
-                    self.winfo_screenheight()-_splash.winfo_reqheight()
-                )//2,
-            )
-        )
-        # show splash screen
-        _splash.deiconify()
-        # update display
-        _splash.update_idletasks()
     # end def
 
 

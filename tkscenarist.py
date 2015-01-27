@@ -78,10 +78,80 @@ If not, see: http://www.gnu.org/licenses/
 
 
     def _start_gui (self, **kw):
+        # lib imports
+        from tkinter import Tk
+        # get root
+        self.root = Tk()
+        self.root.withdraw()
+        # show splash screen
+        self.show_splash_screen()
         # GUI
         import src.mainwindow as MW
         self.mainwindow = MW.MainWindow(**kw)
         self.mainwindow.run()
+    # end def
+
+
+    def hide_splash_screen (self, *args, **kw):
+        """
+            event handler: hides application's splash screen;
+        """
+        try:
+            self.splash.withdraw()
+        except:
+            pass
+        # end try
+    # end def
+
+
+    def show_splash_screen (self, *args, **kw):
+        """
+            event handler: shows up a tkinter.Toplevel splash screen;
+        """
+        # lib imports
+        from tkinter import Toplevel
+        from tkinter.ttk import Frame, Label
+        # inits
+        self.splash = _splash = Toplevel(
+            self.root,
+            relief="solid",
+            highlightthickness=1,
+            highlightbackground="grey50",
+        )
+        _splash.withdraw()
+        _splash.overrideredirect(True)
+        _splash.bind("<Button-1>", self.hide_splash_screen)
+        _frame = Frame(_splash, padding=20)
+        Label(
+            _frame,
+            text=self.APP["name"],
+            foreground="royal blue",
+            font="monospace 36 bold",
+        ).pack()
+        Label(
+            _frame,
+            text=_("Loading application, please wait..."),
+            foreground="grey30",
+            font="sans 8",
+        ).pack()
+        _frame.pack()
+        # update coordinates
+        _splash.update_idletasks()
+        # center on screen
+        _splash.geometry(
+            "+{x}+{y}".format(
+                x=(
+                    self.winfo_screenwidth()-_splash.winfo_reqwidth()
+                )//2,
+                y=(
+                    self.winfo_screenheight()-_splash.winfo_reqheight()
+                )//2,
+            )
+        )
+        # show splash screen
+        _splash.deiconify()
+        # update display
+        _splash.update_idletasks()
     # end def
 
 # end class tkScenarist

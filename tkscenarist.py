@@ -167,6 +167,7 @@ If not, see: http://www.gnu.org/licenses/
             event handler: tries to keep @window display under splash
             screen;
         """
+        # MS-Win fixups
         try:
             window.lower(self.splash)
         except:
@@ -177,17 +178,15 @@ If not, see: http://www.gnu.org/licenses/
 
     def show_splash_screen (self, *args, **kw):
         """
-            event handler: shows up a tkinter.Toplevel splash screen;
+            event handler: shows up splash screen;
         """
         try:
             # show splash screen
             self.splash.deiconify()
             # raise above all
-            self.lift()
+            self.splash.lift()
             # update display for more efficiency
-            self.splash.update_idletasks()
-            # MS-Win fixups
-            #~ self.splash.update()
+            self.splash.update()
         except:
             pass
         # end try

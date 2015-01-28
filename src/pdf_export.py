@@ -390,7 +390,7 @@ class PDFDocumentBase:
     # end def
 
 
-    def add_paragraph (self, text, style):
+    def add_paragraph (self, text, style, bulletText=None):
         """
             adds a Paragraph() object only if @text is a plain string
             of chars;
@@ -398,7 +398,7 @@ class PDFDocumentBase:
         # ensure we have some text
         if tools.is_pstr(text):
             # add paragraph
-            self.elements.append(Paragraph(text, style))
+            self.elements.append(Paragraph(text, style, bulletText))
         # end if
     # end def
 
@@ -1077,6 +1077,12 @@ class PDFDocumentResources (PDFDocumentBase):
         specific PDF document class for Resources application tab;
     """
 
+    # class constant defs
+    ITEM_FIELDNAMES = (
+        "name", "role", "contact", "phone", "email", "notes"
+    )
+
+
     def __init__ (self, doc_name, **kw):
         """
             class constructor;
@@ -1229,16 +1235,22 @@ class PDFDocumentResources (PDFDocumentBase):
             self.add_paragraph(_item, self.styles["h3"])
             # get item data
             _row = self.database.res_get_item(self.items[_item])
-            # no data for this? tell it!
-            self.notify_no_data(len(_row))
-            # browse data
-            for _key, _value in _row.items():
-                # unordered list
-                self.add_paragraph(
-                    "<bullet>{}: {}".format(_key, _value),
-                    self.styles["body"]
-                )
-            # end for
+            # got data?
+            if _row:
+                # must get ordered this way
+                for _key in self.ITEM_FIELDNAMES:
+                    # unordered list
+                    self.add_paragraph(
+                        "{}: {}".format(_key, _row[_key]),
+                        self.styles["body"],
+                        bulletText="&bull;",
+                    )
+                # end for
+            # no data
+            else:
+                # tell it
+                self.notify_no_data(0)
+            # end if
         # end try
     # end def
 

@@ -127,6 +127,8 @@ export at least your scenario script + draft and pitch notes);
 ![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-012.png)
 ![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-013.png)
 ![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-014.png)
+![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-015.png)
+![image](https://raw.githubusercontent.com/tarball69/tkScenarist/master/images/screenshots/screenshot-016.png)
 
 
 ## Development status
@@ -191,6 +193,20 @@ Simply download and use this program as is.
 ### MS-Windows&trade; users
 
 Simply double-click on `tkscenarist.py` file to launch app.
+
+#### No console app
+
+Many MS-Windows&trade; users wonder why do they have a shell console
+window coming up with the application on startup.
+
+This is a quite normal Python default behaviour.
+
+If you wish to use a Python application **without** its dedicated shell
+console window, simply rename file extension from `.py` to `.pyw` and
+then launch it again.
+
+For the present case, this means you should rename `tkscenarist.py` to
+`tkscenarist.pyw` and then run it once again.
 
 ### UNIX/Linux
 

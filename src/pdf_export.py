@@ -1134,7 +1134,7 @@ class PDFDocumentResources (PDFDocumentBase):
         # try out
         try:
             # get section
-            _section = self.sections_sorted[self.index]
+            _section = self.sections_sorted.pop(0)
         # no more section
         except:
             # no data for this? tell it!
@@ -1157,8 +1157,6 @@ class PDFDocumentResources (PDFDocumentBase):
             )
             self.subsections_sorted = sorted(self.subsections)
             self.total_subsections = len(self.subsections)
-            # init index
-            self.index2 = 0
             # next step
             self.step += 1
         # end try
@@ -1176,34 +1174,31 @@ class PDFDocumentResources (PDFDocumentBase):
         # try out
         try:
             # get subsection
-            _subsection = self.subsections_sorted[self.index2]
+            _subsection = self.subsections_sorted.pop(0)
         # no more subsection
         except:
             # no data for this? tell it!
             self.notify_no_data(self.total_subsections)
-            # add page break
+            # add page break for next section
             self.add_pagebreak()
             # step 1: next section
             self.step = 1
         # go on trying
         else:
             # update progress
-            self.progress += (
-                (100.0 / (self.total_sections)
-                * (self.index2 / self.total_subsections)
+            self.progress = min(
+                99.0,
+                self.progress +
+                100.0 / (self.total_sections * self.total_subsections)
             )
-            # update index
-            self.index += 1
             # add paragraph
-            self.add_paragraph(_section, self.styles["h1"])
-            # subsection inits
-            self.subsections = self.database.res_get_types(
-                self.sections[_section]
+            self.add_paragraph(_subsection, self.styles["h2"])
+            # items inits
+            self.items = self.database.res_get_types(
+                self.subsections[_subsection]
             )
-            self.subsections_sorted = sorted(self.subsections)
-            self.total_subsections = len(self.subsections)
-            # init index
-            self.index2 = 0
+            self.items_sorted = sorted(self.items)
+            self.total_items = len(self.items)
             # next step
             self.step += 1
         # end try
@@ -1216,57 +1211,27 @@ class PDFDocumentResources (PDFDocumentBase):
             for internal use only;
         """
         #
-        # step 3: print
+        # step 3: consuming one item at a time
         #
-        pass
-    # end def
-
-
-    def do_step_4 (self):
-        """
-            elements building process step;
-            for internal use only;
-        """
-        #
-        # step 4: print
-        #
-        pass
-    # end def
-
-
-    def do_step_5 (self):
-        """
-            elements building process step;
-            for internal use only;
-        """
-        #
-        # step 4: print
-        #
-        pass
-    # end def
-
-
-    def do_step_6 (self):
-        """
-            elements building process step;
-            for internal use only;
-        """
-        #
-        # step 4: print
-        #
-        pass
-    # end def
-
-
-    def do_step_7 (self):
-        """
-            elements building process step;
-            for internal use only;
-        """
-        #
-        # step 4: print
-        #
-        pass
+        # try out
+        try:
+            # get item
+            _item = self.items_sorted.pop(0)
+        # no more item
+        except:
+            # no data for this? tell it!
+            self.notify_no_data(self.total_items)
+            # step 2: next subsection
+            self.step = 2
+        # go on trying
+        else:
+            # add paragraph
+            self.add_paragraph(_item, self.styles["h3"])
+            # get item data
+            _row = self.database.res_get_item(self.items[_item])
+            # browse data
+            for _key, _value in _row.items():
+        # end try
     # end def
 
 

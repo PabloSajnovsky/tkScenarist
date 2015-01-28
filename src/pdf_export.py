@@ -1122,10 +1122,25 @@ class PDFDocumentResources (PDFDocumentBase):
         """
         # get item data
         _rows = self.database.res_get_datebars(fk_type)
-        # browse dates
-        for _row in _rows:
-            pass
-        # end for
+        # got data?
+        if _rows:
+            # inits
+            _table_rows = [(_("Date begin"), _("Date end"),)]
+            # browse dates
+            for _row in _rows:
+                pass
+            # end for
+            # inits
+            _style = [
+                ("BOX", (0, 0), (-1, -1), 0.2, colors.black),
+                ("INNERGRID", (0, 0), (-1, -1), 0.1, colors.black),
+                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ]
+            # add table
+            self.elements.append(
+                Table(_table_rows, repeatRows=1, style=_style)
+            )
+        # end if
     # end def
 
 

@@ -71,7 +71,7 @@
             <text
                 id="dni_fc_preview"
                 name="text_fc_preview"
-                font="courier 8"
+                font="sans 8"
                 width="40"
                 height="5"
                 wrap="none"

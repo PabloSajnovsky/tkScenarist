@@ -128,7 +128,7 @@
                     <text
                         id="template_preview"
                         name="text_template_preview"
-                        font="courier 10"
+                        font="helvetica 10"
                         height="10"
                         width="50"
                         wrap="word"

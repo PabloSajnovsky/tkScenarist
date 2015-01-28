@@ -137,6 +137,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "label": _("Scene"),
             "config": {
                 "background": "grey90",
+                "font": "courier 12 bold",
                 "spacing1": "5",
                 "spacing3": "5",
             },

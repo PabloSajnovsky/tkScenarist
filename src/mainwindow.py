@@ -187,6 +187,8 @@ class MainWindow (tkRAD.RADXMLWindow):
         """
         # ensure under splash screen (MS-Win fixups)
         self.app.keep_under_splash_screen(self)
+        # set root window's title (for dialogs entitling)
+        self.app.root.title = self.title
         # member inits
         self.async = ASYNC.get_async_manager()
         self.project_fm = PFM.ProjectFileManagement(self)

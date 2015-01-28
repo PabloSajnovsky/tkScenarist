@@ -21,20 +21,23 @@
     If not, see http://www.gnu.org/licenses/
 -->
 <tkwidget>
+
+    <!-- project data -->
+
     <ttklabelframe
-        text="Identification"
+        text="Project"
         layout="pack"
         resizable="yes"
     >
         <ttklabel
-            text="Project's title:"
+            text="Title:"
             layout="grid"
             layout_options="row=0, column=0, sticky='w'"
             resizable="no"
         />
         <ttkentry
             textvariable="project_title"
-            font="12"
+            font="times 16 bold"
             validate="key"
             validatecommand="@Entry:Key:Pressed"
             layout="grid"
@@ -42,13 +45,14 @@
             resizable="width"
         />
         <ttklabel
-            text="Project's subtitle:"
+            text="Subtitle:"
             layout="grid"
             layout_options="row=1, column=0, sticky='w'"
             resizable="no"
         />
         <ttkentry
             textvariable="project_subtitle"
+            font="times 14 italic"
             validate="key"
             validatecommand="@Entry:Key:Pressed"
             layout="grid"
@@ -56,32 +60,33 @@
             resizable="width"
         />
         <ttklabel
-            text="Project's episode:"
+            text="Episode:"
             layout="grid"
             layout_options="row=2, column=0, sticky='w'"
             resizable="no"
         />
         <ttkentry
             textvariable="project_episode"
+            font="helvetica 9"
             validate="key"
             validatecommand="@Entry:Key:Pressed"
             layout="grid"
             layout_options="row=2, column=1, padx=5, pady=2"
             resizable="width"
         />
-        <!-- spacer -->
-        <ttkframe
-            padding="0"
-            height="10"
-            width="0"
-            layout="grid"
-            layout_options="row=5, column=0, columnspan=2"
-            resizable="no"
-        />
+    </ttklabelframe>
+
+    <!-- author data -->
+
+    <ttklabelframe
+        text="Author"
+        layout="pack"
+        resizable="yes"
+    >
         <ttklabel
-            text="Author:"
+            text="Name:"
             layout="grid"
-            layout_options="row=10, column=0, sticky='w'"
+            layout_options="row=0, column=0, sticky='w'"
             resizable="no"
         />
         <ttkentry
@@ -89,13 +94,13 @@
             validate="key"
             validatecommand="@Entry:Key:Pressed"
             layout="grid"
-            layout_options="row=10, column=1, padx=5, pady=2"
+            layout_options="row=0, column=1, padx=5, pady=2"
             resizable="width"
         />
         <ttklabel
             text="E-mail:"
             layout="grid"
-            layout_options="row=11, column=0, sticky='w'"
+            layout_options="row=1, column=0, sticky='w'"
             resizable="no"
         />
         <ttkentry
@@ -103,13 +108,13 @@
             validate="key"
             validatecommand="@Entry:Key:Pressed"
             layout="grid"
-            layout_options="row=11, column=1, padx=5, pady=2"
+            layout_options="row=1, column=1, padx=5, pady=2"
             resizable="width"
         />
         <ttklabel
             text="Phone:"
             layout="grid"
-            layout_options="row=12, column=0, sticky='w'"
+            layout_options="row=2, column=0, sticky='w'"
             resizable="no"
         />
         <ttkentry
@@ -117,10 +122,12 @@
             validate="key"
             validatecommand="@Entry:Key:Pressed"
             layout="grid"
-            layout_options="row=12, column=1, padx=5, pady=2"
+            layout_options="row=2, column=1, padx=5, pady=2"
             resizable="width"
         />
     </ttklabelframe>
+
+    <!-- project infos -->
 
     <ttklabelframe
         text="Information"

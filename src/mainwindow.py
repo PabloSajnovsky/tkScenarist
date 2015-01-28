@@ -346,6 +346,7 @@ class MainWindow (tkRAD.RADXMLWindow):
             title=_("About..."),
             message=
                 "{title}\n{description}\n{copyright}"
+                "\nCurrent version: {version}"
                 "\n\nAuthor: {author}"
                 "\nCurrent maintainer: {maintainer}"
                 "\nPDF toolkit: {pdflib}"

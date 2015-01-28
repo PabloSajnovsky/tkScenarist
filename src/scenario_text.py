@@ -41,7 +41,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     CONFIG = {
         "autoseparators": False, # useless: private undo/redo maechanism
         "background": "white",
-        "font": "monospace 12",
+        "font": "courier 12",
         "foreground": "black",
         "highlightthickness": 1,
         "undo": True,
@@ -51,7 +51,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     CONFIG_DEFAULTS = {
         "background": "white",
         "foreground": "black",
-        "font": "monospace 12 normal",
+        "font": "courier 12 normal",
         "justify": "left",
         "lmargin1": "0",
         "lmargin2": "0",
@@ -86,7 +86,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "character": {
             "label": _("Character"),
             "config": {
-                "font": "monospace 12 bold",
+                "font": "courier 12 bold",
                 "foreground": "grey40",
                 "lmargin1": "5c",
                 "lmargin2": "5c",
@@ -121,7 +121,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             "label": _("Parenthetical"),
             "config": {
                 "foreground": "grey50",
-                "font": "monospace 12 italic",
+                "font": "courier 12 italic",
                 "lmargin1": "4c",
                 "lmargin2": "4c",
                 "rmargin": "1c",

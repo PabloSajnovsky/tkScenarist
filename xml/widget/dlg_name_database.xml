@@ -47,7 +47,7 @@
                 name="dbview_names"
                 class="DBViewCanvas"
                 module="m_dbviewcanvas"
-                font="monospace 10"
+                font="courier 10"
                 layout="grid"
                 layout_options="row=0, column=0"
                 resizable="height"

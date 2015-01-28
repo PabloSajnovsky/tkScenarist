@@ -34,7 +34,7 @@
             <text
                 id="pitch_concept"
                 name="text_pitch_concept"
-                font="monospace 12"
+                font="courier 12"
                 autoseparators="true"
                 undo="true"
                 wrap="word"

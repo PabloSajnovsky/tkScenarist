@@ -268,7 +268,7 @@
                         />
                         <ttkentry
                             name="entry_shot_title"
-                            font="monospace 10"
+                            font="courier 10"
                             width="25"
                             state="disabled"
                             layout="grid"
@@ -287,7 +287,7 @@
                             id="stb_shot_editor"
                             name="text_shot_editor"
                             autoseparators="true"
-                            font="monospace 12"
+                            font="courier 12"
                             height="20"
                             state="disabled"
                             undo="true"
@@ -445,7 +445,7 @@
         <listbox
             id="lbox_popup_list"
             name="listbox_popup_list"
-            font="monospace 12"
+            font="courier 12"
             background="lemon chiffon"
             foreground="grey30"
             selectbackground="grey30"

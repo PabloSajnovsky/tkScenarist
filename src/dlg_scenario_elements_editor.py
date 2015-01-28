@@ -170,7 +170,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
             string; returns tuple (family, size, style);
         """
         # inits
-        _font = font.Font(font=str_font or "monospace 12")
+        _font = font.Font(font=str_font or "courier 12")
         _family = _font.cget("family")
         _size = _font.cget("size")
         _weight = _font.cget("weight").replace("normal", "")
@@ -258,7 +258,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         # end for
         # FONT section
         self.w.combo_font_family.configure(
-            values=['monospace', 'sans', 'serif', 'tkdefaultfont'] +
+            values=['courier', 'sans', 'serif', 'tkdefaultfont'] +
             sorted(font.families())
         )
         self.FONT_COMBOS = (

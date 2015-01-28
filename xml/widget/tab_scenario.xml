@@ -300,7 +300,7 @@
         <listbox
             id="lbox_popup_list"
             name="listbox_popup_list"
-            font="monospace 12"
+            font="courier 12"
             background="lemon chiffon"
             foreground="grey30"
             selectbackground="grey30"

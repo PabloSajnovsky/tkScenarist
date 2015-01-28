@@ -1139,11 +1139,17 @@ class PDFDocumentResources (PDFDocumentBase):
                 # add table data
                 _table_rows.append(
                     (
-                        Paragraph(_row["date_begin"], _td),
-                        Paragraph(_row["date_end"], _td),
+                        Paragraph(
+                            self.convert_iso_date(_row["date_begin"]),
+                            _td
+                        ),
+                        Paragraph(
+                            self.convert_iso_date(_row["date_end"]),
+                            _td
+                        ),
                         Paragraph(
                             _("Available")
-                            if _row["status"]
+                            if _row["status"].upper() == "OK"
                             else _("NOT available"),
                             _td
                         ),
@@ -1173,6 +1179,17 @@ class PDFDocumentResources (PDFDocumentBase):
         self.reset_progress()
         # switch to step method
         exec("self.do_step_{}()".format(self.step))
+    # end def
+
+
+    def convert_iso_date (self, date_str):
+        """
+            tries to convert an ISO 8601 'YYYY-MM-DD' formatted string
+            to locale date representation format; returns formatted
+            string on success, raises error otherwise;
+        """
+        # inits
+        return datetime.strptime(date_str, "%Y-%m-%d").strftime("%A %x")
     # end def
 
 

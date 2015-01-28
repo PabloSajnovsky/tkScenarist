@@ -1,0 +1,77 @@
+/*
+    file:           common.css
+
+    description:    tkScenarist common cascading stylesheet (CSS)
+
+    created (by):   2015/01/28 13:12:13 (RS)
+
+    modified (by):  2015/01/28 13:47:02 (RS)
+
+    maintainer(s):  Raphaël SEBAN (RS) <motus@laposte.net>
+
+    This file is part of the tkScenarist software project.
+*/
+
+    /* doc_templates.py / HTML5DocTemplate containers */
+
+    #page {
+        background: white;
+        border: thin solid black;
+        margin: 7mm auto;
+        padding: 3mm;
+        width: 70%;
+    }
+
+    #title {
+        font: 20pt bold courier, monospace;
+        text-align: center;
+    }
+
+    #contents {
+    }
+
+    /* main elements */
+
+    body {
+        background: #777;
+        border: 0;
+        font: 10pt helvetica, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+    }
+
+    h2 {
+    }
+
+    h3 {
+    }
+
+    h4 {
+    }
+
+    h5 {
+    }
+
+    p {
+    }
+
+    ol {
+    }
+
+    ul {
+    }
+
+    li {
+    }
+
+    ol.li {
+    }
+
+    ul.li {
+    }
+
+    a {
+    }

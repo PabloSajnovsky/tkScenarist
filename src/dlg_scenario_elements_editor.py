@@ -258,7 +258,7 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         # end for
         # FONT section
         self.w.combo_font_family.configure(
-            values=['courier', 'sans', 'serif', 'tkdefaultfont'] +
+            values=['courier', 'helvetica', 'times', 'tkdefaultfont'] +
             sorted(font.families())
         )
         self.FONT_COMBOS = (

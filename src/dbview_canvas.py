@@ -47,7 +47,7 @@ class DBViewCanvas (RC.RADCanvas):
         "body": {
             "text": {
                 "align": "left",
-                "font": "sans 10",
+                "font": "helvetica 10",
             },
             "box": {
             },
@@ -55,7 +55,7 @@ class DBViewCanvas (RC.RADCanvas):
         "header": {
             "text": {
                 "align": "center",
-                "font": "sans 11 bold",
+                "font": "helvetica 11 bold",
             },
             "box": {
             },
@@ -691,7 +691,7 @@ class DBViewLabel:
     TEXT_OPTIONS = {
         "align": "left",
         "fill": "black",
-        "font": "sans 10",
+        "font": "helvetica 10",
         "width": None,
     }
 

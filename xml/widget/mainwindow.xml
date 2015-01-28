@@ -80,8 +80,8 @@
         raised.TFrame { borderwidth: 1; relief: raised; }
         error.TLabel { foreground: red; }
         info.TLabel { foreground: royal blue; }
-        info_big.TLabel { font: sans 12 bold; foreground: royal blue; }
-        info_mini.TLabel { font: sans 9 bold; foreground: royal blue; }
+        info_big.TLabel { font: helvetica 12 bold; foreground: royal blue; }
+        info_mini.TLabel { font: helvetica 9 bold; foreground: royal blue; }
         TLabelframe { padding: 5; }
         TRadiobutton :selected { indicatorcolor: royal blue; }
     ]]>

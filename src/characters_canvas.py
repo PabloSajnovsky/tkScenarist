@@ -43,7 +43,7 @@ class CharactersCanvas (RC.RADCanvas):
     } # end of CONFIG
 
     CONFIG_LINK = {
-        "font": "sans 8 italic",
+        "font": "helvetica 8 italic",
         "anchor": "center",
         "color": "grey90",
         "background": "grey30",
@@ -54,7 +54,7 @@ class CharactersCanvas (RC.RADCanvas):
     }
 
     CONFIG_NAME = {
-        "font": "sans 10 bold",
+        "font": "helvetica 10 bold",
         "anchor": "center",
         "color": "royal blue",
         "background": "grey90",

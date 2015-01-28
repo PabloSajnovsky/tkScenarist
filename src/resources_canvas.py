@@ -794,7 +794,7 @@ class RCDateRuler (RCCanvasItem):
     """
 
     # class constant defs
-    FONT = "sans 8"
+    FONT = "helvetica 8"
     PAD_X = 5
     RULER_HEIGHT = 24
     SCALES = ("days", "weeks", "months")
@@ -1198,7 +1198,7 @@ class RCItemList (RCCanvasItem):
                     _x0, _y0 + _index * self.LINE_HEIGHT,
                     anchor="nw",
                     fill="black",
-                    font="sans 9",
+                    font="helvetica 9",
                     text=_item,
                     tags=(self.tag, self.tag_labels),
                 )

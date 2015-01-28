@@ -86,7 +86,7 @@
                 <ttkcombobox
                     name="combo_elements"
                     textvariable="combo_current_element"
-                    font="sans 9 bold"
+                    font="helvetica 9 bold"
                     style="RO.TCombobox"
                     layout="pack"
                     layout_options="side='left', padx=5"
@@ -229,7 +229,7 @@
                             id="info_char_log"
                             name="text_characters_log"
                             foreground="grey30"
-                            font="sans 8"
+                            font="helvetica 8"
                             height="10"
                             width="40"
                             state="disabled"

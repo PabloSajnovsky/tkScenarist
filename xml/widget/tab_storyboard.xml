@@ -399,7 +399,7 @@
                             id="characters_log"
                             name="text_characters_log"
                             foreground="grey30"
-                            font="sans 8"
+                            font="helvetica 8"
                             height="10"
                             width="20"
                             state="disabled"

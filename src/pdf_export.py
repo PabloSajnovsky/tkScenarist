@@ -1125,10 +1125,25 @@ class PDFDocumentResources (PDFDocumentBase):
         # got data?
         if _rows:
             # inits
-            _table_rows = [(_("Date begin"), _("Date end"),)]
+            _table_rows = [
+                # table headers
+                (
+                    Paragraph(_("Date begin"), self.styles["th"]),
+                    Paragraph(_("Date end"), self.styles["th"]),
+                    Paragraph(_("Availability"), self.styles["th"]),
+                ),
+            ]
+            _td = self.styles["td"]
             # browse dates
             for _row in _rows:
-                pass
+                # add table data
+                _table_rows.append(
+                    (
+                        Paragraph(_row["date_begin"], _td),
+                        Paragraph(_row["date_end"], _td),
+                        Paragraph(_row["status"], _td),
+                    )
+                )
             # end for
             # inits
             _style = [

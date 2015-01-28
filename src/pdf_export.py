@@ -1229,8 +1229,16 @@ class PDFDocumentResources (PDFDocumentBase):
             self.add_paragraph(_item, self.styles["h3"])
             # get item data
             _row = self.database.res_get_item(self.items[_item])
+            # no data for this? tell it!
+            self.notify_no_data(len(_row))
             # browse data
             for _key, _value in _row.items():
+                # unordered list
+                self.add_paragraph(
+                    "<bullet>{}: {}".format(_key, _value),
+                    self.styles["body"]
+                )
+            # end for
         # end try
     # end def
 

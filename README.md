@@ -194,7 +194,7 @@ Simply download and use this program as is.
 
 Simply double-click on `tkscenarist.py` file to launch app.
 
-#### No console app
+#### Hint: no console app
 
 Many MS-Windows&trade; users wonder why do they have a shell console
 window coming up with the application on startup.

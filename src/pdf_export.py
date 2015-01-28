@@ -137,6 +137,7 @@ def get_stylesheet ():
             fontName="Helvetica",
             alignment=TA_JUSTIFY,
             spaceAfter=0.1*inch,
+            bulletIndent=0.1*inch,
         ),
         "footer": ParagraphStyle(
             "footer",
@@ -1083,14 +1084,48 @@ class PDFDocumentResources (PDFDocumentBase):
     )
 
 
-    def __init__ (self, doc_name, **kw):
+    def add_item_data (self, fk_type):
         """
-            class constructor;
+            adds item data as unordered list;
+            for internal use only;
         """
-        # super class inits
-        super().__init__(doc_name, **kw)
-        # additional member inits
-        pass
+        # get item data
+        _row = self.database.res_get_item(fk_type)
+        # got data?
+        if _row:
+            # must get ordered this way
+            for _key in self.ITEM_FIELDNAMES:
+                # inits
+                _value = _row[_key]
+                # got value?
+                if _value:
+                    # unordered list
+                    self.add_paragraph(
+                        "{}: {}".format(_key, _value),
+                        self.styles["body"],
+                        bulletText="\u2022",
+                    )
+                # end if
+            # end for
+        # no data
+        else:
+            # tell it
+            self.notify_no_data(0)
+        # end if
+    # end def
+
+
+    def add_item_datebars (self, fk_type):
+        """
+            adds item availability dates as table;
+            for internal use only;
+        """
+        # get item data
+        _rows = self.database.res_get_datebars(fk_type)
+        # browse dates
+        for _row in _rows:
+            pass
+        # end for
     # end def
 
 
@@ -1231,26 +1266,14 @@ class PDFDocumentResources (PDFDocumentBase):
             self.step = 2
         # go on trying
         else:
+            # inits
+            _key = self.items[_item]
             # add paragraph
             self.add_paragraph(_item, self.styles["h3"])
-            # get item data
-            _row = self.database.res_get_item(self.items[_item])
-            # got data?
-            if _row:
-                # must get ordered this way
-                for _key in self.ITEM_FIELDNAMES:
-                    # unordered list
-                    self.add_paragraph(
-                        "{}: {}".format(_key, _row[_key]),
-                        self.styles["body"],
-                        bulletText="&bull;",
-                    )
-                # end for
-            # no data
-            else:
-                # tell it
-                self.notify_no_data(0)
-            # end if
+            # add item data
+            self.add_item_data(_key)
+            # add item availability dates
+            self.add_item_datebars(_key)
         # end try
     # end def
 

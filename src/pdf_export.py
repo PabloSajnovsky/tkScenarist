@@ -1162,10 +1162,12 @@ class PDFDocumentResources (PDFDocumentBase):
                 ("INNERGRID", (0, 0), (-1, -1), 0.1, colors.black),
                 ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
             ]
+            _table = Table(_table_rows, repeatRows=1, style=_style)
+            # forgotten angels?
+            _table.spaceBefore = 0.2*inch
+            _table.spaceAfter = 0.2*inch
             # add table
-            self.elements.append(
-                Table(_table_rows, repeatRows=1, style=_style)
-            )
+            self.elements.append(_table)
         # end if
     # end def
 

@@ -1121,7 +1121,7 @@ class PDFDocumentResources (PDFDocumentBase):
             for internal use only;
         """
         # get item data
-        _rows = self.database.res_get_datebars(fk_type)
+        _rows = self.database.res_get_datebars([fk_type])
         # got data?
         if _rows:
             # inits
@@ -1141,7 +1141,12 @@ class PDFDocumentResources (PDFDocumentBase):
                     (
                         Paragraph(_row["date_begin"], _td),
                         Paragraph(_row["date_end"], _td),
-                        Paragraph(_row["status"], _td),
+                        Paragraph(
+                            _("Available")
+                            if _row["status"]
+                            else _("NOT available"),
+                            _td
+                        ),
                     )
                 )
             # end for

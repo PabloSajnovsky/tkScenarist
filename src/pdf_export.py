@@ -122,6 +122,15 @@ def get_stylesheet ():
             alignment=TA_LEFT,
             spaceAfter=0.1*inch,
         ),
+        "h3": ParagraphStyle(
+            "h3",
+            parent=_root_style,
+            fontName="Helvetica-Bold",
+            fontSize=12,
+            leading=14,
+            alignment=TA_LEFT,
+            spaceAfter=0.1*inch,
+        ),
         "body": ParagraphStyle(
             "body",
             parent=_root_style,
@@ -1067,7 +1076,213 @@ class PDFDocumentResources (PDFDocumentBase):
     """
         specific PDF document class for Resources application tab;
     """
-    pass
+
+    def __init__ (self, doc_name, **kw):
+        """
+            class constructor;
+        """
+        # super class inits
+        super().__init__(doc_name, **kw)
+        # additional member inits
+        pass
+    # end def
+
+
+    def build_elements (self):
+        """
+            hook method to be reimplemented in subclass;
+            builds document internal elements;
+        """
+        # reset progress
+        self.reset_progress()
+        # switch to step method
+        exec("self.do_step_{}()".format(self.step))
+    # end def
+
+
+    def do_step_0 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        #
+        # step 0: document inits
+        #
+        # force reset all
+        self.reset_progress(force_reset=True)
+        # get resource sections (dict)
+        self.sections = self.database.res_get_types()
+        self.sections_sorted = sorted(self.sections)
+        self.total_sections = len(self.sections)
+        # init index
+        self.index = 0
+        # first page elements
+        self.set_first_page_elements()
+        # next step
+        self.step += 1
+    # end def
+
+
+    def do_step_1 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        #
+        # step 1: consuming one entire section
+        #
+        # try out
+        try:
+            # get section
+            _section = self.sections_sorted[self.index]
+        # no more section
+        except:
+            # no data for this? tell it!
+            self.notify_no_data(self.total_sections)
+            # procedure is complete
+            self.progress = 100
+        # go on trying
+        else:
+            # update progress
+            self.progress = min(
+                99.0, 100.0 * self.index / self.total_sections
+            )
+            # update index
+            self.index += 1
+            # add paragraph
+            self.add_paragraph(_section, self.styles["h1"])
+            # subsection inits
+            self.subsections = self.database.res_get_types(
+                self.sections[_section]
+            )
+            self.subsections_sorted = sorted(self.subsections)
+            self.total_subsections = len(self.subsections)
+            # init index
+            self.index2 = 0
+            # next step
+            self.step += 1
+        # end try
+    # end def
+
+
+    def do_step_2 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        #
+        # step 2: consuming one entire subsection
+        #
+        # try out
+        try:
+            # get subsection
+            _subsection = self.subsections_sorted[self.index2]
+        # no more subsection
+        except:
+            # no data for this? tell it!
+            self.notify_no_data(self.total_subsections)
+            # add page break
+            self.add_pagebreak()
+            # step 1: next section
+            self.step = 1
+        # go on trying
+        else:
+            # update progress
+            self.progress += (
+                (100.0 / (self.total_sections)
+                * (self.index2 / self.total_subsections)
+            )
+            # update index
+            self.index += 1
+            # add paragraph
+            self.add_paragraph(_section, self.styles["h1"])
+            # subsection inits
+            self.subsections = self.database.res_get_types(
+                self.sections[_section]
+            )
+            self.subsections_sorted = sorted(self.subsections)
+            self.total_subsections = len(self.subsections)
+            # init index
+            self.index2 = 0
+            # next step
+            self.step += 1
+        # end try
+    # end def
+
+
+    def do_step_3 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        #
+        # step 3: print
+        #
+        pass
+    # end def
+
+
+    def do_step_4 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        #
+        # step 4: print
+        #
+        pass
+    # end def
+
+
+    def do_step_5 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        #
+        # step 4: print
+        #
+        pass
+    # end def
+
+
+    def do_step_6 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        #
+        # step 4: print
+        #
+        pass
+    # end def
+
+
+    def do_step_7 (self):
+        """
+            elements building process step;
+            for internal use only;
+        """
+        #
+        # step 4: print
+        #
+        pass
+    # end def
+
+
+    def notify_no_data (self, count):
+        """
+            for internal use only;
+            notifies if there is no data;
+        """
+        if not count:
+            self.add_paragraph(
+                "<i>{}</i>".format(_("(no data)")),
+                self.styles["body"]
+            )
+        # end if
+    # end def
+
 # end class PDFDocumentResources
 
 

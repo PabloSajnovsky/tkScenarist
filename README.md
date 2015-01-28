@@ -191,6 +191,7 @@ special installation by yourself.
 Simply download and use this program as is.
 
 ### MS-Windows&trade; users
+---
 
 Simply double-click on `tkscenarist.py` file to launch app.
 
@@ -209,6 +210,7 @@ For the present case, this means you should rename `tkscenarist.py` to
 `tkscenarist.pyw` and then run it once again.
 
 ### UNIX/Linux
+---
 
 Click on `tkscenarist.py` file if it has the executable sticky bit on
 or open a shell console and launch file:

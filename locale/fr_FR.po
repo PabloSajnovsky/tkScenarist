@@ -973,6 +973,11 @@ msgstr ""
 "Dans :"
 
 msgid ""
+"Invalid CSV file format. Not supported."
+msgstr ""
+"Format de fichier CSV incorrect. Non pris en charge."
+
+msgid ""
 "Item '{item}' already exists."
 msgstr ""
 "L'élément '{item}' existe déjà."

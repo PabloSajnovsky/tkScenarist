@@ -1283,6 +1283,11 @@ msgstr ""
 "Projet"
 
 msgid ""
+"Project > New: cancelled."
+msgstr ""
+"Projet > Nouveau : annulé."
+
+msgid ""
 "Project > Save as...: cancelled."
 msgstr ""
 "Projet > Enregistrer sous...: annulé."

@@ -813,7 +813,7 @@ msgstr ""
 msgid ""
 "Extra notes"
 msgstr ""
-"Notes supplémentaires"
+"Notes personnelles"
 
 msgid ""
 "Female names"

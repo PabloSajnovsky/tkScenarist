@@ -592,6 +592,12 @@ msgstr ""
 "Chemin ou format de fichier incorrect."
 
 msgid ""
+"Could not save project. Incorrect file path."
+msgstr ""
+"Impossible d'enregistrer le fichier projet. "
+"Chemin de fichier incorrect."
+
+msgid ""
 "Crane"
 msgstr ""
 "Grue"

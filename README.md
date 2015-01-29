@@ -21,7 +21,7 @@ This software is a **freefullware** (see [below](#freefullware)).
 
 tkScenarist - screen writing made simpler.
 
-Copyright (c) 2014 Raphaël Seban <motus@laposte.net>
+Copyright (c) 2014+ Raphaël Seban <motus@laposte.net>
 
 
 ## License

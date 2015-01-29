@@ -6,7 +6,7 @@
 #                                                                      #
 # Created (by):     2014/11/02 19:09:36 (tarball69)                    #
 #                                                                      #
-# Modified (by):    2015/01/27 09:00:20 (tarball69)                    #
+# Modified (by):    2015/01/29 08:04:13 (tarball69)                    #
 #                                                                      #
 # Encoding:         UTF-8                                              #
 #                                                                      #
@@ -20,6 +20,11 @@ msgstr ""
 
 msgid ""
 "'TRANSITION' line."
+msgstr ""
+""
+
+msgid ""
+"(no data)"
 msgstr ""
 ""
 
@@ -309,6 +314,41 @@ msgstr ""
 ""
 
 msgid ""
+"<Ctrl-Return>"
+msgstr ""
+""
+
+msgid ""
+"<Ctrl-Return>:"
+msgstr ""
+""
+
+msgid ""
+"<Return>"
+msgstr ""
+""
+
+msgid ""
+"<Return>:"
+msgstr ""
+""
+
+msgid ""
+"<Tab>"
+msgstr ""
+""
+
+msgid ""
+"<Tab>:"
+msgstr ""
+""
+
+msgid ""
+"About..."
+msgstr ""
+""
+
+msgid ""
 "About:"
 msgstr ""
 ""
@@ -369,12 +409,27 @@ msgstr ""
 ""
 
 msgid ""
-"Author:"
+"Author"
 msgstr ""
 ""
 
 msgid ""
 "Autobus"
+msgstr ""
+""
+
+msgid ""
+"Availability"
+msgstr ""
+""
+
+msgid ""
+"Available"
+msgstr ""
+""
+
+msgid ""
+"Available (OK)"
 msgstr ""
 ""
 
@@ -446,11 +501,6 @@ msgstr ""
 msgid ""
 "Cannot delete name '{name}'.\n"
 "This character name is still mentioned into scenario's text."
-msgstr ""
-""
-
-msgid ""
-"Cannot export data: need a saved project file path."
 msgstr ""
 ""
 
@@ -557,12 +607,32 @@ msgstr ""
 ""
 
 msgid ""
-"Delete"
+"Date begin"
 msgstr ""
 ""
 
 msgid ""
-"Describe here my application"
+"Date begin:"
+msgstr ""
+""
+
+msgid ""
+"Date end"
+msgstr ""
+""
+
+msgid ""
+"Date end (included):"
+msgstr ""
+""
+
+msgid ""
+"Dates"
+msgstr ""
+""
+
+msgid ""
+"Delete"
 msgstr ""
 ""
 
@@ -669,6 +739,11 @@ msgstr ""
 
 msgid ""
 "Element"
+msgstr ""
+""
+
+msgid ""
+"Episode:"
 msgstr ""
 ""
 
@@ -808,11 +883,6 @@ msgstr ""
 ""
 
 msgid ""
-"Identification"
-msgstr ""
-""
-
-msgid ""
 "Import"
 msgstr ""
 ""
@@ -843,6 +913,11 @@ msgstr ""
 ""
 
 msgid ""
+"Item name"
+msgstr ""
+""
+
+msgid ""
 "Item:"
 msgstr ""
 ""
@@ -854,6 +929,11 @@ msgstr ""
 
 msgid ""
 "Known distinct mutual relations: {relation_count}"
+msgstr ""
+""
+
+msgid ""
+"Launching web browser, please wait."
 msgstr ""
 ""
 
@@ -963,12 +1043,7 @@ msgstr ""
 ""
 
 msgid ""
-"My Application"
-msgstr ""
-""
-
-msgid ""
-"My Application is wonderful!"
+"NOT available"
 msgstr ""
 ""
 
@@ -1143,6 +1218,16 @@ msgstr ""
 ""
 
 msgid ""
+"Project"
+msgstr ""
+""
+
+msgid ""
+"Project > Save as...: cancelled."
+msgstr ""
+""
+
+msgid ""
 "Project has been modified. Save it?"
 msgstr ""
 ""
@@ -1153,27 +1238,17 @@ msgstr ""
 ""
 
 msgid ""
+"Project saved OK."
+msgstr ""
+""
+
+msgid ""
 "Project settings"
 msgstr ""
 ""
 
 msgid ""
-"Project's episode:"
-msgstr ""
-""
-
-msgid ""
 "Project's filename:"
-msgstr ""
-""
-
-msgid ""
-"Project's subtitle:"
-msgstr ""
-""
-
-msgid ""
-"Project's title:"
 msgstr ""
 ""
 
@@ -1184,6 +1259,11 @@ msgstr ""
 
 msgid ""
 "Question"
+msgstr ""
+""
+
+msgid ""
+"Raphaël SEBAN"
 msgstr ""
 ""
 
@@ -1264,6 +1344,16 @@ msgstr ""
 
 msgid ""
 "Save _as..."
+msgstr ""
+""
+
+msgid ""
+"Save as..."
+msgstr ""
+""
+
+msgid ""
+"Saving project, please wait."
 msgstr ""
 ""
 
@@ -1413,6 +1503,11 @@ msgstr ""
 ""
 
 msgid ""
+"Subtitle:"
+msgstr ""
+""
+
+msgid ""
 "Switch line to:"
 msgstr ""
 ""
@@ -1482,6 +1577,11 @@ msgstr ""
 ""
 
 msgid ""
+"Title:"
+msgstr ""
+""
+
+msgid ""
 "Tools"
 msgstr ""
 ""
@@ -1523,6 +1623,11 @@ msgstr ""
 
 msgid ""
 "Type:"
+msgstr ""
+""
+
+msgid ""
+"Unavailable (N/A)"
 msgstr ""
 ""
 
@@ -1697,11 +1802,6 @@ msgstr ""
 ""
 
 msgid ""
-"idem."
-msgstr ""
-""
-
-msgid ""
 "importation succeeded. OK."
 msgstr ""
 ""
@@ -1718,11 +1818,6 @@ msgstr ""
 
 msgid ""
 "left"
-msgstr ""
-""
-
-msgid ""
-"mainwindow"
 msgstr ""
 ""
 
@@ -1773,6 +1868,11 @@ msgstr ""
 
 msgid ""
 "tkScenarist files"
+msgstr ""
+""
+
+msgid ""
+"window"
 msgstr ""
 ""
 

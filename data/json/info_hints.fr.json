@@ -1,0 +1,39 @@
+{
+    "default": [
+        "UNE PAGE de script équivaut à environ UNE MINUTE de film."
+    ],
+
+    "action": [
+        "l'élément ACTION est utilisé pour décrire des faits immédiats.",
+        "pour indiquer une ACTION, conjuguez vos verbes au PRÉSENT.",
+        "ÉVITEZ autant que possible le recours à l'imparfait ou au passé simple pour décrire une ACTION."
+    ],
+
+    "character": [
+        "Les noms des PERSONNAGES devraient toujours être cités en MAJUSCULES."
+    ],
+
+    "dialogue": [
+        "l'élément DIALOGUE est utilisé pour indiquer qu'un personnage parle.",
+        "l'élément DIALOGUE peut aussi être utilisé pour les VOIX OFF, par exemple."
+    ],
+
+    "parenthetical": [
+        "l'élément PARENTHÈSES est utilisé pour compléter un dialogue en précisant l'état émotionnel de l'interlocuteur (content, triste, furieux, etc).",
+        "l'élément PARENTHÈSES est aussi utilisé pour indiquer une ACTION MUETTE effectuée durant un dialogue. Exemples : en débranchant l'appareil, en barbotant dans la mare, etc."
+    ],
+
+    "scene": [
+        "un élément de SCÈNE devrait toujours se composer de : INT/EXT - JOUR/NUIT - EMPLACEMENT",
+        "commencez toujours une ligne de SCÈNE par INT (intérieur) ou EXT (extérieur).",
+        "dans une SCÈNE, il est important d'indiquer OÙ (int./ext.) se passe l'action.",
+        "dans une SCÈNE, il est important d'indiquer QUAND (jour/nuit) se passe l'action.",
+        "dans une SCÈNE, il est recommandé d'indiquer l'EMPLACEMENT de l'action.",
+        "une ligne de SCÈNE devrait toujours être écrite en MAJUSCULES."
+    ],
+
+    "transition": [
+        "l'élément TRANSITION est utilisé pour indiquer une transition technique : CUT, FADE IN, FADE OUT, etc.",
+        "il n'est généralement pas trop recommandé d'abuser des éléments TRANSITION, surtout si le script est destiné au milieu professionnel."
+    ]
+}

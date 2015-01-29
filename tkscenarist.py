@@ -148,7 +148,7 @@ If not, see: http://www.gnu.org/licenses/
             font="helvetica 9",
             background=_frame["background"],
             foreground="grey20",
-        ).pack(expand=1, fill="x", pady=10)
+        ).pack(expand=1, fill="x", padx=20, pady=10)
         _frame.pack()
         # update coordinates
         _sp.update_idletasks()

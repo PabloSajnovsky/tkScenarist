@@ -109,6 +109,9 @@ resource items and a visual planning widget;
 * PDF export feature is now a multiple document user dialog with
 several options;
 
+* software has been **fully translated to french** (metropolitan french
+&ndash; fr_FR);
+
 
 ## Screenshots
 

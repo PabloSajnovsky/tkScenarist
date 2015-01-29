@@ -6,7 +6,7 @@
 #                                                                      #
 # Created (by):     2014/11/02 19:09:36 (tarball69)                    #
 #                                                                      #
-# Modified (by):    2015/01/29 08:04:13 (tarball69)                    #
+# Modified (by):    2015/01/29 10:35:27 (tarball69)                    #
 #                                                                      #
 # Encoding:         UTF-8                                              #
 #                                                                      #
@@ -961,6 +961,11 @@ msgstr ""
 "Line producer"
 
 msgid ""
+"Linking a name to itself makes *NO* sense."
+msgstr ""
+"Lier un nom à lui-même n'a pas de sens."
+
+msgid ""
 "Listed relations: {list_count}"
 msgstr ""
 "Relations listées ci-dessous : {list_count}"
@@ -1544,6 +1549,11 @@ msgid ""
 "Text files"
 msgstr ""
 "Fichiers texte"
+
+msgid ""
+"These two character names are *ALREADY LINKED* together."
+msgstr ""
+"Ces deux noms sont *DÉJÀ LIÉS*."
 
 msgid ""
 "This is a 'DIALOGUE' line."

@@ -1288,9 +1288,14 @@ msgstr ""
 "Projet > Nouveau : annulé."
 
 msgid ""
+"Project > Open: cancelled."
+msgstr ""
+"Projet > Ouvrir : annulé."
+
+msgid ""
 "Project > Save as...: cancelled."
 msgstr ""
-"Projet > Enregistrer sous...: annulé."
+"Projet > Enregistrer sous... : annulé."
 
 msgid ""
 "Project has been modified. Save it?"

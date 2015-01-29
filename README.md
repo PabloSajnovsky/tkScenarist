@@ -153,7 +153,8 @@ Software has been:
     * TESTED only on MS-Windows(tm) 8, but seems to work quite fine for
     the moment;
 
-Any feedback is still the welcome.
+Any [feedback](https://github.com/tarball69/tkScenarist/issues) is
+still the welcome.
 
 
 ## Installation

@@ -36,7 +36,7 @@
             onvalue="1"
             checked="checked"
             layout="pack"
-            resizable="width"
+            layout_options="anchor='w'"
         />
         <ttkcheckbutton
             text="Storyboard"
@@ -44,7 +44,7 @@
             variable="chk_storyboard"
             onvalue="1"
             layout="pack"
-            resizable="width"
+            layout_options="anchor='w'"
         />
         <ttkcheckbutton
             text="Characters"
@@ -52,7 +52,7 @@
             variable="chk_characters"
             onvalue="1"
             layout="pack"
-            resizable="width"
+            layout_options="anchor='w'"
         />
         <ttkcheckbutton
             text="Pitch/Concept"
@@ -60,7 +60,7 @@
             variable="chk_pitch_concept"
             onvalue="1"
             layout="pack"
-            resizable="width"
+            layout_options="anchor='w'"
         />
         <ttkcheckbutton
             text="Draft/Notes"
@@ -68,7 +68,7 @@
             variable="chk_draft_notes"
             onvalue="1"
             layout="pack"
-            resizable="width"
+            layout_options="anchor='w'"
         />
         <ttkcheckbutton
             text="Resources"
@@ -76,7 +76,7 @@
             variable="chk_resources"
             onvalue="1"
             layout="pack"
-            resizable="width"
+            layout_options="anchor='w'"
         />
     </ttklabelframe>
 
@@ -94,7 +94,7 @@
             onvalue="1"
             checked="checked"
             layout="pack"
-            resizable="width"
+            layout_options="anchor='w'"
         />
         <ttkcheckbutton
             text="Print SCENE numbers on RIGHT side"
@@ -103,7 +103,7 @@
             onvalue="1"
             checked="checked"
             layout="pack"
-            resizable="width"
+            layout_options="anchor='w'"
         />
         <ttkseparator
             orient="horizontal"
@@ -118,7 +118,7 @@
             onvalue="1"
             checked="checked"
             layout="pack"
-            resizable="width"
+            layout_options="anchor='w'"
         />
         <ttkcheckbutton
             text="Print SHOT numbers on RIGHT side"
@@ -127,7 +127,7 @@
             onvalue="1"
             checked="checked"
             layout="pack"
-            resizable="width"
+            layout_options="anchor='w'"
         />
         <ttkseparator
             orient="horizontal"
@@ -142,7 +142,7 @@
             onvalue="1"
             checked="checked"
             layout="pack"
-            resizable="width"
+            layout_options="anchor='w'"
         />
     </ttklabelframe>
 
@@ -156,9 +156,8 @@
         <!-- export status -->
         <ttklabel
             textvariable="lbl_export_status"
-            width="40"
             layout="pack"
-            resizable="width"
+            layout_options="anchor='w'"
         />
         <ttkframe
             layout="pack"

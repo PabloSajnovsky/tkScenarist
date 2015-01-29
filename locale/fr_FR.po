@@ -1243,6 +1243,11 @@ msgstr ""
 "Planning"
 
 msgid ""
+"Please, choose a color"
+msgstr ""
+"Veuillez sélectionner une couleur"
+
+msgid ""
 "Please, insert"
 msgstr ""
 "Veuillez insérer"

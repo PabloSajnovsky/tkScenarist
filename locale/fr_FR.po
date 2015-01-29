@@ -936,6 +936,11 @@ msgstr ""
 "Dans :"
 
 msgid ""
+"Item '{item}' already exists."
+msgstr ""
+"L'élément '{item}' existe déjà."
+
+msgid ""
 "Item name"
 msgstr ""
 "Nom élément"

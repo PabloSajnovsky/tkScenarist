@@ -344,14 +344,14 @@ class MainWindow (tkRAD.RADXMLWindow):
         import tkinter.messagebox as MB
         MB.showinfo(
             title=_("About..."),
-            message=
+            message=_(
                 "{title}\n{description}\n{copyright}"
                 "\nCurrent version: {version}"
                 "\n\nAuthor: {author}"
                 "\nCurrent maintainer: {maintainer}"
                 "\nPDF toolkit: {pdflib}"
                 "\nBy: {pdflib_author}"
-                .format(**self.app.APP),
+                ).format(**self.app.APP),
             parent=self,
         )
     # end def

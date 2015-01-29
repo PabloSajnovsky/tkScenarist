@@ -536,6 +536,11 @@ msgstr ""
 "Nom de personnage"
 
 msgid ""
+"Character name '{name}' already exists."
+msgstr ""
+"Le nom de personnage '{name}' existe déjà."
+
+msgid ""
 "Character's log"
 msgstr ""
 "Historique personnage"

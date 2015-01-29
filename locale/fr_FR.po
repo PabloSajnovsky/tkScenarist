@@ -436,7 +436,7 @@ msgstr ""
 msgid ""
 "Average number of shots per scene: {:01.3f}"
 msgstr ""
-"Nombre moyen de plans par scène : {:01.3f}"
+"Nb de plans par scène (moyenne) : {:01.3f}"
 
 msgid ""
 "Background:"

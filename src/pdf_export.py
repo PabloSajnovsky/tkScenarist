@@ -1101,7 +1101,10 @@ class PDFDocumentResources (PDFDocumentBase):
                 if _value:
                     # unordered list
                     self.add_paragraph(
-                        "{}: {}".format(_key, _value),
+                        _("{key}: {value}")
+                        .format(
+                            key=_(_key.capitalize()), value=_value
+                        ),
                         self.styles["body"],
                         bulletText="\u2022",
                     )

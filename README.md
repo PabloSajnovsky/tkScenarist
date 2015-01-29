@@ -3,6 +3,12 @@
 Screen writing made simpler.
 
 
+## tkScenarist: internationalized
+
+Retrouvez toute la **documentation en français** sur le
+[wiki du projet]
+(https://github.com/tarball69/tkScenarist/wiki/Accueil).
+
 ## Introduction
 
 **tkScenarist** is a simple Python3/Tkinter application aiming to make

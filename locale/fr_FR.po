@@ -1836,7 +1836,7 @@ msgstr ""
 msgid ""
 "tkScenarist - screen writing made simpler"
 msgstr ""
-"tkScenarist - simplifiez-vous la vie"
+"tkScenarist - simplifiez-vous la vie !"
 
 msgid ""
 "tkScenarist files"

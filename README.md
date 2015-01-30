@@ -65,6 +65,13 @@ Just get it and enjoy.
 That's all, folks!
 
 
+## Documentation
+
+Please, feel free to visit our wiki wiki online documentation at:
+
+https://github.com/tarball69/tkScenarist/wiki
+
+
 ## Features
 
 At this time:

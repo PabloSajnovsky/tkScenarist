@@ -1,51 +1,51 @@
-TEMPLATE: LOVE STORY
-====================
-(c) 2014 by Raphaël SEBAN.
-Licensed under Creative Commons BY-SA 4.0.
-For more detail, please read:
+MODÈLE : LOVE STORY
+===================
+(c) 2014+ Raphaël SEBAN.
+Publié sous licence Creative Commons BY-SA 4.0.
+Pour en savoir plus, veuillez consulter :
 http://creativecommons.org/licenses/by-sa/4.0/
 
-STEP 1: INTRODUCTION
-====================
-
-Tell about A, B and C characters' life.
-Which relations do they have?
-What are their personalities?
-
-STEP 2: THE MEETING
-===================
-
-Let's say A and B are the main characters.
-They meet each other, but C is already one's lover.
-
-STEP 3: LOVE LOVE LOVE
+ÉTAPE 1 : PRÉSENTATION
 ======================
 
-A and B discover each other.
-They live a wonderful lovers' dream.
-C tries to break them up.
+Décrivez la vie de A, B et C, nos trois personnages principaux.
+Quelles relations les unissent ? les séparent ?
+Quelles sont leurs personnalités respectives ?
 
-STEP 4: CLIMAX - THE RUPTURE
-============================
+ÉTAPE 2 : LA RENCONTRE
+======================
 
-Something went wrong. 
-A and B must separate.
-C wants to reconquer her/his lover.
+A rencontre B, mais C est déjà avec A (ou B).
 
-STEP 5: BATTLE FOR CONQUEST
-===========================
+ÉTAPE 3 : LOVE LOVE LOVE
+=======================
 
-Each main character has to be questioned.
-After some hesitations, A (or B) fights to reconquer her/his lover.
+A et B se découvrent, vivent un amour ardent.
+Mais C tente de les séparer.
 
-STEP 6: HAPPY END
-=================
+ÉTAPE 4 : LA RUPTURE
+===================
 
-Finally C fails to break them up.
-A and B join together for the best time.
-All ends in happiness for the heroes.
+Une série invraisemblable de malentendus les amène à se séparer.
+A doute de B.
+À moins que ce ne soit le contraire...
+Pendant ce temps, C tente de reconquérir son amour perdu.
 
-STEP 7: CLIFFHANGER (AT YOUR OPTION)
-====================================
+ÉTAPE 5 : LA BATAILLE POUR LA RECONQUÊTE
+=======================================
 
-C plots to break them up one more time: he/she has found a good idea to make this happen...
+Chacun vit de son côté une phase de doute et de remise en question.
+Après quelques atermoiements, A (ou B) décide de se battre pour reconquérir son amour.
+
+ÉTAPE 6 : HAPPY END
+==================
+
+Finalement, l'amour triomphe : A et B sont de nouveau ensemble, heureux et épanouis.
+C a échoué dans ses tentatives de les séparer.
+Tout est bien qui finit bien.
+
+ÉTAPE 7 : CLIFFHANGER (option)
+==========================
+
+C complote en secret pour séparer de nouveau A et B.
+Et il semble bien que cette fois-ci, C a trouvé comment faire...

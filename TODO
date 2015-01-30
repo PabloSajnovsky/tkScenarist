@@ -11,3 +11,4 @@ TODO list
 
         * something's going wrong with accented letters e.g. ê Ê ë Ë
         etc. should see what's the matter;
+        * seems to happen anywhere, after reset() (Project > New);

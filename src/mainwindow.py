@@ -162,6 +162,7 @@ class MainWindow (tkRAD.RADXMLWindow):
             event.widget.selection_clear()
         except:
             pass
+            print("got error disable_ttkentry_expose")
         # end try
     # end def
 
@@ -274,6 +275,7 @@ class MainWindow (tkRAD.RADXMLWindow):
                 self.focus_lastfor().edit_redo()
             except:
                 pass
+                print("got error on slot_edit_redo")
             # end try
         # end if
     # end def
@@ -305,6 +307,7 @@ class MainWindow (tkRAD.RADXMLWindow):
             # end if
         except:
             pass
+            print("got error on slot_edit_select_all")
         # end try
     # end def
 
@@ -320,6 +323,7 @@ class MainWindow (tkRAD.RADXMLWindow):
                 self.focus_lastfor().edit_undo()
             except:
                 pass
+                print("got error on slot_edit_undo")
             # end try
         # end if
     # end def

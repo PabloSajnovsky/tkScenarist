@@ -6,9 +6,3 @@ TODO list
         * should implement scene browser's diffs with a difflib; shots
         scene number varies if user inserts a scene between two other
         in scenario tab;
-
-    * ALL Text widgets:
-
-        * something's going wrong with accented letters e.g. ê Ê ë Ë
-        etc. should see what's the matter;
-        * seems to happen anywhere, after reset() (Project > New);

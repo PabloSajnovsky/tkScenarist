@@ -128,7 +128,7 @@ class MainWindow (tkRAD.RADXMLWindow):
             hook method to be reimplemented in subclass;
             put here user confirmation dialog for quitting app;
         """
-        # user confirmation dialog (anything but cancelled)
+        # user confirmation dialog (accept anything but cancelled)
         return bool(
             self.project_fm.ensure_saved() != self.project_fm.CANCEL
         )

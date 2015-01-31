@@ -57,8 +57,6 @@ class MainWindow (tkRAD.RADXMLWindow):
         """
         self.events.connect_dict(
             {
-                "Edit:Preferences":
-                    self.slot_edit_preferences,
                 "Edit:Redo":
                     self.slot_edit_redo,
                 "Edit:Select:All":
@@ -252,14 +250,6 @@ class MainWindow (tkRAD.RADXMLWindow):
         """
         # strip that ugly autoselection
         self.after_idle(event.widget.selection_clear)
-    # end def
-
-
-    def slot_edit_preferences (self, *args, **kw):
-        """
-            event handler: menu Edit > Preferences;
-        """
-        pass
     # end def
 
 

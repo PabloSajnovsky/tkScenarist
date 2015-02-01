@@ -1225,6 +1225,11 @@ msgstr ""
 "Origine :"
 
 msgid ""
+"O_ffline documentation"
+msgstr ""
+"_Documentation locale"
+
+msgid ""
 "Page {number}"
 msgstr ""
 "Page {number}"
@@ -1790,11 +1795,6 @@ msgid ""
 "_Export to PDF"
 msgstr ""
 "_Exporter vers PDF"
-
-msgid ""
-"_Getting started"
-msgstr ""
-"_Documentation locale"
 
 msgid ""
 "_Help"

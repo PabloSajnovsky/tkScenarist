@@ -69,10 +69,10 @@ class MainWindow (tkRAD.RADXMLWindow):
 
                 "Help:About":
                     self.slot_help_about,
+                "Help:Offline:Documentation":
+                    self.slot_help_offline_documentation,
                 "Help:Online:Documentation":
                     self.slot_help_online_documentation,
-                "Help:Tutorial":
-                    self.slot_help_tutorial,
 
                 "Project:Export:PDF":
                     self.project_fm.slot_export_pdf,
@@ -347,18 +347,9 @@ class MainWindow (tkRAD.RADXMLWindow):
     # end def
 
 
-    def slot_help_online_documentation (self, *args, **kw):
+    def slot_help_offline_documentation (self, *args, **kw):
         """
-            event handler: menu Help > Online Documentation;
-        """
-        # launch online documentation
-        self.launch_web_browser(kw.get("url") or self.ONLINE_DOC_URL)
-    # end def
-
-
-    def slot_help_tutorial (self, *args, **kw):
-        """
-            event handler: menu Help > Getting started (tutorial);
+            event handler: menu Help > Offline documentation;
         """
         # launch offline documentation
         self.launch_web_browser(
@@ -367,6 +358,15 @@ class MainWindow (tkRAD.RADXMLWindow):
                 PFM.P.normalize(kw.get("file") or self.OFFLINE_DOC_URL)
             )
         )
+    # end def
+
+
+    def slot_help_online_documentation (self, *args, **kw):
+        """
+            event handler: menu Help > Online Documentation;
+        """
+        # launch online documentation
+        self.launch_web_browser(kw.get("url") or self.ONLINE_DOC_URL)
     # end def
 
 

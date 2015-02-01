@@ -127,8 +127,8 @@
     <!-- menu HELP -->
     <menu label="_Help">
         <command
-            label="_Getting started"
-            command="@Help:Tutorial"
+            label="O_ffline documentation"
+            command="@Help:Offline:Documentation"
         />
         <command
             label="_Online documentation"

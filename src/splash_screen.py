@@ -26,7 +26,6 @@
 from tkinter import Toplevel, Frame, Label
 
 
-
 class SplashScreen (Toplevel):
     """
         Generic splash screen window for apps;
@@ -77,6 +76,7 @@ class SplashScreen (Toplevel):
     def init_widget (self, **kw):
         """
             widget internal content inits;
+            this could be reimplemented in subclass, if necessary;
         """
         # ensure not visible
         self.hide()

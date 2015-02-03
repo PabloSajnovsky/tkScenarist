@@ -116,22 +116,17 @@ class SplashScreen (Toplevel):
         #
         # inits
         _bg = kw.get("bg") or kw.get("background") or self.BG_COLOR
-        _fg1 = kw.get("fg1") or kw.get("fgcolor1") or self.FG_COLOR1
-        _fg2 = kw.get("fg2") or kw.get("fgcolor2") or self.FG_COLOR2
-        _font1 = kw.get("font1") or self.FONT1
-        _font2 = kw.get("font2") or self.FONT2
         # widgets container init
         _frame = Frame(self, background=_bg)
-        # app name inits
-        try:
-            _text = self.master.APP["name"]
-        except:
-            _text = kw.get("app_name") or self.APP_NAME
-        # end try
-        # widget inits
+        # app name widget inits
         Label(
             _frame,
-            text=_text, font=_font1, background=_bg, foreground=_fg1,
+            anchor=kw.get("anchor1"),
+            background=_bg,
+            fg=kw.get("fg1") or kw.get("fgcolor1") or self.FG_COLOR1,
+            font=kw.get("font1") or self.FONT1,
+            justify=kw.get("justify1"),
+            text=kw.get("app_name") or self.APP_NAME,
         ).pack(expand=1, fill="x", padx=20)
         # info message inits
         try:
@@ -141,10 +136,15 @@ class SplashScreen (Toplevel):
             # no support
             _text = kw.get("info") or self.INFO
         # end try
-        # widget inits
+        # info message widget inits
         Label(
             _frame,
-            text=_text, font=_font2, background=_bg, foreground=_fg2,
+            anchor=kw.get("anchor2"),
+            background=_bg,
+            fg=kw.get("fg2") or kw.get("fgcolor2") or self.FG_COLOR2,
+            font=kw.get("font2") or self.FONT2,
+            justify=kw.get("justify2"),
+            text=_text,
         ).pack(expand=1, fill="x", padx=20, pady=10)
         # lay out widgets container
         _frame.pack()

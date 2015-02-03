@@ -127,7 +127,10 @@ If not, see: http://www.gnu.org/licenses/
         # lib imports
         from src import splash_screen as SP
         # inits
-        self.splash = SP.SplashScreen(self.root)
+        self.splash = SP.SplashScreen(
+            self.root,
+            app_name=self.APP["name"],
+        )
     # end def
 
 

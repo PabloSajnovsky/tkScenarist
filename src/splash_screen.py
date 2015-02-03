@@ -35,7 +35,7 @@ class SplashScreen (Toplevel):
     # class constant defs
     APP_NAME = "My Application"
 
-    BG_COLOR = "grey50"
+    BG_COLOR = "grey95"
 
     DEFAULT_CONFIG = {
         "relief": "solid",

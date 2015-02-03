@@ -131,7 +131,7 @@ class SplashScreen (Toplevel):
         # info message inits
         try:
             # i18n support
-            _text = _(self.INFO)
+            _text = kw.get("info") or _(self.INFO)
         except:
             # no support
             _text = kw.get("info") or self.INFO

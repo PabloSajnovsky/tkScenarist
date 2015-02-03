@@ -75,7 +75,7 @@ class SplashScreen (Toplevel):
 
     def init_widget (self, **kw):
         """
-            widget internal content inits;
+            widget internal inits;
             this could be reimplemented in subclass, if necessary;
         """
         # ensure not visible

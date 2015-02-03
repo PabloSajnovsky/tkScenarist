@@ -84,7 +84,11 @@ class SplashScreen (Toplevel):
         self.bind("<Button-1>", self.hide)
         # config inits
         _cfg = self.DEFAULT_CONFIG.copy()
-        _cfg.update(kw)
+        # only common attributes
+        for _key in set(kw).intersection(self.configure()):
+            # update config
+            _cfg[_key] = kw[_key]
+        # end for
         self.configure(**_cfg)
         # hook method: widget content inits
         self.set_widget_contents(**kw)
@@ -108,21 +112,24 @@ class SplashScreen (Toplevel):
         #
         # put your own code in subclass
         #
+        # inits
+        _bg = kw.get("bg") or kw.get("background") or self.BG_COLOR
+        _fg1 = kw.get("fg1") or kw.get("fgcolor1") or self.FG_COLOR1
+        _fg2 = kw.get("fg2") or kw.get("fgcolor2") or self.FG_COLOR2
+        _font1 = kw.get("font1") or self.FONT1
+        _font2 = kw.get("font2") or self.FONT2
         # widgets container init
-        _frame = Frame(self, background=self.BG_COLOR)
+        _frame = Frame(self, background=_bg)
         # app name inits
         try:
             _text = self.master.APP["name"]
         except:
-            _text = self.APP_NAME
+            _text = kw.get("app_name") or self.APP_NAME
         # end try
         # widget inits
         Label(
             _frame,
-            text=_text,
-            font=self.FONT1,
-            background=self.BG_COLOR,
-            foreground=self.FG_COLOR1,
+            text=_text, font=_font1, background=_bg, foreground=_fg1,
         ).pack(expand=1, fill="x", padx=20)
         # info message inits
         try:
@@ -130,15 +137,14 @@ class SplashScreen (Toplevel):
             _text = _("Loading application, please wait...")
         except:
             # no support (raw)
-            _text = "Loading application, please wait..."
+            _text = (
+                kw.get("info") or "Loading application, please wait..."
+            )
         # end try
         # widget inits
         Label(
             _frame,
-            text=_text,
-            font=self.FONT2,
-            background=self.BG_COLOR,
-            foreground=self.FG_COLOR2,
+            text=_text, font=_font2, background=_bg, foreground=_fg2,
         ).pack(expand=1, fill="x", padx=20, pady=10)
         # lay out widgets container
         _frame.pack()

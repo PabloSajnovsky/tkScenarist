@@ -98,7 +98,7 @@ If not, see: http://www.gnu.org/licenses/
             event handler: hides application's splash screen;
         """
         try:
-            self.splash.withdraw()
+            self.splash.hide()
         except:
             pass
         # end try
@@ -122,46 +122,12 @@ If not, see: http://www.gnu.org/licenses/
 
     def init_splash_screen (self, *args, **kw):
         """
-            event handler: sets up a tkinter.Toplevel splash screen;
+            event handler: sets up a generic splash screen;
         """
         # lib imports
-        from tkinter import Toplevel, Frame, Label
+        from src import splash_screen as SP
         # inits
-        _sp = self.splash = Toplevel(
-            self.root,
-            relief="solid",
-            highlightthickness=1,
-            highlightbackground="grey50",
-        )
-        _sp.withdraw()
-        _sp.overrideredirect(True)
-        _sp.bind("<Button-1>", self.hide_splash_screen)
-        _frame = Frame(_sp, background="grey95")
-        Label(
-            _frame,
-            text=self.APP["name"],
-            font="times 36 bold italic",
-            background=_frame["background"],
-            foreground="royal blue",
-        ).pack(expand=1, fill="x", padx=20)
-        Label(
-            _frame,
-            text=_("Loading application, please wait..."),
-            font="helvetica 9",
-            background=_frame["background"],
-            foreground="grey20",
-        ).pack(expand=1, fill="x", padx=20, pady=10)
-        _frame.pack()
-        # update coordinates
-        _sp.update_idletasks()
-        # center on screen
-        _sp.geometry(
-            "+{x}+{y}"
-            .format(
-                x=(_sp.winfo_screenwidth() - _sp.winfo_reqwidth())//2,
-                y=(_sp.winfo_screenheight() - _sp.winfo_reqheight())//2,
-            )
-        )
+        self.splash = SP.SplashScreen(self.root)
     # end def
 
 
@@ -185,11 +151,7 @@ If not, see: http://www.gnu.org/licenses/
         """
         try:
             # show splash screen
-            self.splash.deiconify()
-            # raise above all
-            self.splash.lift()
-            # update display for more efficiency
-            self.splash.update()
+            self.splash.show()
         except:
             pass
         # end try

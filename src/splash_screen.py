@@ -49,6 +49,8 @@ class SplashScreen (Toplevel):
     FONT1 = "times 36 bold italic"
     FONT2 = "helvetica 9"
 
+    INFO = "Loading application, please wait..."
+
 
     def __init__ (self, master=None, **kw):
         """
@@ -134,12 +136,10 @@ class SplashScreen (Toplevel):
         # info message inits
         try:
             # i18n support
-            _text = _("Loading application, please wait...")
+            _text = _(self.INFO)
         except:
-            # no support (raw)
-            _text = (
-                kw.get("info") or "Loading application, please wait..."
-            )
+            # no support
+            _text = kw.get("info") or self.INFO
         # end try
         # widget inits
         Label(

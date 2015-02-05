@@ -180,7 +180,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
         # param inits
         fpath = P.normalize(fpath or self.INFO_HINTS_FPATH)
         # get data
-        with open(fpath) as _file:
+        with open(fpath, encoding=ENCODING) as _file:
             # reset member
             self.INFO_HINTS = json.load(_file)
         # end with

@@ -737,6 +737,11 @@ msgstr ""
 "Voulez-vous vraiment supprimer le plan sélectionné ?"
 
 msgid ""
+"Do you really want to delete this date bar?"
+msgstr ""
+"Voulez-vous vraiment supprimer cette barre de dates ?"
+
+msgid ""
 "Do you really want to remove *ALL* empty shots from list?"
 msgstr ""
 "Voulez-vous vraiment supprimer de la liste *TOUS* "

@@ -26,6 +26,7 @@
 import os
 from calendar import monthrange
 from datetime import timedelta, date, datetime
+import tkinter.messagebox as MB
 import tkRAD.widgets.rad_canvas as RC
 from . import dlg_date_bar as DLG
 
@@ -405,7 +406,7 @@ class ResourcesCanvas (RC.RADCanvas):
             x, y = self.get_real_pos(event.x, event.y)
             _tag = self.get_group_tag(x, y)
             # registered datebar?
-            if _tag in self.date_bars:
+            if _tag in self.date_bars and self.user_confirmed_deletion():
                 # remove from canvas
                 _datebar = self.date_bars.pop(_tag)
                 _datebar.clear()
@@ -490,6 +491,18 @@ class ResourcesCanvas (RC.RADCanvas):
         # ensure visible
         self.item_list.update_pos()
         self.date_ruler.update_pos()
+    # end def
+
+
+    def user_confirmed_deletion (self):
+        """
+            user deletion confirmation dialog;
+        """
+        return MB.askyesno(
+            title=_("Attention"),
+            message=_("Do you really want to delete this date bar?"),
+            parent=self,
+        )
     # end def
 
 

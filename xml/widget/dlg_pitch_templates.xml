@@ -131,6 +131,8 @@
                         font="helvetica 10"
                         height="10"
                         width="50"
+                        autoseparators="true"
+                        undo="true"
                         wrap="word"
                         state="disabled"
                         layout="grid"

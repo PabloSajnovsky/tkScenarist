@@ -85,6 +85,9 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
             "<<ListboxSelect>>", self.slot_listbox_item_selected
         )
         self.TEXT.bind(
+            "<Control-a>", self.slot_edit_select_all
+        )
+        self.TEXT.bind(
             "<KeyRelease>", self.slot_on_text_keypress
         )
     # end def
@@ -232,6 +235,10 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         self.LBL_TPL_NAME = _w.get_stringvar("template_name")
         self.LBL_CUR_DIR = _w.get_stringvar("current_dir")
         self.BTN_DELETE = _w.btn_delete
+        # configure selection tag
+        self.TEXT.tag_configure(
+            TK.SEL, background="grey30", foreground="white"
+        )
         # member inits
         self.DEFAULT_DIR = P.normalize(_(self.DEFAULT_DIR))
         self.async = ASYNC.get_async_manager()
@@ -268,6 +275,23 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def slot_edit_select_all (self, event=None, *args, **kw):
+        """
+            event handler: <Ctrl+A> select all in Text widget;
+        """
+        # select all
+        try:
+            # select all text
+            event.widget.tag_add(TK.SEL, "1.0", TK.END)
+            # this disables tkinter chain of internal bindings
+            # thanks to Brian Oakley's cool explanation
+            return "break"
+        except:
+            pass
+        # end try
+    # end def
+
+
     def slot_listbox_item_selected (self, event=None, *args, **kw):
         """
             event handler: item selected in listbox;
@@ -286,6 +310,15 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         """
             event handler: keyboard keypress for text preview;
         """
+        # try out
+        try:
+            # undo/redo stack
+            if event.keysym == "space":
+                event.widget.edit_separator()
+            # end if
+        except:
+            pass
+        # end try
         # schedule auto-save for later
         self.async.run_after(3000, self.auto_save)
     # end def
@@ -446,6 +479,8 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
                 # insert text
                 _text.insert("1.0", _data)
             # end with
+            # reset undo/redo stack
+            _text.edit_reset()
             # enable delete button
             self.enable_widget(self.BTN_DELETE, True)
         # end if

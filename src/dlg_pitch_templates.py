@@ -90,6 +90,20 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
     # end def
 
 
+    def cancel_dialog (self, tk_event=None, *args, **kw):
+        r"""
+            user dialog cancellation method;
+            this is a hook called by '_slot_button_cancel()';
+            this *MUST* be overridden in subclass;
+            returns True on success, False otherwise;
+        """
+        # put here your own code in subclass
+        self.save_now()
+        # succeeded
+        return True
+    # end def
+
+
     def clean_name (self, fpath):
         """
             returns filename without file extension;

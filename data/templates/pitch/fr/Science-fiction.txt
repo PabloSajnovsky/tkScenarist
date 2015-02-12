@@ -1,51 +1,55 @@
-TEMPLATE: SCIENCE-FICTION
+MODÈLE : SCIENCE-FICTION
 =========================
-(c) 2014 by Raphaël SEBAN.
-Licensed under Creative Commons BY-SA 4.0.
-For more detail, please read:
+(c) 2014+ Raphaël SEBAN.
+Publié sous licence Creative Commons BY-SA 4.0.
+Pour en savoir plus, veuillez consulter :
 http://creativecommons.org/licenses/by-sa/4.0/
 
-STEP 1: INTRODUCTION
-====================
+ÉTAPE 1 : PRÉSENTATION
+======================
 
-Let people immerse into your fictive universe.
-Show some of your original technologies.
-Tell about social, political, religious situation in this world.
+Offrez aux spectateurs de s'immerger dans votre univers de science-fiction personnel.
+Présentez quelques trouvailles technologiques originales, qui seraient susceptibles de marquer les esprits.
+Dites-en plus sur l'environnement social, politique, culturel ou religieux dans lequel baigne votre histoire.
 
-STEP 2: EVIL RISING
-===================
+ÉTAPE 2 : LE MAL ÉMERGE
+======================
 
-Something happens that generates evil spirit.
-Show how it comes and who will embody the evil forces.
+Un événement provoque l'avènement du mal parmi les innocentes gens.
+Montrez comment tout cela se met en place.
+Présentez progressivement le ou les personnages qui incarneront le Mal dans l'histoire.
 
-STEP 3: THE GOOD CAMP
-=====================
-
-Some people join the camp of the good.
-Tell more about them.
-Are there some heroes in becoming?
-
-STEP 4: EVIL VS GOOD CLASH
-==========================
-
-Time has come to fight each other.
-
-STEP 5: EVIL WINS FIRST
+ÉTAPE 3 : LE CAMP DU BIEN
 =======================
 
-All is dark!
-The evil side seems to have won over the good!
-Show how dramatical all of this can be.
+Devant tant de tourments à venir, des gens rejoignent le camp du Bien.
+Qui sont ces gens ? Quelles sont leurs motivations ?
+Y a-t-il parmi eux un héros en devenir ?
 
-STEP 6: THE REVENGE
-===================
+ÉTAPE 4 : L'AFFRONTEMENT
+========================
 
-People from the good camp are not determined to give up.
-Now, they fight to reset justice over the world!
-And they win!
+L'heure est venue pour le Bien d'affronter le Mal.
+Décrivez les préparatifs, la montée en puissance, puis le paroxysme du combat.
 
-STEP 7: CLIFFHANGER (AT YOUR OPTION)
-====================================
+ÉTAPE 5 : LE MAL TRIOMPHE EN PREMIER
+===================================
 
-All seems to have returned to peaceful times.
-But... is it really the case?
+Le monde est plongé dans les ténèbres !
+Les forces du Mal l'ont emporté sur les forces du Bien !
+Montrez à quel point la situation peut être dramatique.
+
+ÉTAPE 6 : LA REVANCHE
+=====================
+
+Les forces du Bien n'ont pas l'intention de s'en laisser conter.
+Elles s'organisent pour rétablir la justice sur le monde !
+La bataille est terrible.
+
+Et le Bien triomphe du Mal !
+
+ÉTAPE 7 : CLIFFHANGER (option)
+==========================
+
+La Paix semble revenue parmi les peuples.
+Mais... est-ce vraiment le cas ?

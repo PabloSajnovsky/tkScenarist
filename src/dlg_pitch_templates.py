@@ -287,7 +287,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
             event handler: keyboard keypress for text preview;
         """
         # schedule auto-save for later
-        self.async.run_after(5000, self.auto_save)
+        self.async.run_after(3000, self.auto_save)
     # end def
 
 

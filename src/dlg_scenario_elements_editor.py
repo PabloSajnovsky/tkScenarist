@@ -47,11 +47,21 @@ class ScenarioElementsEditorDialog (DLG.RADButtonsDialog):
         """
         # which tab is it?
         _index = self.get_current_tab_index()
-        # reset to defaults for selected tab
-        self.settings[_index] = {
-            "element": copy.deepcopy(self.w_text.ELEMENT_DEFAULTS),
-            "current_selected": 0,
-        }
+        # global settings
+        if not _index:
+            # reset to factory defaults
+            self.settings[_index] = {
+                "element": copy.deepcopy(self.w_text.ELEMENT_DEFAULTS),
+                "current_selected": 0,
+            }
+        # project settings
+        elif _index == 1:
+            # reset to current global settings
+            self.settings[_index] = {
+                "element": copy.deepcopy(self.settings[0]["element"]),
+                "current_selected": 0,
+            }
+        # end if
         # update form data
         self.slot_tab_changed()
     # end def

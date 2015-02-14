@@ -815,7 +815,7 @@ class PDFDocumentCharacters (PDFDocumentBase):
         _canvas = _tab.CANVAS
         self.character_logs = _tab.character_logs
         self.character_names = _canvas.character_names
-        self.relations = _canvas.get_named_relations()
+        self.relationships = _canvas.get_named_relationships()
     # end def
 
 
@@ -918,8 +918,8 @@ class PDFDocumentCharacters (PDFDocumentBase):
             elements building process step;
             for internal use only;
         """
-        # no relations to dump out?
-        if not self.relations:
+        # no relationships to dump out?
+        if not self.relationships:
             # procedure is complete
             self.progress = 100
             # stop right now
@@ -928,22 +928,22 @@ class PDFDocumentCharacters (PDFDocumentBase):
         # new page
         self.add_pagebreak()
         # page title
-        self.add_paragraph(_("Relations"), self.styles["h1"])
+        self.add_paragraph(_("Relationships"), self.styles["h1"])
         # inits
-        _count = len(self.relations)
+        _count = len(self.relationships)
         # add little stats
         self.add_paragraph(_("Statistics"), self.styles["h2"])
         self.add_paragraph(
-            _("Known distinct mutual relations: {relation_count}")
-            .format(relation_count=_count),
+            _("Known distinct mutual relationships: {dmr}")
+            .format(dmr=_count),
             self.styles["body"]
         )
         self.add_paragraph(
-            _("Listed relations: {list_count}")
+            _("Listed relationships: {list_count}")
             .format(list_count=_count*2),
             self.styles["body"]
         )
-        self.add_paragraph(_("Relations"), self.styles["h2"])
+        self.add_paragraph(_("Relationships"), self.styles["h2"])
         # table rows
         self.table_rows = []
         # set headers
@@ -951,7 +951,7 @@ class PDFDocumentCharacters (PDFDocumentBase):
             (
                 Paragraph(_("Name"), self.styles["th"]),
                 Paragraph(_("Name"), self.styles["th"]),
-                Paragraph(_("Relation"), self.styles["th"]),
+                Paragraph(_("Relationship"), self.styles["th"]),
             )
         )
         # reset list of character names
@@ -974,15 +974,15 @@ class PDFDocumentCharacters (PDFDocumentBase):
             # get character name
             _name = self.sorted_names[self.index]
             # related dict
-            _relations = self.get_relations_for(_name)
-            # browse relations
-            for _name2 in sorted(_relations):
+            _relationships = self.get_relationships_for(_name)
+            # browse relationships
+            for _name2 in sorted(_relationships):
                 # add table row
                 self.table_rows.append(
                     (
                         Paragraph(_name, _td),
                         Paragraph(_name2, _td),
-                        Paragraph(_relations[_name2], _td),
+                        Paragraph(_relationships[_name2], _td),
                     )
                 )
             # end for
@@ -1011,15 +1011,15 @@ class PDFDocumentCharacters (PDFDocumentBase):
     # end def
 
 
-    def get_relations_for (self, character_name):
+    def get_relationships_for (self, character_name):
         """
-            returns a Python dict() of {name:relation_text} matching
-            @character_name parameter value;
+            returns a Python dict() of {name:relationship_text}
+            matching @character_name parameter value;
         """
         # inits
         _dict = dict()
-        # browse relations
-        for _group in self.relations:
+        # browse relationships
+        for _group in self.relationships:
             # group contains searched character name?
             if _group["name0"] == character_name:
                 # add to dict
@@ -1029,7 +1029,7 @@ class PDFDocumentCharacters (PDFDocumentBase):
                 _dict[_group["name0"]] = _group["text"]
             # end if
         # end for
-        # return relations dict
+        # return relationships dict
         return _dict
     # end def
 

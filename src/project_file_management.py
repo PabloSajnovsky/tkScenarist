@@ -45,7 +45,7 @@ class ProjectFileManagement:
         "tab_characters": {
             "names": "characters_names.txt",
             "logs": "characters_logs.txt",
-            "relations": "characters_relations.txt",
+            "relationships": "characters_relationships.txt",
         },
         "tab_scenario": {
             "text": "scenario_text.txt",

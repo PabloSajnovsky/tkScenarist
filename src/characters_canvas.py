@@ -32,7 +32,7 @@ import tkRAD.widgets.rad_canvas as RC
 
 class CharactersCanvas (RC.RADCanvas):
     """
-        Characters relations canvas class;
+        Characters relationships canvas class;
     """
 
     # class constant defs
@@ -237,9 +237,9 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
-    def create_relation (self, tag0, tag1, text=None):
+    def create_relationship (self, tag0, tag1, text=None):
         """
-            creates a graphical characters relation on canvas;
+            creates a graphical characters relationship on canvas;
         """
         # not the same and not already linked?
         if tag0 != tag1 and not self.tags_linked(tag0, tag1):
@@ -254,11 +254,11 @@ class CharactersCanvas (RC.RADCanvas):
             )
             # put line under all
             self.tag_lower(_line, TK.ALL)
-            # set relation text
+            # set relationship text
             _group = self.create_label(
                 self.TAG_RADIX_LINK,
                 self.get_segment_center(_center1, _center2),
-                text=text or _("Relation"),
+                text=text or _("Relationship"),
                 **self.CONFIG_LINK
             )
             # update dict
@@ -308,7 +308,7 @@ class CharactersCanvas (RC.RADCanvas):
 
     def do_create_link (self, x, y):
         """
-            effective procedure for creating chars relations link;
+            effective procedure for creating chars relationships link;
         """
         # got data?
         if self.drag_mode:
@@ -320,7 +320,7 @@ class CharactersCanvas (RC.RADCanvas):
             # got name items?
             if self.TAG_RADIX_NAME in _tag2:
                 # already linked?
-                if not self.create_relation(_tag1, _tag2):
+                if not self.create_relationship(_tag1, _tag2):
                     # identical tags?
                     if _tag1 == _tag2:
                         _msg = _(
@@ -352,7 +352,7 @@ class CharactersCanvas (RC.RADCanvas):
 
     def do_edit_link (self, tag):
         """
-            effective procedure for editing a relation link label;
+            effective procedure for editing a relationship link label;
         """
         # param controls
         if self.TAG_RADIX_LINK in tag:
@@ -363,8 +363,8 @@ class CharactersCanvas (RC.RADCanvas):
             _name1 = self.get_name_from_tag(_group["tag1"])
             # get new text
             _new_text = SD.askstring(
-                _("Characters relation"),
-                _("Relation '{from_name}' <---> '{to_name}'")
+                _("Characters relationship"),
+                _("Relationship '{from_name}' <---> '{to_name}'")
                 .format(from_name=_name0, to_name=_name1),
                 initialvalue=self.itemcget(_text_id, "text"),
                 parent=self,
@@ -382,7 +382,7 @@ class CharactersCanvas (RC.RADCanvas):
 
     def do_remove_link (self, tag):
         """
-            effective procedure for removing a relation link label;
+            effective procedure for removing a relationship link label;
         """
         # param controls
         if self.TAG_RADIX_LINK in tag:
@@ -394,17 +394,24 @@ class CharactersCanvas (RC.RADCanvas):
             _confirm = MB.askyesno(
                 title=_("Attention"),
                 message=_(
-                    "Relation: '{from_name}' <---> '{to_name}'.\n"
-                    "Do you really want to remove this relation link?"
+                    "Relationship: '{from_name}' <---> '{to_name}'.\n"
+                    "Do you really want to remove this "
+                    "relationship link?"
                 ).format(from_name=_name0, to_name=_name1),
                 parent=self,
             )
             # user confirmed
             if _confirm:
                 # remove link from lists
-                _tags = self.relation_links.get(_group["tag0"]) or dict()
+                _tags = (
+                    self.relationship_links.get(_group["tag0"])
+                    or dict()
+                )
                 _tags.pop(_group["tag1"], None)
-                _tags = self.relation_links.get(_group["tag1"]) or dict()
+                _tags = (
+                    self.relationship_links.get(_group["tag1"])
+                    or dict()
+                )
                 _tags.pop(_group["tag0"], None)
                 # remove link from canvas
                 self.remove_group_link(_group)
@@ -468,7 +475,7 @@ class CharactersCanvas (RC.RADCanvas):
 
     def get_file_contents (self):
         """
-            returns file contents for characters relation links;
+            returns file contents for characters relationship links;
         """
         # inits
         _pos = dict()
@@ -478,7 +485,7 @@ class CharactersCanvas (RC.RADCanvas):
             _pos[_name] = self.coords(_group["text"])
         # end for
         return json.dumps(
-            dict(label_pos=_pos, links=self.get_named_relations())
+            dict(label_pos=_pos, links=self.get_named_relationships())
         )
     # end def
 
@@ -516,10 +523,11 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
-    def get_named_relations (self):
+    def get_named_relationships (self):
         """
-            returns list of relation groups, as Python dict objects,
-            such as group = {'name0':str, 'name1':str, 'text':str};
+            returns list of relationship groups, as Python dict
+            objects, such as group = {'name0':str, 'name1':str,
+            'text':str};
         """
         # inits
         _groups = list()
@@ -532,11 +540,11 @@ class CharactersCanvas (RC.RADCanvas):
         )
         # browse groups
         for _tag, _group in self.canvas_groups.items():
-            # relation link type?
+            # relationship link type?
             if self.TAG_RADIX_LINK in _tag:
                 # update list of groups
                 _groups.append(
-                    # relations group as dict
+                    # relationships group as dict
                     dict(
                         # replace tags by names
                         name0=_names[_group["tag0"]],
@@ -618,7 +626,7 @@ class CharactersCanvas (RC.RADCanvas):
         # members only inits
         self.instance_counter = 0
         self.character_names = dict()
-        self.relation_links = dict()
+        self.relationship_links = dict()
         self.canvas_groups = dict()
         # Drag'n'Drop feature
         self.dnd_reset()
@@ -641,29 +649,29 @@ class CharactersCanvas (RC.RADCanvas):
             registers a link between two tags;
         """
         # put tag2 into tag1's list
-        _tags = self.relation_links.setdefault(tag1, dict())
+        _tags = self.relationship_links.setdefault(tag1, dict())
         _tags[tag2] = group
         # put tag1 into tag2's list
-        _tags = self.relation_links.setdefault(tag2, dict())
+        _tags = self.relationship_links.setdefault(tag2, dict())
         _tags[tag1] = group
     # end def
 
 
-    def relation_add (self, name0, name1, text):
+    def relationship_add (self, name0, name1, text):
         """
-            adds a new relation between names with text;
+            adds a new relationship between names with text;
         """
         # names must exist
         _tag0 = self.character_names[name0]["tag"]
         _tag1 = self.character_names[name1]["tag"]
-        # create relation
-        self.create_relation(_tag0, _tag1, text)
+        # create relationship
+        self.create_relationship(_tag0, _tag1, text)
     # end def
 
 
     def remove_group_link (self, group):
         """
-            removes only one relation link by its group structure;
+            removes only one relationship link by its group structure;
         """
         # param controls
         if group:
@@ -681,22 +689,22 @@ class CharactersCanvas (RC.RADCanvas):
 
     def remove_links (self, tag):
         """
-            removes all relation links referred to by @tag;
+            removes all relationship links referred to by @tag;
         """
         # inits
-        _tags = self.relation_links.setdefault(tag, dict())
+        _tags = self.relationship_links.setdefault(tag, dict())
         # browse tag groups
         for _group in _tags.values():
             # remove link by its group
             self.remove_group_link(_group)
         # end for
         # browse all tags linked to tag
-        for _tags in self.relation_links.values():
+        for _tags in self.relationship_links.values():
             # remove linked tag
             _tags.pop(tag, None)
         # end for
         # remove tag itself
-        self.relation_links.pop(tag, None)
+        self.relationship_links.pop(tag, None)
         # project has been modified
         self.events.raise_event("Project:Modified")
     # end def
@@ -734,9 +742,9 @@ class CharactersCanvas (RC.RADCanvas):
             _tag = self.get_group_tag(
                 self.find_overlapping(x, y, x, y)
             )
-            # got relation link items?
+            # got relationship link items?
             if self.TAG_RADIX_LINK in _tag:
-                # edit relation label
+                # edit relationship label
                 self.do_edit_link(_tag)
             # got character name label?
             elif self.TAG_RADIX_NAME in _tag:
@@ -777,7 +785,7 @@ class CharactersCanvas (RC.RADCanvas):
                     self.update_links(self.drag_tag)
                     # project has been modified
                     self.events.raise_event("Project:Modified")
-                # dragging relations link
+                # dragging relationships link
                 elif self.drag_mode == self.DRAG_MODE_LINK:
                     # update link's line representation
                     self.coords(
@@ -813,7 +821,7 @@ class CharactersCanvas (RC.RADCanvas):
                 self.events.raise_event(
                     "Characters:Name:Selected", name=_name
                 )
-            # character relations link creation?
+            # character relationships link creation?
             elif self.drag_mode == self.DRAG_MODE_LINK:
                 # delete virtual link
                 self.delete(self.drag_link_id)
@@ -840,9 +848,9 @@ class CharactersCanvas (RC.RADCanvas):
             _tag = self.get_group_tag(
                 self.find_overlapping(x, y, x, y)
             )
-            # got relation link items?
+            # got relationship link items?
             if self.TAG_RADIX_LINK in _tag:
-                # remove relation link
+                # remove relationship link
                 self.do_remove_link(_tag)
             # got character name label?
             elif self.TAG_RADIX_NAME in _tag:
@@ -874,9 +882,9 @@ class CharactersCanvas (RC.RADCanvas):
 
     def slot_start_link (self, event=None, *args, **kw):
         """
-            event handler for relation linkings;
+            event handler for relationship linkings;
         """
-        # start D'n'D for relations link creation
+        # start D'n'D for relationships link creation
         self.do_start_drag(event, self.DRAG_MODE_LINK)
         # started dragging?
         if self.drag_mode:
@@ -896,7 +904,7 @@ class CharactersCanvas (RC.RADCanvas):
             returns True if linked, False otherwise;
         """
         # inits
-        _tags = self.relation_links.get(tag1) or dict()
+        _tags = self.relationship_links.get(tag1) or dict()
         # get boolean
         return bool(tag2 in _tags)
     # end def
@@ -944,7 +952,7 @@ class CharactersCanvas (RC.RADCanvas):
             updates positions for all links of @tag;
         """
         # inits
-        _tags = self.relation_links.get(tag) or dict()
+        _tags = self.relationship_links.get(tag) or dict()
         _start_xy = self.get_bbox_center(tag)
         # got tags?
         if _tags:

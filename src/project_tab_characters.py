@@ -95,12 +95,12 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
     # end def
 
 
-    def canvas_add_relation (self, **kw):
+    def canvas_add_relationship (self, **kw):
         """
-            adds a new characters relation into canvas widget;
+            adds a new characters relationship into canvas widget;
         """
         # delegate to widget
-        self.CANVAS.relation_add(**kw)
+        self.CANVAS.relationship_add(**kw)
         # project has been modified
         self.events.raise_event("Project:Modified")
     # end def
@@ -380,8 +380,8 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             fname["names"]: "\n".join(sorted(self.character_logs)),
             # character logs
             fname["logs"]: json.dumps(self.character_logs),
-            # character relations
-            fname["relations"]: self.CANVAS.get_file_contents(),
+            # character relationships
+            fname["relationships"]: self.CANVAS.get_file_contents(),
         }
         # always return a dict
         return _dict
@@ -450,7 +450,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         # looks for ^/xml/widget/tab_characters.xml
         self.xml_build("tab_characters")
         # XML widget ALIAS inits
-        self.CANVAS = self.canvas_characters_relations
+        self.CANVAS = self.canvas_characters_relationships
         self.LISTBOX = self.listbox_characters_list
         self.TEXT = self.text_characters_log
         # event bindings
@@ -568,7 +568,7 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         # inits
         _get_fc = lambda f: json.loads(archive.read(f).decode(ENCODING))
         self.character_logs = _get_fc(fname["logs"])
-        _relations = _get_fc(fname["relations"])
+        _relationships = _get_fc(fname["relationships"])
         # update listbox
         self.update_listbox()
         # add names
@@ -577,13 +577,13 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
             self.canvas_add_name(_name)
             # reset label location
             self.canvas_dispose_label(
-                _name, _relations["label_pos"][_name]
+                _name, _relationships["label_pos"][_name]
             )
         # end for
-        # add relations
-        for _group in _relations["links"]:
-            # add relation
-            self.canvas_add_relation(**_group)
+        # add relationships
+        for _group in _relationships["links"]:
+            # add relationship
+            self.canvas_add_relationship(**_group)
         # end for
         # project has been just opened
         self.events.raise_event("Project:Modified", flag=False)

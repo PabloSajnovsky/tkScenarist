@@ -167,20 +167,20 @@
             </ttklabelframe>
         </ttkpanedwindow>
 
-        <!-- characters' relations -->
+        <!-- characters' relationships -->
 
         <ttklabelframe
-            text="Relations"
+            text="Relationships"
             weight="3"
         >
             <!-- help text label -->
             <ttklabel
-                text="Hint: &lt;Double-Click&gt;: add new. &lt;Shift-Click-Drag&gt;: create relation. &lt;Ctrl-Click&gt;: remove item."
+                text="Hint: &lt;Double-Click&gt;: add new. &lt;Shift-Click-Drag&gt;: create relationship. &lt;Ctrl-Click&gt;: remove item."
                 layout="grid"
                 layout_options="row=0, column=0"
                 resizable="width"
             />
-            <!-- characters' relations canvas widget -->
+            <!-- characters' relationships canvas widget -->
             <module
                 id="mchars_rels"
                 from="src"
@@ -188,8 +188,8 @@
                 as="CCR"
             />
             <widget
-                id="characters_relations"
-                name="canvas_characters_relations"
+                id="characters_relationships"
+                name="canvas_characters_relationships"
                 class="CharactersCanvas"
                 module="mchars_rels"
                 layout="grid"
@@ -197,14 +197,14 @@
                 resizable="yes"
             />
             <ttkscrollbar
-                connect="characters_relations"
+                connect="characters_relationships"
                 orient="vertical"
                 layout="grid"
                 layout_options="row=1, column=1"
                 resizable="height"
             />
             <ttkscrollbar
-                connect="characters_relations"
+                connect="characters_relationships"
                 orient="horizontal"
                 layout="grid"
                 layout_options="row=2, column=0"

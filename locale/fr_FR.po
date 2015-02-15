@@ -6,7 +6,7 @@
 #                                                                      #
 # Created (by):     2014/11/02 19:09:36 (tarball69)                    #
 #                                                                      #
-# Modified (by):    2015/01/29 16:49:44 (tarball69)                    #
+# Modified (by):    2015/02/15 15:40:40 (tarball69)                    #
 #                                                                      #
 # Encoding:         UTF-8                                              #
 #                                                                      #
@@ -1290,6 +1290,11 @@ msgstr ""
 "Veuillez sélectionner une couleur"
 
 msgid ""
+"Please confirm"
+msgstr ""
+"Veuillez confirmer"
+
+msgid ""
 "Please, insert"
 msgstr ""
 "Veuillez insérer"
@@ -1580,6 +1585,13 @@ msgid ""
 "Show:"
 msgstr ""
 "Afficher :"
+
+msgid ""
+"Some important tasks are still running.\n"
+"Should I try to cancel them?"
+msgstr ""
+"Des tâches importantes sont en cours d'exécution.\n"
+"Les annuler ?"
 
 msgid ""
 "Stage director"

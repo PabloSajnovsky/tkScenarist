@@ -18,16 +18,26 @@
         background: white;
         border: thin solid black;
         margin: 7mm auto;
-        padding: 3mm;
+        padding: 0;
         width: 70%;
     }
 
     #title {
+        background: #f0f0f0;
+        border-bottom: 3px double #e0e0e0;
         font: 20pt bold courier, monospace;
+        padding: 3mm 1mm;
         text-align: center;
     }
 
+    #nav {
+        font-size: 80%;
+        padding: 1mm 3mm;
+        text-align: right;
+    }
+
     #contents {
+        padding: 3mm 7mm;
     }
 
     /* main elements */
@@ -35,24 +45,29 @@
     body {
         background: #777;
         border: 0;
-        font: 10pt helvetica, sans-serif;
+        font: normal 12pt/18pt helvetica, sans-serif;
         margin: 0;
         padding: 0;
     }
 
     h1 {
+        font-size: 240%;
     }
 
     h2 {
+        font-size: 180%;
     }
 
     h3 {
+        font-size: 160%;
     }
 
     h4 {
+        font-size: 140%;
     }
 
     h5 {
+        font-size: 120%;
     }
 
     p {
@@ -74,4 +89,13 @@
     }
 
     a {
+    }
+
+    code {
+        background: #f0f0f0;
+        padding: 1px 1mm;
+    }
+
+    img {
+        max-width: 100%;
     }

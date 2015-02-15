@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>tkScenarist - screenwriting made simpler</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../styles/common.css"/>
+    </head>
+    <body>
+        <div id="page">
+            <div id="title">
+                tkScenarist - screenwriting made simpler
+            </div> <!-- id: title -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+            <div id="contents">
+                <h1>Outil 'Modèles d'histoires/pitchs'</h1>
+<h2><a name="sommaire"/>Sommaire</h2>
+<ul>
+<li><a href="#screenshot">Aperçu</a></li>
+<li><a href="#introduction">Présentation</a></li>
+<li><a href="#utilisation">Utilisation</a><ul>
+<li><a href="#template_add">Ajouter un modèle</a></li>
+<li><a href="#template_edit">Modifier un modèle</a></li>
+<li><a href="#template_del">Supprimer un modèle</a></li>
+<li><a href="#template_browse">Changer le répertoire de modèles</a></li>
+<li><a href="#template_reset">Restaurer le répertoire par défaut</a></li>
+<li><a href="#template_options">Options de copie</a></li>
+<li><a href="#template_get">Récupérer un modèle</a></li>
+</ul>
+</li>
+<li><a href="#pour-finir">Pour finir</a></li>
+<li><a href="#navigation-rapide">Navigation rapide</a></li>
+</ul>
+<h2><a name="screenshot"/>Aperçu</h2>
+<p><img alt="image" src="../../images/screenshots/fr/screenshot-004.png"></p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2><a name="introduction"/>Présentation</h2>
+<p>Cet outil permet de gérer des <strong>modèles d'histoires/pitchs</strong>,
+c'est-à-dire des fichiers de texte dont la vocation est de faciliter
+l'écriture détaillée d'un script de scénario.</p>
+<p>Il se compose de <strong>trois zones</strong> principales&nbsp;:</p>
+<ol>
+<li>en haut, à gauche, la zone <strong>Modèles</strong>, qui permet de sélectionner
+les différents modèles, accompagnée d'une zone <strong>Aperçu</strong>, juste
+en-dessous, zone qui permet de visualiser/modifier le contenu d'un
+modèle sélectionné&nbsp;;</li>
+<li>en haut, à droite, la zone <strong>Édition</strong>, qui permet d'ajouter ou de
+supprimer un fichier de modèle, de redéfinir l'emplacement du dossier
+qui contiendra les fichiers de modèle ou encore de restaurer
+l'emplacement par défaut de ce même répertoire de modèles&nbsp;;</li>
+<li>en bas, la zone <strong>Options</strong>, qui permet de sélectionner les onglets
+de l'application destinés à recevoir le contenu du modèle que l'on
+souhaite récupérer.</li>
+</ol>
+<p>Dans cet outil, les zones <strong>ne sont pas</strong> redimensionnables.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2>Utilisation</h2>
+<h3><a name="template_add"/>Ajouter un modèle</h3>
+<p>Pour ajouter un nouveau fichier texte de modèle, cliquez sur le bouton
+<code>Ajouter nouveau</code> de la zone <strong>Édition</strong> située en haut, à droite de
+l'outil.</p>
+<p>Une fenêtre de dialogue apparaît alors et vous permet de sélectionner
+un nom et un emplacement pour votre nouveau fichier de modèle.</p>
+<p><strong>ATTENTION</strong>&nbsp;: si vous définissez un nouvel emplacement dans
+cette fenêtre de dialogue i.e. un nouveau répertoire pour votre fichier
+de modèle, ce répertoire deviendra <em>de facto</em> le nouveau répertoire de
+travail pour tous vos fichiers de modèle (voir [Changer le répertoire
+de modèles] (#template_browse), plus bas).</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="template_edit"/>Modifier un modèle</h3>
+<p>Pour modifier le contenu texte d'un fichier de modèle, cliquez
+simplement sur le nom du modèle concerné dans la liste de la zone
+<strong>Modèles</strong>, puis cliquez dans la zone de texte blanche qui se trouve
+dans la zone <strong>Aperçu</strong>.</p>
+<p>Ne cherchez pas de bouton <code>Sauvegarder</code>, il n'y en a pas&nbsp;: le
+texte du modèle est <strong>automatiquement enregistré</strong> lorsque vous entrez
+au clavier du texte dans la zone blanche ou lorsque vous passez d'un
+élément de liste à un autre.</p>
+<p>Il vous suffit donc de cliquer sur un modèle dans la liste, de modifier
+son texte, puis de cliquer sur un autre modèle de la liste, de modifier
+aussi son texte et ainsi de suite, autant de fois que nécessaire.</p>
+<p>La zone de texte blanche s'appelle un <strong>éditeur de texte brut</strong>.</p>
+<p>L'éditeur de texte brut permet des sauts à la ligne lorsque vous
+pressez la touche de clavier <code>&lt;Entrée&gt;</code> (retour chariot).</p>
+<p>Chaque saut à la ligne crée un nouveau paragraphe.</p>
+<p>En revanche, contrairement au <strong>traitement de textes</strong>, cet objet ne
+permet pas la mise en forme du texte entré (diverses polices de
+caractères, gras, italique, souligné, couleurs d'encre et de fond,
+centrage / justification de paragraphes, etc).</p>
+<p>Il s'agit d'une zone de texte <strong>neutre</strong>.</p>
+<p>Un double-clic sur un mot permet de sélectionner <strong>ce mot uniquement</strong>.</p>
+<p>Un triple-clic sur un mot permet de sélectionner <strong>le paragraphe</strong> dans
+lequel ce mot se trouve.</p>
+<p>La combinaison de touches de clavier <code>&lt;Ctrl-A&gt;</code> permet de <strong>tout
+sélectionner</strong> dans l'éditeur de texte brut.</p>
+<p>Tout ruban de sélection est susceptible d'être remplacé par la
+prochaine frappe d'une touche au clavier.</p>
+<p>Cet éditeur de texte brut prend en charge l'annulation des mots entrés.</p>
+<p>Pour annuler la saisie du dernier mot entré, utilisez le raccourci
+clavier <code>&lt;Ctrl-Z&gt;</code> correspondant au couplage successif des touches
+<code>Ctrl</code> (en bas à gauche ou à droite de votre clavier) et <code>Z</code> du clavier
+alphanumérique.</p>
+<p>Pour répéter la saisie du dernier mot annulé, utilisez le raccourci
+clavier <code>&lt;Ctrl-Shift-Z&gt;</code> correspondant au couplage successif des
+touches <code>Ctrl</code>, <code>Shift</code> (chariot majuscules) et <code>Z</code> du clavier
+alphanumérique.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="template_del"/>Supprimer un modèle</h3>
+<p>Pour supprimer le fichier d'un modèle, cliquez simplement sur le nom du
+modèle concerné dans la liste de la zone <strong>Modèles</strong>, puis cliquez sur
+le bouton <code>Supprimer</code> situé dans la zone <strong>Édition</strong>.</p>
+<p>Une fenêtre de dialogue apparaît alors pour vous demander confirmation
+avant de procéder à la suppression définitive et irrévocable du fichier
+de modèle sélectionné.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="template_browse"/>Changer le répertoire de modèles</h3>
+<p>Pour changer l'emplacement du répertoire de modèles, cliquez simplement
+sur le bouton <code>Parcourir</code> situé dans la zone <strong>Édition</strong> en haut, à
+droite.</p>
+<p>Une fenêtre de dialogue apparaît alors et vous permet de sélectionner
+un nouveau répertoire sur votre disque dur.</p>
+<p>Une fois sélectionné, votre nouvel emplacement de travail pour vos
+modèles d'histoires/pitchs est conservé dans la mémoire du logiciel
+d'une session sur l'autre. Vous n'aurez donc pas besoin de le préciser
+à nouveau à chaque fois que vous lancerez <code>tkScenarist</code>.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="template_reset"/>Restaurer le répertoire par défaut</h3>
+<p>Pour revenir à l'emplacement par défaut géré par le logiciel, cliquez
+sur le bouton <code>Réinitialiser répertoire</code> situé en haut, à droite, dans
+la zone <strong>Édition</strong>.</p>
+<p>Vous pourrez dès lors vérifier que l'emplacement par défaut est bien
+mentionné dans le petit texte bleu intitulé <code>Répertoire</code>, situé dans la
+zone <strong>Modèles</strong> en haut, à gauche.</p>
+<p>À partir de là, votre nouvel emplacement de travail pour vos modèles
+d'histoires/pitchs est conservé dans la mémoire du logiciel d'une
+session sur l'autre. Vous n'aurez donc pas besoin de le préciser à
+nouveau à chaque fois que vous lancerez <code>tkScenarist</code>.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="template_options"/>Options de copie</h3>
+<p>Les options de l'outil 'Modèles d'histoires/pitchs' offrent
+actuellement&nbsp;:</p>
+<ol>
+<li>d'effectuer une copie du contenu texte du modèle sélectionné dans
+l'éditeur de texte brut de l'onglet <code>Pitch/Concept</code> de
+l'application&nbsp;;</li>
+<li>d'effectuer une copie du contenu texte du modèle sélectionné dans
+l'éditeur de texte brut de l'onglet <code>Brouillons/Notes</code> de
+l'application&nbsp;;</li>
+</ol>
+<p>Pour (dé)sélectionner une option, cliquez sur le texte de l'option ou
+sur la case à cocher située à gauche de ce texte.</p>
+<p>Selon ce qu'affiche la case à cocher de l'option, l'option sera
+sélectionnée (case cochée) ou désélectionnée (case décochée).</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="template_get"/>Récupérer un modèle</h3>
+<p>Pour récupérer un modèle d'histoire/pitch en quelques clics de
+souris&nbsp;:</p>
+<ol>
+<li>Sélectionnez le modèle souhaité dans la liste de modèles située dans
+la zone <strong>Modèles</strong> en haut, à gauche&nbsp;;</li>
+<li>Éventuellement, cochez ou décochez les options qui vous intéressent
+dans la zone <strong>Options</strong> située en bas&nbsp;;</li>
+<li>Cliquez sur le bouton <code>OK</code> tout en bas de l'outil.</li>
+</ol>
+<p><strong>Nota Bene</strong>&nbsp;: si aucun modèle n'est sélectionné dans la zone
+<strong>Modèles</strong> ou si aucune option n'est cochée dans la zone <strong>Options</strong>,
+l'outil refusera de valider votre demande lors du clic sur le bouton
+<code>OK</code>.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h1><a name="pour-finir"/>Pour finir</h1>
+<p><strong>IMPORTANT</strong>&nbsp;: afin de vous préserver de toute mauvaise surprise,
+pensez à <strong>sauvegarder régulièrement votre projet</strong>, soit en utilisant
+le menu <code>Projet &gt; Enregistrer</code>, soit en utilisant le raccourci clavier
+<code>&lt;Ctrl-S&gt;</code> correspondant au couplage successif des touches <code>Ctrl</code> (en
+bas à gauche ou à droite de votre clavier) et <code>S</code> du clavier
+alphanumérique.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<hr>
+<h4><a name="navigation-rapide"/>Navigation rapide</h4>
+<ul>
+<li><strong>L'application par ses onglets</strong><ul>
+<li><a href="fr_tab_title_data.html">Onglet 'Titre/Données'</a></li>
+<li><a href="fr_tab_draft_notes.html">Onglet 'Brouillon/Notes'</a></li>
+<li><a href="fr_tab_pitch_concept.html">Onglet 'Pitch/Concept'</a></li>
+<li><a href="fr_tab_characters.html">Onglet 'Personnages'</a></li>
+<li><a href="fr_tab_scenario.html">Onglet 'Scénario'</a></li>
+<li><a href="fr_tab_storyboard.html">Onglet 'Storyboard'</a></li>
+<li><a href="fr_tab_resources.html">Onglet 'Ressources'</a></li>
+</ul>
+</li>
+<li><strong>Les outils</strong><ul>
+<li><a href="fr_tools_name_db.html">BDD noms de personnages</a></li>
+<li><a href="fr_tools_pitch_templates.html">Modèles d'histoires/pitchs</a></li>
+<li><a href="fr_tools_scenario_elements_editor.html">Éléments de scénario</a></li>
+</ul>
+</li>
+</ul>
+<p>Retourner à <a href="index.html">l'accueil</a>.</p>
+            </div> <!-- id: contents -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+        </div> <!-- id: page -->
+    </body>
+</html>

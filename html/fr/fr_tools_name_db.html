@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>tkScenarist - screenwriting made simpler</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../styles/common.css"/>
+    </head>
+    <body>
+        <div id="page">
+            <div id="title">
+                tkScenarist - screenwriting made simpler
+            </div> <!-- id: title -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+            <div id="contents">
+                <h1>Outil 'BDD noms de personnages'</h1>
+<h2><a name="sommaire"/>Sommaire</h2>
+<ul>
+<li><a href="#screenshot">Aperçu</a></li>
+<li><a href="#introduction">Présentation</a></li>
+<li><a href="#utilisation">Utilisation</a><ul>
+<li><a href="#search">Zone 'Rechercher'</a></li>
+<li><a href="#tools">Zone 'Outils'</a><ul>
+<li><a href="#browse_results">Naviguer dans les résultats</a></li>
+<li><a href="#file_import">Importer un fichier CSV</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#navigation-rapide">Navigation rapide</a></li>
+</ul>
+<h2><a name="screenshot"/>Aperçu</h2>
+<p><img alt="image" src="../../images/screenshots/fr/screenshot-006.png"></p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2><a name="introduction"/>Présentation</h2>
+<p>Cet outil permet de rechercher dans la base de données (BDD) centrale
+du logiciel <code>tkScenarist</code> des milliers de noms de personnages provenant
+de toutes origines à travers la planète.</p>
+<p>Il se compose de <strong>trois zones</strong> principales&nbsp;:</p>
+<ol>
+<li>à gauche, la zone <strong>Affichage</strong>, qui permet de visualiser le
+résultat des différentes recherches effectuées dans la base de données
+centrale&nbsp;;</li>
+<li>en haut, à droite, la zone <strong>Rechercher</strong>, qui permet de composer
+une requête de base de données, pour rechercher un nom ou un groupe de
+noms particuliers&nbsp;;</li>
+<li>en bas, à droite, la zone <strong>Outils</strong>, qui permet de naviguer dans
+les résultats de recherche, ainsi que d'importer des noms
+supplémentaires à partir d'un fichier au format CSV (Comma-Separated
+Values, valeurs séparées par des virgules).</li>
+</ol>
+<p>Dans cet outil, les zones <strong>ne sont pas</strong> redimensionnables.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2>Utilisation</h2>
+<h3><a name="search"/>Zone 'Rechercher'</h3>
+<p>Par défaut, cet outil affiche tout le contenu de la base de données
+centrale du logiciel <code>tkScenarist</code>, sans critère de sélection
+particulier.</p>
+<p>Si vous souhaitez rechercher plus précisément un nom, un type de noms
+ou un groupe de noms, sélectionnez parmi les choix proposés ceux qui
+correspondent au mieux à votre recherche.</p>
+<p>Une <strong>Mention</strong>, c'est ce que vous recherchez e.g. un nom, une origine,
+un genre (masculin, féminin, les deux, aucun des deux) ou une
+description.</p>
+<p>Cette mention peut correspondre à quatre situations bien
+distinctes&nbsp;:</p>
+<ol>
+<li>la mention <strong>contient</strong> les lettres que vous avez tapées dans la
+petite zone de texte blanche située juste en-dessous&nbsp;;</li>
+<li>la mention <strong>commence par</strong> les lettres que vous avez tapées dans la
+petite zone de texte blanche située juste en-dessous&nbsp;;</li>
+<li>la mention <strong>se termine par</strong> les lettres que vous avez tapées dans
+la petite zone de texte blanche située juste en-dessous&nbsp;;</li>
+<li>la mention <strong>correspond exactement</strong> aux lettres que vous avez
+tapées dans la petite zone de texte blanche située juste
+en-dessous&nbsp;;</li>
+</ol>
+<p>La zone de choix 'Dans :' permet de sélectionner le ou les endroits où
+il faut chercher les critères définis ci-dessus.</p>
+<p>Il s'agit de cases à cocher qui autorisent des choix en logique 'et/ou'
+e.g. rechercher dans les noms et/ou dans les origines et/ou dans les
+descriptions, selon les combinaisons cochées que vous effectuerez.</p>
+<p>La zone de choix 'Afficher :' est un peu plus spéciale&nbsp;: si vous
+cochez le choix 'Tous les noms' la requête composée n'effectuera aucun
+filtrage.</p>
+<p>Vous aurez donc des noms masculins, féminins, <a href="http://fr.wikipedia.org/wiki/%C3%89pic%C3%A8ne">épicènes</a> (mixtes) ou sans genre
+particulier (ni masculins ni féminins).</p>
+<p>En revanche, si vous cochez 'Noms masculins' et/ou 'Noms féminins',
+vous n'obtiendrez &ndash; selon la combinaison cochée &ndash; que des
+noms masculins, que des noms féminins ou que des noms épicènes
+(mixtes).</p>
+<p>Pour afficher que des noms sans genre particulier (ni masculins ni
+féminins), décochez <strong>tous les choix</strong> offerts ici.</p>
+<p>Une requête de recherche dans la base de données (BDD) est lancée
+automatiquement une demi-seconde après que vous ayez cessé de taper des
+lettres au clavier dans la zone de texte blanche ou une demi-seconde
+après que vous ayez cessé de cliquer sur des options et des choix.</p>
+<p>Chaque changement dans vos choix provoquera une nouvelle requête
+automatique de recherche.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="tools"/>Zone 'Outils'</h3>
+<h4><a name="browse_results"/>Naviguer dans les résultats</h4>
+<p>Une fois que vous avez composé votre requête de recherche dans la base
+de données, il se peut que les résultats à afficher soient largement
+plus nombreux que ceux réellement affichés à un moment donné.</p>
+<p>Pour se déplacer d'un bloc de résultats à un autre, cliquez sur le
+bouton <code>Suivant</code> si vous voulez passer au bloc suivant, sur le bouton
+<code>Précédent</code> si vous voulez retourner au bloc précédent ou sur le bouton
+<code>Début</code> si vous souhaitez retourner au début de vos résultats de
+recherche.</p>
+<p>Chaque nouvelle requête automatique de recherche vous replacera
+systématiquement au début des résultats de cette nouvelle recherche.</p>
+<p>En général, si vous avez vraiment beaucoup de résultats, c'est que très
+probablement votre requête de recherche n'est pas assez précise.</p>
+<p>N'hésitez donc pas à affiner encore et encore ce que vous recherchez,
+non seulement vous gagnerez du temps (plutôt que de naviguer
+interminablement parmi des milliers de résultats), mais de plus vous
+découvrirez des techniques intéressantes pour extraire efficacement des
+informations au sein d'une base de données.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="file_import"/>Importer un fichier CSV</h4>
+<p>Pour importer des noms supplémentaires dans la base de données (BDD)
+centrale du logiciel <code>tkScenarist</code>, cliquez sur le bouton
+<code>Importer fichier (CSV)</code>.</p>
+<p>Un outil d'importation s'affiche alors pour vous permettre d'effectuer
+un ajout de données à la base.</p>
+<p><img alt="image" src="../../images/screenshots/fr/screenshot-007.png"></p>
+<p>Cliquez sur le bouton <code>Parcourir</code> de cet outil d'importation pour
+désigner le fichier à importer dans la base de données.</p>
+<p>Attention&nbsp;: cet outil n'accepte que le format de fichier CSV
+standard (voir <a href="http://fr.wikipedia.org/wiki/Comma-separated_values">CSV sur wikipedia</a> pour plus
+d'information).</p>
+<p>Une fois le fichier d'importation désigné, le logiciel devrait vous
+proposer une première réaffectation des données en fonction de ce qu'il
+aura pu détecter dans la première ligne (en-têtes) du fichier à
+importer.</p>
+<p>Chaque donnée séparée par une virgule dans le fichier devrait
+correspondre (en théorie) à une colonne de la base de données e.g. Nom,
+Genre, Origine, Description.</p>
+<p>Vérifiez bien que le numéro de colonne (du fichier à importer) affecté
+à chacune des colonnes de la base de données correspond bien à la
+réalité.</p>
+<p>En d'autres termes, est-ce que les valeurs affichées dans l'aperçu du
+contenu du fichier à importer sont bien dans le même ordre
+d'affectation que celui affiché dans les listes déroulantes de 'Nom',
+'Genre', 'Origine' et 'Description' situées juste en-dessous ?</p>
+<p>Si ce n'est pas le cas, déroulez la liste de choix correspondant à la
+colonne erronée et sélectionnez le bon numéro de colonne en fonction de
+la position de la donnée dans le fichier d'importation.</p>
+<p><strong>Exemple concret</strong>&nbsp;: supposons que vous vouliez importer un
+fichier <code>asian-names.csv</code> dans la base de données du logiciel.</p>
+<p>Cliquez sur le bouton <code>Parcourir</code>, rendez-vous à l'emplacement où se
+trouve ce fichier puis double-cliquez sur ce fichier pour le
+sélectionner.</p>
+<p>Le logiciel procède alors à une reconnaissance de format et
+d'organisation des données dans ce fichier.</p>
+<p>Si tout va bien, un aperçu des quelques premières lignes du fichier
+s'affichera dans la zone 'Aperçu', pour vous permettre de vérifier que
+l'affectation des données s'est bien faite dans le bon ordre.</p>
+<p>Supposons à présent que ce fichier n'ait pas de première ligne
+d'en-têtes&nbsp;: le fichier commence immédiatement avec des données.</p>
+<p>Le logiciel ne trouve donc aucune correspondance valable et affiche
+dans toutes les listes déroulantes la mention <code>--- pas trouvé ---</code>.</p>
+<p>Charge à vous dès lors de lui indiquer qui va où.</p>
+<p>Dans le champ 'Nom', sélectionnez le numéro de colonne correspondant à
+l'emplacement des noms dans le fichier à importer.</p>
+<p>Si les noms sont cités en première position dans le fichier, c'est la
+colonne 1, s'ils sont en deuxième position, c'est la colonne 2, etc.</p>
+<p>Faites de même pour les champs 'Genre', 'Origine' et 'Description'.</p>
+<p>Si, par exemple, des données ne figurent pas dans le fichier à importer
+e.g. pas de description de nom nulle part, laissez simplement la
+mention <code>--- pas trouvé ---</code>, le logiciel comprendra et en tiendra
+compte.</p>
+<p>Une fois que vous avez bien tout vérifié et/ou corrigé, cliquez sur le
+bouton <code>Importer</code> situé à côté de la barre de progression, en bas de
+l'outil d'importation de données.</p>
+<p>La procédure d'importation se lance et gère le rapatriement des données
+du fichier CSV dans la base de données centrale du logiciel.</p>
+<p>Les noms importés en double (doublons) seront automatiquement filtrés
+et éliminés, vous n'avez donc pas à vous en soucier.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<hr>
+<h4><a name="navigation-rapide"/>Navigation rapide</h4>
+<ul>
+<li><strong>L'application par ses onglets</strong><ul>
+<li><a href="fr_tab_title_data.html">Onglet 'Titre/Données'</a></li>
+<li><a href="fr_tab_draft_notes.html">Onglet 'Brouillon/Notes'</a></li>
+<li><a href="fr_tab_pitch_concept.html">Onglet 'Pitch/Concept'</a></li>
+<li><a href="fr_tab_characters.html">Onglet 'Personnages'</a></li>
+<li><a href="fr_tab_scenario.html">Onglet 'Scénario'</a></li>
+<li><a href="fr_tab_storyboard.html">Onglet 'Storyboard'</a></li>
+<li><a href="fr_tab_resources.html">Onglet 'Ressources'</a></li>
+</ul>
+</li>
+<li><strong>Les outils</strong><ul>
+<li><a href="fr_tools_name_db.html">BDD noms de personnages</a></li>
+<li><a href="fr_tools_pitch_templates.html">Modèles d'histoires/pitchs</a></li>
+<li><a href="fr_tools_scenario_elements_editor.html">Éléments de scénario</a></li>
+</ul>
+</li>
+</ul>
+<p>Retourner à <a href="index.html">l'accueil</a>.</p>
+            </div> <!-- id: contents -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+        </div> <!-- id: page -->
+    </body>
+</html>

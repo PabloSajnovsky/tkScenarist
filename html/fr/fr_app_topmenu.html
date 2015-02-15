@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>tkScenarist - screenwriting made simpler</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../styles/common.css"/>
+    </head>
+    <body>
+        <div id="page">
+            <div id="title">
+                tkScenarist - screenwriting made simpler
+            </div> <!-- id: title -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+            <div id="contents">
+                <h1>L'application par ses menus</h1>
+<h2><a name="sommaire"/>Sommaire</h2>
+<ul>
+<li><a href="#menu_project">Menu 'Projet'</a><ul>
+<li><a href="#project_new">Option 'Nouveau'</a></li>
+<li><a href="#project_open">Option 'Ouvrir'</a></li>
+<li><a href="#project_save">Option 'Enregistrer'</a></li>
+<li><a href="#project_save_as">Option 'Enregistrer sous...'</a></li>
+<li><a href="#project_export_pdf">Option 'Exporter vers PDF'</a></li>
+<li><a href="#project_quit">Option 'Quitter'</a></li>
+</ul>
+</li>
+<li><a href="#menu_edit">Menu 'Edition'</a><ul>
+<li><a href="#edit_undo">Option 'Annuler'</a></li>
+<li><a href="#edit_redo">Option 'Refaire'</a></li>
+<li><a href="#edit_select_all">Option 'Tout sélectionner'</a></li>
+</ul>
+</li>
+<li><a href="#menu_view">Menu 'Affichage'</a><ul>
+<li><a href="#view_show_statusbar">Option 'Afficher la barre d'état'</a></li>
+</ul>
+</li>
+<li><a href="#menu_tools">Menu 'Outils'</a><ul>
+<li><a href="#tools_name_db">Option 'BDD noms de personnages'</a></li>
+<li><a href="#tools_pitch_templates">Option 'Modèles d'histoires/de pitchs'</a></li>
+<li><a href="#tools_see">Option 'Éléments de scénario'</a></li>
+</ul>
+</li>
+<li><a href="#menu_help">Menu 'Aide'</a><ul>
+<li><a href="#help_offline_doc">Option 'Documentation locale'</a></li>
+<li><a href="#help_online_doc">Option 'Documentation internet'</a></li>
+<li><a href="#help_about">Option 'À propos de...'</a></li>
+</ul>
+</li>
+<li><a href="#navigation-rapide">Navigation rapide</a></li>
+</ul>
+<h2><a name="menu_project"/>Menu 'Projet'</h2>
+<h3><a name="project_new"/>Option 'Nouveau'</h3>
+<p>L'option de menu 'Nouveau' permet de réinitialiser le logiciel en vue
+de créer un nouveau projet.</p>
+<p>Le recours à cette option n'est nécessaire que si vous avez déjà un
+autre projet en cours d'édition.</p>
+<p>Si un projet est modifié mais non sauvegardé au moment de l'appel de
+cette option, le logiciel vous demandera confirmation avant de
+continuer.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="project_open"/>Option 'Ouvrir'</h3>
+<p>L'option de menu 'Ouvrir' permet de récupérer un projet anciennement
+sauvegardé grâce à une boîte de dialogue dédiée à cet effet.</p>
+<p>Si un projet est modifié mais non sauvegardé au moment de l'appel de
+cette option, le logiciel vous demandera confirmation avant de
+continuer.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="project_save"/>Option 'Enregistrer'</h3>
+<p>L'option de menu 'Enregistrer' permet de sauvegarder sur votre disque
+dur le projet en cours d'édition.</p>
+<p>Pour un projet vierge qui n'a jamais été sauvegardé auparavant, le
+logiciel basculera automatiquement vers l'option de menu 'Enregistrer
+sous...'.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="project_save_as"/>Option 'Enregistrer sous...'</h3>
+<p>L'option de menu 'Enregistrer sous...' permet de sauvegarder sur votre
+disque dur le projet en cours d'édition, soit à un nouvel emplacement
+et/ou un nouveau nom de fichier projet, soit à son premier emplacement,
+si le projet n'a jamais été sauvegardé auparavant.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="project_export_pdf"/>Option 'Exporter vers PDF'</h3>
+<p>L'option de menu 'Exporter vers PDF' appelle le dialogue d'exportation
+multi-documents qui vous permet de produire des documents imprimables
+au format standard PDF&reg; à partir des données contenues dans votre
+projet, documents mis en forme pour correspondre au mieux aux attentes
+du milieu professionnel cinématographique.</p>
+<p>Notez toutefois que le logiciel refusera d'ouvrir ce dialogue tant que
+vous ne lui aurez pas spécifié un chemin de fichier valide pour votre
+projet, en d'autres termes, tant que vous n'aurez pas sauvegardé <strong>au
+moins une première fois</strong> votre projet avant de demander une
+exportation de documents.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="project_quit"/>Option 'Quitter'</h3>
+<p>L'option de menu 'Quitter' vous permet de quitter l'application à tout
+moment.</p>
+<p>Si un projet est modifié mais non sauvegardé au moment de l'appel de
+cette option, le logiciel vous demandera confirmation avant de
+continuer.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2><a name="menu_edit"/>Menu 'Edition'</h2>
+<h3><a name="edit_undo"/>Option 'Annuler'</h3>
+<p>L'option de menu 'Annuler' permet d'annuler la dernière saisie <strong>dans
+un éditeur de texte</strong> uniquement.</p>
+<p>Notez que cette option <strong>ne fonctionne pas</strong> à l'heure actuelle <strong>avec
+les zones de texte de formulaire</strong> (titre, sous-titre, etc).</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="edit_redo"/>Option 'Refaire'</h3>
+<p>L'option de menu 'Refaire' permet de répéter la dernière saisie annulée
+<strong>dans un éditeur de texte</strong> uniquement.</p>
+<p>Notez que cette option <strong>ne fonctionne pas</strong> à l'heure actuelle <strong>avec
+les zones de texte de formulaire</strong> (titre, sous-titre, etc).</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="edit_select_all"/>Option 'Tout sélectionner'</h3>
+<p>L'option de menu 'Tout sélectionner' permet de mettre un ruban de
+sélection sur la totalité d'une zone de texte à sélectionner.</p>
+<p>Contrairement aux options 'Annuler' et 'Refaire', cette option
+fonctionne aussi bien pour un éditeur de texte que pour une zone de
+texte de formulaire.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2><a name="menu_view"/>Menu 'Affichage'</h2>
+<h3><a name="view_show_statusbar"/>Option 'Afficher la barre d'état'</h3>
+<p>L'option de menu 'Afficher la barre d'état' est une option cochable /
+décochable, qui vous permet soit d'afficher la barre d'état (la petite
+ligne d'information tout en bas de la fenêtre du logiciel) lorsque
+cette option est cochée, soit au contraire, de masquer la barre d'état
+lorsque cette option est décochée.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2><a name="menu_tools"/>Menu 'Outils'</h2>
+<h3><a name="tools_name_db"/>Option 'BDD noms de personnages'</h3>
+<p>L'option de menu 'BDD noms de personnages' appelle l'outil base de
+données de noms de personnages du logiciel.</p>
+<p>Pour en savoir plus, merci de consulter la
+<a href="fr_tools_name_db.html">page dédiée</a> à cet outil.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="tools_pitch_templates"/>Option 'Modèles d'histoires/pitchs'</h3>
+<p>L'option de menu 'Modèles d'histoires/pitchs' appelle le gestionnaire
+de modèles d'histoires/pitchs du logiciel.</p>
+<p>Pour en savoir plus, merci de consulter la
+<a href="fr_tools_pitch_templates.html">page dédiée</a> à cet outil.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="tools_see"/>Option 'Éléments de scénario'</h3>
+<p>L'option de menu 'Éléments de scénario' appelle le gestionnaire de
+styles de l'éditeur de scénario du logiciel.</p>
+<p>Pour en savoir plus, merci de consulter la
+<a href="fr_tools_scenario_elements_editor.html">page dédiée</a> à cet outil.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2><a name="menu_help"/>Menu 'Aide'</h2>
+<h3><a name="help_offline_doc"/>Option 'Documentation locale'</h3>
+<p>L'option de menu 'Documentation locale' lance le navigateur internet
+par défaut pour afficher de la documentation fournie localement avec le
+logiciel, au format HTML.</p>
+<p>Cette option vous permet de vous documenter même quand vous n'avez pas
+d'accès à l'internet.</p>
+<p>Il demeure néanmoins toujours préférable de consulter aussi souvent que
+possible la documentation officielle en ligne, qui est généralement
+mieux renseignée que la documentation de secours.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="help_online_doc"/>Option 'Documentation internet'</h3>
+<p>L'option de menu 'Documentation internet' lance le navigateur internet
+par défaut pour afficher la documentation officielle du logiciel
+publiée en ligne.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="help_about"/>Option 'À propos de...'</h3>
+<p>L'option de menu 'À propos de...' affiche simplement une boîte de
+dialogue présentant le logiciel ainsi que diverses informations liées.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<hr>
+<h4><a name="navigation-rapide"/>Navigation rapide</h4>
+<ul>
+<li><strong>L'application par ses onglets</strong><ul>
+<li><a href="fr_tab_title_data.html">Onglet 'Titre/Données'</a></li>
+<li><a href="fr_tab_draft_notes.html">Onglet 'Brouillon/Notes'</a></li>
+<li><a href="fr_tab_pitch_concept.html">Onglet 'Pitch/Concept'</a></li>
+<li><a href="fr_tab_characters.html">Onglet 'Personnages'</a></li>
+<li><a href="fr_tab_scenario.html">Onglet 'Scénario'</a></li>
+<li><a href="fr_tab_storyboard.html">Onglet 'Storyboard'</a></li>
+<li><a href="fr_tab_resources.html">Onglet 'Ressources'</a></li>
+</ul>
+</li>
+<li><strong>Les outils</strong><ul>
+<li><a href="fr_tools_name_db.html">BDD noms de personnages</a></li>
+<li><a href="fr_tools_pitch_templates.html">Modèles d'histoires/pitchs</a></li>
+<li><a href="fr_tools_scenario_elements_editor.html">Éléments de scénario</a></li>
+</ul>
+</li>
+</ul>
+<p>Retourner à <a href="index.html">l'accueil</a>.</p>
+            </div> <!-- id: contents -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+        </div> <!-- id: page -->
+    </body>
+</html>

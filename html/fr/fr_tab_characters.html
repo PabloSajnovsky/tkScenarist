@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>tkScenarist - screenwriting made simpler</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../styles/common.css"/>
+    </head>
+    <body>
+        <div id="page">
+            <div id="title">
+                tkScenarist - screenwriting made simpler
+            </div> <!-- id: title -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+            <div id="contents">
+                <h1>L'application par ses onglets</h1>
+<h2>Onglet 'Personnages'</h2>
+<h2><a name="sommaire"/>Sommaire</h2>
+<ul>
+<li><a href="#screenshot">Aperçu</a></li>
+<li><a href="#introduction">Présentation</a></li>
+<li><a href="#utilisation">Utilisation</a><ul>
+<li><a href="#name_list">Liste de noms de personnages</a><ul>
+<li><a href="#list_add">Ajouter un nom</a></li>
+<li><a href="#list_rename">Renommer un nom</a></li>
+<li><a href="#list_del">Supprimer un nom</a></li>
+<li><a href="#list_purge">Purger la liste</a></li>
+</ul>
+</li>
+<li><a href="#historique-personnage">Historique personnage</a></li>
+<li><a href="#visuel-relations">Visuel relations</a><ul>
+<li><a href="#canvas_add">Ajouter un nom</a></li>
+<li><a href="#canvas_rename">Renommer un nom</a></li>
+<li><a href="#canvas_del">Supprimer un nom</a></li>
+<li><a href="#canvas_add_rel">Ajouter une relation</a></li>
+<li><a href="#canvas_rename_rel">Renommer une relation</a></li>
+<li><a href="#canvas_del_rel">Supprimer une relation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#pour-finir">Pour finir</a></li>
+<li><a href="#navigation-rapide">Navigation rapide</a></li>
+</ul>
+<h2><a name="screenshot"/>Aperçu</h2>
+<p><img alt="image" src="../../images/screenshots/fr/screenshot-005.png"></p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2><a name="introduction"/>Présentation</h2>
+<p>Cet onglet permet de gérer les protagonistes du film, notamment les
+noms des personnages, leur histoire personnelle, ainsi que les liens
+qui les unissent.</p>
+<p>Cet onglet se subdivise en <strong>trois zones</strong>&nbsp;:</p>
+<ol>
+<li>en haut, à gauche&nbsp;: c'est la <strong>liste des noms de personnages</strong>
+à proprement parler&nbsp;;</li>
+<li>en bas, à gauche&nbsp;: c'est la zone de texte permettant de
+renseigner l'<strong>histoire personnelle</strong> de chaque personnage
+sélectionné&nbsp;;</li>
+<li>à droite, la grande zone grise&nbsp;: il s'agit du canevas graphique
+du <strong>gestionnaire visuel de relations</strong> entre personnages.</li>
+</ol>
+<p>Toutes les zones sont <strong>redimensionnables</strong>&nbsp;: il suffit de placer
+la flèche de la souris entre les zones, l'icône du pointeur doit alors
+changer d'aspect (e.g. deux flèches qui s'opposent), de maintenir le
+clic enfoncé puis de déplacer dans le sens indiqué par le pointeur de
+souris pour obtenir le redimensionnement escompté.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2>Utilisation</h2>
+<h3><a name="name_list"/>Liste de noms de personnages</h3>
+<h4><a name="list_add"/>Ajouter un nom de personnage</h4>
+<p>Pour ajouter un nouveau nom de personnage, cliquez sur le bouton <code>+</code>
+(signe plus) situé en bas à gauche de la liste des noms de personnages.</p>
+<p>Une fenêtre de dialogue s'ouvre alors pour vous permettre d'entrer un
+nom.</p>
+<p>Ne vous étonnez pas si le nom apparaît systématiquement en majuscules
+dans la liste, une fois que vous l'avez validé&nbsp;: il s'agit d'une
+règle de rédaction de scénario qui veut que les noms de personnages
+soient toujours cités en toutes majuscules dans le texte.</p>
+<p>La liste est donc gérée conformément à cette exigence technique, en vue
+de faire figurer tous les noms de personnages en toutes majuscules lors
+de leur saisie dans le texte du scénario (voir
+<a href="fr_tab_scenario.html">onglet&nbsp;'Scénario'</a> pour plus de détail).</p>
+<p>Notez aussi que chaque nom de personnage doit être <strong>unique</strong>
+(exemple&nbsp;: vous ne pouvez pas créer deux 'JACQUES' sans préciser
+une différence entre les deux, par exemple avec le nom de famille,
+'JACQUES DUMOULIN' et 'JACQUES DUFOUR').</p>
+<p>Quoi qu'il en soit, le logiciel ne manquera pas de vous le signaler, le
+cas échéant.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="list_rename"/>Renommer un nom de personnage</h4>
+<p>Changer le nom d'un personnage implique plusieurs règles&nbsp;:</p>
+<ol>
+<li>le nom à changer doit déjà exister dans la liste&nbsp;;</li>
+<li>le nom à changer ne doit pas être cité dans le texte du scénario au
+moment de le renommer&nbsp;;</li>
+<li>le nouveau nom doit être unique et ne pas figurer d'ores et déjà par
+ailleurs dans la liste des noms de personnages existants
+(exemple&nbsp;: changer 'TOTO' en 'TUTU', alors que 'TUTU' existe déjà
+dans la liste).</li>
+</ol>
+<p>Pour renommer un personnage, sélectionnez son nom dans la liste, puis
+cliquez sur le bouton <code>Renommer</code> situé en bas de la liste.</p>
+<p>Une fenêtre de dialogue s'ouvre alors pour vous permettre de modifier
+le nom sélectionné.</p>
+<p>Si le nouveau nom entré figure déjà dans la liste, le logiciel ne
+manquera pas de vous le signaler et l'ancien nom du personnage <strong>ne
+sera pas modifié</strong>.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="list_del"/>Supprimer un nom de personnage</h4>
+<p>Vous ne pouvez supprimer le nom d'un personnage que si ce nom existe
+effectivement dans la liste et qu'il <em>N'EST PAS</em> cité au moins une fois
+dans le texte du scénario (voir
+<a href="fr_tab_scenario.html">onglet&nbsp;'Scénario'</a> pour plus de détail).</p>
+<p>Pour supprimer un nom de personnage, sélectionnez-le tout d'abord dans
+la liste, puis cliquez sur le bouton <code>-</code> (signe moins) situé en bas à
+gauche de la liste des noms de personnages.</p>
+<p>Une fenêtre de dialogue vous demandera de confirmer votre choix avant
+de procéder à la suppression définitive du nom du personnage.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="list_purge"/>Purger la liste</h4>
+<p>Il peut arriver parfois que l'on ait besoin de faire place nette dans
+la liste des noms de personnages.</p>
+<p>Purger la liste des noms de personnages revient à supprimer
+automatiquement tous les noms qui ne sont pas cités au moins une fois
+dans le texte du scénario.</p>
+<p>Pour purger la liste des noms de personnages, cliquez sur le bouton
+<code>Purger</code> situé en bas de la liste.</p>
+<p>Une fenêtre de dialogue s'ouvre alors et vous demande confirmation de
+l'opération de nettoyage automatique.</p>
+<p>Cliquez sur <code>Oui</code> si vous souhaitez ne conserver que les noms figurant
+déjà dans le texte du scénario et supprimer tous les autres.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3>Historique personnage</h3>
+<p>Pour renseigner l'histoire personnelle d'un personnage, il faut tout
+d'abord sélectionner un nom de personnage dans la liste.</p>
+<p>Cliquez sur le nom de personnage que vous souhaitez renseigner puis
+cliquez sur la zone de texte blanche en bas, à gauche, qui vous
+permettra de rédiger l'histoire du personnage.</p>
+<p>Ne cherchez pas de bouton <code>Sauvegarder</code>, il n'y en a pas&nbsp;: toutes
+les saisies dans ces petites zones de texte sont <strong>automatiquement
+sauvegardées</strong> entre chaque personnage.</p>
+<p>Il vous suffit donc de sélectionner un nom, d'entrer ensuite son
+histoire personnelle, puis de cliquer sur un autre nom, d'entrer son
+histoire personnelle aussi, etc, etc.</p>
+<p>En revanche, ce petit confort ne vous dispense pas de sauvegarder
+régulièrement <strong>le projet en entier</strong> (voir <a href="#save">ci-dessous</a>).</p>
+<p>La zone de texte blanche s'appelle un <strong>éditeur de texte brut</strong>.</p>
+<p>L'éditeur de texte brut permet des sauts à la ligne lorsque vous
+pressez la touche de clavier <code>&lt;Entrée&gt;</code> (retour chariot).</p>
+<p>Chaque saut à la ligne crée un nouveau paragraphe.</p>
+<p>En revanche, contrairement au <strong>traitement de textes</strong>, cet objet ne
+permet pas la mise en forme du texte entré (diverses polices de
+caractères, gras, italique, souligné, couleurs d'encre et de fond,
+centrage / justification de paragraphes, etc).</p>
+<p>Il s'agit d'une zone de texte <strong>neutre</strong>.</p>
+<p>Un double-clic sur un mot permet de sélectionner <strong>ce mot uniquement</strong>.</p>
+<p>Un triple-clic sur un mot permet de sélectionner <strong>le paragraphe</strong> dans
+lequel ce mot se trouve.</p>
+<p>Le menu <code>Edition &gt; Tout sélectionner</code> ou la combinaison de touches de
+clavier <code>&lt;Ctrl-A&gt;</code> permettent de <strong>tout sélectionner</strong> dans l'éditeur
+de texte brut.</p>
+<p>Tout ruban de sélection est susceptible d'être remplacé par la
+prochaine frappe d'une touche au clavier.</p>
+<p>Contrairement aux champs de formulaire (voir
+<a href="fr_tab_title_data.html">onglet&nbsp;'Titre/Données'</a>), un éditeur de texte
+brut prend en charge l'annulation des mots entrés.</p>
+<p>Pour annuler la saisie du dernier mot entré, utilisez soit le menu
+<code>Edition &gt; Annuler</code>, soit le raccourci clavier <code>&lt;Ctrl-Z&gt;</code> correspondant
+au couplage successif des touches <code>Ctrl</code> (en bas à gauche ou à droite
+de votre clavier) et <code>Z</code> du clavier alphanumérique.</p>
+<p>Pour répéter la saisie du dernier mot annulé, utilisez soit le menu
+<code>Edition &gt; Refaire</code>, soit le raccourci clavier <code>&lt;Ctrl-Shift-Z&gt;</code>
+correspondant au couplage successif des touches <code>Ctrl</code>, <code>Shift</code>
+(chariot majuscules) et <code>Z</code> du clavier alphanumérique.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3>Visuel relations</h3>
+<h4><a name="canvas_add"/>Ajouter un nom de personnage</h4>
+<p>Vous pouvez ajouter un nom de personnage directement dans le
+gestionnaire visuel de relations, sans passer par la liste des noms de
+personnages située à gauche.</p>
+<p>Pour ce faire, double-cliquez simplement sur une zone neutre du canevas
+graphique.</p>
+<p>Une zone neutre se caractérise par le fond du canevas graphique (fond
+gris), à l'exclusion de tout autre objet qui pourrait se trouver sous
+la flèche de la souris, comme par exemple, une étiquette de nom de
+personnage déjà existant, un lien de relation ou encore une étiquette
+de relation entre personnages.</p>
+<p>Une fenêtre de dialogue s'ouvre alors pour vous permettre d'entrer un
+nom.</p>
+<p>Ne vous étonnez pas si le nom apparaît systématiquement en majuscules
+dans la liste des noms de personnages ou sur l'étiquette du canevas
+graphique, une fois que vous l'avez validé&nbsp;: il s'agit d'une règle
+de rédaction de scénario qui veut que les noms de personnages soient
+toujours cités en toutes majuscules dans le texte.</p>
+<p>La liste des noms est donc gérée conformément à cette exigence
+technique, en vue de faire figurer tous les noms de personnages en
+toutes majuscules lors de leur saisie dans le texte du scénario (voir
+<a href="fr_tab_scenario.html">onglet&nbsp;'Scénario'</a> pour plus de détail).</p>
+<p>Notez aussi que chaque nom de personnage doit être <strong>unique</strong>
+(exemple&nbsp;: vous ne pouvez pas créer deux 'JACQUES' sans préciser
+une différence entre les deux, par exemple avec le nom de famille,
+'JACQUES DUMOULIN' et 'JACQUES DUFOUR').</p>
+<p>Quoi qu'il en soit, le logiciel ne manquera pas de vous le signaler, le
+cas échéant.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="canvas_rename"/>Renommer un nom de personnage</h4>
+<p>Vous pouvez renommer un personnage directement dans le gestionnaire
+visuel de relations, sans passer par la liste des noms de personnages
+située à gauche.</p>
+<p>Pour ce faire, double-cliquez simplement sur l'étiquette du canevas
+graphique qui contient le nom que vous souhaitez changer.</p>
+<p>Une fenêtre de dialogue s'ouvre alors pour vous permettre de modifier
+le nom sélectionné.</p>
+<p>Changer le nom d'un personnage implique toutefois quelques règles
+simples&nbsp;:</p>
+<ol>
+<li>le nom à changer doit déjà exister dans la liste&nbsp;;</li>
+<li>le nom à changer ne doit pas être cité dans le texte du scénario au
+moment de le renommer&nbsp;;</li>
+<li>le nouveau nom doit être unique et ne pas figurer d'ores et déjà par
+ailleurs dans la liste des noms de personnages existants
+(exemple&nbsp;: changer 'TOTO' en 'TUTU', alors que 'TUTU' existe déjà
+dans la liste).</li>
+</ol>
+<p>Si le nouveau nom entré figure déjà dans la liste, le logiciel ne
+manquera pas de vous le signaler et l'ancien nom du personnage <strong>ne
+sera pas modifié</strong>.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="canvas_del"/>Supprimer un nom de personnage</h4>
+<p>Vous pouvez supprimer le nom d'un personnage directement dans le
+gestionnaire visuel de relations, sans passer par la liste des noms de
+personnages située à gauche.</p>
+<p>Pour ce faire, maintenez enfoncée la touche <code>Ctrl</code> (en bas à gauche ou
+à droite de votre clavier), puis cliquez sur l'étiquette du canevas
+graphique qui contient le nom que vous souhaitez supprimer.</p>
+<p>Vous ne pouvez supprimer le nom d'un personnage que si ce nom existe
+effectivement dans la liste et qu'il <em>N'EST PAS</em> cité au moins une fois
+dans le texte du scénario (voir
+<a href="fr_tab_scenario.html">onglet&nbsp;'Scénario'</a> pour plus de détail).</p>
+<p>Une fenêtre de dialogue vous demandera alors de confirmer votre choix
+avant de procéder à la suppression définitive du nom du personnage.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="canvas_add_rel"/>Ajouter une relation</h4>
+<p>Ajouter une relation ne peut se faire qu'en respectant les règles
+suivantes&nbsp;:</p>
+<ol>
+<li>on ne peut créer de relation qu'entre deux noms de personnages
+<strong>distincts</strong> (le logiciel ne manquera pas de vous le signaler, le cas
+échéant)&nbsp;;</li>
+<li>on ne peut créer qu'<strong>une seule relation</strong> entre deux mêmes
+personnages (n'essayez donc pas de créer une relation <code>TOTO père de
+TUTU</code> <em>ET</em> <code>TUTU fils de TOTO</code>, cela ne marchera pas)&nbsp;;</li>
+<li>un lien de relation tiré à partir d'un personnage mais qui
+n'aboutirait nulle part ne crée aucune relation, évidemment.</li>
+</ol>
+<p>Pour créer une relation entre deux noms de personnages distincts,
+maintenez enfoncée la touche <code>Shift</code> (chariot majuscules, symbole
+&uArr;, en bas à gauche ou à droite du clavier), enfoncez le bouton
+clic de la souris sur l'étiquette du nom de départ, puis glissez la
+souris jusqu'à atteindre l'étiquette du nom de personnage d'arrivée et
+enfin relâchez le bouton clic de la souris une fois sur place, ainsi
+que la touche <code>Shift</code> du clavier.</p>
+<p>Un lien visuel devrait apparaître sous la forme d'un trait noir sortant
+de l'étiquette de départ et aboutissant à l'étiquette d'arrivée,
+flanqué d'une étiquette noire mentionnant 'Relation' à mi-chemin.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="canvas_rename_rel"/>Renommer une relation</h4>
+<p>Pour changer le contenu texte d'une relation, double-cliquez simplement
+sur l'étiquette noire contenant le texte à modifier.</p>
+<p>Une fenêtre de dialogue s'ouvre alors pour vous permettre de modifier
+le contenu texte de la relation.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="canvas_del_rel"/>Supprimer une relation</h4>
+<p>Pour supprimer une relation entre deux noms de personnages, maintenez
+enfoncée la touche <code>Ctrl</code> (en bas à gauche ou à droite de votre
+clavier), puis cliquez sur l'étiquette noire du canevas graphique qui
+contient le texte de la relation que vous souhaitez supprimer.</p>
+<p>Une fenêtre de dialogue vous demandera alors de confirmer votre choix
+avant de procéder à la suppression définitive de la relation.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2><a name="pour-finir"/>Pour finir</h2>
+<p>Si vous cliquez simplement sur l'étiquette de nom d'un personnage dans
+le canevas graphique du gestionnaire visuel de relations, vous
+sélectionnez par la même occasion le nom du personnage dans la liste
+des noms de personnages située en haut à gauche et vous obtenez aussi
+dans la foulée des informations dans l'historique personnage situé en
+bas à gauche.</p>
+<p>Vous pouvez déplacer les étiquettes de noms de personnages qui se
+trouvent dans le canevas graphique du gestionnaire de relations en
+maintenant simplement le bouton clic de la souris enfoncé sur
+l'étiquette de nom que vous souhaitez déplacer, en bougeant la souris
+dans la direction souhaitée, puis en relâchant le bouton clic de la
+souris une fois sur place (glisser-déposer, drag'n'drop).</p>
+<p>Il existe aussi une fonctionnalité de navigation secrète.</p>
+<p>Pour naviguer rapidement dans le canevas graphique, maintenez le bouton
+clic de la souris enfoncé sur une zone neutre, puis déplacez la souris
+dans la direction où vous souhaitez aller.</p>
+<p>Relâchez enfin le bouton clic de la souris une fois arrivé(e) à
+destination.</p>
+<p>Une zone neutre se caractérise par le fond du canevas graphique (fond
+gris), à l'exclusion de tout autre objet qui pourrait se trouver sous
+la flèche de la souris, comme par exemple, une étiquette de nom de
+personnage déjà existant, un lien de relation ou encore une étiquette
+de relation entre personnages.</p>
+<p><a name="save"/></p>
+<p><strong>IMPORTANT</strong>&nbsp;: afin de vous préserver de toute mauvaise surprise,
+pensez à <strong>sauvegarder régulièrement votre projet</strong>, soit en utilisant
+le menu <code>Projet &gt; Enregistrer</code>, soit en utilisant le raccourci clavier
+<code>&lt;Ctrl-S&gt;</code> correspondant au couplage successif des touches <code>Ctrl</code> (en
+bas à gauche ou à droite de votre clavier) et <code>S</code> du clavier
+alphanumérique.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<hr>
+<h4><a name="navigation-rapide"/>Navigation rapide</h4>
+<ul>
+<li><strong>L'application par ses onglets</strong><ul>
+<li><a href="fr_tab_title_data.html">Onglet 'Titre/Données'</a></li>
+<li><a href="fr_tab_draft_notes.html">Onglet 'Brouillon/Notes'</a></li>
+<li><a href="fr_tab_pitch_concept.html">Onglet 'Pitch/Concept'</a></li>
+<li><a href="fr_tab_characters.html">Onglet 'Personnages'</a></li>
+<li><a href="fr_tab_scenario.html">Onglet 'Scénario'</a></li>
+<li><a href="fr_tab_storyboard.html">Onglet 'Storyboard'</a></li>
+<li><a href="fr_tab_resources.html">Onglet 'Ressources'</a></li>
+</ul>
+</li>
+<li><strong>Les outils</strong><ul>
+<li><a href="fr_tools_name_db.html">BDD noms de personnages</a></li>
+<li><a href="fr_tools_pitch_templates.html">Modèles d'histoires/pitchs</a></li>
+<li><a href="fr_tools_scenario_elements_editor.html">Éléments de scénario</a></li>
+</ul>
+</li>
+</ul>
+<p>Retourner à <a href="index.html">l'accueil</a>.</p>
+            </div> <!-- id: contents -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+        </div> <!-- id: page -->
+    </body>
+</html>

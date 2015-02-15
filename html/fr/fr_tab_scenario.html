@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>tkScenarist - screenwriting made simpler</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../styles/common.css"/>
+    </head>
+    <body>
+        <div id="page">
+            <div id="title">
+                tkScenarist - screenwriting made simpler
+            </div> <!-- id: title -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+            <div id="contents">
+                <h1>L'application par ses onglets</h1>
+<h2>Onglet 'Scénario'</h2>
+<h2><a name="sommaire"/>Sommaire</h2>
+<ul>
+<li><a href="#screenshot">Aperçu</a></li>
+<li><a href="#introduction">Présentation</a></li>
+<li><a href="#utilisation">Utilisation</a><ul>
+<li><a href="#navigation">Le navigateur de scènes</a></li>
+<li><a href="#editor">L'éditeur texte de scénario</a><ul>
+<li><a href="#composition">Composition</a></li>
+<li><a href="#elements">Éléments de scénario</a></li>
+<li><a href="#switch_create">Enchaînements d'éléments</a></li>
+<li><a href="#characters">Détection de noms de personnages</a></li>
+<li><a href="#features">Fonctionnalités d'édition</a></li>
+</ul>
+</li>
+<li><a href="#information">La zone d'information</a></li>
+</ul>
+</li>
+<li><a href="#pour-finir">Pour finir</a></li>
+<li><a href="#navigation-rapide">Navigation rapide</a></li>
+</ul>
+<h2><a name="screenshot"/>Aperçu</h2>
+<p><img alt="image" src="../../images/screenshots/fr/screenshot-008.png"></p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2><a name="introduction"/>Présentation</h2>
+<p>Cet onglet permet de rédiger le scénario du projet de film à proprement
+parler.</p>
+<p>Il se compose de <strong>trois zones</strong> principales&nbsp;:</p>
+<ol>
+<li>à gauche, le <strong>navigateur de scènes</strong>, qui permet d'accéder aux
+lignes où se trouvent les scènes d'un clic de souris&nbsp;;</li>
+<li>au centre, l'<strong>éditeur texte de scénario</strong>, qui est un peu plus
+qu'un simple éditeur de texte brut&nbsp;;</li>
+<li>à droite, la <strong>zone d'information</strong>, qui affiche des conseils, des
+historiques de personnages en fonction de ce qui est détecté dans le
+texte du scénario, ainsi que quelques statistiques estimatives.</li>
+</ol>
+<p>Toutes les zones sont <strong>redimensionnables</strong>&nbsp;: il suffit de placer
+la flèche de la souris entre les zones, l'icône du pointeur doit alors
+changer d'aspect (e.g. deux flèches qui s'opposent), de maintenir le
+clic enfoncé puis de déplacer dans le sens indiqué par le pointeur de
+souris pour obtenir le redimensionnement escompté.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2>Utilisation</h2>
+<h3><a name="navigation"/>Le navigateur de scènes</h3>
+<p>Le navigateur de scènes se remplit automatiquement au fur et à mesure
+que vous rédigez des nouvelles scènes dans votre texte de scénario.</p>
+<p>Pour accéder à une scène donnée, cliquez simplement sur la scène en
+question dans la liste déroulante du navigateur de scènes, le curseur
+d'insertion de l'éditeur texte de scénario se rendra alors à l'endroit
+désiré.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="editor"/>L'éditeur texte de scénario</h3>
+<h4>Composition</h4>
+<p>L'éditeur texte de scénario se compose de trois parties&nbsp;:</p>
+<ol>
+<li>un <strong>sélecteur d'éléments</strong> de scénario, qui permet de changer le
+type d'élément de scénario affecté à la ligne où se trouve actuellement
+le curseur d'insertion (voir <a href="#elements">Éléments de scénario</a> un peu
+plus bas)&nbsp;;</li>
+<li>un <strong>indicateur d'enchaînements</strong>, qui permet de connaître toutes les
+alternatives d'enchaînement à tout moment (voir
+<a href="#switch_create">Enchaînements&nbsp;d'éléments</a> un peu plus
+bas)&nbsp;;</li>
+<li>l'<strong>éditeur texte</strong> de scénario à proprement parler, qui est
+l'organe principal de la rédaction du texte de scénario.</li>
+</ol>
+<p>Sauf indication contraire, toute mention 'éditeur', 'éditeur texte' ou
+'éditeur texte de scénario' dans cette page de documentation se réfère
+systématiquement à l'objet éditeur de texte de l'onglet 'Scénario'.</p>
+<p>Le sélecteur d'éléments de scénario et l'indicateur d'enchaînements
+seront mentionnés explicitement.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="elements"/>Éléments de scénario</h4>
+<p>L'écriture d'un scénario suit des règles de métier qui permettent
+d'identifier les différents paragraphes sous la forme d'<strong>éléments de
+scénario</strong>.</p>
+<p>Il en existe beaucoup, mais le logiciel <code>tkScenarist</code> a fait le choix
+de ne garder que l'essentiel&nbsp;:</p>
+<ol>
+<li>élément 'Scène'&nbsp;: ce paragraphe permet d'identifier sans
+ambiguïté le début d'une scène&nbsp;;</li>
+<li>élément 'Action'&nbsp;: ce paragraphe décrit une action au sein
+d'une scène&nbsp;;</li>
+<li>élément 'Personnage'&nbsp;: ce paragraphe indique qu'un personnage
+prend la parole, c'est donc théoriquement le début d'un dialogue&nbsp;;</li>
+<li>élément 'Parenthèses'&nbsp;: ce paragraphe sert de complément
+d'information sur l'état du personnage au moment où il prend la parole
+e.g. en souriant, en triturant nerveusement ses mèches de cheveux, en
+compulsant le dossier, etc&nbsp;;</li>
+<li>élément 'Dialogue'&nbsp;: c'est le texte du dialogue à proprement
+parler, ce que dit le personnage signalé dans l'élément 'Personnage',
+qui doit obligatoirement précéder l'élément 'Dialogue'&nbsp;;</li>
+<li>élément 'Transition'&nbsp;: ce paragraphe permet de donner des
+indications techniques sur la transition attendue par le scénariste
+entre deux scènes e.g. CUT, FADE IN, FADE OUT, etc. On place
+généralement un élément 'Transition' juste avant ou juste après un
+élément 'Scène'.</li>
+</ol>
+<p>Seuls les cinq premiers éléments sont vraiment indispensables à la
+rédaction correcte d'un scénario.</p>
+<p>Le sixième élément, 'Transition', est un petit plus dont on se gardera
+d'abuser, surtout si l'on veut approcher une qualité optimale de
+rédaction d'un scénario à vocation professionnelle.</p>
+<p>Pour changer le type d'élément de scénario à un endroit donné de votre
+texte, placez le curseur d'insertion sur le paragraphe à modifier,
+cliquez sur le bouton (montrant une petite flèche vers le bas) situé à
+droite du <strong>sélecteur d'éléments</strong> de scénario pour dérouler une liste
+de choix, puis sélectionnez l'élément qui vous intéresse dans cette
+liste de choix.</p>
+<p>L'aspect du paragraphe s'adapte alors automatiquement à votre demande.</p>
+<p>La plupart du temps, vous pouvez aussi recourir aux
+<a href="#switch_create">Enchaînements&nbsp;d'éléments</a> pour obtenir des
+résultats analogues.</p>
+<p>Notez toutefois qu'il est fortement recommandé&nbsp;:</p>
+<ul>
+<li>de débuter le texte d'un scénario par un élément 'Scène', ce que vous
+propose par défaut le logiciel <code>tkScenarist</code>&nbsp;;</li>
+<li>de <em>NE PAS</em> abuser des éléments 'Transition', surtout si votre
+scénario est à vocation professionnelle (c'est en effet le boulot du
+storyboarder de s'occuper de l'aspect découpage technique de
+l'histoire, pas celui du scénariste)&nbsp;;</li>
+<li>de toujours commencer un dialogue par l'élément 'Personnage', suivi
+de l'élément 'Parenthèses' (facultatif), puis de l'élément 'Dialogue'
+(obligatoire)&nbsp;;</li>
+<li>de prendre l'habitude de rédiger une action en conjuguant les verbes
+à l'indicatif présent.</li>
+</ul>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="switch_create"/>Enchaînements d'éléments</h4>
+<p>L'<strong>indicateur d'enchaînements</strong> affiche les différents types
+d'éléments de scénario que vous pouvez obtenir en pressant sur les
+touches d'enchaînement citées&nbsp;:</p>
+<ul>
+<li>la touche <code>&lt;Tab&gt;</code> ou tabulation, qui se trouve à gauche de votre
+clavier alphanumérique (souvent représentée par deux longues flèches
+qui s'opposent et qui viennent buter sur des taquets)&nbsp;;</li>
+<li>la touche <code>&lt;Entrée&gt;</code> ou retour chariot, qui se trouve à droite de
+votre clavier alphanumérique (souvent représentée par une flèche coudée
+imitant le mouvement du retour de chariot d'une machine à
+écrire)&nbsp;;</li>
+<li>la combinaison de touches <code>&lt;Ctrl-Entrée&gt;</code> qui correspond au couplage
+successif de la touche <code>Ctrl</code> (en bas à gauche ou à droite du clavier)
+et de la touche <code>Entrée</code>.</li>
+</ul>
+<p><strong>Attention</strong>&nbsp;: ne confondez pas la touche <code>&lt;Entrée&gt;</code> du clavier
+<strong>alphanumérique</strong> avec la touche du même nom du clavier <strong>numérique</strong>,
+le logiciel <code>tkScenarist</code> ne reconnaît que la première en ce qui
+concerne les fonctionnalités d'enchaînement, la seconde étant
+neutralisée afin d'éviter d'éventuelles erreurs de saisie.</p>
+<p>L'indicateur d'enchaînements fonctionne selon deux modes&nbsp;:</p>
+<ol>
+<li>le mode 'Switch' (basculement)&nbsp;: lorsqu'une ligne de paragraphe
+sélectionnée est encore vide, l'appui d'une touche d'enchaînement
+provoquera le <strong>basculement</strong> de la ligne sélectionnée vers le type
+d'élément de scénario affiché dans l'indicateur d'enchaînements e.g. si
+vous êtes sur une ligne 'Action' vierge et que vous pressez la touche
+<code>&lt;Tab&gt;</code> de votre clavier, la ligne basculera en type
+'Personnage'&nbsp;;</li>
+<li>le mode 'Create' (nouvelle ligne)&nbsp;: dès qu'une ligne de
+paragraphe sélectionnée n'est plus vide i.e. qu'elle contient au moins
+une lettre ou un signe, l'appui d'une touche d'enchaînement provoquera
+la <strong>création</strong> d'une nouvelle ligne de paragraphe à la suite, avec le
+type d'élément spécifié par l'indicateur d'enchaînements e.g. si vous
+êtes sur une ligne 'Scène' non vide et que vous pressez la touche
+<code>&lt;Entrée&gt;</code> de votre clavier, une nouvelle ligne de type 'Action'
+viendra se créer à la suite.</li>
+</ol>
+<p>L'indicateur d'enchaînements étant à <strong>affichage dynamique permanent</strong>,
+n'hésitez pas à le consulter avant de presser une touche d'enchaînement
+sur votre clavier, afin de vous assurer de bien obtenir l'élément de
+scénario souhaité.</p>
+<p><strong>Note</strong>&nbsp;: vous pouvez redéfinir les enchaînements grâce à l'outil
+<a href="fr_tools_scenario_elements_editor.html">Éléments de scénario</a>.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="characters"/>Détection de noms de personnages</h4>
+<p>Le logiciel <code>tkScenarist</code> est doté d'un algorithme de détection de noms
+de personnages suffisamment fin pour reconnaître y compris des <strong>noms
+longs composés</strong> e.g. 'PIERRE-HENRI DE MORTE-FONTAINE CHÂTEAUROUX'.</p>
+<p>Lorsque vous commencez à saisir dans l'éditeur texte de scénario le nom
+d'un personnage <strong>déjà déclaré</strong> dans la liste des noms de personnages
+de <a href="fr_tab_characters.html">l'onglet 'Personnages'</a>, l'algorithme ouvre une
+petite fenêtre jaune sous le curseur d'insertion et vous propose tous
+les noms susceptibles de correspondre à ce que vous avez commencé de
+taper au clavier.</p>
+<p>Avec les flèches <code>&lt;Haut&gt;</code> (&nbsp;&uarr;&nbsp;) et <code>&lt;Bas&gt;</code>
+(&nbsp;&darr;&nbsp;) du clavier, vous pouvez vous déplacer dans cette
+liste de choix pour sélectionner le nom qui vous intéresse.</p>
+<p>Pressez ensuite la touche <code>&lt;Entrée&gt;</code> de votre clavier (ou <code>&lt;Tab&gt;</code>, au
+choix) pour insérer le nom choisi dans le texte du scénario.</p>
+<p>Vous pouvez aussi double-cliquer avec la souris sur le nom choisi dans
+la liste pour l'insérer dans le texte du scénario.</p>
+<p>Les noms de personnages sont toujours insérés en <em>MAJUSCULES</em>&nbsp;:
+cela correspond à une règle du métier, qui veut que les noms des
+personnages soient toujours cités en toutes majuscules dans un script
+de scénario.</p>
+<p>Notez par la même occasion que si vous avez renseigné l'historique du
+personnage au préalable, ce texte s'affichera automatiquement dans la
+<strong>zone d'information</strong> située à droite, au moment de l'insertion du nom
+choisi.</p>
+<p>Il en va de même si vous placez le curseur d'insertion n'importe où
+dans le texte où se trouve un nom de personnage reconnaissable par
+l'algorithme de détection de noms de personnages&nbsp;: son historique,
+s'il est renseigné, s'affichera pour vous apporter un complément
+d'information sur le personnage désigné par le curseur d'insertion.</p>
+<p>Il existe aussi une autre fonctionnalité de détection de noms de
+personnages.</p>
+<p>Si, par exemple, vous n'avez pas souhaité déclarer vos noms de
+personnages dans <a href="fr_tab_characters.html">l'onglet 'Personnages'</a>, vous
+pouvez malgré tout citer un nom de personnage <strong>lors d'un dialogue</strong>
+(avec l'élément de scénario 'Personnage'), celui-ci sera alors
+automatiquement ajouté à la liste des noms de personnages de l'onglet
+'Personnages', accompagné d'un historique vide, que vous aurez tout le
+loisir de renseigner par la suite.</p>
+<p>Il va de soi que si vous avez utilisé dans le texte du scénario un nom
+de personnage non reconnu par l'algorithme, par exemple parce que non
+déclaré au préalable dans la liste des noms de personnages ou non
+déclaré au cours d'un dialogue, ce nom <em>NE SERA PAS</em> automatiquement
+formaté en toutes majuscules comme l'exigerait la règle métier,
+l'algorithme de détection ne pouvant savoir par avance si vous citez un
+mot quelconque, un nom commun ou autre chose (pas d'analyse sémantique
+du texte saisi).</p>
+<p>En revanche, une fois que le nom de personnage est déclaré et reconnu
+par l'algorithme de détection de noms de personnages, il vous suffit de
+placer le curseur d'insertion sur le nom de personnage non formaté dans
+le texte pour que celui-ci soit immédiatement reconnu et reformaté,
+conformément aux règles du métier.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="features"/>Fonctionnalités d'édition</h4>
+<p>L'éditeur texte de scénario propose &ndash; entre autres &ndash; les
+fonctionnalités d'édition suivantes&nbsp;:</p>
+<ul>
+<li>vous pouvez déplacer le curseur d'insertion avec les flèches <code>&lt;Haut&gt;</code>
+(&nbsp;&uarr;&nbsp;), <code>&lt;Bas&gt;</code> (&nbsp;&darr;&nbsp;), <code>&lt;Gauche&gt;</code>
+(&nbsp;&larr;&nbsp;) et <code>&lt;Droite&gt;</code> (&nbsp;&rarr;&nbsp;) de votre
+clavier&nbsp;;</li>
+<li>vous pouvez placer le curseur d'insertion n'importe où dans le texte
+en cliquant simplement avec la souris à l'endroit désiré&nbsp;;</li>
+<li>un double-clic sur un mot permet de sélectionner <strong>ce mot
+uniquement</strong>&nbsp;;</li>
+<li>un triple-clic sur un mot permet de sélectionner <strong>le paragraphe</strong> où
+se trouve ce mot&nbsp;;</li>
+<li>le menu <code>Edition &gt; tout sélectionner</code> ou la combinaison de touches de
+clavier <code>&lt;Ctrl-A&gt;</code> ont le même effet qu'un triple-clic sur un
+mot&nbsp;;</li>
+<li>vous pouvez aussi sélectionner une portion de texte à la
+souris&nbsp;;</li>
+<li>tout ruban de sélection est susceptible d'être remplacé par la
+prochaine frappe d'une touche au clavier&nbsp;;</li>
+<li>la combinaison de touches de clavier <code>&lt;Ctrl-Effacer&gt;</code> supprime <strong>un
+mot entier</strong> en arrière&nbsp;;</li>
+<li>la combinaison de touches de clavier <code>&lt;Ctrl-Suppr&gt;</code> supprime <strong>un mot
+entier</strong> en avant&nbsp;;</li>
+<li>la combinaison de touches de clavier <code>&lt;Ctrl-Z&gt;</code> permet d'annuler la
+dernière opération en date. Attention&nbsp;: cette fonctionnalité est
+encore <strong>expérimentale</strong>, elle n'est pas garantie de fonctionner à
+100%&nbsp;;</li>
+<li>la combinaison de touches de clavier <code>&lt;Ctrl-Shitf-Z&gt;</code> permet de
+répéter la dernière opération annulée. Attention&nbsp;: cette
+fonctionnalité est encore <strong>expérimentale</strong>, elle n'est pas garantie de
+fonctionner à 100%&nbsp;;</li>
+</ul>
+<p>Il existe d'autres fonctionnalités moins habituelles, qu'il serait sans
+doute trop long (et bien inutile) de lister ici.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="information"/>La zone d'information</h3>
+<p>La zone d'information affiche des conseils automatiques, des
+informations historiques sur le personnage reconnu par le curseur
+d'insertion de l'éditeur texte de scénario, si ce curseur est placé sur
+un nom de personnage, ainsi que quelques statistiques estimatives pour
+avoir un ordre d'idée de l'état d'avancement du projet.</p>
+<p>Attention, les données statistiques affichées ici ne sont vraiment que
+des <strong>estimations</strong>&nbsp;: elles ne doivent pas être prises pour
+référence.</p>
+<p>Seules les données récapitulatives du document PDF&reg; du scénario
+sont vraiment fiables.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2><a name="pour-finir"/>Pour finir</h2>
+<p><strong>IMPORTANT</strong>&nbsp;: afin de vous préserver de toute mauvaise surprise,
+pensez à <strong>sauvegarder régulièrement votre projet</strong>, soit en utilisant
+le menu <code>Projet &gt; Enregistrer</code>, soit en utilisant le raccourci clavier
+<code>&lt;Ctrl-S&gt;</code> correspondant au couplage successif des touches <code>Ctrl</code> (en
+bas à gauche ou à droite de votre clavier) et <code>S</code> du clavier
+alphanumérique.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<hr>
+<h4><a name="navigation-rapide"/>Navigation rapide</h4>
+<ul>
+<li><strong>L'application par ses onglets</strong><ul>
+<li><a href="fr_tab_title_data.html">Onglet 'Titre/Données'</a></li>
+<li><a href="fr_tab_draft_notes.html">Onglet 'Brouillon/Notes'</a></li>
+<li><a href="fr_tab_pitch_concept.html">Onglet 'Pitch/Concept'</a></li>
+<li><a href="fr_tab_characters.html">Onglet 'Personnages'</a></li>
+<li><a href="fr_tab_scenario.html">Onglet 'Scénario'</a></li>
+<li><a href="fr_tab_storyboard.html">Onglet 'Storyboard'</a></li>
+<li><a href="fr_tab_resources.html">Onglet 'Ressources'</a></li>
+</ul>
+</li>
+<li><strong>Les outils</strong><ul>
+<li><a href="fr_tools_name_db.html">BDD noms de personnages</a></li>
+<li><a href="fr_tools_pitch_templates.html">Modèles d'histoires/pitchs</a></li>
+<li><a href="fr_tools_scenario_elements_editor.html">Éléments de scénario</a></li>
+</ul>
+</li>
+</ul>
+<p>Retourner à <a href="index.html">l'accueil</a>.</p>
+            </div> <!-- id: contents -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+        </div> <!-- id: page -->
+    </body>
+</html>

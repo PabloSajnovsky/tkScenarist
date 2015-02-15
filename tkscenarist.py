@@ -25,7 +25,7 @@
 # lib imports
 import tkRAD
 
-tkRAD.i18n.switch_off()
+#~ tkRAD.i18n.switch_off()
 
 
 class tkScenarist (tkRAD.RADApplication):

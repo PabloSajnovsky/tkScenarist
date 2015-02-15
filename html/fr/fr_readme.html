@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>tkScenarist - screenwriting made simpler</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../styles/common.css"/>
+    </head>
+    <body>
+        <div id="page">
+            <div id="title">
+                tkScenarist - screenwriting made simpler
+            </div> <!-- id: title -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+            <div id="contents">
+                <h1>tkScenarist</h1>
+<p>Screen writing made simpler &ndash; Simplifiez-vous la vie !</p>
+<h2>Présentation</h2>
+<p><code>tkScenarist</code> est une petite application écrite en Python3/Tkinter qui
+vise à faciliter la rédaction de scénarios de films pour tous les
+scénaristes en herbe, futurs et à venir.</p>
+<p>Ce logiciel est un <strong>freefullware</strong> (voir <a href="#freefullware">ci-dessous</a>).</p>
+<h2>Copyright</h2>
+<p>tkScenarist - screen writing made simpler.</p>
+<p>Copyright (c) 2014+ Raphaël Seban <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#111;&#116;&#117;&#115;&#64;&#108;&#97;&#112;&#111;&#115;&#116;&#101;&#46;&#110;&#101;&#116;">&#109;&#111;&#116;&#117;&#115;&#64;&#108;&#97;&#112;&#111;&#115;&#116;&#101;&#46;&#110;&#101;&#116;</a></p>
+<h2>Licence</h2>
+<p>Ce logiciel est publié sous licence <strong>GNU GPL General Public License
+v3</strong>.</p>
+<p>Les termes de cette licence doivent rester intacts, c'est-à-dire -
+entre autres - qu'ils ne doivent pas être traduits.</p>
+<p>Termes de la licence (en anglais) :</p>
+<blockquote>
+<p>This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or (at
+your option) any later version.</p>
+<p>This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.</p>
+<p>You should have received a copy of the GNU General Public License
+along with this program.</p>
+<p>If not, see http://www.gnu.org/licenses/</p>
+</blockquote>
+<h2><a name="freefullware"/>Freefullware</h2>
+<p>Qu'est-ce qu'un freefullware?</p>
+<p>Un logiciel est dit <strong>freefullware</strong> lorsque :</p>
+<ul>
+<li><strong>il est libre</strong> d'utilisation, de modification et de partage ;</li>
+<li>il est <strong>totalement gratuit</strong> ;</li>
+<li>il ne contient absolument <strong>aucune publicité</strong> ;</li>
+<li><strong>il n'a pas</strong> de bouton 'Donate' (donner pour aider) ;</li>
+<li>il est <strong>garanti 100% virus-free</strong> (sans virus connu) ;</li>
+<li>il n'attend <strong>aucune contrepartie</strong> de votre part ;</li>
+<li>il est vraiment <strong>absolument libre</strong>, dans tous les sens du terme ;</li>
+</ul>
+<p>Téléchargez-le, utilisez-le et amusez-vous bien.</p>
+<p>That's all, folks!</p>
+<h2>Fonctionnalités</h2>
+<p>À cette heure :</p>
+<ul>
+<li>
+<p>toute la gestion du projet a été concentrée en un seul fichier projet
+unique, qui porte l'extension de fichier <code>.scn</code> ou <code>.zip</code> (au choix,
+c'est comme vous voulez)&nbsp;;</p>
+</li>
+<li>
+<p>en cas d'urgence, il vous est toujours possible de dézipper ce
+fichier projet unique pour récupérer les différents éléments du projet,
+tous stockés sous la forme de <strong>fichiers texte brut encodés UTF-8</strong>.
+Cette procédure a été voulue ainsi afin que vous puissiez toujours
+rester maître de vos données&nbsp;;</p>
+</li>
+<li>
+<p>le premier onglet de l'application représente le <code>titre</code> de votre
+projet, ainsi que diverses informations telles que&nbsp;: titre,
+sous-titre, épisode, auteur, e-mail auteur, tél. auteur et quelques
+stats sur le projet lui-même&nbsp;;</p>
+</li>
+<li>
+<p>le second onglet permet de gérer des <code>notes personnelles</code> concernant
+votre projet de film&nbsp;;</p>
+</li>
+<li>
+<p>le troisième onglet permet d'écrire le <code>pitch</code> ou le concept de
+l'histoire (rappelons ici vite fait que le pitch est un résumé très
+succinct de l'histoire), bref, d'y recenser tous les moments forts du
+film à venir&nbsp;;</p>
+</li>
+<li>
+<p>au cas où vous auriez besoin d'un petit coup de pouce pour votre
+inspiration, un outil est disponible dans le menu <code>Outils &gt; Modèles
+d'histoires/pitchs</code>&nbsp;: il vous offre une série extensible de
+modèles d'histoire à prendre comme point de départ pour vos propres
+idées&nbsp;;</p>
+</li>
+<li>
+<p>le quatrième onglet de l'application, <code>Personnages</code>, est un outil
+fort pratique&nbsp;: vous pouvez y déclarer tous les protagonistes de
+votre histoire, renseigner leur histoire personnelle et même gérer
+visuellement les relations qui les lient entre eux&nbsp;;</p>
+</li>
+<li>
+<p>au cas où vous auriez besoin d'un petit coup de pouce pour votre
+inspiration, un outil est disponible dans le menu <code>Outils &gt; BDD noms de
+personnages</code>&nbsp;: une base de données (BDD) de centaines de noms de
+personnages provenant de toute la planète est à votre disposition pour
+apporter un plus à votre projet&nbsp;;</p>
+</li>
+<li>
+<p>le cinquième onglet <code>Scénario</code> est sans doute le plus important pour
+un(e) scénariste&nbsp;: c'est ici que s'écrit l'histoire, le scénario,
+conformément aux règles du métier. Merci de consulter la doc wiki pour
+plus d'information sur son utilisation détaillée&nbsp;;</p>
+</li>
+<li>
+<p>un petit outil supplémentaire est désormais disponible dans le menu
+<code>Outils &gt; Éléments de scénario</code> qui vous permet de régler plus finement
+l'utilisation de l'éditeur de scénario qui se trouve dans le cinquième
+onglet de l'application&nbsp;;</p>
+</li>
+<li>
+<p>le sixième onglet, <code>Storyboard</code>, permet de gérer le <strong>découpage
+technique</strong> du scénario. Cet outil vous est offert en extra.
+Normalement, le logiciel <code>tkScenarist</code> aurait dû s'arrêter à la
+rédaction du scénario, mais pour les petits projets de film, je me suis
+dit que ce serait bien pratique d'avoir aussi le storyboard à portée de
+main&nbsp;;</p>
+</li>
+<li>
+<p>idem pour le septième onglet, <code>Ressources</code>, qui n'est là que pour
+faciliter l'organisation des petits projets de film. Il va sans dire
+qu'un projet de film plus ambitieux nécessitera sans aucun doute des
+logiciels plus puissants (et moins gratuits, au passage)&nbsp;;</p>
+</li>
+<li>
+<p>l'outil d'exportation des données du projet vers le format PDF
+imprimable autorise à présent la gestion de documents multiples,
+séparés les uns des autres, avec des options à régler juste avant le
+lancement de la procédure d'exportation&nbsp;;</p>
+</li>
+<li>
+<p>le logiciel <code>tkScenarist</code> est à présent entièrement traduit en
+<strong>français de France métropolitaine</strong> (fr_FR).</p>
+</li>
+</ul>
+<h2>Captures d'écran</h2>
+<p><img alt="image" src="../../images/screenshots/fr/screenshot-001.png">
+<img alt="image" src="../../images/screenshots/fr/screenshot-002.png">
+<img alt="image" src="../../images/screenshots/fr/screenshot-003.png">
+<img alt="image" src="../../images/screenshots/fr/screenshot-004.png">
+<img alt="image" src="../../images/screenshots/fr/screenshot-005.png">
+<img alt="image" src="../../images/screenshots/fr/screenshot-006.png">
+<img alt="image" src="../../images/screenshots/fr/screenshot-007.png">
+<img alt="image" src="../../images/screenshots/fr/screenshot-008.png">
+<img alt="image" src="../../images/screenshots/fr/screenshot-009.png">
+<img alt="image" src="../../images/screenshots/fr/screenshot-010.png">
+<img alt="image" src="../../images/screenshots/fr/screenshot-011.png">
+<img alt="image" src="../../images/screenshots/fr/screenshot-012.png">
+<img alt="image" src="../../images/screenshots/fr/screenshot-013.png"></p>
+<p><img alt="image" src="../../images/screenshots/fr/screenshot-014.png">
+<img alt="image" src="../../images/screenshots/fr/screenshot-015.png">
+<img alt="image" src="../../images/screenshots/fr/screenshot-016.png"></p>
+<h2>Avancement du projet</h2>
+<pre><code>Development Status :: 4 - Beta
+</code></pre>
+<p>Ce logiciel a été :</p>
+<ul>
+<li>Linux:<ul>
+<li>TESTÉ OK pour toutes les distributions standards ;</li>
+</ul>
+</li>
+<li>MacOS:<ul>
+<li>PAS ENCORE TESTÉ ;</li>
+</ul>
+</li>
+<li>MS-Windows:<ul>
+<li>TESTÉ seulement avec MS-Windows(tm) 8, mais semble fonctionner
+plutôt bien, pour le moment ;</li>
+</ul>
+</li>
+</ul>
+<p>Tout retour d'expérience dans le
+<strong><a href="https://github.com/tarball69/tkScenarist/issues">bugtracker</a></strong> du
+projet est toujours le bienvenu.</p>
+<h2>Installation</h2>
+<p>Ce logiciel n'a <em>PAS</em> besoin d'être installé, de quelque manière que ce
+soit.</p>
+<p>Il vous suffit de le télécharger à la page
+<a href="https://github.com/tarball69/tkScenarist/releases">Releases</a> du projet
+GitHub, de dézipper l'archive téléchargée et de l'utiliser
+immédiatement.</p>
+<p>Bien sûr, dans l'idéal, vous prendrez la précaution de copier le
+dossier obtenu dans l'un de vos dossiers préférés &ndash; exemple
+<code>apps</code> &ndash; sachant qu'un logiciel qui traîne dans le dossier des
+téléchargements a toutes les chances de se faire supprimer
+accidentellement.</p>
+<h2>Démarrage rapide</h2>
+<h3>Important</h3>
+<p>Ce logiciel ne peut fonctionner que si <strong>Python3</strong> et <strong>Tkinter</strong> sont
+correctement installés sur votre machine.</p>
+<p>En revanche, il n'y a <strong>pas d'autres dépendances</strong> que ces deux
+pré-requis.</p>
+<p>Python3 est le langage de programmation utilisé par le logiciel
+<code>tkScenarist</code> et Tkinter sa bibliothèque graphique, généralement
+installée <strong>par défaut</strong> avec le langage Python3.</p>
+<p>Si jamais vous obtenez un message d'erreur du type <strong>ImportError</strong> dans
+la fenêtre noire (console) qui apparaît lors du lancement du logiciel,
+c'est qu'il y a de fortes chances pour que vous essayiez de lancer le
+programme avec <strong>Python2</strong> et non pas son grand frère <strong>Python3</strong>. Il
+peut arriver parfois aussi que la bibliothèque Tkinter soit mal
+installée, bien que ce soit rare.</p>
+<p>Quoi qu'il en soit, n'hésitez pas à vous faire aider sur les forums
+d'entraide appropriés (par exemple : <a href="http://www.developpez.net/forums/f96/autres-langages/python-zope/">developpez.com</a>).</p>
+<p>Notez que l'installation de Python3 à côté de Python2 ne pose
+généralement aucun problème particulier.</p>
+<p>Vous pouvez télécharger et installer Python3 à partir de cette
+adresse&nbsp;:</p>
+<p>https://www.python.org/downloads/ (Ctrl+clic: nouvel onglet)</p>
+<h3>Note</h3>
+<p>La plupart des distributions Linux populaires e.g. Ubuntu, Debian,
+SuSE, etc. ont déjà une <strong>pré-installation</strong> de Python3/Tkinter.</p>
+<p>Si vous êtes dans ce cas, <strong>n'essayez pas</strong> d'installer Python3/Tkinter
+manuellement, non seulement c'est totalement inutile, mais de plus,
+cela pourrait mettre une sacrée grouille dans votre système.</p>
+<p>Dans un tel cas, il vous suffit de <a href="https://github.com/tarball69/tkScenarist/releases">télécharger une release</a> de <code>tkScenarist</code>,
+de la dézipper et de l'utiliser immédiatement.</p>
+<h3>Usagers de MS-Windows&trade;</h3>
+<p>Une fois le dossier <code>tkScenarist-...</code> dézippé et copié en lieu sûr,
+double-cliquez simplement sur le fichier <code>tkscenarist.py</code> qui se trouve
+dedans pour lancer l'application.</p>
+<h4>Vous ne voulez pas la console noire</h4>
+<p>Plusieurs usagers de MS-Windows&trade; ont fait remarquer qu'ils ont
+une console MS-DOS noire qui apparaît au lancement du logiciel.</p>
+<p>Cette fenêtre particulièrement disgracieuse peut même parfois être
+carrément gênante.</p>
+<p>Il s'agit cependant d'un comportement propre au langage Python sous
+MS-Windows&trade; et <strong>cela n'a rien d'anormal</strong>.</p>
+<p>Toutefois, si vous souhaitez vous débarrasser de cette console noire,
+il vous suffit de changer l'extension du fichier <code>.py</code> en <code>.pyw</code> puis
+de lancer à nouveau votre logiciel favori pour ne plus être embêté(e).</p>
+<p>Dans le cas ici présent, cela revient à renommer le fichier
+<code>tkscenarist.py</code> en <code>tkscenarist.pyw</code>, puis de relancer le programme
+pour que cela fonctionne sans console.</p>
+<h3>UNIX/Linux</h3>
+<p>Une fois le dossier <code>tkScenarist-...</code> dézippé et copié en lieu sûr,
+cliquez simplement sur le fichier <code>tkscenarist.py</code> qui se trouve dedans
+(si le sticky bit 'executable' autorise l'exécution du fichier tel
+quel) pour lancer l'application.</p>
+<p>Si cela ne donne rien, ouvrez une console shell et tapez :</p>
+<p><code>sh
+    $ cd /emplacement/du/fichier # à remplacer, évidemment.
+    $ python3 tkscenarist.py</code></p>
+<p><strong>Exemple concret&nbsp;:</strong> en supposant que vous avez copié le dossier
+<code>tkScenarist/</code> dans votre répertoire favori <code>~/apps/</code>, cela
+donne&nbsp;:</p>
+<p><code>sh
+    $ cd ~/apps/tkScenarist
+    $ python3 tkscenarist.py</code></p>
+<p>That's all, folks!</p>
+<p>Amusez-vous bien !</p>
+            </div> <!-- id: contents -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+        </div> <!-- id: page -->
+    </body>
+</html>

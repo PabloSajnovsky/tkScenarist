@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>tkScenarist - screenwriting made simpler</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../styles/common.css"/>
+    </head>
+    <body>
+        <div id="page">
+            <div id="title">
+                tkScenarist - screenwriting made simpler
+            </div> <!-- id: title -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+            <div id="contents">
+                <h1>L'application par ses onglets</h1>
+<h2>Onglet 'Storyboard'</h2>
+<h2><a name="sommaire"/>Sommaire</h2>
+<ul>
+<li><a href="#screenshot">Aperçu</a></li>
+<li><a href="#introduction">Présentation</a></li>
+<li><a href="#utilisation">Utilisation</a><ul>
+<li><a href="#scene_nav">Navigateur de scènes et aperçu</a></li>
+<li><a href="#shot_list">Liste de plans caméra</a><ul>
+<li><a href="#shot_add">Ajouter un plan caméra</a></li>
+<li><a href="#shot_del">Supprimer un plan caméra</a></li>
+<li><a href="#shot_purge">Purger la liste des plans caméra</a></li>
+</ul>
+</li>
+<li><a href="#shot_editor">Éditeur de plans caméra</a><ul>
+<li><a href="#shot_number">Numéro de plan caméra</a></li>
+<li><a href="#shot_title">Titre de plan caméra</a></li>
+<li><a href="#shot_text">Texte de plan caméra</a></li>
+</ul>
+</li>
+<li><a href="#char_info">Information personnages</a></li>
+</ul>
+</li>
+<li><a href="#pour-finir">Pour finir</a></li>
+<li><a href="#navigation-rapide">Navigation rapide</a></li>
+</ul>
+<h2><a name="screenshot"/>Aperçu</h2>
+<p><img alt="image" src="../../images/screenshots/fr/screenshot-010.png"></p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2><a name="introduction"/>Présentation</h2>
+<p>Cet onglet permet de rédiger le découpage technique (storyboard) du
+projet de film, c'est-à-dire les différents plans caméra qui
+interviennent dans chaque scène du texte de scénario.</p>
+<p>Il se compose de <strong>trois zones</strong> principales (horizontales),
+elles-mêmes subdivisées en deux zones (verticales)&nbsp;:</p>
+<ol>
+<li>à gauche, la zone <strong>Navigation</strong>, subdivisée en un navigateur de
+scènes et un navigateur de plans caméra&nbsp;;</li>
+<li>au centre, la zone <strong>Storyboard</strong>, subdivisée en un rappel de scène
+et un éditeur de plan caméra&nbsp;;</li>
+<li>à droite, la zone <strong>Information</strong>, subdivisée en une liste de noms
+de personnages et un aperçu historique de personnage.</li>
+</ol>
+<p>Toutes les zones sont <strong>redimensionnables</strong>&nbsp;: il suffit de placer
+la flèche de la souris entre les zones, l'icône du pointeur doit alors
+changer d'aspect (e.g. deux flèches qui s'opposent), de maintenir le
+clic enfoncé puis de déplacer dans le sens indiqué par le pointeur de
+souris pour obtenir le redimensionnement escompté.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2>Utilisation</h2>
+<h3><a name="scene_nav"/>Navigateur de scènes et aperçu</h3>
+<p>Le navigateur de scènes se remplit automatiquement au fur et à mesure
+que vous rédigez des scènes dans le texte de scénario (voir
+<a href="fr_tab_scenario.html">onglet&nbsp;'Scénario'</a>).</p>
+<p>Lorsque vous cliquez sur une scène dans la liste du navigateur de
+scènes, un aperçu pour rappel de scène s'affiche dans la zone centrale
+qui lui est dédiée.</p>
+<p>Cet outil permet de ne jamais perdre le fil lors de la rédaction des
+plans caméra d'une scène donnée.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="shot_list"/>Liste de plans caméra</h3>
+<p>La liste de plans caméra ne peut s'afficher qu'en fonction de la scène
+sélectionnée dans le <a href="#scene_nav">navigateur de scènes</a>.</p>
+<h4><a name="shot_add"/>Ajouter un plan caméra</h4>
+<p>Pour ajouter un plan caméra, sélectionnez tout d'abord la scène que
+vous souhaitez travailler dans le navigateur de scènes, puis cliquez
+sur le bouton <code>+</code> (signe plus) situé en bas à gauche du navigateur de
+plans caméra.</p>
+<p>Un nouveau plan vient alors s'ajouter à la liste des plans caméra et un
+curseur d'insertion se place automatiquement dans la zone de titre de
+<a href="#shot_editor">l'éditeur de plans caméra</a>.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="shot_del"/>Supprimer un plan caméra</h4>
+<p>Pour supprimer un plan caméra, sélectionnez tout d'abord la scène que
+vous souhaitez travailler dans le navigateur de scènes, sélectionnez
+ensuite le plan à supprimer, puis cliquez sur le bouton <code>-</code> (signe
+moins) situé en bas à gauche du navigateur de plans caméra.</p>
+<p>Un plan caméra vierge (pas de texte, avec ou sans titre renseigné) sera
+alors tout simplement supprimé sans autre forme de procès.</p>
+<p>En revanche, pour un plan caméra renseigné (au moins une lettre ou un
+signe dans la zone de texte), un dialogue s'affichera et vous demandera
+de confirmer votre choix avant de procéder à la suppression définitive
+du plan sélectionné.</p>
+<p>Toute suppression de plan est définitive et irrévocable.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="shot_purge"/>Purger la liste des plans caméra</h4>
+<p>Purger la liste des plans caméra revient à supprimer tous les plans
+considérés vierges pour une même scène donnée.</p>
+<p>Un plan est vierge s'il ne contient <strong>pas de texte</strong>, <em>que son titre
+soit renseigné ou non</em>.</p>
+<p>Pour purger les plans caméra d'une scène donnée, sélectionnez tout
+d'abord la scène que vous souhaitez travailler dans le navigateur de
+scènes, puis cliquez sur le bouton <code>Purger</code> situé en bas du navigateur
+de plans caméra.</p>
+<p>Un dialogue vous demandera alors confirmation avant de procéder à la
+suppression automatique de tous les plans vierges de la scène
+sélectionnée.</p>
+<p>Toute suppression de plan est définitive et irrévocable.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="shot_editor"/>Éditeur de plans caméra</h3>
+<p>L'éditeur de plans caméra est composé d'une zone de numéro de plan,
+d'une zone de titre et d'une zone de texte.</p>
+<h4><a name="shot_number"/>Numéro de plan caméra</h4>
+<p>La zone numéro de plan caméra affiche automatiquement un numéro de plan
+qui n'est pas modifiable par l'utilisateur.</p>
+<p>Le numéro de plan est formaté selon les règles suivantes&nbsp;:</p>
+<ul>
+<li>un signe <strong>croisillon</strong> <code>#</code> indiquant le début de la
+numérotation&nbsp;;</li>
+<li>le numéro de la scène à laquelle le plan se rattache&nbsp;;</li>
+<li>un signe <strong>point</strong> <code>.</code> indiquant la séparation entre numérotation de
+section et numérotation de sous-section&nbsp;;</li>
+<li>le numéro du plan en question sur deux chiffres avec zéro
+significatif e.g. <code>01</code>, <code>02</code>, etc.</li>
+</ul>
+<p>Exemple&nbsp;: le plan numéroté <code>#3.12</code> correspond théoriquement au
+douzième plan caméra de la scène numéro trois.</p>
+<p>Lors d'un <a href="#shot_add">ajout de plan caméra</a>, la numérotation
+automatique se fait toujours en prenant le plus grand numéro de plan
+connu pour la scène sélectionnée et en incrémentant ce numéro d'une
+valeur de un (1).</p>
+<p>Des <a href="#shot_del">suppressions</a> répétées de plans caméra pour une même
+scène sélectionnée peuvent par conséquent « trouer » la continuité de
+la numérotation des plans caméra.</p>
+<p>Ce phénomène reste sans véritable conséquence, car <strong>la numérotation
+est entièrement reprise</strong> au moment
+<a href="fr_app_topmenu.html#project_export_pdf">d'exporter</a> le storyboard vers le
+format PDF&reg;, afin de cadrer au mieux avec une numérotation
+harmonieuse des scènes et des plans caméras qui leur sont rattachés.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="shot_title"/>Titre de plan caméra</h4>
+<p>Le titre de plan caméra permet de résumer le plan. Il sert aussi de
+référence visuelle dans le navigateur de plans caméra.</p>
+<p>Le titre de plan caméra est représenté par un champ de formulaire,
+c'est-à-dire une zone de texte blanche.</p>
+<p>Cliquez dans cette zone de texte blanche pour renseigner le titre de
+votre plan caméra.</p>
+<p>Les champs de formulaire sont des zones de saisie de texte à <strong>une
+seule ligne</strong> : ils ne tolèrent pas de retour à la ligne (retour
+chariot, touche <code>&lt;Entrée&gt;</code>).</p>
+<p>Un double-clic sur un mot permet de sélectionner <strong>ce mot uniquement</strong>.</p>
+<p>Un triple-clic sur un mot permet de sélectionner <strong>toute la ligne</strong>
+dans laquelle se trouve ce mot.</p>
+<p>Le menu <code>Edition &gt; Tout sélectionner</code> ou la combinaison de touches de
+clavier <code>&lt;Ctrl-A&gt;</code> permettent de <strong>tout sélectionner</strong> dans la zone de
+texte en cours d'édition.</p>
+<p>Tout ruban de sélection est susceptible d'être remplacé par la
+prochaine frappe d'une touche au clavier.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="shot_text"/>Texte de plan caméra</h4>
+<p>Le texte de plan caméra est le principal contenu de votre plan caméra.</p>
+<p>C'est ici que vous renseignez tous les détails techniques concernant le
+plan en question (positions de la caméra, expositions, mouvements,
+effets, décors, ambiances sonores, etc).</p>
+<p>Le texte de plan caméra est représenté par une zone de texte blanche,
+qui exceptionnellement ici prend en charge la
+<a href="fr_tab_scenario.html#characters">détection</a> des noms de personnages.</p>
+<p>Cette zone de texte blanche s'appelle un <strong>éditeur de texte brut</strong>.</p>
+<p>L'éditeur de texte brut permet des sauts à la ligne lorsque vous
+pressez la touche de clavier <code>&lt;Entrée&gt;</code> (retour chariot).</p>
+<p>Chaque saut à la ligne crée un nouveau paragraphe.</p>
+<p>En revanche, contrairement au <strong>traitement de textes</strong>, cet objet ne
+permet pas la mise en forme du texte entré (diverses polices de
+caractères, gras, italique, souligné, couleurs d'encre et de fond,
+centrage / justification de paragraphes, etc).</p>
+<p>Il s'agit d'une zone de texte <strong>neutre</strong>.</p>
+<p>Un double-clic sur un mot permet de sélectionner <strong>ce mot uniquement</strong>.</p>
+<p>Un triple-clic sur un mot permet de sélectionner <strong>le paragraphe</strong> dans
+lequel ce mot se trouve.</p>
+<p>Le menu <code>Edition &gt; Tout sélectionner</code> ou la combinaison de touches de
+clavier <code>&lt;Ctrl-A&gt;</code> permettent de <strong>tout sélectionner</strong> dans l'éditeur
+de texte brut.</p>
+<p>Tout ruban de sélection est susceptible d'être remplacé par la
+prochaine frappe d'une touche au clavier.</p>
+<p>Contrairement aux champs de formulaire, un éditeur de texte brut prend
+en charge l'annulation des mots entrés.</p>
+<p>Pour annuler la saisie du dernier mot entré, utilisez soit le menu
+<code>Edition &gt; Annuler</code>, soit le raccourci clavier <code>&lt;Ctrl-Z&gt;</code> correspondant
+au couplage successif des touches <code>Ctrl</code> (en bas à gauche ou à droite
+de votre clavier) et <code>Z</code> du clavier alphanumérique.</p>
+<p>Pour répéter la saisie du dernier mot annulé, utilisez soit le menu
+<code>Edition &gt; Refaire</code>, soit le raccourci clavier <code>&lt;Ctrl-Shift-Z&gt;</code>
+correspondant au couplage successif des touches <code>Ctrl</code>, <code>Shift</code>
+(chariot majuscules) et <code>Z</code> du clavier alphanumérique.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="char_info"/>Information personnages</h3>
+<p>La zone d'information personnages est composée d'une liste de noms de
+personnages et d'un récapitulatif de l'historique d'un personnage
+sélectionné.</p>
+<p>La liste de noms de personnages se remplit automatiquement, soit
+lorsque vous renseignez vos personnages dans
+<a href="fr_tab_characters.html">l'onglet 'Personnages'</a>, soit lorsque vous citez
+des personnages dans les dialogues de
+<a href="fr_tab_scenario.html">l'onglet 'Scénario'</a>.</p>
+<p>Pour afficher l'historique d'un personnage donné, cliquez simplement
+sur son nom dans la liste de noms de personnages.</p>
+<p>Cet outil vous permet de consulter toutes les histoires personnelles de
+tous les personnages renseignés dans le projet sans avoir à quitter
+votre onglet de travail actuel.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h1><a name="pour-finir"/>Pour finir</h1>
+<p><strong>IMPORTANT</strong>&nbsp;: afin de vous préserver de toute mauvaise surprise,
+pensez à <strong>sauvegarder régulièrement votre projet</strong>, soit en utilisant
+le menu <code>Projet &gt; Enregistrer</code>, soit en utilisant le raccourci clavier
+<code>&lt;Ctrl-S&gt;</code> correspondant au couplage successif des touches <code>Ctrl</code> (en
+bas à gauche ou à droite de votre clavier) et <code>S</code> du clavier
+alphanumérique.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<hr>
+<h4><a name="navigation-rapide"/>Navigation rapide</h4>
+<ul>
+<li><strong>L'application par ses onglets</strong><ul>
+<li><a href="fr_tab_title_data.html">Onglet 'Titre/Données'</a></li>
+<li><a href="fr_tab_draft_notes.html">Onglet 'Brouillon/Notes'</a></li>
+<li><a href="fr_tab_pitch_concept.html">Onglet 'Pitch/Concept'</a></li>
+<li><a href="fr_tab_characters.html">Onglet 'Personnages'</a></li>
+<li><a href="fr_tab_scenario.html">Onglet 'Scénario'</a></li>
+<li><a href="fr_tab_storyboard.html">Onglet 'Storyboard'</a></li>
+<li><a href="fr_tab_resources.html">Onglet 'Ressources'</a></li>
+</ul>
+</li>
+<li><strong>Les outils</strong><ul>
+<li><a href="fr_tools_name_db.html">BDD noms de personnages</a></li>
+<li><a href="fr_tools_pitch_templates.html">Modèles d'histoires/pitchs</a></li>
+<li><a href="fr_tools_scenario_elements_editor.html">Éléments de scénario</a></li>
+</ul>
+</li>
+</ul>
+<p>Retourner à <a href="index.html">l'accueil</a>.</p>
+            </div> <!-- id: contents -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+        </div> <!-- id: page -->
+    </body>
+</html>

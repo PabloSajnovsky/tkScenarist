@@ -37,9 +37,15 @@ HTML5DocTemplate = """\
             <div id="title">
                 {title}
             </div> <!-- id: title -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
             <div id="contents">
                 {body}
             </div> <!-- id: contents -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
         </div> <!-- id: page -->
     </body>
 </html>\

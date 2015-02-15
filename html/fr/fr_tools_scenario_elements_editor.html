@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>tkScenarist - screenwriting made simpler</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../styles/common.css"/>
+    </head>
+    <body>
+        <div id="page">
+            <div id="title">
+                tkScenarist - screenwriting made simpler
+            </div> <!-- id: title -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+            <div id="contents">
+                <h1>Outil 'Éléments de scénario'</h1>
+<h2><a name="sommaire"/>Sommaire</h2>
+<ul>
+<li><a href="#screenshot">Aperçu</a></li>
+<li><a href="#introduction">Présentation</a></li>
+<li><a href="#utilisation">Utilisation</a><ul>
+<li><a href="#pref_tabs">Barre d'onglets</a><ul>
+<li><a href="#global_prefs">Onglet 'Préférences générales'</a></li>
+<li><a href="#project_prefs">Onglet 'Préférences projet'</a></li>
+</ul>
+</li>
+<li><a href="#tab_switch">Section 'Enchaînements'</a><ul>
+<li><a href="#element_frame">Encadré 'Élément'</a></li>
+<li><a href="#actions_frame">Encadré 'Actions'</a></li>
+</ul>
+</li>
+<li><a href="#looknfeel">Section 'Styles'</a><ul>
+<li><a href="#lnf_frame">Encadré 'Style'</a></li>
+<li><a href="#preview_frame">Encadré 'Aperçu'</a></li>
+</ul>
+</li>
+<li><a href="#dialog_buttons">Boutons tout en bas</a><ul>
+<li><a href="#ok_button">Bouton 'OK'</a></li>
+<li><a href="#reset_button">Bouton 'Réinitialiser'</a></li>
+<li><a href="#cancel_button">Bouton 'Annuler'</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#pour-finir">Pour finir</a></li>
+<li><a href="#navigation-rapide">Navigation rapide</a></li>
+</ul>
+<h2><a name="screenshot"/>Aperçu</h2>
+<p><img alt="image" src="../../images/screenshots/fr/screenshot-009.png"></p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2><a name="introduction"/>Présentation</h2>
+<p>Cet outil permet de régler plus finement le comportement de l'éditeur
+de texte spécifique de l'onglet <code>Scénario</code> de l'application.</p>
+<p>Il se compose de <strong>trois sections</strong> principales&nbsp;:</p>
+<ol>
+<li>tout en haut, la <strong>barre d'onglets</strong>, composée d'un onglet
+<code>Préférences générales</code> et d'un onglet <code>Préférences projet</code>, qui vous
+permettent de choisir où vous voulez appliquer vos réglages&nbsp;;</li>
+<li>ensuite, vous avez la <strong>section 'Enchaînements'</strong>, composée d'un
+encadré intitulé 'Élément' et d'un encadré intitulé 'Actions', qui vous
+permettent de régler les enchaînements d'éléments de scénario en mode
+'Switch' et en mode 'Create'&nbsp;;</li>
+<li>pour finir, vous avez la <strong>section 'Styles'</strong>, composée d'un encadré
+intitulé 'Style' et d'un encadré intitulé 'Aperçu', qui vous permettent
+de régler l'aspect visuel de chaque élément de scénario.</li>
+</ol>
+<p>Dans cet outil, les zones <strong>ne sont pas</strong> redimensionnables.</p>
+<p><strong>ATTENTION</strong>&nbsp;: il est fortement recommandé de bien prendre
+connaissance de la documentation concernant
+<a href="fr_tab_scenario.html">l'onglet 'Scénario'</a> avant de vous lancer dans des
+réglages hasardeux.</p>
+<p><strong>Notre équipe ne prend pas en charge</strong> de support concernant les
+résultats inattendus qui pourraient survenir suite à une mauvaise
+utilisation de cet outil. La lecture attentive de la page ici présente
+devrait résoudre la plupart de vos problèmes.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2>Utilisation</h2>
+<h3><a name="pref_tabs"/>Barre d'onglets</h3>
+<p>La barre d'onglet vous permet de choisir où vous voulez appliquer vos
+réglages.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="global_prefs"/>Onglet 'Préférences générales'</h4>
+<p>Cliquez sur l'onglet <code>Préférences générales</code> pour appliquer vos
+réglages à l'ensemble des projets futurs que vous produirez à partir de
+là.</p>
+<p>En effet, si vous validez vos réglages grâce au <a href="#ok_button">Bouton 'OK'</a> situé tout en bas de l'outil, vos nouveaux choix seront
+conservés dans la mémoire du logiciel d'une session sur l'autre, ce qui
+signifie que vous n'aurez pas besoin d'effectuer ces réglages à nouveau
+à chaque fois que vous lancerez <code>tkScenarist</code>.</p>
+<p><strong>ATTENTION</strong>&nbsp;: si vous avez un projet ouvert ou déjà en cours, ce
+sont les réglages des <code>Préférences projet</code> qui ont la <strong>priorité</strong> sur
+les réglages généraux. Vous risquez donc de ne pas voir immédiatement
+le résultat de vos changements.</p>
+<p>Pour voir vos nouveaux réglages généraux, sauvegardez le projet en
+cours, puis utilisez soit le menu <code>Projet &gt; Nouveau</code>, soit le raccourci
+clavier <code>&lt;Ctrl-N&gt;</code> correspondant au couplage successif des touches
+<code>Ctrl</code> (en bas à gauche ou à droite de votre clavier) et <code>N</code> du clavier
+alphanumérique.</p>
+<p><strong>Pour revenir aux réglages d'usine</strong> (par défaut), cliquez sur le
+<a href="#reset_button">Bouton 'Réinitialiser'</a> situé tout en bas de l'outil,
+puis cliquez sur le <a href="#ok_button">Bouton 'OK'</a>, sauvegardez le projet
+en cours, puis utilisez soit le menu <code>Projet &gt; Nouveau</code>, soit le
+raccourci clavier <code>&lt;Ctrl-N&gt;</code> correspondant au couplage successif des
+touches <code>Ctrl</code> (en bas à gauche ou à droite de votre clavier) et <code>N</code> du
+clavier alphanumérique.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="project_prefs"/>Onglet 'Préférences projet'</h4>
+<p>Cliquez sur l'onglet <code>Préférences projet</code> pour appliquer vos réglages
+<strong>uniquement au projet en cours</strong> de production.</p>
+<p>Ces réglages seront <strong>conservés dans le fichier du projet lui-même</strong> la
+prochaine fois que vous sauvegarderez le projet (voir <a href="#pour-finir">plus bas</a>) et ils seront restaurés la prochaine fois que vous
+ouvrirez de nouveau ce même fichier de projet (menu <code>Projet &gt; Ouvrir</code>
+ou raccourci clavier <code>&lt;Ctrl-O&gt;</code>).</p>
+<p>Les préférences projet ont toujours la <strong>priorité</strong> sur les préférences
+générales. Chaque fois que vous ouvrez un fichier projet, ce sont les
+réglages que ce fichier contient qui prennent le dessus sur les
+réglages généraux en cours. <em>Ne vous laissez donc pas surprendre</em>.</p>
+<p><strong>Pour revenir aux préférences générales actuelles</strong>, cliquez sur le
+<a href="#reset_button">Bouton 'Réinitialiser'</a> situé tout en bas de l'outil,
+puis cliquez sur le <a href="#ok_button">Bouton 'OK'</a> et enfin sauvegardez le
+projet en cours (voir <a href="#pour-finir">plus bas</a>).</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="tab_switch"/>Section 'Enchaînements'</h3>
+<p>La section 'Enchaînements' vous permet de régler les enchaînements
+d'éléments de scénario en mode 'Switch' et en mode 'Create' (voir
+<a href="fr_tab_scenario.html">Onglet 'Scénario'</a> pour plus de détail).</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="element_frame"/>Encadré 'Élément'</h4>
+<p>L'encadré 'Élément' affiche en premier lieu l'élément de scénario
+actuellement sélectionné.</p>
+<p>Vous pouvez sélectionner un élément de scénario soit en cliquant sur le
+bouton situé à droite de la liste déroulante et en choisissant un
+élément dans la liste qui s'affiche, soit en cliquant directement sur
+un élément de scénario se trouvant dans la zone de texte de
+<a href="#preview_frame">l'encadré 'Aperçu'</a>.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="actions_frame"/>Encadré 'Actions'</h4>
+<p>L'encadré 'Actions' affiche tous les enchaînements correspondant à
+l'élément de scénario actuellement sélectionné dans
+<a href="#element_frame">l'encadré 'Élément'</a>.</p>
+<p>Pour bien comprendre le fonctionnement de cet outil, prenons un
+exemple.</p>
+<p>Supposons que l'élément de scénario <code>Personnage</code> soit actuellement
+sélectionné (voir <a href="#screenshot">illustration</a> ci-dessus).</p>
+<p>Dans l'encadré 'Actions', nous voyons qu'il est indiqué (par
+exemple)&nbsp;:</p>
+<p><em>« Avec la touche&nbsp;: <code>&lt;Tab&gt;</code>, Créer une nouvelle ligne de&nbsp;:
+<code>Parenthèses</code> et Basculer ligne en&nbsp;: <code>Action</code>. »</em></p>
+<p>Qu'est-ce que cela signifie concrètement&nbsp;?</p>
+<p>Lorsque le curseur d'insertion de l'éditeur de texte spécifique de
+l'onglet <code>Scénario</code> de l'application se trouve sur une ligne
+correspondant à l'élément <code>Personnage</code>, le fait d'appuyer sur la touche
+<code>&lt;Tab&gt;</code> de tabulation du clavier provoque les enchaînements
+suivants&nbsp;:</p>
+<ul>
+<li>si la ligne <code>Personnage</code> <em>N'EST PAS</em> vide, ajouter une nouvelle ligne
+en-dessous, qui correspondra à l'élément <code>Parenthèses</code> (mode
+'Create')&nbsp;;</li>
+<li>si la ligne <code>Personnage</code> <em>EST</em> vide, changer cette ligne <code>Personnage</code>
+actuelle de sorte qu'elle devienne une ligne qui corresponde à
+l'élément <code>Action</code> (mode 'Switch')&nbsp;;</li>
+</ul>
+<p>Cela revient à adopter le comportement intuitif suivant&nbsp;: lorsque
+je tape du texte dans mon onglet <code>Scénario</code>, si j'arrive sur une ligne
+<code>Personnage</code>, je peux avoir comme alternative de transformer cette
+ligne en une ligne <code>Action</code>, en pressant la touche <code>&lt;Tab&gt;</code> (et si la
+ligne est vide) ou alors je peux immédiatement passer à la ligne
+suivante, qui sera une ligne <code>Parenthèses</code>, toujours en pressant la
+touche <code>&lt;Tab&gt;</code> et si ma ligne <code>Personnage</code> contient déjà un nom de
+personnage.</p>
+<p>Ce fonctionnement est similaire pour la touche <code>&lt;Entrée&gt;</code> (retour
+chariot) du clavier, ainsi que pour la combinaison de touches
+<code>&lt;Ctrl-Entrée&gt;</code> du clavier.</p>
+<p>Dans <a href="#screenshot">l'illustration</a> ci-dessus, nous pouvons lire à peu
+près ceci&nbsp;: lorsque je tape du texte dans mon onglet <code>Scénario</code>,
+si j'arrive sur une ligne <code>Personnage</code> et que je presse la touche
+<code>&lt;Entrée&gt;</code>, alors que ma ligne est vide, <strong>il ne se passera rien</strong>
+(« Basculer ligne vers : rien ») ou alors, si je presse la touche
+<code>&lt;Entrée&gt;</code> et que ma ligne <code>Personnage</code> contient déjà un nom de
+personnage, je peux immédiatement passer à la ligne suivante, qui sera
+alors une ligne <code>Dialogue</code>.</p>
+<p>De même, dans <a href="#screenshot">l'illustration</a> ci-dessus, nous pouvons
+lire à peu près cela&nbsp;: lorsque je tape du texte dans mon onglet
+<code>Scénario</code>, si j'arrive sur une ligne <code>Personnage</code> et que je presse la
+combinaison de touches <code>&lt;Ctrl-Entrée&gt;</code>, alors que ma ligne est vide,
+<strong>il ne se passera rien</strong> (« Basculer ligne vers : rien ») ou alors, si
+je presse <code>&lt;Ctrl-Entrée&gt;</code> et que ma ligne <code>Personnage</code> contient déjà un
+nom de personnage, je peux immédiatement passer à la ligne suivante,
+qui sera alors une ligne <code>Action</code>.</p>
+<p>Pour modifier un enchaînement ou un autre, cliquez sur la liste
+déroulante de l'action que vous souhaitez modifier, puis sélectionnez
+un élément de scénario dans cette liste.</p>
+<p>Si vous sélectionnez la ligne blanche qui se trouve en tout premier
+choix dans ces listes déroulantes, cela correspond à l'action <em>« ne
+rien faire »</em> (si je presse sur la touche concernée, ne rien faire).</p>
+<p>Prenez bien soin de vérifier vos nouveaux enchaînements&nbsp;: certains
+cas peuvent conduire à des impasses, qui risquent par la suite de
+carrément bloquer le bon déroulement de la rédaction de votre texte de
+scénario.</p>
+<p>En cas de gros souci, vous pouvez toujours débloquer la situation en
+réinitialisant tout d'abord les <a href="#global_prefs">préférences générales</a>
+et ensuite les <a href="#project_prefs">préférences projet</a>, dans cet ordre-là
+et cet ordre-là seulement.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="looknfeel"/>Section 'Styles'</h3>
+<p>La section 'Styles' vous permet de régler l'aspect visuel de chaque
+élément de scénario (voir <a href="fr_tab_scenario.html">Onglet 'Scénario'</a> pour
+plus de détail).</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="lnf_frame"/>Encadré 'Style'</h4>
+<p>L'encadré 'Style' permet de choisir la police de caractères ainsi que
+diverses mises en forme à appliquer à l'élément de scénario
+actuellement sélectionné dans <a href="#element_frame">l'encadré 'Élément'</a>.</p>
+<p>Un élément de scénario étant avant tout un <strong>paragraphe</strong>, toutes les
+mises en forme que vous choisirez ne pourront s'appliquer qu'à
+<em>l'ensemble du paragraphe</em>, indistinctement, et non pas à certains mots
+du paragraphe.</p>
+<p>À l'heure actuelle, l'encadré 'Style' permet d'appliquer les mises en
+forme suivantes&nbsp;:</p>
+<ul>
+<li>
+<p><strong>la police</strong> de caractères&nbsp;: choisissez la police de caractères
+qui vous convient le mieux, pour l'élément de scénario actuellement
+sélectionné, en cliquant sur la liste déroulante puis en cliquant sur
+l'élément de liste approprié&nbsp;;</p>
+</li>
+<li>
+<p><strong>la taille</strong> de la police de caractères appliquée&nbsp;: choisissez
+la taille (en points d'imprimerie, pt) de la police de caractères qui
+vous convient le mieux, pour l'élément de scénario actuellement
+sélectionné, en cliquant sur la liste déroulante puis en cliquant sur
+la taille appropriée&nbsp;;</p>
+</li>
+<li>
+<p><strong>le style</strong> de la police de caractères appliquée&nbsp;: choisissez
+le style (normal, gras, italique, gras italique) de la police de
+caractères qui vous convient le mieux, pour l'élément de scénario
+actuellement sélectionné, en cliquant sur la liste déroulante puis en
+cliquant sur le style approprié&nbsp;;</p>
+</li>
+<li>
+<p><strong>les couleurs</strong> de fond et d'encre du paragraphe&nbsp;: cliquez sur
+le bouton approprié, puis sélectionnez une couleur dans la boîte de
+dialogue qui apparaît&nbsp;;</p>
+</li>
+<li>
+<p><strong>l'alignement</strong> du texte (à gauche, au centre, à droite) pour
+l'élément de scénario actuellement sélectionné, en cliquant sur le
+bouton approprié&nbsp;;</p>
+</li>
+<li>
+<p><strong>les marges</strong> gauche et droite du paragraphe&nbsp;: choisissez la
+taille de marge gauche/droite qui vous convient le mieux, pour
+l'élément de scénario actuellement sélectionné, en cliquant sur la
+liste déroulante idoine, puis en cliquant sur l'élément de liste
+approprié.</p>
+</li>
+</ul>
+<p>Les nouveaux choix sont immédiatement répercutés dans
+<a href="#preview_frame">l'encadré 'Aperçu'</a>.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="preview_frame"/>Encadré 'Aperçu'</h4>
+<p>L'encadré 'Aperçu' permet non seulement de visualiser les modifications
+que vous apportez dans <a href="#lnf_frame">l'encadré 'Style'</a>, mais aussi de
+sélectionner un élément de scénario en particulier, pour lui apporter
+de nouvelles modifications.</p>
+<p>Pour sélectionner un élément de scénario, cliquez simplement sur la
+ligne qui décrit l'élément dans la zone de texte de l'encadré 'Aperçu'.</p>
+<p>L'élément est alors immédiatement sélectionné dans
+<a href="#element_frame">l'encadré 'Élément'</a>.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="dialog_buttons"/>Boutons tout en bas</h3>
+<p>L'outil 'Éléments de scénario' dispose de trois boutons de dialogue
+situés tout en bas, qui permettent d'accomplir les actions les plus
+importantes de cet outil.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="ok_button"/>Bouton 'OK'</h4>
+<p>Le bouton <code>OK</code> situé tout en bas de l'outil permet de <strong>valider</strong> tous
+les changements que vous venez d'apporter, aussi bien du côté des
+<a href="#global_prefs">préférences générales</a> que du côté des
+<a href="#project_prefs">préférences projet</a>.</p>
+<p>Notez toutefois que&nbsp;:</p>
+<ul>
+<li>
+<p>les <strong>préférences générales</strong> ne seront réellement sauvegardées qu'au
+moment de <em>quitter sereinement</em> le logiciel <code>tkScenarist</code>&nbsp;; si
+d'aventure, le logiciel venait à rencontrer une erreur (appelée aussi
+'exception' dans le jargon des développeurs informaticiens), il reste
+possible sinon probable que la sauvegarde ne se fasse pas
+correctement&nbsp;;</p>
+</li>
+<li>
+<p>les <strong>préférences projet</strong> ne seront réellement sauvegardées qu'au
+moment où vous déciderez de <em>sauvegarder vous-même</em> le fichier de votre
+projet actuel, puisque ces préférences sont enregistrées <em>dans</em> le
+fichier de votre projet.</p>
+</li>
+</ul>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="reset_button"/>Bouton 'Réinitialiser'</h4>
+<p>L'action du bouton <code>Réinitialiser</code> situé tout en bas de l'outil dépend
+entièrement de <a href="#pref_tabs">l'onglet de préférences</a> dans lequel vous
+vous trouvez au moment où vous cliquez dessus&nbsp;:</p>
+<ul>
+<li>
+<p>si vous êtes avec <a href="#global_prefs">l'onglet 'Préférences générales'</a>
+sélectionné, le bouton <code>Réinitialiser</code> rétablira les <strong>réglages par
+défaut du logiciel</strong> dans les préférences générales et les appliquera
+globalement dès le prochain lancement du logiciel ou si vous utilisez
+le menu <code>Projet &gt; Nouveau</code> (raccourci clavier <code>&lt;Ctrl-N&gt;</code>)&nbsp;;</p>
+</li>
+<li>
+<p>si vous êtes avec <a href="#project_prefs">l'onglet 'Préférences projet'</a>
+sélectionné, le bouton <code>Réinitialiser</code> appliquera les préférences
+générales actuelles aux préférences du projet, même si ces préférences
+générales ne sont pas forcément correctes.</p>
+</li>
+</ul>
+<p><strong>Note</strong>&nbsp;: pour se sortir d'un mauvais pas, il faut donc <strong>tout
+d'abord</strong> réinitialiser les préférences générales et <strong>ensuite
+seulement</strong> réinitialiser les préférences projet, dans cet ordre-là et
+cet ordre-là uniquement.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4><a name="cancel_button"/>Bouton 'Annuler'</h4>
+<p>Le bouton <code>Annuler</code> situé tout en bas permet de <strong>quitter</strong> l'outil
+<strong>sans valider</strong> les changements que vous venez d'effectuer.</p>
+<p>Ces changements seront par conséquent <strong>irrévocablement perdus</strong>.</p>
+<p>Vous pouvez obtenir un résultat analogue en pressant la touche
+<code>&lt;Échap&gt;</code> (ou <code>&lt;Esc&gt;</code>, <code>&lt;Escape&gt;</code>) de votre clavier.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h1><a name="pour-finir"/>Pour finir</h1>
+<p><strong>IMPORTANT</strong>&nbsp;: afin de vous préserver de toute mauvaise surprise,
+pensez à <strong>sauvegarder régulièrement votre projet</strong>, soit en utilisant
+le menu <code>Projet &gt; Enregistrer</code>, soit en utilisant le raccourci clavier
+<code>&lt;Ctrl-S&gt;</code> correspondant au couplage successif des touches <code>Ctrl</code> (en
+bas à gauche ou à droite de votre clavier) et <code>S</code> du clavier
+alphanumérique.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<hr>
+<h4><a name="navigation-rapide"/>Navigation rapide</h4>
+<ul>
+<li><strong>L'application par ses onglets</strong><ul>
+<li><a href="fr_tab_title_data.html">Onglet 'Titre/Données'</a></li>
+<li><a href="fr_tab_draft_notes.html">Onglet 'Brouillon/Notes'</a></li>
+<li><a href="fr_tab_pitch_concept.html">Onglet 'Pitch/Concept'</a></li>
+<li><a href="fr_tab_characters.html">Onglet 'Personnages'</a></li>
+<li><a href="fr_tab_scenario.html">Onglet 'Scénario'</a></li>
+<li><a href="fr_tab_storyboard.html">Onglet 'Storyboard'</a></li>
+<li><a href="fr_tab_resources.html">Onglet 'Ressources'</a></li>
+</ul>
+</li>
+<li><strong>Les outils</strong><ul>
+<li><a href="fr_tools_name_db.html">BDD noms de personnages</a></li>
+<li><a href="fr_tools_pitch_templates.html">Modèles d'histoires/pitchs</a></li>
+<li><a href="fr_tools_scenario_elements_editor.html">Éléments de scénario</a></li>
+</ul>
+</li>
+</ul>
+<p>Retourner à <a href="index.html">l'accueil</a>.</p>
+            </div> <!-- id: contents -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+        </div> <!-- id: page -->
+    </body>
+</html>

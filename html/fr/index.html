@@ -1,2 +1,130 @@
+<!DOCTYPE html>
 <html>
+    <head>
+        <title>tkScenarist - screenwriting made simpler</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../styles/common.css"/>
+    </head>
+    <body>
+        <div id="page">
+            <div id="title">
+                tkScenarist - screenwriting made simpler
+            </div> <!-- id: title -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+            <div id="contents">
+                <h1>tkScenarist &ndash; Bienvenue !</h1>
+<h2>Documentation officielle</h2>
+<h3>Présentation</h3>
+<p><code>tkScenarist</code> est une petite application écrite en Python3/Tkinter
+qui vise à faciliter la rédaction de scénarios de films pour tous les
+scénaristes en herbe, futurs et à venir.</p>
+<p>Ce logiciel est un <strong>freefullware</strong> (voir <a href="#freefullware">ci-dessous</a>).</p>
+<h3><a name="sommaire"/>Sommaire</h3>
+<ul>
+<li><strong>Par où commencer ?</strong><ul>
+<li><a href="fr_readme.html">Lire le fichier README.md traduit en français</a></li>
+<li><a href="fr_install_app.html#download">Télécharger une version du logiciel</a></li>
+<li><a href="fr_install_app.html#install">Installer tkScenarist</a></li>
+<li><a href="fr_install_app.html#getting_started">Premiers pas</a></li>
+</ul>
+</li>
+<li><strong>L'application par ses menus</strong><ul>
+<li><a href="fr_app_topmenu.html#menu_project">Menu 'Projet'</a><ul>
+<li><a href="fr_app_topmenu.html#project_new">Option 'Nouveau'</a></li>
+<li><a href="fr_app_topmenu.html#project_open">Option 'Ouvrir'</a></li>
+<li><a href="fr_app_topmenu.html#project_save">Option 'Enregistrer'</a></li>
+<li><a href="fr_app_topmenu.html#project_save_as">Option 'Enregistrer sous...'</a></li>
+<li><a href="fr_app_topmenu.html#project_export_pdf">Option 'Exporter vers PDF'</a></li>
+<li><a href="fr_app_topmenu.html#project_quit">Option 'Quitter'</a></li>
+</ul>
+</li>
+<li><a href="fr_app_topmenu.html#menu_edit">Menu 'Edition'</a><ul>
+<li><a href="fr_app_topmenu.html#edit_undo">Option 'Annuler'</a></li>
+<li><a href="fr_app_topmenu.html#edit_redo">Option 'Refaire'</a></li>
+<li><a href="fr_app_topmenu.html#edit_select_all">Option 'Tout sélectionner'</a></li>
+</ul>
+</li>
+<li><a href="fr_app_topmenu.html#menu_view">Menu 'Affichage'</a><ul>
+<li><a href="fr_app_topmenu.html#view_show_statusbar">Option 'Afficher la barre d'état'</a></li>
+</ul>
+</li>
+<li><a href="fr_app_topmenu.html#menu_tools">Menu 'Outils'</a><ul>
+<li><a href="fr_app_topmenu.html#tools_name_db">Option 'BDD noms de personnages'</a></li>
+<li><a href="fr_app_topmenu.html#tools_pitch_templates">Option 'Modèles d'histoires/de pitchs'</a></li>
+<li><a href="fr_app_topmenu.html#tools_see">Option 'Éléments de scénario'</a></li>
+</ul>
+</li>
+<li><a href="fr_app_topmenu.html#menu_help">Menu 'Aide'</a><ul>
+<li><a href="fr_app_topmenu.html#help_offline_doc">Option 'Documentation locale'</a></li>
+<li><a href="fr_app_topmenu.html#help_online_doc">Option 'Documentation internet'</a></li>
+<li><a href="fr_app_topmenu.html#help_about">Option 'À propos de...'</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>L'application par ses onglets</strong><ul>
+<li><a href="fr_tab_title_data.html">Onglet 'Titre/Données'</a></li>
+<li><a href="fr_tab_draft_notes.html">Onglet 'Brouillon/Notes'</a></li>
+<li><a href="fr_tab_pitch_concept.html">Onglet 'Pitch/Concept'</a></li>
+<li><a href="fr_tab_characters.html">Onglet 'Personnages'</a></li>
+<li><a href="fr_tab_scenario.html">Onglet 'Scénario'</a></li>
+<li><a href="fr_tab_storyboard.html">Onglet 'Storyboard'</a></li>
+<li><a href="fr_tab_resources.html">Onglet 'Ressources'</a></li>
+</ul>
+</li>
+<li><strong>Les outils</strong><ul>
+<li><a href="fr_tools_name_db.html">BDD noms de personnages</a></li>
+<li><a href="fr_tools_pitch_templates.html">Modèles d'histoires/pitchs</a></li>
+<li><a href="fr_tools_scenario_elements_editor.html">Éléments de scénario</a></li>
+</ul>
+</li>
+<li><strong>Le projet</strong><ul>
+<li><a href="fr_contributors.html">Contributeurs</a></li>
+</ul>
+</li>
+</ul>
+<h2>Copyright</h2>
+<p>tkScenarist - screen writing made simpler.</p>
+<p>Copyright (c) 2014+ Raphaël Seban <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#111;&#116;&#117;&#115;&#64;&#108;&#97;&#112;&#111;&#115;&#116;&#101;&#46;&#110;&#101;&#116;">&#109;&#111;&#116;&#117;&#115;&#64;&#108;&#97;&#112;&#111;&#115;&#116;&#101;&#46;&#110;&#101;&#116;</a></p>
+<h2>Licence</h2>
+<p>Ce logiciel est publié sous licence <strong>GNU GPL General Public License
+v3</strong>.</p>
+<p>Les termes de cette licence doivent rester intacts, c'est-à-dire -
+entre autres - qu'ils ne doivent pas être traduits.</p>
+<p>Termes de la licence (en anglais) :</p>
+<blockquote>
+<p>This program is free software: you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.</p>
+<p>This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.</p>
+<p>You should have received a copy of the GNU General Public License
+along with this program.</p>
+<p>If not, see http://www.gnu.org/licenses/</p>
+</blockquote>
+<h2><a name="freefullware"/>Freefullware</h2>
+<p>Qu'est-ce qu'un freefullware?</p>
+<p>Un logiciel est dit <strong>freefullware</strong> lorsque :</p>
+<ul>
+<li><strong>il est libre</strong> d'utilisation, de modification et de partage ;</li>
+<li>il est <strong>totalement gratuit</strong> ;</li>
+<li>il ne contient absolument <strong>aucune publicité</strong> ;</li>
+<li><strong>il n'a pas</strong> de bouton 'Donate' (donner pour aider) ;</li>
+<li>il est <strong>garanti 100% virus-free</strong> (sans virus connu) ;</li>
+<li>il n'attend <strong>aucune contrepartie</strong> de votre part ;</li>
+<li>il est vraiment <strong>absolument libre</strong>, dans tous les sens du terme ;</li>
+</ul>
+<p>Téléchargez-le, utilisez-le et amusez-vous bien.</p>
+<p>That's all, folks!</p>
+            </div> <!-- id: contents -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+        </div> <!-- id: page -->
+    </body>
 </html>

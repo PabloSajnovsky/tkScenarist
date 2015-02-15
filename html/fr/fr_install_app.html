@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>tkScenarist - screenwriting made simpler</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../styles/common.css"/>
+    </head>
+    <body>
+        <div id="page">
+            <div id="title">
+                tkScenarist - screenwriting made simpler
+            </div> <!-- id: title -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+            <div id="contents">
+                <h1>Installation du logiciel</h1>
+<h2><a name="sommaire"/>Sommaire</h2>
+<ul>
+<li><a href="#download">Télécharger tkScenarist</a><ul>
+<li><a href="#versions-officielles">Versions officielles</a></li>
+<li><a href="#daily-build">Daily build</a></li>
+<li><a href="#fork-et-pull-requests">Fork et pull requests</a></li>
+</ul>
+</li>
+<li><a href="#install">Installer tkScenarist</a><ul>
+<li><a href="#general">En général</a></li>
+<li><a href="#pre-requisites">Pré-requis</a></li>
+<li><a href="#unixlinux">UNIX/Linux</a></li>
+<li><a href="#ms-windows">MS-Windows&trade;</a></li>
+<li><a href="#bug-report">Signaler un problème</a></li>
+</ul>
+</li>
+<li><a href="#getting_started">Premiers pas avec tkScenarist</a><ul>
+<li><a href="#launching_app">Lancer l'application</a><ul>
+<li><a href="#dans-ms-windows">Dans MS-Windows&trade;</a></li>
+<li><a href="#dans-unixlinux">Dans UNIX/Linux</a></li>
+</ul>
+</li>
+<li><a href="#organisation">Comment s'organise tkScenarist</a></li>
+<li><a href="#aller-plus-loin">Aller plus loin</a></li>
+</ul>
+</li>
+<li><a href="#navigation-rapide">Navigation rapide</a></li>
+</ul>
+<h2><a name="download"/>Télécharger tkScenarist</h2>
+<h3>Versions officielles</h3>
+<p>Il est fortement recommandé aux utilisateurs de <code>tkScenarist</code> de ne
+télécharger que les <strong>versions officielles</strong> du logiciel.</p>
+<p>Ces versions ont généralement été testées et validées autant que faire
+se peut. Elles devraient donc être opérationnelles, au moins dans les
+limites des options qu'elles proposent au moment où elles les proposent
+(en fonction du numéro de version, justement).</p>
+<p>Il est clair que plus le numéro de version choisi sera élevé et plus le
+logiciel vous offrira de possibilités ou de corrections de bogues.</p>
+<p>Vous trouverez dans <strong>GitHub</strong> une page nommée <a href="https://github.com/tarball69/tkScenarist/releases">Releases</a> dans laquelle vous
+aurez toutes les versions officielles listées et classées de la version
+<strong>la plus récente</strong> (plus grand numéro de version) à la version <strong>la
+plus ancienne</strong> (plus petit numéro de version).</p>
+<p>À chaque numéro de version, vous trouverez un lien hypertexte nommé
+<code>zip</code> et un autre lien hypertexte (à côté) nommé <code>tar.gz</code>, qui
+correspondent tous deux au type d'archive compressée que vous pouvez
+télécharger pour cette version officielle.</p>
+<p>Cliquez sur le format d'archive que vous souhaitez télécharger,
+attendez que le téléchargement se termine.</p>
+<blockquote>
+<p>Dans le doute, cliquez toujours sur le lien nommé <code>zip</code>, qui
+correspond à une archive ZIP standard (format très répandu) de la
+version officielle.</p>
+</blockquote>
+<p>Dézippez ensuite l'archive téléchargée en local sur votre disque dur à
+l'aide du gestionnaire d'archives de votre système ou à l'aide d'un
+logiciel approprié e.g. 7-zip, PKZip, etc.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3>Daily build</h3>
+<p>Si vous vous sentez l'âme d'un explorateur, vous pouvez toujours tester
+les versions <code>daily build</code> du logiciel en cliquant sur le bouton
+<strong>Download ZIP</strong> situé <a href="https://github.com/tarball69/tkScenarist">à droite de la page projet GitHub</a>.</p>
+<p><strong>ATTENTION</strong> : les versions <code>daily build</code> ne sont <em>PAS</em> des versions
+officielles ! Vous les utilisez en connaissance de cause et à vos
+risques et périls.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3>Fork et pull requests</h3>
+<p>Les développeurs de logiciels souhaitant contribuer au projet pourront
+faire un <strong><a href="https://help.github.com/articles/fork-a-repo">fork</a></strong>,
+puis des <strong><a href="https://help.github.com/articles/using-pull-requests/">pull requests</a></strong> selon la
+(les) contribution(s) qu'ils souhaiteront apporter.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2><a name="install"/>Installer tkScenarist</h2>
+<h3><a name="general"/>En général</h3>
+<p>Ce logiciel n'a <em>PAS</em> besoin d'être installé, de quelque manière que ce
+soit.</p>
+<p>Il vous suffit de le <a href="#download">télécharger</a> à la page
+<a href="https://github.com/tarball69/tkScenarist/releases">Releases</a> du projet
+GitHub, de dézipper l'archive téléchargée et de l'utiliser
+immédiatement.</p>
+<p>Bien sûr, dans l'idéal, vous prendrez la précaution de copier le
+dossier obtenu dans l'un de vos dossiers préférés &ndash; par exemple
+dans un répertoire nommé <code>apps</code> &ndash; sachant qu'un logiciel qui
+traîne dans le dossier des téléchargements a toutes les chances de se
+faire supprimer accidentellement.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="pre-requisites"/>Pré-requis</h3>
+<p>Ce logiciel ne peut fonctionner que si <strong>Python3</strong> et <strong>Tkinter</strong> sont
+correctement installés sur votre machine.</p>
+<p>En revanche, il n'y a <strong>pas d'autres dépendances</strong> que ces deux
+pré-requis.</p>
+<p>Python3 est le langage de programmation utilisé par le logiciel
+<code>tkScenarist</code> et Tkinter sa bibliothèque graphique, généralement
+installée <strong>par défaut</strong> avec le langage Python3.</p>
+<p>Si jamais vous obtenez un message d'erreur du type <strong>ImportError</strong> dans
+la fenêtre noire (console) qui apparaît lors du lancement du logiciel,
+c'est qu'il y a de fortes chances pour que vous essayiez de lancer le
+programme avec <strong>Python2</strong> et non pas son grand frère <strong>Python3</strong>. Il
+peut arriver parfois aussi que la bibliothèque Tkinter soit mal
+installée, bien que ce soit rare.</p>
+<p>Quoi qu'il en soit, n'hésitez pas à vous faire aider sur les forums
+d'entraide appropriés (par exemple : <a href="http://www.developpez.net/forums/f96/autres-langages/python-zope/">developpez.com</a>).</p>
+<p>Notez que l'installation de Python3 à côté de Python2 ne pose
+généralement aucun problème particulier.</p>
+<p>Vous pouvez télécharger et installer Python3 à partir de cette
+adresse&nbsp;:</p>
+<p>https://www.python.org/downloads/ (Ctrl+clic: nouvel onglet)</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3>UNIX/Linux</h3>
+<p>La plupart des distributions Linux populaires e.g. Ubuntu, Debian,
+SuSE, etc. ont déjà une <strong>pré-installation</strong> de Python3/Tkinter.</p>
+<p>Si vous êtes dans ce cas, <strong>n'essayez pas</strong> d'installer Python3/Tkinter
+manuellement, non seulement c'est totalement inutile, mais de plus,
+cela pourrait mettre une sacrée grouille dans votre système.</p>
+<p>Dans un tel cas, il vous suffit de <a href="#download">télécharger</a> une
+version officielle de <code>tkScenarist</code>, de la dézipper et de l'utiliser
+immédiatement.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3>MS-Windows&trade;</h3>
+<p>Plusieurs usagers de MS-Windows&trade; ont fait remarquer qu'ils ont
+une console MS-DOS noire qui apparaît au lancement du logiciel.</p>
+<p>Cette fenêtre particulièrement disgracieuse peut même parfois être
+carrément gênante.</p>
+<p>Il s'agit cependant d'un comportement propre au langage Python sous
+MS-Windows&trade; et <strong>cela n'a rien d'anormal</strong>.</p>
+<p>Toutefois, si vous souhaitez vous débarrasser de cette console noire,
+il vous suffit de changer l'extension du fichier <code>.py</code> en <code>.pyw</code> puis
+de lancer à nouveau votre logiciel favori pour ne plus être embêté(e).</p>
+<p>Dans le cas ici présent, cela revient à renommer le fichier
+<code>tkscenarist.py</code> en <code>tkscenarist.pyw</code>, puis de relancer le programme
+pour que cela fonctionne sans console.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="bug-report"/>Signaler un problème</h3>
+<p>Quoi qu'il en soit, si vous rencontrez des problèmes à l'installation
+ou durant l'utilisation de <code>tkScenarist</code>, merci de le signaler en
+postant un message sur le <strong><a href="https://github.com/tarball69/tkScenarist/issues">bugtracker</a></strong> du projet GitHub.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h2><a name="getting_started"/>Premiers pas avec tkScenarist</h2>
+<h3><a name="launching_app"/>Lancer l'application</h3>
+<h4>Dans MS-Windows&trade;</h4>
+<p>Une fois le dossier <code>tkScenarist-...</code> dézippé et copié en lieu sûr,
+double-cliquez simplement sur le fichier <code>tkscenarist.py</code> qui se trouve
+dedans pour lancer l'application.</p>
+<p><strong>Nota Bene</strong> : si vous avez suivi les instructions concernant la
+<a href="#ms-windows">console noire</a> qui apparaît au lancement du programme,
+vous devrez dès lors double-cliquer sur le fichier renommé
+<code>tkscenarist.pyw</code> et non plus sur le fichier <code>tkscenarist.py</code>
+d'origine.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h4>Dans UNIX/Linux</h4>
+<p>Une fois le dossier <code>tkScenarist-...</code> dézippé et copié en lieu sûr,
+cliquez simplement sur le fichier <code>tkscenarist.py</code> qui se trouve dedans
+(si le sticky bit 'executable' autorise l'exécution du fichier tel
+quel) pour lancer l'application.</p>
+<p>Si cela ne donne rien, ouvrez une console shell et tapez :</p>
+<p><code>sh
+    $ cd /emplacement/du/fichier # à remplacer, évidemment.
+    $ python3 tkscenarist.py</code></p>
+<p><strong>Exemple concret&nbsp;:</strong> en supposant que vous avez copié le dossier
+<code>tkScenarist/</code> dans votre répertoire favori <code>~/apps/</code>, cela
+donne&nbsp;:</p>
+<p><code>sh
+    $ cd ~/apps/tkScenarist
+    $ python3 tkscenarist.py</code>
+Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h5>Sticky bit 'executable'</h5>
+<p>Si vous souhaitez rendre <code>tkScenarist</code> automatiquement exécutable, il
+vous suffit de faire un <code>chmod +x</code> sur le fichier concerné.</p>
+<p><strong>Exemple concret&nbsp;:</strong> en supposant que vous avez copié le dossier
+<code>tkScenarist/</code> dans votre répertoire favori <code>~/apps/</code>, cela
+donne&nbsp;:</p>
+<p><code>sh
+    $ cd ~/apps/tkScenarist
+    $ chmod +x tkscenarist.py</code></p>
+<p>À partir de là, vous pourrez lancer <code>tkScenarist</code> directement en
+(double) cliquant sur le fichier <code>tkscenarist.py</code> dans votre
+gestionnaire de fichiers habituel.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3><a name="organisation"/>Comment s'organise tkScenarist ?</h3>
+<p>Le logiciel <code>tkScenarist</code> utilise un système d'onglets vous permettant
+d'avoir accès à tous les éléments essentiels d'un projet de film dès le
+premier coup d'oeil.</p>
+<p>L'ordre des onglets est basé sur l'attitude intuitive et naturelle du
+scénariste, qui consiste à&nbsp;:</p>
+<ol>
+<li>trouver un titre pour le projet de film&nbsp;;</li>
+<li>trouver un sous-titre, voire un sous-sous-titre pour l'épisode, s'il
+s'agit d'une série (facultatif)&nbsp;;</li>
+<li>mettre sur un brouillon toutes les idées qui pourraient aider à
+formaliser le projet&nbsp;;</li>
+<li>écrire un pitch ou au moins un concept sur ce que l'on veut
+faire&nbsp;;</li>
+<li>gérer les personnages du film, notamment leur histoire personnelle
+et les relations qu'ils entretiennent les uns avec les autres;</li>
+<li>écrire le scénario lui-même, une fois que l'on sait un peu mieux où
+l'on va&nbsp;;</li>
+<li>écrire le découpage technique (storyboard), une fois que le scénario
+est finalisé&nbsp;;</li>
+<li>gérer les disponibilités des ressources qui participeront
+éventuellement à la réalisation du projet cinématographique final.</li>
+</ol>
+<p>En plus de ces onglets viennent s'ajouter quelques outils destinés à
+vous faciliter la tâche&nbsp;:</p>
+<ul>
+<li>une base de données de noms provenant de toutes origines, avec
+possibilité d'effectuer des recherches multiples&nbsp;;</li>
+<li>un gestionnaire de modèles d'histoires ou de pitchs, qui vous permet
+de récupérer des modèles écrits par des tiers, voire de rédiger vos
+propres modèles, soit pour les exploiter personnellement, soit pour les
+partager avec d'autres&nbsp;;</li>
+<li>un éditeur de styles (look'n'feel) pour agrémenter votre éditeur de
+scénario de réglages plus fins que ceux livrés en standard.</li>
+</ul>
+<p>Notez toutefois que les réglages que vous apporterez à votre éditeur de
+scénario n'impacteront <strong>en aucune manière</strong> la production de votre
+scénario au format PDF. En effet, la mise en forme du scénario, en vue
+d'une impression pour présentation à un éventuel producteur
+professionnel, obéit à des règles de métier assez strictes. Ne vous
+étonnez donc pas de voir le document PDF se construire toujours de la
+même façon.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h3>Aller plus loin</h3>
+<p>Si vous souhaitez en savoir plus sur l'utilisation du logiciel
+<code>tkScenarist</code>, n'hésitez pas à compulser la <strong><a href="https://github.com/tarball69/tkScenarist/wiki/Accueil">documentation wiki</a></strong> disponible en
+ligne.</p>
+<p>Elle contient en théorie tout ce dont vous auriez besoin de savoir pour
+bien utiliser ce logiciel.</p>
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<hr>
+<h4><a name="navigation-rapide"/>Navigation rapide</h4>
+<ul>
+<li><strong>L'application par ses onglets</strong><ul>
+<li><a href="fr_tab_title_data.html">Onglet 'Titre/Données'</a></li>
+<li><a href="fr_tab_draft_notes.html">Onglet 'Brouillon/Notes'</a></li>
+<li><a href="fr_tab_pitch_concept.html">Onglet 'Pitch/Concept'</a></li>
+<li><a href="fr_tab_characters.html">Onglet 'Personnages'</a></li>
+<li><a href="fr_tab_scenario.html">Onglet 'Scénario'</a></li>
+<li><a href="fr_tab_storyboard.html">Onglet 'Storyboard'</a></li>
+<li><a href="fr_tab_resources.html">Onglet 'Ressources'</a></li>
+</ul>
+</li>
+<li><strong>Les outils</strong><ul>
+<li><a href="fr_tools_name_db.html">BDD noms de personnages</a></li>
+<li><a href="fr_tools_pitch_templates.html">Modèles d'histoires/pitchs</a></li>
+<li><a href="fr_tools_scenario_elements_editor.html">Éléments de scénario</a></li>
+</ul>
+</li>
+</ul>
+<p>Retourner à <a href="index.html">l'accueil</a>.</p>
+            </div> <!-- id: contents -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+        </div> <!-- id: page -->
+    </body>
+</html>

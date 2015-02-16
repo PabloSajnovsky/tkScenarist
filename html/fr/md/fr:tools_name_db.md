@@ -10,6 +10,7 @@
     * [Zone 'Outils'](#tools)
         * [Naviguer dans les résultats](#browse_results)
         * [Importer un fichier CSV](#file_import)
+* [Pour finir](#pour-finir)
 * [Navigation rapide](#navigation-rapide)
 
 
@@ -44,7 +45,7 @@ Dans cet outil, les zones **ne sont pas** redimensionnables.
 Retourner au [sommaire](#sommaire).
 
 
-## Utilisation
+## <a name="utilisation"/>Utilisation
 
 ### <a name="search"/>Zone 'Rechercher'
 
@@ -217,6 +218,18 @@ du fichier CSV dans la base de données centrale du logiciel.
 
 Les noms importés en double (doublons) seront automatiquement filtrés
 et éliminés, vous n'avez donc pas à vous en soucier.
+
+Retourner au [sommaire](#sommaire).
+
+
+## <a name="pour-finir"/>Pour finir
+
+**IMPORTANT**&nbsp;: afin de vous préserver de toute mauvaise surprise,
+pensez à **sauvegarder régulièrement votre projet**, soit en utilisant
+le menu `Projet > Enregistrer`, soit en utilisant le raccourci clavier
+`<Ctrl-S>` correspondant au couplage successif des touches `Ctrl` (en
+bas à gauche ou à droite de votre clavier) et `S` du clavier
+alphanumérique.
 
 Retourner au [sommaire](#sommaire).
 

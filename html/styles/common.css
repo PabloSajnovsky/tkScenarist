@@ -5,7 +5,7 @@
 
     created (by):   2015/01/28 13:12:13 (RS)
 
-    modified (by):  2015/01/28 13:47:02 (RS)
+    modified (by):  2015/02/16 10:04:41 (RS)
 
     maintainer(s):  Raphaël SEBAN (RS) <motus@laposte.net>
 
@@ -43,7 +43,7 @@
     /* main elements */
 
     body {
-        background: #777;
+        background: #777777;
         border: 0;
         font: normal 12pt/18pt helvetica, sans-serif;
         margin: 0;
@@ -91,11 +91,36 @@
     a {
     }
 
+    blockquote {
+        background: #f4f4f4;
+        border: thin solid #e8e8e8;
+        margin: 0 12mm;
+        padding: 1px 3mm;
+    }
+
     code {
-        background: #f0f0f0;
-        padding: 1px 1mm;
+        background: #f4f4f4;
+        font: normal 10pt "courier new", "ubuntu mono", monospace;
+        padding: 2pt 1mm;
     }
 
     img {
         max-width: 100%;
+    }
+
+    pre {
+        background: #f4f4f4;
+        border: thin dotted #e8e8e8;
+        font: normal 10pt/14pt "courier new", "ubuntu mono", monospace;
+        margin: 0 7mm;
+        padding: 3mm 7mm;
+    }
+
+    pre.codeblock {
+        margin: 0 3mm;
+        padding: 3mm;
+    }
+
+    pre code {
+        background: inherit;
     }

@@ -1,9 +1,9 @@
 
 # tkScenarist &ndash; Bienvenue !
 
-## Documentation officielle
+## <a name="documentation-officielle"/>Documentation officielle
 
-### Présentation
+### <a name="presentation"/>Présentation
 
 `tkScenarist` est une petite application écrite en Python3/Tkinter
 qui vise à faciliter la rédaction de scénarios de films pour tous les
@@ -57,14 +57,14 @@ Ce logiciel est un **freefullware** (voir [ci-dessous](#freefullware)).
     * [Contributeurs](fr_contributors.html)
 
 
-## Copyright
+## <a name="copyright"/>Copyright
 
 tkScenarist - screen writing made simpler.
 
 Copyright (c) 2014+ Raphaël Seban <motus@laposte.net>
 
 
-## Licence
+## <a name="licence"/>Licence
 
 Ce logiciel est publié sous licence **GNU GPL General Public License
 v3**.
@@ -87,7 +87,7 @@ General Public License for more details.
 > You should have received a copy of the GNU General Public License
 along with this program.
 
-> If not, see http://www.gnu.org/licenses/
+> If not, see <http://www.gnu.org/licenses/>
 
 
 ## <a name="freefullware"/>Freefullware

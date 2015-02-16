@@ -63,7 +63,7 @@ devrait résoudre la plupart de vos problèmes.
 Retourner au [sommaire](#sommaire).
 
 
-## Utilisation
+## <a name="utilisation"/>Utilisation
 
 ### <a name="pref_tabs"/>Barre d'onglets
 
@@ -372,7 +372,7 @@ Vous pouvez obtenir un résultat analogue en pressant la touche
 Retourner au [sommaire](#sommaire).
 
 
-# <a name="pour-finir"/>Pour finir
+## <a name="pour-finir"/>Pour finir
 
 **IMPORTANT**&nbsp;: afin de vous préserver de toute mauvaise surprise,
 pensez à **sauvegarder régulièrement votre projet**, soit en utilisant

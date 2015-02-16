@@ -1,7 +1,7 @@
 
 # L'application par ses onglets
 
-## Onglet 'Scénario'
+## <a name="onglet-scenario"/>Onglet 'Scénario'
 
 ## <a name="sommaire"/>Sommaire
 
@@ -51,7 +51,7 @@ souris pour obtenir le redimensionnement escompté.
 Retourner au [sommaire](#sommaire).
 
 
-## Utilisation
+## <a name="utilisation"/>Utilisation
 
 ### <a name="navigation"/>Le navigateur de scènes
 
@@ -67,7 +67,7 @@ Retourner au [sommaire](#sommaire).
 
 ### <a name="editor"/>L'éditeur texte de scénario
 
-#### Composition
+#### <a name="composition"/>Composition
 
 L'éditeur texte de scénario se compose de trois parties&nbsp;:
 

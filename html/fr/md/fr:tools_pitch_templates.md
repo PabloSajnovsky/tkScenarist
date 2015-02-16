@@ -50,7 +50,7 @@ Dans cet outil, les zones **ne sont pas** redimensionnables.
 Retourner au [sommaire](#sommaire).
 
 
-## Utilisation
+## <a name="utilisation"/>Utilisation
 
 ### <a name="template_add"/>Ajouter un modèle
 
@@ -65,7 +65,7 @@ un nom et un emplacement pour votre nouveau fichier de modèle.
 cette fenêtre de dialogue i.e. un nouveau répertoire pour votre fichier
 de modèle, ce répertoire deviendra *de facto* le nouveau répertoire de
 travail pour tous vos fichiers de modèle (voir [Changer le répertoire
-de modèles] (#template_browse), plus bas).
+de modèles](#template_browse), plus bas).
 
 Retourner au [sommaire](#sommaire).
 
@@ -208,7 +208,7 @@ l'outil refusera de valider votre demande lors du clic sur le bouton
 Retourner au [sommaire](#sommaire).
 
 
-# <a name="pour-finir"/>Pour finir
+## <a name="pour-finir"/>Pour finir
 
 **IMPORTANT**&nbsp;: afin de vous préserver de toute mauvaise surprise,
 pensez à **sauvegarder régulièrement votre projet**, soit en utilisant

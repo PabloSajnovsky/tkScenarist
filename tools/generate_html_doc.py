@@ -45,6 +45,22 @@ def clean_fname (fname):
 # end def
 
 
+def anchor_name (text):
+    # lowercase + translate accented letters to unaccented
+    text = str(text).lower().translate(translations)
+    # strip HTML entities &...;
+    text = re.sub(r"&\S+;", "", text)
+    # strip forbidden
+    text = re.sub(r"/", "", text)
+    # convert unknown
+    text = re.sub(r"\W+", "-", text)
+    # strip from start and end
+    text = text.strip("-")
+    # return formatted anchor name
+    return text
+# end def
+
+
 def github_to_md (text):
     """
         formats GitHub-specific MarkDown formats to standard MarkDown
@@ -60,9 +76,35 @@ def github_to_md (text):
     )
     # reformat GH's links
     text = re.sub(r"\[\[(.*?)\|(.*?)\]\]", gh_links, text)
-    text = re.sub(r"(\[.*?\])\s+(\(.*?\))", r"\1\2", text)
+    text = re.sub(r"(?s)(\[.*?\])\s+(\(.*?\))", r"\1\2", text)
+    # reformat headers
+    text = re.sub(r"(?m)^(##+ )([^<]+?)$", gh_headers, text)
+    # reformat raw URL
+    text = re.sub(r"(?<=\s)(https?:\S+)", r"<\1>", text)
+    # reformat code blocks
+    text = re.sub(
+        r"(?ms)^```\w+(.*?)```$",
+        r'<pre class="codeblock">\1</pre>',
+        text
+    )
+    # english pages GitHub' specifics
+    text = text.replace("Home.html", "index.html")
+    # french pages GitHub' specifics
+    text = text.replace("Accueil.html", "index.html")
     # return formatted text
     return text
+# end def
+
+
+def gh_headers (match_obj):
+    return (
+        '{0}<a name="{1}"/>{2}'
+        .format(
+            match_obj.group(1),
+            anchor_name(match_obj.group(2)),
+            match_obj.group(2),
+        )
+    )
 # end def
 
 
@@ -87,6 +129,15 @@ def gh_links (match_obj):
 
 # inits
 ENCODING = "UTF-8"
+translations = {
+    ord(c): t
+    for t, l in
+        (
+            ("a", "àâä"), ("e", "éèêë"), ("i", "îï"), ("o", "ôö"),
+            ("u", "ùûü"), ("y", "ŷÿ"), ("c", "ç")
+        )
+    for c in l
+}
 
 # file/dir inits
 _wdir = normalize(OP.join(OP.dirname(__file__), "../html/"))

@@ -1,7 +1,7 @@
 
 # L'application par ses onglets
 
-## Onglet 'Brouillon/Notes'
+## <a name="onglet-brouillonnotes"/>Onglet 'Brouillon/Notes'
 
 ## <a name="sommaire"/>Sommaire
 
@@ -27,7 +27,7 @@ un brouillon les premières esquisses de votre projet de film.
 Retourner au [sommaire](#sommaire).
 
 
-## Utilisation
+## <a name="utilisation"/>Utilisation
 
 La zone de texte blanche s'appelle un **éditeur de texte brut**.
 
@@ -72,7 +72,7 @@ correspondant au couplage successif des touches `Ctrl`, `Shift`
 Retourner au [sommaire](#sommaire).
 
 
-# <a name="pour-finir"/>Pour finir
+## <a name="pour-finir"/>Pour finir
 
 **IMPORTANT**&nbsp;: afin de vous préserver de toute mauvaise surprise,
 pensez à **sauvegarder régulièrement votre projet**, soit en utilisant

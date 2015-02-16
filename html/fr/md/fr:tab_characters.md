@@ -1,7 +1,7 @@
 
 # L'application par ses onglets
 
-## Onglet 'Personnages'
+## <a name="onglet-personnages"/>Onglet 'Personnages'
 
 ## <a name="sommaire"/>Sommaire
 
@@ -56,7 +56,7 @@ souris pour obtenir le redimensionnement escompté.
 
 Retourner au [sommaire](#sommaire).
 
-## Utilisation
+## <a name="utilisation"/>Utilisation
 
 ### <a name="name_list"/>Liste de noms de personnages
 
@@ -149,7 +149,7 @@ déjà dans le texte du scénario et supprimer tous les autres.
 Retourner au [sommaire](#sommaire).
 
 
-### Historique personnage
+### <a name="historique-personnage"/>Historique personnage
 
 Pour renseigner l'histoire personnelle d'un personnage, il faut tout
 d'abord sélectionner un nom de personnage dans la liste.
@@ -212,7 +212,7 @@ correspondant au couplage successif des touches `Ctrl`, `Shift`
 Retourner au [sommaire](#sommaire).
 
 
-### Visuel relations
+### <a name="visuel-relations"/>Visuel relations
 
 #### <a name="canvas_add"/>Ajouter un nom de personnage
 

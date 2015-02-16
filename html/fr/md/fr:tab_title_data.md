@@ -1,7 +1,7 @@
 
 # L'application par ses onglets
 
-## Onglet 'Titre/Données'
+## <a name="onglet-titredonnees"/>Onglet 'Titre/Données'
 
 ## <a name="sommaire"/>Sommaire
 
@@ -42,7 +42,7 @@ exact et peut par conséquent faire valoir ce que de droit.
 Retourner au [sommaire](#sommaire).
 
 
-## Utilisation
+## <a name="utilisation"/>Utilisation
 
 Cliquez sur la zone de texte blanche (champ de formulaire) que vous
 souhaitez renseigner, puis tapez au clavier le texte que vous voulez
@@ -67,7 +67,7 @@ prochaine frappe d'une touche au clavier.
 Retourner au [sommaire](#sommaire).
 
 
-# <a name="pour-finir"/>Pour finir
+## <a name="pour-finir"/>Pour finir
 
 **IMPORTANT**&nbsp;: afin de vous préserver de toute mauvaise surprise,
 pensez à **sauvegarder régulièrement votre projet**, soit en utilisant

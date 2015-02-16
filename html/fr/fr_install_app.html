@@ -44,7 +44,7 @@
 <li><a href="#navigation-rapide">Navigation rapide</a></li>
 </ul>
 <h2><a name="download"/>Télécharger tkScenarist</h2>
-<h3>Versions officielles</h3>
+<h3><a name="versions-officielles"/>Versions officielles</h3>
 <p>Il est fortement recommandé aux utilisateurs de <code>tkScenarist</code> de ne
 télécharger que les <strong>versions officielles</strong> du logiciel.</p>
 <p>Ces versions ont généralement été testées et validées autant que faire
@@ -72,7 +72,7 @@ version officielle.</p>
 l'aide du gestionnaire d'archives de votre système ou à l'aide d'un
 logiciel approprié e.g. 7-zip, PKZip, etc.</p>
 <p>Retourner au <a href="#sommaire">sommaire</a>.</p>
-<h3>Daily build</h3>
+<h3><a name="daily-build"/>Daily build</h3>
 <p>Si vous vous sentez l'âme d'un explorateur, vous pouvez toujours tester
 les versions <code>daily build</code> du logiciel en cliquant sur le bouton
 <strong>Download ZIP</strong> situé <a href="https://github.com/tarball69/tkScenarist">à droite de la page projet GitHub</a>.</p>
@@ -80,7 +80,7 @@ les versions <code>daily build</code> du logiciel en cliquant sur le bouton
 officielles ! Vous les utilisez en connaissance de cause et à vos
 risques et périls.</p>
 <p>Retourner au <a href="#sommaire">sommaire</a>.</p>
-<h3>Fork et pull requests</h3>
+<h3><a name="fork-et-pull-requests"/>Fork et pull requests</h3>
 <p>Les développeurs de logiciels souhaitant contribuer au projet pourront
 faire un <strong><a href="https://help.github.com/articles/fork-a-repo">fork</a></strong>,
 puis des <strong><a href="https://help.github.com/articles/using-pull-requests/">pull requests</a></strong> selon la
@@ -120,9 +120,9 @@ d'entraide appropriés (par exemple : <a href="http://www.developpez.net/forums/
 généralement aucun problème particulier.</p>
 <p>Vous pouvez télécharger et installer Python3 à partir de cette
 adresse&nbsp;:</p>
-<p>https://www.python.org/downloads/ (Ctrl+clic: nouvel onglet)</p>
+<p><a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a> (Ctrl+clic: nouvel onglet)</p>
 <p>Retourner au <a href="#sommaire">sommaire</a>.</p>
-<h3>UNIX/Linux</h3>
+<h3><a name="unixlinux"/>UNIX/Linux</h3>
 <p>La plupart des distributions Linux populaires e.g. Ubuntu, Debian,
 SuSE, etc. ont déjà une <strong>pré-installation</strong> de Python3/Tkinter.</p>
 <p>Si vous êtes dans ce cas, <strong>n'essayez pas</strong> d'installer Python3/Tkinter
@@ -132,7 +132,7 @@ cela pourrait mettre une sacrée grouille dans votre système.</p>
 version officielle de <code>tkScenarist</code>, de la dézipper et de l'utiliser
 immédiatement.</p>
 <p>Retourner au <a href="#sommaire">sommaire</a>.</p>
-<h3>MS-Windows&trade;</h3>
+<h3><a name="ms-windows"/>MS-Windows&trade;</h3>
 <p>Plusieurs usagers de MS-Windows&trade; ont fait remarquer qu'ils ont
 une console MS-DOS noire qui apparaît au lancement du logiciel.</p>
 <p>Cette fenêtre particulièrement disgracieuse peut même parfois être
@@ -153,7 +153,7 @@ postant un message sur le <strong><a href="https://github.com/tarball69/tkScenar
 <p>Retourner au <a href="#sommaire">sommaire</a>.</p>
 <h2><a name="getting_started"/>Premiers pas avec tkScenarist</h2>
 <h3><a name="launching_app"/>Lancer l'application</h3>
-<h4>Dans MS-Windows&trade;</h4>
+<h4><a name="dans-ms-windows"/>Dans MS-Windows&trade;</h4>
 <p>Une fois le dossier <code>tkScenarist-...</code> dézippé et copié en lieu sûr,
 double-cliquez simplement sur le fichier <code>tkscenarist.py</code> qui se trouve
 dedans pour lancer l'application.</p>
@@ -163,31 +163,37 @@ vous devrez dès lors double-cliquer sur le fichier renommé
 <code>tkscenarist.pyw</code> et non plus sur le fichier <code>tkscenarist.py</code>
 d'origine.</p>
 <p>Retourner au <a href="#sommaire">sommaire</a>.</p>
-<h4>Dans UNIX/Linux</h4>
+<h4><a name="dans-unixlinux"/>Dans UNIX/Linux</h4>
 <p>Une fois le dossier <code>tkScenarist-...</code> dézippé et copié en lieu sûr,
 cliquez simplement sur le fichier <code>tkscenarist.py</code> qui se trouve dedans
 (si le sticky bit 'executable' autorise l'exécution du fichier tel
 quel) pour lancer l'application.</p>
 <p>Si cela ne donne rien, ouvrez une console shell et tapez :</p>
-<p><code>sh
+<pre class="codeblock">
     $ cd /emplacement/du/fichier # à remplacer, évidemment.
-    $ python3 tkscenarist.py</code></p>
+    $ python3 tkscenarist.py
+</pre>
+
 <p><strong>Exemple concret&nbsp;:</strong> en supposant que vous avez copié le dossier
 <code>tkScenarist/</code> dans votre répertoire favori <code>~/apps/</code>, cela
 donne&nbsp;:</p>
-<p><code>sh
+<pre class="codeblock">
     $ cd ~/apps/tkScenarist
-    $ python3 tkscenarist.py</code>
-Retourner au <a href="#sommaire">sommaire</a>.</p>
-<h5>Sticky bit 'executable'</h5>
+    $ python3 tkscenarist.py
+</pre>
+
+<p>Retourner au <a href="#sommaire">sommaire</a>.</p>
+<h5><a name="sticky-bit-executable"/>Sticky bit 'executable'</h5>
 <p>Si vous souhaitez rendre <code>tkScenarist</code> automatiquement exécutable, il
 vous suffit de faire un <code>chmod +x</code> sur le fichier concerné.</p>
 <p><strong>Exemple concret&nbsp;:</strong> en supposant que vous avez copié le dossier
 <code>tkScenarist/</code> dans votre répertoire favori <code>~/apps/</code>, cela
 donne&nbsp;:</p>
-<p><code>sh
+<pre class="codeblock">
     $ cd ~/apps/tkScenarist
-    $ chmod +x tkscenarist.py</code></p>
+    $ chmod +x tkscenarist.py
+</pre>
+
 <p>À partir de là, vous pourrez lancer <code>tkScenarist</code> directement en
 (double) cliquant sur le fichier <code>tkscenarist.py</code> dans votre
 gestionnaire de fichiers habituel.</p>
@@ -235,7 +241,7 @@ professionnel, obéit à des règles de métier assez strictes. Ne vous
 étonnez donc pas de voir le document PDF se construire toujours de la
 même façon.</p>
 <p>Retourner au <a href="#sommaire">sommaire</a>.</p>
-<h3>Aller plus loin</h3>
+<h3><a name="aller-plus-loin"/>Aller plus loin</h3>
 <p>Si vous souhaitez en savoir plus sur l'utilisation du logiciel
 <code>tkScenarist</code>, n'hésitez pas à compulser la <strong><a href="https://github.com/tarball69/tkScenarist/wiki/Accueil">documentation wiki</a></strong> disponible en
 ligne.</p>

@@ -24,7 +24,7 @@
 
 ## <a name="download"/>Télécharger tkScenarist
 
-### Versions officielles
+### <a name="versions-officielles"/>Versions officielles
 
 Il est fortement recommandé aux utilisateurs de `tkScenarist` de ne
 télécharger que les **versions officielles** du logiciel.
@@ -60,7 +60,7 @@ logiciel approprié e.g. 7-zip, PKZip, etc.
 
 Retourner au [sommaire](#sommaire).
 
-### Daily build
+### <a name="daily-build"/>Daily build
 
 Si vous vous sentez l'âme d'un explorateur, vous pouvez toujours tester
 les versions `daily build` du logiciel en cliquant sur le bouton
@@ -72,7 +72,7 @@ risques et périls.
 
 Retourner au [sommaire](#sommaire).
 
-### Fork et pull requests
+### <a name="fork-et-pull-requests"/>Fork et pull requests
 
 Les développeurs de logiciels souhaitant contribuer au projet pourront
 faire un **[fork](https://help.github.com/articles/fork-a-repo)**,
@@ -130,11 +130,11 @@ généralement aucun problème particulier.
 Vous pouvez télécharger et installer Python3 à partir de cette
 adresse&nbsp;:
 
-https://www.python.org/downloads/ (Ctrl+clic: nouvel onglet)
+<https://www.python.org/downloads/> (Ctrl+clic: nouvel onglet)
 
 Retourner au [sommaire](#sommaire).
 
-### UNIX/Linux
+### <a name="unixlinux"/>UNIX/Linux
 
 La plupart des distributions Linux populaires e.g. Ubuntu, Debian,
 SuSE, etc. ont déjà une **pré-installation** de Python3/Tkinter.
@@ -149,7 +149,7 @@ immédiatement.
 
 Retourner au [sommaire](#sommaire).
 
-### MS-Windows&trade;
+### <a name="ms-windows"/>MS-Windows&trade;
 
 Plusieurs usagers de MS-Windows&trade; ont fait remarquer qu'ils ont
 une console MS-DOS noire qui apparaît au lancement du logiciel.
@@ -183,7 +183,7 @@ Retourner au [sommaire](#sommaire).
 
 ### <a name="launching_app"/>Lancer l'application
 
-#### Dans MS-Windows&trade;
+#### <a name="dans-ms-windows"/>Dans MS-Windows&trade;
 
 Une fois le dossier `tkScenarist-...` dézippé et copié en lieu sûr,
 double-cliquez simplement sur le fichier `tkscenarist.py` qui se trouve
@@ -197,7 +197,7 @@ d'origine.
 
 Retourner au [sommaire](#sommaire).
 
-#### Dans UNIX/Linux
+#### <a name="dans-unixlinux"/>Dans UNIX/Linux
 
 Une fois le dossier `tkScenarist-...` dézippé et copié en lieu sûr,
 cliquez simplement sur le fichier `tkscenarist.py` qui se trouve dedans
@@ -206,22 +206,22 @@ quel) pour lancer l'application.
 
 Si cela ne donne rien, ouvrez une console shell et tapez :
 
-```sh
+<pre class="codeblock">
     $ cd /emplacement/du/fichier # à remplacer, évidemment.
     $ python3 tkscenarist.py
-```
+</pre>
 
 **Exemple concret&nbsp;:** en supposant que vous avez copié le dossier
 `tkScenarist/` dans votre répertoire favori `~/apps/`, cela
 donne&nbsp;:
 
-```sh
+<pre class="codeblock">
     $ cd ~/apps/tkScenarist
     $ python3 tkscenarist.py
-```
+</pre>
 Retourner au [sommaire](#sommaire).
 
-##### Sticky bit 'executable'
+##### <a name="sticky-bit-executable"/>Sticky bit 'executable'
 
 Si vous souhaitez rendre `tkScenarist` automatiquement exécutable, il
 vous suffit de faire un `chmod +x` sur le fichier concerné.
@@ -230,10 +230,10 @@ vous suffit de faire un `chmod +x` sur le fichier concerné.
 `tkScenarist/` dans votre répertoire favori `~/apps/`, cela
 donne&nbsp;:
 
-```sh
+<pre class="codeblock">
     $ cd ~/apps/tkScenarist
     $ chmod +x tkscenarist.py
-```
+</pre>
 
 À partir de là, vous pourrez lancer `tkScenarist` directement en
 (double) cliquant sur le fichier `tkscenarist.py` dans votre
@@ -288,7 +288,7 @@ même façon.
 
 Retourner au [sommaire](#sommaire).
 
-### Aller plus loin
+### <a name="aller-plus-loin"/>Aller plus loin
 
 Si vous souhaitez en savoir plus sur l'utilisation du logiciel
 `tkScenarist`, n'hésitez pas à compulser la **[documentation wiki](https://github.com/tarball69/tkScenarist/wiki/Accueil)** disponible en

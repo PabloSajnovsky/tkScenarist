@@ -1,7 +1,7 @@
 
 # Contributeurs
 
-## Contribuer au projet
+## <a name="contribuer-au-projet"/>Contribuer au projet
 
 `tkScenarist` a toujours besoin de personnes créatives pour :
 
@@ -30,7 +30,7 @@ officielle GitHub concernant les **[forks](https://help.github.com/articles/fork
 Merci pour votre aide précieuse !
 
 
-## Hall of fame
+## <a name="hall-of-fame"/>Hall of fame
 
 Notre équipe de joyeux drilles est composée de :
 

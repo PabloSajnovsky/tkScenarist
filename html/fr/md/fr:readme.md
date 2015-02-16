@@ -3,7 +3,7 @@
 
 Screen writing made simpler &ndash; Simplifiez-vous la vie !
 
-## Présentation
+## <a name="presentation"/>Présentation
 
 `tkScenarist` est une petite application écrite en Python3/Tkinter qui
 vise à faciliter la rédaction de scénarios de films pour tous les
@@ -12,14 +12,14 @@ scénaristes en herbe, futurs et à venir.
 Ce logiciel est un **freefullware** (voir [ci-dessous](#freefullware)).
 
 
-## Copyright
+## <a name="copyright"/>Copyright
 
 tkScenarist - screen writing made simpler.
 
 Copyright (c) 2014+ Raphaël Seban <motus@laposte.net>
 
 
-## Licence
+## <a name="licence"/>Licence
 
 Ce logiciel est publié sous licence **GNU GPL General Public License
 v3**.
@@ -42,7 +42,7 @@ General Public License for more details.
 > You should have received a copy of the GNU General Public License
 along with this program.
 
-> If not, see http://www.gnu.org/licenses/
+> If not, see <http://www.gnu.org/licenses/>
 
 
 ## <a name="freefullware"/>Freefullware
@@ -64,7 +64,7 @@ Téléchargez-le, utilisez-le et amusez-vous bien.
 That's all, folks!
 
 
-## Fonctionnalités
+## <a name="fonctionnalites"/>Fonctionnalités
 
 À cette heure :
 
@@ -139,7 +139,7 @@ lancement de la procédure d'exportation&nbsp;;
 **français de France métropolitaine** (fr_FR).
 
 
-## Captures d'écran
+## <a name="captures-d-ecran"/>Captures d'écran
 
 ![image](../../images/screenshots/fr/screenshot-001.png)
 ![image](../../images/screenshots/fr/screenshot-002.png)
@@ -160,7 +160,7 @@ lancement de la procédure d'exportation&nbsp;;
 ![image](../../images/screenshots/fr/screenshot-016.png)
 
 
-## Avancement du projet
+## <a name="avancement-du-projet"/>Avancement du projet
 
     Development Status :: 4 - Beta
 
@@ -179,7 +179,7 @@ Tout retour d'expérience dans le
 projet est toujours le bienvenu.
 
 
-## Installation
+## <a name="installation"/>Installation
 
 Ce logiciel n'a *PAS* besoin d'être installé, de quelque manière que ce
 soit.
@@ -196,9 +196,9 @@ téléchargements a toutes les chances de se faire supprimer
 accidentellement.
 
 
-## Démarrage rapide
+## <a name="demarrage-rapide"/>Démarrage rapide
 
-### Important
+### <a name="important"/>Important
 
 Ce logiciel ne peut fonctionner que si **Python3** et **Tkinter** sont
 correctement installés sur votre machine.
@@ -226,9 +226,9 @@ généralement aucun problème particulier.
 Vous pouvez télécharger et installer Python3 à partir de cette
 adresse&nbsp;:
 
-https://www.python.org/downloads/ (Ctrl+clic: nouvel onglet)
+<https://www.python.org/downloads/> (Ctrl+clic: nouvel onglet)
 
-### Note
+### <a name="note"/>Note
 
 La plupart des distributions Linux populaires e.g. Ubuntu, Debian,
 SuSE, etc. ont déjà une **pré-installation** de Python3/Tkinter.
@@ -240,13 +240,13 @@ cela pourrait mettre une sacrée grouille dans votre système.
 Dans un tel cas, il vous suffit de [télécharger une release](https://github.com/tarball69/tkScenarist/releases) de `tkScenarist`,
 de la dézipper et de l'utiliser immédiatement.
 
-### Usagers de MS-Windows&trade;
+### <a name="usagers-de-ms-windows"/>Usagers de MS-Windows&trade;
 
 Une fois le dossier `tkScenarist-...` dézippé et copié en lieu sûr,
 double-cliquez simplement sur le fichier `tkscenarist.py` qui se trouve
 dedans pour lancer l'application.
 
-#### Vous ne voulez pas la console noire
+#### <a name="vous-ne-voulez-pas-la-console-noire"/>Vous ne voulez pas la console noire
 
 Plusieurs usagers de MS-Windows&trade; ont fait remarquer qu'ils ont
 une console MS-DOS noire qui apparaît au lancement du logiciel.
@@ -265,7 +265,7 @@ Dans le cas ici présent, cela revient à renommer le fichier
 `tkscenarist.py` en `tkscenarist.pyw`, puis de relancer le programme
 pour que cela fonctionne sans console.
 
-### UNIX/Linux
+### <a name="unixlinux"/>UNIX/Linux
 
 Une fois le dossier `tkScenarist-...` dézippé et copié en lieu sûr,
 cliquez simplement sur le fichier `tkscenarist.py` qui se trouve dedans
@@ -274,19 +274,19 @@ quel) pour lancer l'application.
 
 Si cela ne donne rien, ouvrez une console shell et tapez :
 
-```sh
+<pre class="codeblock">
     $ cd /emplacement/du/fichier # à remplacer, évidemment.
     $ python3 tkscenarist.py
-```
+</pre>
 
 **Exemple concret&nbsp;:** en supposant que vous avez copié le dossier
 `tkScenarist/` dans votre répertoire favori `~/apps/`, cela
 donne&nbsp;:
 
-```sh
+<pre class="codeblock">
     $ cd ~/apps/tkScenarist
     $ python3 tkscenarist.py
-```
+</pre>
 
 That's all, folks!
 

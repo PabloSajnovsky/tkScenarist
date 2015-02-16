@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>tkScenarist - screenwriting made simpler</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../styles/common.css"/>
+    </head>
+    <body>
+        <div id="page">
+            <div id="title">
+                tkScenarist - screenwriting made simpler
+            </div> <!-- id: title -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+            <div id="contents">
+                <h1>Getting started</h1>
+<h2><a name="summary"/>Summary</h2>
+<ul>
+<li><a href="#download">Downloading the application</a><ul>
+<li><a href="#official-release-versions">Official release versions</a></li>
+<li><a href="#daily-build">Daily build</a></li>
+<li><a href="#forks-and-pull-requests">Forks and pull requests</a></li>
+</ul>
+</li>
+<li><a href="#install">Installing tkScenarist</a><ul>
+<li><a href="#general-purpose">General purpose</a></li>
+<li><a href="#pre-requisites">Pre-requisites</a></li>
+<li><a href="#unixlinux">UNIX/Linux</a></li>
+<li><a href="#ms-windows">MS-Windows&trade;</a></li>
+<li><a href="#bug-report">Bug report</a></li>
+</ul>
+</li>
+<li><a href="#getting_started">First steps</a><ul>
+<li><a href="#launching-app">Lauching app</a><ul>
+<li><a href="#into-ms-windows">Into MS-Windows&trade;</a></li>
+<li><a href="#into-unixlinux">Into UNIX/Linux</a></li>
+</ul>
+</li>
+<li><a href="#how-does-it-work">How does it work?</a></li>
+<li><a href="#going-further">Going further</a></li>
+</ul>
+</li>
+<li><a href="#quick-nav">Quick nav</a></li>
+</ul>
+<h2><a name="download"/>Downloading the application</h2>
+<h3><a name="official-release-versions"/>Official release versions</h3>
+<p>It is <strong>highly recommended</strong> for users to download <em>ONLY</em> official
+release versions of <code>tkScenarist</code> software application.</p>
+<p>Official release versions stay at GitHub's <a href="https://github.com/tarball69/tkScenarist/releases">Releases</a> web page and are
+sorted from <strong>most recent</strong> to <strong>oldest</strong>.</p>
+<p>Click on <code>zip</code> link (MS-Windows&trade; users, recommended) or <code>tar.gz</code>
+link (UNIX/Linux users, optional) to download a compressed archive of
+the release, then unzip the archive with your favourite tool.</p>
+<p>Copy the unzipped folder you obtained into a safe directory e.g. let's
+say into some private <code>apps</code> folder.</p>
+<p>Your software is now ready for trying out!</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="daily-build"/>Daily build</h3>
+<p>Some explorers may wish to go further and get the latest unofficial
+release versions with the most experimental features of <code>tkScenarist</code>.</p>
+<p>To do this, simply click on the <strong>Download ZIP</strong> button you may find on
+the <a href="https://github.com/tarball69/tkScenarist">right-hand side</a> of
+GitHub project's main page.</p>
+<p><strong>CAUTION</strong>: unofficial <code>daily build</code> versions are <em>NOT</em> guaranteed to
+work in any manner.</p>
+<p><strong>You play with these at your own risks</strong>.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="forks-and-pull-requests"/>Forks and pull requests</h3>
+<p>People willing to improve files from the project are suggested to study
+GitHub's official documentation about <strong><a href="https://help.github.com/articles/fork-a-repo">forks</a></strong> and <strong><a href="https://help.github.com/articles/using-pull-requests/">pull requests</a></strong>.</p>
+<p>Thank you for trying to help us.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h2><a name="install"/>Installing tkScenarist</h2>
+<h3><a name="general-purpose"/>General purpose</h3>
+<p>This program does <em>NOT</em> need to be installed in any way.</p>
+<p>Simply <a href="#download">download</a> it, unzip it (into an <code>apps</code> private
+directory, for example) and use it right now.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="pre-requisites"/>Pre-requisites</h3>
+<p>This software runs only with <strong>Python3</strong> and <strong>Tkinter</strong> installed
+on your machine.</p>
+<p><strong>No dependencies</strong>, no third-part lib to install on more.</p>
+<p>If you have Python3 programming language correctly installed, Tkinter
+library should also be installed <strong>by default</strong> as a Python standard
+lib.</p>
+<p>Any <strong>ImportError</strong> will mean either you are trying to launch the
+software with Python2 or you don't have <strong>Tkinter</strong> library correctly
+installed on your system.</p>
+<p>Installing a Python3 version of the language <strong>does not alter</strong> an
+already installed Python2 version in any way.</p>
+<p>You may consider installing Python3 from:</p>
+<p><a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a> (Ctrl+click: open in new tab)</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="unixlinux"/>UNIX/Linux</h3>
+<p>Many major Linux distributions (e.g. Ubuntu, SuSE, etc) do already have
+a <strong>pre-installed</strong> Python3/Tkinter package.</p>
+<p>In this particular case, <strong>you should <em>NOT</em> consider</strong> to make any
+special installation by yourself.</p>
+<p>Simply <a href="#download">download</a> and use this program as is.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="ms-windows"/>MS-Windows&trade;</h3>
+<p>Many MS-Windows&trade; users wonder why do they have a shell console
+window coming up with the application on startup.</p>
+<p>This is a quite normal Python default behaviour.</p>
+<p>If you wish to use a Python application <strong>without</strong> its dedicated shell
+console window, simply rename file extension from <code>.py</code> to <code>.pyw</code> and
+then launch it again.</p>
+<p>For the present case, this means you should rename <code>tkscenarist.py</code> to
+<code>tkscenarist.pyw</code> and then run it once again.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="bug-report"/>Bug report</h3>
+<p>Anyway and whatever happens, please report troubleshootings by posting
+a short message on GitHub's <strong><a href="https://github.com/tarball69/tkScenarist/issues">bugtracker</a></strong>.</p>
+<p>Thank you to help us improving <code>tkScenarist</code> for the benefit of all.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h2><a name="getting_started"/>First steps</h2>
+<h3><a name="launching-app"/>Launching app</h3>
+<h4><a name="into-ms-windows"/>Into MS-Windows&trade;</h4>
+<p>Simply double-click on <code>tkscenarist.py</code> file to launch app.</p>
+<p><strong>Notice</strong> : if you chose to <a href="#ms-windows">get rid of console app</a>,
+you should double-click on <code>tkscenarist.pyw</code> file instead of the
+genuine <code>tkscenarist.py</code> file.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="into-unixlinux"/>Into UNIX/Linux</h4>
+<p>Click on <code>tkscenarist.py</code> file if it has the 'executable' sticky bit on
+or open a shell console and launch file:</p>
+<pre class="codeblock">
+    $ cd go/to/the/right/place # e.g. tkScenarist folder
+    $ python3 tkscenarist.py
+</pre>
+
+<p>Return to <a href="#summary">summary</a>.</p>
+<h5><a name="the-executable-sticky-bit"/>The 'executable' sticky bit</h5>
+<p>To set the 'executable' sticky bit on, simply do a:</p>
+<pre class="codeblock">
+    $ cd go/to/the/right/place # e.g. tkScenarist folder
+    $ chmod +x tkscenarist.py
+</pre>
+
+<p>Since then, it will be possible to simply (double) click on
+<code>tkscenarist.py</code> file into your favourite file manager and to launch
+<code>tkScenarist</code> app visually.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="how-does-it-work"/>How does it work?</h3>
+<p><code>tkScenarist</code> application software works with tabs allowing writers to
+get all essentials in a single hand.</p>
+<p>Tabs are ordered along with some natural and/or intuitive way:</p>
+<ol>
+<li>finding a project's title;</li>
+<li>adding some subtitle and episode number/title (optional);</li>
+<li>writing personal notes on a draft, to help shaping the story;</li>
+<li>writing the strongest steps of the story into a pitch/concept text
+zone;</li>
+<li>managing movie characters, with their own history logs and
+relationships;</li>
+<li>finally, writing the scenario itself;</li>
+<li>storyboard is an extra tool for small projects aiming to keep all in
+one hand;</li>
+<li>same thing for resources.</li>
+</ol>
+<p>On top of this, one may find useful tools, such as:</p>
+<ul>
+<li>a <strong>name database</strong>, where you can search amongst thousands of names
+coming from all origins over the planet;</li>
+<li><strong>story/pitch templates</strong> manager: pick up templates from other
+people or write your own (you could share with the world);</li>
+<li>a <strong>scenario elements editor</strong> (SEE) made for finer scenario script
+tuning and fancier look'n'feel.</li>
+</ul>
+<p>Please, note playing with the SEE look'n'feel features would <em>NOT</em>
+impact PDF exportations in any way, as printable PDF documents follow
+strict policies for their look'n'feel, in order to match professional
+submission.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="going-further"/>Going further</h3>
+<p>People willing to learn much more about <code>tkScenarist</code> software
+application are suggested to dive into the whole online documentation
+available on <strong><a href="https://github.com/tarball69/tkScenarist/wiki/">GitHub's wiki pages</a></strong>.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<hr>
+<h4><a name="quick-nav"/>Quick nav</h4>
+<ul>
+<li><strong>App by tabs</strong><ul>
+<li><a href="en_tab_title_data.html">'Title/Data' tab</a></li>
+<li><a href="en_tab_draft_notes.html">'Draft/Notes' tab</a></li>
+<li><a href="en_tab_pitch_concept.html">'Pitch/Concept' tab</a></li>
+<li><a href="en_tab_characters.html">'Characters' tab</a></li>
+<li><a href="en_tab_scenario.html">'Scenario' tab</a></li>
+<li><a href="en_tab_storyboard.html">'Storyboard' tab</a></li>
+<li><a href="en_tab_resources.html">'Resources' tab</a></li>
+</ul>
+</li>
+<li><strong>Extra tools</strong><ul>
+<li><a href="en_tools_name_db.html">Name database</a></li>
+<li><a href="en_tools_pitch_templates.html">Story/pitch templates</a></li>
+<li><a href="en_tools_scenario_elements_editor.html">Scenario Elements Editor (SEE)</a></li>
+</ul>
+</li>
+</ul>
+<p>Return to <a href="index.html">homepage</a>.</p>
+            </div> <!-- id: contents -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+        </div> <!-- id: page -->
+    </body>
+</html>

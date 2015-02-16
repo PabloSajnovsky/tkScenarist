@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>tkScenarist - screenwriting made simpler</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../styles/common.css"/>
+    </head>
+    <body>
+        <div id="page">
+            <div id="title">
+                tkScenarist - screenwriting made simpler
+            </div> <!-- id: title -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+            <div id="contents">
+                <h1>App by tabs</h1>
+<h2><a name="scenario-tab"/>'Scenario' tab</h2>
+<h2><a name="summary"/>Summary</h2>
+<ul>
+<li><a href="#screenshot">Screenshot</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#browser">Scene browser</a></li>
+<li><a href="#editor">Scenario's text editor</a><ul>
+<li><a href="#composition">Composition</a></li>
+<li><a href="#elements">Scenario elements</a></li>
+<li><a href="#switch_create">Elements chaining process</a></li>
+<li><a href="#detection">Character name detection</a></li>
+<li><a href="#features">Editing features</a></li>
+</ul>
+</li>
+<li><a href="#information">Info frame zone</a></li>
+</ul>
+</li>
+<li><a href="#finally">Finally</a></li>
+<li><a href="#quick-nav">Quick nav</a></li>
+</ul>
+<h2><a name="screenshot"/>Screenshot</h2>
+<p><img alt="image" src="../../images/screenshots/screenshot-008.png"></p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h2><a name="introduction"/>Introduction</h2>
+<p>This app tab allows scenario script writing, which is the heart of this
+software.</p>
+<p>It is composed of:</p>
+<ol>
+<li>a scene browser, on left side;</li>
+<li>a scenario text editor, at center;</li>
+<li>an info frame zone, on right side.</li>
+</ol>
+<p>All section panes are <strong>resizable</strong>: put mouse pointer between each
+pane, then click and drag sash to get desired size.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h2><a name="usage"/>Usage</h2>
+<h3><a name="browser"/>Scene browser</h3>
+<p>Scene browser fills out automatically while scripting new scenes into
+the text editor.</p>
+<p>Click on a list item to jump from scene to scene.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="editor"/>Scenario's text editor</h3>
+<h4><a name="composition"/>Composition</h4>
+<p>The scenario text editor is composed of:</p>
+<ol>
+<li>a scenario elements dropdown list;</li>
+<li>an element chaining indicator display;</li>
+<li>the actual text editor itself.</li>
+</ol>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="elements"/>Scenario elements</h4>
+<p>Scenario script writing follows many strict policies one may identify
+through <strong>Scenario Elements</strong>.</p>
+<p>The present software has deliberately chosen to keep only the
+followings:</p>
+<ol>
+<li><strong>Scene</strong>: this element identifies the main step of script writing,
+something like a short chapter;</li>
+<li><strong>Action</strong>: this element identifies any action into a given scene,
+something like an usual paragraph;</li>
+<li><strong>Character</strong>: this element identifies the moment a character begins
+to talk; it is a dialogue starting point;</li>
+<li><strong>Parenthetical</strong>: this element identifies dialogue indications just
+before talking takes place;</li>
+<li><strong>Dialogue</strong>: this element identifies the talking itself into a
+dialogue process;</li>
+<li><strong>Transition</strong>: this element identifies a technical transition before
+or after the beginning of a new scene;</li>
+</ol>
+<p><strong>Notice</strong>: <em>Transition</em> element is not really recommended for
+professionally-oriented documents.</p>
+<p>The scenario editor has a dropdown list one may use in some case to
+apply a given element to the text line where the insertion cursor
+resides at this moment.</p>
+<p>Please, note it is highly recommended to better use the <a href="#switch_create">elements
+chaining process</a> instead of this.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="switch_create"/>Elements chaining process</h4>
+<p>Scenario editor has a dynamic indicator display showing how to use
+<strong>elements chaining process</strong> efficiently.</p>
+<p>This indicator shows what will happen if you press one of <code>&lt;Tab&gt;</code>,
+<code>&lt;Return&gt;</code> or <code>&lt;Ctrl-Return&gt;</code> chaining keys on your keyboard.</p>
+<p>When the insertion cursor is into an <em>EMPTY</em> line, this empty line will
+<em>SWITCH</em> to the element indicated by the display.</p>
+<p>When the insertion cursor is into a <em>NON-EMPTY</em> line, it will <em>CREATE</em>
+a new following line with the element indicated by the display.</p>
+<p>Please, note when there is nothing indicated for a given keystroke,
+this means <strong>nothing will happen</strong> if you hit this key at this moment.</p>
+<p>People willing to customize scenario elements chaining process or
+elements paragraph look'n'feel may consider using the
+<a href="en_tools_scenario_elements_editor.html">Scenario Elements Editor (SEE)</a>.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="detection"/>Character name detection</h4>
+<p>The scenario editor comes with a character name detection algorithm
+which even recognizes long composed names e.g. 'PIERRE-HENRI DE
+MORTE-FONTAINE CHÂTEAUROUX'.</p>
+<p>You have nothing to do more than simply type your text the way you
+like. If the algorithm detects in your words something like a
+registered character name, it will pop down an autocompletion list
+allowing you to choose between all matching names.</p>
+<p>Autocompletion feature is a real time-spare feature in some cases.</p>
+<p>Use arrow keys to select desired character name into the completion
+list and then press <code>&lt;Return&gt;</code> (or <code>&lt;Tab&gt;</code>) key to insert it into your
+text script.</p>
+<p>Press <code>&lt;Escape&gt;</code> key if you don't want to bother with this feature or
+simply go on writing without taking care more than this.</p>
+<p>Character names are always inserted in uppercase: this is a script
+writing policy.</p>
+<p>Feel free to use another name detection feature: when typing a new
+unregistered character name into a <code>Character</code> element line i.e. while
+starting a dialogue, the software will automagically register this new
+name into the character names database.</p>
+<p>All name detection features show up detected character name's history
+log on right side, each time <em>THERE IS</em> something to display, of
+course.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="features"/>Editing features</h4>
+<p>The scenario text editor is somehow a specific <strong>plain text editor</strong>,
+but for major things, it acts exactly the same way as generic plain
+text editors.</p>
+<p>This object allows multiple line editing with carriage return,
+undo/redo stack and many other features.</p>
+<p>Pressing on the carriage return key will insert a new <strong>paragraph</strong>.</p>
+<p>Double-clicking on a word will select <strong>this word only</strong>.</p>
+<p>Triple-clicking on a word will select <strong>the whole paragraph</strong>.</p>
+<p>You may <strong>select all text</strong> (in paragraph only) by using <code>Edit &gt; Select
+all</code> menu option or with <code>&lt;Ctrl-A&gt;</code> keyboard shortcut.</p>
+<p>Any selection band is likely to be replaced by the next keystroke on
+the keyboard.</p>
+<p>To <strong>undo</strong> last operation, either use <code>Edit &gt; Undo</code> menu option or try
+<code>&lt;Ctrl-Z&gt;</code> keyboard shortcut.</p>
+<p>To <strong>redo</strong> last cancelled operation, either use <code>Edit &gt; Redo</code> menu
+option or try <code>&lt;Ctrl-Shift-Z&gt;</code> keyboard shortcut.</p>
+<p>Please, note undo/redo features are <em>NOT</em> guaranteed to work in all
+case.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="information"/>Info frame zone</h3>
+<p>The information frame zone displays automatic hints, detected character
+name's history log and few stats data.</p>
+<p>Please, note these data are only <strong>estimations</strong>, they do <em>NOT</em> reflect
+any reality.</p>
+<p>You will find more accurate data while
+<a href="en_app_topmenu.html#project_export_pdf">exporting your project</a> into some
+PDF&reg; documents.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h2><a name="finally"/>Finally</h2>
+<p><strong>IMPORTANT</strong>: don't forget to <strong>save your project</strong> regularily, either
+with <code>Project &gt; Save</code> menu option or with <code>&lt;Ctrl-S&gt;</code> keyboard shortcut.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<hr>
+<h4><a name="quick-nav"/>Quick nav</h4>
+<ul>
+<li><strong>App by tabs</strong><ul>
+<li><a href="en_tab_title_data.html">'Title/Data' tab</a></li>
+<li><a href="en_tab_draft_notes.html">'Draft/Notes' tab</a></li>
+<li><a href="en_tab_pitch_concept.html">'Pitch/Concept' tab</a></li>
+<li><a href="en_tab_characters.html">'Characters' tab</a></li>
+<li><a href="en_tab_scenario.html">'Scenario' tab</a></li>
+<li><a href="en_tab_storyboard.html">'Storyboard' tab</a></li>
+<li><a href="en_tab_resources.html">'Resources' tab</a></li>
+</ul>
+</li>
+<li><strong>Extra tools</strong><ul>
+<li><a href="en_tools_name_db.html">Name database</a></li>
+<li><a href="en_tools_pitch_templates.html">Story/pitch templates</a></li>
+<li><a href="en_tools_scenario_elements_editor.html">Scenario Elements Editor (SEE)</a></li>
+</ul>
+</li>
+</ul>
+<p>Return to <a href="index.html">homepage</a>.</p>
+            </div> <!-- id: contents -->
+            <div id="nav">
+                [return to <a href="index.html">Homepage</a>]
+            </div> <!-- id: nav -->
+        </div> <!-- id: page -->
+    </body>
+</html>

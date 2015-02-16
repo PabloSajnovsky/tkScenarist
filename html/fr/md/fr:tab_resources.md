@@ -1,7 +1,7 @@
 
 # L'application par ses onglets
 
-## Onglet 'Ressources'
+## <a name="onglet-ressources"/>Onglet 'Ressources'
 
 ## <a name="sommaire"/>Sommaire
 
@@ -66,7 +66,7 @@ souris pour obtenir le redimensionnement escompté.
 Retourner au [sommaire](#sommaire).
 
 
-## Utilisation
+## <a name="utilisation"/>Utilisation
 
 ### <a name="resources_zone"/>Zone 'Ressources'
 
@@ -392,7 +392,7 @@ correspondant au couplage successif des touches `Ctrl`, `Shift`
 Retourner au [sommaire](#sommaire).
 
 
-# <a name="pour-finir"/>Pour finir
+## <a name="pour-finir"/>Pour finir
 
 **IMPORTANT**&nbsp;: afin de vous préserver de toute mauvaise surprise,
 pensez à **sauvegarder régulièrement votre projet**, soit en utilisant

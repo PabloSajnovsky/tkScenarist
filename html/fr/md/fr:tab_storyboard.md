@@ -1,7 +1,7 @@
 
 # L'application par ses onglets
 
-## Onglet 'Storyboard'
+## <a name="onglet-storyboard"/>Onglet 'Storyboard'
 
 ## <a name="sommaire"/>Sommaire
 
@@ -54,7 +54,7 @@ souris pour obtenir le redimensionnement escompté.
 Retourner au [sommaire](#sommaire).
 
 
-## Utilisation
+## <a name="utilisation"/>Utilisation
 
 ### <a name="scene_nav"/>Navigateur de scènes et aperçu
 
@@ -273,7 +273,7 @@ votre onglet de travail actuel.
 Retourner au [sommaire](#sommaire).
 
 
-# <a name="pour-finir"/>Pour finir
+## <a name="pour-finir"/>Pour finir
 
 **IMPORTANT**&nbsp;: afin de vous préserver de toute mauvaise surprise,
 pensez à **sauvegarder régulièrement votre projet**, soit en utilisant

@@ -20,7 +20,31 @@
 <ul>
 <li><a href="#screenshot">Screenshot</a></li>
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#usage">Usage</a></li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#resources_zone">'Resources' pane</a><ul>
+<li><a href="#combos">Resource dropdown lists</a></li>
+<li><a href="#items_nav">Item browser</a></li>
+<li><a href="#items_add">Adding an item</a></li>
+<li><a href="#items_fill_out">Filling out item's form</a></li>
+<li><a href="#items_rename">Renaming an item</a></li>
+<li><a href="#items_del">Deleting an item</a></li>
+</ul>
+</li>
+<li><a href="#planning_zone">'Planning' pane</a><ul>
+<li><a href="#screenshot2">Screenshot</a></li>
+<li><a href="#dates_add">Adding a date bar</a></li>
+<li><a href="#dates_edit">Updating a date bar</a></li>
+<li><a href="#dates_del">Deleting a date bar</a></li>
+<li><a href="#dates_scale">Changing time scale</a></li>
+</ul>
+</li>
+<li><a href="#data_zone">'Data' pane</a><ul>
+<li><a href="#data_fields">Form fields</a></li>
+<li><a href="#data_notes">Notes text zone</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a href="#finally">Finally</a></li>
 <li><a href="#quick-nav">Quick nav</a></li>
 </ul>
@@ -28,14 +52,136 @@
 <p><img alt="image" src="../../images/screenshots/screenshot-011.png"></p>
 <p>Return to <a href="#summary">summary</a>.</p>
 <h2><a name="introduction"/>Introduction</h2>
-<p><em>TODO</em></p>
+<p>This app tab allows multiple resources management.</p>
+<p>It is an independent part of the software you may use as if you like.</p>
+<p>It is composed of:</p>
+<ol>
+<li>a 'Resources' pane, on top left side;</li>
+<li>a 'Planning' pane, on top right side;</li>
+<li>a 'Data' pane, on bottom right side.</li>
+</ol>
+<p>All section panes are <strong>resizable</strong>: put mouse pointer between each
+pane, then click and drag sash to get desired size.</p>
 <p>Return to <a href="#summary">summary</a>.</p>
 <h2><a name="usage"/>Usage</h2>
-<p><em>TODO</em></p>
+<h3><a name="resources_zone"/>'Resources' pane</h3>
+<h4><a name="combos"/>Resource dropdown lists</h4>
+<p>The 'Type' and 'Section' selectors are dropdown lists.</p>
+<p>Click on right side arrowed button to get list of choices and to select
+a given item.</p>
+<p>Click on <code>+</code> button underneath to add a new resource item.</p>
+<p>Click on <code>Rename</code> button to rename selected list item.</p>
+<p>Click on <code>-</code> button to delete selected resource item.</p>
+<p>A confirmation dialog will popup before deleting definitely.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="items_nav"/>Item browser</h4>
+<p>The 'Item' choicelist is an open list of choices.</p>
+<p>Its content depends on selections made into 'Type' and 'Section'
+dropdown lists.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="items_add"/>Adding an item</h4>
+<p>Click on <code>+</code> button underneath the list box to add a new resource item.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="items_fill_out"/>Filling out item's form</h4>
+<p>Click into each form entry (white text zone) and <a href="#data_zone">fill out</a> with relevant data.</p>
+<p>Please, note this item data form manages with <strong>automatic backup</strong>
+feature: anything you enter into form fields will be automatically
+saved into software's memory. However, this does not exempt you from
+saving your project file regularly.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="items_rename"/>Renaming an item</h4>
+<p>Select the desired item into the 'Item' list box and then click on
+<code>Rename</code> button to rename this item.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="items_del"/>Deleting an item</h4>
+<p>Select the desired item into the 'Item' list box and then click on <code>-</code>
+button.</p>
+<p>A confirmation dialog will popup before deleting definitely.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="planning_zone"/>'Planning' pane</h3>
+<h4><a name="screenshot2"/>Screenshot</h4>
+<p><img alt="image" src="../../images/screenshots/screenshot-012.png"></p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="dates_add"/>Adding a date bar</h4>
+<p>Simply double-click on a canvas empty zone (no date bars underneath),
+at resource item's label level.</p>
+<p>An input dialog will then popup to help you filling out date intervals
+and resource availability.</p>
+<p>Please, note <strong>date overlappings</strong> are under user's entire
+responsibility. This software is <em>NOT</em> a resource planner expert.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="dates_edit"/>Updating a date bar</h4>
+<p>Double-click on the desired date bar, whatever colour is.</p>
+<p>An input dialog will then popup to help you filling out date intervals
+and resource availability.</p>
+<p>Please, note <strong>date overlappings</strong> are under user's entire
+responsibility. This software is <em>NOT</em> a resource planner expert.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="dates_del"/>Deleting a date bar</h4>
+<p>Do a <code>&lt;Ctrl-Click&gt;</code> onto desired date bar on the canvas.</p>
+<p>This may be obtained by clicking on target while pressing <code>&lt;Ctrl&gt;</code> key
+down on your keyboard.</p>
+<p>A confirmation dialog will popup before deleting definitely.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="dates_scale"/>Changing time scale</h4>
+<p>To change canvas time scale, hover mouse pointer over the canvas, press
+<code>Ctrl</code> key down and then roll up or down mouse wheel.</p>
+<p>At this time, <code>tkScenarist</code> software has the following time scales:</p>
+<ol>
+<li><strong>Days</strong>: dates are shown day after day;</li>
+<li><strong>Weeks</strong>: dates are shown week after week;</li>
+<li><strong>Months</strong>: dates are shown month after month.</li>
+</ol>
+<p>Each time scale update will automatically redraw <em>ALL</em> present date
+bars, which may take a while under particular circumstances.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="data_zone"/>'Data' pane</h3>
+<p>The 'Data' pane is essentially an item data form, with text entries
+(form fields) and a big text zone for personal notes.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="data_fields"/>Form fields</h4>
+<p>Item data form fields are:</p>
+<ol>
+<li><strong>Name</strong>: specific name for the selected resource item; this could
+be a person name, an object name or whatever could be useful to better
+identify the resource item;</li>
+<li><strong>Role</strong>: some resource items need to give a more specific role than
+the entitled one;</li>
+<li><strong>Contact</strong>: name of the person to contact about this resource item;</li>
+<li><strong>Phone</strong>: contact's phone number;</li>
+<li><strong>E-mail</strong>: contact's e-mail address.</li>
+</ol>
+<p>Click on each form entry (white zone) and type any relevant data you
+need for the selected resource item.</p>
+<p>Form fields/entries are <strong>one-line</strong> editing zones: it is <em>NOT</em>
+possible to use carriage return on them.</p>
+<p>Double-clicking on a word will select <strong>this word only</strong>.</p>
+<p>Triple-clicking on a word will select <strong>the whole line</strong>.</p>
+<p>You may select all text in a form entry either by using <code>Edit &gt; Select
+all</code> menu option or with <code>&lt;Ctrl-A&gt;</code> keyboard shortcut.</p>
+<p>Any selection band is likely to be replaced by the next keystroke on
+the keyboard.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="data_notes"/>Notes text zone</h4>
+<p>The 'Notes' text zone is also an input part of resource item's data
+form.</p>
+<p>This big white zone is called a <strong>plain text editor</strong>.</p>
+<p>This object allows multiple line editing with carriage return,
+undo/redo stack and many other features.</p>
+<p>Pressing on the carriage return key will insert a new <strong>paragraph</strong>.</p>
+<p>Double-clicking on a word will select <strong>this word only</strong>.</p>
+<p>Triple-clicking on a word will select <strong>the whole paragraph</strong>.</p>
+<p>You may <strong>select all text</strong> by using <code>Edit &gt; Select all</code> menu option or
+with <code>&lt;Ctrl-A&gt;</code> keyboard shortcut.</p>
+<p>Any selection band is likely to be replaced by the next keystroke on
+the keyboard.</p>
+<p>To <strong>undo</strong> last operation, either use <code>Edit &gt; Undo</code> menu option or try
+<code>&lt;Ctrl-Z&gt;</code> keyboard shortcut.</p>
+<p>To <strong>redo</strong> last cancelled operation, either use <code>Edit &gt; Redo</code> menu
+option or try <code>&lt;Ctrl-Shift-Z&gt;</code> keyboard shortcut.</p>
 <p>Return to <a href="#summary">summary</a>.</p>
 <h2><a name="finally"/>Finally</h2>
-<p><em>TODO</em></p>
-<p><strong>IMPORTANT</strong>: don't forget to <strong>save your project</strong> regularily, either
+<p><strong>IMPORTANT</strong>: don't forget to <strong>save your project</strong> regularly, either
 with <code>Project &gt; Save</code> menu option or with <code>&lt;Ctrl-S&gt;</code> keyboard shortcut.</p>
 <p>Return to <a href="#summary">summary</a>.</p>
 <hr>

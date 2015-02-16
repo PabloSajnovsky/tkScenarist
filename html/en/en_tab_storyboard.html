@@ -20,7 +20,23 @@
 <ul>
 <li><a href="#screenshot">Screenshot</a></li>
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#usage">Usage</a></li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#scene_nav">Scene browser and preview</a></li>
+<li><a href="#shot_list">Shot list</a><ul>
+<li><a href="#shot_add">Adding a shot</a></li>
+<li><a href="#shot_del">Deleting a shot</a></li>
+<li><a href="#shot_purge">List purge</a></li>
+</ul>
+</li>
+<li><a href="#shot_editor">Shot editor</a><ul>
+<li><a href="#shot_number">Shot number</a></li>
+<li><a href="#shot_title">Shot title</a></li>
+<li><a href="#shot_text">Shot text</a></li>
+</ul>
+</li>
+<li><a href="#char_info">Character history logs</a></li>
+</ul>
+</li>
 <li><a href="#finally">Finally</a></li>
 <li><a href="#quick-nav">Quick nav</a></li>
 </ul>
@@ -28,14 +44,80 @@
 <p><img alt="image" src="../../images/screenshots/screenshot-010.png"></p>
 <p>Return to <a href="#summary">summary</a>.</p>
 <h2><a name="introduction"/>Introduction</h2>
-<p><em>TODO</em></p>
+<p>This app tab is intended to help writing shot details of scenario
+(storyboard).</p>
+<p>It is composed of:</p>
+<ol>
+<li>a navigation pane, on left side;</li>
+<li>a storyboard pane, at center;</li>
+<li>a character history log pane, on right side.</li>
+</ol>
+<p>All section panes are <strong>resizable</strong>: put mouse pointer between each
+pane, then click and drag sash to get desired size.</p>
 <p>Return to <a href="#summary">summary</a>.</p>
 <h2><a name="usage"/>Usage</h2>
-<p><em>TODO</em></p>
+<h3><a name="scene_nav"/>Scene browser and preview</h3>
+<p>Scene browser fills out automatically while scripting new scenes into
+<a href="en_tab_scenario.html">scenario's</a> text editor.</p>
+<p>Click on a list item to get its scene preview.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="shot_list"/>Shot list</h3>
+<p>Shot list content depends on <a href="#scene_nav">scene browser's</a> current
+selected item.</p>
+<h4><a name="shot_add"/>Adding a shot</h4>
+<p>Select first the desired scene into the scene browser, then click on
+<code>+</code> button to add a new shot item for this scene.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="shot_del"/>Deleting a shot</h4>
+<p>Select first the desired scene into the scene browser, select the
+concerned shot item in its shot list and then click on <code>-</code> button to
+delete this shot item for this scene.</p>
+<p>A confirmation dialog will popup before deleting definitely.</p>
+<p>Please, note empty shot items will delete without confirmation dialog.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="shot_purge"/>List purge</h4>
+<p>To purge shot list from empty shot items, select first the desired
+scene into the scene browser, then click on <code>Purge</code> button.</p>
+<p>A confirmation dialog will popup before deleting definitely.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="shot_editor"/>Shot editor</h3>
+<p>The shot editing form is composed of a shot number label, a shot title
+entry and a text editor.</p>
+<h4><a name="shot_number"/>Shot number</h4>
+<p>Shot number is formatted along <code>#{scene_index}.{shot_index}</code> template
+string.</p>
+<p>Numbering is automatic and may sometimes be subject to discontinuity,
+but <a href="en_app_topmenu.html#project_export_pdf">exporting</a> storyboard to
+PDF&reg; will renumber shots correctly in output document.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="shot_title"/>Shot title</h4>
+<p>Click into the white text entry to fill out shot's title.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="shot_text"/>Shot text</h4>
+<p>Click onto the white text zone to fill out shot text contents.</p>
+<p>The big white zone is called a <strong>plain text editor</strong>.</p>
+<p>This text editor especially supports character names
+<a href="en_tab_scenario.html#detection">detection</a>.</p>
+<p>This object allows multiple line editing with carriage return,
+undo/redo stack and many other features.</p>
+<p>Pressing on the carriage return key will insert a new <strong>paragraph</strong>.</p>
+<p>Double-clicking on a word will select <strong>this word only</strong>.</p>
+<p>Triple-clicking on a word will select <strong>the whole paragraph</strong>.</p>
+<p>You may <strong>select all text</strong> by using <code>Edit &gt; Select all</code> menu option or
+with <code>&lt;Ctrl-A&gt;</code> keyboard shortcut.</p>
+<p>Any selection band is likely to be replaced by the next keystroke on
+the keyboard.</p>
+<p>To <strong>undo</strong> last operation, either use <code>Edit &gt; Undo</code> menu option or try
+<code>&lt;Ctrl-Z&gt;</code> keyboard shortcut.</p>
+<p>To <strong>redo</strong> last cancelled operation, either use <code>Edit &gt; Redo</code> menu
+option or try <code>&lt;Ctrl-Shift-Z&gt;</code> keyboard shortcut.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="char_info"/>Character history logs</h3>
+<p>Select a character name into upper name list and get character's
+history log underneath.</p>
 <p>Return to <a href="#summary">summary</a>.</p>
 <h2><a name="finally"/>Finally</h2>
-<p><em>TODO</em></p>
-<p><strong>IMPORTANT</strong>: don't forget to <strong>save your project</strong> regularily, either
+<p><strong>IMPORTANT</strong>: don't forget to <strong>save your project</strong> regularly, either
 with <code>Project &gt; Save</code> menu option or with <code>&lt;Ctrl-S&gt;</code> keyboard shortcut.</p>
 <p>Return to <a href="#summary">summary</a>.</p>
 <hr>

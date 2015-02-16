@@ -64,7 +64,7 @@ Return to [summary](#summary).
 
 ## <a name="finally"/>Finally
 
-**IMPORTANT**: don't forget to **save your project** regularily, either
+**IMPORTANT**: don't forget to **save your project** regularly, either
 with `Project > Save` menu option or with `<Ctrl-S>` keyboard shortcut.
 
 Return to [summary](#summary).

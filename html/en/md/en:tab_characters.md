@@ -130,8 +130,8 @@ option or try `<Ctrl-Shift-Z>` keyboard shortcut.
 
 Please, note this text editor manages with **automatic backup**
 feature: anything you enter into this object will be automatically
-saved into software's memory. However, this does not exempt you to save
-your project's file regularily.
+saved into software's memory. However, this does not exempt you from
+saving your project file regularly.
 
 Return to [summary](#summary).
 
@@ -165,7 +165,7 @@ Return to [summary](#summary).
 Do a `<Ctrl-Click>` onto desired character name label on the canvas.
 
 This may be obtained by clicking on target while pressing `<Ctrl>` key
-on your keyboard.
+down on your keyboard.
 
 A confirmation dialog will popup before deleting definitely.
 
@@ -226,7 +226,7 @@ One may browse easily into relationships canvas by clicking onto an
 empty zone (grey zone), moving mouse to the desired direction and then
 releasing mouse click when arrived.
 
-**IMPORTANT**: don't forget to **save your project** regularily, either
+**IMPORTANT**: don't forget to **save your project** regularly, either
 with `Project > Save` menu option or with `<Ctrl-S>` keyboard shortcut.
 
 Return to [summary](#summary).

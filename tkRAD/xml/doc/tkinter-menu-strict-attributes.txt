@@ -1,5 +1,0 @@
-activeborderwidth
-postcommand
-tearoff
-tearoffcommand
-title

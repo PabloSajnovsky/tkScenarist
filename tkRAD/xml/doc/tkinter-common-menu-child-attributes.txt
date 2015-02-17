@@ -1,6 +1,0 @@
-activebackground
-activeforeground
-background
-font
-foreground
-selectcolor

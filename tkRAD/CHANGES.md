@@ -14,6 +14,85 @@
 ## CHANGELOG
 
 
+### $ 2015-02-17 RS $
+
+* released **tkRAD v1.6.5 - Florilège**;
+
+
+### $ 2015-02-15 RS $
+
+* in `tkRAD.core.database`:
+
+    * added new `dump_data()` and `dump_data_formatter()` utility
+    methods: fancier output look'n'feel and stream output ability e.g.
+    sys.stdout or file output, for better data dump logging;
+
+    * improved `dump_tables` utility method: now using iteration on
+    `dump_data()` method for more efficiency;
+
+
+### $ 2015-01-27 RS $
+
+* in `tkRAD.core.i18n`:
+
+    * added new `dump_pot_file()` function:
+
+        * now users may directly obtain a POT translation template file
+        in `^/locale/template.pot` when calling `import tkRAD` and then
+        `tkRAD.i18n.dump_pot_file()` e.g. just before quitting their
+        app;
+
+        * each `_("text to translate")` or each `_(my_var)` entry in
+        user's program is now automatically tracked, in order to be
+        later dumped into the POT file, on user's demand;
+
+        * caution: this technique does *NOT* guarantee a *FULL*
+        translation template file. As each `_(...)` request may occur
+        during runtime, only executed requests will be automatically
+        registered. For more acute search and retrieval on overall
+        project entries, one may consider using `xgettext` tools or
+        something alike;
+
+
+### $ 2015-01-18 RS $
+
+* in `RADWidgetBase`:
+
+    * added new `get_rc_section()` method: now users may access to
+    default official RC section name of a given class in use;
+
+
+### $ 2015-01-16 RS $
+
+* in `RADWidgetBase`:
+
+    * added new `enable()`, `enable_widget()`, `enabled()` and
+    `widget_enabled()` methods;
+
+* in `RADButtonsDialog`:
+
+    * added button automatic registering in `set_buttons()` method:
+
+        * now any buttonbar's newly created button widget is stored
+        into `self.WBUTTONS` dictionary;
+
+        * button names are the same as declared into `self.BUTTONS`
+        name list (case-sensitive);
+
+        * one may access buttonbar's button widget through
+        `self.WBUTTONS[button_name]` in his code;
+
+    * added new `disable_button()`, `enable_button()` methods;
+
+
+### $ 2014-12-10 RS $
+
+* in `RADXMLWidget`:
+
+    * added new `_parse_attr_fieldbackground()` embedding
+    `tkRAD.color.support`;
+
+
 ### $ 2014-12-06 RS $
 
 * released **tkRAD v1.6.4 - Dialog Discuss**;

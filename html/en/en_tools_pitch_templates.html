@@ -19,7 +19,16 @@
 <ul>
 <li><a href="#screenshot">Screenshot</a></li>
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#usage">Usage</a></li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#template_get">Picking up a template</a></li>
+<li><a href="#template_add">Adding a template</a></li>
+<li><a href="#template_edit">Updating a template</a></li>
+<li><a href="#template_del">Deleting a template</a></li>
+<li><a href="#template_browse">Changing templates directory</a></li>
+<li><a href="#template_reset">Resetting to default directory</a></li>
+<li><a href="#template_options">Options</a></li>
+</ul>
+</li>
 <li><a href="#finally">Finally</a></li>
 <li><a href="#quick-nav">Quick nav</a></li>
 </ul>
@@ -27,13 +36,67 @@
 <p><img alt="image" src="../../images/screenshots/screenshot-004.png"></p>
 <p>Return to <a href="#summary">summary</a>.</p>
 <h2><a name="introduction"/>Introduction</h2>
-<p><em>TODO</em></p>
+<p>This tool allows to pick up available pitch/story templates for project
+startups. It also allows to create new templates and/or edit existing
+ones.</p>
+<p>It is composed of:</p>
+<ol>
+<li>a 'Templates' pane, on top left side;</li>
+<li>a 'Preview' pane, just underneath;</li>
+<li>an 'Edition' pane, on right side;</li>
+<li>an 'Options' pane, on bottom end.</li>
+</ol>
+<p>Extra tool panes are <em>NOT</em> resizable.</p>
 <p>Return to <a href="#summary">summary</a>.</p>
 <h2><a name="usage"/>Usage</h2>
-<p><em>TODO</em></p>
+<h3><a name="template_get"/>Picking up a template</h3>
+<p>Select a template name into the 'Templates' list box, eventually
+check/uncheck some options, then click onto <code>OK</code> button to confirm your
+request.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="template_add"/>Adding a template</h3>
+<p>Click on <code>Add new</code> button, then choose a filename into file dialog.</p>
+<p>Please, note changing current working directory's location with this
+file dialog will <strong>actually change</strong> templates working directory for
+any future template script as well.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="template_edit"/>Updating a template</h3>
+<p>Select a template name into the 'Templates' list box, then click into
+the text area (white zone) of 'Preview' pane.</p>
+<p>This big white zone is called a <strong>plain text editor</strong>.</p>
+<p>This text editor especially supports <strong>automatic backup</strong> feature:
+anything you type in will be automatically saved into its dedicated
+file.</p>
+<p>This object allows multiple line editing with carriage return,
+undo/redo stack and many other features.</p>
+<p>Pressing on the carriage return key will insert a new <strong>paragraph</strong>.</p>
+<p>Double-clicking on a word will select <strong>this word only</strong>.</p>
+<p>Triple-clicking on a word will select <strong>the whole paragraph</strong>.</p>
+<p>You may <strong>select all text</strong> by using <code>&lt;Ctrl-A&gt;</code> keyboard shortcut.</p>
+<p>Any selection band is likely to be replaced by the next keystroke on
+the keyboard.</p>
+<p>To <strong>undo</strong> last operation, try <code>&lt;Ctrl-Z&gt;</code> keyboard shortcut.</p>
+<p>To <strong>redo</strong> last cancelled operation, try <code>&lt;Ctrl-Shift-Z&gt;</code> keyboard
+shortcut.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="template_del"/>Deleting a template</h3>
+<p>Select a template name into the 'Templates' list box, then click on
+<code>Delete</code> button.</p>
+<p>A confirmation dialog will popup before deleting definitely.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="template_browse"/>Changing templates directory</h3>
+<p>Click on <code>Browse</code> button, then choose a new templates working directory
+into the file dialog.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="template_reset"/>Resetting to default directory</h3>
+<p>Click on <code>Reset to default dir</code> to rollback immediately to
+application's default templates working directory.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="template_options"/>Options</h3>
+<p>Check or uncheck options to meet your needs.</p>
+<p>Checked options will be taken in account, unchecked won't.</p>
 <p>Return to <a href="#summary">summary</a>.</p>
 <h2><a name="finally"/>Finally</h2>
-<p><em>TODO</em></p>
 <p><strong>IMPORTANT</strong>: don't forget to <strong>save your project</strong> regularly, either
 with <code>Project &gt; Save</code> menu option or with <code>&lt;Ctrl-S&gt;</code> keyboard shortcut.</p>
 <p>Return to <a href="#summary">summary</a>.</p>

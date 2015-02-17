@@ -3,11 +3,6 @@
 
 ## <a name="official-documentation"/>Official documentation
 
-> **Notice** : this wiki documentation is currently **Work in
-Progress** (WIP). Thank you to come back frequently to discover the
-latest news.
-
-
 ### <a name="introduction"/>Introduction
 
 **tkScenarist** is a simple Python3/Tkinter application aiming to make

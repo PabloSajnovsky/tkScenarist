@@ -19,7 +19,15 @@
 <ul>
 <li><a href="#screenshot">Screenshot</a></li>
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#usage">Usage</a></li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#search">'Search' pane</a></li>
+<li><a href="#tools">'Tools' pane</a><ul>
+<li><a href="#browse_results">Browsing results</a></li>
+<li><a href="#file_import">Importing a CSV file</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a href="#finally">Finally</a></li>
 <li><a href="#quick-nav">Quick nav</a></li>
 </ul>
@@ -27,13 +35,58 @@
 <p><img alt="image" src="../../images/screenshots/screenshot-006.png"></p>
 <p>Return to <a href="#summary">summary</a>.</p>
 <h2><a name="introduction"/>Introduction</h2>
-<p><em>TODO</em></p>
+<p>This tool is aimed to ease character name search among thousands of
+names coming from all over the world.</p>
+<p>It is composed of:</p>
+<ol>
+<li>a Database view, on left side;</li>
+<li>a 'Search' pane, on top right side;</li>
+<li>a 'Tools' pane, on bottom right side.</li>
+</ol>
+<p>Extra tool panes are <em>NOT</em> resizable.</p>
 <p>Return to <a href="#summary">summary</a>.</p>
 <h2><a name="usage"/>Usage</h2>
-<p><em>TODO</em></p>
+<h3><a name="search"/>'Search' pane</h3>
+<p>By default, all data are shown off without any criteria.</p>
+<p>To set a DB query, click on one of <code>contains</code>, <code>starts with</code>, <code>ends
+with</code> or <code>matches exactly</code> choice buttons, fill out the mention entry
+text, eventually choose which mention (e.g. name, origin, description)
+should be concerned, select which type of name you wish (male, female,
+both, none) and then wait for automatic query submission.</p>
+<p>Each time you make a change into criteria, the automatic query
+submission maechanism fires up after <strong>about half a second</strong>.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="tools"/>'Tools' pane</h3>
+<h4><a name="browse_results"/>Browsing results</h4>
+<p>Once you got query results, you can browse each page by clicking on one
+of <code>Show first</code> (page), <code>Show previous</code>, <code>Show next</code> buttons in 'Tools'
+pane.</p>
+<p>Please, note numerous number of result pages is generally symptomatic
+of too imprecise DB query. One should refine criteria to get something
+more accurate.</p>
+<p>Also note each time criteria are changed, the DB query result view is
+<strong>reset to first page</strong> of new results.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="file_import"/>Importing a CSV file</h4>
+<p>Click on <code>Import file (CSV)</code> button at the bottom end of 'Tools' pane.</p>
+<p>An importing dialog tool will then popup to help you in adding new
+names.</p>
+<p><img alt="image" src="../../images/screenshots/screenshot-007.png"></p>
+<p>In this dialog tool:</p>
+<p>Click on <code>Browse</code> button to choose the CSV file you want to import.</p>
+<p><strong>CAUTION</strong>: only <a href="http://tools.ietf.org/html/rfc4180">RFC 4180</a> <em>de
+facto</em> standard <a href="http://en.wikipedia.org/wiki/Comma-separated_values">CSV</a> files are
+supported by <code>tkScenarist</code> software.</p>
+<p>On correct file format, take a look at 'Preview' data contents and then
+verify automatic 'Fields' redirections.</p>
+<p>Fix incorrect 'Fields' redirections, if necessary, then click on
+<code>Import</code> button.</p>
+<p>Importation process is fully automatic.</p>
+<p>Doublets (names in double into DB) are filtered to keep database as
+small as possible.</p>
+<p>Click on dialog's <code>OK</code> button once finished.</p>
 <p>Return to <a href="#summary">summary</a>.</p>
 <h2><a name="finally"/>Finally</h2>
-<p><em>TODO</em></p>
 <p><strong>IMPORTANT</strong>: don't forget to <strong>save your project</strong> regularly, either
 with <code>Project &gt; Save</code> menu option or with <code>&lt;Ctrl-S&gt;</code> keyboard shortcut.</p>
 <p>Return to <a href="#summary">summary</a>.</p>

@@ -6,13 +6,13 @@
 * [Aperçu](#screenshot)
 * [Présentation](#introduction)
 * [Utilisation](#utilisation)
+    * [Récupérer un modèle](#template_get)
     * [Ajouter un modèle](#template_add)
     * [Modifier un modèle](#template_edit)
     * [Supprimer un modèle](#template_del)
     * [Changer le répertoire de modèles](#template_browse)
     * [Restaurer le répertoire par défaut](#template_reset)
     * [Options de copie](#template_options)
-    * [Récupérer un modèle](#template_get)
 * [Pour finir](#pour-finir)
 * [Navigation rapide](#navigation-rapide)
 
@@ -51,6 +51,24 @@ Retourner au [sommaire](#sommaire).
 
 
 ## <a name="utilisation"/>Utilisation
+
+### <a name="template_get"/>Récupérer un modèle
+
+Pour récupérer un modèle d'histoire/pitch en quelques clics de
+souris&nbsp;:
+
+1. Sélectionnez le modèle souhaité dans la liste de modèles située dans
+la zone **Modèles** en haut, à gauche&nbsp;;
+1. Éventuellement, cochez ou décochez les options qui vous intéressent
+dans la zone **Options** située en bas&nbsp;;
+1. Cliquez sur le bouton `OK` tout en bas de l'outil.
+
+**Nota Bene**&nbsp;: si aucun modèle n'est sélectionné dans la zone
+**Modèles** ou si aucune option n'est cochée dans la zone **Options**,
+l'outil refusera de valider votre demande lors du clic sur le bouton
+`OK`.
+
+Retourner au [sommaire](#sommaire).
 
 ### <a name="template_add"/>Ajouter un modèle
 
@@ -186,24 +204,6 @@ sur la case à cocher située à gauche de ce texte.
 
 Selon ce qu'affiche la case à cocher de l'option, l'option sera
 sélectionnée (case cochée) ou désélectionnée (case décochée).
-
-Retourner au [sommaire](#sommaire).
-
-### <a name="template_get"/>Récupérer un modèle
-
-Pour récupérer un modèle d'histoire/pitch en quelques clics de
-souris&nbsp;:
-
-1. Sélectionnez le modèle souhaité dans la liste de modèles située dans
-la zone **Modèles** en haut, à gauche&nbsp;;
-1. Éventuellement, cochez ou décochez les options qui vous intéressent
-dans la zone **Options** située en bas&nbsp;;
-1. Cliquez sur le bouton `OK` tout en bas de l'outil.
-
-**Nota Bene**&nbsp;: si aucun modèle n'est sélectionné dans la zone
-**Modèles** ou si aucune option n'est cochée dans la zone **Options**,
-l'outil refusera de valider votre demande lors du clic sur le bouton
-`OK`.
 
 Retourner au [sommaire](#sommaire).
 

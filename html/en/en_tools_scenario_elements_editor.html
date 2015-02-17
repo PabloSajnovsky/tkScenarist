@@ -19,7 +19,30 @@
 <ul>
 <li><a href="#screenshot">Screenshot</a></li>
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#usage">Usage</a></li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#settings_tabs">Settings tabs</a><ul>
+<li><a href="#global_settings">'Global settings' tab</a></li>
+<li><a href="#project_settings">'Project settings' tab</a></li>
+</ul>
+</li>
+<li><a href="#tab_switch">Elements chaining process</a><ul>
+<li><a href="#element_pane">'Element' pane</a></li>
+<li><a href="#actions_pane">'Actions' pane</a></li>
+</ul>
+</li>
+<li><a href="#element_styling">Element styling</a><ul>
+<li><a href="#lnf_pane">'Look'n'feel' pane</a></li>
+<li><a href="#preview_pane">'Preview' pane</a></li>
+</ul>
+</li>
+<li><a href="#dialog_buttons">Dialog buttons</a><ul>
+<li><a href="#ok_button">'OK' button</a></li>
+<li><a href="#reset_button">'Reset to defaults' button</a></li>
+<li><a href="#cancel_button">'Cancel' button</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a href="#finally">Finally</a></li>
 <li><a href="#quick-nav">Quick nav</a></li>
 </ul>
@@ -27,13 +50,143 @@
 <p><img alt="image" src="../../images/screenshots/screenshot-009.png"></p>
 <p>Return to <a href="#summary">summary</a>.</p>
 <h2><a name="introduction"/>Introduction</h2>
-<p><em>TODO</em></p>
+<p>This tool allows to refine scenario elements' chaining process and
+look'n'feel.</p>
+<p>It is composed of stacked panes:</p>
+<ol>
+<li>'Element' pane, on top stack;</li>
+<li>'Actions' pane, just underneath;</li>
+<li>'Look'n'feel' pane;</li>
+<li>and 'Preview' one.</li>
+</ol>
+<p>Extra tool panes are <em>NOT</em> resizable.</p>
+<p><strong>CAUTION</strong>: one may read carefully <a href="en_tab_scenario.html">'Scenario' tab</a>
+documentation page before trying to tune up scenario editor settings.</p>
+<p>Our team <strong>does <em>NOT</em> provide any support</strong> for eventual misuses of
+this extra tool.</p>
 <p>Return to <a href="#summary">summary</a>.</p>
 <h2><a name="usage"/>Usage</h2>
-<p><em>TODO</em></p>
+<h3><a name="settings_tabs"/>Settings tabs</h3>
+<h4><a name="global_settings"/>'Global settings' tab</h4>
+<p>Select this tab before setting up preferences globally to any future
+new project file.</p>
+<p>Please, note <code>Project settings</code> always override <code>Global settings</code> into
+an open project file.</p>
+<p>To see your global settings take in effect, first save current project
+file and then ask for a new one with <code>Project &gt; New</code> option menu or
+with <code>&lt;Ctrl-N&gt;</code> keyboard shortcut.</p>
+<p>People willing to reset all their settings should refer to <a href="#reset_button">'Reset to
+defaults' button</a> page section below.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="project_settings"/>'Project settings' tab</h4>
+<p>Select this tab before setting up preferences <strong>only for the current</strong>
+open project file.</p>
+<p>Please, note <code>Project settings</code> always override <code>Global settings</code> into
+an open project file.</p>
+<p>Each time you save your project file, you also save its <code>Project
+settings</code> within it. Don't get fooled by this.</p>
+<p>People willing to reset all their current project settings should refer
+to <a href="#reset_button">'Reset to defaults' button</a> page section below.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="tab_switch"/>Elements chaining process</h3>
+<p>Please, refer to <a href="en_tab_scenario.html#switch_create">'Scenario' tab</a>
+documentation for more detail on scenario elements chaining process.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="element_pane"/>'Element' pane</h4>
+<p>By default, the dropdown list shows off current selected scenario
+element.</p>
+<p>To select another element to edit, simply click on the arrowed button
+on the right side of the list and select an item into the dropped down
+list.</p>
+<p>One may also select a new element through the <a href="#preview_pane">'Preview' pane</a>.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="actions_pane"/>'Actions' pane</h4>
+<p>Select into each dropdown list of this 'Actions' pane the element you
+wish to get on chaining process for the current selected element in
+'Element' pane.</p>
+<p>Let's say, for example, current selected element is <code>Dialogue</code> (see
+<a href="#screenshot">screenshot</a>).</p>
+<p>What user will get on his scenario text editor?</p>
+<p>If insertion cursor is into an <em>EMPTY</em> line:</p>
+<ul>
+<li>pressing down on <code>&lt;Tab&gt;</code> key will <strong>switch</strong> current empty line from
+<code>Dialogue</code> to <code>Parenthetical</code>;</li>
+<li>pressing down on <code>&lt;Return&gt;</code> key will <strong>do nothing</strong>, as nothing is
+mentioned into dropdown list at this place;</li>
+<li>idem for <code>&lt;Ctrl-Return&gt;</code> shortcut, nothing will happen.</li>
+</ul>
+<p>If insertion cursor is into a <em>NON-EMPTY</em> line:</p>
+<ul>
+<li>pressing down on <code>&lt;Tab&gt;</code> key will <strong>create</strong> a new line of <code>Action</code>
+element;</li>
+<li>pressing down on <code>&lt;Return&gt;</code> key will <strong>create</strong> a new line of
+<code>Character</code> element;</li>
+<li>using <code>&lt;Ctrl-Return&gt;</code> shortcut will <strong>create</strong> a new line of <code>Scene</code>
+element.</li>
+</ul>
+<p>And so on. Try combinations by yourself and see what's best for you.</p>
+<p>People willing to reset hazardous settings should refer to <a href="#reset_button">'Reset to
+defaults' button</a> page section below.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="element_styling"/>Element styling</h3>
+<h4><a name="lnf_pane"/>'Look'n'feel' pane</h4>
+<p>Play with each choice list and see what you get into 'Preview' pane.</p>
+<p>This is the best way to understand how all of this works.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="preview_pane"/>'Preview' pane</h4>
+<p>The 'Preview' pane reflects immediately any look'n'feel change to help
+you see what you get when playing with choice lists in 'Look'n'feel'
+pane.</p>
+<p>One may also select a new scenario element to edit by simply clicking
+on the line illustrating the given element.</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h3><a name="dialog_buttons"/>Dialog buttons</h3>
+<h4><a name="ok_button"/>'OK' button</h4>
+<p>This dialog tool button definitely validates your new settings into
+software's memory.</p>
+<p>Please, note:</p>
+<ul>
+<li>
+<p><strong>global settings</strong> are really saved on disk only when quitting app;
+if an error occurs during this time, settings are <em>NOT</em> warrantied to
+be correctly saved;</p>
+</li>
+<li>
+<p><strong>project settings</strong> are really saved only when you decide to save
+your project file on disk, as these settings are saved within your
+project file; it's up to you to save regularly your work.</p>
+</li>
+</ul>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="reset_button"/>'Reset to defaults' button</h4>
+<p>Using <code>Reset to defaults</code> button depends on selected tab at this
+moment:</p>
+<ul>
+<li>
+<p>with <a href="#global_settings">'Global settings' tab</a> selected, global
+settings will be reset to <strong>factory defaults</strong> (app defaults) and will
+be available next time you restart software or next time you ask for a
+new project i.e. with <code>Project &gt; New</code> menu option or with <code>&lt;Ctrl-N&gt;</code>
+keyboard shortcut;</p>
+</li>
+<li>
+<p>with <a href="#project_settings">'Project settings' tab</a> selected, project
+settings will be reset to <strong>current global settings</strong>, no matter if
+they are correct or not.</p>
+</li>
+</ul>
+<p>Please, note to get out from a trap, the best way still remains to
+first <strong>reset global settings</strong> and then <strong>reset project settings</strong>,
+validate dialog tool, save project file, close app and finally restart
+app (for cleaner situation).</p>
+<p>Return to <a href="#summary">summary</a>.</p>
+<h4><a name="cancel_button"/>'Cancel' button</h4>
+<p>This button revokes all new settings made before quitting this dialog
+tool.</p>
+<p>All changes will then be definitely <em>LOST</em>.</p>
+<p>You can also cancel this dialog tool by pressing down <code>&lt;Escape&gt;</code> key.</p>
 <p>Return to <a href="#summary">summary</a>.</p>
 <h2><a name="finally"/>Finally</h2>
-<p><em>TODO</em></p>
 <p><strong>IMPORTANT</strong>: don't forget to <strong>save your project</strong> regularly, either
 with <code>Project &gt; Save</code> menu option or with <code>&lt;Ctrl-S&gt;</code> keyboard shortcut.</p>
 <p>Return to <a href="#summary">summary</a>.</p>

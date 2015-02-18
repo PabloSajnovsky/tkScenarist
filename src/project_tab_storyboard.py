@@ -53,11 +53,12 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             _item = self.get_formatted_shot_text(_shot, _title)
             _text = self.text_get_contents(self.TEXT_SHOT).strip()
             _scene_nr, _shot_nr = _shot.strip("#").split(".")
+            _scene_id = self.get_scene_id(_scene_nr)
             # update listbox item
             self.update_listbox_item(_lb, _index, _item)
             # update record in database
             self.database.stb_update_shot(
-                scene=int(_scene_nr),
+                scene=int(_scene_id),
                 shot=int(_shot_nr),
                 title=_title,
                 text=_text,
@@ -238,6 +239,14 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
     # end def
 
 
+    def get_scene_id (self, scene_nr):
+        """
+            retrieves scene ID along with @scene_nr number;
+        """
+        return self.LBOX_SCENE.line_ids[tools.ensure_int(scene_nr) - 1]
+    # end def
+
+
     def get_scene_shot (self, index):
         """
             retrieves (scene, shot) numbers from shot listbox item
@@ -268,28 +277,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # end if
         # failed
         return None
-    # end def
-
-
-    def get_shot_listbox_contents (self, scene):
-        """
-            retrieves shot listbox contents alongs with given @scene;
-            returns empty tuple on failure;
-        """
-        # inits
-        _contents = []
-        # browse rows
-        for _row in self.database.stb_get_shot_list(scene):
-            # new shot item
-            _contents.append(
-                self.get_formatted_shot_text(
-                    self.get_shot_number(scene, _row["shot"]),
-                    _row["title"]
-                )
-            )
-        # end for
-        # return shot list
-        return tuple(_contents)
     # end def
 
 
@@ -377,7 +364,9 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # widget inits
         self.LBOX_SCENE = self.listbox_scene_browser
         self.LBOX_SCENE.text_lines = []
+        self.LBOX_SCENE.line_ids = []
         self.LBOX_SHOT = self.listbox_shot_browser
+        self.LBOX_SHOT.row_ids = []
         self.LBOX_CHARS = self.listbox_character_names
         self.BTN_ADD = self.btn_add_shot
         self.BTN_DEL = self.btn_del_shot
@@ -883,8 +872,9 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
             if _ok:
                 # get scene + shot numbers
                 _scene, _shot = self.get_scene_shot(_index)
+                _scene_id = self.get_scene_id(_scene)
                 # remove from database
-                self.database.stb_del_shot(_scene, _shot)
+                self.database.stb_del_shot(_scene_id, _shot)
                 # remove from listbox
                 self.listbox_delete(_lb, _index)
             # end if
@@ -909,8 +899,9 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
                 )
             )
             _scene, _shot = _nb.strip("#").split(".")
+            _scene_id = self.get_scene_id(_scene)
             # get DB record
-            _row = self.database.stb_get_shot(_scene, _shot)
+            _row = self.database.stb_get_shot(_scene_id, _shot)
             # reset widgets
             self.LBL_SHOT.set(_nb)
             self.enable_widget(self.ENT_SHOT, True)
@@ -925,6 +916,7 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
                 self.after_idle(self.TEXT_SHOT.focus_set)
             # end if
         except:
+            raise
             pass
         # end try
         # update widgets state
@@ -938,10 +930,12 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         """
         # user confirmed purge?
         if self.user_confirm_purge():
-            # purge shots in DB
-            self.database.stb_purge_shots(
+            # get scene ID
+            _scene_id = self.get_scene_id(
                 self.get_current_selected(self.LBOX_SCENE) + 1
             )
+            # purge shots in DB
+            self.database.stb_purge_shots(_scene_id)
             # update shot listbox
             self.slot_update_shot_listbox()
         # end if
@@ -1032,7 +1026,12 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         # get contents
         _lb = self.LBOX_SCENE
         _lb.text_lines = kw.get("lines") or list()
+        _lb.line_ids = kw.get("line_ids") or list()
         _contents = kw.get("contents") or tuple()
+        # update DB shot table (deferred)
+        self.async.run_after_idle(
+            self.database.stb_shots_cleanup, _lb.line_ids
+        )
         # reset listbox
         self.clear_listbox(_lb)
         _lb.insert(0, *_contents)
@@ -1100,11 +1099,21 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
         _scene = self.get_current_selected(self.LBOX_SCENE) + 1
         # got selected?
         if _scene:
-            # get shot listbox contents
-            _contents = self.get_shot_listbox_contents(_scene)
             # update listbox contents
             self.clear_listbox(self.LBOX_SHOT)
-            self.LBOX_SHOT.insert(0, *_contents)
+            # get scene ID
+            _scene_id = self.get_scene_id(_scene)
+            # browse rows
+            for _row in self.database.stb_get_shot_list(_scene_id):
+                # new shot item
+                self.LBOX_SHOT.insert(
+                    TK.END,
+                    self.get_formatted_shot_text(
+                        self.get_shot_number(_scene, _row["shot"]),
+                        _row["title"]
+                    )
+                )
+            # end for
         # end if
     # end def
 

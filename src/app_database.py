@@ -734,7 +734,7 @@ class AppDatabase (DB.Database):
     # end def
 
 
-    def stb_del_shot (self, scene, shot):
+    def stb_del_shot (self, scene_id, shot):
         """
             removes storyboard shot record;
         """
@@ -742,7 +742,7 @@ class AppDatabase (DB.Database):
         self.sql_query(
             "DELETE FROM 'storyboard_shots' "
             "WHERE shot_scene = ? and shot_shot = ?",
-            int(scene), int(shot)
+            int(scene_id), int(shot)
         )
     # end def
 
@@ -761,9 +761,9 @@ class AppDatabase (DB.Database):
     # end def
 
 
-    def stb_get_scene_shots (self, scene):
+    def stb_get_scene_shots (self, scene_id):
         """
-            retrieves storyboard shots for given @scene;
+            retrieves storyboard shots for given @scene_id;
         """
         # SQL query
         self.sql_query(
@@ -771,14 +771,14 @@ class AppDatabase (DB.Database):
             "shot_title AS title, shot_text AS text "
             "FROM 'storyboard_shots' "
             "WHERE shot_scene = ? ORDER BY shot_shot",
-            int(scene)
+            int(scene_id)
         )
         # get all rows or default
         return self.fetch(self.ALL, default=[])
     # end def
 
 
-    def stb_get_shot (self, scene, shot):
+    def stb_get_shot (self, scene_id, shot):
         """
             retrieves storyboard shot record;
         """
@@ -786,23 +786,23 @@ class AppDatabase (DB.Database):
         self.sql_query(
             "SELECT shot_text AS text FROM 'storyboard_shots' "
             "WHERE shot_scene = ? and shot_shot = ? LIMIT 1",
-            int(scene), int(shot)
+            int(scene_id), int(shot)
         )
         # get one row or default
         return self.fetch(default={"text": ""})
     # end def
 
 
-    def stb_get_shot_list (self, scene):
+    def stb_get_shot_list (self, scene_id):
         """
-            retrieves storyboard shot list for given @scene;
+            retrieves storyboard shot list for given @scene_id;
         """
         # SQL query
         self.sql_query(
             "SELECT shot_shot AS shot, shot_title AS title "
             "FROM 'storyboard_shots' "
             "WHERE shot_scene = ? ORDER BY shot_shot",
-            int(scene)
+            int(scene_id)
         )
         # get all rows or default
         return self.fetch(self.ALL, default=[])
@@ -830,7 +830,7 @@ class AppDatabase (DB.Database):
     # end def
 
 
-    def stb_purge_shots (self, scene):
+    def stb_purge_shots (self, scene_id):
         """
             removes storyboard empty shot records;
         """
@@ -838,7 +838,20 @@ class AppDatabase (DB.Database):
         self.sql_query(
             "DELETE FROM 'storyboard_shots' "
             "WHERE shot_scene = ? and shot_text = ''",
-            int(scene)
+            int(scene_id)
+        )
+    # end def
+
+
+    def stb_shots_cleanup (self, scene_ids):
+        """
+            removes storyboard orphan shot records;
+        """
+        # SQL query
+        self.sql_query(
+            "DELETE FROM 'storyboard_shots' "
+            "WHERE shot_scene NOT IN ({})"
+            .format(str(tuple(scene_ids)).strip("(),"))
         )
     # end def
 

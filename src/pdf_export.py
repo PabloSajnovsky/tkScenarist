@@ -1573,6 +1573,7 @@ class PDFDocumentStoryboard (PDFDocumentBase):
         super().__init__(doc_name, **kw)
         # additional member inits
         self.scenario = self.mainframe.tab_scenario
+        self.storyboard = self.mainframe.tab_storyboard
         self.wtext = self.scenario.TEXT
         self.stats = dict()
     # end def
@@ -1604,6 +1605,8 @@ class PDFDocumentStoryboard (PDFDocumentBase):
         self.stats.clear()
         # get scene line numbers
         self.scene_lines = self.scenario.LISTBOX.current_lines
+        # get scene IDs
+        self.scene_ids = self.storyboard.LBOX_SCENE.line_ids
         # get nb of scenes
         self.total_scenes = len(self.scene_lines)
         # reset index
@@ -1623,12 +1626,14 @@ class PDFDocumentStoryboard (PDFDocumentBase):
         #
         # step 1: ensure current scene has shots
         #
-        # scene number starts at 1
-        _scene = self.index + 1
         # get shots for current scene number
-        self.scene_shots = self.database.stb_get_scene_shots(_scene)
+        self.scene_shots = self.database.stb_get_scene_shots(
+            self.scene_ids[self.index]
+        )
         # update progress
-        self.progress = min(99.0, 100.0 * _scene / self.total_scenes)
+        self.progress = min(
+            99.0, 100.0 * (self.index + 1) / self.total_scenes
+        )
         # no shots for this scene?
         if not self.scene_shots:
             # go next scene

@@ -1,8 +1,6 @@
 TODO list
 =========
 
-    * in 'tab_storyboard':
+    * in `scenario_text.py`:
 
-        * should implement scene browser's diffs with a difflib; shots
-        scene number varies if user inserts a scene between two other
-        in scenario tab;
+        * undo/redo maechanism is buggy: DISABLED until fully debugged;

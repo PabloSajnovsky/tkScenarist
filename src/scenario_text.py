@@ -44,7 +44,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "font": "courier 12",
         "foreground": "black",
         "highlightthickness": 1,
-        "undo": True,
+        "undo": False,              # *DISABLED* until debugged
         "wrap": "word",
     }
 
@@ -197,6 +197,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # super class delegate
         super().delete(index1, index2)
+        # update line IDs
+        self.delete_line_ids(index1, index2)
         # update line infos (deferred)
         self.update_line()
         # hook method
@@ -210,6 +212,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # super class delegate
         super().insert(index, chars, *args)
+        # update line IDs
+        self.insert_line_ids(index, chars, *args)
         # update line infos (deferred)
         self.update_line()
         # hook method
@@ -378,6 +382,21 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
     # end def
 
 
+    def delete_line_ids (self, index1, index2):
+        """
+            updates list of line IDs along with deleted text chunk;
+            each encountered '\n' means 'next line is deleted' and must
+            be taken in account in line IDs list updates;
+        """
+        # inits
+        _text = self.get(index1, index2)
+        _c = _text.count("\n")
+        _index = self.get_line_number(index1)
+        # update list of line IDs
+        del self.line_ids[_index:_index + _c]
+    # end def
+
+
     def delete_selection (self, *args, **kw):
         """
             event handler: deletes eventual selected portion of text;
@@ -537,8 +556,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 json.loads(_get_fc("elements"))
             )
         )
+        # get internal data
+        _data = json.loads(_get_fc("data"))
+        # put line IDs
+        self.line_ids = _data.get("line_ids") or self.line_ids
         # put tags
-        _tags = json.loads(_get_fc("tags"))
+        _tags = _data.get("tags") or []
         # browse items
         for _index, _tag in enumerate(_tags):
             # reset tag at correct indices
@@ -641,8 +664,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
                 _tags.append(_tn[0])
             # end if
         # end for
-        # return file contents as JSON string dump
-        return json.dumps(_tags)
+        # return tags list
+        return _tags
     # end def
 
 
@@ -653,7 +676,12 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # always return a dict
         return {
             fname["text"]: self.get("1.0", TK.END),
-            fname["tags"]: self.get_fc_tags(),
+            fname["data"]: json.dumps(
+                {
+                    "tags": self.get_fc_tags(),
+                    "line_ids": self.line_ids,
+                }
+            ),
             fname["elements"]: json.dumps(self.ELEMENT),
         }
     # end def
@@ -723,13 +751,14 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
 
     def get_lines (self, element_tag):
         """
-            retrieves dict() of line numbers, texts where @element_tag
-            resides plus line number of current insertion cursor; this
-            method is implemented to be ready-to-use for a scene
-            browser listbox widget;
+            retrieves dict() of line numbers, line IDs, texts where
+            @element_tag resides plus line number of current insertion
+            cursor; this method is implemented to be ready-to-use for a
+            scene browser listbox widget;
         """
         # inits
         _lines = []
+        _line_ids = []
         _texts = []
         _count = 1
         # browse all lines
@@ -742,6 +771,8 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             if _tag == element_tag:
                 # add line number
                 _lines.append(_line)
+                # add line ID
+                _line_ids.append(self.line_ids[_line - 1])
                 # add text contents
                 _texts.append(
                     "#{} {}"
@@ -755,6 +786,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         return {
             "current": self.get_line_number(),
             "lines": _lines,
+            "line_ids": _line_ids,
             "texts": _texts,
         }
     # end def
@@ -774,7 +806,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # inits
         self.instance_counter += 1
-        return "id#{}".format(self.instance_counter)
+        return int(self.instance_counter)
     # end def
 
 
@@ -887,6 +919,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # members only inits
         self.instance_counter = 0
         self.current_tag = self.DEFAULT_TAG
+        self.line_ids = [self.get_new_id()]
         self.reset_elements(self.get_options_element())
     # end def
 
@@ -923,6 +956,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
         # member inits
         self.undo_stack = TextUndoStack(limit=self.UNDO_LIMIT)
+        self.line_ids = list()
         # deferred task def
         def deferred ():
             # first time init
@@ -946,6 +980,22 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         # end if
         # do insert
         self._do_insert(index, chars, *args)
+    # end def
+
+
+    def insert_line_ids (self, index, chars, *args):
+        """
+            updates list of line IDs along with inserted text chunks;
+            each encountered '\n' means 'new line ID should be
+            inserted' and must be taken in account in line IDs list
+            updates;
+        """
+        # inits
+        _text = chars + "".join(args[1::2])
+        _c = _text.count("\n")
+        _i = self.get_line_number(index)
+        # update list of line IDs
+        self.line_ids[_i:_i] = [self.get_new_id() for n in range(_c)]
     # end def
 
 

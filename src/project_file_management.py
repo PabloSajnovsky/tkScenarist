@@ -49,7 +49,7 @@ class ProjectFileManagement:
         },
         "tab_scenario": {
             "text": "scenario_text.txt",
-            "tags": "scenario_tags.txt",
+            "data": "scenario_data.txt",
             "elements": "scenario_elements.txt",
         },
         "tab_storyboard": "storyboard.txt",

@@ -696,6 +696,7 @@ class ProjectTabScenario (tkRAD.RADXMLFrame):
             "Scenario:Scene:Browser:Changed",
             contents=_dict["texts"],
             lines=_dict["lines"],
+            line_ids=_dict["line_ids"],
             current_line=_cursor,
             current_selected=_index,
         )

@@ -1455,20 +1455,23 @@ class PDFDocumentScenario (PDFDocumentBaseText):
                 for _line in _text.split("\n"):
                     # do some clean-ups
                     _line = _line.strip()
-                    # specific flowable for scenes
-                    if _style.name == "scene":
-                        # add special paragraph
-                        self.elements.append(
-                            SeqNumberParagraph(
-                                _line, _style,
-                                print_left=_print_left,
-                                print_right=_print_right,
+                    # got line?
+                    if _line:
+                        # specific flowable for scenes
+                        if _style.name == "scene":
+                            # add special paragraph
+                            self.elements.append(
+                                SeqNumberParagraph(
+                                    _line, _style,
+                                    print_left=_print_left,
+                                    print_right=_print_right,
+                                )
                             )
-                        )
-                    # default flowable
-                    else:
-                        # add new paragraph
-                        self.add_paragraph(_line, _style)
+                        # default flowable
+                        else:
+                            # add new paragraph
+                            self.add_paragraph(_line, _style)
+                        # end if
                     # end if
                     # update statistics
                     self.update_stats(_line, _style.name)
@@ -1547,10 +1550,10 @@ class PDFDocumentScenario (PDFDocumentBaseText):
             _s.setdefault("transition_count", 0)
             + int(tag == "transition")
         )
+        # inits
+        _s["movie_chars"] = _s.setdefault("movie_chars", set())
         # nb of movie characters
         if tag == "character":
-            # inits
-            _s["movie_chars"] = _s.setdefault("movie_chars", set())
             # add character name
             _s["movie_chars"].add(text)
         # end if
@@ -1626,14 +1629,21 @@ class PDFDocumentStoryboard (PDFDocumentBase):
         #
         # step 1: ensure current scene has shots
         #
-        # get shots for current scene number
-        self.scene_shots = self.database.stb_get_scene_shots(
-            self.scene_ids[self.index]
-        )
-        # update progress
-        self.progress = min(
-            99.0, 100.0 * (self.index + 1) / self.total_scenes
-        )
+        # try out
+        try:
+            # get shots for current scene number
+            self.scene_shots = self.database.stb_get_scene_shots(
+                self.scene_ids[self.index]
+            )
+        except:
+            # index out of range
+            self.scene_shots = None
+        else:
+            # update progress
+            self.progress = min(
+                99.0, 100.0 * (self.index + 1) / self.total_scenes
+            )
+        # end try
         # no shots for this scene?
         if not self.scene_shots:
             # go next scene

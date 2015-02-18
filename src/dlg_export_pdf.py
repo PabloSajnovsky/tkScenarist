@@ -77,6 +77,11 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                     exec("self._step_{}(kw)".format(kw.get("step", 0)))
                 # something went wrong
                 except Exception as e:
+                    # sys.stdout
+                    print(
+                        "[ERROR] while trying to export:\n"
+                        "--> [{}] {}".format(e.__class__.__name__, e)
+                    )
                     # better trap out from here
                     self.slot_stop_export()
                     # notify
@@ -86,15 +91,11 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                             "Aborting."
                         )
                     )
-                    # sys.stdout
-                    print(
-                        "[ERROR] while trying to export: {}.".format(e)
-                    )
-                    #~ raise
+                    raise
                 # end try
+                # loop again
+                self.async.run_after(50, self._export_loop, kw)
             # end if
-            # loop again
-            self.async.run_after(50, self._export_loop, kw)
         # end of exportation process
         else:
             # reset progressbar
@@ -102,7 +103,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
             # release important task
             self.events.raise_event("DialogPendingTaskOff")
             # reset button
-            self.enable_button("OK")
+            self.enable_button("Close")
             # reset export button
             self.BTN_EXPORT.configure(
                 text=_("Export"), command=self.slot_export_pdf
@@ -457,7 +458,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
         # switch on important task
         self.events.raise_event("DialogPendingTaskOn")
         # disable button
-        self.disable_button("OK")
+        self.disable_button("Close")
         # change export button
         self.BTN_EXPORT.configure(
             text=_("Stop"), command=self.slot_stop_export,

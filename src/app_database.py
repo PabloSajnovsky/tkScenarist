@@ -763,14 +763,15 @@ class AppDatabase (DB.Database):
 
     def stb_get_scene_shots (self, scene_id):
         """
-            retrieves storyboard shots for given @scene_id;
+            retrieves non-empty storyboard shots for given @scene_id;
         """
         # SQL query
         self.sql_query(
             "SELECT shot_shot AS shot, "
             "shot_title AS title, shot_text AS text "
             "FROM 'storyboard_shots' "
-            "WHERE shot_scene = ? ORDER BY shot_shot",
+            "WHERE shot_scene = ? AND shot_text != '' "
+            "ORDER BY shot_shot",
             int(scene_id)
         )
         # get all rows or default

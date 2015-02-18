@@ -91,7 +91,7 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                             "Aborting."
                         )
                     )
-                    raise
+                    #~ raise
                 # end try
                 # loop again
                 self.async.run_after(50, self._export_loop, kw)

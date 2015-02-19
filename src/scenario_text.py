@@ -44,7 +44,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "font": "courier 12",
         "foreground": "black",
         "highlightthickness": 1,
-        "undo": True,              # *DISABLED* until debugged
+        "undo": True,
         "wrap": "word",
     }
 

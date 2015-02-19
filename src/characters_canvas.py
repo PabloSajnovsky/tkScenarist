@@ -672,6 +672,18 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
+    def is_viewport_out (self, x, y):
+        """
+            returns True if (@x, @y) coordinates are out of viewport
+            bounds, False otherwise;
+        """
+        # inits
+        _w, _h = self.size_xy()
+        # out of viewport bounds?
+        return not(0 <= x <= _w and 0 <= y <= _h)
+    # end def
+
+
     def register_link (self, tag1, tag2, group):
         """
             registers a link between two tags;
@@ -753,19 +765,24 @@ class CharactersCanvas (RC.RADCanvas):
         """
             tries to show up character @name label into viewport area;
         """
-        # inits
-        _bbox = self.bbox(TK.ALL)
-        # got scroll region?
-        if _bbox:
-            # inits
-            x0, y0, x1, y1 = _bbox
+        # try out
+        try:
+            # risky inits
+            x0, y0, x1, y1 = map(int, self.cget("scrollregion").split())
+            x, y = self.get_bbox_center(self.get_tag_from_name(name))
+        # not possible?
+        except:
+            # never mind
+            pass
+        # keep on trying
+        else:
+            # other non risky inits
             cw, ch = abs(x1 - x0), abs(y1 - y0)
             cx, cy = self.center_xy()
-            x, y = self.get_bbox_center(self.get_tag_from_name(name))
             # scroll to position
             self.xview_moveto((x - x0 - cx)/cw)
             self.yview_moveto((y - y0 - cy)/ch)
-        # end if
+        # end try
     # end def
 
 
@@ -865,6 +882,11 @@ class CharactersCanvas (RC.RADCanvas):
             if self.drag_mode == self.DRAG_MODE_TEXT:
                 # get name
                 _name = self.get_name_from_tag(self.drag_tag)
+                # label out of viewport area?
+                if self.is_viewport_out(event.x, event.y):
+                    # show label
+                    self.show_label(_name)
+                # end if
                 # notify selected name
                 self.events.raise_event(
                     "Characters:Name:Selected", name=_name
@@ -970,7 +992,7 @@ class CharactersCanvas (RC.RADCanvas):
             x0, y0, x1, y1 = _bbox
             _cw, _ch = self.size_xy()
             x0, y0 = (min(0, x0), min(0, y0))
-            x1, y1 = (max(x1, _cw), max(y1, _ch))
+            x1, y1 = (max(x1, _cw - x0), max(y1, _ch - y0))
             # reset scroll region size
             self.configure(scrollregion=(x0, y0, x1, y1))
         # no items

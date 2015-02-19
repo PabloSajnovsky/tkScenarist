@@ -722,12 +722,12 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         """
         # get selected name
         _name = self.listbox_get_selected_name()
+        # show label in canvas as often as necessary
+        self.canvas_show_name(_name)
         # new selection?
         if _name != self.current_name:
             # update history log preview
             self.update_character_log()
-            # show label in canvas
-            self.canvas_show_name(_name)
         # end if
     # end def
 

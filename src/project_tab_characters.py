@@ -139,6 +139,15 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
     # end def
 
 
+    def canvas_show_name (self, name):
+        """
+            tries to show up character @name in canvas;
+        """
+        # delegate to widget
+        self.CANVAS.show_label(name)
+    # end def
+
+
     def do_add_character_name (self, name, show_error=False, **kw):
         """
             effective procedure for adding a new character;
@@ -715,8 +724,10 @@ class ProjectTabCharacters (tkRAD.RADXMLFrame):
         _name = self.listbox_get_selected_name()
         # new selection?
         if _name != self.current_name:
-            # update preview
+            # update history log preview
             self.update_character_log()
+            # show label in canvas
+            self.canvas_show_name(_name)
         # end if
     # end def
 

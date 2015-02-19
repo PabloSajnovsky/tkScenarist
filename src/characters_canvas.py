@@ -101,7 +101,7 @@ class CharactersCanvas (RC.RADCanvas):
             returns x coordinates for canvas' center point;
         """
         # return center point x coordinates
-        return self.winfo_reqwidth() // 2
+        return self.winfo_width() // 2
     # end def
 
 
@@ -119,7 +119,7 @@ class CharactersCanvas (RC.RADCanvas):
             returns y coordinates for canvas' center point;
         """
         # return center point y coordinates
-        return self.winfo_reqheight() // 2
+        return self.winfo_height() // 2
     # end def
 
 
@@ -473,6 +473,25 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
+    def get_bbox_size (self, tag):
+        """
+            returns (width, height) size of a bbox identified by group
+            @tag;
+        """
+        # inits
+        _bbox = self.bbox(tag)
+        # got bbox?
+        if _bbox:
+            # get coords
+            x1, y1, x2, y2 = _bbox
+            # return center xy
+            return (abs(x2 - x1), abs(y2 - y1))
+        # end if
+        # failed - no size
+        return (0, 0)
+    # end def
+
+
     def get_file_contents (self):
         """
             returns file contents for characters relationship links;
@@ -591,6 +610,15 @@ class CharactersCanvas (RC.RADCanvas):
         x1, y1 = end_xy
         # calculate
         return ((x0 + x1) // 2, (y0 + y1) // 2)
+    # end def
+
+
+    def get_tag_from_name (self, name):
+        """
+            retrieves character's group tag from its @name;
+            @name must be registered;
+        """
+        return self.character_names[name]["tag"]
     # end def
 
 
@@ -721,12 +749,32 @@ class CharactersCanvas (RC.RADCanvas):
     # end def
 
 
+    def show_label (self, name):
+        """
+            tries to show up character @name label into viewport area;
+        """
+        # inits
+        _bbox = self.bbox(TK.ALL)
+        # got scroll region?
+        if _bbox:
+            # inits
+            x0, y0, x1, y1 = _bbox
+            cw, ch = abs(x1 - x0), abs(y1 - y0)
+            cx, cy = self.center_xy()
+            x, y = self.get_bbox_center(self.get_tag_from_name(name))
+            # scroll to position
+            self.xview_moveto((x - x0 - cx)/cw)
+            self.yview_moveto((y - y0 - cy)/ch)
+        # end if
+    # end def
+
+
     def size_xy (self):
         """
             returns (width, height) coordinates;
         """
         # get coordinates
-        return (self.winfo_reqwidth(), self.winfo_reqheight())
+        return (self.winfo_width(), self.winfo_height())
     # end def
 
 

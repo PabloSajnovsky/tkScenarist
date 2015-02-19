@@ -362,14 +362,17 @@ des noms de personnages située en haut à gauche et vous obtenez aussi
 dans la foulée des informations dans l'historique personnage situé en
 bas à gauche.
 
+À l'inverse, si vous cliquez sur un nom de personnage dans la liste, le
+canevas graphique tentera d'afficher l'étiquette de nom correspondante,
+surtout si cette dernière est hors des limites de la zone d'affichage
+actuelle.
+
 Vous pouvez déplacer les étiquettes de noms de personnages qui se
 trouvent dans le canevas graphique du gestionnaire de relations en
 maintenant simplement le bouton clic de la souris enfoncé sur
 l'étiquette de nom que vous souhaitez déplacer, en bougeant la souris
 dans la direction souhaitée, puis en relâchant le bouton clic de la
 souris une fois sur place (glisser-déposer, drag'n'drop).
-
-Il existe aussi une fonctionnalité de navigation secrète.
 
 Pour naviguer rapidement dans le canevas graphique, maintenez le bouton
 clic de la souris enfoncé sur une zone neutre, puis déplacez la souris

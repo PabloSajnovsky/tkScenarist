@@ -218,6 +218,9 @@ Return to [summary](#summary).
 Clicking onto a character name label on the canvas will also select
 this name into characters' name list, on top-left side.
 
+Conversely, clicking on a list item will try to show up the name label
+on the canvas, especially if it is out of viewport bounds.
+
 Character name labels on the canvas do support `Drag'n'Drop` feature:
 click on desired character name label, drag it to another location and
 then release mouse click to drop it there.

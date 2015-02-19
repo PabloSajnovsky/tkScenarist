@@ -162,7 +162,7 @@ lancement de la procédure d'exportation&nbsp;;
 
 ## <a name="avancement-du-projet"/>Avancement du projet
 
-    Development Status :: 4 - Beta
+    Development Status :: 5 - Production/Stable
 
 Ce logiciel a été :
 

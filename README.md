@@ -148,7 +148,7 @@ several options;
 
 ## Development status
 
-    Development Status :: 4 - Beta
+    Development Status :: 5 - Production/Stable
 
 Software has been:
 

@@ -44,7 +44,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         "font": "courier 12",
         "foreground": "black",
         "highlightthickness": 1,
-        "undo": False,              # *DISABLED* until debugged
+        "undo": True,              # *DISABLED* until debugged
         "wrap": "word",
     }
 
@@ -195,10 +195,10 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
         """
             standard method reimplementation;
         """
-        # super class delegate
-        super().delete(index1, index2)
         # update line IDs
         self.delete_line_ids(index1, index2)
+        # super class delegate
+        super().delete(index1, index2)
         # update line infos (deferred)
         self.update_line()
         # hook method
@@ -470,6 +470,7 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             if _index:
                 # reset cursor pos
                 self.move_cursor(_index)
+                self.update_line()
                 self.after_idle(self.see, TK.INSERT)
             # end if
         # end if
@@ -1650,11 +1651,17 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             event handler: updates current line tag pointer;
         """
         # inits
-        _tag = kw.get("force_tag") or self.get_line_tag(index)
+        _index = index or TK.INSERT
+        _tag = kw.get("force_tag") or self.get_line_tag(_index)
         # got element tag?
         if _tag in self.ELEMENT:
-            # update current tag
-            self.current_tag = _tag
+            # at insertion cursor?
+            if self.compare(_index, "==", TK.INSERT):
+                # update current tag
+                self.current_tag = _tag
+            else:
+                return _tag
+            # end if
         # end if
         # return last available tag
         return self.current_tag
@@ -1668,18 +1675,28 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             deferred task (after idle);
         """
         def deferred ():
+            # get index
+            _index = kw.pop("index", TK.INSERT)
             # get tag at insertion cursor
-            _tag = self.update_current_tag(TK.INSERT, **kw)
+            _tag = self.update_current_tag(index=_index, **kw)
             # got element tag?
             if _tag in self.ELEMENT:
+                # inits
+                _index1 = "{} linestart".format(_index)
+                _index2 = _index1 + "+ 1 line"
                 # remove all line tags
-                self.tag_remove(self.tag_names(TK.INSERT), *self.INS_LINE)
-                # reset tag all line long
-                self.tag_add(_tag, *self.INS_LINE)
-                # notify app
-                self.events.raise_event(
-                    "Scenario:Current:Element:Update", element_tag=_tag
+                self.tag_remove(
+                    self.tag_names(_index), _index1, _index2
                 )
+                # reset tag all line long
+                self.tag_add(_tag, _index1, _index2)
+                # notify app
+                if self.compare(_index, "==", TK.INSERT):
+                    self.events.raise_event(
+                        "Scenario:Current:Element:Update",
+                        element_tag=_tag
+                    )
+                # end if
             # end if
         # end def
         # deferred task (after idle tasks)

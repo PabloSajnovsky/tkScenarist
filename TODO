@@ -1,6 +1,2 @@
 TODO list
 =========
-
-    * in `scenario_text.py`:
-
-        * undo/redo maechanism is buggy: DISABLED until fully debugged;

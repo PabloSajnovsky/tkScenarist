@@ -40,8 +40,14 @@ class ProjectFileManagement:
     # class constant defs
     ARCHIVE_FILES = {
         "tab_title_data": "title_data.txt",
-        "tab_draft_notes": "draft_notes.txt",
-        "tab_pitch_concept": "pitch_concept.txt",
+        "tab_draft_notes": {
+            "text": "draft_notes.txt",
+            "data": "draft_notes_data.txt",
+        },
+        "tab_pitch_concept": {
+            "text": "pitch_concept.txt",
+            "data": "pitch_concept_data.txt",
+        },
         "tab_characters": {
             "names": "characters_names.txt",
             "logs": "characters_logs.txt",

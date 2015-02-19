@@ -23,6 +23,7 @@
 """
 
 # lib imports
+import json
 import tkRAD
 
 
@@ -52,9 +53,17 @@ class ProjectTabPitchConcept (tkRAD.RADXMLFrame):
             returns file contents;
         """
         # inits
-        fcontents = self.text_get_contents(self.text_pitch_concept)
+        _dict = {
+            fname["text"]: self.text_get_contents(
+                self.text_pitch_concept
+            ),
+            # for future implementations
+            fname["data"]: json.dumps(
+                {}
+            ),
+        }
         # always return a dict
-        return {fname: fcontents}
+        return _dict
     # end def
 
 
@@ -79,8 +88,14 @@ class ProjectTabPitchConcept (tkRAD.RADXMLFrame):
         """
             tab setup along @fname and @archive contents;
         """
+        # inits
+        _get_fc = lambda f: archive.read(f).decode(ENCODING)
+        # get text contents
+        _text = _get_fc(fname["text"])
+        # get data (future implementations)
+        _data = json.loads(_get_fc(fname["data"]))
         # set text widget contents
-        self.text_set_contents(self.text_pitch_concept, fname)
+        self.text_set_contents(self.text_pitch_concept, _text)
     # end def
 
 

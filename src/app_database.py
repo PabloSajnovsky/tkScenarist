@@ -576,7 +576,7 @@ class AppDatabase (DB.Database):
                         (11, 10, 'Art director'),
                         (12, 10, 'Director of Photography'),
                         (13, 10, 'Film author'),
-                        (14, 10, 'Film maker'),
+                        (14, 10, 'Film director'),
                         (15, 10, 'Stage director'),
                     (16, 1, '03-Actors'),
                         (17, 16, '1-Main role (male)'),

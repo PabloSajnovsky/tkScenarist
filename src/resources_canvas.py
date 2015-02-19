@@ -28,6 +28,7 @@ from calendar import monthrange
 from datetime import timedelta, date, datetime
 import tkinter.messagebox as MB
 import tkRAD.widgets.rad_canvas as RC
+import tkRAD.core.async as ASYNC
 from . import dlg_date_bar as DLG
 
 
@@ -141,6 +142,15 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
+    def get_date_scale (self):
+        """
+            retrieves current DateRuler's date scale;
+            called by project_tab_resources.get_file_contents();
+        """
+        return self.date_ruler.scale
+    # end def
+
+
     def get_group_tag (self, x, y):
         """
             retrieves group tag from real canvas pos @(x, y);
@@ -203,6 +213,8 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             virtual method to be implemented in subclass;
         """
+        # asynchronous calls
+        self.async = ASYNC.get_async_manager()
         # database inits
         self.database = self.winfo_toplevel().database
         # date ruler inits
@@ -282,6 +294,18 @@ class ResourcesCanvas (RC.RADCanvas):
     # end def
 
 
+    def set_date_scale (self, value):
+        """
+            resets current DateRuler's date scale;
+            called by project_tab_resources.setup_tab();
+        """
+        # reset value
+        self.date_ruler.scale = value
+        # update datebars
+        self.update_datebars()
+    # end def
+
+
     def slot_change_date_scale (self, event=None, *args, **kw):
         """
             event handler: Ctrl-MouseWheel changes date scale;
@@ -299,8 +323,7 @@ class ResourcesCanvas (RC.RADCanvas):
             # got to update?
             if _scale != self.date_ruler.scale:
                 # update date ruler + datebars
-                self.date_ruler.scale = _scale
-                self.update_datebars()
+                self.set_date_scale(_scale)
             # end if
         # end if
     # end def
@@ -448,38 +471,43 @@ class ResourcesCanvas (RC.RADCanvas):
         """
             event handler: updates all present datebars;
         """
-        # FIXME: should be deferred task?
-        if self.date_bars:
-            # inits
-            _names = self.item_list.swapped_items
-            _dmin = _dmax = None
-            # browse collection
-            for _datebar in self.date_bars.values():
-                # resize bounds
-                if _dmin:
-                    _dmin = min(_dmin, _datebar.date_begin)
-                    _dmax = max(_dmax, _datebar.date_end)
-                else:
-                    _dmin = _datebar.date_begin
-                    _dmax = _datebar.date_end
-                # end if
-            # end for
-            # return to origin
-            self.xview_moveto(0, override=True)
-            # redraw date ruler
-            self.date_ruler.update(date_min=_dmin, date_max=_dmax)
-            # browse collection
-            for _datebar in self.date_bars.values():
-                # redraw datebar
-                _datebar.draw(_names[_datebar.rowid])
-            # end for
-        # no datebars
-        else:
-            # show default date ruler
-            self.date_ruler.update()
-        # end if
-        # update canvas
-        self.update_canvas()
+        # subfunction def
+        def deferred ():
+            # got datebars to update?
+            if self.date_bars:
+                # inits
+                _names = self.item_list.swapped_items
+                _dmin = _dmax = None
+                # browse collection
+                for _datebar in self.date_bars.values():
+                    # resize bounds
+                    if _dmin:
+                        _dmin = min(_dmin, _datebar.date_begin)
+                        _dmax = max(_dmax, _datebar.date_end)
+                    else:
+                        _dmin = _datebar.date_begin
+                        _dmax = _datebar.date_end
+                    # end if
+                # end for
+                # return to origin
+                self.xview_moveto(0, override=True)
+                # redraw date ruler
+                self.date_ruler.update(date_min=_dmin, date_max=_dmax)
+                # browse collection
+                for _datebar in self.date_bars.values():
+                    # redraw datebar
+                    _datebar.draw(_names[_datebar.rowid])
+                # end for
+            # no datebars
+            else:
+                # show default date ruler
+                self.date_ruler.update()
+            # end if
+            # update canvas
+            self.update_canvas()
+        # end def
+        # deferred task
+        self.async.run_after_idle(deferred)
     # end def
 
 

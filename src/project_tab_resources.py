@@ -320,6 +320,9 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             "types": [dict(i) for i in _db.res_get_all_types()],
             "items": [dict(i) for i in _db.res_get_all_items()],
             "datebars": [dict(i) for i in _db.res_get_all_datebars()],
+            "config": {
+                "date_scale": self.CANVAS.get_date_scale(),
+            },
         }
         fcontents = json.dumps(_dict)
         # always return a dict
@@ -432,6 +435,7 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
         """
         # inits
         _dict = json.loads(fname or "{}")
+        # get resource type rows
         _type_rows = _dict.get("types")
         # got rows?
         if _type_rows:
@@ -446,6 +450,10 @@ class ProjectTabResources (tkRAD.RADXMLFrame):
             # better reset to new
             self.slot_tab_reset()
         # end if
+        # get config data
+        _cfg = _dict.get("config") or dict()
+        # set config
+        self.CANVAS.set_date_scale(_cfg.get("date_scale"))
     # end def
 
 

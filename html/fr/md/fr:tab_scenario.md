@@ -299,18 +299,14 @@ prochaine frappe d'une touche au clavier&nbsp;;
 mot entier** en arrière&nbsp;;
 * la combinaison de touches de clavier `<Ctrl-Suppr>` supprime **un mot
 entier** en avant&nbsp;;
-
-> **ATTENTION** : les fonctionnalités Annuler/Refaire ont été
-*DÉSACTIVÉES* jusqu'à ce que leur débogage soit satisfaisant.
-
 * la combinaison de touches de clavier `<Ctrl-Z>` permet d'annuler la
 dernière opération en date. Attention&nbsp;: cette fonctionnalité est
 encore **expérimentale**, elle n'est pas garantie de fonctionner à
-100%&nbsp;;
+100% dans tous les cas de figure&nbsp;;
 * la combinaison de touches de clavier `<Ctrl-Shitf-Z>` permet de
 répéter la dernière opération annulée. Attention&nbsp;: cette
 fonctionnalité est encore **expérimentale**, elle n'est pas garantie de
-fonctionner à 100%&nbsp;;
+fonctionner à 100% dans tous les cas de figure&nbsp;;
 
 Il existe d'autres fonctionnalités moins habituelles, qu'il serait sans
 doute trop long (et bien inutile) de lister ici.

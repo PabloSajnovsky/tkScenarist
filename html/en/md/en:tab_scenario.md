@@ -178,9 +178,6 @@ all` menu option or with `<Ctrl-A>` keyboard shortcut.
 Any selection band is likely to be replaced by the next keystroke on
 the keyboard.
 
-> **CAUTION**: undo/redo feature has been *DISABLED* for the moment and
-until being fully debugged.
-
 To **undo** last operation, either use `Edit > Undo` menu option or try
 `<Ctrl-Z>` keyboard shortcut.
 

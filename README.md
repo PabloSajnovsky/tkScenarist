@@ -176,14 +176,14 @@ for example) and use it right now.
 
 ### Caution
 
-This software runs only with **Python3** and **Tkinter** installed
-on your machine.
+This software runs only with **Python3** (v >= 3.3) and **Tkinter**
+installed on your machine.
 
 **No dependencies**, no third-part lib to install on more.
 
-If you have Python3 programming language correctly installed, Tkinter
-library should also be installed **by default** as a Python standard
-lib.
+If you have a recent Python3 programming language correctly installed,
+Tkinter library should also be installed **by default** as a Python
+standard lib.
 
 Any **ImportError** will mean either you are trying to launch the
 software with Python2 or you don't have **Tkinter** library correctly

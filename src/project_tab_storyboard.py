@@ -916,7 +916,6 @@ class ProjectTabStoryboard (tkRAD.RADXMLFrame):
                 self.after_idle(self.TEXT_SHOT.focus_set)
             # end if
         except:
-            raise
             pass
         # end try
         # update widgets state

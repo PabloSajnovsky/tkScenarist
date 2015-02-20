@@ -372,7 +372,6 @@ class ScenarioText (RW.RADWidgetBase, TK.Text):
             except:
                 # remove stacking
                 self.undo_stack.pop()
-                raise
             # end try
         # no undo/redo management
         else:

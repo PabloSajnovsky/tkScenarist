@@ -36,8 +36,11 @@ __builtins__["ENCODING"] = "UTF-8"
 __builtins__["STATE_MASK"] = (
     {"nt": 0x20084, "posix": 0x8c}.get(os.name, 0x00)
 )
+__builtins__["WIN32"] = bool(os.name == "nt")
+
 # i18n locale setup
 locale.setlocale(locale.LC_ALL, "")
+
 
 
 class MainWindow (tkRAD.RADXMLWindow):
@@ -110,7 +113,7 @@ class MainWindow (tkRAD.RADXMLWindow):
             "TCombobox", "<<ComboboxSelected>>",
             self.slot_combo_selected,
         )
-        for _char in "akoy":
+        for _char in "akoyz":
             self.unbind_class(
                 "Text", "<Control-{}>".format(_char.lower())
             )
@@ -257,8 +260,8 @@ class MainWindow (tkRAD.RADXMLWindow):
         """
             event handler: menu Edit > Redo;
         """
-        # param controls
-        if not event:
+        # param controls - MS-Windows workaround
+        if not event or WIN32:
             # redo cancelled
             try:
                 self.focus_lastfor().edit_redo()

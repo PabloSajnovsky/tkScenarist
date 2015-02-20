@@ -54,4 +54,4 @@ target/
 
 # app specific
 *.rc
-html/*/md/
+html/**/*.md

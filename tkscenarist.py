@@ -67,7 +67,7 @@ If not, see: http://www.gnu.org/licenses/
     ) # end of DIRECTORIES
 
     PYTHON = {
-        "version": "3.2",
+        "version": "3.3",
         "strict": False,
     } # end of PYTHON
 

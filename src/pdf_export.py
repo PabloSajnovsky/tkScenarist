@@ -116,7 +116,7 @@ def get_stylesheet ():
         "h2": ParagraphStyle(
             "h2",
             parent=_root_style,
-            fontName="Helvetica-Bold",
+            fontName="Times-Bold",
             fontSize=14,
             leading=16,
             alignment=TA_LEFT,
@@ -125,7 +125,7 @@ def get_stylesheet ():
         "h3": ParagraphStyle(
             "h3",
             parent=_root_style,
-            fontName="Helvetica-Bold",
+            fontName="Times-Bold",
             fontSize=12,
             leading=14,
             alignment=TA_LEFT,
@@ -157,7 +157,7 @@ def get_stylesheet ():
         "th": ParagraphStyle(
             "th",
             parent=_root_style,
-            fontName="Helvetica-Bold",
+            fontName="Times-Bold",
             fontSize=12,
             leading=14,
             alignment=TA_CENTER,

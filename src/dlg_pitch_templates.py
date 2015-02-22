@@ -55,13 +55,34 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
             event handler;
             automatically saves current edited template, if any;
         """
+        print("auto_save")
         # got something to save?
-        if OP.isfile(self.current_fpath):
-            # save file
-            with open(self.current_fpath, "w", encoding=ENCODING) as _file:
-                # write text contents
-                _file.write(self.get_preview_text().rstrip())
-            # end with
+        if OP.isfile(self.current_fpath) and self.TEXT.edit_modified():
+            # try out
+            try:
+                # save file
+                with open(self.current_fpath, "w", encoding=ENCODING) \
+                                                               as _file:
+                    # write text contents
+                    _file.write(self.get_preview_text().rstrip())
+                # end with
+                # reset modified
+                self.TEXT.edit_modified(False)
+            # file access denied
+            except Exception as e:
+                # notify user
+                MB.showerror(
+                    title=_("Attention"),
+                    message=_(
+                        "An error has occurred:\n"
+                        "[{ecn}] {err}\n"
+                        "Could *NOT* save text contents."
+                    ).format(ecn=e.__class__.__name__, err=e),
+                    parent=self,
+                )
+            # end try
+        else:
+            print("nothing to save.")
         # end if
     # end def
 
@@ -471,16 +492,35 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
             _text = self.TEXT
             # enable preview text
             self.enable_widget(_text, True)
-            # get file contents
-            with open(fpath, "r", encoding=ENCODING) as _file:
-                # get text
-                _data = _file.read().rstrip()
-                if _data: _data += "\n"
-                # insert text
-                _text.insert("1.0", _data)
-            # end with
-            # reset undo/redo stack
-            _text.edit_reset()
+            # try out (file access)
+            try:
+                # get file contents
+                with open(fpath, "r", encoding=ENCODING) as _file:
+                    # get text
+                    _data = _file.read().rstrip()
+                    if _data: _data += "\n"
+                    # insert text
+                    _text.insert("1.0", _data)
+                # end with
+            # access denied
+            except Exception as e:
+                # notify user
+                MB.showerror(
+                    title=_("Attention"),
+                    message=_(
+                        "An error has occurred:\n"
+                        "[{ecn}] {err}\n"
+                        "Could *NOT* load text contents."
+                    ).format(ecn=e.__class__.__name__, err=e),
+                    parent=self,
+                )
+            # keep on trying
+            else:
+                # reset undo/redo stack
+                _text.edit_reset()
+                # reset modified
+                _text.edit_modified(False)
+            # end try
             # enable delete button
             self.enable_widget(self.BTN_DELETE, True)
         # end if

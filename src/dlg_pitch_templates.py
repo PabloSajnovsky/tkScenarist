@@ -40,6 +40,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
     """
 
     # class constant defs
+    AUTOSAVE_DELAY = 1000
     BUTTONS = ("OK", "Cancel")
     DEFAULT_DIR = "^/data/templates/pitch/"
     FILE_EXT = ".txt"
@@ -55,7 +56,6 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
             event handler;
             automatically saves current edited template, if any;
         """
-        print("auto_save")
         # got something to save?
         if OP.isfile(self.current_fpath) and self.TEXT.edit_modified():
             # try out
@@ -66,8 +66,6 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
                     # write text contents
                     _file.write(self.get_preview_text().rstrip())
                 # end with
-                # reset modified
-                self.TEXT.edit_modified(False)
             # file access denied
             except Exception as e:
                 # notify user
@@ -80,9 +78,11 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
                     ).format(ecn=e.__class__.__name__, err=e),
                     parent=self,
                 )
+            # whatever happens
+            finally:
+                # reset modified
+                self.TEXT.edit_modified(False)
             # end try
-        else:
-            print("nothing to save.")
         # end if
     # end def
 
@@ -341,7 +341,7 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
             pass
         # end try
         # schedule auto-save for later
-        self.async.run_after(3000, self.auto_save)
+        self.async.run_after(self.AUTOSAVE_DELAY, self.auto_save)
     # end def
 
 
@@ -428,10 +428,12 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         """
         # reset preview first
         self.update_preview("")
-        # inits
+        # try out
         try:
+            # reset current dir
             self.current_dir = new_dir
         except:
+            # trap to user home directory
             self.current_dir = "~"
         # end try
         # update listbox along directory path

@@ -93,9 +93,9 @@ class ExportPDFDialog (DLG.RADButtonsDialog):
                     )
                     #~ raise
                 # end try
-                # loop again
-                self.async.run_after(50, self._export_loop, kw)
             # end if
+            # loop again
+            self.async.run_after(50, self._export_loop, kw)
         # end of exportation process
         else:
             # reset progressbar

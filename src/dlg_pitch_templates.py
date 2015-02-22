@@ -429,7 +429,11 @@ class PitchTemplatesDialog (DLG.RADButtonsDialog):
         # reset preview first
         self.update_preview("")
         # inits
-        self.current_dir = new_dir
+        try:
+            self.current_dir = new_dir
+        except:
+            self.current_dir = "~"
+        # end try
         # update listbox along directory path
         self.update_listbox(new_dir)
     # end def

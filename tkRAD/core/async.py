@@ -50,9 +50,14 @@ class AsyncTask:
         Asynchronous task for Tkinter GUI environment;
     """
 
+    # locker states
+    STATE_LOCKED = 1
+    STATE_ATOMIC = 2
+
+
     def __init__ (self):
         """
-            class constructor;
+            class constructor
         """
         # thread-ids dictionary inits
         self.tid = dict()
@@ -68,29 +73,28 @@ class AsyncTask:
             ensures each callback runs in atomic mode (neither
             interrupted nor called several times);
         """
-        # inits
-        _locked = self.lockers.setdefault(callback, False)
-        # enabled ?
-        if not _locked:
+        # allowed to proceed?
+        if not self.lockers.get(callback):
             # set atomic mode
-            self.lockers[callback] = True
-            # run callback
+            self.lockers[callback] = self.STATE_ATOMIC
+            # run callback (may modify lockers)
             callback(*args)
-            # release atomic mode
-            self.lockers[callback] = False
+            # locker is still in atomic mode after callback?
+            if self.lockers.get(callback) == self.STATE_ATOMIC:
+                # release atomic mode (and callback reference)
+                self.lockers.pop(callback, None)
+            # end if
         # end if
     # end def
 
 
     def clear_all (self, *args, **kw):
         """
-            event handler;
-            stops all pending threads and releases all registered
-            lockers;
-            clears up all dictionaries;
+            event handler: stops all pending threads and releases all
+            registered lockers; clears up all callback references; this
+            method is an alias name for self.release_all() method;
         """
-        # these will clear up all dictionaries
-        self.stop_all(*args, **kw)
+        # this will clear up all callback references
         self.release_all(*args, **kw)
     # end def
 
@@ -104,39 +108,43 @@ class AsyncTask:
             # stop thread
             self.stop(_cb)
             # lock future thread calls
-            self.lockers[_cb] = True
+            self.lockers[_cb] = self.STATE_LOCKED
         # end for
     # end def
 
 
     def lock_all (self, *args, **kw):
         """
-            event handler;
-            locks all registered callbacks;
+            event handler: locks all registered callbacks;
         """
+        # lock all registered callbacks
         self.lock(*self.tid.keys())
     # end def
 
 
     def release (self, *callbacks):
         """
-            releases listed threads lockers, if any;
+            releases listed callback' lockers, if any; this also frees
+            up callback reference for each and every listed callback;
         """
         # browse list of callbacks
         for _cb in callbacks:
-            # stop thread
+            # stop pending/scheduled thread
             self.stop(_cb)
-            # release locker for future thread calls
-            self.lockers[_cb] = False
+            # release locker (and callback reference)
+            self.lockers.pop(_cb, None)
         # end for
     # end def
 
 
     def release_all (self, *args, **kw):
         """
-            event handler;
-            releases all lockers;
+            event handler: stops eventual pending/scheduled threads and
+            then releases all lockers; this clears up all callback
+            references anywhere;
         """
+        # previous threads should all be stopped before
+        self.stop_all(*args, **kw)
         # simply clear all dictionary
         self.lockers.clear()
     # end def
@@ -144,12 +152,12 @@ class AsyncTask:
 
     def run_after (self, delay, callback, *args):
         """
-            runs a delayed thread;
-            parameter @delay is in milliseconds;
+            runs a delay-deferred thread;
+            parameter @delay is in milliseconds (integer);
         """
         # param inits
         delay = max(1, int(delay))
-        # stop previous running thread, if any
+        # stop previous pending/scheduled thread, if any
         self.stop(callback)
         # schedule new thread id for further call
         self.tid[callback] = self.root.after(
@@ -160,10 +168,10 @@ class AsyncTask:
 
     def run_after_idle (self, callback, *args):
         """
-            runs a delayed thread after mainloop enters in idle mode
-            i.e. when all tkinter events are done;
+            runs a deferred thread after mainloop enters in idle mode
+            i.e. when all events are done;
         """
-        # stop previous running thread, if any
+        # stop previous pending/scheduled thread, if any
         self.stop(callback)
         # schedule new thread id for further call
         self.tid[callback] = self.root.after_idle(
@@ -174,13 +182,13 @@ class AsyncTask:
 
     def stop (self, *callbacks):
         """
-            stops scheduled threads, if any;
+            stops pending/scheduled threads, if any;
         """
         # browse list of callbacks
         for _cb in callbacks:
             # stop thread
             self.root.after_cancel(self.tid.get(_cb) or 0)
-            # remove thread id
+            # remove thread id (and callback reference)
             self.tid.pop(_cb, None)
         # end for
     # end def
@@ -188,9 +196,7 @@ class AsyncTask:
 
     def stop_all (self, *args, **kw):
         """
-            event handler;
-            stops all scheduled threads;
-            clears up all thread ids dictionary;
+            event handler: stops all pending/scheduled threads;
         """
         # loop on all thread ids
         for _tid in self.tid.values():

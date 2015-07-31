@@ -5,13 +5,57 @@
 
 | Initials | Contributor | GitHub membership | Cool project | Current role | Previous role |
 |:--------:|:------------|:-----------------:|:------------:|:------------:|:-------------:|
-| CW | Cyril Walle | **[GrosSacASac] (https://github.com/GrosSacASac)** | **[WebSpree] (https://github.com/GrosSacASac/WebSpree)** | **education counselor** | - |
-| DA | Dale Athanasias | **[daleathan] (https://github.com/daleathan)** | **[widget-tour-py3] (https://github.com/daleathan/widget-tour-py3)** | **wiki contributor** | - |
-| RS | Raphaël Seban | **[tarball69] (https://github.com/tarball69)** | **[tkRAD] (https://github.com/tarball69/tkRAD/wiki)** | **developer** | author |
+| CW | Cyril Walle | **[GrosSacASac](https://github.com/GrosSacASac)** | **[WebSpree](https://github.com/GrosSacASac/WebSpree)** | **education counselor** | - |
+| DA | Dale Athanasias | **[daleathan](https://github.com/daleathan)** | **[widget-tour-py3](https://github.com/daleathan/widget-tour-py3)** | **wiki contributor** | - |
+| RS | Raphaël Seban | **[tarball69](https://github.com/tarball69)** | **[tkRAD](https://github.com/tarball69/tkRAD/wiki)** | **developer** | author |
+| - | - | **[zertrin](https://github.com/zertrin)** | **[duplicity-backup](https://github.com/zertrin/duplicity-backup)** | **bug reporter** | - |
 |  | who's next? |  |  |  |  |
 
 
 ## CHANGELOG
+
+
+### $ 2015-07-17 RS $
+
+* released **tkRAD v1.6.6 - Core and Spin**;
+
+* in `tkRAD.xml.rad_xml_widget`:
+
+    * fixed bug in `_parse_attr_from_()` method: XML attribute `from_`
+    is *NOT* internally supported by tkinter/ttk widgets (Spinbox,
+    Scale, ttk.Scale) *i.e.* replaced by a `from` internal attribute,
+    with no trailing underscore;
+
+    * [bug report #12](https://github.com/tarball69/tkRAD/issues/12) by
+    [zertrin](https://github.com/zertrin);
+
+
+### $ 2015-04-01 RS $
+
+* in `tkRAD.core.async`:
+
+    * removed WeakRef dictionaries, not enough reliable under
+    asynchronous management; previous features are still available;
+
+
+### $ 2015-03-21 RS $
+
+* in `tkRAD.core`:
+
+    * improved code into `events` module: now `.disconnect_all()`
+    method call with no listed signals will actually allow to
+    disconnect *ALL* signals/slots **EVERYWHERE** in the application
+    (so please, use with caution);
+
+    * fully improved code into `async` module: now atomic callbacks are
+    able to lock themselves even inside their own pending atomic call,
+    with no data loss (multiple locking levels on lockers);
+
+    * yet in `async` module: releasing a locker or stopping a pending
+    thread for a given callback with `.release(callback)` and/or
+    `.stop(callback)` method calls will now also remove strong
+    references to this callback, allowing objects to be better garbage
+    collected that way;
 
 
 ### $ 2015-02-17 RS $

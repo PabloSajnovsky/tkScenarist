@@ -71,6 +71,10 @@ Please, feel free to visit our wiki wiki online documentation at:
 
 https://github.com/tarball69/tkScenarist/wiki
 
+No answer in documentation? Request for help on our mailing list:
+
+https://mail.python.org/mailman/listinfo/tkscenarist-help
+
 
 ## Features
 

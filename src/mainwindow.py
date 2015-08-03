@@ -50,6 +50,7 @@ class MainWindow (tkRAD.RADXMLWindow):
 
     # class constant defs
     # CAUTION: keep i18n for localized web pages
+    MAILING_LIST_URL = _("https://mail.python.org/mailman/listinfo/tkscenarist-help")
     OFFLINE_DOC_URL = _("^/html/en/index.html")
     ONLINE_DOC_URL = _("https://github.com/tarball69/tkScenarist/wiki")
 
@@ -72,6 +73,8 @@ class MainWindow (tkRAD.RADXMLWindow):
 
                 "Help:About":
                     self.slot_help_about,
+                "Help:Mailing:List":
+                    self.slot_help_mailing_list,
                 "Help:Offline:Documentation":
                     self.slot_help_offline_documentation,
                 "Help:Online:Documentation":
@@ -347,6 +350,15 @@ class MainWindow (tkRAD.RADXMLWindow):
                 ).format(**self.app.APP),
             parent=self,
         )
+    # end def
+
+
+    def slot_help_mailing_list (self, *args, **kw):
+        """
+            event handler: menu Help > Get help on mailing list;
+        """
+        # launch online mailing list website
+        self.launch_web_browser(kw.get("url") or self.MAILING_LIST_URL)
     # end def
 
 

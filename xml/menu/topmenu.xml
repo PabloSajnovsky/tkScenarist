@@ -136,6 +136,11 @@
         />
         <separator/>
         <command
+            label="Get _help on mailing list"
+            command="@Help:Mailing:List"
+        />
+        <separator/>
+        <command
             label="_About..."
             command="@Help:About"
         />
